@@ -6,10 +6,11 @@ extends RefCounted
 
 ## Energy under which the corner calms her (Combos.WEARY_AT).
 const WEARY_AT := 40.0
-const SHORT := ["lead_hook", "body_hook", "rear_uppercut"]
+## Every punch beat RoundStyle.MOVE_BEAT can play (S305 WORDSCONTRACT1: the card missed rear_hook / lead_uppercut).
+const SHORT := ["lead_hook", "rear_hook", "body_hook", "rear_uppercut", "lead_uppercut"]
 const LONG := ["jab", "cross"]
-const WORD := {"jab": "jab", "cross": "straight right", "lead_hook": "left hook", "body_hook": "hook to the body",
-	"rear_uppercut": "uppercut"}
+const WORD := {"jab": "jab", "cross": "straight right", "lead_hook": "left hook", "rear_hook": "right hook",
+	"body_hook": "hook to the body", "rear_uppercut": "uppercut", "lead_uppercut": "lead uppercut"}
 
 
 ## {"a"/"b": {"landed": {move: n}, "whole": [combo ids that landed whole]}}

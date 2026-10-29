@@ -97,6 +97,9 @@ static func build(round: Dictionary, a_style: String, b_style: String, seconds: 
 		# S303: her energy where this exchange falls in the round (the bell's start -> end, Bouts._energy).
 		var e_now := energy_at(lp, 1.0 - float(pool.size()) / pool_n)
 		var size := rng.randi_range(1, _max_len(lp, e_now))
+		# S305 WORDSCONTRACT1: never pick a combo longer than her punches left in the pool (a run cut short by the pool
+		# was captioned as landed whole).
+		size = mini(size, _left(pool, lead))
 		# S302 combos: a run of 2+ is one of HER combos (Combos.pick, her best most often); with none learned she throws
 		# singles and the odd 2-punch run. Results stay as the sim settled them; only the punches change.
 		var combo: Dictionary = {}
@@ -282,6 +285,14 @@ static func _take(pool: Array, who: String) -> int:
 		if str(pool[i]["who"]) == who:
 			return i
 	return -1
+
+
+static func _left(pool: Array, who: String) -> int:
+	var n := 0
+	for b in pool:
+		if str(b["who"]) == who:
+			n += 1
+	return n
 
 
 static func _is_out_boxer(style: String) -> bool:
