@@ -1,0 +1,229 @@
+{
+ "combos": [
+  {
+   "id": "1-1",
+   "name": "Double jab",
+   "plain": "Two quick jabs with the lead hand, one after the other.",
+   "coach_learning": [
+    "Second jab's the one that lands. Make it count.",
+    "Don't pull back between them. Snap, snap.",
+    "Step with the second jab. Walk her back."
+   ],
+   "coach_signature": [
+    "Her double jab runs the fight now.",
+    "Nobody gets past that double jab easy."
+   ],
+   "ring_lands": [
+    "{name} doubles the jab and backs her up.",
+    "Two jabs from {name}, both on the nose."
+   ],
+   "ring_tired": [
+    "{name} throws the jab once and leaves the second."
+   ]
+  },
+  {
+   "id": "1-2",
+   "name": "One-two",
+   "plain": "A jab with the lead hand, then a straight punch with the back hand.",
+   "coach_learning": [
+    "Jab to find her, right hand to finish.",
+    "Turn the hip on the two. All your weight.",
+    "Right hand comes straight back to the chin."
+   ],
+   "coach_signature": [
+    "Her one-two is the cleanest in the gym.",
+    "That one-two wins her rounds on its own."
+   ],
+   "ring_lands": [
+    "{name} lands the one-two, clean down the middle.",
+    "Jab, right hand. {name} makes it look simple."
+   ],
+   "ring_tired": [
+    "{name} jabs, but the right hand never follows."
+   ]
+  },
+  {
+   "id": "1-1-2",
+   "name": "Double jab, right hand",
+   "plain": "Two jabs to blind her, then a straight back-hand punch.",
+   "coach_learning": [
+    "Two jabs to blind her, then the right.",
+    "Don't telegraph the right. Same rhythm.",
+    "Feet under you on the third shot."
+   ],
+   "coach_signature": [
+    "Double jab, right hand. She does it in her sleep.",
+    "She owns that rhythm now. Jab, jab, bang."
+   ],
+   "ring_lands": [
+    "Two jabs and the right hand from {name}. Lovely.",
+    "{name} blinds her with the jab and lands the right."
+   ],
+   "ring_tired": [
+    "{name} doubles the jab and has nothing behind it."
+   ]
+  },
+  {
+   "id": "2-3",
+   "name": "Right hand, left hook",
+   "plain": "A straight back-hand punch, then a hook with the lead hand.",
+   "coach_learning": [
+    "The right hand sets up the hook. Turn through.",
+    "Keep the hook tight. Elbow up.",
+    "Pivot on the lead foot for the hook."
+   ],
+   "coach_signature": [
+    "Right hand, left hook. Her finisher now.",
+    "That hook behind the right catches everyone."
+   ],
+   "ring_lands": [
+    "{name} lands the right and the hook comes behind it.",
+    "Right hand, left hook. {name} turns her head."
+   ],
+   "ring_tired": [
+    "{name} throws the right and the hook drops short."
+   ]
+  },
+  {
+   "id": "1-2-3",
+   "name": "One-two, hook",
+   "plain": "Jab, straight back hand, then a hook with the lead hand.",
+   "coach_learning": [
+    "One-two to open her up, hook to close it.",
+    "Hook's short. Don't swing it wide.",
+    "Breathe out on every punch. Three breaths."
+   ],
+   "coach_signature": [
+    "One-two, hook. Textbook, every time.",
+    "Her three-punch combo is the real deal."
+   ],
+   "ring_lands": [
+    "{name} goes one-two, hook. All three land.",
+    "Jab, right, hook. {name} puts it together."
+   ],
+   "ring_tired": [
+    "{name} starts the combination and runs out of gas."
+   ]
+  },
+  {
+   "id": "1-2-3-2",
+   "name": "One-two, hook, right hand",
+   "plain": "Jab, right hand, lead hook, and a last right hand.",
+   "coach_learning": [
+    "Four punches, one breath each. Stay balanced.",
+    "Last right hand is the money shot.",
+    "Don't stand there after. Move off."
+   ],
+   "coach_signature": [
+    "Four-punch combo and she's still balanced.",
+    "She throws all four and walks out clean."
+   ],
+   "ring_lands": [
+    "Four punches from {name}. The judges love that.",
+    "{name} empties the combination and steps away."
+   ],
+   "ring_tired": [
+    "{name} gets two punches out of four. Tired arms."
+   ]
+  },
+  {
+   "id": "3b-3",
+   "name": "Hook body, hook head",
+   "plain": "A hook to the ribs, then the same hand hooks to the head.",
+   "coach_learning": [
+    "Body first. Her hands come down. Then upstairs.",
+    "Bend the knees for the body hook.",
+    "Same hand, twice. Don't reset between."
+   ],
+   "coach_signature": [
+    "Her body-head hook is nasty now.",
+    "Down then up. They never see the second one."
+   ],
+   "ring_lands": [
+    "{name} goes body, then head. Same hand, both land.",
+    "Hook to the ribs, hook to the jaw from {name}."
+   ],
+   "ring_tired": [
+    "{name} digs the body hook but the head shot isn't there."
+   ]
+  },
+  {
+   "id": "1-2-3b",
+   "name": "One-two, hook to the body",
+   "plain": "Jab, straight right, then a lead hook to the ribs.",
+   "coach_learning": [
+    "One-two up top, then go downstairs.",
+    "Drop your level for the body hook. Not your eyes.",
+    "Hook under the elbow. Find the gap."
+   ],
+   "coach_signature": [
+    "She goes up, up, down better than anyone here.",
+    "That body hook at the end is her trademark."
+   ],
+   "ring_lands": [
+    "{name} goes one-two, then rips the body.",
+    "Up top twice, then {name} digs to the ribs."
+   ],
+   "ring_tired": [
+    "{name} throws the one-two and can't bend for the body."
+   ]
+  },
+  {
+   "id": "1-6-3",
+   "name": "Jab, uppercut, hook",
+   "plain": "Jab, a rising back-hand uppercut, then a lead hook.",
+   "coach_learning": [
+    "Jab, then the uppercut up the middle.",
+    "Dip a touch for the uppercut. Not too much.",
+    "Hook comes off the uppercut. Rock and roll."
+   ],
+   "coach_signature": [
+    "Jab, uppercut, hook. She does it on the inside now.",
+    "Nobody expects the uppercut. She lands it every round."
+   ],
+   "ring_lands": [
+    "{name} splits the guard with the uppercut, then hooks.",
+    "Jab, uppercut, hook. {name} lands all three."
+   ],
+   "ring_tired": [
+    "{name} jabs and the uppercut comes up slow."
+   ]
+  },
+  {
+   "id": "slip 2-3",
+   "name": "Slip and counter",
+   "plain": "She moves her head off a punch, then fires back right hand and hook.",
+   "coach_learning": [
+    "Slip outside the jab, right hand straight back.",
+    "Slip small. Just enough to make it miss.",
+    "Counter fast. Before she resets."
+   ],
+   "coach_signature": [
+    "She slips and counters like it's nothing.",
+    "Jab at her and you'll eat the counter."
+   ],
+   "ring_lands": [
+    "{name} slips the jab and lands right hand, hook.",
+    "Slip, right, hook. {name} makes her pay."
+   ],
+   "ring_tired": [
+    "{name} slips it but has nothing to send back."
+   ]
+  }
+ ],
+ "energy_lines": {
+  "fresh": [
+   "{name} is sharp. Plenty left in the tank.",
+   "Fresh legs. She can throw everything tonight."
+  ],
+  "tiring": [
+   "{name} is breathing hard. Shorter combinations now.",
+   "Arms getting heavy. Pick the shots."
+  ],
+  "empty": [
+   "{name} is running on empty. Single shots only.",
+   "Nothing left. Hold, move, survive the round."
+  ]
+ },
+ "_source": "Kalli K-COMBOWORDS1 (SQ17, 2026-10-29), Game/Godot/research/K_COMBOWORDS1_KALLI.md; id slip-2-3 -> slip 2-3 to match Combos.BOOK"
+}

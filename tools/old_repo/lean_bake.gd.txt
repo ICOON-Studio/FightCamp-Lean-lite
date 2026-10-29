@@ -1,0 +1,86 @@
+extends "res://tools/anim_orbit_render.gd"
+## S298 LEAN BAKE: plays each role the GAME's way (FightStagePlayer.play_role + advance, every fix the room applies: guard IK,
+## foot repin, retarget, pose layers) on fighter B's MetaHuman and saves the DRAWN pose of every frame (captured inside
+## skeleton_updated, after the modifiers) as an Animation for the lean restart (E:/FightCamp/Lean/assets/anim/baked/<role>.res).
+## Tracks: local rotation of the 22 mapped joints + the 3 intermediates (spine_02, spine_04, neck_02), named as the lean
+## loader names them (MetaHumanRig.UE5_TO_OURS); the Hips position as a DELTA from this skeleton's rest (meta hips_delta) so a
+## shorter body keeps its own hip height. Twist bones are left out (the lean MetaHumanTwist drives them).
+##   powershell -NoProfile -ExecutionPolicy Bypass -File Tools\godot_hidden.ps1 --path Godot --resolution 960x540 \
+##     --script tools/lean_bake.gd -- as_game seconds=0.01 out=E:/FightCamp/Lean/assets/anim/baked roles=idle,react_head
+## A copy of this file lives in the lean repo (tools/old_repo/lean_bake.gd) for the record; it runs only in this project.
+
+const MHRig := preload("res://scripts/MetaHumanRig.gd")
+const EXTRA := ["spine_02", "spine_04", "neck_02"]
+
+var _snap: Dictionary = {}
+var _keys: Array = []
+var _rest_hips := Vector3.ZERO
+
+
+func _to_studio() -> void:
+	super._to_studio()
+	var skel := _pl.skeleton()
+	skel.skeleton_updated.connect(_on_skel.bind(skel))
+	var hi := _hips(skel)
+	_rest_hips = skel.get_bone_rest(hi).origin
+	DirAccess.make_dir_recursive_absolute(_out)
+
+
+func _hips(skel: Skeleton3D) -> int:
+	var i := skel.find_bone("Hips")
+	return i if i >= 0 else skel.find_bone("pelvis")
+
+
+## The drawn pose (after every modifier) of the tracked joints.
+func _on_skel(skel: Skeleton3D) -> void:
+	var d := {}
+	for i in skel.get_bone_count():
+		var n := str(skel.get_bone_name(i))
+		var ours := str(MHRig.UE5_TO_OURS.get(n, n))
+		if MHRig.UE5_TO_OURS.values().has(ours) or EXTRA.has(n):
+			d[ours] = skel.get_bone_pose_rotation(i)
+	d["@hips"] = skel.get_bone_pose_position(_hips(skel)) - _rest_hips
+	_snap = d
+
+
+func _next_role() -> void:
+	_keys = []
+	super._next_role()
+
+
+func _capture() -> void:
+	if _pending.is_empty():
+		return
+	_pending = ""
+	_keys.append(_snap.duplicate())
+	_frame += 1
+	if _frame >= _frames:
+		_save(_roles[_role_i])
+		_done.append(_roles[_role_i])
+		_next_role()
+
+
+func _save(role: String) -> void:
+	var a := Animation.new()
+	var n := _keys.size()
+	a.length = float(n) / FPS
+	a.loop_mode = Animation.LOOP_LINEAR if _loop else Animation.LOOP_NONE
+	if n == 0:
+		return
+	var bones: Array = (_keys[0] as Dictionary).keys()
+	for b in bones:
+		if str(b) == "@hips":
+			continue
+		var t := a.add_track(Animation.TYPE_ROTATION_3D)
+		a.track_set_path(t, NodePath(str(b)))
+		for k in n:
+			a.rotation_track_insert_key(t, float(k) / FPS, (_keys[k] as Dictionary)[b])
+	var hp := a.add_track(Animation.TYPE_POSITION_3D)
+	a.track_set_path(hp, NodePath("Hips"))
+	for k in n:
+		a.position_track_insert_key(hp, float(k) / FPS, (_keys[k] as Dictionary)["@hips"])
+	a.set_meta("hips_delta", true)
+	a.set_meta("source", "old repo FightStagePlayer, role %s, S298 lean_bake" % role)
+	var path := "%s/%s.res" % [_out, role]
+	var err := ResourceSaver.save(a, path)
+	print("BAKE %s frames=%d tracks=%d loop=%s -> %s (err %d)" % [role, n, a.get_track_count(), _loop, path, err])

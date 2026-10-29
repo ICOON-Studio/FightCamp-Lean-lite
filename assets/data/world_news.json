@@ -1,0 +1,60 @@
+{
+ "rival_win": [
+  "{winner} of {winner_club} beat {loser} of {loser_club} on points at the {show}.",
+  "{winner} outworked {loser} over three rounds to take a unanimous decision at the {show}.",
+  "A close one at the {show}: {winner} edged {loser} on a split decision.",
+  "{winner_club}'s {winner} boxed well behind the jab to beat {loser} on points.",
+  "{loser} started fast, but {winner} took the last two rounds and the decision.",
+  "{winner} won every round on two cards against {loser} of {loser_club}.",
+  "{winner} came back from a slow first round to beat {loser} on points at the {show}.",
+  "{winner_club} had a good night: {winner} beat {loser} on points in the women's lightweight bout."
+ ],
+ "rival_stop": [
+  "The referee stopped {loser} in round two after a strong body attack from {winner}.",
+  "{winner} of {winner_club} forced a stoppage against {loser} at the {show}.",
+  "{loser}'s corner and the referee agreed in round three; {winner} took the stoppage win.",
+  "{winner} dropped {loser} with a right hand and the referee waved it off in round one.",
+  "{winner} stopped {loser} of {loser_club} in the last round after two standing counts.",
+  "A short night at the {show}: {winner} stopped {loser} in round two."
+ ],
+ "show": [
+  "The {show} has been announced, with women's lightweight bouts on the card.",
+  "Entries are open for the {show}. Clubs across {city} have until Friday to send names.",
+  "The {show} drew a full house on Saturday, with twelve bouts on the card.",
+  "{city} clubs filled the {show} on Saturday; the women's bouts were the pick of the night.",
+  "The card for the {show} is out, with four London clubs sending boxers.",
+  "The {show} ran late but finished with a cracking women's lightweight bout."
+ ],
+ "ranking_in": [
+  "{her} of {gym} has entered the {city} women's lightweight rankings at number {rank}.",
+  "New name in the {city} rankings: {her} of {gym} came in at number {rank}.",
+  "{her}'s recent win put her into the regional lightweight rankings at number {rank}.",
+  "{gym} has a ranked boxer: {her} is now number {rank} in the {city} women's lightweights."
+ ],
+ "ranking_up": [
+  "{her} of {gym} moved up to number {rank} in the {city} women's lightweight rankings.",
+  "Another step for {her}: she climbed to number {rank} in the regional rankings.",
+  "{her}'s win lifted her to number {rank} among {city}'s women's lightweights.",
+  "{gym}'s {her} is now ranked number {rank}, her highest place so far."
+ ],
+ "gym_life": [
+  "{gym} now has {members} members after a busy month of new sign-ups.",
+  "Thursday sparring night at {gym} was packed, with boxers from two other clubs visiting.",
+  "{gym} got new heavy bags this week, paid for by the members' raffle.",
+  "The ring canvas at {gym} was replaced on Monday. The old one had seen better days.",
+  "The cafe next door to {gym} now gives members a free tea after evening sessions.",
+  "{gym} ran a free open session on Saturday and six new members signed up.",
+  "The members of {gym} painted the changing room over the weekend.",
+  "{her} helped coach the juniors at {gym} on Tuesday night."
+ ],
+ "why_join": [
+  "It's ten minutes from my flat and nobody shouts at beginners.",
+  "A friend brought me to a Saturday session and I never left.",
+  "The coaches here actually watch you and fix your feet.",
+  "I wanted to get fit and this felt friendlier than the big gyms.",
+  "I saw Lucy train and wanted to learn to box properly.",
+  "The sparring is hard, but everyone looks after each other.",
+  "It's cheap, it's local, and the people are good.",
+  "I needed something for my head after work. This is it."
+ ]
+}

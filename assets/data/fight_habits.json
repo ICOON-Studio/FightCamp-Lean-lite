@@ -1,0 +1,379 @@
+{
+ "habits": [
+  {
+   "id": "drops_right_after_jab",
+   "name": "Drops the right after the jab",
+   "trigger": "After she throws a jab at range",
+   "beat": "jab",
+   "effect": "Opens her chin for a lead hook over the top. Helps the opponent.",
+   "punish": "A counter-puncher times the jab and lands a lead hook over it.",
+   "notes": [
+    "Drops the right after she jabs. Every time.",
+    "Her right hand goes walkabout when she jabs.",
+    "Jab's good. Where's the right hand after it?"
+   ]
+  },
+  {
+   "id": "slow_starter",
+   "name": "Slow starter",
+   "trigger": "First 60 seconds of round 1",
+   "beat": "step out",
+   "effect": "Gives away round 1 on the cards. Helps the opponent early.",
+   "punish": "A pressure fighter rushes her in round 1 and banks the round.",
+   "notes": [
+    "Takes a round to wake up. Can't afford that.",
+    "First minute she's still in the changing room.",
+    "Starts cold. Warm her up harder."
+   ]
+  },
+  {
+   "id": "digs_body_when_hurt",
+   "name": "Digs to the body when hurt",
+   "trigger": "Right after she takes a clean head shot",
+   "beat": "body hook",
+   "effect": "Buys time and slows the opponent. Helps her.",
+   "punish": "An opponent who knows it steps out and lands the uppercut as she dips.",
+   "notes": [
+    "Hurt her and she goes downstairs. Smart.",
+    "When she's rocked she rips the body. Good instinct.",
+    "Takes one upstairs, gives one back to the ribs."
+   ]
+  },
+  {
+   "id": "freezes_on_ropes",
+   "name": "Freezes on the ropes",
+   "trigger": "Her back touches the ropes",
+   "beat": "cover up",
+   "effect": "Throws nothing for 2 to 3 seconds. Helps the opponent.",
+   "punish": "A volume puncher pins her there and empties both hands.",
+   "notes": [
+    "Back on the ropes and she stops punching.",
+    "Ropes are a cage to her. She freezes.",
+    "Get her off the ropes or she's just a target."
+   ]
+  },
+  {
+   "id": "switches_stance_under_pressure",
+   "name": "Switches stance under pressure",
+   "trigger": "Opponent steps in twice in a row",
+   "beat": "step out",
+   "effect": "Resets the range but weakens her guard for a beat. Mixed.",
+   "punish": "A film-studied opponent lands the cross as she switches feet.",
+   "notes": [
+    "Pressure her and she flips southpaw. Messy.",
+    "Switches feet when she's pushed. Not on purpose.",
+    "Her stance changes when she's rattled."
+   ]
+  },
+  {
+   "id": "talks_when_ahead",
+   "name": "Talks when ahead",
+   "trigger": "She has won the previous round",
+   "beat": "taunt",
+   "effect": "Rattles a low-temper opponent but wastes a beat. Mixed.",
+   "punish": "A calm opponent lands a jab while she's talking.",
+   "notes": [
+    "Wins a round and starts chatting. Stop it.",
+    "She talks when she's in front. Judges hate it.",
+    "Mouth gets busy when she's ahead."
+   ]
+  },
+  {
+   "id": "loads_up_when_hurt",
+   "name": "Loads up when hurt",
+   "trigger": "Right after she takes a clean head shot",
+   "beat": "lead hook",
+   "effect": "Big swing, often misses, leaves her open. Usually helps the opponent.",
+   "punish": "A counter-puncher slips the wild hook and counters clean.",
+   "notes": [
+    "Hurt her and she swings for the fences.",
+    "Gets clipped, throws a haymaker. Every time.",
+    "When she's stung she loses her shape."
+   ]
+  },
+  {
+   "id": "covers_up_when_hurt",
+   "name": "Covers up when hurt",
+   "trigger": "Right after she takes a clean head shot",
+   "beat": "cover up",
+   "effect": "Saves her chin but gives away the exchange. Mixed.",
+   "punish": "A volume puncher keeps throwing and steals the round on output.",
+   "notes": [
+    "Hurt her and she shells up. Safe but passive.",
+    "Covers up when stung. Judges see her doing nothing.",
+    "Tight guard when hurt. Needs to punch back."
+   ]
+  },
+  {
+   "id": "wide_hook_tell",
+   "name": "Wide hook tell",
+   "trigger": "When she throws the lead hook",
+   "beat": "lead hook",
+   "effect": "The hook is slow and seen. Helps the opponent.",
+   "punish": "An opponent who saw the film steps in with a straight cross first.",
+   "notes": [
+    "Her hook comes from the next postcode.",
+    "You can see the hook coming. Shorten it.",
+    "Wide hook. Anyone with eyes will beat it."
+   ]
+  },
+  {
+   "id": "retreats_straight_back",
+   "name": "Retreats in straight lines",
+   "trigger": "Opponent steps in",
+   "beat": "step out",
+   "effect": "Puts her on the ropes fast. Helps the opponent.",
+   "punish": "A pressure fighter walks her straight into the corner.",
+   "notes": [
+    "Backs up straight. Move off at an angle.",
+    "She retreats in a straight line to the ropes.",
+    "No angles going backwards. Learn to pivot."
+   ]
+  },
+  {
+   "id": "admires_her_work",
+   "name": "Admires her work",
+   "trigger": "Right after she lands a clean cross",
+   "beat": "step out",
+   "effect": "Stops punching for a beat. Helps the opponent.",
+   "punish": "A counter-puncher fires back while she's looking.",
+   "notes": [
+    "Lands a good one and stops to look at it.",
+    "She admires her shots. Keep punching.",
+    "Lands, then watches. Hands should keep going."
+   ]
+  },
+  {
+   "id": "fades_late",
+   "name": "Fades late",
+   "trigger": "Last 60 seconds of round 3 or later",
+   "beat": "tired idle",
+   "effect": "Fewer punches late, worse defence. Helps the opponent.",
+   "punish": "A fit opponent saves her best work for the last minute.",
+   "notes": [
+    "Gone by the last minute. Needs more roadwork.",
+    "Third round she's breathing through her mouth.",
+    "Gas tank empties late. Conditioning work."
+   ]
+  },
+  {
+   "id": "lunges_with_jab",
+   "name": "Lunges with the jab",
+   "trigger": "When the opponent is just out of range",
+   "beat": "jab",
+   "effect": "Reaches with the jab and loses her balance. Helps the opponent.",
+   "punish": "An out-boxer steps back and counters as she falls in.",
+   "notes": [
+    "Reaches with the jab. Step in, don't lunge.",
+    "Falls in behind her jab. Feet first.",
+    "She dives at range. Balance goes with it."
+   ]
+  },
+  {
+   "id": "head_down_inside",
+   "name": "Head down inside",
+   "trigger": "When the fighters are at close range",
+   "beat": "weave",
+   "effect": "Hard to hit up top but blind to the uppercut. Mixed.",
+   "punish": "A film-studied opponent lands the uppercut inside.",
+   "notes": [
+    "Head down inside. That's how uppercuts land.",
+    "Watch her eyes inside. She can't see a thing.",
+    "Ducks too low in close. Chin up a touch."
+   ]
+  },
+  {
+   "id": "clinches_when_tired",
+   "name": "Clinches when tired",
+   "trigger": "When her conditioning drops below half in a round",
+   "beat": "clinch",
+   "effect": "Buys a breather but loses the exchange. Mixed.",
+   "punish": "An opponent who knows it works the body as she comes in to hold.",
+   "notes": [
+    "Tired and she grabs. The ref will warn her.",
+    "Holds when she's blowing. Fair, but get fitter.",
+    "Clinches to rest. Judges notice."
+   ]
+  },
+  {
+   "id": "bites_on_feints",
+   "name": "Bites on feints",
+   "trigger": "When the opponent feints",
+   "beat": "block",
+   "effect": "Throws her guard at nothing and opens up. Helps the opponent.",
+   "punish": "A boxer-puncher feints high and lands to the body.",
+   "notes": [
+    "Feint her once and she jumps. Sit still.",
+    "Bites on every feint. Smart opponents will eat her.",
+    "She reacts to everything. Read before you move."
+   ]
+  },
+  {
+   "id": "low_lead_hand",
+   "name": "Low lead hand",
+   "trigger": "When she is at range and not punching",
+   "beat": "jab",
+   "effect": "Faster jab but open to the right hand. Mixed.",
+   "punish": "An opponent who saw the film throws the cross over the low left.",
+   "notes": [
+    "Lead hand hangs low. Right hand will find it.",
+    "Carries her left too low. Gets away with it now.",
+    "Hand up. That low left will cost her."
+   ]
+  },
+  {
+   "id": "one_and_done",
+   "name": "One and done",
+   "trigger": "After she lands a single punch",
+   "beat": "step out",
+   "effect": "Lands one clean shot then stops. Keeps her safe but wins little.",
+   "punish": "A volume puncher out-throws her and takes the round on output.",
+   "notes": [
+    "Lands one and leaves. Throw two, throw three.",
+    "Single shots. Judges want combinations.",
+    "She never puts punches together."
+   ]
+  },
+  {
+   "id": "chases_stoppage",
+   "name": "Chases the stoppage",
+   "trigger": "After she lands a clean blow that hurts the opponent",
+   "beat": "step in",
+   "effect": "Swarms recklessly and walks onto counters. Mixed.",
+   "punish": "A counter-puncher waits for the rush and lands clean.",
+   "notes": [
+    "Smells blood and forgets to defend.",
+    "Hurts someone and charges. Calm down.",
+    "Chases the finish. Walks onto shots doing it."
+   ]
+  },
+  {
+   "id": "waits_too_long",
+   "name": "Waits too long",
+   "trigger": "When the round is level and both fighters are at range",
+   "beat": "step out",
+   "effect": "Throws too little and gives away close rounds. Helps the opponent.",
+   "punish": "A busy opponent jabs her way to the round.",
+   "notes": [
+    "Waits for the perfect shot. It never comes.",
+    "Too patient. Judges score what you throw.",
+    "She's thinking when she should be punching."
+   ]
+  }
+ ],
+ "trait_notes": {
+  "heart": {
+   "high": "Gets hit and comes back harder. Real fighter.",
+   "low": "First good shot and she's looking for the exit."
+  },
+  "temper": {
+   "high": "Gets hit and gets angry. Then gets sloppy.",
+   "low": "Nothing rattles her. Ice in there."
+  },
+  "confidence": {
+   "high": "Walks in like she owns the ring.",
+   "low": "Doubts herself. Needs wins to believe it."
+  },
+  "discipline": {
+   "high": "Does every round, every rep. Never late.",
+   "low": "Skips roadwork when she thinks I'm not looking."
+  },
+  "coachability": {
+   "high": "Tell her once and she does it next round.",
+   "low": "Nods at me, then does her own thing."
+  },
+  "loyalty": {
+   "high": "This is her gym. She won't hear otherwise.",
+   "low": "Keeps asking what other gyms are like."
+  }
+ },
+ "mood_lines": {
+  "Fired up": [
+   "Two wins on the bounce",
+   "Just got a bout booked",
+   "Hit her goal this month",
+   "Won her last fight"
+  ],
+  "Steady": [
+   "Had a rest week",
+   "Training's going to plan",
+   "Bout coming up soon",
+   "Won one, lost one"
+  ],
+  "Flat": [
+   "No fight for a month",
+   "Lost her last bout",
+   "Waiting on a booking",
+   "Long camp, no date yet"
+  ],
+  "Low": [
+   "Hasn't fought in 3 months",
+   "Two losses in a row",
+   "Missed her goal this month",
+   "Lost and missed her goal"
+  ]
+ },
+ "ring_lines": [
+  {
+   "when": "lead hook lands and camp focus was power",
+   "line": "{name}'s hook keeps landing: six weeks on the pads."
+  },
+  {
+   "when": "jab lands 3+ times in a round and technique 70+",
+   "line": "{name}'s jab is pure technique. The drilling shows."
+  },
+  {
+   "when": "round 3 and conditioning 70+",
+   "line": "{name} is still fresh. All that roadwork paid off."
+  },
+  {
+   "when": "slip then counter and defense 70+",
+   "line": "{name} slips and counters, just like in sparring."
+  },
+  {
+   "when": "body hook lands and camp focus was body",
+   "line": "{name} goes to the body. That's the camp plan."
+  },
+  {
+   "when": "takes a clean shot and chin 70+",
+   "line": "{name} takes it well. That chin is real."
+  },
+  {
+   "when": "step out off the ropes and footwork 70+",
+   "line": "{name} pivots off the ropes. The footwork drills work."
+  },
+  {
+   "when": "opponent habit punished and film study done",
+   "line": "{name} saw that on the film. She was waiting."
+  },
+  {
+   "when": "wins round after corner call and fight_iq 70+",
+   "line": "{name} takes the instruction and runs with it."
+  },
+  {
+   "when": "drops_right_after_jab fires and opponent punishes",
+   "line": "{name} drops the right again. The coach warned her."
+  },
+  {
+   "when": "freezes_on_ropes fires",
+   "line": "{name} freezes on the ropes, as she does in sparring."
+  },
+  {
+   "when": "fades_late fires",
+   "line": "{name} is tiring. The roadwork wasn't enough."
+  },
+  {
+   "when": "comes back to win a round after losing one and heart 70+",
+   "line": "{name} digs in. That's heart, not training."
+  },
+  {
+   "when": "loads_up_when_hurt fires and misses",
+   "line": "{name} swings wild after getting caught. Old habit."
+  },
+  {
+   "when": "cross lands and speed 70+",
+   "line": "{name}'s cross is too quick. Speed work on the bag."
+  }
+ ],
+ "_source": "Kalli K-HABITS1 (S300), verbatim in E:/FightCamp/Game/Godot/research/K_HABITS1_KALLI.md; rulings: a habit fires at most twice a round when its trigger is true; filmed habit punished 60% of fires, 20% without film; coachability>70 removes one habit in 8 weeks of camp (discipline>70 halves it); notes show one per habit after 2 sparring sessions, all 3 after a fight. NOT tuned against playtests."
+}

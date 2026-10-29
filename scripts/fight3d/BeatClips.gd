@@ -1,0 +1,158 @@
+extends RefCounted
+## Which clip a RoundScript beat plays (fight model step 4): the MoCap Online Punch Pro clips (pro_*) first, then the
+## Starter (mc_*) and the old baked / native clips, so a body without the Pro library still fights. Contact times come
+## from assets/data/clip_contact.json (tools/clip_contact.gd measures the glove's furthest reach on the game's body).
+## Lead = left: our boxers fight orthodox in the ring view.
+
+const CONTACT_PATH := "res://assets/data/clip_contact.json"
+
+## A thrown punch (S300, 60 Punch Pro punch clips): the beat's Pro stem, its plain takes, and the old clip it falls back on.
+## Every stem comes in variants the beat picks by context (punch()): _special / _hard (the round's big shot), _miss (a wide
+## miss), _hurt (thrown hurt or tired), _ft (stepping in), _hard_ft / _hurt_ft.
+const PUNCH := {
+	"jab": ["left_jab", ["", "_a", "_b", "_c"], "jab"],
+	"cross": ["right_cross", ["", "_a", "_b", "_c"], "cross"],
+	"lead_hook": ["left_hook", ["", "_v2"], "lead_hook"],
+	"rear_hook": ["right_hook", [""], "lead_hook"],
+	"lead_uppercut": ["left_uppercut", [""], "rear_uppercut"],
+	"rear_uppercut": ["right_uppercut", [""], "rear_uppercut"],
+	"body_hook": ["body_shot", [""], "body_hook"],
+}
+## S301 tools/take_check.gd (S300 film: "_ft takes kick the back leg up", "_miss takes fling the rear arm back"): these six
+## lift a foot or fling the rear glove well past their plain take (right_cross_miss flings it 0.60 m behind her hips); the
+## other 18 stepping / wide-miss takes measured clean and play.
+const OFF_TAKES := ["pro_left_hook_hurt_ft", "pro_left_hook_miss", "pro_right_cross_miss", "pro_right_hook_hard_ft",
+	"pro_right_hook_miss", "pro_right_uppercut_hurt_ft"]
+## A landed punch on the other boxer: by the punch that hit her, then "hurt" for the round's knockback.
+const REACT := {
+	"jab": ["pro_hit_by_jab_v1_short", "pro_hit_by_jab_v2_short", "mc_hit_jab", "react_head"],
+	"cross": ["pro_hit_by_cross_v1_short", "pro_hit_by_cross_v2_short", "mc_hit_jab", "react_head"],
+	"lead_hook": ["pro_hit_by_hook_v1_short", "pro_hit_by_hook_v2_short", "mc_hit_hook", "react_head"],
+	"rear_uppercut": ["pro_hit_by_uppercut_v1", "pro_hit_by_hook_v1_short", "mc_hit_hook", "react_head"],
+	"lead_uppercut": ["pro_hit_by_uppercut_v1", "pro_hit_by_hook_v2_short", "mc_hit_hook", "react_head"],
+	"rear_hook": ["pro_hit_by_hook_v3_short", "pro_hit_by_hook_v1_short", "mc_hit_hook", "react_head"],
+	"body_hook": ["pro_hit_by_gutshot_v1_short", "pro_hit_by_gutshot_v2_short", "react_body"],
+	"hurt": ["pro_hit_by_hook_v1", "pro_hit_by_cross_v1", "mc_hit_combo", "react_hurt"],
+}
+## RoundStyle defences and tired beats. S304 (three-round film: Blue held her rear glove straight up over her head after a
+## jab landed on her guard; the in-game joins log named the block clip, hand 0.14 m over her own guard for 0.7 s). Real
+## boxers catch a jab with the rear glove at the cheek/temple. tools/glove_height_check.gd over=0.03 (hand at most 0.03 m
+## above the head bone): every Pro block and mc_block_hit hold it above for 1-4.6 s; mc_to_block (cover-up, then back to
+## guard) and the mc_block hold stay under. mc_block loops (she would freeze in the shell), so the cover-up plays.
+const DEFENCE := {
+	"block": ["mc_to_block"],
+	"slip": ["pro_left_dodge", "pro_right_dodge", "mc_dodge_left", "slip"],
+	"weave": ["pro_left_weave", "pro_quick_weave", "pro_right_weave", "mc_dodge_right", "slip"],
+	"pull": ["pro_back_dodge", "pull"],
+}
+const TIRED := ["pro_idle_tired", "pro_idle_slighty_tired", "mc_fidget"]
+const WIN := ["pro_win_v1", "mc_win"]
+## A standing count she beats, and a count she does not (KO).
+const DOWN := ["pro_knockout_countdown_v1", "mc_knockout_count", "react_hurt"]
+const OUT := ["pro_knockout_v1", "mc_knockout", "react_hurt"]
+
+## S300 operator: "most moves seem in slow motion". Shipped timing (old repo UNDISPUTED_STUDY_S254.md, median clip-start ->
+## impact over 3,152 Undisputed clips): jab 0.365 s, cross 0.501, hook 0.534, uppercut 0.489, body hook 0.450. A Pro punch
+## plays fast enough to land on that beat (never slower than authored, at most 2x).
+const IMPACT_S := {"jab": 0.365, "cross": 0.501, "lead_hook": 0.534, "rear_hook": 0.534, "lead_uppercut": 0.489,
+	"rear_uppercut": 0.489, "body_hook": 0.450}
+## Everything else from the Pro library (hit reactions, blocks, dodges) plays this much faster than authored.
+const OTHER_SPEED := 1.25
+## The guard every Pro clip starts and ends in: playing it between moves makes the joins seamless.
+const GUARD := ["pro_idle", "idle"]
+
+## S301 (operator after the second S300 film: "these still feel off"). tools/clip_recovery.gd measured every Pro clip on the
+## game's body: at the S300 speeds the punching hand was back in guard 0.26-0.60 s after impact (Undisputed hands control
+## back 0.11-0.17 s after impact) and each clip then stood on in guard to 1.0-1.6 s. Now the recovery (contact -> back in
+## guard) plays fast enough to take the measured retraction of real boxers (old repo J28_HOW_FIGHT_MOVES_FLOW, Menzel et al.
+## bag-punch phases: jab ~262 ms, cross / hook / uppercut ~168-171 ms), at most RECOVER_MAX x, and the clip hands over to
+## the guard at back_s.
+const RECOVERY_PATH := "res://assets/data/clip_recovery.json"
+const RECOVER_JAB_S := 0.26
+const RECOVER_S := 0.17
+const RECOVER_MAX := 2.5
+
+static var _contact: Dictionary = {}
+static var _recovery: Dictionary = {}
+
+
+## Vector2(contact_s, back_s) of a clip at 1x (clip_recovery.json); a negative value = not measured / never back in guard.
+static func recovery(clip: String) -> Vector2:
+	if _recovery.is_empty() and FileAccess.file_exists(RECOVERY_PATH):
+		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(RECOVERY_PATH))
+		_recovery = parsed if parsed is Dictionary else {"_": {}}
+	var row: Variant = _recovery.get(clip, null)
+	if not row is Dictionary:
+		return Vector2(-1.0, -1.0)
+	return Vector2(float((row as Dictionary).get("contact_s", -1.0)), float((row as Dictionary).get("back_s", -1.0)))
+
+
+## How much faster than `speed` the recovery of `clip` plays (1.0 when there is no measured contact and back).
+static func recover_scale(clip: String, speed: float) -> float:
+	var r := recovery(clip)
+	if r.x < 0.15 or r.y <= r.x or speed <= 0.0:
+		return 1.0
+	return clampf((r.y - r.x) / speed / (RECOVER_JAB_S if clip.contains("jab") else RECOVER_S), 1.0, RECOVER_MAX)
+
+
+## Playback speed for `clip` thrown as beat `move`.
+static func speed(clip: String, move: String) -> float:
+	if not clip.begins_with("pro_"):
+		return 1.0
+	if not IMPACT_S.has(move):
+		return OTHER_SPEED
+	return clampf(contact(clip, float(IMPACT_S[move])) / float(IMPACT_S[move]), 1.0, 2.0)
+
+
+## The first name in `names` that `has` (a Callable(name) -> bool, e.g. stage.has_move) says exists, or "".
+static func first(names: Array, has: Callable) -> String:
+	for n in names:
+		if has.call(str(n)):
+			return str(n)
+	return ""
+
+
+## The clip for a punch beat. ctx: {"big", "miss", "tired", "step": bool, "roll": 0..1}. The body shot's big version is
+## the kidney shot; the others take their _special / _hard take.
+static func punch(move: String, ctx: Dictionary, has: Callable) -> String:
+	if not PUNCH.has(move):
+		return move
+	var stem := "pro_" + str(PUNCH[move][0])
+	var plain: Array = PUNCH[move][1]
+	var take := stem + str(plain[mini(plain.size() - 1, int(float(ctx.get("roll", 0.0)) * plain.size()))])
+	var names: Array = []
+	var step := bool(ctx.get("step", false))
+	if bool(ctx.get("big", false)):
+		names = ["pro_kidney_shot"] if move == "body_hook" else ([stem + "_hard_ft"] if step else []) + [stem + "_special", stem + "_hard"]
+	elif bool(ctx.get("miss", false)):
+		names = [stem + "_miss"]
+	elif bool(ctx.get("tired", false)):
+		names = [stem + ("_hurt_ft" if step else "_hurt")]
+	elif step:
+		names = [stem + "_ft"]
+	names.append_array([take, stem, str(PUNCH[move][2])])
+	names = names.filter(func(n): return not OFF_TAKES.has(n))
+	var got := first(names, has)
+	return got if got != "" else move
+
+
+static func react(move: String, hurt: bool, has: Callable) -> String:
+	return first(REACT["hurt" if hurt else (move if REACT.has(move) else "jab")], has)
+
+
+## The measured row of a clip (clip_contact.json): contact_s, hand, reach_m, length_s; {} when not measured.
+static func contact_row(clip: String) -> Dictionary:
+	contact(clip, 0.0)
+	var row: Variant = _contact.get(clip, null)
+	return row if row is Dictionary else {}
+
+
+## Seconds into `clip` when the glove lands: the measured value, else `fallback`.
+static func contact(clip: String, fallback: float) -> float:
+	if _contact.is_empty() and FileAccess.file_exists(CONTACT_PATH):
+		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(CONTACT_PATH))
+		_contact = parsed if parsed is Dictionary else {"_": {}}
+	var row: Variant = _contact.get(clip, null)
+	var t: float = float((row as Dictionary).get("contact_s", fallback)) if row is Dictionary else fallback
+	# A measured contact in the first 0.15 s is the guard, not the punch (pro_left_uppercut reads 0.0): keep the fallback.
+	return t if t >= 0.15 else fallback

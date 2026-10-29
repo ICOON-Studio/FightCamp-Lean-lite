@@ -1,0 +1,38 @@
+{
+ "trial_open": [
+  "{name} turned up at {gym} at nine sharp with her own gloves and a nervous grin.",
+  "{name} has come in for a trial. The coach wants three rounds on the pads, then sparring.",
+  "A trial at {gym} today: {name}, recommended by a coach from across the river.",
+  "{name} wrapped her own hands, which the coach noticed straight away.",
+  "{name} arrived early for her trial and was skipping before anyone else got in.",
+  "{name} is in for a trial. She says she's had a few bouts and wants a proper gym."
+ ],
+ "trial_good": [
+  "Good trial. {name}'s {best} is the real thing. I'd sign her today.",
+  "{name} took everything we threw at her. Her {best} stands out. Worth a place.",
+  "She listens and she learns fast. {name}'s {best} is already better than most here.",
+  "Three hard rounds and {name} didn't fade. That {best} will win her fights.",
+  "I've seen a lot of trials. {name}'s {best} is the best I've seen this year.",
+  "{name} is ready to work. Her {best} gives us something to build on."
+ ],
+ "trial_mixed": [
+  "{name}'s {best} is good, but her {worst} needs months of work.",
+  "Mixed day. Strong {best}, but {name}'s {worst} let her down in sparring.",
+  "There's something there with the {best}. The {worst} worries me.",
+  "{name} has a real {best}. Whether we can fix her {worst} is the question.",
+  "Half a fighter today: {best} was sharp, {worst} was poor.",
+  "{name} could be useful if we're patient with her {worst}. The {best} is real."
+ ],
+ "pro_offer": [
+  "{promoter} rang about {her}: a 4-round debut on their next show, {purse} purse.",
+  "{promoter} wants {her} on their card. Pro contract, {purse} for the debut.",
+  "{promoter} has watched {her} box and is offering a pro deal, starting at {purse}.",
+  "A call from {promoter}: they think {her} is ready to turn pro. {purse} to start."
+ ],
+ "pro_debut": [
+  "{her} makes her pro debut against {opp} over four rounds.",
+  "It's official: {her} turns pro and meets {opp} on her debut.",
+  "{her}'s first pro fight is booked. Opponent: {opp}, four rounds.",
+  "From the amateurs to the pros: {her} faces {opp} on her debut."
+ ]
+}

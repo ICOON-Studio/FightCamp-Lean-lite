@@ -1,0 +1,308 @@
+{
+ "opener": {
+  "Pressure fighter": {
+   "her": [
+    "{opp} marches forward at the bell; {her} meets her with a stiff jab and slides left.",
+    "{her} plants the jab early and {opp} has to reset twice before she gets inside.",
+    "{opp} wants the ropes; {her} circles off them and keeps the centre of the ring.",
+    "{her} times {opp}'s first rush with a jab and a step back. Good start."
+   ],
+   "their": [
+    "{opp} walks straight through the jab and pins {her} on the ropes inside a minute.",
+    "{her} backs up in straight lines and {opp} follows her into the corner.",
+    "{opp} cuts the ring off early; {her} has nowhere to move.",
+    "{opp} leans on {her} from the bell and the jab never gets going."
+   ]
+  },
+  "Counter-puncher": {
+   "her": [
+    "{opp} waits behind a high guard; {her} feints first and makes her guess.",
+    "{her} jabs to the gloves and steps out before {opp} can answer.",
+    "Both feel each other out; {her} lands the first clean jab of the night.",
+    "{her} refuses to lead wide and {opp} has nothing to counter."
+   ],
+   "their": [
+    "{her} leads with the jab and {opp} slips it and lands a right hand behind it.",
+    "{opp} sits back and waits; every time {her} jabs, a counter comes back.",
+    "{her} reaches with the jab and pays for it with a short right over the top.",
+    "{opp} reads the jab inside a minute and starts timing it."
+   ]
+  },
+  "Volume puncher": {
+   "her": [
+    "{opp} throws from the bell; {her} blocks, steps off and answers with clean shots.",
+    "{her} lets the flurry pass on her gloves and lands the two cleanest punches.",
+    "{opp} is busy but wide; {her} keeps it straight and down the middle.",
+    "{her} moves her feet early and half of {opp}'s punches find air."
+   ],
+   "their": [
+    "{opp} throws thirty punches in the first minute and {her} gets buried under them.",
+    "{her} covers up and {opp} keeps throwing; the judges see the busier woman.",
+    "{opp} never stops; {her} waits for a gap that doesn't come.",
+    "{opp}'s hands are a blur from the bell and {her} is pushed onto the back foot."
+   ]
+  },
+  "Boxer-puncher": {
+   "her": [
+    "Two sharp jabs meet in the middle; {her} lands hers a fraction earlier.",
+    "{her} holds the long range and {opp} can't find a way to load up.",
+    "{opp} tries to step in behind the jab; {her} turns her and resets outside.",
+    "{her} matches {opp} jab for jab and wins the feint battle."
+   ],
+   "their": [
+    "{opp}'s jab is a beat quicker and {her} spends the minute reacting to it.",
+    "{opp} steps in behind a jab and lands a heavy right up close.",
+    "{opp} owns the range early; {her} can't get her own jab started.",
+    "{opp} draws the jab out, then punishes it with the {threat}."
+   ]
+  }
+ },
+ "moment": {
+  "Pressure fighter": {
+   "her": {
+    "none": [
+     "{opp} rushes in; {her} pivots off the ropes and lands a clean one-two.",
+     "{her} steps back, lets {opp} fall short, and counters with a sharp right.",
+     "{opp} smothers, but {her} ties her up and turns her into the corner."
+    ],
+    "long": [
+     "As told, {her} stays long; three jabs in a row stop {opp} at the door.",
+     "{her} jabs and moves left; {opp} walks onto the jab every time she comes in.",
+     "{her} keeps it at range, jab and step, and {opp} can't close the gap."
+    ],
+    "body": [
+     "{her} digs a left to the body as {opp} comes in and the march slows.",
+     "Following the corner, {her} goes downstairs; {opp} drops her hands to guard the ribs.",
+     "A right to the body stops {opp} dead in her tracks."
+    ],
+    "calm": [
+     "{her} breathes, sets her feet, and stops backing up in straight lines.",
+     "Calmer now, {her} lets {opp} come and times her with a short counter.",
+     "{her} slows it down, picks her shots, and wins the exchange on the ropes."
+    ]
+   },
+   "their": {
+    "none": [
+     "{opp} traps {her} on the ropes and lands the {threat} twice.",
+     "{her} tries to slip away and {opp} cuts her off with a heavy hook.",
+     "{opp} leans her weight on {her} and works both hands inside."
+    ],
+    "long": [
+     "{her} tries to stay long, but {opp} walks through the jab and lands inside.",
+     "The jab is there, but {her} backs into the corner and {opp} unloads.",
+     "{her} moves, but the ring is small; {opp} catches her with the {threat}."
+    ],
+    "body": [
+     "{her} goes to the body, but stands too long inside and {opp} out-works her.",
+     "{her} digs to the ribs and eats a hook coming back up.",
+     "Body work invites the fight inside, and inside is where {opp} wants it."
+    ],
+    "calm": [
+     "{her} settles down, but settles on the ropes; {opp} keeps her there.",
+     "Calm isn't enough: {opp} keeps coming and the {threat} keeps landing.",
+     "{her} breathes and resets, then {opp} resets her into the corner again."
+    ]
+   }
+  },
+  "Counter-puncher": {
+   "her": {
+    "none": [
+     "{her} feints the jab, {opp} bites, and the real jab lands clean.",
+     "{her} waits too, and {opp} finally leads; {her} counters first.",
+     "{her} doubles the jab and steps out before the counter comes."
+    ],
+    "long": [
+     "{her} stays long and jabs to the chest; {opp} has nothing close to counter.",
+     "Jab and move: {her} touches and leaves, and {opp} is left swinging at air.",
+     "{her} works the range and makes {opp} lead, then picks her off."
+    ],
+    "body": [
+     "{her} changes levels with a jab to the body and {opp}'s counter misses high.",
+     "Body jab, then a hook to the ribs; {opp} doesn't see them coming.",
+     "{her} goes to the body and {opp}'s guard comes down; a right lands upstairs."
+    ],
+    "calm": [
+     "{her} stops forcing it, waits, and wins the waiting game.",
+     "Calm now, {her} jabs only when {opp} is set to move, and it lands.",
+     "{her} breathes, feints twice, and lands the cleanest punch of the round."
+    ]
+   },
+   "their": {
+    "none": [
+     "{her} jabs and {opp} slips inside it with a right hand. The crowd reacts.",
+     "{opp} draws the lead and lands the {threat} on the way in.",
+     "{her} throws a one-two and {opp} counters the two."
+    ],
+    "long": [
+     "{her} stays long, but the jab is predictable and {opp} counters it again.",
+     "{her} jabs from range and {opp} times the return with a right over the top.",
+     "Jab and move, but {opp} catches the move with the {threat}."
+    ],
+    "body": [
+     "{her} dips for the body and {opp} meets her with an uppercut.",
+     "{her} goes downstairs and leaves her chin open; {opp} punishes it.",
+     "The body shot lands, but {opp}'s counter lands harder."
+    ],
+    "calm": [
+     "{her} calms down and stops throwing; {opp} is happy to win a quiet round.",
+     "Too calm: {her} waits and {opp} steals the round with three clean counters.",
+     "{her} resets, but every lead she tries still gets countered."
+    ]
+   }
+  },
+  "Volume puncher": {
+   "her": {
+    "none": [
+     "{opp} throws six; {her} slips the last and lands a clean right.",
+     "{her} waits out the flurry and lands two straight shots through the middle.",
+     "{opp} pauses to breathe and {her} lands a one-two in the gap."
+    ],
+    "long": [
+     "{her} stays long and {opp}'s wide flurries fall short.",
+     "Jab, step, jab: {her} keeps {opp} at the end of her reach.",
+     "{her} moves and jabs, and {opp}'s punch count drops."
+    ],
+    "body": [
+     "{her} rips a hook to the body and {opp}'s output drops by half.",
+     "Body shots, as told: {opp} breathes hard and stops throwing for a moment.",
+     "{her} digs to the ribs between flurries and {opp} starts to fade."
+    ],
+    "calm": [
+     "{her} stops reacting to every punch and picks one clean shot.",
+     "Calm under fire, {her} blocks the flurry and answers with a crisp combination.",
+     "{her} breathes and lands the cleaner work while {opp} throws at gloves."
+    ]
+   },
+   "their": {
+    "none": [
+     "{opp} throws ten unanswered punches against the ropes.",
+     "{her} covers up and {opp} lands the {threat} in the middle of the flurry.",
+     "{opp}'s volume wins the minute; {her} throws back only once."
+    ],
+    "long": [
+     "{her} stays long, but {opp} closes the gap and throws in bunches.",
+     "The jab lands, but {opp} answers every jab with four punches.",
+     "{her} moves, and {opp} follows her, throwing all the way."
+    ],
+    "body": [
+     "{her} goes to the body and {opp} throws three back for every one.",
+     "Body work slows {her} down more than {opp}; the flurries keep coming.",
+     "{her} digs a hook and eats a long combination for it."
+    ],
+    "calm": [
+     "{her} breathes and waits, and the judges see only {opp} throwing.",
+     "Calm, but too quiet: {opp} out-lands her two to one.",
+     "{her} settles down and {opp} keeps the pace up anyway."
+    ]
+   }
+  },
+  "Boxer-puncher": {
+   "her": {
+    "none": [
+     "{her} beats {opp} to the jab and follows with a straight right.",
+     "{opp} steps in to load up; {her} pivots and lands on the turn.",
+     "{her} slips the jab and counters before {opp} can set her feet."
+    ],
+    "long": [
+     "{her} stays long and wins the jab battle three to one.",
+     "Jab and move: {her} never lets {opp} step close enough to load up.",
+     "{her} keeps it at range, where {opp}'s power can't reach."
+    ],
+    "body": [
+     "{her} goes to the body behind the jab and {opp}'s feet slow down.",
+     "A body jab, then a right to the ribs; {opp} stops stepping in.",
+     "{her} works the body and {opp}'s guard drops an inch. Enough."
+    ],
+    "calm": [
+     "{her} breathes, sets her feet, and starts landing the jab first.",
+     "Calmer, {her} stops lunging and lands short, sharp shots.",
+     "{her} slows the pace and makes {opp} come to her."
+    ]
+   },
+   "their": {
+    "none": [
+     "{opp} steps in behind a jab and the {threat} lands flush.",
+     "{opp} wins the range and closes it once, hard.",
+     "{her} hesitates at range and {opp} steps in with a heavy hook."
+    ],
+    "long": [
+     "{her} stays long, but {opp}'s jab is longer and sharper.",
+     "{her} jabs and moves, and {opp} times the move with the {threat}.",
+     "At range {opp} is just a bit quicker; she wins the jab battle."
+    ],
+    "body": [
+     "{her} goes to the body and {opp} lands the {threat} on the way out.",
+     "{her} steps in for the body and {opp} punishes her up close.",
+     "Body work pulls {her} into range, and {opp} is dangerous there."
+    ],
+    "calm": [
+     "{her} calms down but gives up the jab; {opp} takes over the range.",
+     "{her} waits and {opp} picks her moment with the {threat}.",
+     "Calm, but passive: {opp} lands the cleaner shots."
+    ]
+   }
+  }
+ },
+ "close": {
+  "her": [
+   "{her} finishes round {round} with a jab and a step off. Her round.",
+   "The bell goes with {her} on the outside and {opp} breathing hard.",
+   "{her} lands the last clean punch of round {round}.",
+   "{opp} walks back to her corner shaking her head. {her} took that one.",
+   "A tidy round {round} for {her}: cleaner punches, better feet.",
+   "{her} sits down on her stool with the round in the bag."
+  ],
+  "their": [
+   "{opp} lands last before the bell and walks back to her corner confident.",
+   "Round {round} goes to {opp}; {her} needs something different.",
+   "{her} is on the ropes at the bell. That one's {opp}'s.",
+   "{opp} out-lands her late and takes round {round}.",
+   "{her} walks back slowly. The judges will give that round away.",
+   "The bell saves {her} from a bad last ten seconds. {opp}'s round."
+  ]
+ },
+ "why_win": {
+  "camp": [
+   "The {focus} camp paid off: {her} was the fresher fighter in round 3.",
+   "Weeks of {focus} gave {her} the edge when the fight got hard.",
+   "{her} fought the fight the camp built, and it was enough."
+  ],
+  "film": [
+   "The film study showed {opp}'s {threat}, and {her} never walked into it.",
+   "{her} knew what was coming from the tape and was ready for it.",
+   "Scouting {opp} on film let {her} see the {threat} before it landed."
+  ],
+  "corner": [
+   "The corner call changed the fight: {her} did exactly what she was told.",
+   "One clear instruction between rounds turned the fight {her} way.",
+   "{her} listened to her corner, and round 3 was hers because of it."
+  ],
+  "no_camp": [
+   "No camp, but {her} out-boxed {opp} on talent alone.",
+   "{her} won without a camp; the next opponent won't let her.",
+   "Raw skill carried {her} through. A camp would have made it easier."
+  ]
+ },
+ "why_loss": {
+  "camp": [
+   "The {focus} camp didn't match the problem {opp} brought.",
+   "{her} trained for {focus}, but the fight asked a different question.",
+   "The camp built the wrong thing for a {threat}."
+  ],
+  "film": [
+   "{her} saw the {threat} on film and still couldn't stop it.",
+   "The tape showed {opp}'s plan; the legs to beat it weren't there.",
+   "Knowing the {threat} wasn't the same as being ready for it."
+  ],
+  "corner": [
+   "The corner call played into {opp}'s hands.",
+   "{her} followed the instruction, and {opp} was waiting for it.",
+   "The wrong call between rounds gave {opp} the fight she wanted."
+  ],
+  "no_camp": [
+   "No camp, and it showed: {her} faded while {opp} kept going.",
+   "{opp} came prepared; {her} didn't have a camp behind her.",
+   "Without a camp, {her} had no answer to the {threat}."
+  ]
+ }
+}

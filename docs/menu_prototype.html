@@ -1,0 +1,696 @@
+<title>FightCamp Menu Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: a game shell - fixed top bar, left rail of six areas, one content pane, modals for moments. Single dark look (the game's warm brown + gold). */
+:root{
+  --bg:#1d1714; --panel:#2a211c; --panel2:#342922; --line:#4a3a30; --fg:#f3ece2; --muted:#b5a595;
+  --gold:#e9b84a; --gold-ink:#231b16; --red:#e0503c; --green:#6cc27a; --amber:#f0a020;
+  --display:'Bebas Neue',Impact,'Arial Narrow',sans-serif; --body:'Barlow','Segoe UI',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.4}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+button:focus-visible,.tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.04em;text-wrap:balance;margin:0}
+.muted{color:var(--muted)}
+#app{height:100%;display:flex;flex-direction:column}
+
+/* title + creation */
+.title{flex:1;display:grid;place-items:center;padding-block:32px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.title-card{width:min(440px,100%);display:flex;flex-direction:column;gap:10px}
+.logo{font-family:var(--display);font-size:clamp(64px,12vw,112px);line-height:.85;color:var(--gold);letter-spacing:.02em}
+.tag{color:var(--muted);margin-bottom:18px}
+.tbtn{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-weight:600;font-size:17px;text-align:left}
+.tbtn:hover{border-color:var(--gold)}
+.tbtn small{color:var(--muted);font-weight:400;font-size:13px}
+.tbtn.primary{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.tbtn.primary small{color:var(--gold-ink)}
+.tbtn[disabled]{opacity:.45;cursor:not-allowed}
+.steps{display:flex;gap:6px;margin-bottom:8px}.steps span{flex:1;height:4px;border-radius:2px;background:var(--line)}.steps .on{background:var(--gold)}
+.choice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.choice{padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);text-align:left}
+.choice.on{border-color:var(--gold);background:var(--panel2)}
+.field{display:flex;flex-direction:column;gap:6px}.field input{padding:12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font:inherit}
+
+/* shell */
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-block:10px;padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px));background:var(--panel);border-bottom:1px solid var(--line)}
+.ghost{padding:7px 10px;border:1px solid var(--line);border-radius:8px;color:var(--muted);font-size:13px;font-weight:600}
+.ghost:hover{color:var(--fg);border-color:var(--muted)}
+.ghost[disabled]{opacity:.35;cursor:default}
+.gymname{font-family:var(--display);font-size:22px;letter-spacing:.06em;margin-right:4px}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.flag{padding:6px 10px;border-radius:999px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.06em;animation:pulse 2.4s ease-in-out infinite}
+.flag.red{border-color:var(--red);color:var(--red)}
+@keyframes pulse{50%{background:rgba(233,184,74,.12)}}
+.spacer{flex:1}
+.date{text-align:right;line-height:1.15}.date b{display:block;font-size:15px}.date span{font-size:12px;color:var(--muted)}
+.speed{display:flex;gap:3px}.speed button{width:32px;padding:5px 0;border:1px solid var(--line);border-radius:6px;font-size:12px;color:var(--muted);font-family:var(--mono)}
+.speed .on{background:var(--line);color:var(--fg)}
+.go{min-width:200px;padding:7px 14px;border-radius:10px;background:var(--gold);color:var(--gold-ink);text-align:left;line-height:1.1;font-weight:700;letter-spacing:.04em}
+.go small{display:block;font-weight:500;font-size:11.5px;letter-spacing:0}
+.go.block{background:var(--red);color:#fff}.go.fight{background:var(--fg);color:var(--bg)}
+.cash{font-weight:700;font-size:16px}.cash.neg{color:var(--red)}.cash.pos{color:var(--green)}
+.badge{display:inline-block;min-width:18px;padding:0 5px;margin-left:4px;border-radius:9px;background:var(--red);color:#fff;font-size:11px;text-align:center}
+.gear{position:relative}
+.menu{position:absolute;right:0;top:calc(100% + 6px);background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:6px;min-width:180px;z-index:30;display:flex;flex-direction:column}
+.menu button{text-align:left;padding:9px 10px;border-radius:6px}.menu button:hover{background:var(--line)}
+.body{flex:1;display:flex;min-height:0}
+.rail{width:172px;flex:none;background:#241c18;border-right:1px solid var(--line);padding:12px 8px;display:flex;flex-direction:column;gap:3px}
+.rail button{text-align:left;padding:11px 12px;border-radius:8px;color:var(--muted);font-weight:700;letter-spacing:.08em;font-size:14px}
+.rail button small{display:block;font-weight:500;letter-spacing:0;font-size:12px;opacity:.8}
+.rail button.on{background:var(--panel2);color:var(--gold)}
+.rail button:hover{color:var(--fg)}
+.main{flex:1;min-width:0;overflow:auto;padding-block:18px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.crumb{color:var(--muted);font-size:13px;margin-bottom:4px}
+.areahead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.areahead h1{font-size:40px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px;overflow-x:auto}
+.tab{padding:9px 14px;color:var(--muted);font-weight:700;font-size:14px;white-space:nowrap;border-radius:8px 8px 0 0}
+.tab.on{color:var(--gold);background:var(--panel)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.card h2{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.14em;color:var(--muted);margin-bottom:10px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #3a2e26}
+.row:first-of-type{border-top:0}
+.row .t{flex:1;min-width:0}.row .t span{display:block;color:var(--muted);font-size:13px}
+.dot{width:10px;height:10px;border-radius:50%;flex:none;background:var(--amber)}.dot.red{background:var(--red)}.dot.green{background:var(--green)}
+.btn{padding:7px 12px;border-radius:8px;border:1px solid var(--gold);color:var(--gold);font-weight:700;font-size:13px;white-space:nowrap}
+.btn:hover{background:rgba(233,184,74,.12)}
+.btn.solid{background:var(--gold);color:var(--gold-ink)}
+.btn.quiet{border-color:var(--line);color:var(--muted)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.big{font-family:var(--display);font-size:30px;letter-spacing:.03em;line-height:1}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px solid #3a2e26}.kv:first-of-type{border-top:0}
+.chip{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
+.chip.green{border-color:var(--green);color:var(--green)}.chip.red{border-color:var(--red);color:var(--red)}.chip.amber{border-color:var(--amber);color:var(--amber)}.chip.gold{border-color:var(--gold);color:var(--gold)}
+.stat{display:grid;grid-template-columns:120px minmax(0,1fr) 44px;align-items:center;gap:10px;margin:7px 0}
+.bar{height:10px;background:#3a2e26;border-radius:5px;overflow:hidden}.bar i{display:block;height:100%;background:var(--green);transition:width .9s ease}
+.bar.gold i{background:var(--gold)}
+.empty{color:var(--muted);padding:6px 0}
+table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:8px 6px;border-top:1px solid #3a2e26}th{color:var(--muted);font-size:12px;letter-spacing:.1em;font-weight:700;border-top:0}
+.tablewrap{overflow-x:auto}
+select{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:7px 8px;font:inherit}
+.quote{font-style:italic;line-height:1.45}
+
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(10,7,5,.72);display:grid;place-items:center;z-index:50;padding-block:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.modal{width:min(760px,100%);max-height:100%;overflow:auto;background:var(--panel);border:1px solid var(--gold);border-radius:14px;padding:20px 22px}
+.modal h1{font-size:38px;margin-bottom:2px}
+.modal .foot{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}
+.beats{display:flex;flex-direction:column;gap:6px;margin:10px 0}.beats div{padding:8px 12px;background:var(--panel2);border-radius:8px}
+.tape{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center}
+.vs{font-family:var(--display);font-size:40px;color:var(--gold)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:max(18px,env(safe-area-inset-bottom,0px));background:var(--panel2);border:1px solid var(--gold);padding:10px 16px;border-radius:10px;z-index:60;max-width:calc(100% - 32px)}
+.chart{width:100%;height:180px}
+.note{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;color:var(--muted);font-size:13px}
+
+@media (max-width:900px){.g2,.g3{grid-template-columns:minmax(0,1fr)}.go{min-width:0}}
+@media (max-width:700px){
+  .body{flex-direction:column-reverse}
+  .rail{width:auto;flex-direction:row;overflow-x:auto;border-right:0;border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px))}
+  .rail button{padding:8px 10px;font-size:12px;white-space:nowrap}.rail button small{display:none}
+  .stat{grid-template-columns:96px minmax(0,1fr) 40px}
+  .areahead h1{font-size:32px}
+  .tape{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){.flag{animation:none}.bar i{transition:none}}
+</style>
+
+<div id="app"></div>
+
+<script>
+/* ---------- calendar ---------- */
+const BASE = Date.UTC(2026, 0, 5); // Mon 5 Jan 2026 = day 0
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function dateOf(d){ return new Date(BASE + d * 86400000); }
+function fmt(d){ const t = dateOf(d); return `${DAYS[d % 7]} ${t.getUTCDate()} ${MONTHS[t.getUTCMonth()]}`; }
+function fmtLong(d){ return `${fmt(d)} ${dateOf(d).getUTCFullYear()}`; }
+function weekOf(d){ return Math.floor(d / 7) + 1; }
+const money = n => (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US');
+const signed = n => (n >= 0 ? '+' : '-') + '$' + Math.abs(Math.round(n)).toLocaleString('en-US');
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+function rng(seed){ return function(){ seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+/* ---------- game data ---------- */
+const STATS = ['power','speed','technique','defence','conditioning','ringiq','chin'];
+const LABEL = {power:'Power', speed:'Hand speed', technique:'Technique', defence:'Defence', conditioning:'Conditioning', ringiq:'Ring IQ', chin:'Chin'};
+const SECOND = {power:'technique', speed:'technique', technique:'speed', defence:'ringiq', conditioning:'chin', ringiq:'defence', chin:'conditioning'};
+const CARDS = ['Jab and move','Body work','Pad rounds','Hill sprints','Defence drills','Film study'];
+const AREAS = [
+  {id:'home', name:'HOME', job:'what needs me', tabs:[]},
+  {id:'fighters', name:'FIGHTERS', job:'develop them', tabs:['Roster','Training','Fight camps','Scouting']},
+  {id:'fights', name:'FIGHTS', job:'get them fights', tabs:['Offers','Calendar','Results']},
+  {id:'gym', name:'GYM', job:'run the club', tabs:['Floor','Staff','Members','Facilities']},
+  {id:'money', name:'MONEY', job:'keep it alive', tabs:['Overview','Income','Bills','Deals']},
+  {id:'world', name:'WORLD', job:'the boxing world', tabs:['News','Rankings','Events','Search']},
+];
+const OPPONENTS = [
+  {name:'Maria Ortega', club:'Guadalajara Boxing Club', age:23, stance:'southpaw', style:'Pressure fighter', rec:'4-2 AM', bouts:6, height:165, reach:166, rating:61.5, threat:'Left hook to the body', weak:'Fades after round 2'},
+  {name:'Priya Nair', club:'Leicester ABC', age:22, stance:'orthodox', style:'Counter-puncher', rec:'5-1 AM', bouts:6, height:170, reach:172, rating:63.5, threat:'Right hand counter over the jab', weak:'Slow to start'},
+  {name:'Erin Doyle', club:'Belfast Golden Gloves', age:24, stance:'orthodox', style:'Volume puncher', rec:'7-2 AM', bouts:9, height:167, reach:168, rating:65.5, threat:'Never stops throwing', weak:'Leaves her chin open'},
+];
+const MISMATCH = {name:'Dana Whitfield', club:'Repton Boxing Club', age:26, stance:'orthodox', style:'Boxer-puncher', rec:'14-2 AM', bouts:16, height:169, reach:171, rating:72, threat:'Everything', weak:'None you can use yet'};
+const PROSPECTS = [
+  {name:'Sam Okafor', age:19, wc:'Welterweight', note:'raw power, no defence', ask:'$250 stipend'},
+  {name:'Kira Mensah', age:20, wc:'Featherweight', note:'fast hands, thin chin', ask:'$250 stipend'},
+  {name:'Tom Reilly', age:23, wc:'Middleweight', note:'tough, slow feet, 6-4 AM', ask:'$250 stipend'},
+];
+const COACHES = [
+  {id:'reid', name:'Luke Reid', kind:'Sessional coach', pay:450, rating:58, spec:'Pad work', note:'three evenings a week'},
+  {id:'hale', name:'Marcus Hale', kind:'Full-time head coach', pay:1090, rating:74, spec:'Conditioning', note:'every day, better gains'},
+];
+
+/* ---------- state ---------- */
+let S = null;
+let route = {area:'home', tab:0};
+let past = [], ahead = [];
+let ui = {gear:false, toast:'', running:false, speed:2};
+let timer = null;
+
+function newCareer(gymName, city){
+  S = {
+    screen:'career', gym: gymName || 'Anvil Street Gym', city: city || 'London',
+    day:0, cash:25000, members:30, rep:10, coach:null,
+    fighters:[], applicant: makeLucy(), offers:[], bout:null, camp:null,
+    reviewPending:false, weekStart:null, weekMoney:{in:0,out:0}, accrued:0,
+    cashHistory:[{w:1, c:25000}], results:[], goalTalk:false, nextOfferDay:8, oppIndex:0,
+    news:[{d:0, t:'Anvil Street Gym opens its doors in London with 30 members on the books.'}], unread:1,
+    modal:null, lastReport:null, deals:[{name:'Ironclad Supplements', per:250, state:'offer'}],
+  };
+  route = {area:'home', tab:0}; past = []; ahead = [];
+}
+function makeLucy(){
+  return {id:'lucy', name:'Lucy Jackson', first:'Lucy', age:21, wc:'Lightweight', limit:61.2, weight:62.6, stance:'orthodox', style:'Out-boxer',
+    w:3, l:1, pot:84, cards:[], focus:'conditioning', diet:'hold', fatigue:8,
+    stats:{power:58.4, speed:63.2, technique:60.1, defence:57.3, conditioning:61.6, ringiq:59.0, chin:66.0},
+    goal:null, history:[]};
+}
+function fighter(){ return S.fighters[0] || null; }
+
+/* ---------- needs-you list and the CONTINUE button ---------- */
+function needs(){
+  const n = [], f = fighter();
+  if (S.applicant) n.push({red:true, t:`A fighter is waiting at reception`, s:`${S.applicant.name}, ${S.applicant.wc.toLowerCase()}, amateur ${S.applicant.w}-${S.applicant.l}`, act:'interview', label:'Meet her'});
+  for (const o of S.offers) if (!o.answered && !o.mismatch) n.push({red:true, t:`Answer a bout offer: ${f ? f.name : ''} vs ${o.opp.name}`, s:`expires ${fmt(o.expires)}`, act:'openBout', arg:o.id, label:'Open'});
+  if (S.bout && S.day === S.bout.day - 1 && !S.bout.weighed) n.push({red:true, t:'Weigh-in today', s:`${f.name} must make ${f.limit} kg`, act:'weighin', label:'Weigh in'});
+  if (f && !S.coach) n.push({t:'Hire a coach', s:'without one, training runs at 60%', act:'go', arg:'gym:1', label:'Staff'});
+  if (S.bout && !S.camp && S.bout.day - S.day >= 7) n.push({t:`Set ${f.first}'s fight camp`, s:`bout on ${fmt(S.bout.day)}, ${Math.floor((S.bout.day - S.day)/7)} weeks: time for a camp`, act:'camp', label:'Set camp'});
+  if (S.reviewPending) n.push({t:`Week ${S.lastReport.week} review is ready`, s:'gains, money, what comes next', act:'review', label:'Open'});
+  if (S.goalTalk) n.push({t:`${f.first} is waiting in your office`, s:'pick her next goal', act:'goaltalk', label:'Talk'});
+  return n;
+}
+function blockers(){ return needs().filter(x => x.red); }
+function fightDay(){ return S.bout && S.day === S.bout.day && S.bout.weighed && !S.bout.done; }
+function nextStop(){
+  const cands = [];
+  cands.push({d: (Math.floor(S.day / 7) + 1) * 7, r:'week review'});
+  if (fighter() && !S.bout && S.offers.every(o => o.answered || o.mismatch)) cands.push({d: Math.max(S.nextOfferDay, S.day + 1), r:'a bout offer arrives'});
+  if (S.bout) { cands.push({d: S.bout.day - 1, r:'weigh-in'}); cands.push({d: S.bout.day, r:'fight night'}); }
+  const monthEnd = (Math.floor(S.day / 28) + 1) * 28;
+  cands.push({d: monthEnd, r:'the month-end bill'});
+  return cands.filter(c => c.d > S.day).sort((a, b) => a.d - b.d)[0];
+}
+function goState(){
+  const b = blockers();
+  if (b.length) return {cls:'block', t:`NEEDS YOU (${b.length})`, s: b[0].t};
+  if (fightDay()) return {cls:'fight', t:'GO TO FIGHT NIGHT', s:`${fighter().first} vs ${S.bout.opp.name}`};
+  if (ui.running) return {cls:'', t:'RUNNING', s:'click to pause'};
+  const n = nextStop();
+  return {cls:'', t:'CONTINUE', s:`to ${fmt(n.d)}, ${n.r}`};
+}
+function flags(){
+  const f = [];
+  if (S.applicant) f.push({t:'APPLICANT', act:'interview', red:true});
+  if (S.bout && !S.camp && S.bout.day - S.day >= 7) f.push({t:'SET CAMP', act:'camp'});
+  if (S.reviewPending) f.push({t:'WEEK REVIEW', act:'review'});
+  if (S.bout && S.day === S.bout.day - 1 && !S.bout.weighed) f.push({t:'WEIGH-IN', act:'weighin', red:true});
+  if (S.goalTalk) f.push({t:'NEW GOAL', act:'goaltalk'});
+  return f;
+}
+
+/* ---------- the simulation ---------- */
+function headroom(f, st){ return clamp((f.pot - f.stats[st]) / 25, 0.10, 1.25); }
+function dailyGain(f, st){
+  const coachF = S.coach ? 0.5 + S.coach.rating / 100 * 0.7 : 0.6;
+  const focus = S.camp ? S.camp.focus : f.focus;
+  let base = st === focus ? 1.0 : (st === SECOND[focus] ? 0.4 : 0.06);
+  if (S.camp && st === focus) base *= [1, 1.1, 1.2, 1.35][S.camp.protocol];
+  const age = f.age <= 21 ? 1.2 : 1;
+  return base / 7 * headroom(f, st) * coachF * age;
+}
+function stepDay(){
+  const f = fighter();
+  if (f) {
+    for (const st of STATS) f.stats[st] = Math.min(99, f.stats[st] + dailyGain(f, st));
+    const cutting = S.camp || f.diet === 'cut';
+    if (cutting) f.weight = Math.max(f.limit - 0.15, f.weight - 0.11);
+    else f.weight = Math.min(f.limit + 1.6, f.weight + 0.01);
+  }
+  S.day += 1;
+  // a bout offer
+  if (f && !S.bout && S.day >= S.nextOfferDay && S.offers.every(o => o.answered || o.mismatch)) {
+    const opp = OPPONENTS[S.oppIndex % OPPONENTS.length];
+    const fightOn = S.day + (5 - S.day % 7) + 21; // a Saturday about three weeks out
+    S.offers = [{id:'o' + S.day, opp, day: fightOn, expires: S.day + 3, answered:false},
+                {id:'m' + S.day, opp: MISMATCH, day: fightOn + 7, expires: S.day + 5, answered:false, mismatch:true}];
+    S.news.unshift({d:S.day, t:`Two bout offers came in for ${f.name}.`}); S.unread++;
+  }
+  for (const o of S.offers) if (!o.answered && S.day > o.expires) { o.answered = true; o.expired = true; if (!o.mismatch) { S.news.unshift({d:S.day, t:`The offer from ${o.opp.club} expired.`}); S.unread++; S.nextOfferDay = S.day + 4; } }
+  // end of week (the day just finished was a Sunday)
+  if (S.day % 7 === 0) endWeek();
+  // month-end bill
+  if (S.day % 28 === 0) { S.cash -= S.accrued; S.weekMoney.out += S.accrued; S.news.unshift({d:S.day, t:`Month-end bill paid: ${money(S.accrued)} for wages and upkeep.`}); S.unread++; S.accrued = 0; }
+}
+function weeklyCosts(){ return 500 + (S.coach ? S.coach.pay : 0) + S.fighters.length * 250; }
+function weeklyIncome(){ return S.members * 22 + (S.coach ? 350 : 0) + S.deals.filter(d => d.state === 'signed').reduce((a, d) => a + d.per, 0); }
+function endWeek(){
+  const inc = weeklyIncome();
+  S.cash += inc; S.weekMoney.in += inc;
+  S.accrued += weeklyCosts();
+  S.members = Math.min(S.members + (S.members < 45 ? 3 : 1), 220);
+  const f = fighter();
+  const week = weekOf(S.day - 1);
+  S.lastReport = {week, money:{...S.weekMoney}, rows: f && S.weekStart ? STATS.map(st => ({st, before:S.weekStart[st], after:f.stats[st]})) : [], coach: coachLine()};
+  S.reviewPending = true;
+  S.weekStart = f ? {...f.stats} : null;
+  S.weekMoney = {in:0, out:0};
+  S.cashHistory.push({w: week + 1, c: S.cash});
+}
+function coachLine(){
+  const f = fighter();
+  if (!f) return 'No fighter on the books yet. The walk-in at reception is worth a look.';
+  if (!S.coach) return `${f.first} trained alone this week. A coach would make every session count.`;
+  const focus = S.camp ? S.camp.focus : f.focus;
+  return `${S.coach.name}: "${f.first} put the work in on ${LABEL[focus].toLowerCase()}. ${S.bout ? 'We know what Saturday needs.' : 'Get her a fight and she will show you.'}"`;
+}
+function stopNow(){
+  if (blockers().length || fightDay()) return true;
+  if (S.reviewPending && S.day % 7 === 0) return true;
+  if (S.day % 28 === 0) return true;
+  return false;
+}
+
+/* ---------- running time ---------- */
+function onGo(){
+  const b = blockers();
+  if (b.length) { doAct(b[0].act, b[0].arg); return; }
+  if (fightDay()) { openModal({type:'fight', step:'tape'}); return; }
+  if (ui.running) { pause(); return; }
+  run();
+}
+function run(){
+  ui.running = true; render();
+  const tick = () => {
+    stepDay();
+    if (stopNow()) { pause(); return; }
+    render();
+    timer = setTimeout(tick, [420, 220, 90][ui.speed - 1]);
+  };
+  timer = setTimeout(tick, 120);
+}
+function pause(){ ui.running = false; clearTimeout(timer); render(); }
+
+/* ---------- navigation ---------- */
+function nav(r){ past.push(route); ahead = []; route = r; ui.gear = false; render(); document.querySelector('.main')?.scrollTo(0, 0); }
+function back(){ if (!past.length) return; ahead.push(route); route = past.pop(); render(); }
+function fwd(){ if (!ahead.length) return; past.push(route); route = ahead.pop(); render(); }
+function openModal(m){ pause(); S.modal = m; render(); }
+function closeModal(){ S.modal = null; render(); }
+function toast(t){ ui.toast = t; render(); clearTimeout(toast._t); toast._t = setTimeout(() => { ui.toast = ''; render(); }, 2600); }
+
+/* ---------- actions ---------- */
+const ACT = {
+  quick(){ newCareer('Anvil Street Gym', 'London'); render(); },
+  newcareer(){ S = {screen:'create', step:0, country:'United Kingdom', city:'London', gym:''}; render(); },
+  cstep(a){ S.step = Number(a); render(); },
+  cpick(a){ const [k, v] = a.split('|'); S[k] = v; render(); },
+  cstart(){ const name = (document.getElementById('gymname')?.value || '').trim() || 'Anvil Street Gym'; const city = S.city; newCareer(name, city); render(); },
+  title(){ pause(); S = null; render(); },
+  go(a){ const [area, tab] = a.split(':'); nav({area, tab: Number(tab || 0)}); },
+  area(a){ nav({area:a, tab:0}); },
+  tab(a){ nav({...route, tab:Number(a), fighter:null, bout:null}); },
+  fighter(a){ nav({area:'fighters', tab:0, fighter:a, ftab:0}); },
+  ftab(a){ nav({...route, ftab:Number(a)}); },
+  openBout(a){ nav({area:'fights', tab:0, bout:a}); },
+  back, fwd,
+  gear(){ ui.gear = !ui.gear; render(); },
+  save(){ ui.gear = false; toast('Saved: ' + S.gym + ', ' + fmtLong(S.day)); },
+  load(){ ui.gear = false; toast('One save on this machine: the one you are playing.'); },
+  settings(){ ui.gear = false; if (!S || S.screen !== 'career') { toast('Settings: audio, display, text size. Not built in this prototype.'); return; } openModal({type:'info', title:'Settings', body:'Audio, display, text size, and "stop every day" for players who want day-by-day control. Not built in this prototype.'}); },
+  handbook(){ ui.gear = false; openModal({type:'info', title:'Handbook', body:'Every term in the game, one line each: what it is, why it matters, where you change it. Not built in this prototype.'}); },
+  go_btn: onGo,
+  speed(a){ ui.speed = Number(a); render(); },
+  pausebtn(){ pause(); },
+  mail(){ S.unread = 0; nav({area:'world', tab:0}); },
+  interview(){ openModal({type:'interview', picks:[]}); },
+  pickcard(a){ const p = S.modal.picks; const i = p.indexOf(a); if (i >= 0) p.splice(i, 1); else if (p.length < 3) p.push(a); render(); },
+  sign(){ const f = S.applicant; f.cards = [...S.modal.picks]; f.goal = {id:'debut', title:'Debut inside a month', start:S.day, deadline:S.day + 28, cond: +(f.stats.conditioning + 3.5).toFixed(1), needBout:true, line:'Get me a fight and get my engine up.'};
+    S.fighters.push(f); S.applicant = null; S.weekStart = {...f.stats}; S.news.unshift({d:S.day, t:`${f.name} signs for ${S.gym} on the club stipend.`}); S.unread++; closeModal(); toast(`${f.first} signed. Her goal is on her card: debut inside a month.`); },
+  decline(){ S.applicant = null; closeModal(); toast('She thanks you and leaves. Scouting can find others.'); },
+  hire(a){ const c = COACHES.find(x => x.id === a); S.coach = c; S.cash -= 1000; S.news.unshift({d:S.day, t:`${c.name} joins as ${c.kind.toLowerCase()}.`}); S.unread++; toast(`${c.name} hired. $1,000 signing fee paid.`); },
+  focus(a){ fighter().focus = a; render(); },
+  diet(a){ fighter().diet = a; render(); },
+  accept(a){ const o = S.offers.find(x => x.id === a); o.answered = true; o.accepted = true; S.offers.forEach(x => { if (x !== o) x.answered = true; });
+    S.bout = {opp:o.opp, day:o.day, weighed:false, done:false, film:1};
+    const f = fighter(); if (f.goal && f.goal.id === 'debut') f.goal.booked = true;
+    S.news.unshift({d:S.day, t:`Booked: ${f.name} vs ${o.opp.name}, ${fmt(o.day)}.`}); S.unread++;
+    nav({area:'home', tab:0}); toast('Bout booked. SET CAMP waits on the top bar.'); },
+  declineOffer(a){ const o = S.offers.find(x => x.id === a); o.answered = true; S.nextOfferDay = S.day + 5; nav({area:'fights', tab:0}); toast('Declined. Another offer will come.'); },
+  camp(){ openModal({type:'camp', focus: fighter().focus, protocol:2, film:true}); },
+  cfocus(a){ S.modal.focus = a; render(); }, cproto(a){ S.modal.protocol = Number(a); render(); }, cfilm(){ S.modal.film = !S.modal.film; render(); },
+  startcamp(){ const m = S.modal; const cost = [0, 0, 300, 700][m.protocol] + (m.film ? 150 : 0); S.cash -= cost; S.camp = {focus:m.focus, protocol:m.protocol, film:m.film, start:S.day};
+    if (m.film) S.bout.film = 3; closeModal(); toast(`Camp started: ${LABEL[m.focus].toLowerCase()} focus. ${cost ? money(cost) + ' paid.' : ''}`); },
+  review(){ S.reviewPending = false; openModal({type:'review', r:S.lastReport}); },
+  weighin(){ openModal({type:'weighin'}); },
+  doWeigh(){ const f = fighter(); S.bout.weighed = true; S.bout.made = f.weight <= f.limit + 0.05;
+    if (!S.bout.made) { S.bout.done = true; S.bout = null; S.camp = null; S.news.unshift({d:S.day, t:`${f.name} missed weight. The bout is off.`}); S.unread++; S.nextOfferDay = S.day + 6; closeModal(); toast('She missed weight. The bout is off and the club pays for the empty slot.'); S.cash -= 300; return; }
+    closeModal(); toast('She made weight. Tomorrow is fight night.'); },
+  fightstep(a){ fightAdvance(a); },
+  goaltalk(){ openModal({type:'goaltalk', pick:null}); },
+  pickgoal(a){ S.modal.pick = a; render(); },
+  setgoal(){ const f = fighter(); const g = GOALS(f).find(x => x.id === S.modal.pick); f.goal = g; S.goalTalk = false; closeModal(); toast(`New goal: ${g.title}.`); },
+  deal(a){ const d = S.deals[Number(a)]; d.state = 'signed'; toast(`${d.name} signed: +${money(d.per)} a week.`); },
+  scout(a){ toast(`${PROSPECTS[Number(a)].name} is invited for a trial next Monday (not built in this prototype).`); },
+  close: closeModal,
+  noop(){},
+  quit(){ toast('In the game this closes it. Here, close the tab.'); },
+};
+function doAct(name, arg){ if (name === 'go_btn') return onGo(); const f = ACT[name]; if (f) f(arg); }
+
+function GOALS(f){ return [
+  {id:'southpaw', title:'Southpaw answer', start:S.day, deadline:S.day + 21, stat:'technique', target:+(f.stats.technique + 2.5).toFixed(1), line:'Sharpen my lead hand so a southpaw cannot circle away.'},
+  {id:'engine', title:'Five-round engine', start:S.day, deadline:S.day + 28, stat:'conditioning', target:+(f.stats.conditioning + 3).toFixed(1), line:'I faded in the last round. Never again.'},
+]; }
+function goalRead(f){
+  const g = f.goal; if (!g) return null;
+  const left = g.deadline - S.day;
+  let share, row;
+  if (g.id === 'debut') { share = Math.min(1, (f.stats.conditioning - (g.cond - 3.5)) / 3.5) * 0.5 + (g.booked ? 0.5 : 0); row = `bout ${g.booked ? 'booked' : 'not booked'}, conditioning ${f.stats.conditioning.toFixed(1)} of ${g.cond}`; }
+  else { share = clamp((f.stats[g.stat] - (g.target - (g.id === 'engine' ? 3 : 2.5))) / (g.id === 'engine' ? 3 : 2.5), 0, 1); row = `${LABEL[g.stat].toLowerCase()} ${f.stats[g.stat].toFixed(1)} of ${g.target}`; }
+  const met = share >= 0.999;
+  const elapsed = 1 - Math.max(0, left) / (g.deadline - g.start);
+  const status = met ? 'MET' : left <= 0 ? 'MISSED' : share >= elapsed * 0.9 - 0.01 ? 'ON TRACK' : 'AT RISK';
+  return {share, left, status, row, cls: status === 'MET' || status === 'ON TRACK' ? 'green' : status === 'AT RISK' ? 'amber' : 'red'};
+}
+
+/* ---------- fight night ---------- */
+function fightPower(f, corner){
+  const s = f.stats; let p = (s.power + s.speed + s.technique + s.defence + s.conditioning + s.ringiq) / 6;
+  if (S.camp) p += [0, 0.5, 1.2, 2.0][S.camp.protocol]; else p -= 1.5;
+  p += (S.bout.film - 1) * 0.6;
+  if (corner === 'body') p += s.power > 60 ? 1 : 0.3;
+  if (corner === 'long') p += s.technique > 61 ? 1 : 0.3;
+  if (corner === 'calm') p += 0.6;
+  return p;
+}
+const CORNER = {long:'Stay long, jab and move', body:'Go to the body', calm:'Calm her down, breathe'};
+function fightAdvance(a){
+  const m = S.modal, f = fighter(), o = S.bout.opp;
+  const r = rng(S.day * 31 + (m.round || 0) * 7 + 3);
+  const playRound = (n, corner) => {
+    const mine = fightPower(f, corner) + (r() - 0.5) * 6 - (n === 3 && f.stats.conditioning < 64 ? 1 : 0);
+    const theirs = o.rating + (r() - 0.5) * 6 + (n === 3 && o.weak.includes('Fades') ? -1.5 : 0);
+    const won = mine >= theirs;
+    const beats = won
+      ? [`${f.first}'s jab finds ${o.name.split(' ')[0]} early.`, corner === 'body' ? `She digs two hooks to the body. ${o.name.split(' ')[0]} bends.` : `She slips the ${o.threat.toLowerCase()} and answers.`, 'Round to the red corner.']
+      : [`${o.name.split(' ')[0]} walks her down.`, `The ${o.threat.toLowerCase()} lands twice.`, 'Round to the blue corner.'];
+    return {n, won, beats, corner};
+  };
+  if (a === 'start' || a === 'sim') { m.step = 'round'; m.round = 1; m.rounds = [playRound(1, null)]; }
+  else if (a && a.startsWith('corner:')) { const c = a.split(':')[1]; m.round += 1; m.rounds.push(playRound(m.round, c)); m.step = 'round'; }
+  if (a === 'sim') { while (m.round < 3) { m.round += 1; m.rounds.push(playRound(m.round, f.stats.technique > f.stats.power ? 'long' : 'body')); } }
+  if (a === 'sim' || a === 'end') finishFight();
+  render();
+}
+function finishFight(){
+  const m = S.modal, f = fighter(), o = S.bout.opp;
+  const won = m.rounds.filter(x => x.won).length;
+  const win = won >= 2;
+  const cards = win ? (won === 3 ? ['30-27','30-27','29-28'] : ['29-28','29-28','28-29']) : (won === 1 ? ['28-29','28-29','29-28'] : ['27-30','27-30','28-29']);
+  const why = [];
+  if (S.bout.film >= 3) why.push(`The film study: she knew the ${o.threat.toLowerCase()} was coming.`);
+  if (S.camp && S.camp.protocol >= 2) why.push(`The camp: ${LABEL[S.camp.focus].toLowerCase()} held up when it mattered.`);
+  if (!S.camp) why.push('No camp: she looked a step slow from round 2.');
+  const best = m.rounds.find(x => x.won && x.corner);
+  if (best) why.push(`Your corner call before round ${best.n} ("${CORNER[best.corner]}") won that round.`);
+  m.step = 'result'; m.win = win; m.cards = cards; m.why = why.slice(0, 3);
+  // book it
+  if (win) f.w += 1; else f.l += 1;
+  S.cash += 450;
+  if (win) { S.members += 8; S.rep += 5; }
+  S.results.unshift({d:S.day, opp:o.name, win, cards: cards.join(', '), why: why[0] || ''});
+  S.news.unshift({d:S.day, t: win ? `${f.name} beats ${o.name} on points (${cards.join(', ')}). Eight locals sign up the next week.` : `${f.name} loses to ${o.name} on points.`}); S.unread++;
+  if (f.goal && f.goal.id === 'debut') f.goal.done = true;
+  f.goal = null; S.goalTalk = true; S.bout.done = true;
+}
+function afterFight(){ S.bout = null; S.camp = null; S.oppIndex++; S.nextOfferDay = S.day + 10; closeModal(); toast('NEW GOAL waits on the top bar: she is in your office.'); }
+
+/* ---------- rendering helpers ---------- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const B = (act, label, cls = 'btn', arg = '', extra = '') => `<button class="${cls}" data-act="${act}" data-arg="${esc(arg)}" ${extra}>${label}</button>`;
+function statRows(f, highlight){
+  return STATS.map(st => { const v = f.stats[st]; const frac = (v % 1) * 100;
+    return `<div class="stat"><span>${LABEL[st]}</span><div class="bar ${highlight === st ? 'gold' : ''}"><i style="width:${frac.toFixed(0)}%"></i></div><b class="num">${Math.floor(v)}</b></div>`; }).join('');
+}
+
+/* ---------- screens ---------- */
+function renderTitle(){
+  return `<div class="title"><div class="title-card">
+    <div class="logo">FIGHTCAMP</div><div class="tag">Run a boxing gym. Build a fighter. Win on Saturday.</div>
+    <button class="tbtn" disabled>Resume career <small>no save yet</small></button>
+    ${B('newcareer', 'New career <small>country, city, gym name</small>', 'tbtn')}
+    ${B('quick', 'Quick start <small>a built gym in London</small>', 'tbtn primary')}
+    ${B('load', 'Load career', 'tbtn')}
+    ${B('settings', 'Settings', 'tbtn')}
+    ${B('quit', 'Quit', 'tbtn')}
+    <p class="muted" style="margin-top:14px;font-size:13px">A clickable prototype of the menu structure from the Miro board. Numbers are illustrative; the 3D gym and the fight engine are left out.</p>
+  </div></div>`;
+}
+function renderCreate(){
+  const s = S.step;
+  const countries = ['United Kingdom','Ireland','United States','Mexico'];
+  const cities = {"United Kingdom":['London','Manchester','Liverpool','Glasgow'], Ireland:['Dublin','Belfast','Cork','Limerick'], 'United States':['Philadelphia','Las Vegas','Detroit','Brooklyn'], Mexico:['Guadalajara','Mexico City','Tijuana','Monterrey']}[S.country];
+  let body = '';
+  if (s === 0) body = `<h1 style="font-size:40px">1. Country</h1><p class="muted">Where your gym stands decides its rules and its rivals.</p><div class="choice-grid">${countries.map(c => B('cpick', `<b>${c}</b>`, 'choice' + (S.country === c ? ' on' : ''), 'country|' + c)).join('')}</div><div style="display:flex;justify-content:flex-end;margin-top:14px">${B('cstep', 'Next', 'btn solid', '1')}</div>`;
+  if (s === 1) body = `<h1 style="font-size:40px">2. City</h1><p class="muted">A bigger city has more fighters and more competition.</p><div class="choice-grid">${cities.map(c => B('cpick', `<b>${c}</b>`, 'choice' + (S.city === c ? ' on' : ''), 'city|' + c)).join('')}</div><div style="display:flex;justify-content:space-between;margin-top:14px">${B('cstep', 'Back', 'btn quiet', '0')}${B('cstep', 'Next', 'btn solid', '2')}</div>`;
+  if (s === 2) body = `<h1 style="font-size:40px">3. Your gym</h1><div class="field"><label for="gymname">Gym name</label><input id="gymname" placeholder="Anvil Street Gym" maxlength="28"></div><label style="display:flex;gap:8px;align-items:center;margin-top:12px"><input type="checkbox" id="guided" checked> Guided first month (recommended)</label><div style="display:flex;justify-content:space-between;margin-top:14px">${B('cstep', 'Back', 'btn quiet', '1')}${B('cstart', 'Open the gym', 'btn solid')}</div>`;
+  return `<div class="title"><div class="title-card" style="width:min(560px,100%)"><div class="steps">${[0,1,2].map(i => `<span class="${i <= s ? 'on' : ''}"></span>`).join('')}</div>${body}<button class="btn quiet" style="align-self:flex-start;margin-top:10px" data-act="title">Back to title</button></div></div>`;
+}
+function renderTop(){
+  const g = goState();
+  return `<div class="top">
+    ${B('back', 'Back', 'ghost', '', past.length ? '' : 'disabled')}${B('fwd', 'Fwd', 'ghost', '', ahead.length ? '' : 'disabled')}
+    <span class="gymname">${esc(S.gym.toUpperCase())}</span>
+    <div class="flags">${flags().map(f => B(f.act, f.t, 'flag' + (f.red ? ' red' : ''))).join('')}</div>
+    <span class="spacer"></span>
+    <div class="date num"><b>${fmtLong(S.day)}</b><span>Week ${weekOf(S.day)}</span></div>
+    <div class="speed" aria-label="Speed">${B('pausebtn', 'II', ui.running ? '' : 'on')}${[1,2,3].map(n => B('speed', '&gt;'.repeat(n), ui.speed === n ? 'on' : '', String(n))).join('')}</div>
+    <button class="go ${g.cls}" data-act="go_btn">${g.t}<small>${esc(g.s)}</small></button>
+    <span class="cash num ${S.cash < 5000 ? 'neg' : ''}">${money(S.cash)}</span>
+    ${B('mail', `Mail${S.unread ? `<span class="badge">${S.unread}</span>` : ''}`, 'ghost')}
+    <div class="gear">${B('gear', 'Gear', 'ghost')}${ui.gear ? `<div class="menu">${B('save', 'Save')}${B('load', 'Load')}${B('settings', 'Settings')}${B('handbook', 'Handbook')}${B('title', 'Quit to title')}</div>` : ''}</div>
+  </div>`;
+}
+function renderRail(){ return `<nav class="rail">${AREAS.map(a => B('area', `${a.name}<small>${a.job}</small>`, route.area === a.id ? 'on' : '', a.id)).join('')}</nav>`; }
+function head(area, extra = ''){
+  const a = AREAS.find(x => x.id === area);
+  return `<div class="areahead"><h1>${a.name}</h1><span class="muted">${a.job}</span>${extra}</div>` +
+    (a.tabs.length ? `<div class="tabs" role="tablist">${a.tabs.map((t, i) => B('tab', t, 'tab' + (route.tab === i && !route.fighter && !route.bout ? ' on' : ''), String(i))).join('')}</div>` : '');
+}
+
+function pageHome(){
+  const n = needs(), f = fighter(), stop = nextStop();
+  const g = f && goalRead(f);
+  return head('home', `<span class="muted">${esc(S.gym)}, ${fmtLong(S.day)}</span>`) + `<div class="grid g2"><div class="grid">
+    <div class="card"><h2>NEEDS YOU (${n.length})</h2>${n.length ? n.slice(0, 5).map(x => `<div class="row"><span class="dot ${x.red ? 'red' : ''}"></span><div class="t">${esc(x.t)}<span>${esc(x.s)}</span></div>${B(x.act, x.label, 'btn', x.arg || '')}</div>`).join('') : '<div class="empty">Nothing needs you. Press CONTINUE.</div>'}</div>
+    <div class="card"><h2>YOUR FIGHTERS</h2>${f ? `<div class="row"><div class="t"><button data-act="fighter" data-arg="${f.id}" style="font-weight:700">${esc(f.name)}</button>, ${f.wc.toLowerCase()} ${f.w}-${f.l}<span>${f.weight.toFixed(1)} of ${f.limit} kg, ${f.fatigue < 30 ? 'fresh' : 'tired'}${g ? `, goal: ${esc(f.goal.title.toLowerCase())}` : ''}</span></div>${g ? `<span class="chip ${g.cls}">${g.status}</span>` : ''}<span class="muted num" style="font-size:13px">${S.bout ? 'bout ' + fmt(S.bout.day) : 'no bout'}</span></div>` : '<div class="empty">No fighters yet. Someone is waiting at reception.</div>'}</div>
+  </div><div class="grid">
+    <div class="card"><h2>NEXT UP</h2>${S.bout ? `<div class="big">${S.day === S.bout.day ? 'Fight night, tonight' : S.day === S.bout.day - 1 ? 'Weigh-in, today' : 'Weigh-in, ' + fmt(S.bout.day - 1)}</div><div class="muted">${f.first} vs ${esc(S.bout.opp.name)}, ${fmt(S.bout.day)}</div>` : `<div class="big">${fmt(stop.d)}</div><div class="muted">${stop.r}</div>`}</div>
+    <div class="card"><h2>MONEY THIS WEEK</h2><div class="kv"><span>Cash</span><b class="num">${money(S.cash)}</b></div><div class="kv"><span>Weekly in</span><b class="num pos" style="color:var(--green)">${signed(weeklyIncome())}</b></div><div class="kv"><span>Weekly costs, billed monthly</span><b class="num">${signed(-weeklyCosts())}</b></div><div class="kv"><span>Owed so far, billed ${fmt((Math.floor(S.day / 28) + 1) * 28)}</span><b class="num">${money(S.accrued)}</b></div></div>
+    <div class="card"><h2>NEWS AND MAIL</h2>${S.news.slice(0, 2).map(x => `<div class="row"><div class="t" style="font-size:14px">${esc(x.t)}<span>${fmt(x.d)}</span></div></div>`).join('')}${B('mail', 'All news', 'btn quiet')}</div>
+  </div></div>`;
+}
+
+function pageFighters(){
+  const f = fighter();
+  if (route.fighter && f) return pageFighter(f);
+  const tab = route.tab;
+  let body = '';
+  if (tab === 0) body = f ? `<div class="card"><div class="tablewrap"><table><tr><th>FIGHTER</th><th>CLASS</th><th>RECORD</th><th>WEIGHT</th><th>GOAL</th><th>NEXT BOUT</th></tr>
+      <tr><td><button data-act="fighter" data-arg="${f.id}" style="font-weight:700;color:var(--gold)">${esc(f.name)}</button></td><td>${f.wc}</td><td class="num">${f.w}-${f.l} AM</td><td class="num">${f.weight.toFixed(1)} / ${f.limit}</td><td>${f.goal ? esc(f.goal.title) : '<span class="chip gold">talk in the office</span>'}</td><td class="num">${S.bout ? fmt(S.bout.day) : 'none'}</td></tr></table></div></div>`
+      : `<div class="card"><div class="empty">Nobody signed yet. ${B('interview', 'Meet the walk-in', 'btn', '', S.applicant ? '' : 'disabled')}</div></div>`;
+  if (tab === 1) body = f ? `<div class="card"><h2>THIS WEEK'S PLAN: ${esc(f.name.toUpperCase())}</h2>
+      ${S.camp ? `<p>In camp: the camp sets her focus (<b>${LABEL[S.camp.focus]}</b>) and cuts her weight.</p>` : ''}
+      <div class="row"><div class="t">Focus<span>the stat this week trains most; its partner trains a little</span></div><select id="focussel" data-change="focus" ${S.camp ? 'disabled' : ''}>${STATS.map(s => `<option value="${s}" ${f.focus === s ? 'selected' : ''}>${LABEL[s]}</option>`).join('')}</select></div>
+      <div class="row"><div class="t">Weight<span>${f.weight.toFixed(1)} kg, limit ${f.limit} kg</span></div><select id="dietsel" data-change="diet" ${S.camp ? 'disabled' : ''}><option value="hold" ${f.diet === 'hold' ? 'selected' : ''}>Hold weight</option><option value="cut" ${f.diet === 'cut' ? 'selected' : ''}>Cut toward the limit</option></select></div>
+      <div class="row"><div class="t">Coach<span>${S.coach ? esc(S.coach.name) + ', ' + S.coach.spec.toLowerCase() : 'none: training runs at 60%'}</span></div>${S.coach ? '' : B('go', 'Hire one', 'btn', 'gym:1')}</div>
+      <div class="row"><div class="t">Her week cards<span>${f.cards.length ? f.cards.join(', ') : 'none picked'}</span></div></div>
+      <h2 style="margin-top:14px">EXPECTED THIS WEEK</h2>${statRows(f, S.camp ? S.camp.focus : f.focus)}<p class="muted" style="font-size:13px">Bars show the way to the next whole point.</p></div>` : '<div class="card empty">Sign a fighter first.</div>';
+  if (tab === 2) body = `<div class="card"><h2>FIGHT CAMPS</h2>${S.camp ? `<div class="kv"><span>Fighter</span><b>${esc(f.name)}</b></div><div class="kv"><span>For</span><b>vs ${esc(S.bout.opp.name)}, ${fmt(S.bout.day)}</b></div><div class="kv"><span>Focus</span><b>${LABEL[S.camp.focus]}</b></div><div class="kv"><span>Protocol</span><b>${['','Light','Standard','Hard'][S.camp.protocol]}</b></div><div class="kv"><span>Film on her</span><b>depth ${S.bout.film} of 3</b></div>` : S.bout ? `<div class="row"><div class="t">No camp yet for ${esc(f.name)}<span>bout on ${fmt(S.bout.day)}</span></div>${B('camp', 'Set camp', 'btn solid')}</div>` : '<div class="empty">Camps open once a bout is booked.</div>'}</div>`;
+  if (tab === 3) body = `<div class="card"><h2>PROSPECTS NEAR ${esc(S.city.toUpperCase())}</h2>${PROSPECTS.map((p, i) => `<div class="row"><div class="t"><b>${p.name}</b>, ${p.age}, ${p.wc.toLowerCase()}<span>${p.note}, asks ${p.ask}</span></div>${B('scout', 'Invite to a trial', 'btn', String(i))}</div>`).join('')}</div>`;
+  return head('fighters') + body;
+}
+function pageFighter(f){
+  const g = goalRead(f);
+  const tabs = ['Overview','Attributes and moves','Body','Record','Camp','Contract and goals'];
+  let body = '';
+  const t = route.ftab || 0;
+  if (t === 0) body = `<div class="grid g3"><div class="card"><h2>ATTRIBUTES, BAR = WAY TO THE NEXT POINT</h2>${statRows(f)}</div>
+      <div class="card"><h2>BODY</h2><div class="kv"><span>Weight</span><b class="num">${f.weight.toFixed(1)} of ${f.limit} kg</b></div><div class="kv"><span>Condition</span><b>${f.fatigue < 30 ? 'Fresh' : 'Tired'}</b></div><div class="kv"><span>Injuries</span><b>None</b></div><h2 style="margin-top:14px">COACH SAYS</h2><div class="quote">${esc(coachLine())}</div></div>
+      <div class="card"><h2>GOAL</h2>${g ? `<b>${esc(f.goal.title)}</b><div class="muted" style="font-size:13px">${esc(g.row)}, ${Math.max(0, g.left)} days left</div><div class="bar" style="margin:8px 0"><i style="width:${(g.share * 100).toFixed(0)}%"></i></div><span class="chip ${g.cls}">${g.status}</span>` : `<div class="empty">Waiting in your office for her next goal.</div>${B('goaltalk', 'Talk to her', 'btn', '', S.goalTalk ? '' : 'disabled')}`}
+      <h2 style="margin-top:14px">NEXT BOUT</h2>${S.bout ? `<b>vs ${esc(S.bout.opp.name)}</b><div class="muted" style="font-size:13px">${fmt(S.bout.day)}</div>` : '<div class="empty">None booked.</div>'}<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">${B('go', 'Plan her week', 'btn solid', 'fighters:1')}${B('go', 'Find a bout', 'btn', 'fights:0')}</div></div></div>`;
+  if (t === 1) body = `<div class="card"><h2>ATTRIBUTES</h2>${statRows(f)}<h2 style="margin-top:14px">MOVES SHE TRAINS</h2><p>${f.cards.length ? f.cards.join(', ') : 'none yet'}</p><div class="note">Move mastery (a bar per move, a new weapon every 2-3 weeks) belongs here.</div></div>`;
+  if (t === 2) body = `<div class="card"><h2>BODY</h2><div class="kv"><span>Weight</span><b class="num">${f.weight.toFixed(1)} kg</b></div><div class="kv"><span>Class limit</span><b class="num">${f.limit} kg</b></div><div class="kv"><span>Plan</span><b>${S.camp ? 'cutting (camp)' : f.diet === 'cut' ? 'cutting' : 'holding'}</b></div><div class="kv"><span>Injuries</span><b>None</b></div></div>`;
+  if (t === 3) body = `<div class="card"><h2>RECORD: ${f.w}-${f.l} AMATEUR</h2>${S.results.length ? S.results.map(r => `<div class="row"><span class="dot ${r.win ? 'green' : 'red'}"></span><div class="t">${r.win ? 'W' : 'L'} vs ${esc(r.opp)}<span>${fmt(r.d)}, ${r.cards}</span></div></div>`).join('') : '<div class="empty">Her bouts for your gym show here.</div>'}</div>`;
+  if (t === 4) body = `<div class="card"><h2>CAMP</h2>${S.camp ? `<b>${LABEL[S.camp.focus]}</b> focus, ${['','light','standard','hard'][S.camp.protocol]} protocol, film depth ${S.bout.film} of 3` : S.bout ? B('camp', 'Set her camp', 'btn solid') : '<div class="empty">No bout booked.</div>'}</div>`;
+  if (t === 5) body = `<div class="card"><h2>CONTRACT</h2><div class="kv"><span>Terms</span><b>Club stipend, $250 a week</b></div><div class="kv"><span>Until</span><b>she turns pro</b></div><h2 style="margin-top:14px">GOALS SO FAR</h2><div class="empty">Each finished goal and what it did to her trust shows here.</div></div>`;
+  return `<div class="crumb">FIGHTERS / Roster / ${esc(f.name)}</div><div class="areahead"><h1>${esc(f.name.toUpperCase())}</h1><span class="muted">${f.wc}, ${f.age}, ${f.stance}, amateur ${f.w}-${f.l}</span>${g ? `<span class="chip ${g.cls}">Goal: ${esc(f.goal.title)}, ${Math.max(0, g.left)} days, ${g.status.toLowerCase()}</span>` : ''}</div>
+    <div class="tabs">${tabs.map((x, i) => B('ftab', x, 'tab' + (t === i ? ' on' : ''), String(i))).join('')}</div>` + body;
+}
+
+function pageFights(){
+  if (route.bout) return pageBout(route.bout);
+  const f = fighter(), tab = route.tab;
+  let body = '';
+  if (tab === 0) { const open = S.offers.filter(o => !o.answered);
+    body = `<div class="card"><h2>OFFERS ON THE TABLE</h2>${open.length ? open.map(o => `<div class="row"><span class="dot ${o.mismatch ? 'red' : 'green'}"></span><div class="t"><b>${f.first} vs ${esc(o.opp.name)}</b>, ${fmt(o.day)}<span>${o.mismatch ? 'Not safe: she has 4 bouts, Whitfield has 16' : 'Legal, even match'}; answer by ${fmt(o.expires)}</span></div>${B('openBout', 'Open', 'btn', o.id)}</div>`).join('') : `<div class="empty">${S.bout ? `Booked: ${f.first} vs ${esc(S.bout.opp.name)}, ${fmt(S.bout.day)}.` : f ? 'No offers right now. They come every couple of weeks.' : 'Sign a fighter to get offers.'}</div>`}</div>`; }
+  if (tab === 1) { const ev = [];
+    if (S.bout) { ev.push({d:S.bout.day - 1, t:'Weigh-in'}); ev.push({d:S.bout.day, t:`Fight night: ${f.first} vs ${S.bout.opp.name}`}); }
+    if (S.camp) ev.push({d:S.camp.start, t:'Camp started'});
+    ev.push({d:(Math.floor(S.day / 28) + 1) * 28, t:'Month-end bill'});
+    body = `<div class="card"><h2>CALENDAR</h2>${ev.sort((a, b) => a.d - b.d).map(e => `<div class="kv"><span class="num">${fmt(e.d)}</span><b>${esc(e.t)}</b></div>`).join('')}</div>`; }
+  if (tab === 2) body = `<div class="card"><h2>RESULTS</h2>${S.results.length ? S.results.map(r => `<div class="row"><span class="dot ${r.win ? 'green' : 'red'}"></span><div class="t">${r.win ? 'Won' : 'Lost'} vs ${esc(r.opp)}, ${r.cards}<span>${esc(r.why)}</span></div></div>`).join('') : '<div class="empty">No bouts yet.</div>'}</div>`;
+  return head('fights') + body;
+}
+function pageBout(id){
+  const o = S.offers.find(x => x.id === id), f = fighter();
+  if (!o) return head('fights') + '<div class="card empty">That offer is gone.</div>';
+  const weeks = Math.floor((o.day - S.day) / 7);
+  return `<div class="crumb">FIGHTS / Offers / ${esc(f.name)} vs ${esc(o.opp.name)}</div><div class="areahead"><h1>THE BOUT</h1>${o.mismatch ? '<span class="chip red">Not safe</span>' : '<span class="chip green">Legal, even match</span>'}</div>
+  <div class="tape"><div class="card"><div class="big">${esc(f.name.toUpperCase())}</div><div class="muted">your fighter</div><div class="kv"><span>Record</span><b>${f.w}-${f.l} AM</b></div><div class="kv"><span>Age, stance</span><b>${f.age}, ${f.stance}</b></div><div class="kv"><span>Style</span><b>${f.style}</b></div></div>
+  <div class="vs">VS</div>
+  <div class="card"><div class="big">${esc(o.opp.name.toUpperCase())}</div><div class="muted">${esc(o.opp.club)}</div><div class="kv"><span>Record</span><b>${o.opp.rec}</b></div><div class="kv"><span>Age, stance</span><b>${o.opp.age}, ${o.opp.stance}</b></div><div class="kv"><span>Style</span><b>${o.opp.style}</b></div></div></div>
+  <div class="grid g2" style="margin-top:14px"><div class="card"><h2>OPPONENT REPORT</h2><div class="kv"><span>Biggest threat</span><b>${esc(o.opp.threat)}</b></div><div class="kv"><span>Weakness</span><b>${esc(o.opp.weak)}</b></div><div class="kv"><span>Film on her</span><b>2 bouts, depth 1 of 3</b></div><p class="muted" style="font-size:13px">A camp with film study raises the depth to 3.</p></div>
+  <div class="card"><h2>TERMS</h2><div class="kv"><span>Date</span><b>${fmt(o.day)}, 3 x 3 min</b></div><div class="kv"><span>Weight</span><b>${f.limit} kg</b></div><div class="kv"><span>Purse</span><b>none, amateur</b></div><div class="kv"><span>Club ticket cut</span><b>$450</b></div><div class="kv"><span>Time for a camp</span><b>${weeks >= 1 ? 'yes, ' + weeks + ' weeks' : 'no'}</b></div><div class="kv"><span>Answer by</span><b>${fmt(o.expires)}</b></div></div></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">${o.mismatch ? `<button class="btn solid" disabled>Accept the bout</button><span class="muted" style="align-self:center">The federation would not sanction it: 12 bouts apart.</span>` : B('accept', 'Accept the bout', 'btn solid', o.id)}${B('declineOffer', 'Decline', 'btn quiet', o.id)}</div>`;
+}
+
+function pageGym(){
+  const tab = route.tab; let body = '';
+  if (tab === 0) body = `<div class="card"><h2>THE FLOOR</h2><div class="note" style="padding:40px 16px;text-align:center">The 3D gym lives here: members training, your fighter on the bags, the ring.<br>Its design is out of scope for this prototype.</div></div>`;
+  if (tab === 1) body = `<div class="card"><h2>STAFF</h2>${S.coach ? `<div class="row"><span class="dot green"></span><div class="t"><b>${esc(S.coach.name)}</b>, ${S.coach.kind.toLowerCase()}<span>${S.coach.spec}, rating ${S.coach.rating}, ${money(S.coach.pay)} a week</span></div></div>` : '<div class="empty">No coach yet. Two are available.</div>'}
+      ${S.coach ? '' : COACHES.map(c => `<div class="row"><div class="t"><b>${c.name}</b>, ${c.kind.toLowerCase()}<span>${c.spec}, rating ${c.rating}, ${c.note}, ${money(c.pay)} a week + $1,000 to sign</span></div>${B('hire', 'Hire', 'btn', c.id)}</div>`).join('')}</div>`;
+  if (tab === 2) body = `<div class="card"><h2>MEMBERS</h2><div class="kv"><span>On the books</span><b class="num">${S.members}</b></div><div class="kv"><span>Dues</span><b class="num">$22 a week each</b></div><div class="kv"><span>Evening classes</span><b>${S.coach ? '3 a week, +$350' : 'need a coach'}</b></div><div class="kv"><span>Why they join</span><b>the gym's name, the kit, a local win</b></div></div>`;
+  if (tab === 3) body = `<div class="card"><h2>FACILITIES</h2>${[['Training floor','good'],['Ring','good'],['Heavy bags x4','worn: repair $120'],['Locker room','good'],['Office','good']].map(x => `<div class="kv"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')}<p class="muted" style="font-size:13px;margin-top:8px">Building and placing equipment stays in the 3D gym.</p></div>`;
+  return head('gym') + body;
+}
+function pageMoney(){
+  const tab = route.tab; let body = '';
+  if (tab === 0) { const h = S.cashHistory.slice(-12); const max = Math.max(...h.map(x => x.c), 30000), min = Math.min(...h.map(x => x.c), 0);
+    const bw = 100 / Math.max(h.length, 1);
+    const bars = h.map((x, i) => { const y = 160 - (x.c - min) / (max - min) * 150; return `<rect x="${i * bw + bw * 0.15}%" y="${y}" width="${bw * 0.7}%" height="${160 - y}" rx="3" fill="var(--gold)" opacity="${i === h.length - 1 ? 1 : 0.55}"></rect><text x="${i * bw + bw / 2}%" y="176" fill="var(--muted)" font-size="11" text-anchor="middle">W${x.w}</text>`; }).join('');
+    body = `<div class="grid g2"><div class="card"><h2>CASH, WEEK BY WEEK</h2><svg class="chart" role="img" aria-label="Cash at the end of each week">${bars}</svg></div><div class="card"><h2>NOW</h2><div class="kv"><span>Cash</span><b class="num">${money(S.cash)}</b></div><div class="kv"><span>Weekly in</span><b class="num">${signed(weeklyIncome())}</b></div><div class="kv"><span>Weekly costs</span><b class="num">${signed(-weeklyCosts())}</b></div><div class="kv"><span>Weekly net</span><b class="num" style="color:${weeklyIncome() - weeklyCosts() >= 0 ? 'var(--green)' : 'var(--red)'}">${signed(weeklyIncome() - weeklyCosts())}</b></div></div></div>`; }
+  if (tab === 1) body = `<div class="card"><h2>INCOME, PER WEEK</h2><div class="kv"><span>Members' dues (${S.members} x $22)</span><b class="num">${money(S.members * 22)}</b></div><div class="kv"><span>Evening classes</span><b class="num">${money(S.coach ? 350 : 0)}</b></div><div class="kv"><span>Sponsors</span><b class="num">${money(S.deals.filter(d => d.state === 'signed').reduce((a, d) => a + d.per, 0))}</b></div><div class="kv"><span>Club ticket cut, per amateur bout</span><b class="num">$450</b></div></div>`;
+  if (tab === 2) body = `<div class="card"><h2>BILLS, PER WEEK, PAID AT MONTH END</h2><div class="kv"><span>Upkeep</span><b class="num">$500</b></div><div class="kv"><span>Coach</span><b class="num">${money(S.coach ? S.coach.pay : 0)}</b></div><div class="kv"><span>Fighter stipends</span><b class="num">${money(S.fighters.length * 250)}</b></div><div class="kv"><span>Owed so far this month</span><b class="num">${money(S.accrued)}</b></div></div>`;
+  if (tab === 3) body = `<div class="card"><h2>DEALS</h2>${S.deals.map((d, i) => `<div class="row"><div class="t"><b>${d.name}</b><span>banner on the gym wall, ${money(d.per)} a week</span></div>${d.state === 'signed' ? '<span class="chip green">signed</span>' : B('deal', 'Sign', 'btn', String(i))}</div>`).join('')}</div>`;
+  return head('money') + body;
+}
+function pageWorld(){
+  const tab = route.tab; let body = '';
+  if (tab === 0) body = `<div class="card"><h2>NEWS</h2>${S.news.map(x => `<div class="row"><div class="t">${esc(x.t)}<span>${fmt(x.d)}</span></div></div>`).join('')}</div>`;
+  if (tab === 1) { const list = [['Dana Whitfield','Repton','14-2'],['Erin Doyle','Belfast Golden Gloves','7-2'],['Priya Nair','Leicester ABC','5-1'],['Maria Ortega','Guadalajara BC','4-2']]; const f = fighter();
+    if (f && f.w >= 4) list.splice(3, 0, [f.name, S.gym, `${f.w}-${f.l}`]);
+    body = `<div class="card"><h2>LIGHTWEIGHT, WOMEN'S AMATEUR, LONDON REGION</h2><div class="tablewrap"><table><tr><th>#</th><th>FIGHTER</th><th>GYM</th><th>RECORD</th></tr>${list.map((x, i) => `<tr><td class="num">${i + 1}</td><td>${esc(x[0])}</td><td>${esc(x[1])}</td><td class="num">${x[2]}</td></tr>`).join('')}</table></div></div>`; }
+  if (tab === 2) body = `<div class="card"><h2>EVENTS</h2>${[['Sat 31 Jan','York Hall club show','12 bouts'],['Sat 14 Feb','London ABC novices','tournament'],['Sat 7 Mar','Repton open show','16 bouts']].map(x => `<div class="kv"><span class="num">${x[0]}</span><b>${x[1]}, ${x[2]}</b></div>`).join('')}</div>`;
+  if (tab === 3) body = `<div class="card"><h2>SEARCH</h2><div class="field"><label for="q">Fighter, coach or gym</label><input id="q" placeholder="Type a name" data-input="search" value="${esc(ui.q || '')}"></div><div id="hits" style="margin-top:8px">${searchHits()}</div></div>`;
+  return head('world') + body;
+}
+function searchHits(){ const q = (ui.q || '').toLowerCase(); if (!q) return '<div class="empty">Every fighter, coach and gym in the world.</div>';
+  const all = [...OPPONENTS.map(o => o.name + ', ' + o.club), MISMATCH.name + ', ' + MISMATCH.club, ...COACHES.map(c => c.name + ', coach'), ...PROSPECTS.map(p => p.name + ', prospect')];
+  const hits = all.filter(x => x.toLowerCase().includes(q)); return hits.length ? hits.map(x => `<div class="kv"><span>${esc(x)}</span></div>`).join('') : '<div class="empty">Nobody by that name.</div>'; }
+
+/* ---------- moments (modals) ---------- */
+function renderModal(){
+  const m = S.modal; if (!m) return '';
+  const f = fighter(); let inner = '';
+  if (m.type === 'info') inner = `<h1>${esc(m.title)}</h1><p>${esc(m.body)}</p><div class="foot">${B('close', 'Close', 'btn solid')}</div>`;
+  if (m.type === 'interview') { const a = S.applicant;
+    inner = `<div class="muted">AT RECEPTION</div><h1>${esc(a.name.toUpperCase())}</h1><div class="muted">${a.age}, ${a.wc.toLowerCase()}, ${a.stance}, amateur ${a.w}-${a.l}, ${a.style.toLowerCase()}</div>
+      <p class="quote">"I've had four fights at a church hall. I want a proper gym and a proper coach."</p>
+      <div class="grid g2"><div>${statRows(a)}</div><div><h2 style="font-family:var(--body);font-size:12px;letter-spacing:.14em;color:var(--muted)">PICK HER THREE WEEK CARDS</h2><div class="choice-grid" style="grid-template-columns:1fr 1fr">${CARDS.map(c => B('pickcard', c, 'choice' + (m.picks.includes(c) ? ' on' : ''), c)).join('')}</div><p class="muted" style="font-size:13px">Terms: club stipend, $250 a week.</p></div></div>
+      <div class="foot">${B('decline', 'Not now', 'btn quiet')}<button class="btn solid" data-act="sign" ${m.picks.length === 3 ? '' : 'disabled'}>${m.picks.length === 3 ? 'Sign ' + a.first : `Sign: pick ${3 - m.picks.length} more`}</button></div>`; }
+  if (m.type === 'review') { const r = m.r;
+    inner = `<div class="muted">END OF WEEK ${r.week}</div><h1>WEEK REVIEW</h1>
+      ${r.rows.length ? `<h2 style="font-family:var(--body);font-size:12px;letter-spacing:.14em;color:var(--muted);margin-top:10px">${esc(f.name.toUpperCase())}: BARS FILL TO THE NEXT POINT</h2>${r.rows.map(x => { const gain = x.after - x.before; const crossed = Math.floor(x.after) > Math.floor(x.before);
+        return `<div class="stat"><span>${LABEL[x.st]}</span><div class="bar ${crossed ? 'gold' : ''}"><i class="grow" data-to="${((x.after % 1) * 100).toFixed(0)}" style="width:${crossed ? 0 : ((x.before % 1) * 100).toFixed(0)}%"></i></div><b class="num" style="color:${crossed ? 'var(--gold)' : 'inherit'}">${Math.floor(x.after)}${gain > 0.005 ? `<small style="color:var(--green);font-size:11px"> +${gain.toFixed(1)}</small>` : ''}</b></div>`; }).join('')}` : '<p class="empty">No fighter trained this week.</p>'}
+      <div class="grid g2" style="margin-top:12px"><div class="card"><h2>MONEY</h2><div class="kv"><span>In this week</span><b class="num" style="color:var(--green)">${signed(r.money.in)}</b></div><div class="kv"><span>Paid this week</span><b class="num">${signed(-r.money.out)}</b></div><div class="kv"><span>Cash now</span><b class="num">${money(S.cash)}</b></div></div><div class="card"><h2>THE COACH</h2><div class="quote">${esc(r.coach)}</div></div></div>
+      <div class="foot">${B('close', 'Next week', 'btn solid')}</div>`; }
+  if (m.type === 'camp') { const cost = [0, 0, 300, 700][m.protocol] + (m.film ? 150 : 0);
+    inner = `<div class="muted">${esc(f.name.toUpperCase())} VS ${esc(S.bout.opp.name.toUpperCase())}, ${fmt(S.bout.day)}</div><h1>FIGHT CAMP</h1>
+      <p class="muted">Pick what the camp builds. It also cuts her to ${f.limit} kg.</p>
+      <h2 style="font-family:var(--body);font-size:12px;letter-spacing:.14em;color:var(--muted)">FOCUS</h2><div class="choice-grid">${['conditioning','power','technique','defence','speed'].map(s => B('cfocus', `<b>${LABEL[s]}</b>`, 'choice' + (m.focus === s ? ' on' : ''), s)).join('')}</div>
+      <h2 style="font-family:var(--body);font-size:12px;letter-spacing:.14em;color:var(--muted);margin-top:12px">PROTOCOL</h2><div class="choice-grid">${[[1,'Light','free, smaller gains'],[2,'Standard','$300, solid gains'],[3,'Hard','$700, biggest gains, more risk']].map(p => B('cproto', `<b>${p[1]}</b><br><span class="muted" style="font-size:12px">${p[2]}</span>`, 'choice' + (m.protocol === p[0] ? ' on' : ''), String(p[0]))).join('')}</div>
+      <label style="display:flex;gap:8px;align-items:center;margin-top:12px"><input type="checkbox" id="filmbox" data-change="cfilm" ${m.film ? 'checked' : ''}> Film study on ${esc(S.bout.opp.name)} ($150): her threat and her weakness, depth 3 of 3</label>
+      <div class="foot">${B('close', 'Later', 'btn quiet')}${B('startcamp', `Start the camp${cost ? ', ' + money(cost) : ''}`, 'btn solid')}</div>`; }
+  if (m.type === 'weighin') { const made = f.weight <= f.limit + 0.05;
+    inner = `<div class="muted">THE DAY BEFORE</div><h1>WEIGH-IN</h1><div class="big num" style="font-size:56px;color:${made ? 'var(--green)' : 'var(--red)'}">${f.weight.toFixed(1)} kg</div><p>Limit ${f.limit} kg. ${made ? 'She is on the mark.' : `She is ${(f.weight - f.limit).toFixed(1)} kg over. ${S.camp ? '' : 'No camp, no cut.'}`}</p><div class="foot">${B('doWeigh', 'Step on the scale', 'btn solid')}</div>`; }
+  if (m.type === 'fight') inner = renderFight(m, f);
+  if (m.type === 'goaltalk') { const gs = GOALS(f);
+    inner = `<div class="muted">IN YOUR OFFICE</div><h1>${esc(f.first.toUpperCase())}'S NEXT GOAL</h1><p class="muted">Her last bout is done. She wants a target.</p><div class="grid">${gs.map(g => B('pickgoal', `<b>${g.title}</b>, ${g.deadline - g.start} days<br><span class="muted">${LABEL[g.stat]} to ${g.target}. "${g.line}"</span>`, 'choice' + (m.pick === g.id ? ' on' : ''), g.id)).join('')}</div><div class="foot">${B('close', 'Later', 'btn quiet')}<button class="btn solid" data-act="setgoal" ${m.pick ? '' : 'disabled'}>Set goal</button></div>`; }
+  return `<div class="scrim" role="dialog" aria-modal="true"><div class="modal">${inner}</div></div>`;
+}
+function renderFight(m, f){
+  const o = S.bout.opp;
+  if (m.step === 'tape') return `<div class="muted">FIGHT NIGHT, ${fmt(S.day).toUpperCase()}</div><h1>TALE OF THE TAPE</h1><div class="tape" style="margin:10px 0"><div class="card"><div class="big">${esc(f.name.toUpperCase())}</div><div class="kv"><span>Record</span><b>${f.w}-${f.l}</b></div><div class="kv"><span>Weight</span><b class="num">${f.weight.toFixed(1)}</b></div><div class="kv"><span>Camp</span><b>${S.camp ? LABEL[S.camp.focus] : 'none'}</b></div></div><div class="vs">VS</div><div class="card"><div class="big">${esc(o.name.toUpperCase())}</div><div class="kv"><span>Record</span><b>${o.rec}</b></div><div class="kv"><span>Style</span><b>${o.style}</b></div><div class="kv"><span>Threat</span><b>${esc(o.threat)}</b></div></div></div>
+    <div class="note">The 3D bout plays here. This prototype tells it in words.</div><div class="foot">${B('fightstep', 'Sim to result', 'btn quiet', 'sim')}${B('fightstep', 'Begin fight', 'btn solid', 'start')}</div>`;
+  if (m.step === 'round') { const last = m.rounds[m.rounds.length - 1];
+    const corner = m.round < 3 ? `<h2 style="font-family:var(--body);font-size:12px;letter-spacing:.14em;color:var(--muted);margin-top:10px">IN THE CORNER: WHAT DO YOU TELL HER?</h2><div class="choice-grid">${Object.entries(CORNER).map(([k, v]) => B('fightstep', v, 'choice', 'corner:' + k)).join('')}</div>` : `<div class="foot">${B('fightstep', 'To the scorecards', 'btn solid', 'end')}</div>`;
+    return `<div class="muted">ROUND ${m.round} OF 3</div><h1>${last.won ? 'HER ROUND' : 'THEIR ROUND'}</h1><div class="beats">${last.beats.map(b => `<div>${esc(b)}</div>`).join('')}</div><div class="muted" style="font-size:13px">Rounds so far: ${m.rounds.map(r => r.won ? 'red' : 'blue').join(', ')}</div>${corner}`; }
+  if (m.step === 'result') return `<div class="muted">THE RESULT</div><h1 style="color:${m.win ? 'var(--green)' : 'var(--red)'}">${m.win ? `${esc(f.first.toUpperCase())} WINS ON POINTS` : `${esc(o.name.split(' ')[0].toUpperCase())} WINS ON POINTS`}</h1><p class="num">Scorecards: ${m.cards.join(', ')}</p>
+    <div class="card"><h2>WHAT DECIDED IT</h2>${m.why.map(w => `<div class="row"><div class="t">${esc(w)}</div></div>`).join('')}</div>
+    <div class="grid g2" style="margin-top:12px"><div class="kv"><span>Club ticket cut</span><b class="num" style="color:var(--green)">+$450</b></div><div class="kv"><span>Members after the news</span><b>${m.win ? '+8' : 'no change'}</b></div></div>
+    <div class="foot"><button class="btn solid" data-act="afterfight">Back home</button></div>`;
+  return '';
+}
+ACT.afterfight = afterFight;
+
+/* ---------- render ---------- */
+function render(){
+  const app = document.getElementById('app');
+  const keepFocus = document.activeElement && document.activeElement.id;
+  if (!S) app.innerHTML = renderTitle();
+  else if (S.screen === 'create') app.innerHTML = renderCreate();
+  else {
+    const page = {home:pageHome, fighters:pageFighters, fights:pageFights, gym:pageGym, money:pageMoney, world:pageWorld}[route.area]();
+    const scroll = document.querySelector('.main')?.scrollTop || 0;
+    app.innerHTML = renderTop() + `<div class="body">${renderRail()}<main class="main">${page}</main></div>` + renderModal();
+    const main = document.querySelector('.main'); if (main) main.scrollTop = scroll;
+    requestAnimationFrame(() => document.querySelectorAll('.grow').forEach(el => { el.style.width = el.dataset.to + '%'; }));
+  }
+  if (ui.toast) app.insertAdjacentHTML('beforeend', `<div class="toast" role="status">${esc(ui.toast)}</div>`);
+  if (keepFocus) { const el = document.getElementById(keepFocus); if (el) { el.focus(); if (el.setSelectionRange && el.value) el.setSelectionRange(el.value.length, el.value.length); } }
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
+  if (ui.gear && b.dataset.act !== 'gear' && !b.closest('.menu')) ui.gear = false;
+  doAct(b.dataset.act, b.dataset.arg);
+});
+document.addEventListener('change', e => {
+  const k = e.target.dataset.change; if (!k) return;
+  if (k === 'cfilm') ACT.cfilm(); else ACT[k](e.target.value);
+});
+document.addEventListener('input', e => { if (e.target.dataset.input === 'search') { ui.q = e.target.value; const h = document.getElementById('hits'); if (h) h.innerHTML = searchHits(); } });
+document.addEventListener('keydown', e => { if (e.code === 'Space' && S && S.screen === 'career' && !S.modal && !/INPUT|SELECT|TEXTAREA|BUTTON/.test(document.activeElement.tagName)) { e.preventDefault(); onGo(); } if (e.key === 'Escape' && S && S.modal && !['fight','weighin'].includes(S.modal.type)) closeModal(); });
+
+/* keep the run across a republish */
+window.claude?.hot?.snapshot?.(() => ({S, route}));
+function start(data){ if (data && data.S) { S = data.S; route = data.route || route; } render(); }
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>

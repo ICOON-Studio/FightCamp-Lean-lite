@@ -1,0 +1,106 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 6 (2026-10-29): A REAL BLOCK
+==============================================================
+
+NEW IN UPDATE 6 (2 minutes: watch one fight on Full, 1x, look at the moments a jab lands on her gloves)
+ 1. THE BLOCK IS A COVER-UP. When a punch is blocked, the boxer now brings both gloves up to her temples and goes
+    straight back to her guard. Before, she lifted her back glove straight up above her head for most of a second.
+    (Measured: every block clip in the motion library did that; the cover-up keeps the glove at temple height.)
+
+WHAT WE MEASURED THIS UPDATE (your question from update 5: "is round 3 harder?")
+ - No, not yet. Over thousands of simulated bouts she wins round 3 MORE often than round 1, even when unfit: the
+   corner call (+1) and the opponent fading outweigh tiredness, because tiredness only costs her when energy falls
+   under 20 and in three rounds it never does. A fix is coming to you as a choice, with the numbers.
+ - A bout is decided almost entirely by ratings: 5 points better wins ~100%, 5 points worse ~0%. Real boxing has
+   more upsets than that; the real favourite win rates are being researched before we change anything.
+
+UPDATE 5 (2026-10-29): REAL ENERGY NUMBERS, COMBO WORDS
+==============================================================
+
+NEW IN UPDATE 5 (about 10 minutes: one three-round fight on Full, 1x)
+ 1. ENERGY NOW USES REAL SPORT-SCIENCE NUMBERS. An average boxer ends the rounds at about 69, 48 and 31 (it was
+    56 at the last bell, so nobody really tired). The minute's rest gives back about half of the quick tiredness;
+    the rest stays all fight. A fit boxer ends round 3 around 42, an unfit one around 26.
+ 2. TIRED LOOKS LIKE TIRED. Force and speed hold until she is nearly empty (as measured in real bouts), but her
+    combinations get shorter, and late in a hard round she may start one and not finish it. A caption says so.
+ 3. HER SIGNATURE COMBO GETS A LINE when it lands whole ("Jab, right hand. Lucy makes it look simple.").
+ 4. THE CORNER TALKS. Between rounds, under the energy line: "Arms getting heavy. Pick the shots." The coach also
+    comments in the news when a combo becomes usable or her signature, and on the Training combo row (hover it).
+ 5. THE CORNER CARD. After each round you watched: WORKED (her punch that landed most, and a combo that landed
+    whole), HURT (the opponent's punch that landed most on her) and COACH (his call and why: tired = calm her
+    down; hurt by hooks = stay long; outworked at range = go to the body). His pick is marked "(coach)" - you
+    still decide.
+
+TELL ME
+ - Can you feel round 3 is harder than round 1 now? Too harsh, or not enough?
+
+
+START: double-click FightCamp.exe. Keep FightCamp.pck AND the "assets" folder beside it (the 3D boxers live there).
+(Saves from earlier builds still load.) Close the FightCamp window from yesterday first, then open it again.
+
+NEW: COMBOS AND ENERGY (your "build combos" + "combos should also be associated with energy")
+ 1. FIGHTERS > Training: a new COMBO row - pick the combination she drills on the pads this week. Only combos whose
+    every punch is already a weapon can be picked. Her page > Attributes and moves has the whole COMBO BOOK (10 real
+    combos: 1-2, 1-2-3, hook to the body then the head...); locked ones say which punch they still need.
+ 2. A combo becomes USABLE in about three weeks of pad time (a four-punch one takes about twice as long); the news
+    tells you. It is never sharper than her weakest punch in it.
+ 3. In the fight her exchanges are her real combos, her best ones most often, and a well-drilled combo lands
+    quicker. Each learned combo adds a small edge to her rounds.
+ 4. ENERGY. Combos cost energy, longer ones more; her conditioning decides how fast she tires and how much the
+    minute's rest gives back. Between rounds the corner screen shows both boxers' energy at the bell. "Calm her
+    down" saves energy, "Go to the body" spends more. A tired boxer throws shorter combos, gets less from them and,
+    nearly empty, loses power. The energy numbers are first estimates; real sport-science numbers are being researched.
+
+NEW SINCE YOUR NOTE "THE GUARD LOOKS FAKE, STILL TOO SLOW, NO POWER, THEY HIT THE HAND" (watch one round on Full, 1x)
+ A. PUNCHES HIT THE HEAD. A punch that lands now reaches her face past the guard (before, the glove stopped about a
+    third of a metre short and met the gloves). Blocked punches still meet the gloves. Body shots land on the ribs.
+ B. POWER. When a punch lands both boxers freeze for a split second (longer for a power shot), the receiver's head
+    snaps the way the punch drove it, and a big shot nudges the camera.
+ C. PACE. The punches themselves were already real speed; the gaps were not. Two or three punches in a row now land
+    about a third of a second apart, the rhythm measured on real boxers (they were up to 0.8 s apart).
+ D. THE GUARD. Gloves sit up by the face now (they hung out at arm's length) and pump a little; the boxers stand a
+    step closer, about the distance a real jab lands at.
+ E. SOUTHPAWS. Left-handed boxers fight left-handed: Maria Ortega, Grace Adeyemi, Rosa Delgado lead with the right.
+ F. COACH'S NOTES. Each fighter's page has a COACH'S NOTES card that fills in as you get to know her: every fight
+    shows the coach one new thing (a habit, then her character), sparring weeks sometimes another. Each new note
+    is also in the news.
+ G. 2x now speeds up the whole fight (before, at 2x the hit landed before the glove arrived).
+ H. NOT IN LOCKSTEP (your note "robotic, synchronized, no fluid motion"). The two used to bounce in perfect step
+    (measured: 0.92 alike, 1.0 = identical) and sat 70% of the fight in one 2-second loop. Now each has her own
+    rhythm, keeps busy between punches (bouncing, pumping the gloves, pawing with the lead, dipping, rolling the
+    shoulders), and when they circle or step, one leads and the other answers a beat later. Measured: 0.03 alike.
+
+EARLIER IN THIS BUILD
+(update 2) SINCE "THESE STILL FEEL OFF"
+ A. SMOOTH JOINS. Moves no longer cut into each other: when a boxer steps in, steps back or circles, her feet used to
+    snap into place in one frame (the worst jolt in the whole fight). Every change of move now eases from where her
+    body was, keeping its speed. Measured on the same fight: the worst snap is a third of what it was, and the
+    snaps in footwork are gone.
+ B. PUNCH SPEED. After a punch lands, the hand comes back at the speed real boxers retract (a jab about a quarter
+    of a second, a cross, hook or uppercut under a fifth), and she is straight back in her guard instead of
+    standing out the rest of the motion-capture take.
+ C. HABITS PLAY IN THE RING. Each fighter's two habits show: drop the right after a jab and you eat a lead hook,
+    dig to the body when hurt, fade late, start slowly... Your fighter's come from her profile; the opponent's
+    from the scout's words ("Fades after round 2", "Leaves her chin open"). A caption names some when they show.
+
+NEW THIS WEEK (about 15 minutes)
+ 1. MOOD. FIGHTERS > Roster has a MOOD column: Fired up / Steady / Flat / Low. Hover it for the reason
+    ("Beat Maria Ortega", "Debut inside a month met"). A booking, a win, a loss and a goal met or missed move it;
+    each fighter takes it differently (her heart and confidence are hidden, you learn them over time).
+ 2. THE 3D FIGHT USES THE PUNCH PRO CLIPS YOU BOUGHT. Real jabs, crosses, hooks off both hands, uppercuts, body
+    shots, blocks, slips, weaves, step-backs, hit reactions, tired idles. Punches now reach the face.
+ 3. TRAINING SHOWS IN THE RING. She only throws punches she has learned (Lucy has no uppercut until she drills it),
+    good defence = more blocks and dodges, fast hands = longer combinations, poor conditioning = tired moments
+    from round 2. The opponent fights the way the scout said ("Fades after round 2" tires; "Body hooks" digs).
+ 4. KNOCKDOWNS. A hurt boxer can take a standing count, and the referee can stop it (3 counts in a round or 4
+    in a bout, or when she is badly hurt). Rates come from real women's amateur results: about 6 in 100 evenly
+    matched bouts are stopped. The result then says "WINS BY STOPPAGE" / "BY KNOCKOUT", and the round ends there.
+
+NOT IN THIS VERSION
+ - Habits that need ropes, clinches or feints (freezes on the ropes, clinches when tired, bites on feints) wait.
+ - Southpaws still fight orthodox in 3D. No clinch. No sound.
+
+TELL ME
+ - Do the joins and the punch speed feel right now? If anything still snaps, say where (stepping, after a hit...).
+ - Do the new punches look like boxing? Anything that looks wrong first?
+ - Did you notice the difference between your fighter and the opponent?
+ - Too many or too few knockdowns?

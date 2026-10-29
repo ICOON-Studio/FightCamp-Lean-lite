@@ -1,0 +1,13 @@
+#!/bin/sh
+# Runs every test headless, one Godot job at a time (CPU rule). Usage: sh tools/run_tests.sh
+GODOT="${GODOT_EXE:-$LOCALAPPDATA/Programs/Godot/Godot_v4.7.2-stable_win64.exe}"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+fail=0
+for t in training_preview_test fighter_goal_test membership_test game_money_test amateur_booking_test bout_rules_test move_mastery_test round_script_test round_style_test habit_beats_test combos_test combo_words_test corner_card_test coach_notes_test fight_feel_test fighter_profile_test knockdowns_test bout_stoppage_test save_load_test balance_harness_test golden_path_test; do
+  [ -f "$ROOT/tests/$t.gd" ] || continue
+  out=$("$GODOT" --headless --audio-driver Dummy --path "$ROOT" --script "res://tests/$t.gd" 2>&1)
+  code=$?
+  if echo "$out" | grep -qE "SCRIPT ERROR|Parse Error|Failed to load script"; then code=9; fi
+  if [ $code -eq 0 ]; then echo "PASS $t"; else echo "FAIL $t (exit $code)"; echo "$out" | tail -40; fail=1; fi
+done
+exit $fail
