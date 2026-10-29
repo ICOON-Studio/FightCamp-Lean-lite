@@ -43,7 +43,7 @@ func _initialize() -> void:
 		var length: float = ap.get_animation(name).length
 		for i in SHOTS:
 			var t: float = length * float(i) / float(SHOTS - 1)
-			stage.pose(0, name, t)
+			Stage.IdleMatch.freeze(stage.boxers[0], name, t)
 			await _wait(2)
 			var c: Vector3 = body.global_position + Vector3(0, 0.95, 0)
 			var side: Vector3 = body.global_transform.basis.x

@@ -78,7 +78,8 @@ func _test_rounds() -> void:
 			if bool(BoutRules.play_round(1, s, camp, 3, "", Data.MISMATCH, a / 10.0 + 0.05, b / 10.0 + 0.05)["won"]):
 				wins_dana += 1
 	_check(wins_maria > n / 2 and wins_maria < n, "prepared Lucy wins most rounds against Maria, not all (%d of %d)" % [wins_maria, n])
-	_check(wins_dana == 0, "against the 14-2 mismatch she wins no round (%d of %d)" % [wins_dana, n])
+	# S305 J-UPSETS1: with ROUND_SPREAD 27, even a strong mismatch can lose a round sometimes (upsets are possible).
+	_check(wins_dana < n * 0.40, "against the 14-2 mismatch she wins few rounds (%d of %d, S305: was 0 at spread 6)" % [wins_dana, n])
 
 
 func _test_cards_and_why() -> void:

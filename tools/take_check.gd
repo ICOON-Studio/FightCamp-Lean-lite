@@ -23,7 +23,7 @@ func _initialize() -> void:
 	var ap: AnimationPlayer = bx["ap"]
 	var guard := {}
 	for b in ["LeftFoot", "RightFoot", "Hips"]:
-		guard[b] = stage._pose_point(bx, "pro_idle", 0.0, b)
+		guard[b] = Stage.IdleMatch.pose_point(bx, "pro_idle", 0.0, b)
 	var clean: Array = []
 	for n in ap.get_animation_list():
 		var name := str(n)
@@ -48,10 +48,10 @@ func _measure(stage: Node3D, bx: Dictionary, clip: String, guard: Dictionary) ->
 	var out := {"lift": 0.0, "fling": 0.0, "fwd": 0.0, "back": 0.0}
 	var t := 0.0
 	while t <= length:
-		var hips: Vector3 = stage._pose_point(bx, clip, t, "Hips")
+		var hips: Vector3 = Stage.IdleMatch.pose_point(bx, clip, t, "Hips")
 		for f in ["LeftFoot", "RightFoot"]:
-			out["lift"] = maxf(out["lift"], stage._pose_point(bx, clip, t, f).y - (guard[f] as Vector3).y)
-		out["fling"] = maxf(out["fling"], hips.z - stage._pose_point(bx, clip, t, "RightHand").z)
+			out["lift"] = maxf(out["lift"], Stage.IdleMatch.pose_point(bx, clip, t, f).y - (guard[f] as Vector3).y)
+		out["fling"] = maxf(out["fling"], hips.z - Stage.IdleMatch.pose_point(bx, clip, t, "RightHand").z)
 		out["fwd"] = maxf(out["fwd"], hips.z - (guard["Hips"] as Vector3).z)
 		out["back"] = minf(out["back"], hips.z - (guard["Hips"] as Vector3).z)
 		t += 1.0 / HZ

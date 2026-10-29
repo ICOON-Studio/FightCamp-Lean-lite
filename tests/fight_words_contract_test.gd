@@ -86,7 +86,7 @@ func _fighters() -> Array:
 
 
 func _play(fighter: Dictionary, opp: Dictionary, n: int, won: bool, margin_name: String, seed_value: int) -> void:
-	var diff: float = {"close": 1.0, "clear": 2.0, "dominant": 4.0}[margin_name]
+	var diff: float = {"close": 3.0, "clear": 10.0, "dominant": 20.0}[margin_name]
 	var call: String = ["long", "body", "calm"][seed_value % 3]
 	var round_data := {"n": n, "won": won, "mine": 60.0 + (diff if won else 0.0),
 		"theirs": 60.0 + (0.0 if won else diff), "corner": call, "lines": ["Opening line", "Closing line"]}

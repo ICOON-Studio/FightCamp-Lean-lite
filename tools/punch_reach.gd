@@ -31,8 +31,8 @@ func _initialize() -> void:
 		{"glb": "res://assets/models/metahuman/mh_boxer_11.glb", "corner": "blue"})
 	stage.set_process(false)
 	var ap: AnimationPlayer = stage.boxers[0]["ap"]
-	stage.pose(0, "pro_idle", 0.5)
-	stage.pose(1, "pro_idle", 0.5)
+	Stage.IdleMatch.freeze(stage.boxers[0], "pro_idle", 0.5)
+	Stage.IdleMatch.freeze(stage.boxers[1], "pro_idle", 0.5)
 	await _frames(2)
 	var face_a: Vector3 = stage.target_point(0, false)
 	var face_b: Vector3 = stage.target_point(1, false)
@@ -50,8 +50,8 @@ func _initialize() -> void:
 		var body: bool = name.contains("body") or name.contains("kidney")
 		var hand: String = "LeftHand" if name.contains("left_") or name.contains("kidney") else "RightHand"
 		var t := BeatClips.contact(name, 0.3)
-		stage.pose(1, "pro_idle", 0.5)
-		stage.pose(0, name, t)
+		Stage.IdleMatch.freeze(stage.boxers[1], "pro_idle", 0.5)
+		Stage.IdleMatch.freeze(stage.boxers[0], name, t)
 		if with_reach:
 			stage.land(0, name, body)
 			stage._compose(0.0)
@@ -82,8 +82,8 @@ func _guard_shown(stage: Node3D) -> void:
 	var n := 0
 	var closest := 9.0
 	for t in [0.1, 0.5, 0.9, 1.3, 1.7]:
-		stage.pose(0, "pro_idle", t)
-		stage.pose(1, "pro_idle", t + 0.3)
+		Stage.IdleMatch.freeze(stage.boxers[0], "pro_idle", t)
+		Stage.IdleMatch.freeze(stage.boxers[1], "pro_idle", t + 0.3)
 		await _frames(14)
 		var fwd: Vector3 = (stage.boxers[0]["node"] as Node3D).global_transform.basis.z
 		var face: Vector3 = stage.target_point(0, false)
@@ -123,11 +123,11 @@ func _onsets(stage: Node3D, names: Array) -> void:
 		var move: String = _move_of(name)
 		var sp := BeatClips.speed(name, move)
 		var contact := BeatClips.contact(name, 0.3)
-		var p0: Vector3 = stage._pose_point(bx, name, 0.0, hand)
+		var p0: Vector3 = Stage.IdleMatch.pose_point(bx, name, 0.0, hand)
 		var onset := 0.0
 		var t := 0.0
 		while t < contact:
-			if (stage._pose_point(bx, name, t, hand) as Vector3).distance_to(p0) > 0.03:
+			if (Stage.IdleMatch.pose_point(bx, name, t, hand) as Vector3).distance_to(p0) > 0.03:
 				onset = t
 				break
 			t += 1.0 / 60.0
@@ -154,12 +154,12 @@ func _guard(stage: Node3D) -> void:
 	var t := 0.0
 	var head_top := 0.0
 	while t < length:
-		var hips: Vector3 = stage._pose_point(bx, "pro_idle", t, "Hips")
+		var hips: Vector3 = Stage.IdleMatch.pose_point(bx, "pro_idle", t, "Hips")
 		ys.append(hips.y)
-		var head: Vector3 = stage._pose_point(bx, "pro_idle", t, "Head")
+		var head: Vector3 = Stage.IdleMatch.pose_point(bx, "pro_idle", t, "Head")
 		head_top = maxf(head_top, head.y)
 		for hand in ["LeftHand", "RightHand"]:
-			var h: Vector3 = stage._pose_point(bx, "pro_idle", t, hand)
+			var h: Vector3 = Stage.IdleMatch.pose_point(bx, "pro_idle", t, hand)
 			front += h.z - (head.z + Stage.FACE_FWD_M)
 			below += (head.y + Stage.FACE_UP_M - 0.10) - h.y
 			n += 1
@@ -170,8 +170,8 @@ func _guard(stage: Node3D) -> void:
 	for i in range(1, ys.size() - 1):
 		if float(ys[i]) < float(ys[i - 1]) and float(ys[i]) <= float(ys[i + 1]) and float(ys[i]) < lo + (hi - lo) * 0.4:
 			mins += 1
-	var lf: Vector3 = stage._pose_point(bx, "pro_idle", 0.0, "LeftFoot")
-	var rf: Vector3 = stage._pose_point(bx, "pro_idle", 0.0, "RightFoot")
+	var lf: Vector3 = Stage.IdleMatch.pose_point(bx, "pro_idle", 0.0, "LeftFoot")
+	var rf: Vector3 = Stage.IdleMatch.pose_point(bx, "pro_idle", 0.0, "RightFoot")
 	print("GUARD pro_idle %.2f s: hips bob %.3f m, %.2f dips/s (John ~1 Hz, 2-5 cm)" % [length, hi - lo, mins / length])
 	print("GUARD wrists in front of the face %.3f m (John gloves ~0.10-0.20), wrists below the chin %.3f m" % [front / n, below / n])
 	print("GUARD feet apart %.3f m = %.2f x height (John ~0.25)" % [lf.distance_to(rf), lf.distance_to(rf) / maxf(0.5, head_top + 0.12)])

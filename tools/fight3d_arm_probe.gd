@@ -34,7 +34,7 @@ func _initialize() -> void:
 			move = str(a).substr(5)
 		if str(a).begins_with("at="):
 			at = float(str(a).substr(3))
-	stage.pose(0, move, at)
+	Stage.IdleMatch.freeze(stage.boxers[0], move, at)
 	await _wait(4)
 	var c: Vector3 = body.global_position + Vector3(0, 1.15, 0)
 	var fwd: Vector3 = body.global_transform.basis.z

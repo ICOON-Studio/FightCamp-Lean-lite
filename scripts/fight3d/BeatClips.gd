@@ -89,6 +89,28 @@ static func recovery(clip: String) -> Vector2:
 	return Vector2(float((row as Dictionary).get("contact_s", -1.0)), float((row as Dictionary).get("back_s", -1.0)))
 
 
+## S305 (operator: "reaction is way too slow"): a hit reaction reaches its furthest point REACT_PEAK_S after the blow (K51:
+## the head and body move in the first quarter-second; research G147: reactions on the blow, <=150 ms in), then recovers at
+## the clip's own pace. The clip's peak comes from clip_recovery.json "peak_s" (1x).
+const REACT_PEAK_S := 0.22
+const REACT_FAST_MAX := 2.5
+
+
+## Seconds into `clip` (1x) of its furthest point from the guard; -1 when not measured.
+static func peak(clip: String) -> float:
+	recovery(clip)
+	var row: Variant = _recovery.get(clip, null)
+	return float((row as Dictionary).get("peak_s", -1.0)) if row is Dictionary else -1.0
+
+
+## The speed a reaction plays at until its peak: its peak lands REACT_PEAK_S after the blow, never slower than `speed`.
+static func react_fast(clip: String, speed: float) -> float:
+	var pk := peak(clip)
+	if pk <= 0.0:
+		return speed
+	return clampf(pk / REACT_PEAK_S, speed, REACT_FAST_MAX)
+
+
 ## How much faster than `speed` the recovery of `clip` plays (1.0 when there is no measured contact and back).
 static func recover_scale(clip: String, speed: float) -> float:
 	var r := recovery(clip)

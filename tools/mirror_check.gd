@@ -38,8 +38,8 @@ func _initialize() -> void:
 		for i in 6:
 			var t := length * float(i) / 5.0
 			for p in POINTS:
-				var a: Vector3 = stage._pose_point(ortho, str(name), t, MirrorClip.counterpart(p))
-				var b: Vector3 = stage._pose_point(south, str(name), t, p)
+				var a: Vector3 = Stage.IdleMatch.pose_point(ortho, str(name), t, MirrorClip.counterpart(p))
+				var b: Vector3 = Stage.IdleMatch.pose_point(south, str(name), t, p)
 				worst = maxf(worst, Vector3(-a.x, a.y, a.z).distance_to(b))
 		worst_all = maxf(worst_all, worst)
 		print("MIRROR %-32s worst %.1f cm" % [name, worst * 100.0])

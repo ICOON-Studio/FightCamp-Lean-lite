@@ -34,14 +34,14 @@ func _initialize() -> void:
 		# body or kidney shot) stands at the fight's jab gap. Contact = the glove's closest moment to it in the clip's first
 		# 75% (the rest is the recovery).
 		var hands: Array = ["LeftHand"] if name.contains("left_") or name.contains("kidney") else (["RightHand"] if name.contains("right_") else ["LeftHand", "RightHand"])
-		var head_y: float = stage._pose_point(bx, name, 0.0, "Head").y
+		var head_y: float = Stage.IdleMatch.pose_point(bx, name, 0.0, "Head").y
 		var body := name.contains("body") or name.contains("kidney")
 		var target := Vector3(0.0, head_y - (0.5 if body else 0.0), stage.gap_m)
 		var best := {"t": 0.0, "hand": "", "reach": 99.0}
 		var t := 0.0
 		while t <= length * 0.75:
 			for hand in hands:
-				var miss: float = stage._pose_point(bx, name, t, hand).distance_to(target)
+				var miss: float = Stage.IdleMatch.pose_point(bx, name, t, hand).distance_to(target)
 				if miss < float(best["reach"]):
 					best = {"t": t, "hand": hand, "reach": miss}
 			t += 1.0 / HZ

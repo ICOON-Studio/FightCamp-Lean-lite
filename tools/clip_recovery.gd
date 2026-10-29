@@ -66,7 +66,7 @@ func _initialize() -> void:
 func _pose(stage: Node3D, bx: Dictionary, clip: String, t: float) -> Dictionary:
 	var p := {}
 	for b in BONES:
-		p[b] = stage._pose_point(bx, clip, t, b)
+		p[b] = Stage.IdleMatch.pose_point(bx, clip, t, b)
 	return p
 
 

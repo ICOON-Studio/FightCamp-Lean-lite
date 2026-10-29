@@ -13,9 +13,9 @@ const LINES := ["Lucy finds the jab early.", "Holly lands a hook coming in.", "L
 
 func _initialize() -> void:
 	_check(RS.margin({"mine": 60.0, "theirs": 59.0}) == "close", "a 1.0 gap is a close round")
-	_check(RS.margin({"mine": 60.0, "theirs": 62.5}) == "clear", "a 2.5 gap is a clear round")
-	_check(RS.margin({"mine": 66.0, "theirs": 61.0}) == "dominant", "a 5.0 gap is a dominant round")
-	for case in [[60.0, 59.0, true, [4, 3]], [60.0, 62.5, false, [5, 2]], [66.0, 61.0, true, [6, 1]], [55.0, 61.0, false, [6, 1]]]:
+	_check(RS.margin({"mine": 60.0, "theirs": 50.0}) == "clear", "a 10.0 gap is a clear round (S305: was 2.5 at spread 6)")
+	_check(RS.margin({"mine": 80.0, "theirs": 60.0}) == "dominant", "a 20.0 gap is a dominant round (S305: was 5.0 at spread 6)")
+	for case in [[60.0, 59.0, true, [4, 3]], [60.0, 50.0, false, [5, 2]], [80.0, 60.0, true, [6, 1]], [40.0, 61.0, false, [6, 1]]]:
 		for seed in [1, 7, 42]:
 			var r := {"n": 1, "won": case[2], "mine": case[0], "theirs": case[1], "corner": "", "lines": LINES}
 			var s := RS.build(r, "Out-boxer", "Pressure fighter", 40.0, seed)

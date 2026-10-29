@@ -21,6 +21,9 @@ var _root_off := Vector3.ZERO
 var _root_vel := Vector3.ZERO
 var _t := -1.0
 var _pending := false
+var _hl := HALF_LIFE_S                  # S305: this join's half-life and length (a return to guard eases slower)
+var _dur := DURATION_S
+var _next := Vector2(HALF_LIFE_S, DURATION_S)
 var _dt := 1.0 / 60.0
 
 
@@ -35,8 +38,11 @@ func setup(skel: Skeleton3D, bone_names: Array) -> bool:
 	return not _bones.is_empty()
 
 
-func join() -> void:
+## half_life / duration: S305 (operator "make it more fluid"): research G147 - into a strike 80-150 ms, back to the
+## idle 200-300 ms; the defaults are the strike join.
+func join(half_life: float = HALF_LIFE_S, duration: float = DURATION_S) -> void:
 	_pending = true
+	_next = Vector2(half_life, duration)
 
 
 ## _process_modification (not the _with_delta variant): every Godot 4.x calls it, the delta comes from the frame.
@@ -46,15 +52,17 @@ func _process_modification() -> void:
 	if skel == null:
 		return
 	if _pending and _shown.size() == _bones.size():
+		_hl = _next.x
+		_dur = _next.y
 		_capture(skel)
 	_pending = false
 	if _t >= 0.0:
 		_t += delta
-		if _t >= DURATION_S:
+		if _t >= _dur:
 			_t = -1.0
 		else:
-			var k := log(2.0) / HALF_LIFE_S
-			var env := _envelope(_t)
+			var k := log(2.0) / _hl
+			var env := _envelope(_t, _dur)
 			for j in _bones.size():
 				var off: Quaternion = _offsets[j][0]
 				var x0 := off.get_angle()
@@ -104,6 +112,6 @@ func _capture(skel: Skeleton3D) -> void:
 
 ## 1 -> 0 with zero slope at both ends (the old repo's smooth_envelope): the start keeps the carried speed, the end lands on
 ## the new clip with no step.
-static func _envelope(t: float) -> float:
-	var u := clampf(t / DURATION_S, 0.0, 1.0)
+static func _envelope(t: float, duration: float = DURATION_S) -> float:
+	var u := clampf(t / duration, 0.0, 1.0)
 	return 1.0 - u * u * u * (10.0 + u * (-15.0 + 6.0 * u))

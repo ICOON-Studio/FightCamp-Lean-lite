@@ -28,10 +28,10 @@ func _initialize() -> void:
 	# 2. Landed counts stay Kalli's.
 	var ok := true
 	for s in SEEDS:
-		var sc: Dictionary = RS.build(_round(2, true, 66.0, 61.0), "Out-boxer", "Pressure fighter", 40.0, s, {"a": a, "b": opp})
+		var sc: Dictionary = RS.build(_round(2, true, 80.0, 60.0), "Out-boxer", "Pressure fighter", 40.0, s, {"a": a, "b": opp})
 		var got: Dictionary = RS.landed(sc)
 		ok = ok and int(got["a"]) == 6 and int(got["b"]) == 1
-	_check(ok, "a dominant round still lands 6-1 on every seed with profiles")
+	_check(ok, "a dominant round still lands 6-1 on every seed with profiles (S305: gap 20.0, was 5.0 at spread 6)")
 	# 3. Defense: what B throws and does not land is stopped more often by a 75-defense A than a 45-defense A.
 	var hi := a.duplicate(true)
 	hi["stats"]["defense"] = 75.0

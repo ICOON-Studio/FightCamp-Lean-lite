@@ -30,9 +30,10 @@ const RESET_FIT_MAX := 2.0
 const PUNCHES := ["jab", "cross", "lead_hook", "body_hook", "rear_uppercut"]
 ## Beats that are not a thrown punch.
 const NOT_PUNCH := ["step_in", "step_out", "slip", "clinch", "tired", "count"]
-## |mine - theirs| in BoutRules power points (ROUND_SPREAD 6): below CLOSE_DIFF a close round, from DOMINANT_DIFF dominant.
-const CLOSE_DIFF := 1.5
-const DOMINANT_DIFF := 4.0
+## |mine - theirs| in BoutRules power points (ROUND_SPREAD 27): below CLOSE_DIFF a close round, from DOMINANT_DIFF dominant.
+## S305 J-UPSETS1: scales with ROUND_SPREAD (0.25 * 27 = 6.75, 0.667 * 27 = 18.009 at spread 27; was 1.5 / 4.0 at spread 6).
+const CLOSE_DIFF := 6.75
+const DOMINANT_DIFF := 18.009
 const LANDED := {"close": [4, 3], "clear": [5, 2], "dominant": [6, 1]}
 ## The two opening beats a corner call shows (round 2 on), thrown by our fighter.
 const CALL_BEATS := {

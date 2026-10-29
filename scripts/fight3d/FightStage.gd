@@ -21,6 +21,8 @@ const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const RingSet := preload("res://scripts/fight3d/RingSet.gd")
 const RingCamera := preload("res://scripts/fight3d/RingCamera.gd")
+const IdleMatch := preload("res://scripts/fight3d/IdleMatch.gd")
+const HitStun := preload("res://scripts/fight3d/HitStun.gd")
 
 ## Stride speed of each footwork clip at 1x, metres a second, and its direction in the boxer's own frame (old repo U84,
 ## measured on the source): the body moves exactly this fast while the clip plays, so the planted foot stays planted.
@@ -42,6 +44,11 @@ const SHAKE_M := {"jab": 0.0, "power": 0.025, "big": 0.06}
 const LEAN_COVER_M := 0.06
 const LUNGE_MAX_M := 0.26
 const BLEND_S := 0.15
+## S305 (operator: "make it more fluid", "doesnt always reset to a default clip"): the return to guard enters the idle loop
+## at the point nearest the pose she is in (IdleMatch) and eases in slower than a strike.
+const GUARD_FADE_S := 0.2
+const GUARD_HALF_LIFE_S := 0.1
+const GUARD_JOIN_S := 0.45
 const WALK_SCALE := 0.55
 const RING_M := 5.5       # inside the ropes (amateur rings are 4.9-6.1 m)
 const APRON_M := 0.6
@@ -59,6 +66,7 @@ var _ring_side: Array = []    # ropes and posts: hidden while they stand between
 var _cut: Array = [{}, {}]    # per boxer, the Pro clip playing: {clip, contact, back, fast} (S301 recovery cut)
 var _hold_left := 0.0         # S302 hit-stop: both bodies still while > 0
 var _held_speed := [1.0, 1.0]
+var stun := HitStun.new()     # S305: a hit boxer stays in her reaction (no defence, fidget or step over it)
 var life := GuardLife.new()   # S302: each boxer's own guard tempo, fidgets, and a pair step that is not in lockstep
 
 
@@ -72,6 +80,8 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 	for spec in [a, b]:
 		boxers.append(_boxer(spec))
 	gap_m = _jab_gap()
+	for bx in boxers:
+		bx["idle_match"] = IdleMatch.sample(bx, BeatClips.first(BeatClips.GUARD, (bx["ap"] as AnimationPlayer).has_animation))
 	boxers[0]["pos"] = Vector3(0, 0, -gap_m * 0.5)
 	boxers[1]["pos"] = Vector3(0, 0, gap_m * 0.5)
 	camera = RingCamera.new()
@@ -211,7 +221,11 @@ func _start(who: int, clip: String, speed: float, fade: float = BLEND_S) -> void
 	var bx: Dictionary = boxers[who]
 	var ap: AnimationPlayer = bx["ap"]
 	if bx.get("js") != null:
-		(bx["js"] as Node).join()
+		# S305: back to the guard eases over the idle's 200-300 ms (research G147); into a strike or a reaction stays quick.
+		if fade >= GUARD_FADE_S:
+			(bx["js"] as Node).join(GUARD_HALF_LIFE_S, GUARD_JOIN_S)
+		else:
+			(bx["js"] as Node).join()
 		ap.play(clip, 0.0, speed)
 	else:
 		ap.play(clip, fade, speed)
@@ -232,6 +246,7 @@ func _colour_vest(body: Node3D, colour: Color) -> void:
 
 
 func _process(delta: float) -> void:
+	stun.tick(delta)
 	_recover()
 	life.tick(delta)
 	_hold(delta)
@@ -260,7 +275,14 @@ func _hold(delta: float) -> void:
 ## S302: `hitter`'s `move` lands on `who`: her hit reaction starts, both bodies hold for the hit-stop, her head snaps the
 ## way the glove drove it (not on a body shot), and a power shot nudges the camera.
 func hit(who: int, clip: String, speed: float, hitter: int, move: String, big: bool) -> void:
-	play(who, clip, speed)
+	# S305: fast to its peak, then the clip's own pace back to guard; locked in it until then (HitStun).
+	var fast := BeatClips.react_fast(clip, speed)
+	stun.clear(who)
+	play(who, clip, fast)
+	if str((boxers[who]["ap"] as AnimationPlayer).current_animation) == clip:
+		var cut := HitStun.react_cut(clip, speed, fast)
+		_cut[who] = cut if not cut.is_empty() else _cut[who]
+		stun.start(who, clip, speed)
 	var kind := "big" if big else ("jab" if move == "jab" else "power")
 	_hold_left = float(HOLD_S[kind])
 	for i in boxers.size():
@@ -348,8 +370,9 @@ func guard(who: int) -> void:
 	if idle != "":
 		# S302: her own tempo, from a random point of the loop (both started the same loop in step: 0.92 correlated).
 		var g := life.settle(who, idle, ap.get_animation(idle).length)
-		_start(who, idle, float(g[1]), 0.2)
-		ap.seek(float(g[2]), true)
+		var at := IdleMatch.pick(boxers[who], idle, float(g[2]), life.rng)
+		_start(who, idle, float(g[1]), GUARD_FADE_S)
+		ap.seek(at, true)
 	else:
 		ap.play("jab")
 		ap.seek(0.0, true)
@@ -385,6 +408,8 @@ func _on_finished(_name: StringName, who: int) -> void:
 ## from `from_s` seconds into the clip (S302: a combo's follow-up starts part-way through its wind-up).
 func play(who: int, move: String, speed: float = 1.0, from_s: float = 0.0) -> void:
 	var ap: AnimationPlayer = boxers[who]["ap"]
+	if stun.blocks(who, move):
+		return
 	if not ap.has_animation(move):
 		move = {"body_hook": "lead_hook", "rear_uppercut": "cross", "slip": "", "pull": ""}.get(move, "")
 		if move == "" or not ap.has_animation(move):
@@ -424,7 +449,7 @@ func circle(dir: int, seconds: float = 0.45) -> void:
 func _walk(who: int, clip: String, seconds: float) -> void:
 	var bx: Dictionary = boxers[who]
 	var ap: AnimationPlayer = bx["ap"]
-	if not ap.has_animation(clip):
+	if not ap.has_animation(clip) or stun.left(who) > 0.0:
 		return
 	var spec: Array = STRIDE[clip]
 	# A southpaw's step clips are mirrored: the clip that steps to her left is the mirrored strafe_right (same stride).
@@ -440,39 +465,20 @@ func _walk(who: int, clip: String, seconds: float) -> void:
 	_start(who, clip, WALK_SCALE, 0.08)
 
 
-## Freezes one boxer at time t of a move (for stills and tests).
-func pose(who: int, move: String, t: float) -> void:
-	var ap: AnimationPlayer = boxers[who]["ap"]
-	ap.play(move)
-	ap.seek(t, true)
-	ap.pause()
-
-
 ## Pelvis-to-pelvis distance at which A's jab glove, at contact, meets B's face (both in the guard frame of the clip).
 func _jab_gap() -> float:
 	# S300: with the Punch Pro library the gap comes from its jab at its measured contact (the native jab reached 0.3-0.5 m
 	# further, so Pro punches met the guard, never the face, in the S300 film).
 	var jab := "pro_left_jab" if has_move("pro_left_jab") else "jab"
-	var reach := _pose_point(boxers[0], jab, BeatClips.contact(jab, CONTACT_S), hand_of(0, "LeftHand")).z * _scale(0) + 0.10
+	var reach := IdleMatch.pose_point(boxers[0], jab, BeatClips.contact(jab, CONTACT_S), hand_of(0, "LeftHand")).z * _scale(0) + 0.10
 	# +0.07 (S302: GuardTuck draws the gloves 0.10 m in toward the face, so the guards stand 0.29 m apart at the old +0.19 -
 	# the gap closes 0.12 m: face to face ~0.64 m, John J-GUARDPACE1 0.60-0.75 m; S300 film 3: untucked, +0.09 touched).
-	var face := _pose_point(boxers[1], jab, 0.0, "Head").z * _scale(1) + 0.07
+	var face := IdleMatch.pose_point(boxers[1], jab, 0.0, "Head").z * _scale(1) + 0.07
 	return clampf(reach + face, 0.8, 1.6)
 
 
 func _scale(i: int) -> float:
 	return (boxers[i]["node"] as Node3D).scale.x
-
-
-## A bone's point in the body's own frame (facing +Z, unscaled) at time t of a clip.
-func _pose_point(bx: Dictionary, move: String, t: float, bone: String) -> Vector3:
-	var ap: AnimationPlayer = bx["ap"]
-	ap.play(move)
-	ap.seek(t, true)
-	var skel: Skeleton3D = bx["skel"]
-	var node: Node3D = bx["node"]
-	var to_body := node.global_transform.affine_inverse() * skel.global_transform
-	return to_body * skel.get_bone_global_pose(skel.find_bone(bone)).origin
 
 
 func _mid() -> Vector3:
@@ -489,3 +495,4 @@ func close_up(hit: int) -> void:
 	var skel: Skeleton3D = boxers[hit]["skel"]
 	var head: Vector3 = skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Head")).origin
 	camera.close_up(boxers[0]["pos"], boxers[1]["pos"], head.y, hit)
+

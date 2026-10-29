@@ -42,6 +42,8 @@ const QUICK_REFILL := 0.52
 const TIRED_AT := 20.0
 const WEARY_AT := 40.0
 const FRESH_AT := 70.0
+## S305 J-UPSETS1: tiredness ramp - power points off the round when empty (linear from FRESH_AT to 0).
+const TIRED_MAX := 6.0
 
 
 static func row(id: String) -> Dictionary:
@@ -259,11 +261,9 @@ static func energy_scale(energy: float) -> float:
 	return 1.0 - 0.3 * clampf((FRESH_AT - energy) / (FRESH_AT - 30.0), 0.0, 1.0)
 
 
-## Under TIRED_AT crosses and hooks lose force (power points off the round, ESTIMATE).
+## S305 J-UPSETS1: tiredness ramp - linear from 0 at FRESH_AT to TIRED_MAX at energy 0 (replaces the cliff under TIRED_AT).
 static func tired_penalty(energy: float) -> float:
-	if energy >= TIRED_AT:
-		return 0.0
-	return minf((TIRED_AT - energy) * 0.05, 1.0)
+	return maxf(0.0, (FRESH_AT - energy) / FRESH_AT) * TIRED_MAX
 
 
 ## Her longest run: the speed cap, ~30% shorter by energy 30.

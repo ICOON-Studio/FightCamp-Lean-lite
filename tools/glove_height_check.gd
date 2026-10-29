@@ -56,10 +56,10 @@ func _measure(stage: Node3D, bx: Dictionary, clip: String) -> Dictionary:
 	var out := {"peak": -9.0, "hand": "", "over_s": 0.0}
 	var t := 0.0
 	while t <= length:
-		var head_y: float = stage._pose_point(bx, clip, t, "Head").y
+		var head_y: float = Stage.IdleMatch.pose_point(bx, clip, t, "Head").y
 		var over := false
 		for h in ["LeftHand", "RightHand"]:
-			var rise: float = stage._pose_point(bx, clip, t, h).y - head_y
+			var rise: float = Stage.IdleMatch.pose_point(bx, clip, t, h).y - head_y
 			if rise > float(out["peak"]):
 				out["peak"] = rise
 				out["hand"] = h

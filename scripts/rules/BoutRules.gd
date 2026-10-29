@@ -19,8 +19,9 @@ const FILM_EDGE_PER_DEPTH := 0.6
 const NO_CAMP_EDGE := -1.5
 ## A camp is worth setting with at least a week to go.
 const CAMP_MIN_DAYS := 7
-## Each round both sides roll +/- half of this.
-const ROUND_SPREAD := 6.0
+## Each round both sides roll +/- half of this. S305 J-UPSETS1: pro favourites win 86% of decided fights; target ~60% at
+## slight edge, ~75% clear, ~88% big, ~95% at +13 (tools/balance_targets.gd measured spread 27).
+const ROUND_SPREAD := 27.0
 const ROUNDS := 3
 ## Round 3: her engine fades below this conditioning; an opponent who "fades" loses this much.
 const FADE_CONDITIONING := 64.0
