@@ -1,7 +1,28 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 7 (2026-10-29): FIGHTS THAT CAN GO EITHER WAY, PUNCHES THAT LAND, SLIPS THAT MOVE
+=====================================================================================================================
+
+NEW IN UPDATE 7 (5 minutes: watch one fight on Full, 1x, then book two more against different opponents)
+ 1. UPSETS HAPPEN. A slightly better boxer now wins about two fights in three, a clearly better one about three in
+    four, a much better one nearly nine in ten (real pro records, researched). Before, 5 rating points decided it.
+ 2. ROUND 3 IS HARDER. An unfit boxer tires through the fight and her punches lose power from round 2 on; the
+    corner call and the scout's notes still matter.
+ 3. BODY SHOTS HURT. A body shot that lands folds her at the waist, knees give, hands drop, then back to guard. The
+    next punch no longer wipes the reaction out (before, most body-shot reactions were cut off within 0.3 s).
+ 4. QUICKER, SMOOTHER REACTIONS. A hit boxer reacts on the blow, then eases back into her guard from where she is,
+    not by snapping to the same start pose.
+ 5. SLIPS GO THE RIGHT WAY. She slips a straight punch to the outside and rolls under a hook in the way it travels.
+    A blocked body shot is taken on the elbow, gloves still up.
+ 6. A SLIP NOW MOVES HER. Your note: "sidestep ... returns back to the same point". The slip's step now stays taken:
+    she ends about 20 cm to the side, so the pair turns to a new angle. After a weave she steps off the line the
+    same way. Look at the corner posts behind them: they shift after a slip.
+ 7. FEET STAY PUT. When the boxers circle, step in or out, or close the gap, their feet no longer skate across the
+    canvas. A foot stays where it stands and takes a quick small step when the body has moved off it. Watch their
+    boots while they circle.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 6 (2026-10-29): A REAL BLOCK
 ==============================================================
 
-NEW IN UPDATE 6 (2 minutes: watch one fight on Full, 1x, look at the moments a jab lands on her gloves)
+UPDATE 6 (2 minutes: watch one fight on Full, 1x, look at the moments a jab lands on her gloves)
  1. THE BLOCK IS A COVER-UP. When a punch is blocked, the boxer now brings both gloves up to her temples and goes
     straight back to her guard. Before, she lifted her back glove straight up above her head for most of a second.
     (Measured: every block clip in the motion library did that; the cover-up keeps the glove at temple height.)

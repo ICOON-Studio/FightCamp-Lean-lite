@@ -1,11 +1,11 @@
-extends SceneTree
+﻿extends SceneTree
 ## S305 operator: "put all the animations in and work on how each animation appears". The move-set review reel: every punch
 ## beat x every outcome (lands, big shot, blocked, slipped, weaved, missed) plus tired / standing count / KO / win, each played
 ## the way FightView plays a beat (BeatClips picks, contact timing, hit / defence on time) from the broadcast camera.
 ## Blue throws, red answers. Frames: <out_dir>/<nn>_<case>/fNN.jpg (15 fps, 2.2 s) + cases.txt (one label a line).
 ##   python tools/hidden_desktop.py run --timeout=900 <godot.exe> --path . --windowed --resolution 1920x1080 \
 ##       --fixed-fps 30 --script res://tools/fight3d_gallery.gd -- <out_dir>
-## Then tools/gallery_reel.py <out_dir> makes the labelled video.
+## Then tools/gallery_reel.py <out_dir> makes the labelled video. `only=slip,weave` films just those outcomes (S306).
 
 const W := 1920
 const H := 1080
@@ -17,12 +17,16 @@ const CROP := Rect2i(410, 60, 1100, 1000)
 var out_dir := "user://fight3d_gallery"
 var stage: Node3D
 var labels: Array = []
+var only: Array = []
 
 
 func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
 	if not args.is_empty():
 		out_dir = args[0]
+	for a in args:
+		if str(a).begins_with("only="):
+			only = str(a).substr(5).split(",")
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	root.size = Vector2i(W, H)
 	stage = Stage.new()
@@ -34,9 +38,10 @@ func _initialize() -> void:
 		await process_frame
 	for move in BeatClips.PUNCH:
 		for outcome in OUTCOMES:
-			await _punch(str(move), str(outcome))
-	for extra in [["tired", BeatClips.TIRED], ["standing count", BeatClips.DOWN], ["knocked out", BeatClips.OUT],
-			["win", BeatClips.WIN]]:
+			if only.is_empty() or only.has(outcome):
+				await _punch(str(move), str(outcome))
+	for extra in ([] if not only.is_empty() else [["tired", BeatClips.TIRED], ["standing count", BeatClips.DOWN], ["knocked out", BeatClips.OUT],
+			["win", BeatClips.WIN]]):
 		var clip := BeatClips.first(extra[1], stage.has_move)
 		await _case("red %s (%s)" % [extra[0], clip], func(): stage.play(0, clip, BeatClips.speed(clip, "")))
 	var f := FileAccess.open(out_dir + "/cases.txt", FileAccess.WRITE)

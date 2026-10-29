@@ -25,6 +25,8 @@ var _hl := HALF_LIFE_S                  # S305: this join's half-life and length
 var _dur := DURATION_S
 var _next := Vector2(HALF_LIFE_S, DURATION_S)
 var _dt := 1.0 / 60.0
+var _carry := false                     # S306: the body jumped on the canvas; start the hips where they were seen
+var _carry_from := Transform3D()
 
 
 func setup(skel: Skeleton3D, bone_names: Array) -> bool:
@@ -45,6 +47,13 @@ func join(half_life: float = HALF_LIFE_S, duration: float = DURATION_S) -> void:
 	_next = Vector2(half_life, duration)
 
 
+## S306 (SideStep): her place on the canvas is about to take a step; `from` = the skeleton's world transform before it.
+## The next join starts the hips where the viewer saw them, so the body glides onto the new spot instead of jumping.
+func carry(from: Transform3D) -> void:
+	_carry = true
+	_carry_from = from
+
+
 ## _process_modification (not the _with_delta variant): every Godot 4.x calls it, the delta comes from the frame.
 func _process_modification() -> void:
 	var delta := get_process_delta_time()
@@ -56,6 +65,7 @@ func _process_modification() -> void:
 		_dur = _next.y
 		_capture(skel)
 	_pending = false
+	_carry = false
 	if _t >= 0.0:
 		_t += delta
 		if _t >= _dur:
@@ -107,6 +117,11 @@ func _capture(skel: Skeleton3D) -> void:
 	if _root >= 0:
 		_root_off = _shown_root - skel.get_bone_pose_position(_root)
 		_root_vel = (_shown_root - _before_root) / _dt if have_before else Vector3.ZERO
+		if _carry:
+			var parent := skel.get_bone_parent(_root)
+			var pg := skel.get_bone_global_pose(parent) if parent >= 0 else Transform3D()
+			var seen := _carry_from * (pg * _shown_root)
+			_root_off = pg.affine_inverse() * (skel.global_transform.affine_inverse() * seen) - skel.get_bone_pose_position(_root)
 	_t = 0.0
 
 

@@ -23,6 +23,8 @@ const RingSet := preload("res://scripts/fight3d/RingSet.gd")
 const RingCamera := preload("res://scripts/fight3d/RingCamera.gd")
 const IdleMatch := preload("res://scripts/fight3d/IdleMatch.gd")
 const HitStun := preload("res://scripts/fight3d/HitStun.gd")
+const SideStep := preload("res://scripts/fight3d/SideStep.gd")
+const FootPlant := preload("res://scripts/fight3d/FootPlant.gd")
 
 ## Stride speed of each footwork clip at 1x, metres a second, and its direction in the boxer's own frame (old repo U84,
 ## measured on the source): the body moves exactly this fast while the clip plays, so the planted foot stays planted.
@@ -68,6 +70,9 @@ var _hold_left := 0.0         # S302 hit-stop: both bodies still while > 0
 var _held_speed := [1.0, 1.0]
 var stun := HitStun.new()     # S305: a hit boxer stays in her reaction (no defence, fidget or step over it)
 var life := GuardLife.new()   # S302: each boxer's own guard tempo, fidgets, and a pair step that is not in lockstep
+var side := SideStep.new()    # S306: a dodge's step stays taken; a weave steps off the line
+## S306: the turn to face her opponent eases over this (a committed side step turned both bodies ~10 degrees in one frame).
+const FACE_S := 0.08
 
 
 func setup(a: Dictionary, b: Dictionary) -> void:
@@ -82,6 +87,7 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 	gap_m = _jab_gap()
 	for bx in boxers:
 		bx["idle_match"] = IdleMatch.sample(bx, BeatClips.first(BeatClips.GUARD, (bx["ap"] as AnimationPlayer).has_animation))
+	side.setup(self)
 	boxers[0]["pos"] = Vector3(0, 0, -gap_m * 0.5)
 	boxers[1]["pos"] = Vector3(0, 0, gap_m * 0.5)
 	camera = RingCamera.new()
@@ -104,7 +110,7 @@ func _boxer(spec: Dictionary) -> Dictionary:
 	var skel := body.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
 	var corner := str(spec.get("corner", "red"))
 	MH.colour_trunks(body, TRUNKS[corner], CLOTH_ROUGHNESS)
-	_colour_vest(body, VESTS[corner])
+	FighterKit.colour_vest(body, VESTS[corner], CLOTH_ROUGHNESS)
 	FighterKit.dress(body, str(spec["glb"]), "boxing")
 	# Elbows outside her torso, before the twist bones read the arms.
 	var ec := ElbowClear.new()
@@ -161,8 +167,10 @@ func _boxer(spec: Dictionary) -> Dictionary:
 	else:
 		hs.free()
 		hs = null
+	# S306: her planted feet stay where they stand; a foot steps when her body has moved off it.
+	var fp := FootPlant.attach(skel, ap, null) if not OS.get_cmdline_user_args().has("nofeet") else null
 	ap.animation_finished.connect(_on_finished.bind(boxers.size()))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "feet": fp, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0}
 
 
@@ -231,22 +239,9 @@ func _start(who: int, clip: String, speed: float, fade: float = BLEND_S) -> void
 		ap.play(clip, fade, speed)
 
 
-## The top takes the corner's colour, matte: MH_Top is the singlet painted on the skin (S299 re-export); Staff_Shirt is the
-## old Creator tee (no body under it) on bodies not yet re-exported.
-func _colour_vest(body: Node3D, colour: Color) -> void:
-	for m in body.find_children("*", "MeshInstance3D", true, false):
-		var mi := m as MeshInstance3D
-		for s in mi.mesh.get_surface_count():
-			var src := mi.mesh.surface_get_material(s)
-			if src != null and (src.resource_name.begins_with("Staff_Shirt") or src.resource_name.begins_with("MH_Top")):
-				var vest := StandardMaterial3D.new()
-				vest.albedo_color = colour
-				vest.roughness = CLOTH_ROUGHNESS
-				mi.set_surface_override_material(s, vest)
-
-
 func _process(delta: float) -> void:
 	stun.tick(delta)
+	side.tick()
 	_recover()
 	life.tick(delta)
 	_hold(delta)
@@ -354,7 +349,8 @@ func _compose(delta: float) -> void:
 		var pr: Node = bx.get("reach")
 		n.position = me + (to.normalized() * float(pr.lunge()) if pr != null and to.length() > 0.01 else Vector3.ZERO)
 		if to.length() > 0.01:
-			n.rotation = Vector3(0.0, atan2(to.x, to.z), 0.0)
+			var yaw := atan2(to.x, to.z)
+			n.rotation = Vector3(0.0, yaw if delta <= 0.0 else lerp_angle(n.rotation.y, yaw, 1.0 - exp(-delta / FACE_S)), 0.0)
 
 
 ## The boxer's own frame: forward toward the other, left = her left.
@@ -424,6 +420,7 @@ func play(who: int, move: String, speed: float = 1.0, from_s: float = 0.0) -> vo
 	var r := BeatClips.recovery(move)
 	_cut[who] = {} if r.y <= 0.0 else {"clip": move, "contact": r.x if r.x >= 0.15 else -1.0, "back": r.y, "fast": false,
 		"scale": BeatClips.recover_scale(move, speed)}
+	side.arm(who, move)
 
 
 ## Footwork: `who` steps in (+1) or out (-1) for `seconds`, feet stepping at the clip's stride speed. `follow` = she

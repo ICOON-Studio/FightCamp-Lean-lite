@@ -31,6 +31,20 @@ const FEET := [["LeftFoot", "LeftToes", 1.0], ["RightFoot", "RightToes", -1.0]]
 ## True when this body's discipline wears boxing boots: the old boxing bodies f01-f04 and every MetaHuman boxer (mh_boxer_*).
 ## S263 (operator: "use boots on the fighters", "i told you before"): the `_box_` test never matched mh_boxer_NN.glb, so every
 ## MetaHuman boxer fought barefoot. With a discipline given, only boxing wears them (kickboxing/muay thai/MMA are barefoot).
+## The top takes the corner's colour, matte: MH_Top is the singlet painted on the skin (S299 re-export); Staff_Shirt is the
+## old Creator tee (no body under it) on bodies not yet re-exported. (Moved from FightStage, S306.)
+static func colour_vest(body: Node3D, colour: Color, roughness: float) -> void:
+	for m in body.find_children("*", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		for s in mi.mesh.get_surface_count():
+			var src := mi.mesh.surface_get_material(s)
+			if src != null and (src.resource_name.begins_with("Staff_Shirt") or src.resource_name.begins_with("MH_Top")):
+				var vest := StandardMaterial3D.new()
+				vest.albedo_color = colour
+				vest.roughness = roughness
+				mi.set_surface_override_material(s, vest)
+
+
 static func wears_boots(model_name: String, discipline: String = "") -> bool:
 	var file := model_name.get_file().to_lower()
 	var boxing_body: bool = file.contains("_box_") or _is_mh_boxer(model_name)
