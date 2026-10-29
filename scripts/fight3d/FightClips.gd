@@ -59,6 +59,11 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D) -> Array:
 		baked[name] = BAKED_DIR + "mc_" + str(MOCAP_ONLINE[name]) + ".res"
 	for stem in pro_stems():
 		baked[pro_name(stem)] = BAKED_DIR + stem + ".res"
+	# S306: the corner minute's ActionForge clips (Quaternius, CC0; the old repo's tools/af_lean_bake.gd): af_<role>.
+	for f in DirAccess.get_files_at(BAKED_DIR):
+		var file := str(f).trim_suffix(".remap")
+		if file.begins_with("af_") and file.ends_with(".res"):
+			baked[file.trim_suffix(".res")] = BAKED_DIR + file
 	for name in baked:
 		if _add_baked(lib, skel, prefix, str(name), str(baked[name])):
 			added.append(name)

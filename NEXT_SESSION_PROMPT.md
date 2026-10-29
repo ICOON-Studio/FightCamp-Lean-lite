@@ -2,9 +2,17 @@
 
 ## Start
 1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then work in `E:\FightCamp\Lean` (`git pull`).
-2. His verdict on update 7 and his comments on 8787/review (S306 slip/weave reel, S306 film, S305 film + reel v2):
-   quote each, open the file it is on, act on it.
-3. Then his scope call: is the gym floor the next thing to build (roadmap plan GYMFLOOR)?
+2. Board answers: Q-S294-9 (update 7 verdict), Q-S294-10 (gym floor next?), Q-S294-12 (corner minute v2 - his idea:
+   "make the whole corner come in through the ropes holding the stool and having real time to act ... as close to real
+   movie clip"). Quote each; act on his review comments (S306 reels/film, the corner clip sheet).
+3. If Q-S294-12 is yes: build docs/FIGHT_NIGHT_SCRIPT.md in its order (roadmap now.next_action has the steps):
+   corner bodies (old repo mh_staff_coach / cutman_1 / trainer + textures + json), props from basic shapes on hand
+   attachments, free walking (a scene mode in which _compose stops the face-each-other rule), the corner scene director
+   (60 s clock, shot list as data, letterbox, depth of field, the corner card on the 0:08 face-to-face shot, default call
+   at 0:50), then the intro. FightStage is at 495 lines: give the actors/scene their own scripts.
+   Clips are ready: af_walk, af_walk_carry, af_sit_enter/idle/exit, af_sit_talk, af_crouch_idle, af_talk, af_interact,
+   af_pickup, af_drink, af_nod_yes, af_idle_foldarms, af_push, af_idle (tools/corner_still.gd shows them).
+   More clips: add the role to the old repo's Godot/tools/af_lean_bake.gd ROLES (AFMotion.CLIPS names) and rerun it.
 
 ## Where it stands (Lean bd20641)
 - scripts/fight3d/SideStep.gd: a Pro dodge is cut where both feet first stand planted after its step (measured per
