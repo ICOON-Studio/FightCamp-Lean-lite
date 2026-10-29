@@ -31,7 +31,9 @@ const REACT := {
 	"rear_uppercut": ["pro_hit_by_uppercut_v1", "pro_hit_by_hook_v1_short", "mc_hit_hook", "react_head"],
 	"lead_uppercut": ["pro_hit_by_uppercut_v1", "pro_hit_by_hook_v2_short", "mc_hit_hook", "react_head"],
 	"rear_hook": ["pro_hit_by_hook_v3_short", "pro_hit_by_hook_v1_short", "mc_hit_hook", "react_head"],
-	"body_hook": ["pro_hit_by_gutshot_v1_short", "pro_hit_by_gutshot_v2_short", "react_body"],
+	# S305 operator: "body shots do not seem to have any impact" - the _short gut shots barely move her (tools/fight3d_bodyshot.gd
+	# sheets); v3 folds her at the waist, knees give, hands drop to the stomach, then back to guard.
+	"body_hook": ["pro_hit_by_gutshot_v3", "pro_hit_by_gutshot_v2", "pro_hit_by_gutshot_v1_short", "react_body"],
 	"hurt": ["pro_hit_by_hook_v1", "pro_hit_by_cross_v1", "mc_hit_combo", "react_hurt"],
 }
 ## RoundStyle defences and tired beats. S304 (three-round film: Blue held her rear glove straight up over her head after a
