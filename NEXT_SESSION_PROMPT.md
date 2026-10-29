@@ -4,9 +4,9 @@
 1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then work in `E:\FightCamp\Lean` (`git pull`).
 2. Board Q-S294-8 (balance, page Godot/research/BALANCE_S304.md in the Game repo): his answer decides the first job.
 3. John SQ18 J-UPSETS1 (favourite win rates) - `start` prints SEAT ANSWERS; open the sources before using a number.
-4. Did he run `python Tools/lite_mirror.py --lean push` (in E:\FightCamp\Game)? `gh api repos/ICOON-Studio/FightCamp-Lean-lite/commits`
-   not empty = yes -> add `lite_mirror.py --lean sync` to Tools/board_reconcile.py (own process, CREATE_NO_WINDOW) and launch
-   the first Arena task on Lean (lite mirror, its PRs relay to FightCamp-Lean).
+4. COLLECT Arena WORDSCONTRACT1 first (chat https://arena.ai/agent/01a188ab-722a-7127-b245-32f2c361ab64, branch
+   arena/c361ab64-fightcamp-lean-lite on FightCamp-Lean-lite; the 30-min reconcile relays its PR to FightCamp-Lean). Check CI
+   there, that no test was deleted, and fix every FINDING (words that disagree with the ring). Mirror + sync are live (S304).
 
 ## The job, in order
 1. If Q-S294-8 approved: a Goose issue on Lean - BoutRules.ROUND_SPREAD from John's numbers (14 if they agree) and
