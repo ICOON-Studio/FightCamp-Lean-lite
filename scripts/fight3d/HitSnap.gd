@@ -3,7 +3,10 @@ extends SkeletonModifier3D
 ## punch drives it - back for a straight, round for a hook - the instant it lands, then settles (John J-GUARDPACE1: the
 ## receiver's head snaps back). Additive on top of the hit-reaction clip, on the frame clock (not the clip's), so it
 ## shows through the hit-stop while both bodies hold still. Runs after JoinSmoother and PunchReach.
-##   setup(skel)  snap(dir_world: Vector3, degrees: float)
+##   setup(skel)  snap(dir_world: Vector3, degrees: float)  brace(hit_left: bool)
+## S305 brace (the move reel: a blocked body shot played a head cover-up): a body shot is blocked with the elbow - the
+## gloves stay at the chin, the elbow on the punched side drops onto the ribs and the trunk crunches a little toward it
+## (BRACE_*), on the same frame clock, rising in BRACE_RISE_S and settling like the snap.
 
 ## Up to the peak, then a damped settle (seconds).
 const RISE_S := 0.035
@@ -17,6 +20,13 @@ var _head := -1
 var _dir := Vector3.ZERO      # skeleton space, the way the glove was travelling
 var _deg := 0.0
 var _t := -1.0
+const BRACE_RISE_S := 0.06
+const BRACE_ELBOW_DEG := 22.0
+const BRACE_CRUNCH_DEG := 9.0
+const BRACE_SIDE_DEG := 6.0
+var _bt := -1.0
+var _bleft := true
+var _b := {}                   # bone ids: spine, chest, hips, l/r upper, lower, hand
 
 
 func setup(skel: Skeleton3D) -> bool:
@@ -25,6 +35,8 @@ func setup(skel: Skeleton3D) -> bool:
 		if _neck >= 0:
 			break
 	_head = skel.find_bone("Head")
+	for n in ["Spine", "Chest", "Hips", "LeftUpperArm", "LeftLowerArm", "LeftHand", "RightUpperArm", "RightLowerArm", "RightHand"]:
+		_b[n] = skel.find_bone(n)
 	return _head >= 0
 
 
@@ -47,7 +59,17 @@ static func envelope(t: float) -> float:
 	return exp(-(t - RISE_S) / SETTLE_TAU_S)
 
 
+## A body shot meets her elbow on her left side when `hit_left`.
+func brace(hit_left: bool) -> void:
+	if (_b.values() as Array).has(-1):
+		return
+	_bleft = hit_left
+	_bt = 0.0
+
+
 func _process_modification() -> void:
+	if _bt >= 0.0:
+		_brace_step()
 	if _t < 0.0:
 		return
 	_t += get_process_delta_time()
@@ -76,3 +98,46 @@ func _turn(skel: Skeleton3D, bone: int, angle: float) -> void:
 		return
 	var q := Quaternion(axis.normalized(), angle)
 	skel.set_bone_global_pose(bone, Transform3D(Basis(q) * g.basis, g.origin))
+
+
+func _brace_step() -> void:
+	_bt += get_process_delta_time()
+	var e := envelope(_bt * RISE_S / BRACE_RISE_S) if _bt < BRACE_RISE_S else envelope(_bt - BRACE_RISE_S + RISE_S)
+	var skel := get_skeleton()
+	if e <= 0.0 or skel == null:
+		_bt = -1.0
+		return
+	var pose := func(n: String) -> Vector3: return skel.get_bone_global_pose(int(_b[n])).origin
+	var up: Vector3 = (pose.call("Chest") - pose.call("Hips")).normalized()
+	var left: Vector3 = (pose.call("LeftUpperArm") - pose.call("RightUpperArm")).normalized()
+	var fwd := left.cross(up).normalized()
+	var side := left if _bleft else -left
+	# The trunk: curls forward and toward the punched side, half on the spine, half on the chest.
+	for n in ["Spine", "Chest"]:
+		_rotate(skel, int(_b[n]), up.cross(fwd).normalized(), deg_to_rad(BRACE_CRUNCH_DEG) * e * 0.5)
+		_rotate(skel, int(_b[n]), up.cross(side).normalized(), deg_to_rad(BRACE_SIDE_DEG) * e * 0.5)
+	# The elbow drops onto the ribs; the forearm turns back so the glove stays where it was.
+	var arm := "Left" if _bleft else "Right"
+	var sh: Vector3 = pose.call(arm + "UpperArm")
+	var el: Vector3 = pose.call(arm + "LowerArm")
+	var hand: Vector3 = pose.call(arm + "Hand")
+	var ribs: Vector3 = (pose.call("Chest") + pose.call("Hips")) * 0.5 + side * 0.12 + fwd * 0.06
+	var a := (el - sh).normalized()
+	var b := (ribs - sh).normalized()
+	if a.cross(b).length() < 1e-5:
+		return
+	var turn := minf(a.angle_to(b), deg_to_rad(BRACE_ELBOW_DEG) * e)
+	var q := Quaternion(a.cross(b).normalized(), turn)
+	_rotate(skel, int(_b[arm + "UpperArm"]), a.cross(b).normalized(), turn)
+	var el2: Vector3 = sh + q * (el - sh)
+	var hand2: Vector3 = sh + q * (hand - sh)
+	var f1 := (hand2 - el2).normalized()
+	var f2 := (hand - el2).normalized()
+	if f1.cross(f2).length() > 1e-5:
+		_rotate(skel, int(_b[arm + "LowerArm"]), f1.cross(f2).normalized(), f1.angle_to(f2))
+
+
+## Turns `bone` about its own origin by `angle` around `axis` (skeleton space).
+func _rotate(skel: Skeleton3D, bone: int, axis: Vector3, angle: float) -> void:
+	var g: Transform3D = skel.get_bone_global_pose(bone)
+	skel.set_bone_global_pose(bone, Transform3D(Basis(Quaternion(axis, angle)) * g.basis, g.origin))

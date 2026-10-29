@@ -53,16 +53,23 @@ func _punch(move: String, outcome: String) -> void:
 	var sp := BeatClips.speed(clip, move)
 	var at := BeatClips.contact(clip, float(Stage.CONTACT.get(move, Stage.CONTACT_S))) / sp
 	var answer := ""
+	# The same side rule and body-shot elbow block as FightView (S305).
+	var hand := str(BeatClips.contact_row(clip).get("hand", ""))
+	var from_left: bool = stage.hand_of(1, hand if hand != "" else "RightHand") == "LeftHand"
 	if outcome in ["lands", "big"]:
 		answer = BeatClips.react(move, false, stage.has_move)
 	elif outcome in ["block", "slip", "weave"]:
-		answer = BeatClips.first(BeatClips.DEFENCE[outcome], stage.has_move)
+		answer = BeatClips.defence(outcome, move, from_left, bool(stage.boxers[0].get("south", false)), stage.has_move)
+		if outcome == "block" and move == "body_hook":
+			answer = "elbow brace"
 	var label := "%s %s: blue %s%s" % [move, outcome, clip, (" -> red " + answer) if answer != "" else ""]
 	await _case(label, func():
 		stage.play(1, clip, sp)
 		if outcome in ["lands", "big"]:
 			stage.land(1, clip, move == "body_hook" or clip.contains("kidney"))
 			create_timer(at).timeout.connect(stage.hit.bind(0, answer, BeatClips.speed(answer, ""), 1, move, outcome == "big"))
+		elif answer == "elbow brace":
+			create_timer(at).timeout.connect((stage.boxers[0]["snap"] as Node).brace.bind(not from_left))
 		elif answer != "":
 			create_timer(at * (0.8 if outcome == "block" else 0.35)).timeout.connect(
 				stage.play.bind(0, answer, BeatClips.speed(answer, ""))))

@@ -1,4 +1,4 @@
-extends Control
+﻿extends Control
 ## Fight night in 3D: plays each round the words already settled (RoundScript beats on the FightStage), with a scorebug,
 ## the round's lines as captions, Highlights / Full, 1x / 2x, SKIP ROUND and SKIP BOUT (Kalli K-FIGHT3D1). Skipping never
 ## changes a thing: the result is decided before anyone watches. Between rounds the 2D corner picker draws over the
@@ -411,8 +411,17 @@ func _fire(b: Dictionary) -> void:
 				# Her defence (RoundStyle): a block meets the glove at contact; a slip, weave or step back starts early.
 				var d := str(b["def"])
 				var when := at * (0.8 if d == "block" else 0.35)
-				var dclip := BeatClips.first(BeatClips.DEFENCE[d], stage.has_move)
-				get_tree().create_timer(when).timeout.connect(stage.play.bind(other, dclip, BeatClips.speed(dclip, "")))
+				# S305: the side comes from the hand that throws it (her left arrives on the other's right).
+				var lead := move in ["jab", "lead_hook", "lead_uppercut"]
+				var from_left: bool = stage.hand_of(who, hand if hand != "" else ("LeftHand" if lead else "RightHand")) == "LeftHand"
+				if d == "block" and move == "body_hook":
+					# S305: a body shot is blocked with the elbow - gloves stay up, the elbow drops onto the ribs (HitSnap.brace).
+					var snap: Node = stage.boxers[other].get("snap")
+					if snap != null:
+						get_tree().create_timer(at).timeout.connect(snap.brace.bind(not from_left))
+				else:
+					var dclip := BeatClips.defence(d, move, from_left, bool(stage.boxers[other].get("south", false)), stage.has_move)
+					get_tree().create_timer(when).timeout.connect(stage.play.bind(other, dclip, BeatClips.speed(dclip, "")))
 			elif land == "misses" and not b.has("def"):
 				get_tree().create_timer(at * 0.35).timeout.connect(stage.play.bind(other, "slip" if randf() < 0.6 else "pull"))
 

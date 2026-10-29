@@ -36,6 +36,25 @@ const REACT := {
 	"body_hook": ["pro_hit_by_gutshot_v3", "pro_hit_by_gutshot_v2", "pro_hit_by_gutshot_v1_short", "react_body"],
 	"hurt": ["pro_hit_by_hook_v1", "pro_hit_by_cross_v1", "mc_hit_combo", "react_hurt"],
 }
+## S305 (the move reel: every slip was pro_left_dodge, every weave pro_left_weave, whatever the punch). A straight punch is
+## slipped to the OUTSIDE - toward the shoulder it comes from (jab: her right; cross: her left); a hook is rolled under in the
+## direction it travels (away from its shoulder). pro_left_* moves her head to HER left (tools/dodge_side.gd); a southpaw
+## plays her clips mirrored, so the name flips.
+const HOOKS := ["lead_hook", "rear_hook"]
+
+
+## The defence clip for `kind` against `move`, thrown by the attacker's left hand when `from_left`; `south` = the
+## defender plays mirrored clips.
+static func defence(kind: String, move: String, from_left: bool, south: bool, has: Callable) -> String:
+	if not kind in ["slip", "weave"]:
+		return first(DEFENCE.get(kind, DEFENCE["block"]), has)
+	var shoulder := "right" if from_left else "left"
+	var side := shoulder if not move in HOOKS else ("left" if shoulder == "right" else "right")
+	if south:
+		side = "left" if side == "right" else "right"
+	return first(["pro_%s_%s" % [side, "dodge" if kind == "slip" else "weave"]] + Array(DEFENCE[kind]), has)
+
+
 ## RoundStyle defences and tired beats. S304 (three-round film: Blue held her rear glove straight up over her head after a
 ## jab landed on her guard; the in-game joins log named the block clip, hand 0.14 m over her own guard for 0.7 s). Real
 ## boxers catch a jab with the rear glove at the cheek/temple. tools/glove_height_check.gd over=0.03 (hand at most 0.03 m
