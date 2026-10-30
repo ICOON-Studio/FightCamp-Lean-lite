@@ -6,6 +6,10 @@ extends SceneTree
 ## frame - a hand thrown on a smooth path stays under it between its wind-up and its contact). Reports kinks per minute per
 ## point, the share at a clip change (+-1 frame), and by clip. Run it once plain and once per control arm (`-- noguard`,
 ## `noreach`, `nosnap`, `noglove`, `nojoin`, `nofeet`, or several) to see which layer kinks the motion.
+## S317 RAW BASELINE: a hook's hand legitimately tops 2 cm/frame, so after the fight the probe freezes the stage, switches
+## every modifier off and plays each kinked clip alone on the same body (manual seeks, RAW_STEP_S apart), then measures the
+## same second difference at the fight's clip time and playing speed. A kink counts as OURS only when the fight's value
+## tops the raw clip's by KINK_M; the rest are the clip's own motion.
 ##   python tools/hidden_desktop.py run --timeout=600 --log=<log> <godot.exe> --path . --windowed --resolution 1280x720 \
 ##       --audio-driver Dummy --fixed-fps 30 --script res://tools/smooth_probe.gd [-- <arms>]
 
@@ -14,6 +18,7 @@ const STOP_S := 90.0
 const KINK_M := 0.02
 const POINTS := ["Head", "LeftHand", "RightHand"]
 const BONES := ["Hips", "Head", "LeftHand", "RightHand"]
+const RAW_STEP_S := 1.0 / 60.0
 
 var main: Node
 var view: Node
@@ -29,6 +34,9 @@ var to_clip := {}             # clip started -> times
 var played := {}              # clip -> [seconds it played before the next change]
 var _since := [0, 0]
 var acc: Array = []           # every second difference (all points), for the percentiles
+var poss := [[], []]          # per boxer: last 3 frames' [clip position, playing speed]
+var events: Array = []        # every kink: [boxer, clip, position, speed, point, d, at a change]
+var raw := {}                 # "boxer|clip" -> Array of {point: Vector3} every RAW_STEP_S
 
 
 func _initialize() -> void:
@@ -50,6 +58,11 @@ func _initialize() -> void:
 	process_frame.connect(_log)
 	await _until(func(): return not bool(view.playing) or float(view.t) > STOP_S, 420.0)
 	_report()
+	process_frame.disconnect(_log)
+	var none := events.filter(func(e): return str(e[1]) == "").size()
+	print("SMOOTH kinks with no clip playing: %d" % none)
+	await _raw_baseline()
+	_report_raw()
 	quit(0)
 
 
@@ -58,6 +71,7 @@ func _log() -> void:
 		for i in 2:
 			hist[i].clear()
 			clips[i].clear()
+			poss[i].clear()
 		return
 	frames += 1
 	for i in 2:
@@ -70,10 +84,13 @@ func _log() -> void:
 		for p in POINTS:
 			now[p] = sk * (sh[p] as Vector3) - hips
 		hist[i].append(now)
-		clips[i].append(str((view.stage.boxers[i]["ap"] as AnimationPlayer).current_animation))
+		var ap: AnimationPlayer = view.stage.boxers[i]["ap"]
+		clips[i].append(str(ap.current_animation))
+		poss[i].append([ap.current_animation_position if ap.current_animation != "" else 0.0, ap.get_playing_speed()])
 		if hist[i].size() > 3:
 			hist[i].pop_front()
 			clips[i].pop_front()
+			poss[i].pop_front()
 		_since[i] += 1
 		if clips[i].size() >= 2 and clips[i][-1] != clips[i][-2]:
 			changes += 1
@@ -94,6 +111,7 @@ func _log() -> void:
 					at_change += 1
 				var c: String = clips[i][1]
 				by_clip[c] = int(by_clip.get(c, 0)) + 1
+				events.append([i, c, float(poss[i][1][0]), float(poss[i][1][1]), p, d, changed])
 
 
 func _report() -> void:
@@ -121,6 +139,89 @@ func _report() -> void:
 		pl.sort()
 		parts.append("%s %d (plays %.2f s)" % [c, to_clip[c], pl[pl.size() / 2]])
 	print("SMOOTH clips started (median time before the next change): ", ", ".join(parts))
+
+
+func _raw_baseline() -> void:
+	# Freeze the fight: nothing under the stage runs its script, no modifier but the tap, the players advance only on seek.
+	view.set_process(false)
+	for n in [view.stage] + view.stage.find_children("*", "", true, false):
+		n.set_process(false)
+		n.set_physics_process(false)
+	var want := {}
+	for e in events:
+		if str(e[1]) != "":
+			want["%d|%s" % [e[0], e[1]]] = true
+	for i in 2:
+		var skel: Skeleton3D = view.stage.boxers[i]["skel"]
+		for m in skel.get_children():
+			if m is SkeletonModifier3D and m != taps[i]:
+				(m as SkeletonModifier3D).active = false
+		(view.stage.boxers[i]["ap"] as AnimationPlayer).callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+	for key in want:
+		var i := int(str(key).get_slice("|", 0))
+		var clip := str(key).get_slice("|", 1)
+		var ap: AnimationPlayer = view.stage.boxers[i]["ap"]
+		if not ap.has_animation(clip):
+			continue
+		var sk: Transform3D = (view.stage.boxers[i]["skel"] as Skeleton3D).global_transform
+		ap.play(clip, 0.0)
+		ap.pause()
+		var rows := []
+		var x := 0.0
+		var length := ap.get_animation(clip).length
+		while x <= length + 0.0001:
+			ap.seek(minf(x, length), true)
+			await _wait(2)
+			var sh: Dictionary = taps[i].shown
+			var hips: Vector3 = sk * (sh["Hips"] as Vector3)
+			var row := {}
+			for p in POINTS:
+				row[p] = sk * (sh[p] as Vector3) - hips
+			rows.append(row)
+			x += RAW_STEP_S
+		raw[key] = rows
+
+
+func _raw_at(rows: Array, x: float, p: String) -> Vector3:
+	var f := clampf(x / RAW_STEP_S, 0.0, float(rows.size() - 1))
+	var a := int(floor(f))
+	var b := mini(a + 1, rows.size() - 1)
+	return (rows[a][p] as Vector3).lerp(rows[b][p] as Vector3, f - a)
+
+
+func _report_raw() -> void:
+	var mins := float(frames) / 30.0 / 60.0
+	var ours := 0
+	var own := 0
+	var ours_change := 0
+	var ours_clip := {}
+	var own_clip := {}
+	for e in events:
+		var key := "%d|%s" % [e[0], e[1]]
+		var d_raw := 0.0
+		if raw.has(key):
+			var dt := float(e[3]) / 30.0
+			var x := float(e[2])
+			var rows: Array = raw[key]
+			d_raw = (_raw_at(rows, x + dt, e[4]) - 2.0 * _raw_at(rows, x, e[4]) + _raw_at(rows, x - dt, e[4])).length()
+		if float(e[5]) - d_raw > KINK_M:
+			ours += 1
+			ours_clip[e[1]] = int(ours_clip.get(e[1], 0)) + 1
+			if e[6]:
+				ours_change += 1
+		else:
+			own += 1
+			own_clip[e[1]] = int(own_clip.get(e[1], 0)) + 1
+	print("SMOOTH RAW baseline: %d clips sampled | kinks OURS (fight tops the raw clip by > %.2f m): %.0f/min (%d, %d at a clip change) | the clip's own: %.0f/min (%d)" % [
+		raw.size(), KINK_M, ours / maxf(mins, 0.01), ours, ours_change, own / maxf(mins, 0.01), own])
+	for pair in [["OURS by clip", ours_clip], ["clip's own by clip", own_clip]]:
+		var d: Dictionary = pair[1]
+		var top := d.keys()
+		top.sort_custom(func(a, b): return int(d[a]) > int(d[b]))
+		var parts := []
+		for c in top.slice(0, 10):
+			parts.append("%s %d" % [c, d[c]])
+		print("SMOOTH RAW %s: %s" % [pair[0], ", ".join(parts)])
 
 
 func _wait(n: int) -> void:
