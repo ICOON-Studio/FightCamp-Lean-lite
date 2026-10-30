@@ -39,6 +39,8 @@ var speed := 2
 var modal: Dictionary = {}
 ## The save slot (tests point it elsewhere).
 var save_path := SaveGame.PATH
+## S311: a scene can start at a test part without command-line args (Ziva's run_scene passes none): scenes/dev/Jump*.tscn.
+@export var jump_override := ""
 
 var _screen_holder: Control
 var _fight_layer: Control
@@ -73,7 +75,7 @@ func _ready() -> void:
 	add_child(_toast_timer)
 	render()
 	# S310: the ops board's Play buttons start the build at the part to test (TestJump: `-- jump=fight`).
-	var jump := TestJump.wanted(OS.get_cmdline_user_args())
+	var jump := jump_override if TestJump.JUMPS.has(jump_override) else TestJump.wanted(OS.get_cmdline_user_args())
 	if jump != "":
 		(func(): print("TESTJUMP %s reached fight night: %s" % [jump, TestJump.run(self, jump)])).call_deferred()
 
