@@ -4,6 +4,7 @@ extends RefCounted
 ##   bodies_for(limit)  body_scales(limit, her_cm, opp_cm)  crew(stage, pro)  intro(view) -> bool  corner(view) -> bool
 
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
+const Referee := preload("res://scripts/fight3d/Referee.gd")
 const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
 const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 const TaleOfTape := preload("res://scripts/rules/TaleOfTape.gd")
@@ -44,6 +45,7 @@ static func crew(stage: Node3D, pro: bool) -> Node3D:
 	var c := CornerCrew.new()
 	stage.add_child(c)
 	c.build(stage, pro)
+	Referee.build(stage)   # S313: the third man in the ring (parts the clinches)
 	return c
 
 

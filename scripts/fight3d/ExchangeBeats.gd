@@ -10,6 +10,7 @@ const HabitBeats := preload("res://scripts/rules/HabitBeats.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const ClinchBeats := preload("res://scripts/rules/ClinchBeats.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 ## RoundScript.margin reads |mine - theirs| on the round's scale: these land each band in RoundScript's own band.
 const BAND_MINE := {"close": 3.0, "clear": 10.0, "dominant": 20.0}
@@ -34,6 +35,7 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	var f: Dictionary = ctx["f"]
 	ComboWords.caption(plan["beats"], {"a": f.get("combos", {}), "b": (ctx["profiles"]["b"] as Dictionary).get("combos", {})}, ctx["names"], int(ctx["day"]) + k * 17)
 	_show_game(plan["beats"], str(x["sit"]), int(ctx["seed"]) + k * 29)
+	_clinches(plan["beats"], x, ctx, int(ctx["seed"]) + k * 31)
 	_setup(plan["beats"], str(x.get("setup", "")), str(x.get("setup_combo", "")))
 	_body(plan["beats"], x.get("body", []))
 	var at := k * Exchanges.EX_SECONDS
@@ -42,6 +44,8 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 		if bool(b.get("big", false)) and k < Exchanges.EXCHANGES - 1 and band != "dominant" and str(x.get("setup", "")) != "landed":
 			b["big"] = false
 		b["t"] = float(b["t"]) + at
+		if b.has("break_t"):
+			b["break_t"] = float(b["break_t"]) + at
 		out.append(b)
 	# S310 the set-up fired: the corner's NOW and her combination, lands or not, with its own caption.
 	if str(x.get("setup", "")) != "":
@@ -79,7 +83,7 @@ static func _show_game(beats: Array, sit: String, seed: int) -> void:
 		"tiring", "she_tired":
 			extra = ["tired", "tired"]
 		"hurt", "she_hurt":
-			extra = ["clinch", "tired", "clinch"]
+			extra = ["tired"]   # S313: the holding comes from ClinchBeats
 	# Into the quiet gaps (1.6 s or more between beats), one per gap.
 	var gaps: Array = []
 	for i in range(1, beats.size()):
@@ -97,6 +101,17 @@ static func _show_game(beats: Array, sit: String, seed: int) -> void:
 		adds.append({"t": snappedf(t0, 0.01), "who": who, "move": extra[j], "result": "none", "caption": "", "combo": false})
 	beats.append_array(adds)
 	beats.sort_custom(func(a, b): return float(a["t"]) < float(b["t"]))
+
+
+## S313 real-fight gap 4: the exchange's clinches and the referee's breaks (ClinchBeats: 2.5 -> 4.8 a round as they tire,
+## more when hurt or pressing; the tired one with the "clinches_when_tired" habit holds more).
+static func _clinches(beats: Array, x: Dictionary, ctx: Dictionary, seed: int) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed
+	var pr: Dictionary = ctx["profiles"]
+	ClinchBeats.apply(beats, {"n": int(ctx["n"]), "sit": str(x["sit"]),
+		"energy": {"a": float((pr["a"] as Dictionary).get("energy", 100.0)), "b": float((pr["b"] as Dictionary).get("energy", 100.0))},
+		"habits": {"a": (ctx["f"] as Dictionary).get("habits", []), "b": RoundStyle.opponent_habits(ctx["opp"])}}, rng)
 
 
 ## Her single punches (not part of a combination) become one of `moves`, share `odds`.

@@ -1,3 +1,28 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 15 (2026-10-30): THE CLINCH, THE REFEREE, THE GUARD AT RANGE, ZIVA'S FIXES
+=============================================================================================
+
+NEW IN UPDATE 15 (board: "Test: fight night WITH film study" - watch round 1 at 1x)
+ 1. THE CLINCH (your answer: "Build it free"). A boxer who was just hit, or is tired or hurt, grabs: the two stand
+    chest to chest, heads past each other's shoulder, the holder's arms over the other's back. As real bouts do, it
+    happens about 2-3 times in round 1 and 4-5 times in round 3, a few seconds each (measured on one round 1: 3).
+ 2. THE REFEREE. A third man in a white shirt now walks the ring a little over a metre off the boxers, on the far side
+    from the camera. In a clinch he comes close, then pushes them apart ("Break!") and both step back out.
+ 3. THE GUARD DROPS AT RANGE. Out of reach the gloves sit chin-to-chest and forward (the lead lower), as in the real
+    footage; they come up to the face for the attack and in the pocket. Before: gloves at eye level all round.
+
+FIXED FROM ZIVA'S PLAYTEST (your answer: "Yes, fix in this order")
+ - "Go to the body" is now offered against a pressure fighter (a presser walks onto body shots). Before, round 1
+   against Maria never offered it.
+ - The opponent changes her game: she keeps one game at most 90 seconds (three exchanges) in a row. Round 1 against a
+   pressure fighter was six "pressing" exchanges - one decision five times. She still presses most of the time.
+ - The set-up's NOW also comes when the opponent is hurt, whatever gap you armed it for (that is when a corner shouts
+   NOW). Before, following the coach's plan could leave her hurt and the set-up never got its moment.
+ - (Update 14 already fixed: the Begin-fight freeze and BODY TAKEN.)
+
+STILL TO COME: punches in bursts of 2-5 with quiet spells between (being built).
+
+---- update 14 notes below ----
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 14 (2026-10-30): THE RING BREATHES - RANGE, FEET, HEAD SHOTS, ROPES
 =============================================================================================
 

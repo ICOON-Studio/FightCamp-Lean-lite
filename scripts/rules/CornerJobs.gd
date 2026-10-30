@@ -77,6 +77,12 @@ static func setups(combos: Dictionary, learn_at: float) -> Array:
 	return out
 
 
+## S313 (Ziva: the coach's plan left the opponent hurt, so the set-up armed for "when she presses" never got its NOW):
+## a hurt opponent is every set-up's gap - the drilled combination is what a corner shouts NOW for when she is hurt.
+static func fits(gap: String, sit: String) -> bool:
+	return sit == gap or sit == "hurt"
+
+
 ## The edge of firing the set-up. fits = the exchange's real game is the gap; mastery 0..100; energy hers now.
 static func setup_edge(fits: bool, mastery: float, energy: float) -> float:
 	if not fits:

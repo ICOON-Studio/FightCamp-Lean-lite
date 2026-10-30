@@ -44,6 +44,9 @@ const HURT_AT := 30.0
 const OPP_TIRED := 45.0
 ## Chance she keeps the same game into the next exchange (her coach shouts the rest of the time).
 const KEEP := 0.6
+## S313 (Ziva: "round 1 is one decision five times" - six press exchanges in a row): a game is kept at most this many
+## exchanges in a row (90 s), then she switches to another of her style's games.
+const MAX_RUN := 3
 
 ## Eight real corner calls. long / body / calm keep their old ids (BoutRules.CORNER, RoundScript.CALL_BEATS, Combos).
 ## needs: the values she does it with (stats, footwork, personality). cost: energy per exchange on top of the round's.
@@ -84,7 +87,8 @@ static func named(line: String, names: Array) -> String:
 
 ## The opponent's six games, and our fighter's own two states (they come first: a tired or hurt boxer is the problem).
 const MODES := {
-	"press": {"label": "Pressing", "best": "long", "ok": "hands", "wrong": "let_go"},
+	# S313 (Ziva's playtest: "Go to the body" never offered in a round of pressing): a presser walks onto body shots.
+	"press": {"label": "Pressing", "best": "long", "ok": "body", "wrong": "let_go"},
 	"range": {"label": "Boxing at range", "best": "body", "ok": "lead", "wrong": "long"},
 	"counter": {"label": "Waiting to counter", "best": "lead", "ok": "long", "wrong": "let_go"},
 	"loadup": {"label": "Loading up", "best": "hands", "ok": "long", "wrong": "body"},
@@ -176,7 +180,7 @@ static func call_edge(call: String, sit: String, vals: Dictionary, heard: float,
 
 ## The opponent's game for the next exchange. ex = exchange index 0..5, n = round, energy = hers now.
 static func next_mode(style: String, weak: String, n: int, ex: int, prev: String, energy: float, hurt: bool,
-		rng: RandomNumberGenerator) -> String:
+		rng: RandomNumberGenerator, run: int = 0) -> String:
 	if hurt:
 		return "hurt"
 	if energy < OPP_TIRED and rng.randf() < 0.75:
@@ -186,12 +190,14 @@ static func next_mode(style: String, weak: String, n: int, ex: int, prev: String
 		return "tiring"
 	if w.contains("slow to start") and n == 1 and ex < 2:
 		return "counter"
-	if prev != "" and prev != "hurt" and prev != "tiring" and rng.randf() < KEEP:
+	var tired_of := run >= MAX_RUN
+	if prev != "" and prev != "hurt" and prev != "tiring" and not tired_of and rng.randf() < KEEP:
 		return prev
-	var weights: Dictionary = STYLE_MODES.get(style, STYLE_MODES["Boxer-puncher"])
+	var weights: Dictionary = (STYLE_MODES.get(style, STYLE_MODES["Boxer-puncher"]) as Dictionary).duplicate()
 	if w.contains("walks in"):
-		weights = weights.duplicate()
 		weights["press"] = float(weights.get("press", 0.0)) + 0.3
+	if tired_of:
+		weights.erase(prev)
 	var total := 0.0
 	for k in weights.keys():
 		total += float(weights[k])

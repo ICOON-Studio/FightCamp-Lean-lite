@@ -18,7 +18,7 @@ const WALK_SCALE := 0.55
 const LUNGE_SCALE := 1.15
 const EXIT_SCALE := 0.8
 ## How far off want_m the gap may sit in each phase before someone steps.
-const BAND_M := {"in": 0.06, "pocket": 0.08, "rest": 0.12}
+const BAND_M := {"in": 0.06, "pocket": 0.08, "rest": 0.12, "clinch": 0.06}
 
 ## S311 real-fight gap 3: out of range their feet never stop (real: feet moving 53-56 % of a round, ~155 m travel; ours
 ## 8-9 %, 10 m). Each boxer at rest takes her own rhythm steps - a half step in or out inside the rest band, or a short
@@ -47,6 +47,14 @@ func aim(ph: Dictionary) -> void:
 		_rest_roll = stage.life.rng.randf()
 	_aim = ph
 	want_m = RangeBreath.want_m(ph, float(stage.gap_m), _rest_roll)
+	# S313 gap 5: the guard drops out of range and comes up for the entry and the pocket (GuardTuck.low).
+	for bx in stage.boxers:
+		if bx.get("tuck") != null:
+			bx["tuck"].low = 1.0 if str(ph["phase"]) == "rest" else 0.0
+
+
+func phase() -> String:
+	return str(_aim["phase"])
 
 
 ## When the gap is outside its phase's band, one boxer standing in her guard steps to want_m: in the "in" phase only the
@@ -58,14 +66,14 @@ func aim_step(dist: float, a_far: bool) -> void:
 		return
 	var first := int(_aim["who"])
 	var order: Array = [first, 1 - first] if first >= 0 else ([0, 1] if a_far else [1, 0])
-	if ph == "in":
-		order = [first]
+	if ph == "in" or ph == "clinch":
+		order = [first]   # the attacker lunges; S313 the one who ties up walks in on the other
 	for who in order:
 		if float(stage.boxers[1 - who]["move_left"]) > 0.0 and ph != "in":
 			return
 		if not can_step(who):
 			continue
-		var scale := LUNGE_SCALE if ph == "in" else (EXIT_SCALE if ph == "rest" else WALK_SCALE)
+		var scale := LUNGE_SCALE if ph in ["in", "clinch"] else (EXIT_SCALE if ph == "rest" else WALK_SCALE)
 		_to(who, dist, want_m, scale)
 		return
 

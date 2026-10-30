@@ -66,6 +66,19 @@ func _initialize() -> void:
 	print("RANGE rest share %.2f, entries %.1f a minute (6 exchanges x 30 s)" % [share, per_min])
 	_check(share >= 0.30 and share <= 0.75, "rest out of range %.0f %% of the time (real long range 40-63 %%)" % (share * 100.0))
 	_check(per_min >= 8.0 and per_min <= 40.0, "%.1f entries a minute (real range swings 18-35 a minute)" % per_min)
+	# 4. S313 the clinch: from its beat to the referee's break they hold the clinch range; the break hands back to the rest.
+	var cl := [
+		{"t": 2.0, "who": "a", "move": "jab", "result": "lands"},
+		{"t": 2.4, "who": "b", "move": "clinch", "dur": 3.0, "break_t": 5.4},
+		{"t": 5.4, "who": "a", "move": "step_out", "ref": true},
+		{"t": 5.4, "who": "b", "move": "step_out", "ref": true},
+		{"t": 8.0, "who": "a", "move": "cross", "result": "lands"},
+	]
+	var held := RB.phase(cl, 2, 3.0)
+	_check(str(held["phase"]) == "clinch" and int(held["who"]) == 1, "inside the clinch Maria holds (phase %s, who %d)" % [held["phase"], held["who"]])
+	_check(is_equal_approx(RB.want_m(held, jab_gap, 0.5), RB.CLINCH_M) and RB.CLINCH_M < 0.65, "tied up they stand inside range")
+	_check(str(RB.phase(cl, 4, 5.6)["phase"]) == "rest", "after the break they part to rest")
+	_check(str(RB.phase(cl, 2, 5.45)["phase"]) != "clinch", "the hold ends at break_t even before its beats fire")
 	print("RANGE_BREATH %s (%d failures)" % ["PASS" if failures == 0 else "FAIL", failures])
 	quit(failures)
 

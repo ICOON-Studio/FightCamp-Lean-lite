@@ -5,7 +5,8 @@ extends RefCounted
 ## 0.95 m gap all round (sd 0.04 NA vs 0.39-0.49 real, 0 range swings vs 18-35 a minute).
 ## This reads the exchange's beats (absolute times, FightView fires them in order) and says what range the stage keeps
 ## now. The view never decides anything: who lands what is unchanged, only where they stand.
-##   phase(beats, next, t) -> {"phase": "in"|"pocket"|"rest", "who": 0|1|-1, "move": String}
+##   phase(beats, next, t) -> {"phase": "in"|"pocket"|"rest"|"clinch", "who": 0|1|-1, "move": String}
+## S313 real-fight gap 4: a "clinch" beat (ClinchBeats: dur, break_t) holds them chest to chest until the referee's break.
 
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 
@@ -21,10 +22,17 @@ const REST_M := Vector2(1.35, 1.65)
 ## Hooks, uppercuts and body shots are thrown this much inside the jab gap (their gloves fall 0.1-0.27 m short there).
 const INSIDE_M := 0.12
 const INSIDE := ["lead_hook", "body_hook", "rear_uppercut"]
+## Tied up, pelvis to pelvis (chest to chest, heads past each other's shoulder; real inside range < 0.65 m).
+const CLINCH_M := 0.38
+## A clinch beat is looked for this far back (ClinchBeats.DUR_MAX_S + a margin).
+const CLINCH_LOOK_S := 9.0
 
 
 ## The range the stage keeps at view time t. `next` = the first beat not yet fired.
 static func phase(beats: Array, next: int, t: float) -> Dictionary:
+	var held := clinch_at(beats, next, t)
+	if not held.is_empty():
+		return {"phase": "clinch", "who": _who(held), "move": "clinch"}
 	var last := _punch(beats, next - 1, -1)
 	var nxt := _punch(beats, next, 1)
 	var to_next := float(nxt["t"]) - t if not nxt.is_empty() else 99.0
@@ -41,7 +49,19 @@ static func phase(beats: Array, next: int, t: float) -> Dictionary:
 static func want_m(ph: Dictionary, jab_gap: float, roll: float) -> float:
 	if str(ph["phase"]) == "rest":
 		return lerpf(REST_M.x, REST_M.y, roll)
+	if str(ph["phase"]) == "clinch":
+		return CLINCH_M
 	return jab_gap - (INSIDE_M if INSIDE.has(str(ph["move"])) else 0.0)
+
+
+## The clinch beat already fired (index < next) whose hold covers t (t < break_t); {} if none.
+static func clinch_at(beats: Array, next: int, t: float) -> Dictionary:
+	var i := mini(next, beats.size()) - 1
+	while i >= 0 and float(beats[i]["t"]) >= t - CLINCH_LOOK_S:
+		if str(beats[i]["move"]) == "clinch" and t < float(beats[i].get("break_t", -1.0)):
+			return beats[i]
+		i -= 1
+	return {}
 
 
 static func _who(b: Dictionary) -> int:

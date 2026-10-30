@@ -5,7 +5,12 @@ extends SkeletonModifier3D
 ## her face by TUCK_M (never closer than MIN_FRONT_M) and pumps a little (lead more than rear), the arm re-solved as a
 ## two-bone chain, the hand keeping its rotation. Eases in and out (EASE_S) so leaving the guard for a punch never pops.
 ## Runs after JoinSmoother, before PunchReach.
-##   setup(skel, ap, body, guard_clips, seed)
+## S313 real-fight gap 5 (Game Godot/research/S310_REAL_FIGHT_GAPS.md "Guard at range"): out of range the real
+## guard drops - wrists ~0.18-0.21 (lead) / ~0.11-0.13 (rear) arm units below the shoulder line, gloves chin-to-chest
+## and forward; ours sat at eye level everywhere. `low` (0..1, Footwork sets it from the range phase: 1 at rest) lowers
+## each wrist by LOW_M and carries it FWD_M forward, and lets the tuck go; it comes back up fast for the entry lunge
+## (RangeBreath's "in" starts 0.38 s before the punch) and drops slowly once they are back out.
+##   setup(skel, ap, body, guard_clips, seed)   low
 
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 
@@ -19,6 +24,13 @@ const PUMP_HZ := 1.3
 const FACE_FWD_M := 0.09
 const FACE_UP_M := 0.07
 
+const LOW_M := {"lead": 0.26, "rear": 0.16}
+const LOW_FWD_M := 0.06
+const LOW_UP_S := 0.15
+const LOW_DOWN_S := 0.6
+
+var low := 0.0        # wanted: 1 = the long-range guard (set every frame by Footwork.aim)
+var _low := 0.0
 var ap: AnimationPlayer
 var body: Node3D
 var guards: Array = []
@@ -54,6 +66,8 @@ func _process_modification() -> void:
 	_w = move_toward(_w, want, dt / EASE_S)
 	if _w <= 0.0:
 		return
+	_low = move_toward(_low, low, dt / (LOW_UP_S if low < _low else LOW_DOWN_S))
+	var lw := _low * _low * (3.0 - 2.0 * _low)
 	var e := _w * _w * (3.0 - 2.0 * _w)
 	var fwd := (skel.global_transform.basis.inverse() * body.global_transform.basis.z)
 	fwd.y = 0.0
@@ -64,12 +78,13 @@ func _process_modification() -> void:
 		var ids: Array = _arms[hand]
 		var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
 		var front := (g_hd.origin - face).dot(fwd)
-		var back := clampf(front - MIN_FRONT_M, 0.0, TUCK_M)
+		var back := clampf(front - MIN_FRONT_M, 0.0, TUCK_M) * (1.0 - lw)
 		var pump := float(PUMP_M["lead" if hand == lead else "rear"]) * sin(TAU * PUMP_HZ * _t + _phase + (0.0 if hand == "LeftHand" else 2.1))
-		var move := (-back + pump) * e
-		if absf(move) < 1e-4:
+		var move := (-back + pump + LOW_FWD_M * lw) * e
+		var drop := float(LOW_M["lead" if hand == lead else "rear"]) * lw * e
+		if absf(move) < 1e-4 and drop < 1e-4:
 			continue
 		var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 		var l1 := s.distance_to(skel.get_bone_global_pose(int(ids[1])).origin)
 		var l2 := skel.get_bone_global_pose(int(ids[1])).origin.distance_to(g_hd.origin)
-		PunchReach.solve(skel, ids, s, g_hd.origin + fwd * move, l1, l2, g_hd.basis)
+		PunchReach.solve(skel, ids, s, g_hd.origin + fwd * move - Vector3.UP * drop, l1, l2, g_hd.basis)

@@ -62,10 +62,10 @@ func _initialize() -> void:
 	var able := {"power": 70.0, "speed": 70.0, "technique": 70.0, "defense": 70.0, "conditioning": 70.0, "fight_iq": 70.0,
 		"footwork": 70.0, "discipline": 70.0, "heart": 70.0}
 	var e_best := X.call_edge("long", "press", able, 1.0)
-	var e_ok := X.call_edge("hands", "press", able, 1.0)
+	var e_ok := X.call_edge("body", "press", able, 1.0)
 	var e_none := X.call_edge("calm", "press", able, 1.0)
 	var e_wrong := X.call_edge("let_go", "press", able, 1.0)
-	_check(e_best > e_ok and e_ok > e_none and e_none > e_wrong, "pressing: jab and move > hands up > breathe > let your hands go (%.1f %.1f %.1f %.1f)" % [e_best, e_ok, e_none, e_wrong])
+	_check(e_best > e_ok and e_ok > e_none and e_none > e_wrong, "pressing: jab and move > go to the body > breathe > let your hands go (%.1f %.1f %.1f %.1f)" % [e_best, e_ok, e_none, e_wrong])
 	# 3. She can or cannot: a call she lacks the stat for is worth less.
 	var slow := able.duplicate()
 	slow["footwork"] = 40.0
@@ -92,6 +92,22 @@ func _initialize() -> void:
 		counters += 1 if X.next_mode("Counter-puncher", "", 2, 3, "", 90.0, false, rng) == "counter" else 0
 	_check(counters > 200 and counters < 450, "a counter-puncher waits to counter in most exchanges (%d of 500)" % counters)
 	_check(X.next_mode("Pressure fighter", "", 1, 1, "press", 90.0, true, rng) == "hurt", "hurt comes first")
+	# S313 (Ziva: round 1 was six press exchanges): no game more than MAX_RUN in a row; a presser still presses most.
+	var longest := 0
+	var presses := 0
+	var draws := 0
+	for r in 400:
+		var prev := ""
+		var run := 0
+		for ex in 6:
+			var mode := X.next_mode("Pressure fighter", "walks in", 1, ex, prev, 90.0, false, rng, run)
+			run = run + 1 if mode == prev else 1
+			longest = maxi(longest, run)
+			presses += 1 if mode == "press" else 0
+			draws += 1
+			prev = mode
+	_check(longest <= X.MAX_RUN and presses > draws * 0.45, "a game runs at most %d exchanges (longest %d), a presser presses %.0f %%" % [X.MAX_RUN, longest, 100.0 * presses / draws])
+	_check(X.offers("press").has("body"), "Go to the body is offered against a presser")
 	# 7. One live round in the real bout: six exchanges, a clue and three offers before each shout.
 	var c := Career.quick_start()
 	c.fighters.append(Data.fighter_state(Data.lucy(), c.day))

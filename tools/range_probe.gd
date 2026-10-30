@@ -22,6 +22,13 @@ var min_gap := 99.0
 var bow_frames := 0           # S311 ropes: frames with a rope bowed > 3 cm, the deepest bow and when
 var bow_max := 0.0
 var bow_at := 0.0
+var cl_starts := 0            # S313 clinch: clinches started / tied up, frames tied, the gap while tied, referee spacing
+var cl_tied := 0
+var cl_frames := 0
+var cl_gap := 0.0
+var _was := [-1, false]
+var ref_min := 99.0
+var ref_frames_near := 0
 
 
 func _initialize() -> void:
@@ -66,6 +73,22 @@ func _log() -> void:
 		if last_pos.size() == 2:
 			travel[i] += p.distance_to(last_pos[i])
 	last_pos = [a, b]
+	var cl: Node = view.stage.clinch
+	if int(cl.holder) >= 0 and int(_was[0]) < 0:
+		cl_starts += 1
+	if bool(cl.engaged) and not bool(_was[1]):
+		cl_tied += 1
+	if bool(cl.engaged):
+		cl_frames += 1
+		cl_gap += a.distance_to(b)
+	_was = [int(cl.holder), bool(cl.engaged)]
+	var ref: Node3D = view.stage.referee
+	if ref != null:
+		var rp: Vector3 = ref.body.position
+		var near := minf(Vector2(rp.x - a.x, rp.z - a.z).length(), Vector2(rp.x - b.x, rp.z - b.z).length())
+		ref_min = minf(ref_min, near)
+		if near < 0.45:
+			ref_frames_near += 1
 
 
 func _report() -> void:
@@ -100,6 +123,9 @@ func _report() -> void:
 		else:
 			i += 5
 	var secs := n / 30.0
+	print("RANGE_PROBE clinches started %d, tied up %d, tied %.1f s (%.0f %% of the round), gap while tied %.2f m (real: 2.5 a round in R1)" % [
+		cl_starts, cl_tied, cl_frames / 30.0, 100.0 * cl_frames / n, cl_gap / maxf(1.0, cl_frames)])
+	print("RANGE_PROBE referee nearest a boxer %.2f m, within 0.45 m in %d frames" % [ref_min, ref_frames_near])
 	print("RANGE_PROBE in-round %.0f s (%d frames)" % [secs, n])
 	print("RANGE_PROBE gap median %.2f m (p10 %.2f - p90 %.2f), sd %.2f m, min %.2f" % [s[n / 2], s[n / 10], s[n * 9 / 10], sd, min_gap])
 	print("RANGE_PROBE range mix inside %.0f %% / mid %.0f %% / long %.0f %%" % [100.0 * inside / n, 100.0 * (n - inside - long) / n, 100.0 * long / n])

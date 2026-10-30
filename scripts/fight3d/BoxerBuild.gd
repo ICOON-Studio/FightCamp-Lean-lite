@@ -63,7 +63,8 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	var gt := GuardTuck.new()
 	gt.name = "GuardTuck"
 	gt.lead = "RightHand" if south else "LeftHand"
-	if gt.setup(skel, ap, body, BeatClips.GUARD + GuardLife.FIDGETS, index * 31 + 7):
+	# S313: the step clips too (Footwork.STRIDE) - at rest they step most of the time, and the guard drops there (gap 5).
+	if gt.setup(skel, ap, body, BeatClips.GUARD + GuardLife.FIDGETS + ["advance", "retreat", "strafe_left", "strafe_right"], index * 31 + 7):
 		skel.add_child(gt)
 		skel.move_child(gt, (js.get_index() + 1) if js != null else 0)
 	else:
@@ -89,7 +90,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	# S306: her planted feet stay where they stand; a foot steps when her body has moved off it.
 	var fp := FootPlant.attach(skel, ap, null) if not OS.get_cmdline_user_args().has("nofeet") else null
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "feet": fp, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "tuck": gt, "feet": fp, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 

@@ -327,9 +327,13 @@ func _fire(b: Dictionary) -> void:
 			pass
 		"step_in", "step_out":
 			# S311: one boxer lunges into the pocket or steps out of range; the other holds (RangeBreath).
+			if b.has("ref"):
+				stage.clinch.release()   # S313: the referee's break - he parts them, both step out
 			stage.step(who, 1 if move == "step_in" else -1)
 			_stepped[who] = move == "step_in"
-		"slip", "clinch":
+		"clinch":
+			stage.clinch.start(who, float(b.get("dur", 3.0)))
+		"slip":
 			stage.play(who, "slip")
 		"tired":
 			stage.play(who, BeatClips.pick(BeatClips.TIRED, stage.has_move, _amb_rng.randf()))
@@ -397,7 +401,7 @@ func _ambient(dt: float) -> void:
 	var gap := 99.0
 	if next < beats.size():
 		gap = float(beats[next]["t"]) - t
-	if _quiet > 1.1 and gap > 1.2:
+	if _quiet > 1.1 and gap > 1.2 and stage.feet.phase() != "clinch":
 		_quiet = 0.0
 		if _amb_rng.randf() < 0.65:
 			stage.circle(-1 if _amb_rng.randf() < 0.5 else 1, _amb_rng.randf_range(0.3, 0.55))

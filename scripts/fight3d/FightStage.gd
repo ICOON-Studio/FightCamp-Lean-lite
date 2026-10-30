@@ -18,6 +18,7 @@ const SideStep := preload("res://scripts/fight3d/SideStep.gd")
 const FootPlant := preload("res://scripts/fight3d/FootPlant.gd")
 const BoxerBuild := preload("res://scripts/fight3d/BoxerBuild.gd")
 const Footwork := preload("res://scripts/fight3d/Footwork.gd")
+const Clinch := preload("res://scripts/fight3d/Clinch.gd")
 
 const CONTACT_S := 8.0 / 30.0
 ## When the glove lands, seconds into each move (natives frame 8; baked: the old repo's clip_phases contact_s).
@@ -65,6 +66,8 @@ var _ring_side: Array = []    # ropes and posts: see-through while they stand be
 var _cut: Array = [{}, {}]    # per boxer, the Pro clip playing: {clip, contact, back, fast} (S301 recovery cut)
 var _hold_left := 0.0         # S302 hit-stop: both bodies still while > 0
 var _held_speed := [1.0, 1.0]
+var clinch := Clinch.new()    # S313: the tie-up (real-fight gap 4); referee: Referee.gd (FightCast.crew builds him)
+var referee: Node3D = null
 var stun := HitStun.new()     # S305: a hit boxer stays in her reaction (no defence, fidget or step over it)
 var life := GuardLife.new()   # S302: each boxer's own guard tempo, fidgets, and a pair step that is not in lockstep
 var side := SideStep.new()    # S306: a dodge's step stays taken; a weave steps off the line
@@ -87,6 +90,8 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 		boxers.append(BoxerBuild.build(self, spec, boxers.size()))
 	gap_m = _jab_gap()
 	feet.setup(self)
+	add_child(clinch)
+	clinch.setup(self)
 	for bx in boxers:
 		bx["idle_match"] = IdleMatch.sample(bx, BeatClips.first(BeatClips.GUARD, (bx["ap"] as AnimationPlayer).has_animation))
 	side.setup(self)
@@ -253,7 +258,7 @@ func _compose(delta: float) -> void:
 	var keep := dist
 	if pin[0] or pin[1]:
 		keep = float(boxers[0 if pin[0] else 1]["hold_m"])
-	keep = maxf(keep, MIN_GAP_M)
+	keep = maxf(keep, clinch.floor_m(MIN_GAP_M))
 	if absf(dist - keep) > 0.001:
 		var err := dist - keep
 		var share := [0.5, 0.5] if pin[0] == pin[1] else ([1.0, 0.0] if pin[0] else [0.0, 1.0])
@@ -284,7 +289,7 @@ func _compose(delta: float) -> void:
 		var to := other - me
 		# S302: a landed punch carries her in (shown only; her place on the canvas stays).
 		var pr: Node = bx.get("reach")
-		n.position = me + (to.normalized() * float(pr.lunge()) if pr != null and to.length() > 0.01 else Vector3.ZERO)
+		n.position = me + (to.normalized() * float(pr.lunge()) if pr != null and to.length() > 0.01 else Vector3.ZERO) + clinch.offset(i, to)
 		if to.length() > 0.01:
 			var yaw := atan2(to.x, to.z)
 			n.rotation = Vector3(0.0, yaw if delta <= 0.0 else lerp_angle(n.rotation.y, yaw, 1.0 - exp(-delta / FACE_S)), 0.0)

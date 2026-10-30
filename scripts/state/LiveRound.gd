@@ -114,7 +114,7 @@ static func preview(f: Dictionary, m: Dictionary) -> Dictionary:
 ## next game, without it the one she just showed - so without film it can fire into a game she has left), else {}.
 static func now_offer(lv: Dictionary, sit_seen: String) -> Dictionary:
 	var su: Dictionary = lv.get("setup", {})
-	if su.is_empty() or str(su.get("used", "")) != "" or sit_seen != str(su["gap"]):
+	if su.is_empty() or str(su.get("used", "")) != "" or not CornerJobs.fits(str(su["gap"]), sit_seen):
 		return {}
 	return {"combo": str(su["combo"]), "gap": str(su["gap"]), "line": "NOW! %s!" % combo_words(str(su["combo"]))}
 
@@ -154,7 +154,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	# S310 the corner's talk works every exchange of the round; the set-up once, when it is fired.
 	d += float((lv.get("talk", {}) as Dictionary).get("edge", 0.0))
 	var su: Dictionary = lv.get("setup", {})
-	var fits := fire and sit == str(su.get("gap", ""))
+	var fits := fire and CornerJobs.fits(str(su.get("gap", "")), sit)
 	if fire:
 		d += CornerJobs.setup_edge(fits, float(su["mastery"]), her_energy(lv, i))
 	var rng := _rng(c, f, n, i + 1)
@@ -186,8 +186,13 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	lv["opp_hurt"] = (float(s["margin"]) > Exchanges.HURT_AT and rng.randf() < clampf(0.3 + (float(vals.get("power", 55.0)) - 55.0) / 100.0, 0.1, 0.6)) 		or str(rec["setup"]) == "landed"
 	lv["her_hurt"] = float(s["margin"]) < -Exchanges.HURT_AT and rng.randf() < clampf((0.3 + (rating - float(vals.get("chin", 55.0))) / 100.0) 		* float((lv.get("talk", {}) as Dictionary).get("hurt", 1.0)) * (1.6 if str(rec["setup"]) == "missed" else 1.0), 0.1, 0.8)
 	rec["after"] = state(lv, i + 1)
+	var run := 0
+	for j in range(exs.size() - 1, -1, -1):
+		if str((exs[j] as Dictionary)["mode"]) != str(lv["mode"]):
+			break
+		run += 1
 	lv["mode"] = Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, i + 1, str(lv["mode"]),
-		opp_energy(lv, i + 1), bool(lv["opp_hurt"]), rng)
+		opp_energy(lv, i + 1), bool(lv["opp_hurt"]), rng, run)
 	if exs.size() < Exchanges.EXCHANGES:
 		return {}
 	return close(f, m)

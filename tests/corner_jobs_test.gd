@@ -31,6 +31,8 @@ func _initialize() -> void:
 	_check(float(CJ.talk("calm", hot)["edge"]) > float(CJ.talk("fire", hot)["edge"]) and float(CJ.talk("fire", hot)["hurt"]) > 1.3, "a hothead: calm helps, fire makes her wild")
 	_check(float(CJ.talk("truth", {"discipline": 70.0, "confidence": 60.0})["edge"]) > 0.0 and float(CJ.talk("truth", {"discipline": 40.0, "confidence": 30.0})["edge"]) < 0.0, "the truth: a disciplined fighter uses it, a fragile one sinks")
 	# 4. The corner action: labelled parts parse; the old "call|habit" still works.
+	_check(CJ.fits("press", "press") and CJ.fits("press", "hurt") and not CJ.fits("press", "range"),
+		"S313: a set-up fires in its gap, and into a hurt opponent whatever its gap")
 	var j := Bouts.corner_jobs("long|fix=slow_starter|setup=1-2@press|talk=calm|rec=water:2,ice:1".split("|"))
 	_check(str(j["fix"]) == "slow_starter" and str(j["setup"]["combo"]) == "1-2" and str(j["setup"]["gap"]) == "press" and str(j["talk"]) == "calm"
 		and int(j["rec"]["water"]) == 2 and int(j["rec"]["ice"]) == 1, "corner action parts parse")
