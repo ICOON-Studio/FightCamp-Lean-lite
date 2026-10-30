@@ -1,3 +1,24 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 12 (2026-10-30): BODY SHOTS COUNT, A FIGHT DISPLAY, GREEN IS NO FREE ANSWER
+=============================================================================================
+
+NEW IN UPDATE 12 (board: "Test: fight night WITH film study" - play two rounds, call "Go to the body" a few times)
+ 1. A FIGHT DISPLAY under the scoreboard, one row per boxer: an ENERGY bar (green / orange / red) with its number,
+    BODY HITS (body shots she has taken all fight) and HURT when she is hurt. It updates after each 30 seconds you
+    watch. The words screen shows the same.
+ 2. BODY SHOTS MATTER. A share of the punches that land go to the body (half of them when you call "Go to the body").
+    Every body shot she takes costs her energy for the REST of the fight - work the body and the opponent tires, and
+    the clue turns to "Maria's mouth is open; her hands come back slow" (call "Let your hands go").
+ 3. BODY SHOTS SHOW. The ring lands the body shots the display counts (before, a body hook was 1 punch in 12 by
+    chance), and a boxer hit to the body folds over it, drops her elbow onto her ribs and stays folded a moment.
+ 4. GREEN IS "SHE DOES THIS WELL", NOT "THIS IS RIGHT". She commits to a call as well as she can do it, so a WRONG
+    call she is good at costs more. Measured over 400 even fights: always picking the green call wins 55% - the same
+    as saying nothing (54%); reading the clue wins 68%.
+ 5. YOUR "FLAT BACK" NOTE: the singlet and shorts were painted flat, with none of the body's muscle detail, so the
+    back shaded like a smooth tube. They now carry the body's own muscle shading (shoulder blades, spine). Her posture
+    in guard is still very upright - say if it still looks flat.
+ 6. TALE OF THE TAPE: before the announcer's names, both boxers hold in their corners for about 5 seconds while the
+    tale of the tape sits between them - age, height, reach, weight, record, stance, style, club.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 11 (2026-10-30): THE SHOUT BAR NO LONGER GIVES THE ANSWER AWAY
 =============================================================================================
 

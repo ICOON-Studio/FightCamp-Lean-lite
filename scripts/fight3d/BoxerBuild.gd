@@ -29,6 +29,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	var corner := str(spec.get("corner", "red"))
 	MH.colour_trunks(body, stage.TRUNKS[corner], stage.CLOTH_ROUGHNESS)
 	FighterKit.colour_vest(body, stage.VESTS[corner], stage.CLOTH_ROUGHNESS)
+	FighterKit.cloth_normals(body)
 	FighterKit.dress(body, str(spec["glb"]), "boxing")
 	# Elbows outside her torso, before the twist bones read the arms.
 	var ec := ElbowClear.new()

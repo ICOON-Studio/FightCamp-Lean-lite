@@ -199,7 +199,11 @@ func hit(who: int, clip: String, speed: float, hitter: int, move: String, big: b
 	camera.shake(float(SHAKE_M[kind]))
 	var body := move.contains("body")
 	var snap: Node = boxers[who].get("snap")
-	if snap == null or body:
+	if snap == null:
+		return
+	if body:
+		# S310: a landed body shot folds her over the side it hit (a lead hook from the hitter meets her other side).
+		snap.fold(hand_of(hitter, "LeftHand") == "RightHand")
 		return
 	var deg := 9.0
 	for key in SNAP_DEG:

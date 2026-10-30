@@ -31,6 +31,7 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	var f: Dictionary = ctx["f"]
 	ComboWords.caption(plan["beats"], {"a": f.get("combos", {}), "b": (ctx["profiles"]["b"] as Dictionary).get("combos", {})}, ctx["names"], int(ctx["day"]) + k * 17)
 	_show_game(plan["beats"], str(x["sit"]), int(ctx["seed"]) + k * 29)
+	_body(plan["beats"], x.get("body", []))
 	var at := k * Exchanges.EX_SECONDS
 	var out: Array = []
 	for b in plan["beats"]:
@@ -96,6 +97,25 @@ static func _swap(beats: Array, who: String, moves: Array, odds: float, rng: Ran
 			continue
 		if not RoundScript.NOT_PUNCH.has(str(b["move"])) and str(b["move"]) != "say" and rng.randf() < odds:
 			b["move"] = str(moves[rng.randi_range(0, moves.size() - 1)])
+
+
+## S310: the ring lands the body shots the exchange counted (LiveRound rec "body" [hers, theirs]; the fight display counts
+## them). Single landed punches (never a combo's) turn into body hooks, or back into lead hooks, until each side matches.
+static func _body(beats: Array, want: Array) -> void:
+	if want.size() < 2:
+		return
+	for side in 2:
+		var who := "a" if side == 0 else "b"
+		var landed := beats.filter(func(b): return str(b["who"]) == who and str(b["result"]) == "lands" and RoundScript.PUNCHES.has(str(b["move"])))
+		var have := landed.filter(func(b): return str(b["move"]) == "body_hook").size()
+		var free := landed.filter(func(b): return str(b.get("combo_id", "")) == "" and not bool(b.get("combo", false)) and not bool(b.get("big", false)))
+		for b in free:
+			if have < int(want[side]) and str(b["move"]) != "body_hook":
+				b["move"] = "body_hook"
+				have += 1
+			elif have > int(want[side]) and str(b["move"]) == "body_hook":
+				b["move"] = "lead_hook"
+				have -= 1
 
 
 ## Fight model step 5 (S301): both boxers' habits show; Kalli's ring line captions a habit's first fire. fix = the habit

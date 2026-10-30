@@ -104,6 +104,9 @@ static func yaw_to(at: Vector3, to: Vector3) -> float:
 	return atan2(to.x - at.x, to.z - at.z)
 
 
+const CROUCH_UPRIGHT_DEG := 55.0
+
+
 func play(a: Dictionary, clip: String, speed: float = 1.0, from_s: float = 0.0) -> void:
 	var ap: AnimationPlayer = a["ap"]
 	if not ap.has_animation(clip):
@@ -116,6 +119,9 @@ func play(a: Dictionary, clip: String, speed: float = 1.0, from_s: float = 0.0) 
 		ap.play(clip, 0.25, speed)
 	if from_s > 0.0:
 		ap.seek(from_s, true)
+	# S310: the crouch clip bends the back near flat; in the corner a crouch is an upright squat (CornerIK.upright).
+	if a.get("ik") != null:
+		a["ik"].upright(CROUCH_UPRIGHT_DEG if clip == "af_crouch_idle" else 0.0)
 
 
 ## Walks `a` to `to` at the walk clip's ground speed for its size, turning into the way it goes; `done` on arrival.

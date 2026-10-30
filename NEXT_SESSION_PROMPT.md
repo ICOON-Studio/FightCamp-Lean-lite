@@ -1,10 +1,12 @@
-# Next session: S311 (written S310, 2026-10-30, after update 11: the shout bar no longer gives the answer away)
+# Next session: S311 (written S310, 2026-10-30, after updates 11-12: shout bar without the free answer; fight display, body damage)
 
 ## Start
 1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then work in `E:\FightCamp\Lean` (`git pull`).
-2. Board: Q-S294-18 (his verdict on update 11) and his review comments on the S310 still (8787/review, "Update 11").
-   Quote each.
-3. Then by his word. Standing answer: Q-S294-10 "Keep polishing the fight first".
+2. Board: Q-S294-19 (update 12 verdict; supersedes Q-S294-18) and Q-S294-20 (corner minute plan,
+   Game Godot/research/S310_CORNER_MINUTE_PLAN.md) + review comments on the S310 stills. Quote each.
+3. Q-S294-20 yes -> build the corner minute in the plan's order (rules + balance + tests first). His play notes S310:
+   "playing it seems satisfying", "fight looks ok for now but can still be improved". Flat back: if he still sees it,
+   the guard posture (upright spine) is next - cloth normals were the shading half.
 
 ## Where it stands (Lean 83e852d + c7dda85)
 - LiveRound.preview returns `coach` (the best call for what the corner sees = the clue's answer; tests/tools use it as the
@@ -28,6 +30,13 @@
   `-- jump=<id>` (Explorer drops plain arguments); TestJump.gd plays the real buttons to that part on its own save slot.
   EVERY UPDATE: add/replace the jump for what WHAT_TO_TRY asks him to test (TestJump.JUMPS, make_shortcuts.ps1, the
   rows in Game AgentComms/launch_targets.json), then export.
+
+- Update 12 (42419f7, f39b33f): Exchanges.COMMIT (wrong call x1.5 Good / x0.6 Poor; always-green 0.55 = none 0.54, read
+  0.68); body damage BODY_SHARE 0.2 / BODY_CALL_SHARE 0.5 / BODY_THREAT_SHARE 0.35, BODY_COST 1.2 energy per shot taken all
+  fight (f.bout.body {a taken by her, b by the opponent}, lv.body); LiveRound.state -> rec "after" + round "start" feed
+  FightHud.paint (energy bar, BODY HITS, HURT) so the display never runs ahead; ExchangeBeats._body makes the ring land the
+  counted body shots; HitSnap.fold (FOLD_GAIN 2.6, hold 0.3 s) on a landed body shot; FighterKit.cloth_normals gives
+  MH_Top/Trunks/Trim the skin normal map.
 
 ## Traps
 - A bone read from outside the skeleton's modifiers gets the clip pose: anything a modifier moves (the look now moves the

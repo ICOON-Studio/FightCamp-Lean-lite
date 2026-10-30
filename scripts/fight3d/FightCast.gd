@@ -6,6 +6,7 @@ extends RefCounted
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
 const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
+const TaleOfTape := preload("res://scripts/rules/TaleOfTape.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
@@ -89,7 +90,9 @@ static func intro(view: Node) -> bool:
 	var fi := FightIntro.new()
 	view.add_child(fi)
 	fi.done.connect(_intro_over.bind(view))
-	fi.run(view, view.stage, view.crew, {"intros": intros})
+	# S310 the tale of the tape: her height is the body the ring draws her with until she has her own.
+	var tape := TaleOfTape.rows(f, opp, c.gym_name, float(BODY_CM[_class_body(float(f.get("limit", 61.2)))]))
+	fi.run(view, view.stage, view.crew, {"intros": intros, "tape": tape, "names": [str(f["name"]), str(opp["name"])]})
 	return true
 
 

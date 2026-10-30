@@ -83,7 +83,12 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		lb += int(x["landed"][1])
 	var names: Array = pv["names"]
 	v.add_child(UI.display("EXCHANGES WON %d-%d" % [won, exs.size() - won], 40, UI.GREEN if won * 2 > exs.size() else (UI.RED if won * 2 < exs.size() else UI.FG)))
-	v.add_child(UI.muted("Punches landed: %s %d, %s %d. %s's energy %d." % [names[0], la, names[1], lb, names[0], int(LiveRound.her_energy(lv, exs.size()))], UI.SMALL))
+	# S310: both boxers' energy, body shots taken and hurt, as the 3D fight display shows them.
+	var st := LiveRound.state(lv, exs.size())
+	v.add_child(UI.muted("Punches landed: %s %d, %s %d." % [names[0], la, names[1], lb], UI.SMALL))
+	for side in 2:
+		v.add_child(UI.label("%s: energy %d, body shots taken %d%s" % [names[side], int(round(float(st["a" if side == 0 else "b"]))),
+			int(st["body"][side]), ", HURT" if bool(st["hurt"][side]) else ""], UI.SMALL, UI.FG if float(st["a" if side == 0 else "b"]) >= 35.0 else UI.AMBER))
 	var last: Dictionary = exs[-1]
 	v.add_child(UI.label(str(last["verdict"]), 20, UI.GREEN if bool(last["won"]) else UI.RED, "body", true))
 	if str(last.get("habit_line", "")) != "":

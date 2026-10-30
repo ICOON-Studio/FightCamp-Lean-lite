@@ -12,6 +12,12 @@ const MAX_LOOK_DEG := 65.0
 ## spine_03); a shorter chain uses its first entries, rescaled.
 const CHAIN_SHARE := [0.14, 0.12, 0.14, 0.2, 0.2, 0.2]
 
+## S310 (operator on the side shot of the corner: "doesnt look like a natural human"): the ActionForge crouch bends the
+## back near flat, so even shared down the chest the look lifted the head out on a stretched, near-level neck. A real
+## coach crouches in front of the stool with his trunk up. upright(deg) tips the trunk back from the lower spine by deg
+## (eased like the look), BEFORE the look, so the look only has a small turn left for the neck.
+var _upright := {"deg": 0.0, "w": 0.0}
+var _spine := -1
 var _body: Node3D
 var _arms := {}            # "Left"/"Right" -> [upper, lower, hand]
 var _reach := {}           # side -> {target: Callable, w: float, on: bool}
@@ -52,6 +58,7 @@ func _setup(skel: Skeleton3D) -> bool:
 	_head = skel.find_bone("Head")
 	if _neck < 0 or _head < 0:
 		return false
+	_spine = skel.find_bone("Spine")
 	var chest := skel.find_bone("Chest")
 	var b := _head
 	while b >= 0 and _chain.size() < CHAIN_SHARE.size():
@@ -74,6 +81,13 @@ func reach(side: String, target: Variant) -> void:
 		r["target"] = target
 
 
+## Tips the trunk back `deg` from the lower spine (0 lets the clip's back return).
+func upright(deg: float) -> void:
+	if deg > 0.0:
+		_upright["deg"] = deg
+	_upright["on"] = deg > 0.0
+
+
 func look(target: Variant) -> void:
 	_look["on"] = target != null
 	if target != null:
@@ -86,6 +100,15 @@ func _process_modification() -> void:
 		return
 	var delta := maxf(get_process_delta_time(), 1e-4)
 	var to_skel := skel.global_transform.affine_inverse()
+	# S310: the trunk up out of the crouch first, then the look, then the hands.
+	_upright["w"] = move_toward(float(_upright["w"]), 1.0 if bool(_upright.get("on", false)) else 0.0, delta / EASE_S)
+	if float(_upright["w"]) > 0.0 and _spine >= 0:
+		var g := skel.get_bone_global_pose(_spine)
+		var axis := _fwd_skel.cross(Vector3.UP).normalized()
+		var q := Quaternion(axis, deg_to_rad(float(_upright["deg"])) * _smooth(float(_upright["w"])))
+		var par := skel.get_bone_parent(_spine)
+		var pq := skel.get_bone_global_pose(par).basis.get_rotation_quaternion() if par >= 0 else Quaternion.IDENTITY
+		skel.set_bone_pose_rotation(_spine, (pq.inverse() * (q * g.basis.get_rotation_quaternion())).normalized())
 	# The look first: it turns the chest (S309), and the hands then still meet what they reach.
 	_look["w"] = move_toward(float(_look["w"]), 1.0 if bool(_look["on"]) else 0.0, delta / EASE_S)
 	if float(_look["w"]) > 0.0 and (_look["target"] as Callable).is_valid():

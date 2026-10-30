@@ -8,15 +8,22 @@ extends Node
 const CornerShots := preload("res://scripts/fight3d/CornerShots.gd")
 const CornerOverlay := preload("res://scripts/fight3d/CornerOverlay.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
+const TapeCard := preload("res://scripts/fight3d/TapeCard.gd")
 
 signal done
 
-const LENGTH_S := 13.0
+## S310 (operator: "add the tale of the tape when the fighters stand on their starting corners for a while"): after the
+## opening wide, both hold in their corners TAPE_S while the tale of the tape (TaleOfTape / TapeCard) sits between them
+## on a level side shot; the announcer's names follow.
+const TAPE_S := 5.5
+const LENGTH_S := 13.0 + TAPE_S
 ## [start s, framing]
-const SHOTS := [[0.0, "wide"], [2.0, "red"], [5.0, "blue"], [8.0, "broadcast"], [10.1, "two_shot"], [11.6, "wide_out"]]
+const SHOTS := [[0.0, "wide"], [1.5, "tape"], [2.0 + TAPE_S, "red"], [5.0 + TAPE_S, "blue"], [8.0 + TAPE_S, "broadcast"],
+	[10.1 + TAPE_S, "two_shot"], [11.6 + TAPE_S, "wide_out"]]
 ## [s, cue]
-const CUES := [[0.0, "corners"], [2.0, "name_red"], [2.6, "raise_red"], [4.4, "lower_red"], [5.0, "name_blue"], [5.6, "raise_blue"],
-	[7.4, "lower_blue"], [8.0, "walk"], [10.4, "touch"], [11.3, "untouch"], [11.6, "seconds_out"], [12.6, "bell"]]
+const CUES := [[0.0, "corners"], [1.8, "tape"], [1.6 + TAPE_S, "untape"], [2.0 + TAPE_S, "name_red"], [2.6 + TAPE_S, "raise_red"],
+	[4.4 + TAPE_S, "lower_red"], [5.0 + TAPE_S, "name_blue"], [5.6 + TAPE_S, "raise_blue"], [7.4 + TAPE_S, "lower_blue"],
+	[8.0 + TAPE_S, "walk"], [10.4 + TAPE_S, "touch"], [11.3 + TAPE_S, "untouch"], [11.6 + TAPE_S, "seconds_out"], [12.6 + TAPE_S, "bell"]]
 
 var view: Node
 var stage: Node3D
@@ -28,6 +35,7 @@ var _cue_i := 0
 var _shot := ""
 var _shot_t0 := 0.0
 var _frame: Dictionary = {}
+var _tape: Control = null
 
 
 func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
@@ -87,6 +95,10 @@ func _framing(shot: String) -> Dictionary:
 			# The whole ring from high at the side, a slow push in.
 			var p := side * 7.2 + Vector3.UP * 2.7
 			return {"pos": p, "look": Vector3.UP * 0.8, "fov": 42.0, "focus": 7.0, "drift": -side * 0.9}
+		"tape":
+			# Both in their corners, square on from the side and level, so the card sits in the gap between them.
+			var p := side * 8.4 + Vector3.UP * 1.6
+			return {"pos": p, "look": Vector3.UP * 1.1, "fov": 40.0, "focus": 8.4, "drift": -side * 0.5}
 		"red", "blue":
 			# Medium on her in her corner, low, the corner team behind her.
 			var c: Dictionary = red if shot == "red" else blue
@@ -120,6 +132,18 @@ func cue_corners() -> void:
 			crew.place(a, spot, crew.yaw_to(spot, Vector3.ZERO))
 			crew.play(a, str(k[2]))
 			(a["node"] as Node3D).visible = true
+
+
+func cue_tape() -> void:
+	if not ctx.has("tape"):
+		return
+	_tape = TapeCard.build(ctx["tape"], ctx.get("names", ["", ""]))
+	ui.add_child(_tape)
+	TapeCard.show(_tape, true)
+
+
+func cue_untape() -> void:
+	TapeCard.show(_tape, false)
 
 
 func cue_name_red() -> void:

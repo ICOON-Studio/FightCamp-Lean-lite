@@ -143,6 +143,37 @@ func _initialize() -> void:
 	var f_mark := XB.share(0.0, "mark", 3)
 	print("  film 3: none %.2f, follow the pick %.2f, read the clue %.2f" % [f_none, f_mark, f_seen])
 	_check(f_seen >= f_mark + 0.03 and f_mark >= f_none + 0.02, "film 3: reading the clue > following the coach's pick > saying nothing")
+	# 11. S310 commitment: a wrong call she does well costs more than one she is weak at; green is no free answer.
+	var good_v := {"footwork": 80.0, "technique": 80.0}
+	var poor_v := {"footwork": 30.0, "technique": 30.0}
+	_check(X.call_edge("long", "range", good_v, 1.0) < X.call_edge("long", "range", poor_v, 1.0), "a wrong call she does well costs more (%.1f vs %.1f)" % [
+		X.call_edge("long", "range", good_v, 1.0), X.call_edge("long", "range", poor_v, 1.0)])
+	var g_none := XB.share(0.0, "none", 1)
+	var g_green := XB.share(0.0, "green", 1)
+	var g_seen := XB.share(0.0, "seen", 1)
+	print("  always green %.2f, say nothing %.2f, read the clue %.2f" % [g_green, g_none, g_seen])
+	_check(g_green <= g_none + 0.04 and g_seen >= g_green + 0.08, "always picking her best-graded call is no better than silence; reading wins")
+	# 12. S310 body damage: shots to the body pile up all fight and cost energy; "Go to the body" lands more of them.
+	_check(X.body_shots(6, X.BODY_CALL_SHARE, 0.0) > X.body_shots(6, X.BODY_SHARE, 0.0) and X.body_shots(2, 0.9, 0.99) <= 2, "body shots: the body call lands more, never more than landed")
+	var c2 := Career.quick_start()
+	c2.fighters.append(Data.fighter_state(Data.lucy(), c2.day))
+	var f2: Dictionary = c2.fighter()
+	f2["camp"] = {}
+	f2["bout"] = {"opp": (Data.OPPONENTS[1] as Dictionary).duplicate(true), "day": c2.day, "weighed": true, "made": true, "done": false, "film": 1}
+	var m2 := {"fid": f2["id"], "step": "tape", "total": 3}
+	Bouts.fight_step(c2, f2, m2, "start")
+	var start: Dictionary = LiveRound.live(m2)["start"]
+	while not LiveRound.live(m2).is_empty():
+		Bouts.fight_step(c2, f2, m2, "shout:body")
+	var r2: Dictionary = (m2["rounds"] as Array)[0]
+	var last_after: Dictionary = (r2["exchanges"] as Array)[-1]["after"]
+	var thrown := 0
+	for x in r2["exchanges"]:
+		thrown += int(x["body"][0])
+	_check(not start.is_empty() and (r2["exchanges"] as Array).all(func(x): return (x as Dictionary).has("after")), "every exchange keeps what the fight display shows after it")
+	_check(int(last_after["body"][1]) == thrown and thrown >= 6, "body shots on Priya pile up (%d in a round of Go to the body)" % thrown)
+	var lv_probe := {"e": {"b": 80.0, "b_end": 80.0}, "body": {"a": 0, "b": thrown}}
+	_check(absf(LiveRound.opp_energy(lv_probe, 0) - (80.0 - thrown * X.BODY_COST)) < 0.01, "each body shot taken costs her energy (%.0f -> %.1f)" % [80.0, LiveRound.opp_energy(lv_probe, 0)])
 	print("EXCHANGES failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

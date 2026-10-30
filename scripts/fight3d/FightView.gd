@@ -435,6 +435,7 @@ func _hud() -> void:
 	var seen := _exchanges().slice(0, int(t / Exchanges.EX_SECONDS))
 	var won := seen.filter(func(x): return bool(x["won"])).size()
 	_clock.text = "ROUND %d OF %d   %d:%02d   EXCHANGES WON %d-%d" % [round_n, total, int(left) / 60, int(left) % 60, won, seen.size() - won]
+	FightHud.paint(self, (seen[-1] as Dictionary).get("after", {}) if not seen.is_empty() else FightHud.round_start(self), _names)
 
 
 ## This round's exchanges fought so far (live, or the closed round's).

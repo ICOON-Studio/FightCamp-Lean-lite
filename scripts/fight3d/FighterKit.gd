@@ -45,6 +45,40 @@ static func colour_vest(body: Node3D, colour: Color, roughness: float) -> void:
 				mi.set_surface_override_material(s, vest)
 
 
+## S310 (operator on a close shot of Lucy: "doesnt feel like a human body, too flat back"). The S299 kit is painted on the
+## skin as its own surfaces (MH_Top / MH_Trunks / MH_Trim) with NO textures, so the torso under it shaded like a smooth
+## tube - no shoulder blades, spine or ribs. Those surfaces are cut from the same body and share its UVs, so they take
+## the skin's normal map (MH_Skin_Body), softened to CLOTH_NORMAL: tight cloth over muscle. Run after the colours are set.
+const CLOTH_NORMAL := 0.75
+const CLOTH_SURFACES := ["MH_Top", "MH_Trunks", "MH_Trim"]
+
+
+static func cloth_normals(body: Node3D) -> int:
+	var done := 0
+	for m in body.find_children("*", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		var ntex: Texture2D = null
+		for s in mi.mesh.get_surface_count():
+			var src := mi.mesh.surface_get_material(s)
+			if src is StandardMaterial3D and src.resource_name.begins_with("MH_Skin_Body"):
+				ntex = (src as StandardMaterial3D).normal_texture
+		if ntex == null:
+			continue
+		for s in mi.mesh.get_surface_count():
+			var src := mi.mesh.surface_get_material(s)
+			if src == null or not CLOTH_SURFACES.any(func(n): return src.resource_name.begins_with(n)):
+				continue
+			var cloth := mi.get_active_material(s).duplicate() as StandardMaterial3D
+			if cloth == null:
+				continue
+			cloth.normal_enabled = true
+			cloth.normal_texture = ntex
+			cloth.normal_scale = CLOTH_NORMAL
+			mi.set_surface_override_material(s, cloth)
+			done += 1
+	return done
+
+
 static func wears_boots(model_name: String, discipline: String = "") -> bool:
 	var file := model_name.get_file().to_lower()
 	var boxing_body: bool = file.contains("_box_") or _is_mh_boxer(model_name)

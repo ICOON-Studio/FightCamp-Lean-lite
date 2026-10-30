@@ -36,23 +36,36 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 		base += BoutRules.OPP_FADE
 	var rng := _rng(c, f, n, 0)
 	var mode := Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, 0, "", float(e.get("b", 100.0)), false, rng)
+	# S310: body shots taken all fight ({a: by her, b: by the opponent}), kept on the bout so they carry round to round.
+	if n == 1 or not f["bout"].has("body"):
+		f["bout"]["body"] = {"a": 0, "b": 0}
 	m["live"] = {"n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": false, "opp_hurt": false,
-		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS))}
+		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS)),
+		"body": f["bout"]["body"]}
+	m["live"]["start"] = state(m["live"], 0)
+
+
+## S310 what the fight display shows after i exchanges: {a, b (energy), body [taken by her, by the opponent], hurt [hers,
+## the opponent's]}. Kept on each exchange ("after") and the round ("start") so the display shows only what was watched.
+static func state(lv: Dictionary, i: int) -> Dictionary:
+	var bt: Dictionary = lv.get("body", {})
+	return {"a": maxf(0.0, her_energy(lv, i)), "b": maxf(0.0, opp_energy(lv, i)), "body": [int(bt.get("a", 0)), int(bt.get("b", 0))],
+		"hurt": [bool(lv.get("her_hurt", false)), bool(lv.get("opp_hurt", false))]}
 
 
 static func live(m: Dictionary) -> Dictionary:
 	return m.get("live", {})
 
 
-## Her energy as exchange i starts (the round's start -> bell, less what the calls spent).
+## Her energy as exchange i starts (the round's start -> bell, less what the calls spent and the body shots she took).
 static func her_energy(lv: Dictionary, i: int) -> float:
 	var e: Dictionary = lv["e"]
-	return lerpf(float(e.get("a", 100.0)), float(e.get("a_end", 100.0)), float(i) / Exchanges.EXCHANGES) - float(lv["cost"])
+	return lerpf(float(e.get("a", 100.0)), float(e.get("a_end", 100.0)), float(i) / Exchanges.EXCHANGES) - float(lv["cost"]) 		- float((lv.get("body", {}) as Dictionary).get("a", 0)) * Exchanges.BODY_COST
 
 
 static func opp_energy(lv: Dictionary, i: int) -> float:
 	var e: Dictionary = lv["e"]
-	return lerpf(float(e.get("b", 100.0)), float(e.get("b_end", 100.0)), float(i) / Exchanges.EXCHANGES)
+	return lerpf(float(e.get("b", 100.0)), float(e.get("b_end", 100.0)), float(i) / Exchanges.EXCHANGES) 		- float((lv.get("body", {}) as Dictionary).get("b", 0)) * Exchanges.BODY_COST
 
 
 ## What the corner sees before the next exchange: {sit, clue, offers, coach, mark, grades {call: word}, at (seconds into
@@ -113,7 +126,14 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var rng := _rng(c, f, n, i + 1)
 	var s := Exchanges.settle(d, rng.randf(), rng.randf())
 	var names := [str(f["first"]), str(opp["first"])]
-	var rec := {"i": i, "mode": str(lv["mode"]), "sit": sit, "call": call, "shout": shouted, "fit": Exchanges.fit(call, sit),
+	# S310 body shots: hers to the body more on "Go to the body", the opponent's more if body punching is her threat.
+	var share_b := Exchanges.BODY_THREAT_SHARE if str(opp.get("threat", "")).to_lower().contains("body") else Exchanges.BODY_SHARE
+	var body := [Exchanges.body_shots(int(s["landed"][0]), Exchanges.BODY_CALL_SHARE if call == "body" else Exchanges.BODY_SHARE, rng.randf()),
+		Exchanges.body_shots(int(s["landed"][1]), share_b, rng.randf())]
+	var bt: Dictionary = lv.get("body", {"a": 0, "b": 0})
+	bt["b"] = int(bt.get("b", 0)) + int(body[0])
+	bt["a"] = int(bt.get("a", 0)) + int(body[1])
+	var rec := {"i": i, "mode": str(lv["mode"]), "body": body, "sit": sit, "call": call, "shout": shouted, "fit": Exchanges.fit(call, sit),
 		"won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix) if habit != "" else ""}
 	exs.append(rec)
@@ -123,6 +143,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var rating := float(opp.get("rating", 60.0))
 	lv["opp_hurt"] = float(s["margin"]) > Exchanges.HURT_AT and rng.randf() < clampf(0.3 + (float(vals.get("power", 55.0)) - 55.0) / 100.0, 0.1, 0.6)
 	lv["her_hurt"] = float(s["margin"]) < -Exchanges.HURT_AT and rng.randf() < clampf(0.3 + (rating - float(vals.get("chin", 55.0))) / 100.0, 0.1, 0.6)
+	rec["after"] = state(lv, i + 1)
 	lv["mode"] = Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, i + 1, str(lv["mode"]),
 		opp_energy(lv, i + 1), bool(lv["opp_hurt"]), rng)
 	if exs.size() < Exchanges.EXCHANGES:
@@ -160,7 +181,7 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	m.erase("live")
 	return {"n": int(lv["n"]), "won": ro["won"], "won_n": ro["won_n"], "mine": ro["mine"], "theirs": ro["theirs"],
 		"corner": str(lv["plan"]), "energy": e, "exchanges": exs, "landed": ro["landed"], "calls": calls, "worked": worked,
-		"fix": str(lv.get("fix", "")), "habits_paid": paid}
+		"fix": str(lv.get("fix", "")), "habits_paid": paid, "start": lv.get("start", {})}
 
 
 ## The habits the corner can fix before the next round: [{id, name, paid (times this round)}]. r = the closed round.

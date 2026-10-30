@@ -27,6 +27,7 @@ func _initialize() -> void:
 		print(row)
 	print("EXB film 3 (the corner reads her next game), edge 0: none %.2f seen (read the clue) %.2f mark (follow the coach's pick) %.2f" % [
 		share(0.0, "none", 3), share(0.0, "seen", 3), share(0.0, "mark", 3)])
+	print("EXB edge 0 film 1: none %.2f green (always her best-graded offer) %.2f seen %.2f" % [share(0.0, "none", 1), share(0.0, "green", 1), share(0.0, "seen", 1)])
 	print("EXB Lucy with drops_right_after_jab (Priya punishes it), edge 0: none %.2f seen %.2f fix %.2f" % [
 		share(0.0, "none", 1, ["drops_right_after_jab"]), share(0.0, "seen", 1, ["drops_right_after_jab"]), share(0.0, "fix", 1, ["drops_right_after_jab"])])
 	quit(0)
@@ -87,6 +88,15 @@ static func pick(f: Dictionary, m: Dictionary, pol: String) -> String:
 			return str(LiveRound.preview(f, m)["coach"]) if int(lv["shouts"]) < 2 else ""
 		"mark":
 			return str(LiveRound.preview(f, m)["mark"])
+		"green":
+			# S310 operator: "need a mechanic to prevent the player to pick always the green options" - the offer she does best.
+			var pv := LiveRound.preview(f, m)
+			var best := ""
+			var rank := {"Good": 3, "OK": 2, "Poor": 1}
+			for k in pv["offers"]:
+				if best == "" or int(rank[str(pv["grades"][k])]) > int(rank[str(pv["grades"][best])]):
+					best = str(k)
+			return best
 		"oracle":
 			return str(Exchanges.MODES[true_sit]["best"])
 		"wrong":

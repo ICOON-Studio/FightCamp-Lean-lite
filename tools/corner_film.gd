@@ -18,8 +18,10 @@ const STILLS := [[1.0, "c01_bell_part"], [3.2, "c02_behind_walk"], [5.3, "c03_lo
 	[11.0, "c06_coach_card"], [13.5, "c07_reverse_pick"], [16.0, "c075_side2"], [24.0, "c08_corner_wide"], [28.5, "c08b_ots"], [31.5, "c085_cutman"], [41.5, "c09_other_corner"], [53.0, "c10_seconds_out"],
 	[56.5, "c11_walk_out"]]
 
-const INTRO_STILLS := [[1.2, "i01_wide"], [3.4, "i02_red_named"], [6.4, "i03_blue_named"], [9.0, "i04_walk_in"], [10.9, "i05_touch"],
-	[12.0, "i06_seconds_out"]]
+## S310: the tale of the tape holds FightIntro.TAPE_S after the wide; every later still moves by it.
+const TAPE_S := 5.5
+const INTRO_STILLS := [[1.2, "i01_wide"], [4.6, "i015_tale_of_the_tape"], [3.4 + TAPE_S, "i02_red_named"], [6.4 + TAPE_S, "i03_blue_named"],
+	[9.0 + TAPE_S, "i04_walk_in"], [10.9 + TAPE_S, "i05_touch"], [12.0 + TAPE_S, "i06_seconds_out"]]
 
 var main: Node
 var out_dir := "user://corner_film"
@@ -75,7 +77,7 @@ func _initialize() -> void:
 	_check(intro != null and not bool(view.playing), "the intro plays before round 1")
 	if intro != null:
 		if film:
-			await _until(func(): return not is_instance_valid(intro), 20.0)
+			await _until(func(): return not is_instance_valid(intro), 30.0)
 		else:
 			await _watch_intro(intro)
 		await _wait(2)
@@ -128,7 +130,7 @@ func _watch_intro(fi: Node) -> void:
 	var touch := 9.0
 	while is_instance_valid(fi):
 		var tm := float(fi.t)
-		if tm > 10.7 and tm < 11.2:
+		if tm > 10.7 + TAPE_S and tm < 11.2 + TAPE_S:
 			var st: Node3D = fi.stage
 			var g0: Vector3 = st.glove_front(0, st.hand_of(0, "LeftHand"))
 			var g1: Vector3 = st.glove_front(1, st.hand_of(1, "LeftHand"))

@@ -24,8 +24,16 @@ const BRACE_RISE_S := 0.06
 const BRACE_ELBOW_DEG := 22.0
 const BRACE_CRUNCH_DEG := 9.0
 const BRACE_SIDE_DEG := 6.0
+## S310 (operator: "body shots still have no reaction"): a LANDED body shot folds her - the same trunk curl and elbow drop
+## as the brace, bigger (FOLD_GAIN), held FOLD_HOLD_S and let go slowly (FOLD_TAU_S): winded, not flicked. The 30 fps film
+## of the gut-shot clip alone (tools/fight3d_bodyshot.gd) showed the fold for ~0.3 s at fight speed.
+const FOLD_GAIN := 2.6
+const FOLD_HOLD_S := 0.3
+const FOLD_TAU_S := 0.24
+const FOLD_LIFE_S := 1.3
 var _bt := -1.0
 var _bleft := true
+var _gain := 1.0               # 1 = the brace, FOLD_GAIN = a landed body shot
 var _b := {}                   # bone ids: spine, chest, hips, l/r upper, lower, hand
 
 
@@ -65,6 +73,25 @@ func brace(hit_left: bool) -> void:
 		return
 	_bleft = hit_left
 	_bt = 0.0
+	_gain = 1.0
+
+
+## A landed body shot on her left side when `hit_left`: she folds over it and covers with the elbow.
+func fold(hit_left: bool) -> void:
+	brace(hit_left)
+	_gain = FOLD_GAIN
+
+
+## The fold's shape: up like the brace, held, then a slow settle; 0 after FOLD_LIFE_S.
+static func fold_envelope(t: float) -> float:
+	if t < 0.0 or t >= FOLD_LIFE_S:
+		return 0.0
+	if t < BRACE_RISE_S:
+		var u := t / BRACE_RISE_S
+		return u * u * (3.0 - 2.0 * u)
+	if t < BRACE_RISE_S + FOLD_HOLD_S:
+		return 1.0
+	return exp(-(t - BRACE_RISE_S - FOLD_HOLD_S) / FOLD_TAU_S)
 
 
 func _process_modification() -> void:
@@ -103,6 +130,8 @@ func _turn(skel: Skeleton3D, bone: int, angle: float) -> void:
 func _brace_step() -> void:
 	_bt += get_process_delta_time()
 	var e := envelope(_bt * RISE_S / BRACE_RISE_S) if _bt < BRACE_RISE_S else envelope(_bt - BRACE_RISE_S + RISE_S)
+	if _gain > 1.0:
+		e = fold_envelope(_bt) * _gain
 	var skel := get_skeleton()
 	if e <= 0.0 or skel == null:
 		_bt = -1.0
@@ -126,7 +155,7 @@ func _brace_step() -> void:
 	var b := (ribs - sh).normalized()
 	if a.cross(b).length() < 1e-5:
 		return
-	var turn := minf(a.angle_to(b), deg_to_rad(BRACE_ELBOW_DEG) * e)
+	var turn := minf(a.angle_to(b), deg_to_rad(BRACE_ELBOW_DEG) * minf(e, 1.6))
 	var q := Quaternion(a.cross(b).normalized(), turn)
 	_rotate(skel, int(_b[arm + "UpperArm"]), a.cross(b).normalized(), turn)
 	var el2: Vector3 = sh + q * (el - sh)

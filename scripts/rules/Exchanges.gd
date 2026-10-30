@@ -19,6 +19,18 @@ const EDGE_WORD := {"best": "Big edge", "ok": "Small edge", "none": "No edge", "
 const GOOD_AT := 62.0
 const OK_AT := 50.0
 const GRADE := {"Good": 1.0, "OK": 0.6, "Poor": 0.3}
+## S310 (operator: "need a mechanic to prevent the player to pick always the green options"): she commits to a call as
+## well as she can do it - a WRONG call she is good at costs more, one she is weak at she half-does. Green is "she does
+## this well", never "this is right": always picking it measured 0.59 vs reading the clue 0.67 (tools/exchange_balance.gd).
+const COMMIT := {"Good": 1.5, "OK": 1.0, "Poor": 0.6}
+## S310 body damage (operator: "body shots still have no reaction", "where is stamina, body damage"). A share of each
+## side's landed punches goes to the body (ESTIMATE: CompuBox-style counts put body shots near a fifth of landed punches;
+## "Go to the body" makes it half, a body-punching opponent a third). Every body shot taken costs BODY_COST energy for the
+## rest of the fight (the legs go late) - so body work walks her into the "tiring" game.
+const BODY_SHARE := 0.2
+const BODY_CALL_SHARE := 0.5
+const BODY_THREAT_SHARE := 0.35
+const BODY_COST := 1.2
 ## Shouts a round that land fully; each one after lands at LATE_SHOUT.
 const FULL_SHOUTS := 2
 const LATE_SHOUT := 0.5
@@ -155,7 +167,7 @@ static func call_edge(call: String, sit: String, vals: Dictionary, heard: float,
 	if e > 0.0:
 		e *= float(grade(call, vals)["mult"]) * heard
 	elif e < 0.0:
-		e *= heard
+		e *= heard * float(COMMIT[grade(call, vals)["word"]])
 	if finds:
 		var own := MODES[sit] as Dictionary
 		e = maxf(e, float(EDGE["ok"]) * float(grade(str(own["ok"]), vals)["mult"]))
@@ -217,6 +229,11 @@ static func offers(sit: String) -> Array:
 		if want.has(k):
 			out.append(k)
 	return out
+
+
+## Body shots among `landed` punches at `share` (roll in [0, 1) rounds it).
+static func body_shots(landed: int, share: float, roll: float) -> int:
+	return clampi(int(floor(float(landed) * share + roll)), 0, landed)
 
 
 ## Landed punches (winner, loser) by band: RoundScript.LANDED, so the 3D exchange shows what the words count.
