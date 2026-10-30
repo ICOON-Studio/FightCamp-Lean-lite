@@ -7,16 +7,7 @@ extends Node3D
 ##   setup(a, b)  a/b = {"glb": res path, "corner": "red"|"blue"}
 ##   play(who, move)  a punch or a defence; react(who, kind) "head"|"body"|"hurt"; step(who, dir); circle(dir, s)
 
-const MH := preload("res://scripts/fight3d/MHRig.gd")
-const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
-const FighterKit := preload("res://scripts/fight3d/FighterKit.gd")
-const Gloves := preload("res://scripts/fight3d/Gloves.gd")
-const ElbowClear := preload("res://scripts/fight3d/ElbowClear.gd")
-const JoinSmoother := preload("res://scripts/fight3d/JoinSmoother.gd")
-const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
-const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
-const GuardTuck := preload("res://scripts/fight3d/GuardTuck.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const RingSet := preload("res://scripts/fight3d/RingSet.gd")
@@ -25,6 +16,7 @@ const IdleMatch := preload("res://scripts/fight3d/IdleMatch.gd")
 const HitStun := preload("res://scripts/fight3d/HitStun.gd")
 const SideStep := preload("res://scripts/fight3d/SideStep.gd")
 const FootPlant := preload("res://scripts/fight3d/FootPlant.gd")
+const BoxerBuild := preload("res://scripts/fight3d/BoxerBuild.gd")
 
 ## Stride speed of each footwork clip at 1x, metres a second, and its direction in the boxer's own frame (old repo U84,
 ## measured on the source): the body moves exactly this fast while the clip plays, so the planted foot stays planted.
@@ -71,6 +63,9 @@ var _held_speed := [1.0, 1.0]
 var stun := HitStun.new()     # S305: a hit boxer stays in her reaction (no defence, fidget or step over it)
 var life := GuardLife.new()   # S302: each boxer's own guard tempo, fidgets, and a pair step that is not in lockstep
 var side := SideStep.new()    # S306: a dodge's step stays taken; a weave steps off the line
+## S307 corner minute / intro: while `scene` is on, a director (CornerMinute) places and plays both boxers; the fight rules
+## (face each other, keep the gap, the guard between moves, fidgets) are off.
+var scene := false
 ## S306: the turn to face her opponent eases over this (a committed side step turned both bodies ~10 degrees in one frame).
 const FACE_S := 0.08
 
@@ -83,7 +78,7 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 	ring.build(RING_M, APRON_M)
 	_ring_side = ring.ring_side
 	for spec in [a, b]:
-		boxers.append(_boxer(spec))
+		boxers.append(BoxerBuild.build(self, spec, boxers.size()))
 	gap_m = _jab_gap()
 	for bx in boxers:
 		bx["idle_match"] = IdleMatch.sample(bx, BeatClips.first(BeatClips.GUARD, (bx["ap"] as AnimationPlayer).has_animation))
@@ -100,78 +95,6 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 
 func has_move(move: String) -> bool:
 	return (boxers[0]["ap"] as AnimationPlayer).has_animation(move)
-
-
-func _boxer(spec: Dictionary) -> Dictionary:
-	var body := MH.load_fighter(str(spec["glb"]))
-	add_child(body)
-	# S300 (operator: "the one fighter look enormous"): each body is scaled to the boxer's own height.
-	body.scale = Vector3.ONE * float(spec.get("scale", 1.0))
-	var skel := body.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
-	var corner := str(spec.get("corner", "red"))
-	MH.colour_trunks(body, TRUNKS[corner], CLOTH_ROUGHNESS)
-	FighterKit.colour_vest(body, VESTS[corner], CLOTH_ROUGHNESS)
-	FighterKit.dress(body, str(spec["glb"]), "boxing")
-	# Elbows outside her torso, before the twist bones read the arms.
-	var ec := ElbowClear.new()
-	ec.name = "ElbowClear"
-	if ec.setup(skel):
-		skel.add_child(ec)
-		skel.move_child(ec, 0)
-	else:
-		ec.free()
-	var gl := Gloves.new()
-	gl.name = "Gloves"
-	body.add_child(gl)
-	gl.mount(body, CORNERS[corner][0], CORNERS[corner][1])
-	var ap := body.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
-	FightClips.load_into(ap, skel)
-	# S302: a southpaw plays every clip mirrored (lead = right).
-	var south := str(spec.get("stance", "")) == "southpaw"
-	if south:
-		MirrorClip.mirror_library(ap, skel)
-	# S301: every clip change goes through the join smoother (first in the stack, so the elbows and twists read its pose).
-	var js := JoinSmoother.new()
-	js.name = "JoinSmoother"
-	# `nojoin` on the command line = the S300 crossfades (the control arm of the S301 joins report).
-	if not OS.get_cmdline_user_args().has("nojoin") and js.setup(skel, _track_bones(ap)):
-		skel.add_child(js)
-		skel.move_child(js, 0)
-	else:
-		js.free()
-		js = null
-	# S302: her guard tucks in toward her face and pumps (after the join smoother).
-	var gt := GuardTuck.new()
-	gt.name = "GuardTuck"
-	gt.lead = "RightHand" if south else "LeftHand"
-	if gt.setup(skel, ap, body, BeatClips.GUARD + GuardLife.FIDGETS, boxers.size() * 31 + 7):
-		skel.add_child(gt)
-		skel.move_child(gt, (js.get_index() + 1) if js != null else 0)
-	else:
-		gt.free()
-		gt = null
-	# S302: a landed punch reaches the head past the guard (after the guard tuck, before the elbows clear).
-	var pr := PunchReach.new()
-	pr.name = "PunchReach"
-	if pr.setup(skel, ap):
-		skel.add_child(pr)
-		skel.move_child(pr, (gt.get_index() + 1) if gt != null else ((js.get_index() + 1) if js != null else 0))
-	else:
-		pr.free()
-		pr = null
-	var hs := HitSnap.new()
-	hs.name = "HitSnap"
-	if hs.setup(skel):
-		skel.add_child(hs)
-		skel.move_child(hs, (pr.get_index() + 1) if pr != null else 0)
-	else:
-		hs.free()
-		hs = null
-	# S306: her planted feet stay where they stand; a foot steps when her body has moved off it.
-	var fp := FootPlant.attach(skel, ap, null) if not OS.get_cmdline_user_args().has("nofeet") else null
-	ap.animation_finished.connect(_on_finished.bind(boxers.size()))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "feet": fp, "south": south, "front": gl.front_m(),
-		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0}
 
 
 ## S302: `who` throws `clip` and it LANDS: around contact her glove is carried onto the other's face (ribs if `body`).
@@ -210,20 +133,6 @@ func glove_front(i: int, hand: String) -> Vector3:
 	return g.global_position + g.global_transform.basis.y.normalized() * float(boxers[i]["front"]) * _scale(i)
 
 
-## The bones the guard, footwork and a punch animate (every clip in the library drives the same set).
-func _track_bones(ap: AnimationPlayer) -> Array:
-	var out: Array = []
-	for clip in ["pro_idle", "idle", "advance", "pro_left_jab", "jab"]:
-		if not ap.has_animation(clip):
-			continue
-		var anim := ap.get_animation(clip)
-		for i in anim.get_track_count():
-			var bone := str(anim.track_get_path(i).get_concatenated_subnames())
-			if bone != "" and not out.has(bone):
-				out.append(bone)
-	return out
-
-
 ## Starts `clip` on boxer `who` with no crossfade: the join smoother eases from what was shown (S301).
 func _start(who: int, clip: String, speed: float, fade: float = BLEND_S) -> void:
 	var bx: Dictionary = boxers[who]
@@ -240,6 +149,9 @@ func _start(who: int, clip: String, speed: float, fade: float = BLEND_S) -> void
 
 
 func _process(delta: float) -> void:
+	if scene:
+		camera.nudge(delta)
+		return
 	stun.tick(delta)
 	side.tick()
 	_recover()
@@ -396,7 +308,7 @@ func _recover() -> void:
 
 
 func _on_finished(_name: StringName, who: int) -> void:
-	if float(boxers[who]["move_left"]) <= 0.0:
+	if not scene and float(boxers[who]["move_left"]) <= 0.0:
 		guard(who)
 
 
@@ -493,3 +405,29 @@ func close_up(hit: int) -> void:
 	var head: Vector3 = skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Head")).origin
 	camera.close_up(boxers[0]["pos"], boxers[1]["pos"], head.y, hit)
 
+
+## S307: hands both boxers to a scene director (on) or back to the fight (off: they stand where the scene left them, in
+## their guard).
+func scene_mode(on: bool) -> void:
+	scene = on
+	_hold_left = 0.0
+	for i in boxers.size():
+		var bx: Dictionary = boxers[i]
+		life.cancel(i)
+		stun.clear(i)
+		_cut[i] = {}
+		if bx.get("reach") != null:
+			(bx["reach"] as Node).disarm()
+		bx["vel"] = Vector3.ZERO
+		bx["move_left"] = 0.0
+		(bx["ap"] as AnimationPlayer).speed_scale = 1.0
+		if not on:
+			var at := (bx["node"] as Node3D).position
+			bx["pos"] = Vector3(at.x, 0.0, at.z)
+			guard(i)
+
+
+## S307: a scene clip on boxer `who` (through the join smoother, like every move).
+func act(who: int, clip: String, speed: float = 1.0) -> void:
+	if (boxers[who]["ap"] as AnimationPlayer).has_animation(clip):
+		_start(who, clip, speed, GUARD_FADE_S)

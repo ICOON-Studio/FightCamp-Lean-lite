@@ -15,15 +15,12 @@ const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 const UI := preload("res://scripts/ui/UI.gd")
+const FightCast := preload("res://scripts/fight3d/FightCast.gd")
 
 ## The player's choices last the session.
 static var highlights := true
 static var fast := false
 
-const BODIES := ["res://assets/models/metahuman/mh_boxer_10.glb", "res://assets/models/metahuman/mh_boxer_11.glb",
-	"res://assets/models/metahuman/mh_boxer_12.glb"]
-## Standing height of each body above (mh_boxer_10/11/12.json height_cm).
-const BODY_CM := [162.0, 169.0, 178.0]
 const REAL_ROUND_S := 180.0
 ## S302 (operator: "still too slow"): a follow-up by the same boxer starts part-way through its wind-up so it lands this
 ## long after her last punch, never with less than MIN_WIND_S of visible throw. Piorkowski, Lees & Barton 2011 (the paper
@@ -37,6 +34,7 @@ const BELL_S := 2.6
 
 var main: Node
 var stage: Node3D
+var crew: Node3D
 var fid := ""
 var plan: Dictionary = {}
 var beats: Array = []
@@ -97,27 +95,6 @@ static func enabled() -> bool:
 	return DisplayServer.get_name() != "headless" and not OS.get_cmdline_user_args().has("no3d")
 
 
-## Our fighter's body by her weight class; the opponent gets another (so the two faces differ).
-static func bodies_for(limit: float) -> Array:
-	var ours := _class_body(limit)
-	return [BODIES[ours], BODIES[(ours + 1) % BODIES.size()]]
-
-
-static func _class_body(limit: float) -> int:
-	return 0 if limit <= 57.5 else (1 if limit <= 63.0 else 2)
-
-
-## S300 (operator: "the one fighter look enormous" - a lightweight drawn on the 178 cm middleweight body): each body is
-## scaled to her height (her own, else her class body's), so both are the class's size; a uniform scale also scales the
-## build (178 cm / 70 kg at 165 cm reads ~57 kg). Kept within 0.88-1.12 so no body is stretched past believable.
-static func body_scales(limit: float, her_cm: float, opp_cm: float) -> Array:
-	var ours := _class_body(limit)
-	var theirs := (ours + 1) % BODIES.size()
-	var her := her_cm if her_cm > 0.0 else float(BODY_CM[ours])
-	var opp := opp_cm if opp_cm > 0.0 else float(BODY_CM[ours])
-	return [clampf(her / float(BODY_CM[ours]), 0.88, 1.12), clampf(opp / float(BODY_CM[theirs]), 0.88, 1.12)]
-
-
 func setup(m_main: Node, m: Dictionary) -> void:
 	main = m_main
 	fid = str(m["fid"])
@@ -139,10 +116,11 @@ func setup(m_main: Node, m: Dictionary) -> void:
 	holder.add_child(vp)
 	stage = Stage.new()
 	vp.add_child(stage)
-	var picks := bodies_for(float(f.get("limit", 61.2)))
-	var sc := body_scales(float(f.get("limit", 61.2)), float(f.get("height", 0.0)), float(opp.get("height", 0.0)))
+	var picks := FightCast.bodies_for(float(f.get("limit", 61.2)))
+	var sc := FightCast.body_scales(float(f.get("limit", 61.2)), float(f.get("height", 0.0)), float(opp.get("height", 0.0)))
 	stage.setup({"glb": picks[0], "corner": "red", "scale": sc[0], "stance": str(f.get("stance", "orthodox"))},
 		{"glb": picks[1], "corner": "blue", "scale": sc[1], "stance": str(opp.get("stance", "orthodox"))})
+	crew = FightCast.crew(stage, bool(m.get("pro", false)) or total > 3)
 	_build_hud()
 
 
@@ -474,7 +452,23 @@ func _hud() -> void:
 func _done() -> void:
 	playing = false
 	Engine.time_scale = 1.0
+	# S307: between rounds the corner minute plays in the ring (FightCast.corner); its pick starts the next round.
+	if FightCast.corner(self):
+		return
 	main.act("fightwatched", str(round_n))
+
+
+func hide_hud() -> void:
+	_bug_box.visible = false
+	_banner.text = ""
+	_say("")
+	_draw_buttons()
+
+
+func corner_done(pick: String) -> void:
+	Engine.time_scale = 1.0
+	main.modal["watched"] = round_n
+	main.act("fightstep", "corner:" + pick)
 
 
 func skip_round() -> void:

@@ -12,6 +12,6 @@ cp "$ROOT/docs/WHAT_TO_TRY.txt" "$ROOT/Builds/WHAT_TO_TRY.txt"
 # The 3D fight reads its boxers and clips as raw glTF bytes (scripts/fight3d/RawAsset.gd): an export packs only the
 # imported copies, so the raw files ship beside the exe under the same relative paths.
 mkdir -p "$ROOT/Builds/assets/models/metahuman" "$ROOT/Builds/assets/anim/metahuman"
-cp "$ROOT"/assets/models/metahuman/mh_boxer_*.glb "$ROOT"/assets/models/metahuman/mh_boxer_*.json "$ROOT/Builds/assets/models/metahuman/"
+cp "$ROOT"/assets/models/metahuman/mh_*.glb "$ROOT"/assets/models/metahuman/mh_*.json "$ROOT/Builds/assets/models/metahuman/"
 cp "$ROOT"/assets/anim/metahuman/*.glb "$ROOT/Builds/assets/anim/metahuman/"
 echo "built $ROOT/Builds/FightCamp.exe"

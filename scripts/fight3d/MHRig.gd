@@ -92,6 +92,8 @@ static func dress(fighter: Node, glb_path: String = "") -> void:
 		RenderingServer.screen_space_roughness_limiter_set_active(true, float(limiter["amount"]), float(limiter["limit"]))
 	for m in fighter.find_children("*", "MeshInstance3D", true, false):
 		var mi := m as MeshInstance3D
+		# S307: a skinned mesh keeps its standing bounds; seated (the head 0.4 m lower) a close-up culled her hair.
+		mi.extra_cull_margin = 0.6
 		for s in mi.mesh.get_surface_count():
 			var src := mi.get_active_material(s) as BaseMaterial3D
 			if src == null:
@@ -173,6 +175,8 @@ static func _png(res_path: String) -> Texture2D:
 static func colour_trunks(fighter: Node, colour: Color, roughness: float = -1.0) -> void:
 	for m in fighter.find_children("*", "MeshInstance3D", true, false):
 		var mi := m as MeshInstance3D
+		# S307: a skinned mesh keeps its standing bounds; seated (the head 0.4 m lower) a close-up culled her hair.
+		mi.extra_cull_margin = 0.6
 		for s in mi.mesh.get_surface_count():
 			var source := mi.mesh.surface_get_material(s)
 			if source != null and source.resource_name.begins_with("MH_Trunks"):

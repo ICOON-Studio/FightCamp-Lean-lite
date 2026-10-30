@@ -31,6 +31,7 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 	var side := _side_of(a, b)
 	_side = side
 	side = Basis(Vector3.UP, deg_to_rad(18.0) * sin(_clock * 0.11)) * side
+	_lens(false)
 	var want_pos := mid + side * 3.6 + Vector3(0, 1.45, 0)
 	var want_look := mid + Vector3(0, 0.98, 0)
 	(attributes as CameraAttributesPractical).dof_blur_far_distance = 3.6 + 2.2
@@ -45,6 +46,7 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 ## Low at the side, both heads in frame (`head_y` = the hit boxer's head height), held until broadcast() is called again.
 func close_up(a: Vector3, b: Vector3, head_y: float, hit: int) -> void:
 	close = true
+	_lens(false)
 	var mid := (a + b) * 0.5 + Vector3(0, head_y - 0.12, 0)
 	var axis := (b - a).normalized()
 	var side := _side_of(a, b)
@@ -81,3 +83,26 @@ func clear_view(ring_side: Array, mid: Vector3) -> void:
 	for n in ring_side:
 		var d := Vector3((n as Node3D).position.x - mid.x, 0, (n as Node3D).position.z - mid.z)
 		(n as Node3D).visible = d.dot(to_cam) < 1.2
+
+
+## S307 the corner minute's film shots: a lens at `pos` on `look`, sharp only around `focus` metres (shallow depth of
+## field: the near shoulder and the hall behind go soft). `focus` <= 0 = the broadcast lens.
+func film(pos: Vector3, look: Vector3, lens_fov: float, focus: float) -> void:
+	close = true
+	fov = lens_fov
+	_lens(focus > 0.0, focus)
+	look_at_from_position(pos, look, Vector3.UP)
+
+
+func _lens(shallow: bool, focus: float = 0.0) -> void:
+	var lens := attributes as CameraAttributesPractical
+	lens.dof_blur_near_enabled = shallow
+	if shallow:
+		lens.dof_blur_near_distance = maxf(0.1, focus - 0.35)
+		lens.dof_blur_near_transition = 0.25
+		lens.dof_blur_far_distance = focus + 0.5
+		lens.dof_blur_far_transition = 1.2
+		lens.dof_blur_amount = 0.2
+	else:
+		lens.dof_blur_far_transition = 2.5
+		lens.dof_blur_amount = 0.14

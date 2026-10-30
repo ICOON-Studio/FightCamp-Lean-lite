@@ -32,15 +32,17 @@ const PRO_PREFIX := "mc_Box1_M3_"
 ## Clips that travel (their hips keep the X/Z they author); every other clip is thrown in place. Pro clips travel when
 ## their name says the body goes somewhere (knockouts, falls, wins, steps).
 const TRAVELS := ["idle", "advance", "retreat", "strafe_left", "strafe_right", "mc_knockout", "mc_knockout_count", "mc_win"]
+const SEAT_MOVES := ["af_sit_enter", "af_sit_exit"]
 const TRAVEL_WORDS := ["knock", "ko_", "fall", "win", "walk", "step", "count"]
 
 
-## Adds every clip to `ap` (tracks re-pathed onto `skel`). Returns the names added.
-static func load_into(ap: AnimationPlayer, skel: Skeleton3D) -> Array:
+## Adds every clip to `ap` (tracks re-pathed onto `skel`). Returns the names added. `corner_only` (S307, the corner
+## teams): only the ActionForge af_ clips.
+static func load_into(ap: AnimationPlayer, skel: Skeleton3D, corner_only: bool = false) -> Array:
 	var lib: AnimationLibrary = ap.get_animation_library("")
 	var prefix := str(ap.get_node(ap.root_node).get_path_to(skel))
 	var added: Array = []
-	for move in CLIPS:
+	for move in ({} if corner_only else CLIPS):
 		var got: Dictionary = NativeClip.load_animation(CLIPS[move], skel)
 		if str(got.get("error", "")) != "":
 			push_error(got["error"])
@@ -53,11 +55,11 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D) -> Array:
 		lib.add_animation(move, anim)
 		added.append(move)
 	var baked := {}
-	for role in BAKED:
+	for role in ({} if corner_only else BAKED):
 		baked[BAKED[role]] = BAKED_DIR + role + ".res"
-	for name in MOCAP_ONLINE:
+	for name in ({} if corner_only else MOCAP_ONLINE):
 		baked[name] = BAKED_DIR + "mc_" + str(MOCAP_ONLINE[name]) + ".res"
-	for stem in pro_stems():
+	for stem in ([] if corner_only else pro_stems()):
 		baked[pro_name(stem)] = BAKED_DIR + stem + ".res"
 	# S306: the corner minute's ActionForge clips (Quaternius, CC0; the old repo's tools/af_lean_bake.gd): af_<role>.
 	for f in DirAccess.get_files_at(BAKED_DIR):
@@ -97,7 +99,8 @@ static func _add_baked(lib: AnimationLibrary, skel: Skeleton3D, prefix: String, 
 			var rest: Vector3 = skel.get_bone_rest(hips).origin
 			for k in anim.track_get_key_count(t):
 				anim.track_set_key_value(t, k, rest + (anim.track_get_key_value(t, k) as Vector3))
-	if not (name in TRAVELS or (name.begins_with("pro_") and TRAVEL_WORDS.any(func(w): return name.contains(w)))):
+	# S307: sitting down / standing up keep their own hip travel (held, the feet slid 0.2-0.3 m/s forward under the stool).
+	if not (name in TRAVELS or name in SEAT_MOVES or (name.begins_with("pro_") and TRAVEL_WORDS.any(func(w): return name.contains(w)))):
 		hold_root_xz(anim)
 	if name == "pro_idle":
 		# S300: the Pro guard plays between every move: it loops in place (no restart hitch, no drift).
