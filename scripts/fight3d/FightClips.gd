@@ -32,6 +32,9 @@ const MOCAP_ONLINE := {
 ## (7.3 s, she bends and ducks between the ropes IN PLACE - FightIntro carries her through), retargeted to MetaHuman in
 ## the old repo (Game Godot/assets/anim/mixamo_s215/mh). Its hips keys are absolute heights, not deltas.
 const ENTRY := {"entry_ring": "res://assets/anim/entry/entry_entering_ring.res"}
+## S317 the clinch (operator Q-S294-25 "Clinch looks wrong"): a two-person clinch authored in Cascadeur, both halves baked
+## onto our bodies by tools/pair_bake.gd (each in her own facing, centred on her own hips) - Clinch.gd plays them pure.
+const PAIR := ["clinch_att", "clinch_vic"]
 const PRO_PREFIX := "mc_Box1_M3_"
 ## Clips that travel (their hips keep the X/Z they author); every other clip is thrown in place. Pro clips travel when
 ## their name says the body goes somewhere (knockouts, falls, wins, steps).
@@ -72,6 +75,9 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D, corner_only: bool =
 			baked[file.trim_suffix(".res")] = BAKED_DIR + file
 	for name in baked:
 		if _add_baked(lib, skel, prefix, str(name), str(baked[name])):
+			added.append(name)
+	for name in ([] if corner_only else PAIR):
+		if _add_baked(lib, skel, prefix, str(name), BAKED_DIR + str(name) + ".res"):
 			added.append(name)
 	for name in ({} if corner_only else ENTRY):
 		if _add_baked(lib, skel, prefix, str(name), str(ENTRY[name]), true):

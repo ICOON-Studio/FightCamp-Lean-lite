@@ -1,3 +1,21 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 20 (2026-10-30): THE TV LOOK, MOTION BLUR, THROUGH THE ROPES, A REAL CLINCH
+=============================================================================================
+
+NEW IN UPDATE 20 (board: "Test: fight night WITH film study" - watch the intro and round 1 at 1x)
+ 1. THE TV LOOK (you, on another boxing game: "look how much better their game looks"). Ringside lenses at chest height
+    that cut every 4-7 s (theirs: every 5.8 s) and drift around the pair: side, low diagonal, over the shoulder, wide.
+    New light: bounce light on the skin, soft shadows from every lamp over the ring, a saturated canvas, the hall dark
+    and soft behind them.
+ 2. MOTION BLUR (you: "go ahead"). Fast punches smear the way a camera sees them; the still parts stay sharp; a camera
+    cut never smears.
+ 3. THROUGH THE ROPES. The intro starts with each boxer on her apron ducking in between the ropes (top rope up, middle
+    rope down, as her corner holds them), then walking to her corner. SKIP still jumps to the bell.
+ 4. A REAL CLINCH (you: "Clinch looks wrong"). The tie-up is now a two-person clinch (both bodies authored together):
+    they lean in from the hips, heads past each other's shoulder, arms tied, until the referee breaks them.
+ 5. SMOOTHER. The guard settles in over 0.3 s instead of snapping (our added jerks -18 %, on the guard -54 %).
+ 6. LEAVING THE INSIDE like real bouts (John counted 312 exits in three Olympic finals): mostly a straight step back
+    (76 %), a pivot 15 %, a tie-up 9 %.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 19 (2026-10-30): A REAL GUARD, GLOVES ON THE WRIST, SMOOTHER FOOTWORK
 =============================================================================================
 

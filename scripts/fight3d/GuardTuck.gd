@@ -18,7 +18,10 @@ extends SkeletonModifier3D
 
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 
-const EASE_S := 0.15
+## S317 smoothness (tools/smooth_probe.gd raw baseline: the tuck added 77 of our 676 kinks a minute, most on pro_idle):
+## a wrist moves ~0.2 m between the clip's guard and GUARD; over 0.15 s that is ~50 m/s^2 (the probe's kink is 18). Over
+## EASE_S 0.3 it is ~13 - the guard settles, it does not snap.
+const EASE_S := 0.3
 ## Hand pumps: metres along her forward axis, cycles a second.
 const PUMP_M := {"lead": 0.035, "rear": 0.015}
 const PUMP_HZ := 1.3

@@ -9,6 +9,14 @@ extends Node
 ##   setup(stage)  start(holder, dur)  release()  offset(i, to) -> Vector3  floor_m(base) -> float  engaged
 
 const POSES := ["pro_block_loop", "mc_block"]
+## S317 (operator Q-S294-25 "Clinch looks wrong", his C143 mark "calculate the grip without wearing the glove"): when the
+## baked two-person clinch is there (FightClips.PAIR, tools/pair_bake.gd from a Cascadeur-authored clinch: both lean in
+## from the hips, heads past each other's shoulder, arms tied) the holder plays its attacker half and the other its victim
+## half, pure and in step, PAIR_GAP_M apart (the clip's own pelvis spacing: 0.83 x hip height), looping PAIR_SPAN; no
+## hand IK, no sideways shift. Without the clips: the S313-S316 block pose + IK below.
+const PAIR_GAP_M := 0.77
+const PAIR_SPAN := Vector2(0.4, 3.6)
+const PAIR_SPEED := 0.8
 ## The tie-up starts once the pelvises are this close (the holder's walk in ends at RangeBreath.CLINCH_M).
 const ENGAGE_M := 0.62
 ## Nobody closes inside this while tied up (the stage's usual floor is MIN_GAP_M 0.62).
@@ -38,11 +46,13 @@ var engaged := false
 var _w := 0.0
 var _left := 0.0
 var _pose := ""
+var _pair := false
 
 
 func setup(s: Node) -> void:
 	stage = s
 	name = "Clinch"
+	_pair = stage.has_move("clinch_att") and stage.has_move("clinch_vic")
 	for p in POSES:
 		if stage.has_move(p):
 			_pose = p
@@ -80,14 +90,15 @@ func release() -> void:
 
 ## The closest the two may stand: MIN_M while tied up, easing back to the stage's `base` as they let go (no snap apart).
 func floor_m(base: float) -> float:
+	var tied := PAIR_GAP_M if _pair else MIN_M
 	if holder >= 0:
-		return MIN_M
-	return lerpf(base, MIN_M, _w)
+		return tied
+	return lerpf(base, tied, _w)
 
 
 ## The shown body's shift (FightStage._compose adds it like the punch carry): her own left of the line to the other.
 func offset(_i: int, to: Vector3) -> Vector3:
-	if _w <= 0.0 or to.length() < 0.01:
+	if _pair or _w <= 0.0 or to.length() < 0.01:
 		return Vector3.ZERO
 	return Vector3.UP.cross(to.normalized()) * SIDE_M * _w * _w * (3.0 - 2.0 * _w)
 
@@ -101,8 +112,18 @@ func _process(delta: float) -> void:
 		release()
 		return
 	var dist := (stage.boxers[0]["pos"] as Vector3).distance_to(stage.boxers[1]["pos"])
-	if not engaged and dist <= ENGAGE_M and _free(0) and _free(1):
+	if not engaged and dist <= (PAIR_GAP_M + 0.06 if _pair else ENGAGE_M) and _free(0) and _free(1):
 		_engage()
+	if engaged and _pair:
+		for i in 2:
+			var clip := "clinch_att" if i == holder else "clinch_vic"
+			var ap: AnimationPlayer = stage.boxers[i]["ap"]
+			if str(ap.current_animation) != clip:
+				stage.act(i, clip, PAIR_SPEED)
+				ap.seek(PAIR_SPAN.x, true)
+			elif ap.current_animation_position > PAIR_SPAN.y:
+				ap.seek(PAIR_SPAN.x, true)
+		return
 	if engaged and _pose != "":
 		for i in 2:
 			var ap: AnimationPlayer = stage.boxers[i]["ap"]
@@ -121,6 +142,8 @@ func _free(i: int) -> bool:
 
 func _engage() -> void:
 	engaged = true
+	if _pair:
+		return
 	for i in 2:
 		var ik: Node = stage.boxers[i].get("ik")
 		if ik == null:
