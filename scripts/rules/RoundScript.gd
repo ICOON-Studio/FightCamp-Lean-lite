@@ -22,7 +22,7 @@ const WINNER_MISSES := 6
 const LOSER_MISSES := 8
 ## S302 (operator: "still too slow"): punches in an exchange start 0.35 s apart, the real contact-to-contact time of
 ## alternating-hand combinations (Piorkowski, Lees & Barton 2011: 1.06 s for 1st -> 4th contact), and the view starts a
-## follow-up part-way into its wind-up to land on that beat (FightView.COMBO_LAND_S). Only the resets between exchanges
+## follow-up part-way into its wind-up to land on that beat (BeatClips.COMBO_LAND_S). Only the resets between exchanges
 ## stretch to fill the round. (S300: 0.50, stretched up to 1.6x with the rest = 0.5-0.8 s between punches.)
 const COMBO_GAP_S := 0.35
 ## Resets between exchanges stretch at most this much to fill the round.

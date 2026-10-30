@@ -1,3 +1,29 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 14 (2026-10-30): THE RING BREATHES - RANGE, FEET, HEAD SHOTS, ROPES
+=============================================================================================
+
+NEW IN UPDATE 14 (board: "Test: fight night WITH film study" - watch round 1 at 1x, then skip)
+From the real women's amateur footage we studied (S310): real boxers do not stand at one distance all round.
+ 1. THE RANGE BREATHES. Between attacks they rest out of reach (about 1.4-1.6 m); the attacker lunges in for her
+    punches, they trade in the pocket, then one steps out. Measured on one round: long range about half the time (real
+    40-63 %), the distance swings about 29 times a minute (real 18-35). Before: one fixed distance all round.
+ 2. THE FEET KEEP MOVING. Rhythm steps, circling, giving ground under pressure: feet move in 46 % of the round (real
+    53-56 %, ours was 9 %). Each boxer travels about 105 m a round (was 10).
+ 3. A HEAD SHOT NO LONGER FREEZES HER. A plain head shot snaps her head and she fights on within about 0.3 s; a body
+    shot folds her a little longer.
+ 4. THE ROPES (your two asks): a rope between the camera and the boxers turns see-through; and the ropes are springy -
+    a boxer backed onto them bends them (at most about 0.35 m, like a real ring rope) and they wobble back.
+
+FIXED FROM ZIVA'S PLAYTEST (updates 12-13)
+ - Clicking BEGIN FIGHT no longer freezes the screen for 3-5 seconds: the ring now loads while you read the tale of
+   the tape (measured: the click answers in 0.01 s).
+ - The fight display says BODY TAKEN (it read like body shots she LANDED).
+ - The tale of the tape shows the opponent's weight as a number (it said "made weight").
+ - EXCHANGES WON goes up when the caption says who won the 30 seconds, not 2 seconds later.
+
+STILL TO COME: the clinch with a referee who breaks it (your answer: build it free - started), the guard changing with
+range, 2-5 punch bursts. Ziva's other findings (no body call in round 1 against a pressure fighter, round 1 the same
+decision five times, the plan spoiling the set-up) wait for your answer on the board.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 13 (2026-10-30): THE CORNER MINUTE HAS FOUR JOBS
 =============================================================================================
 
@@ -28,7 +54,7 @@ FIGHTCAMP - WEEK 6 BUILD, UPDATE 12 (2026-10-30): BODY SHOTS COUNT, A FIGHT DISP
 
 NEW IN UPDATE 12 (board: "Test: fight night WITH film study" - play two rounds, call "Go to the body" a few times)
  1. A FIGHT DISPLAY under the scoreboard, one row per boxer: an ENERGY bar (green / orange / red) with its number,
-    BODY HITS (body shots she has taken all fight) and HURT when she is hurt. It updates after each 30 seconds you
+    BODY HITS (body shots she has taken all fight; BODY TAKEN since update 14) and HURT when she is hurt. It updates after each 30 seconds you
     watch. The words screen shows the same.
  2. BODY SHOTS MATTER. A share of the punches that land go to the body (half of them when you call "Go to the body").
     Every body shot she takes costs her energy for the REST of the fight - work the body and the opponent tires, and

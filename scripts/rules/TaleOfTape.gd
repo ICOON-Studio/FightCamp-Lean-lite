@@ -13,12 +13,20 @@ static func rows(f: Dictionary, opp: Dictionary, gym: String, her_cm: float) -> 
 		["AGE", str(int(f.get("age", 0))), str(int(opp.get("age", 0)))],
 		["HEIGHT", _cm(h_a), _cm(h_b)],
 		["REACH", _cm(float(f.get("reach", h_a))), _cm(float(opp.get("reach", h_b)))],
-		["WEIGHT", "%.1f kg" % float(f.get("weight", 0.0)), "made weight"],
+		["WEIGHT", "%.1f kg" % float(f.get("weight", 0.0)), "%.1f kg" % opp_kg(opp, float(f.get("limit", 0.0)))],
 		["RECORD", "%d-%d" % [int(f.get("w", 0)), int(f.get("l", 0))], "%d-%d" % [int(opp.get("w", 0)), int(opp.get("l", 0))]],
 		["STANCE", str(f.get("stance", "orthodox")).capitalize(), str(opp.get("stance", "orthodox")).capitalize()],
 		["STYLE", str(f.get("style", "")), str(opp.get("style", ""))],
 		["CLUB", gym, str(opp.get("club", ""))],
 	]
+
+
+## S312 (Ziva review: the opponent's WEIGHT row read "made weight"): her own weigh-in weight, or - opponents carry none
+## yet - a steady number 0.2-1.4 kg under the class limit (amateur boxers weigh in a little under the limit), by her name.
+static func opp_kg(opp: Dictionary, limit: float) -> float:
+	if opp.has("weight"):
+		return float(opp["weight"])
+	return limit - 0.2 - 1.2 * float(absi(hash(str(opp.get("name", "")))) % 100) / 100.0
 
 
 static func _cm(cm: float) -> String:

@@ -105,6 +105,9 @@ func _report() -> void:
 	print("RANGE_PROBE range mix inside %.0f %% / mid %.0f %% / long %.0f %%" % [100.0 * inside / n, 100.0 * (n - inside - long) / n, 100.0 * long / n])
 	print("RANGE_PROBE swings %d (%.1f a minute)" % [swings, swings / (secs / 60.0)])
 	print("RANGE_PROBE ropes bowed > 3 cm in %d frames, deepest %.2f m at round time %.1f s" % [bow_frames, bow_max, bow_at])
+	var ropes: Node = view.stage._ropes
+	print("RANGE_PROBE body through the ropes: deepest %.2f m past the line by %s (cap %.2f m)" % [
+		float(ropes.through_m), str(ropes.through_who) if str(ropes.through_who) != "" else "nobody", float(ropes.MAX_BOW_M)])
 	print("RANGE_PROBE feet moving red %.0f %% blue %.0f %%, travel red %.1f m blue %.1f m (per round: x %.2f)" % [
 		100.0 * feet[0] / n, 100.0 * feet[1] / n, travel[0], travel[1], 180.0 / secs])
 

@@ -4,6 +4,16 @@ extends RefCounted
 
 const UI := preload("res://scripts/ui/UI.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const ExchangeBeats := preload("res://scripts/fight3d/ExchangeBeats.gd")
+
+
+## [won, lost] exchanges at round time t. S312 (Ziva review: the caption said the 30 s was won while the score still read
+## 0-0): an exchange counts from its verdict caption; the energy display still waits for the 30 s line (never runs ahead).
+static func score(exchanges: Array, t: float) -> Array:
+	var scored := exchanges.slice(0, int((t + ExchangeBeats.VERDICT_LEAD_S) / Exchanges.EX_SECONDS))
+	var won := scored.filter(func(x): return bool(x["won"])).size()
+	return [won, scored.size() - won]
 
 
 static func build(view: Control) -> void:
@@ -59,6 +69,22 @@ const BAR_W := 170.0
 const BANDS := [[60.0, Color("#6cc27a")], [35.0, Color("#f0a020")], [0.0, Color("#e0503c")]]
 
 
+## The speed and skip buttons (shown while a round plays; moved out of FightView S312).
+static func draw_buttons(view: Control) -> void:
+	var row: HBoxContainer = view._buttons
+	UI.clear(row)
+	var speed := UI.button("2x" if view.pace() > 1.0 else "1x", "BtnQuiet", view._toggle_speed)
+	speed.tooltip_text = "Speed (Space)"
+	row.add_child(speed)
+	var skip := UI.button("Skip round", "Btn", view.skip_round)
+	skip.name = "SkipRound"
+	row.add_child(skip)
+	var bout := UI.button("Skip bout", "Btn", view.skip_bout)
+	bout.name = "SkipBout"
+	row.add_child(bout)
+	row.visible = bool(view.playing)
+
+
 static func _build_status(view: Control, parent: VBoxContainer) -> void:
 	var rows: Array = []
 	for side in 2:
@@ -78,7 +104,7 @@ static func _build_status(view: Control, parent: VBoxContainer) -> void:
 		energy.custom_minimum_size = Vector2(92, 0)
 		row.add_child(energy)
 		var body := UI.mono("", UI.TINY, UI.MUTED)
-		body.custom_minimum_size = Vector2(110, 0)
+		body.custom_minimum_size = Vector2(124, 0)
 		row.add_child(body)
 		var hurt := UI.label("HURT", UI.TINY, UI.RED, "bold")
 		hurt.visible = false
@@ -106,7 +132,8 @@ static func paint(view: Control, snap: Dictionary, names: Array) -> void:
 		(r["who"] as Label).text = str(names[side]).to_upper()
 		(r["energy"] as Label).text = "ENERGY %d" % int(round(v))
 		var taken := int((snap.get("body", [0, 0]) as Array)[side])
-		(r["body"] as Label).text = "BODY HITS %d" % taken
+		# S312 (Ziva review: "BODY HITS" under her name read as hits she landed): the row is her condition, so it says taken.
+		(r["body"] as Label).text = "BODY TAKEN %d" % taken
 		(r["body"] as Label).add_theme_color_override("font_color", UI.MUTED if taken < 6 else (UI.AMBER if taken < 12 else UI.RED))
 		(r["hurt"] as Label).visible = bool((snap.get("hurt", [false, false]) as Array)[side])
 		var fill: ColorRect = r["fill"]

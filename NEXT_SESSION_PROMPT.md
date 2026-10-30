@@ -1,3 +1,53 @@
+# Next session: S313 (written S312, 2026-10-30, after update 14)
+
+## Start
+1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then `cd /e/FightCamp/Lean && git pull`.
+2. Board: Q-S294-23 (order of Ziva's fight findings) and Q-S294-24 (update 14 verdict, still attached) are open.
+   Q-S294-22 was "Build it free" (clinch) - Qwen is building the rules.
+3. COLLECT FIRST: Qwen CLINCHBEATS1 (brief Game Godot/research/TASK_CLINCHBEATS1.md; worktree E:/FightCamp/wt/LEAN_CLINCHBEATS1,
+   branch qwen/clinchbeats1, out E:/FightCamp/wt/CLINCHBEATS1_out.txt, launched 12:44 pid 31488). Read
+   scripts/rules/ClinchBeats.gd against the brief (counts 2.5/3.2/4.8 a round, 4.1 +- 2.3 s, referee step_out pair at
+   break_t, no punch inside a clinch window), run tests/clinch_beats_test.gd + round_script_test headless, copy both files
+   into Lean, add clinch_beats_test to tools/run_tests.sh, then retire the worktree and move the run to live_runs_archive.
+
+## PC (after the cooling service, 2026-10-30)
+Idle 51-54 C at 5-14 % CPU (was a 64 C median, 59-75). The same round film (tools/range_probe.gd, 1280x720) ran at
+63-70 C (was 66-75) and took 11 min instead of 14. Right after the PC came back it read 89-90 C at 12-19 % CPU for a few
+minutes (10:25-10:42, Windows still setting up) - if that shows after a normal boot, tell him.
+
+## Where S312 stopped (Lean 1bb86ab, update 14 exported, 29/29 tests)
+- Begin-fight freeze (Ziva): FightView.sync builds the 3D view hidden while the tale of the tape shows (timer 0.3 s ->
+  prebuild(): setup + one SubViewport UPDATE_ONCE render), reveal() on Begin. tools/begin_probe.gd: click 2388 -> 13 ms,
+  worst frame 1037 -> 51 ms. Parts: ring + boxers 1.9 s, corner crew 0.55 s, first-frame shaders 1.0 s.
+- FightHud: BODY TAKEN; FightHud.score counts an exchange from its verdict caption (ExchangeBeats.VERDICT_LEAD_S 2.4);
+  FightHud.draw_buttons (moved from FightView). BeatClips.combo_skip + COMBO_LAND_S/COMBO_SAME_HAND_S/MIN_WIND_S (moved
+  from FightView; tests/fight_feel_test uses BeatClips). FightView is 492 lines.
+- TaleOfTape.opp_kg: opponent weigh-in 0.2-1.4 kg under the class limit, steady by name (was "made weight").
+- RingRopes.MAX_BOW_M 0.35 + through_m/through_who; film round1f (E:/FightCamp/tmp/s312_film): deepest bow 0.32 m,
+  nobody through the ropes, gap/feet/travel numbers unchanged from S311.
+- tools/export.sh now ships mh_skin_micro_normal.png (MHRig.dress reads it raw; every build since S263 drew skin without it
+  and logged 6 "buffer_size == 0" errors). Exe smoke: `python tools/hidden_desktop.py run --timeout=40 --log=<log>
+  E:/FightCamp/Lean/Builds/FightCamp.exe --audio-driver Dummy -- jump=fight` from Builds/ -> 0 errors.
+
+## Next (in order)
+1. Collect CLINCHBEATS1 (above).
+2. The clinch in the ring (gap 4): ExchangeBeats.build calls ClinchBeats.apply(plan beats, {n, sit, energy, habits}, rng)
+   after _show_game (the "hurt" game's two "clinch" extras then come from ClinchBeats - drop them from _show_game).
+   FightView._fire "clinch" (today it plays "slip"): both boxers to ~0.35 m (stage gap target while a clinch holds),
+   chest to chest, heads past each other's shoulder; the holder's arms over the other's (PunchReach / CornerIK targets on
+   the other's upper back) on the block-loop pose (mc_Box1_M3_Block_Loop) - no clinch clip exists anywhere we checked.
+   A referee: a staff body (CornerCrew bodies) recoloured white shirt + dark trousers, standing off the boxers' line; at
+   a clinch he walks in (af_walk), at break_t plays af_push between them, the two "ref" step_out beats part them.
+   Measure with tools/range_probe.gd (add a clinch count + inside-range share; real inside 17-31 %), film, stills.
+3. Ziva findings by his Q-S294-23 answer; gap 5 guard by range; gap 6 bursts of 2-5 punches.
+
+## Traps
+- rule_guard.py blocks any command TEXT containing the console build's name - write agent prompts with the Write tool.
+- PowerShell 5.1 `Set-Content -Encoding utf8` puts a BOM in a commit message file: write it with the Write tool.
+- FightView.sync: a hidden view exists during the "tape" step; anything that looks for layer.get_child(0) gets it.
+
+---- previous prompt (S311) below ----
+
 # Next session: S312 (written S311, 2026-10-30, in a hurry: the PC went for a cooling service mid-session)
 
 ## Start
@@ -56,69 +106,3 @@
 - A bone read from outside the skeleton's modifiers gets the clip pose (RingRopes reads pre-modifier bones; fine for contact).
 - PowerShell 5.1 mangles `git commit -m` with quotes: commit with `-F <file>`.
 
----- previous prompt (S310) below ----
-
-# Next session: S311 (written S310, 2026-10-30, after updates 11-12: shout bar without the free answer; fight display, body damage)
-
-## Start
-1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then work in `E:\FightCamp\Lean` (`git pull`).
-2. Board: Q-S294-19 (update 12) and Q-S294-21 (update 13, corner minute) + review comments on the S310 stills.
-   Q-S294-20 (corner plan) was "Yes, build it" - built (eca97b4). Q-S294-18: "needs more features/mechanics for the
-   player during the fight but these need to be wired also with the other aspects (training,etc)".
-3. Collect the real-fight study (side session local_e568234c: Game Godot/research/S310_REAL_FIGHT_GAPS.md); first finding:
-   FightStage._compose holds the jab gap all the time (step_in moves both boxers; clinch beats only play a slip). His play notes S310:
-   "playing it seems satisfying", "fight looks ok for now but can still be improved". Flat back: if he still sees it,
-   the guard posture (upright spine) is next - cloth normals were the shading half.
-
-## Where it stands (Lean 83e852d + c7dda85)
-- LiveRound.preview returns `coach` (the best call for what the corner sees = the clue's answer; tests/tools use it as the
-  "read the clue" policy) and `mark` (what the shout bar marks): "" without film study; with film study (depth 3) the best
-  call for Exchanges.favourite(style) - her heaviest game in STYLE_MODES - or for our fighter's own tired/hurt state.
-  The UI (ShoutBar, FightNight words) passes `mark`, never `coach`.
-- Shout buttons: small line = the call's "when" ("Use when Maria presses") + the grade line; "expect" is the tooltip.
-  The mark reads "coach's pick (from film)" (CallButtons.PICK_FILM). The corner minute grid still marks the coach's read
-  of the last round (PICK) - that is the corner's job between rounds.
-- ShoutBar.SHOW_S 10 s (was 8): clue + labels ~22 words at 238 wpm (Brysbaert 2019) ~5.5 s + a 4-way pick and the mouse.
-- Measured (tools/exchange_balance.gd, policy "mark" new): film 3 edge 0: none 0.56 / follow the pick 0.66 / read the clue
-  0.72; film 1: none 0.56 / read 0.67 / wrong 0.26. exchanges_test section 10 bounds read > pick + 0.03 > none + 0.02.
-- Film study is ON by default in SET CAMP ($150), so most first fights show the film pick.
-- Wording (c7dda85): the last bare her/she in fight lines name the boxer - CornerCard "Lucy's 1-2 landed whole",
-  RoundScript.CALL_CAPTION {her} (round["names"], ExchangeBeats passes ctx names), BoutRules.why film line, FightWords
-  fallback + fight_words.json "{her}'s round.". exchanges_test 1c scans 182 fight lines (no sentence-initial She/Her, every
-  call caption names her); fight_words_contract_test CALL_TEXT carries {her}.
-
-- Ops board "Run on this PC" (e341d68 + Game 0df4769b, his ask "a link on the board to launch the latest version, or the
-  part I need to test only"): Play FightCamp (latest build) + Test buttons. A test button opens a .lnk in Builds/ carrying
-  `-- jump=<id>` (Explorer drops plain arguments); TestJump.gd plays the real buttons to that part on its own save slot.
-  EVERY UPDATE: add/replace the jump for what WHAT_TO_TRY asks him to test (TestJump.JUMPS, make_shortcuts.ps1, the
-  rows in Game AgentComms/launch_targets.json), then export.
-
-- Update 12 (42419f7, f39b33f): Exchanges.COMMIT (wrong call x1.5 Good / x0.6 Poor; always-green 0.55 = none 0.54, read
-  0.68); body damage BODY_SHARE 0.2 / BODY_CALL_SHARE 0.5 / BODY_THREAT_SHARE 0.35, BODY_COST 1.2 energy per shot taken all
-  fight (f.bout.body {a taken by her, b by the opponent}, lv.body); LiveRound.state -> rec "after" + round "start" feed
-  FightHud.paint (energy bar, BODY HITS, HURT) so the display never runs ahead; ExchangeBeats._body makes the ring land the
-  counted body shots; HitSnap.fold (FOLD_GAIN 2.6, hold 0.3 s) on a landed body shot; FighterKit.cloth_normals gives
-  MH_Top/Trunks/Trim the skin normal map.
-
-- Update 13 (eca97b4): CornerJobs (pure) recover / set-up / talk; Bouts.corner_jobs parses
-  "corner:<call>|fix=|setup=<combo>@<gap>|talk=|rec=water:2,ice:1"; LiveRound.now_offer -> preview "now" -> gold
-  CallButtons.now_button; CornerJobsRow builds the card rows (3D CornerOverlay + words FightNight); ExchangeBeats._setup
-  plays the combination. TestJump jump=corner gives TestJump.DRILLED combos. Bouts.gd is 493 lines - split before adding.
-- Tale of the tape: TaleOfTape (rules) + TapeCard (3D), FightIntro TAPE_S 5.5.
-- Parse gate in Lean: `<godot> --headless --path . --check-only --script res://<file>` on every touched .gd before a
-  windowed run (S310: a multi-line lambda and an untyped `:=` hung corner_film 450 s).
-
-- 7b324d2: BeatClips.pick(pool, has, roll) - every Punch Pro take in REACT / BIG_REACT / DOWN / OUT / WIN / TIRED, the
-  beat's roll picks (FightView passes _amb_rng.randf()). Blocks and fidget v4/v5 stay out on purpose.
-- NEXT: Game Godot/research/S310_REAL_FIGHT_GAPS.md ranked fixes 1-3 (range that breathes, 0.2-0.3 s head-shot lock,
-  feet moving), then the clinch (his choice: free build vs paid capture).
-
-## Traps
-- A bone read from outside the skeleton's modifiers gets the clip pose: anything a modifier moves (the look now moves the
-  head) must be read from what the modifier recorded.
-- PowerShell 5.1 mangles `git commit -m` with quotes: commit with `-F <file>`. Rewrite JSON files with their own indent
-  (roadmap.json indent 1, media_comments.json indent 2) or the diff is the whole file.
-- FightView.gd 497 lines: new fight code goes in ExchangeBeats / ShoutBar / FightHud / FightCast.
-
-## Wrap-up duties
-CLAUDE.md "Wrap-up": tests + export, ops board roadmap, rewrite this file, memorize the session, ask before handing over.

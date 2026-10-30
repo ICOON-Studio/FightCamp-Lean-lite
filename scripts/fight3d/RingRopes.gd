@@ -16,10 +16,15 @@ const SUBSTEP_S := 1.0 / 240.0
 const BODY := [["Hips", 0.17], ["Chest", 0.19], ["Head", 0.12], ["LeftHand", 0.09], ["RightHand", 0.09],
 	["LeftLowerLeg", 0.08], ["RightLowerLeg", 0.08]]
 const RADIUS_M := 0.018
+## S312: the furthest a ring rope gives under a body (a real ring rope bows ~0.1-0.4 m). S311's film bowed one 0.71 m.
+const MAX_BOW_M := 0.35
 
 var segments: Array = []      # MeshInstance3D, SEGMENTS per rope
 var _ropes: Array = []        # [{a, b, n (outward), u: PackedVector3Array, prev: PackedVector3Array, segs: Array}]
 var _left := 0.0
+## The deepest push a body part wanted past MAX_BOW_M (it went through the rope): metres past the line, "<boxer> <bone>".
+var through_m := 0.0
+var through_who := ""
 
 
 ## `half` = posts at (+-half, +-half); one rope per side at each of `heights`; `mat_of.call(h)` a new material for a piece.
@@ -87,6 +92,12 @@ func _step(rope: Dictionary, spheres: Array) -> void:
 			var need := c.dot(n) + sqrt(r * r - off.length_squared())
 			if p.dot(n) < need:
 				next[k] += n * (need - p.dot(n))
+				var want := need - rest.dot(n)
+				if want > MAX_BOW_M and want > through_m:
+					through_m = want
+					through_who = str(s[2])
+		if next[k].length() > MAX_BOW_M:
+			next[k] = next[k].normalized() * MAX_BOW_M
 	rope["prev"] = u
 	rope["u"] = next
 
@@ -116,14 +127,14 @@ func max_bow() -> float:
 	return most
 
 
-## The body spheres of every boxer, in world space: [centre, radius].
+## The body spheres of every boxer, in world space: [centre, radius, "<boxer index> <bone>"].
 func _spheres(skels: Array) -> Array:
 	var out: Array = []
-	for skel in skels:
-		var sk := skel as Skeleton3D
+	for j in skels.size():
+		var sk := skels[j] as Skeleton3D
 		var s := sk.global_transform.basis.get_scale().x
 		for row in BODY:
 			var i := sk.find_bone(str(row[0]))
 			if i >= 0:
-				out.append([sk.global_transform * sk.get_bone_global_pose(i).origin, float(row[1]) * s])
+				out.append([sk.global_transform * sk.get_bone_global_pose(i).origin, float(row[1]) * s, "%d %s" % [j, row[0]]])
 	return out

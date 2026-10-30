@@ -5,6 +5,25 @@ extends RefCounted
 ## Lead = left: our boxers fight orthodox in the ring view.
 
 const CONTACT_PATH := "res://assets/data/clip_contact.json"
+## S302 (operator: "still too slow"): a follow-up by the same boxer starts part-way through its wind-up so it lands this
+## long after her last punch, never with less than MIN_WIND_S of visible throw. Piorkowski, Lees & Barton 2011 (the paper
+## itself, p. 11; John's "125 ms" is not in it): contact of the 1st to contact of the 4th punch 1.06 +- 0.46 s with
+## alternating hands (~0.35 s a punch), 1.35 +- 0.27 s with the same hand (~0.45 s). (Moved from FightView S312.)
+const COMBO_LAND_S := 0.35
+const COMBO_SAME_HAND_S := 0.45
+const MIN_WIND_S := 0.12
+
+
+## Seconds into a punch clip to start it: 0, or for a follow-up (her last punch lands at view time `last`, now = `now`)
+## far enough into the wind-up that it lands COMBO_LAND_S after the last, keeping at least MIN_WIND_S of throw.
+static func combo_skip(contact: float, speed: float, last: float, now: float, same_hand: bool = false, gap: float = -1.0) -> float:
+	if last < now - 0.30:
+		return 0.0
+	if gap <= 0.0:
+		gap = COMBO_SAME_HAND_S if same_hand else COMBO_LAND_S
+	var want := maxf(MIN_WIND_S, last + gap - now)
+	return clampf(contact - want * speed, 0.0, maxf(0.0, contact - MIN_WIND_S * speed))
+
 
 ## A thrown punch (S300, 60 Punch Pro punch clips): the beat's Pro stem, its plain takes, and the old clip it falls back on.
 ## Every stem comes in variants the beat picks by context (punch()): _special / _hard (the round's big shot), _miss (a wide

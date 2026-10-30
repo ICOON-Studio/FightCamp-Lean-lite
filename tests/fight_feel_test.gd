@@ -8,6 +8,7 @@ extends SceneTree
 ##   4. RoundScript: punches inside an exchange start COMBO_GAP_S apart (not stretched), follow-ups are marked "combo".
 
 const FightView := preload("res://scripts/fight3d/FightView.gd")
+const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
 const RS := preload("res://scripts/rules/RoundScript.gd")
@@ -17,16 +18,16 @@ var failures := 0
 
 func _initialize() -> void:
 	# 1. Combos. A jab lands 0.365 s after it starts (contact 0.467 s of clip at speed 1.28).
-	_check(FightView.combo_skip(0.467, 1.28, -9.0, 5.0) == 0.0, "a punch with no recent punch before it starts at the top")
+	_check(BeatClips.combo_skip(0.467, 1.28, -9.0, 5.0) == 0.0, "a punch with no recent punch before it starts at the top")
 	var last := 5.0 + 0.365
 	var now := 5.25
-	var skip := FightView.combo_skip(0.6, 1.2, last, now)
+	var skip := BeatClips.combo_skip(0.6, 1.2, last, now)
 	var lands := now + (0.6 - skip) / 1.2
-	_check(absf(lands - (last + FightView.COMBO_LAND_S)) < 0.005, "a follow-up lands %.3f s behind the last (want %.3f)" % [lands - last, FightView.COMBO_LAND_S])
-	var same := FightView.combo_skip(0.9, 1.2, last, now, true)
-	_check(absf(now + (0.9 - same) / 1.2 - (last + FightView.COMBO_SAME_HAND_S)) < 0.005, "a same-hand follow-up lands %.2f s behind (Piorkowski 2011)" % FightView.COMBO_SAME_HAND_S)
-	var late := FightView.combo_skip(0.6, 1.2, 5.0, 5.2)
-	_check((0.6 - late) / 1.2 >= FightView.MIN_WIND_S - 0.001, "a follow-up keeps at least %.2f s of throw" % FightView.MIN_WIND_S)
+	_check(absf(lands - (last + BeatClips.COMBO_LAND_S)) < 0.005, "a follow-up lands %.3f s behind the last (want %.3f)" % [lands - last, BeatClips.COMBO_LAND_S])
+	var same := BeatClips.combo_skip(0.9, 1.2, last, now, true)
+	_check(absf(now + (0.9 - same) / 1.2 - (last + BeatClips.COMBO_SAME_HAND_S)) < 0.005, "a same-hand follow-up lands %.2f s behind (Piorkowski 2011)" % BeatClips.COMBO_SAME_HAND_S)
+	var late := BeatClips.combo_skip(0.6, 1.2, 5.0, 5.2)
+	_check((0.6 - late) / 1.2 >= BeatClips.MIN_WIND_S - 0.001, "a follow-up keeps at least %.2f s of throw" % BeatClips.MIN_WIND_S)
 	# 2. Reach weight on clip time around contact 0.5 s.
 	_check(PunchReach.weight(0.2, 0.5) == 0.0, "no reach long before contact")
 	_check(PunchReach.weight(0.5 - PunchReach.IN_S * 0.5, 0.5) > 0.3 and PunchReach.weight(0.5 - PunchReach.IN_S * 0.5, 0.5) < 0.7, "the reach eases in")

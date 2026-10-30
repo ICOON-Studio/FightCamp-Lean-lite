@@ -13,6 +13,8 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 ## RoundScript.margin reads |mine - theirs| on the round's scale: these land each band in RoundScript's own band.
 const BAND_MINE := {"close": 3.0, "clear": 10.0, "dominant": 20.0}
+## The call's verdict caption comes this long before the exchange's 30 s line (FightView counts the exchange won then).
+const VERDICT_LEAD_S := 2.4
 
 static var _ring_lines: Dictionary = {}
 
@@ -51,7 +53,7 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	# S309: a habit punished (or the corner's fix holding) gets its own caption before the verdict.
 	if str(x.get("habit_line", "")) != "":
 		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["habit_line"])})
-	out.append({"t": at + Exchanges.EX_SECONDS - 2.4, "who": "a", "move": "say", "result": "none", "caption": str(x["verdict"])})
+	out.append({"t": at + Exchanges.EX_SECONDS - VERDICT_LEAD_S, "who": "a", "move": "say", "result": "none", "caption": str(x["verdict"])})
 	out.sort_custom(func(a, b): return float(a["t"]) < float(b["t"]))
 	return out
 

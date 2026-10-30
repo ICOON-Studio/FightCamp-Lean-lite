@@ -28,18 +28,12 @@ static var fast := false
 ## The ring's pace under the shout bar.
 const SHOUT_PACE := 0.3
 
-## S302 (operator: "still too slow"): a follow-up by the same boxer starts part-way through its wind-up so it lands this
-## long after her last punch, never with less than MIN_WIND_S of visible throw. Piorkowski, Lees & Barton 2011 (the paper
-## itself, p. 11; John's "125 ms" is not in it): contact of the 1st to contact of the 4th punch 1.06 +- 0.46 s with
-## alternating hands (~0.35 s a punch), 1.35 +- 0.27 s with the same hand (~0.45 s).
-const COMBO_LAND_S := 0.35
-const COMBO_SAME_HAND_S := 0.45
-const MIN_WIND_S := 0.12
 const CLOSE_UP_S := 1.5
 const BELL_S := 2.6
 
 var main: Node
 var stage: Node3D
+var _vp: SubViewport
 var crew: Node3D
 var fid := ""
 var plan: Dictionary = {}
@@ -79,25 +73,47 @@ var _names := ["", ""]
 static func sync(m_main: Node, layer: Control) -> bool:
 	var m: Dictionary = m_main.modal
 	var view: Node = layer.get_child(0) if layer.get_child_count() > 0 else null
-	var fight := not m.is_empty() and str(m.get("type", "")) == "fight" and str(m.get("step", "")) != "tape"
-	if not fight or not enabled():
-		if view != null:
-			view.queue_free()
-			layer.remove_child(view)
+	var fight := not m.is_empty() and str(m.get("type", "")) == "fight" and enabled()
+	var tape := fight and str(m.get("step", "")) == "tape"
+	if view != null and (not fight or str(view.fid) != str(m["fid"])):
+		view.queue_free()
+		layer.remove_child(view)
+		view = null
+	if not fight:
 		return false
-	if view == null or str(view.fid) != str(m["fid"]):
-		if view != null:
-			view.queue_free()
-			layer.remove_child(view)
+	if view == null:
 		view = new()
+		view.fid = str(m["fid"])
+		view.visible = false
 		layer.add_child(view)
+		# S312 (Ziva: Begin fight froze 3.4-5.5 s; measured 2.4 s build + a 1.0 s first frame): the ring builds hidden while
+		# the tale of the tape is read, a moment after the card has drawn.
+		if tape:
+			m_main.get_tree().create_timer(0.3).timeout.connect(view.prebuild.bind(m_main, m))
+	if tape:
+		return false
+	if view.stage == null:
 		view.setup(m_main, m)
+	view.reveal()
 	if str(m["step"]) == "round" and int(m.get("watched", 0)) < int(m["round"]):
 		if int(view.round_n) != int(m["round"]):
 			view.play_round(m, int(m["round"]))
 		return true
 	view.freeze()
 	return false
+
+
+## S312: built hidden behind the tale of the tape and drawn once there, so Begin neither builds nor compiles shaders.
+func prebuild(m_main: Node, m: Dictionary) -> void:
+	if stage == null and is_inside_tree():
+		setup(m_main, m)
+		_vp.render_target_update_mode = SubViewport.UPDATE_ONCE
+
+
+func reveal() -> void:
+	if not visible:
+		visible = true
+		_vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS   # what SubViewportContainer sets when shown
 
 
 ## The 3D view plays wherever there is a picture to draw; `no3d` on the command line turns it off.
@@ -120,12 +136,12 @@ func setup(m_main: Node, m: Dictionary) -> void:
 	holder.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(holder)
-	var vp := SubViewport.new()
-	vp.own_world_3d = true
-	vp.msaa_3d = Viewport.MSAA_4X
-	holder.add_child(vp)
+	_vp = SubViewport.new()
+	_vp.own_world_3d = true
+	_vp.msaa_3d = Viewport.MSAA_4X
+	holder.add_child(_vp)
 	stage = Stage.new()
-	vp.add_child(stage)
+	_vp.add_child(stage)
 	var picks := FightCast.bodies_for(float(f.get("limit", 61.2)))
 	var sc := FightCast.body_scales(float(f.get("limit", 61.2)), float(f.get("height", 0.0)), float(opp.get("height", 0.0)))
 	stage.setup({"glb": picks[0], "corner": "red", "scale": sc[0], "stance": str(f.get("stance", "orthodox"))},
@@ -140,17 +156,7 @@ func _build_hud() -> void:
 
 
 func _draw_buttons() -> void:
-	UI.clear(_buttons)
-	var speed := UI.button("2x" if fast else "1x", "BtnQuiet", _toggle_speed)
-	speed.tooltip_text = "Speed (Space)"
-	_buttons.add_child(speed)
-	var skip := UI.button("Skip round", "Btn", skip_round)
-	skip.name = "SkipRound"
-	_buttons.add_child(skip)
-	var bout := UI.button("Skip bout", "Btn", skip_bout)
-	bout.name = "SkipBout"
-	_buttons.add_child(bout)
-	_buttons.visible = playing
+	FightHud.draw_buttons(self)
 
 
 func _toggle_speed() -> void:
@@ -351,7 +357,7 @@ func _fire(b: Dictionary) -> void:
 				var p: Dictionary = _profiles.get(str(b["who"]), {})
 				gap = Combos.interval(float((p.get("combos", {}) as Dictionary).get(str(b["combo_id"]), 0.0)), same_hand,
 					RoundScript.energy_at(p, fmod(float(b["t"]), Exchanges.EX_SECONDS) / Exchanges.EX_SECONDS))
-			var skip := combo_skip(contact, sp, float(_last_contact[who]), t, same_hand, gap)
+			var skip := BeatClips.combo_skip(contact, sp, float(_last_contact[who]), t, same_hand, gap)
 			_last_hand[who] = hand
 			stage.play(who, clip, sp, skip)
 			_last_contact[who] = t + (contact - skip) / sp
@@ -383,17 +389,6 @@ func _fire(b: Dictionary) -> void:
 					get_tree().create_timer(when).timeout.connect(stage.play.bind(other, dclip, BeatClips.speed(dclip, "")))
 			elif land == "misses" and not b.has("def"):
 				get_tree().create_timer(at * 0.35).timeout.connect(stage.play.bind(other, "slip" if randf() < 0.6 else "pull"))
-
-
-## Seconds into a punch clip to start it: 0, or for a follow-up (her last punch lands at view time `last`, now = `now`)
-## far enough into the wind-up that it lands COMBO_LAND_S after the last, keeping at least MIN_WIND_S of throw.
-static func combo_skip(contact: float, speed: float, last: float, now: float, same_hand: bool = false, gap: float = -1.0) -> float:
-	if last < now - 0.30:
-		return 0.0
-	if gap <= 0.0:
-		gap = COMBO_SAME_HAND_S if same_hand else COMBO_LAND_S
-	var want := maxf(MIN_WIND_S, last + gap - now)
-	return clampf(contact - want * speed, 0.0, maxf(0.0, contact - MIN_WIND_S * speed))
 
 
 ## Between beats the two keep working: a short circle or a feel-out step when the next beat is more than a second away.
@@ -432,8 +427,8 @@ func _hud() -> void:
 	_bug.text = "%s  vs  %s" % [_names[0], _names[1]]
 	var left := maxf(0.0, length - t)
 	var seen := _exchanges().slice(0, int(t / Exchanges.EX_SECONDS))
-	var won := seen.filter(func(x): return bool(x["won"])).size()
-	_clock.text = "ROUND %d OF %d   %d:%02d   EXCHANGES WON %d-%d" % [round_n, total, int(left) / 60, int(left) % 60, won, seen.size() - won]
+	var sc := FightHud.score(_exchanges(), t)
+	_clock.text = "ROUND %d OF %d   %d:%02d   EXCHANGES WON %d-%d" % [round_n, total, int(left) / 60, int(left) % 60, sc[0], sc[1]]
 	FightHud.paint(self, (seen[-1] as Dictionary).get("after", {}) if not seen.is_empty() else FightHud.round_start(self), _names)
 
 
