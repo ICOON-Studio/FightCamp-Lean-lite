@@ -2,9 +2,11 @@
 
 ## Start
 1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then work in `E:\FightCamp\Lean` (`git pull`).
-2. Board: Q-S294-19 (update 12 verdict; supersedes Q-S294-18) and Q-S294-20 (corner minute plan,
-   Game Godot/research/S310_CORNER_MINUTE_PLAN.md) + review comments on the S310 stills. Quote each.
-3. Q-S294-20 yes -> build the corner minute in the plan's order (rules + balance + tests first). His play notes S310:
+2. Board: Q-S294-19 (update 12) and Q-S294-21 (update 13, corner minute) + review comments on the S310 stills.
+   Q-S294-20 (corner plan) was "Yes, build it" - built (eca97b4). Q-S294-18: "needs more features/mechanics for the
+   player during the fight but these need to be wired also with the other aspects (training,etc)".
+3. Collect the real-fight study (side session local_e568234c: Game Godot/research/S310_REAL_FIGHT_GAPS.md); first finding:
+   FightStage._compose holds the jab gap all the time (step_in moves both boxers; clinch beats only play a slip). His play notes S310:
    "playing it seems satisfying", "fight looks ok for now but can still be improved". Flat back: if he still sees it,
    the guard posture (upright spine) is next - cloth normals were the shading half.
 
@@ -37,6 +39,19 @@
   FightHud.paint (energy bar, BODY HITS, HURT) so the display never runs ahead; ExchangeBeats._body makes the ring land the
   counted body shots; HitSnap.fold (FOLD_GAIN 2.6, hold 0.3 s) on a landed body shot; FighterKit.cloth_normals gives
   MH_Top/Trunks/Trim the skin normal map.
+
+- Update 13 (eca97b4): CornerJobs (pure) recover / set-up / talk; Bouts.corner_jobs parses
+  "corner:<call>|fix=|setup=<combo>@<gap>|talk=|rec=water:2,ice:1"; LiveRound.now_offer -> preview "now" -> gold
+  CallButtons.now_button; CornerJobsRow builds the card rows (3D CornerOverlay + words FightNight); ExchangeBeats._setup
+  plays the combination. TestJump jump=corner gives TestJump.DRILLED combos. Bouts.gd is 493 lines - split before adding.
+- Tale of the tape: TaleOfTape (rules) + TapeCard (3D), FightIntro TAPE_S 5.5.
+- Parse gate in Lean: `<godot> --headless --path . --check-only --script res://<file>` on every touched .gd before a
+  windowed run (S310: a multi-line lambda and an untyped `:=` hung corner_film 450 s).
+
+- 7b324d2: BeatClips.pick(pool, has, roll) - every Punch Pro take in REACT / BIG_REACT / DOWN / OUT / WIN / TIRED, the
+  beat's roll picks (FightView passes _amb_rng.randf()). Blocks and fidget v4/v5 stay out on purpose.
+- NEXT: Game Godot/research/S310_REAL_FIGHT_GAPS.md ranked fixes 1-3 (range that breathes, 0.2-0.3 s head-shot lock,
+  feet moving), then the clinch (his choice: free build vs paid capture).
 
 ## Traps
 - A bone read from outside the skeleton's modifiers gets the clip pose: anything a modifier moves (the look now moves the

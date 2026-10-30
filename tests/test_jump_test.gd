@@ -21,12 +21,14 @@ func _initialize() -> void:
 		var f: Dictionary = main.career.fighter() if main.career != null else {}
 		var film := int((f.get("bout", {}) as Dictionary).get("film", 0))
 		_check(ok and str(main.modal.get("type", "")) == "fight", "%s: fight night is open" % jump)
-		_check(film == (BoutRules.FILM_DEPTH_WITH_STUDY if jump == "fight" else BoutRules.FILM_DEPTH_DEFAULT), "%s: film depth %d" % [jump, film])
+		_check(film == (BoutRules.FILM_DEPTH_DEFAULT if jump == "fight_nofilm" else BoutRules.FILM_DEPTH_WITH_STUDY), "%s: film depth %d" % [jump, film])
+		if jump == "corner":
+			_check((f.get("combos", {}) as Dictionary).size() == 2, "corner: two drilled combinations for the set-up")
 		_check(main.save_path == TestJump.SAVE_PATH and main.save_path != SaveGame.PATH, "%s: its own save slot, never his career save" % jump)
 		main.act("fightstep", "start")
 		var pv := LiveRound.preview(f, main.modal) if not LiveRound.live(main.modal).is_empty() else {}
 		if not pv.is_empty():
-			_check((str(pv["mark"]) != "") == (jump == "fight"), "%s: coach's pick on the shout bar %s" % [jump, "shows" if jump == "fight" else "is hidden"])
+			_check((str(pv["mark"]) != "") == (jump != "fight_nofilm"), "%s: coach's pick on the shout bar %s" % [jump, "is hidden" if jump == "fight_nofilm" else "shows"])
 		main.queue_free()
 		await process_frame
 	print("TESTJUMP failures=%d" % failures)

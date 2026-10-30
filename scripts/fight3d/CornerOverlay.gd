@@ -12,6 +12,11 @@ signal chose(call: String)
 signal fixed(habit: String)
 signal skip
 
+const CornerJobsRow := preload("res://scripts/ui/CornerJobsRow.gd")
+var jobs := {}               # S310 the corner jobs picked (CornerJobsRow sel)
+var _menu := {}
+var _jobs_box: VBoxContainer = null
+
 ## Each bar's share of the frame height: (1 - (16/9) / 2.39) / 2.
 const BAR := 0.128
 const BAR_COLOUR := Color(0, 0, 0, 1)
@@ -72,6 +77,13 @@ func build(card: Dictionary, names: Array) -> void:
 	_fix_box = UI.vbox(4)
 	v.add_child(_fix_box)
 	_draw_fixes()
+	# S310: recover points, a combination set-up, the talk - then the call.
+	_menu = card.get("jobs_menu", {})
+	if not _menu.is_empty():
+		jobs = CornerJobsRow.defaults(_menu)
+		_jobs_box = UI.vbox(0)
+		v.add_child(_jobs_box)
+		_draw_jobs()
 	# S308: all eight calls, with when to use each and whether she can do it.
 	_calls = CallButtons.corner_grid(card.get("grades", {}), str(card["call"]), names, func(k: String): chose.emit(k))
 	v.add_child(_calls)
@@ -103,11 +115,24 @@ func show_card(on: bool) -> void:
 func picked(call: String) -> void:
 	_calls.visible = false
 	_fix_box.visible = false
+	if _jobs_box != null:
+		_jobs_box.visible = false
 	_said.text = "Your call: \"%s\"" % BoutRules.CORNER[call]
 	for h in _fixes:
 		if str(h["id"]) == fix:
 			_said.text += "   Fix: %s" % str(h["name"]).to_lower()
 	_said.visible = true
+
+
+func _draw_jobs() -> void:
+	for ch in _jobs_box.get_children():
+		ch.queue_free()
+	_jobs_box.add_child(CornerJobsRow.build(_menu, jobs, _names, _draw_jobs))
+
+
+## The corner action's job parts for the pick (Bouts.corner_jobs).
+func jobs_suffix() -> String:
+	return "" if _menu.is_empty() else CornerJobsRow.suffix(jobs)
 
 
 func _draw_fixes() -> void:

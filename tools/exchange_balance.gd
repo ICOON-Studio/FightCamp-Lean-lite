@@ -28,13 +28,19 @@ func _initialize() -> void:
 	print("EXB film 3 (the corner reads her next game), edge 0: none %.2f seen (read the clue) %.2f mark (follow the coach's pick) %.2f" % [
 		share(0.0, "none", 3), share(0.0, "seen", 3), share(0.0, "mark", 3)])
 	print("EXB edge 0 film 1: none %.2f green (always her best-graded offer) %.2f seen %.2f" % [share(0.0, "none", 1), share(0.0, "green", 1), share(0.0, "seen", 1)])
+	# S310 corner jobs: Lucy with two drilled combinations (1-2 M60, 1-2-3 M45); stoppage wins counted too.
+	print("EXB S310 corner, edge 0, film 3 (share / stoppage wins):")
+	for pol in ["seen", "setup", "setup_blind", "talk_fire", "talk_calm", "talk_truth", "water"]:
+		var st := {}
+		var w := share(0.0, pol, 3, null, st)
+		print("EXB   %-12s %.2f  stoppages %.3f" % [pol, w, float(st.get("stops", 0)) / N])
 	print("EXB Lucy with drops_right_after_jab (Priya punishes it), edge 0: none %.2f seen %.2f fix %.2f" % [
 		share(0.0, "none", 1, ["drops_right_after_jab"]), share(0.0, "seen", 1, ["drops_right_after_jab"]), share(0.0, "fix", 1, ["drops_right_after_jab"])])
 	quit(0)
 
 
 ## habits: Lucy's habits replaced by these (S309), null = her own.
-static func share(edge: float, pol: String, film: int, habits: Variant = null) -> float:
+static func share(edge: float, pol: String, film: int, habits: Variant = null, stats: Dictionary = {}) -> float:
 	var c := Career.quick_start()
 	c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
 	var wins := 0
@@ -44,6 +50,8 @@ static func share(edge: float, pol: String, film: int, habits: Variant = null) -
 		f["camp"] = {}
 		if habits != null:
 			f["habits"] = habits
+		if pol.begins_with("setup"):
+			f["combos"] = {"1-2": 60.0, "1-2-3": 45.0}
 		f["notes_seen"] = []
 		var opp: Dictionary = (Data.OPPONENTS[1] as Dictionary).duplicate(true)
 		var paper := BoutRules.fight_power(f["stats"], {}, film, "")
@@ -52,6 +60,8 @@ static func share(edge: float, pol: String, film: int, habits: Variant = null) -
 		var m := {"fid": f["id"], "step": "tape", "total": 3}
 		play(c, f, m, pol)
 		wins += 1 if str(m.get("outcome", "")) == "win" else 0
+		if str(m.get("outcome", "")) == "win" and str(m.get("stopped", "")) != "":
+			stats["stops"] = int(stats.get("stops", 0)) + 1
 	return float(wins) / N
 
 
@@ -73,7 +83,14 @@ static func play(c: Career, f: Dictionary, m: Dictionary, pol: String) -> void:
 				if int(h["paid"]) > most:
 					most = int(h["paid"])
 					fix = str(h["id"])
-		Bouts.fight_step(c, f, m, "corner:" + (plan if plan != "" else BoutRules.auto_corner(f["stats"])) + ("|" + fix if fix != "" else ""))
+		var jobs := ""
+		if pol.begins_with("setup"):
+			jobs = "|setup=1-2@%s" % Exchanges.favourite(str(f["bout"]["opp"]["style"]))
+		elif pol.begins_with("talk_"):
+			jobs = "|talk=" + pol.trim_prefix("talk_")
+		elif pol == "water":
+			jobs = "|rec=water:3"
+		Bouts.fight_step(c, f, m, "corner:" + (plan if plan != "" else BoutRules.auto_corner(f["stats"])) + ("|" + fix if fix != "" else "") + jobs)
 	Bouts.fight_step(c, f, m, "end")
 
 
@@ -82,8 +99,13 @@ static func pick(f: Dictionary, m: Dictionary, pol: String) -> String:
 	var i := (lv["ex"] as Array).size()
 	var true_sit := Exchanges.situation(str(lv["mode"]), LiveRound.her_energy(lv, i), bool(lv["her_hurt"]))
 	match pol:
-		"seen", "fix":
+		"seen", "fix", "talk_fire", "talk_calm", "talk_truth", "water":
 			return str(LiveRound.preview(f, m)["coach"])
+		"setup":
+			var pv := LiveRound.preview(f, m)
+			return "now" if not (pv["now"] as Dictionary).is_empty() else str(pv["coach"])
+		"setup_blind":
+			return "now" if i == 1 else str(LiveRound.preview(f, m)["coach"])
 		"seen2":
 			return str(LiveRound.preview(f, m)["coach"]) if int(lv["shouts"]) < 2 else ""
 		"mark":

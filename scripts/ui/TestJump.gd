@@ -3,12 +3,16 @@ extends RefCounted
 ## started with user args jumps straight to the part a weekly update asks him to test. The ops board's Play buttons pass
 ##   FightCamp.exe -- jump=fight          quick start -> Lucy booked -> camp WITH film study -> weigh-in -> fight night
 ##   FightCamp.exe -- jump=fight_nofilm   the same, camp WITHOUT film study (no coach's pick on the shout bar)
+##   FightCamp.exe -- jump=corner         jump=fight with two combinations drilled on the pads (1-2, 1-2-3), so the
+##                                        corner minute's set-up has something to set up (S310)
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
 
 const Bouts := preload("res://scripts/state/Bouts.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm"]
+const JUMPS := ["fight", "fight_nofilm", "corner"]
+## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
+const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 
 
 ## The jump the command line asks for ("" = none).
@@ -54,6 +58,8 @@ static func run(main: Node, jump: String) -> bool:
 	main.act("weighin", str(f["id"]))
 	main.act("doWeigh")
 	main.run_to_stop()
+	if jump == "corner":
+		f["combos"] = DRILLED.duplicate()
 	main.act("fightnight")
 	return str(main.modal.get("type", "")) == "fight"
 

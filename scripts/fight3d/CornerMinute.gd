@@ -361,6 +361,7 @@ func finish() -> void:
 	_marks()
 	stage.scene_mode(false)
 	stage.broadcast(true)
+	var jobs: String = ui.jobs_suffix()
 	ui.queue_free()
 	queue_free()
-	done.emit(pick + ("|" + fix if fix != "" else ""))
+	done.emit(pick + ("|fix=" + fix if fix != "" else "") + jobs)

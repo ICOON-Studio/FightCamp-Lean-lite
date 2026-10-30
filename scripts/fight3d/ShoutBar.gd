@@ -45,7 +45,13 @@ func setup(pv: Dictionary, round_n: int) -> void:
 	var clue := UI.label("You see: " + str(pv.get("clue", "")), 24, UI.AMBER, "bold", true)
 	clue.name = "Clue"
 	v.add_child(clue)
-	v.add_child(CallButtons.shout_row(pv.get("offers", []), pv.get("grades", {}), str(pv.get("mark", "")), names, _pick))
+	var row := CallButtons.shout_row(pv.get("offers", []), pv.get("grades", {}), str(pv.get("mark", "")), names, _pick)
+	# S310 the set-up's NOW, first in the row, when the corner sees the gap.
+	var now := CallButtons.now_button(pv.get("now", {}), names, _pick)
+	if now != null:
+		row.add_child(now)
+		row.move_child(now, 0)
+	v.add_child(row)
 	_tick()
 
 

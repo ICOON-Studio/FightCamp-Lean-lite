@@ -40,6 +40,20 @@ static func shout_row(offers: Array, grades: Dictionary, coach: String, names: A
 	return row
 
 
+## S310 the set-up's gold button (LiveRound.now_offer): fires her combination into the gap the corner waited for.
+## pick("now"). Null when there is no offer.
+static func now_button(now: Dictionary, names: Array, pick: Callable) -> Button:
+	if now.is_empty():
+		return null
+	var b := UI.button2(str(now["line"]), "The set-up: %s is in the gap" % names[1], "ChoiceOn", pick.bind("now"), Vector2(0, 80),
+		Color("#14110f"), Color("#3a2a10"), false, UI.BODY, UI.SMALL)
+	b.name = "Shout_now"
+	b.add_theme_stylebox_override("normal", UI.box(Color("#f0b429"), Color("#ffd166"), 6, 2, 12, 8))
+	b.add_theme_stylebox_override("hover", UI.box(Color("#ffc94a"), Color("#ffe08a"), 6, 2, 12, 8))
+	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	return b
+
+
 ## S309 the corner's one fix for a habit: a button per habit the coach can work on ({id, name, paid} from
 ## LiveRound.fixes) and No fix. The picked one stays lit. pick(id) gets "" for No fix. Empty when there is nothing to fix.
 static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable) -> HBoxContainer:

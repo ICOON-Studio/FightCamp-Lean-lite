@@ -7,6 +7,7 @@ const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
 const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 const TaleOfTape := preload("res://scripts/rules/TaleOfTape.gd")
+const CornerJobsRow := preload("res://scripts/ui/CornerJobsRow.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
@@ -66,6 +67,7 @@ static func corner(view: Node) -> bool:
 		grades[k] = Exchanges.grade(str(k), vals)["word"]
 	card["grades"] = grades
 	card["fixes"] = LiveRound.fixes(f, r)   # S309: one habit the corner can fix
+	card["jobs_menu"] = CornerJobsRow.menu(f, r)   # S310: recover, set-up, talk
 	view.hide_hud()
 	Engine.time_scale = view.pace()
 	var cm := CornerMinute.new()

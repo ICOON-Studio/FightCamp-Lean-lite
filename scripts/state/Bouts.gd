@@ -21,6 +21,7 @@ const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -220,9 +221,11 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		m["rounds"] = []
 		_open(c, f, m, "")
 	elif a.begins_with("corner:") and not stopped(m) and LiveRound.live(m).is_empty():
-		# S309: "corner:<call>|<habit>" also fixes one habit for the round.
+		# S309: "corner:<call>|<habit>" also fixes one habit for the round. S310 the other corner jobs ride as labelled
+		# parts: "|fix=<habit>|setup=<combo>@<gap>|talk=<calm|fire|truth>|rec=water:2,ice:1,head:0".
 		var parts := a.trim_prefix("corner:").split("|")
-		_open(c, f, m, parts[0], parts[1] if parts.size() > 1 else "")
+		var jobs := corner_jobs(parts)
+		_open(c, f, m, parts[0], str(jobs.get("fix", "")), jobs)
 	elif a.begins_with("shout:"):
 		_shout(c, f, m, a.trim_prefix("shout:"))
 	elif a == "round_out":
@@ -236,10 +239,49 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		_finish(c, f, m)
 
 
-static func _open(c: Career, f: Dictionary, m: Dictionary, plan: String, fix: String = "") -> void:
+## The corner action's parts after the call: a bare second part is the S309 habit; "key=value" parts are S310 jobs.
+static func corner_jobs(parts: PackedStringArray) -> Dictionary:
+	var jobs := {}
+	for i in range(1, parts.size()):
+		var p := str(parts[i])
+		if not p.contains("="):
+			jobs["fix"] = p
+			continue
+		var kv := p.split("=", true, 1)
+		match kv[0]:
+			"fix", "talk":
+				jobs[kv[0]] = kv[1]
+			"setup":
+				var sg := kv[1].split("@")
+				if sg.size() == 2:
+					jobs["setup"] = {"combo": sg[0], "gap": sg[1]}
+			"rec":
+				var pts := {}
+				for item in kv[1].split(",", false):
+					var q := item.split(":")
+					if q.size() == 2:
+						pts[q[0]] = int(q[1])
+				jobs["rec"] = pts
+	return jobs
+
+
+static func _open(c: Career, f: Dictionary, m: Dictionary, plan: String, fix: String = "", jobs: Dictionary = {}) -> void:
 	m["round"] = int(m["round"]) + 1
 	var n := int(m["round"])
-	LiveRound.open(c, f, m, n, plan, _energy(f, n, plan), fix)
+	var e := _energy(f, n, plan)
+	# S310 the second's recover points on the round she starts; a hurt she was not cleared of comes out with her.
+	var rounds: Array = m.get("rounds", [])
+	if n > 1 and not rounds.is_empty():
+		var last: Dictionary = rounds[-1]
+		var body: Dictionary = f["bout"].get("body", {"a": 0, "b": 0})
+		var rec := CornerJobs.recover(jobs.get("rec", {}), float(e.get("a", 100.0)), int(body.get("a", 0)), bool(last.get("hurt_at_bell", false)))
+		e["a"] = float(e.get("a", 100.0)) + float(rec["energy"])
+		e["a_end"] = float(e.get("a_end", 100.0)) + float(rec["energy"])
+		body["a"] = int(body.get("a", 0)) - int(rec["body"])
+		jobs["hurt"] = bool(rec["hurt"])
+		jobs["did"] = rec
+	LiveRound.open(c, f, m, n, plan, e, fix, jobs)
+	LiveRound.live(m)["did"] = jobs.get("did", {})
 	_shout(c, f, m, "")
 
 

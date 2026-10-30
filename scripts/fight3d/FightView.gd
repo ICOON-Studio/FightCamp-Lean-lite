@@ -327,13 +327,13 @@ func _fire(b: Dictionary) -> void:
 		"slip", "clinch":
 			stage.play(who, "slip")
 		"tired":
-			stage.play(who, BeatClips.first(BeatClips.TIRED, stage.has_move))
+			stage.play(who, BeatClips.pick(BeatClips.TIRED, stage.has_move, _amb_rng.randf()))
 			_tired[who] = true
 		"count":
 			# The sim's standing count (Knockdowns); a KO stays down and the winner celebrates.
-			stage.play(who, BeatClips.first(BeatClips.OUT if _stop == "KO" else BeatClips.DOWN, stage.has_move))
+			stage.play(who, BeatClips.pick(BeatClips.OUT if _stop == "KO" else BeatClips.DOWN, stage.has_move, _amb_rng.randf()))
 			if _stop != "":
-				get_tree().create_timer(1.2).timeout.connect(stage.play.bind(other, BeatClips.first(BeatClips.WIN, stage.has_move)))
+				get_tree().create_timer(1.2).timeout.connect(stage.play.bind(other, BeatClips.pick(BeatClips.WIN, stage.has_move, _amb_rng.randf())))
 		_:
 			# Fight model step 4: the beat's punch, its hit reaction and its defence come from BeatClips (Punch Pro first).
 			var land := str(b["result"])
@@ -360,7 +360,7 @@ func _fire(b: Dictionary) -> void:
 			if land == "lands":
 				# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
 				stage.land(who, clip, move == "body_hook" or clip.contains("kidney"))
-				var hit := BeatClips.react(move, bool(b.get("knockback", false)), stage.has_move)
+				var hit := BeatClips.react(move, bool(b.get("knockback", false)), stage.has_move, _amb_rng.randf(), bool(b.get("big", false)))
 				get_tree().create_timer(at).timeout.connect(stage.hit.bind(other, hit, BeatClips.speed(hit, ""), who, move, bool(b.get("big", false))))
 				if bool(b.get("big", false)):
 					# The round's big shot: cut close as it is thrown and run it at half speed through the contact.

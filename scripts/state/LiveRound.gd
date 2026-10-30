@@ -7,6 +7,8 @@ extends RefCounted
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const HabitFix := preload("res://scripts/rules/HabitFix.gd")
+const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
+const Combos := preload("res://scripts/rules/Combos.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -25,8 +27,10 @@ static func _rng(c: Career, f: Dictionary, n: int, i: int) -> RandomNumberGenera
 
 
 ## Opens round n. plan = the corner minute's call ("" before round 1); e = Bouts._energy's round; fix = the habit the
-## corner fixed for this round (S309 HabitFix, "" = none).
-static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, e: Dictionary, fix: String = "") -> void:
+## corner fixed for this round (S309 HabitFix, "" = none). jobs = the rest of the corner minute (S310 CornerJobs):
+## {setup: {combo, gap}, talk: kind, hurt: she starts hurt (not cleared)} - recover is applied by Bouts before this.
+static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, e: Dictionary, fix: String = "",
+		jobs: Dictionary = {}) -> void:
 	var opp: Dictionary = f["bout"]["opp"]
 	var base := BoutRules.fight_power(f["stats"], f["camp"], int(f["bout"]["film"]), "") \
 		+ BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {}))) + float(e.get("bonus", 0.0)) - float(opp.get("rating", 60.0))
@@ -39,7 +43,13 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	# S310: body shots taken all fight ({a: by her, b: by the opponent}), kept on the bout so they carry round to round.
 	if n == 1 or not f["bout"].has("body"):
 		f["bout"]["body"] = {"a": 0, "b": 0}
-	m["live"] = {"n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": false, "opp_hurt": false,
+	var talk := CornerJobs.talk(str(jobs.get("talk", "")), f.get("personality", {}))
+	var setup := {}
+	var sj: Dictionary = jobs.get("setup", {})
+	if not sj.is_empty() and float((f.get("combos", {}) as Dictionary).get(str(sj.get("combo", "")), 0.0)) >= Combos.LEARN_AT:
+		setup = {"combo": str(sj["combo"]), "gap": str(sj["gap"]), "mastery": float(f["combos"][str(sj["combo"])]), "used": ""}
+	m["live"] = {"n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
+		"talk": talk, "talk_kind": str(jobs.get("talk", "")), "setup": setup,
 		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS)),
 		"body": f["bout"]["body"]}
 	m["live"]["start"] = state(m["live"], 0)
@@ -97,10 +107,25 @@ static func preview(f: Dictionary, m: Dictionary) -> Dictionary:
 		grades[k] = Exchanges.grade(str(k), vals)["word"]
 	return {"sit": sit, "clue": Exchanges.clue(sit, names, i + int(lv["n"]) * 3), "offers": Exchanges.offers(sit),
 		"coach": coach, "mark": mark, "grades": grades, "at": i * Exchanges.EX_SECONDS, "i": i,
-		"shouts": int(lv["shouts"]), "names": names}
+		"shouts": int(lv["shouts"]), "names": names, "now": now_offer(lv, sit)}
 
 
-## Fights the next exchange with this shout ("" = say nothing). Returns the closed round after the sixth, else {}.
+## S310 the set-up's NOW button: {combo, gap, line} when the corner SEES the gap it waits for (seen = with film study her
+## next game, without it the one she just showed - so without film it can fire into a game she has left), else {}.
+static func now_offer(lv: Dictionary, sit_seen: String) -> Dictionary:
+	var su: Dictionary = lv.get("setup", {})
+	if su.is_empty() or str(su.get("used", "")) != "" or sit_seen != str(su["gap"]):
+		return {}
+	return {"combo": str(su["combo"]), "gap": str(su["gap"]), "line": "NOW! %s!" % combo_words(str(su["combo"]))}
+
+
+## "Jab-Cross-Lead hook" for a combination id.
+static func combo_words(id: String) -> String:
+	return "-".join(PackedStringArray((Combos.row(id).get("moves", [id]) as Array).map(func(x): return str(x))))
+
+
+## Fights the next exchange with this shout ("" = say nothing; "now" = fire the set-up on the plan). Returns the closed
+## round after the sixth, else {}.
 static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> Dictionary:
 	var lv := live(m)
 	if lv.is_empty():
@@ -111,6 +136,9 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var opp: Dictionary = f["bout"]["opp"]
 	var vals := values(f)
 	var sit := Exchanges.situation(str(lv["mode"]), her_energy(lv, i), bool(lv["her_hurt"]))
+	var fire := shout == "now" and not (lv.get("setup", {}) as Dictionary).is_empty() and str(lv["setup"].get("used", "")) == ""
+	if shout == "now":
+		shout = ""
 	var shouted := shout != "" and Exchanges.CALLS.has(shout)
 	var call := shout if shouted else str(lv["plan"])
 	var coach := float((f.get("personality", {}) as Dictionary).get("coachability", 55.0))
@@ -123,6 +151,12 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var fix := str(lv.get("fix", ""))
 	var habit := HabitFix.punished(f.get("habits", []), sit, n, i, bool(lv.get("last", false)))
 	var d := float(lv["base"]) + Exchanges.call_edge(call, sit, vals, heard, finds) + HabitFix.cost(habit, fix, Exchanges.uptake(coach, 0))
+	# S310 the corner's talk works every exchange of the round; the set-up once, when it is fired.
+	d += float((lv.get("talk", {}) as Dictionary).get("edge", 0.0))
+	var su: Dictionary = lv.get("setup", {})
+	var fits := fire and sit == str(su.get("gap", ""))
+	if fire:
+		d += CornerJobs.setup_edge(fits, float(su["mastery"]), her_energy(lv, i))
 	var rng := _rng(c, f, n, i + 1)
 	var s := Exchanges.settle(d, rng.randf(), rng.randf())
 	var names := [str(f["first"]), str(opp["first"])]
@@ -133,16 +167,24 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var bt: Dictionary = lv.get("body", {"a": 0, "b": 0})
 	bt["b"] = int(bt.get("b", 0)) + int(body[0])
 	bt["a"] = int(bt.get("a", 0)) + int(body[1])
-	var rec := {"i": i, "mode": str(lv["mode"]), "body": body, "sit": sit, "call": call, "shout": shouted, "fit": Exchanges.fit(call, sit),
+	if fire:
+		su["used"] = "landed" if fits and bool(s["won"]) else "missed"
+		if su["used"] == "landed":
+			# A set-up that lands is head damage the knockdown roll reads (Bouts._counts) and leaves her hurt.
+			var dmg: Dictionary = m.get("damage", {"a": 0.0, "b": 0.0})
+			dmg["b"] = float(dmg.get("b", 0.0)) + CornerJobs.SETUP_DAMAGE
+			m["damage"] = dmg
+	var rec := {"i": i, "mode": str(lv["mode"]), "body": body, "setup": str(su.get("used", "")) if fire else "", "setup_combo": str(su.get("combo", "")) if fire else "", "sit": sit, "call": call, "shout": shouted, "fit": Exchanges.fit(call, sit),
 		"won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix) if habit != "" else ""}
 	exs.append(rec)
 	if call != "":
 		lv["cost"] = float(lv["cost"]) + float(Exchanges.CALLS[call]["cost"])
+	lv["cost"] = float(lv["cost"]) + float((lv.get("talk", {}) as Dictionary).get("cost", 0.0)) 		+ (Combos.combo_cost((Combos.row(str(su.get("combo", ""))).get("moves", []) as Array).size()) if fire else 0.0)
 	# A big exchange can leave the loser hurt for the next one.
 	var rating := float(opp.get("rating", 60.0))
-	lv["opp_hurt"] = float(s["margin"]) > Exchanges.HURT_AT and rng.randf() < clampf(0.3 + (float(vals.get("power", 55.0)) - 55.0) / 100.0, 0.1, 0.6)
-	lv["her_hurt"] = float(s["margin"]) < -Exchanges.HURT_AT and rng.randf() < clampf(0.3 + (rating - float(vals.get("chin", 55.0))) / 100.0, 0.1, 0.6)
+	lv["opp_hurt"] = (float(s["margin"]) > Exchanges.HURT_AT and rng.randf() < clampf(0.3 + (float(vals.get("power", 55.0)) - 55.0) / 100.0, 0.1, 0.6)) 		or str(rec["setup"]) == "landed"
+	lv["her_hurt"] = float(s["margin"]) < -Exchanges.HURT_AT and rng.randf() < clampf((0.3 + (rating - float(vals.get("chin", 55.0))) / 100.0) 		* float((lv.get("talk", {}) as Dictionary).get("hurt", 1.0)) * (1.6 if str(rec["setup"]) == "missed" else 1.0), 0.1, 0.8)
 	rec["after"] = state(lv, i + 1)
 	lv["mode"] = Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, i + 1, str(lv["mode"]),
 		opp_energy(lv, i + 1), bool(lv["opp_hurt"]), rng)
@@ -181,7 +223,9 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	m.erase("live")
 	return {"n": int(lv["n"]), "won": ro["won"], "won_n": ro["won_n"], "mine": ro["mine"], "theirs": ro["theirs"],
 		"corner": str(lv["plan"]), "energy": e, "exchanges": exs, "landed": ro["landed"], "calls": calls, "worked": worked,
-		"fix": str(lv.get("fix", "")), "habits_paid": paid, "start": lv.get("start", {})}
+		"fix": str(lv.get("fix", "")), "habits_paid": paid, "start": lv.get("start", {}),
+		"talk": str(lv.get("talk_kind", "")), "setup": (lv.get("setup", {}) as Dictionary).duplicate(),
+		"hurt_at_bell": bool(exs[-1].get("after", {}).get("hurt", [false, false])[0]) if not exs.is_empty() else false}
 
 
 ## The habits the corner can fix before the next round: [{id, name, paid (times this round)}]. r = the closed round.

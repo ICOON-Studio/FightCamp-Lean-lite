@@ -24,18 +24,28 @@ const PUNCH := {
 const OFF_TAKES := ["pro_left_hook_hurt_ft", "pro_left_hook_miss", "pro_right_cross_miss", "pro_right_hook_hard_ft",
 	"pro_right_hook_miss", "pro_right_uppercut_hurt_ft"]
 ## A landed punch on the other boxer: by the punch that hit her, then "hurt" for the round's knockback.
+## S310 (operator: "why don't you map all 165 clips we purchased?"): every Punch Pro hit reaction that comes back to guard
+## within ~1 s (clip_recovery.json back_s) is in its punch's pool and the beat's roll picks one (react() took the first
+## until S310: every jab to the head played jab_v1_short). The big head snaps (hook v6/v7/v8, peak 0.65-0.79 m) are the
+## big shot's (BIG_REACT); the whole-combination reactions are the hurt boxer's.
 const REACT := {
-	"jab": ["pro_hit_by_jab_v1_short", "pro_hit_by_jab_v2_short", "mc_hit_jab", "react_head"],
-	"cross": ["pro_hit_by_cross_v1_short", "pro_hit_by_cross_v2_short", "mc_hit_jab", "react_head"],
-	"lead_hook": ["pro_hit_by_hook_v1_short", "pro_hit_by_hook_v2_short", "mc_hit_hook", "react_head"],
+	"jab": ["pro_hit_by_jab_v1_short", "pro_hit_by_jab_v2_short", "pro_hit_by_jab_v3", "pro_hit_by_jab_v4_short",
+		"pro_hit_by_jab_v5_short", "mc_hit_jab", "react_head"],
+	"cross": ["pro_hit_by_cross_v1_short", "pro_hit_by_cross_v2_short", "pro_hit_by_cross_v3", "mc_hit_jab", "react_head"],
+	"lead_hook": ["pro_hit_by_hook_v1_short", "pro_hit_by_hook_v2_short", "pro_hit_by_hook_v3_short", "pro_hit_by_hook_v5",
+		"mc_hit_hook", "react_head"],
 	"rear_uppercut": ["pro_hit_by_uppercut_v1", "pro_hit_by_hook_v1_short", "mc_hit_hook", "react_head"],
 	"lead_uppercut": ["pro_hit_by_uppercut_v1", "pro_hit_by_hook_v2_short", "mc_hit_hook", "react_head"],
-	"rear_hook": ["pro_hit_by_hook_v3_short", "pro_hit_by_hook_v1_short", "mc_hit_hook", "react_head"],
+	"rear_hook": ["pro_hit_by_hook_v3_short", "pro_hit_by_hook_v1_short", "pro_hit_by_hook_v5", "mc_hit_hook", "react_head"],
 	# S305 operator: "body shots do not seem to have any impact" - the _short gut shots barely move her (tools/fight3d_bodyshot.gd
-	# sheets); v3 folds her at the waist, knees give, hands drop to the stomach, then back to guard.
-	"body_hook": ["pro_hit_by_gutshot_v3", "pro_hit_by_gutshot_v2", "pro_hit_by_gutshot_v1_short", "react_body"],
-	"hurt": ["pro_hit_by_hook_v1", "pro_hit_by_cross_v1", "mc_hit_combo", "react_hurt"],
+	# sheets); v3 folds her at the waist, knees give, hands drop to the stomach, then back to guard. S310: + the kidney shot's.
+	"body_hook": ["pro_hit_by_gutshot_v3", "pro_hit_by_gutshot_v2_short", "pro_hit_by_kidneyshot_v1", "pro_hit_by_gutshot_v2",
+		"react_body"],
+	"hurt": ["pro_hit_by_hook_v1", "pro_hit_by_cross_v1", "pro_hit_by_combo_v1_short", "pro_hit_by_combo_v2_short",
+		"pro_hit_by_hook_v7_short", "mc_hit_combo", "react_hurt"],
 }
+## The big shot's head reactions (a hook or straight that wins the round): the biggest snaps in the library.
+const BIG_REACT := ["pro_hit_by_hook_v8_short", "pro_hit_by_hook_v7_short", "pro_hit_by_hook_v6_short", "pro_hit_by_hook_v3"]
 ## S305 (the move reel: every slip was pro_left_dodge, every weave pro_left_weave, whatever the punch). A straight punch is
 ## slipped to the OUTSIDE - toward the shoulder it comes from (jab: her right; cross: her left); a hook is rolled under in the
 ## direction it travels (away from its shoulder). pro_left_* moves her head to HER left (tools/dodge_side.gd); a southpaw
@@ -64,13 +74,15 @@ const DEFENCE := {
 	"block": ["mc_to_block"],
 	"slip": ["pro_left_dodge", "pro_right_dodge", "mc_dodge_left", "slip"],
 	"weave": ["pro_left_weave", "pro_quick_weave", "pro_right_weave", "mc_dodge_right", "slip"],
-	"pull": ["pro_back_dodge", "pull"],
+	"pull": ["pro_back_dodge", "pro_back_weave", "pull"],
 }
-const TIRED := ["pro_idle_tired", "pro_idle_slighty_tired", "mc_fidget"]
-const WIN := ["pro_win_v1", "mc_win"]
-## A standing count she beats, and a count she does not (KO).
-const DOWN := ["pro_knockout_countdown_v1", "mc_knockout_count", "react_hurt"]
-const OUT := ["pro_knockout_v1", "mc_knockout", "react_hurt"]
+## S310: every take the library has, picked by the beat's roll (pick()).
+const TIRED := ["pro_idle_tired", "pro_idle_slighty_tired", "pro_idle_really_tired_v1", "pro_idle_really_tired_v2", "mc_fidget"]
+const WIN := ["pro_win_v1", "pro_win_v2", "pro_win_v3", "pro_win_v4", "pro_win_v5", "pro_win_v6", "pro_win_v7", "mc_win"]
+## A standing count she beats, and a count she does not (KO). knockout_v6 gets back up (back_s 4.75): a count, not a KO.
+const DOWN := ["pro_knockout_countdown_v1", "pro_knockout_countdown_v2", "pro_knockout_countdown_v3", "mc_knockout_count", "react_hurt"]
+const OUT := ["pro_knockout_v1", "pro_knockout_v2", "pro_knockout_v3", "pro_knockout_v4", "pro_knockout_v5", "pro_knockout_v7",
+	"pro_knockout_v8", "mc_knockout", "react_hurt"]
 
 ## S300 operator: "most moves seem in slow motion". Shipped timing (old repo UNDISPUTED_STUDY_S254.md, median clip-start ->
 ## impact over 3,152 Undisputed clips): jab 0.365 s, cross 0.501, hook 0.534, uppercut 0.489, body hook 0.450. A Pro punch
@@ -179,8 +191,19 @@ static func punch(move: String, ctx: Dictionary, has: Callable) -> String:
 	return got if got != "" else move
 
 
-static func react(move: String, hurt: bool, has: Callable) -> String:
-	return first(REACT["hurt" if hurt else (move if REACT.has(move) else "jab")], has)
+## S310: one of `names` that exists, chosen by roll 0..1 (the Punch Pro takes first; the fallbacks only when none exists).
+static func pick(names: Array, has: Callable, roll: float) -> String:
+	var got: Array = names.filter(func(n): return str(n).begins_with("pro_") and has.call(str(n)))
+	if got.is_empty():
+		return first(names, has)
+	return str(got[clampi(int(roll * got.size()), 0, got.size() - 1)])
+
+
+## The hit reaction: by the punch, the knockback ("hurt") or the big shot to the head; roll picks the take.
+static func react(move: String, hurt: bool, has: Callable, roll: float = 0.0, big: bool = false) -> String:
+	if big and not hurt and move != "body_hook":
+		return pick(BIG_REACT, has, roll)
+	return pick(REACT["hurt" if hurt else (move if REACT.has(move) else "jab")], has, roll)
 
 
 ## The measured row of a clip (clip_contact.json): contact_s, hand, reach_m, length_s; {} when not measured.

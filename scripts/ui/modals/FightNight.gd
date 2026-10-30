@@ -11,6 +11,7 @@ const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
+const CornerJobsRow := preload("res://scripts/ui/CornerJobsRow.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
 
 
@@ -97,7 +98,12 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	v.add_child(UI.label(str(pv["clue"]), 24, UI.AMBER, "bold", true))
 	v.add_child(UI.caps("WHAT DO YOU SHOUT TO %s?" % str(names[0]).to_upper()))
 	v.add_child(UI.muted(ShoutBar.shout_note(int(pv["shouts"]), str(names[0])), UI.SMALL))
-	v.add_child(CallButtons.shout_row(pv["offers"], pv["grades"], str(pv["mark"]), names, func(k: String): main.act("fightstep", "shout:" + k)))
+	var row := CallButtons.shout_row(pv["offers"], pv["grades"], str(pv["mark"]), names, func(k: String): main.act("fightstep", "shout:" + k))
+	var now := CallButtons.now_button(pv.get("now", {}), names, func(k: String): main.act("fightstep", "shout:" + k))
+	if now != null:
+		row.add_child(now)
+		row.move_child(now, 0)
+	v.add_child(row)
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	var sim := UI.button("Sim the round", "BtnQuiet", main.act.bind("fightstep", "round_out"))
@@ -172,13 +178,21 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 			v.add_child(CallButtons.fix_row(fixes, [fname, oname], str(m.get("fix_pick", "")), func(h: String):
 				m["fix_pick"] = h
 				main.redraw_modal()))
+		# S310 the other corner jobs: recover points, a combination set-up, the talk (CornerJobsRow).
+		var fj: Dictionary = main.career.fighter_by_id(str(m["fid"]))
+		var mn := CornerJobsRow.menu(fj, last)
+		if not m.has("jobs_sel"):
+			m["jobs_sel"] = CornerJobsRow.defaults(mn)
+		v.add_child(CornerJobsRow.build(mn, m["jobs_sel"], [fname, oname], main.redraw_modal))
 		var grades := {}
 		for k in Exchanges.CALLS.keys():
-			grades[k] = Exchanges.grade(str(k), LiveRound.values(main.career.fighter_by_id(str(m["fid"]))))["word"]
+			grades[k] = Exchanges.grade(str(k), LiveRound.values(fj))["word"]
 		v.add_child(CallButtons.corner_grid(grades, advice, [fname, oname], func(k: String):
 			var fx := str(m.get("fix_pick", ""))
+			var jobs := CornerJobsRow.suffix(m.get("jobs_sel", {}))
 			m.erase("fix_pick")
-			main.act("fightstep", "corner:" + k + ("|" + fx if fx != "" else ""))))
+			m.erase("jobs_sel")
+			main.act("fightstep", "corner:" + k + ("|fix=" + fx if fx != "" else "") + jobs)))
 	else:
 		var foot := UI.hbox(10)
 		foot.add_child(UI.spacer())

@@ -4,7 +4,7 @@ extends SceneTree
 ## hips on the seat, the bottle at her mouth, nobody outside the ring or in a post, planted feet that do not slide on the
 ## walks, round 2 starting on the call. Real pictures only (the never-shown desktop):
 ##   python tools/hidden_desktop.py run --timeout=400 <godot.exe> --path . --windowed --resolution 1920x1080 \
-##       --script res://tools/corner_film.gd -- <out_dir> [film] [pick=body]
+##       --script res://tools/corner_film.gd -- <out_dir> [film] [pick=body] [combos]
 ## `film`: no stills, play the whole fight's corners (run it under --write-movie). Prints CORNER_FILM failures=<n>.
 
 const W := 1920
@@ -57,6 +57,8 @@ func _initialize() -> void:
 	var f: Dictionary = main.career.fighter()
 	if not habits.is_empty():
 		f["habits"] = habits   # S309 `habits=a,b`: habits her opponent punishes, so the corner has one to fix
+	if OS.get_cmdline_user_args().has("combos"):
+		f["combos"] = load("res://scripts/ui/TestJump.gd").DRILLED.duplicate()   # S310: the set-up row has her drilled combinations
 	print("CORNER_FILM fighter %s %s habits %s vs %s (%s)" % [f["name"], f["stats"], f.get("habits", []), f["bout"]["opp"]["name"], f["bout"]["opp"]["style"]])
 	FightView.fast = true   # S308: 3:00 rounds; the film runs them at 2x
 	main.act("fightstep", "start")

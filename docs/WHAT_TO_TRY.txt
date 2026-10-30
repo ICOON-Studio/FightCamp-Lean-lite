@@ -1,3 +1,28 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 13 (2026-10-30): THE CORNER MINUTE HAS FOUR JOBS
+=============================================================================================
+
+NEW IN UPDATE 13 (board: "Test: the corner minute" - Lucy comes in with two combinations drilled on the pads)
+The plan you approved (Q-S294-20). Between rounds the corner card now has, above the eight calls:
+ 1. RECOVER 3/3 - the second's three points. Water and breathing (+energy, more when she is tired), Ice on the ribs
+    (takes back body hits from the display), Clear her head (only when she ends the round HURT - otherwise she starts
+    the next round hurt). Use + and -. The second spends them himself if you leave them.
+ 2. SET-UP - pick one of HER combinations (1-2, 1-2-3 ...) and the gap to wait for: "when Priya waits to counter",
+    "when Priya boxes at range", "when Priya tires". In the next round, when the corner sees that gap, a gold button
+    "NOW! Jab-Cross!" appears on the shout bar. Fire it into the gap: a big edge, and if it wins the exchange Priya is
+    hurt and the knockdown chance rises (a big-shot close-up). Fire it when she has already switched games (more likely
+    without film study) and it costs Lucy. One set-up a round.
+    COMBINATIONS COME FROM THE GYM: a fighter with none learned sees "drill one on the pads in the gym" instead.
+ 3. TALK - Calm her down / Fire her up / Tell her the truth. It depends on who she is: Lucy is a hothead (temper 72)
+    and disciplined (69): calm and the truth help her, firing her up makes her wild (she gets hurt more).
+ 4. THE PLAN (as before) - one of the eight calls, plus the optional habit fix.
+ALSO IN UPDATE 13 - ALL THE PUNCH PACK IN USE (your "why don't you map all 165 clips we purchased?"): a jab to the head
+now plays one of 5 reactions (was always the same one), crosses 3, hooks 4, body shots 4 (+ the kidney-shot reaction); the
+round's big shot plays the biggest head snaps; a hurt boxer reels from whole combinations; 7 knockouts, 3 standing
+counts, 7 victory celebrations and 4 tired idles now vary. Left out on purpose: the block clips (they hold the gloves
+above the head for 1-4 s) and two fidgets that drop the hands mid-fight.
+Measured over 400 even fights each: the plan alone wins 73%; plus a set-up fired at the gap 78% (stoppage wins 3.3% ->
+4.8%, inside amateur rates); plus the right talk 77%.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 12 (2026-10-30): BODY SHOTS COUNT, A FIGHT DISPLAY, GREEN IS NO FREE ANSWER
 =============================================================================================
 

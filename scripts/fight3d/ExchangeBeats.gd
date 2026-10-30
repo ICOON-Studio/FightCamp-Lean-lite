@@ -5,6 +5,7 @@ extends RefCounted
 ## keeps its big-shot close-up. The view never decides anything.
 
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
+const Combos := preload("res://scripts/rules/Combos.gd")
 const HabitBeats := preload("res://scripts/rules/HabitBeats.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
@@ -31,14 +32,20 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	var f: Dictionary = ctx["f"]
 	ComboWords.caption(plan["beats"], {"a": f.get("combos", {}), "b": (ctx["profiles"]["b"] as Dictionary).get("combos", {})}, ctx["names"], int(ctx["day"]) + k * 17)
 	_show_game(plan["beats"], str(x["sit"]), int(ctx["seed"]) + k * 29)
+	_setup(plan["beats"], str(x.get("setup", "")), str(x.get("setup_combo", "")))
 	_body(plan["beats"], x.get("body", []))
 	var at := k * Exchanges.EX_SECONDS
 	var out: Array = []
 	for b in plan["beats"]:
-		if bool(b.get("big", false)) and k < Exchanges.EXCHANGES - 1 and band != "dominant":
+		if bool(b.get("big", false)) and k < Exchanges.EXCHANGES - 1 and band != "dominant" and str(x.get("setup", "")) != "landed":
 			b["big"] = false
 		b["t"] = float(b["t"]) + at
 		out.append(b)
+	# S310 the set-up fired: the corner's NOW and her combination, lands or not, with its own caption.
+	if str(x.get("setup", "")) != "":
+		var opp_name := str(ctx["names"][1])
+		var how := "%s walks into the set-up!" % opp_name if str(x["setup"]) == "landed" else "%s saw it coming" % opp_name
+		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": "Corner: \"NOW!\" - " + how})
 	if bool(x.get("shout", false)):
 		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": "Corner: \"%s\"" % Exchanges.CALLS[str(x["call"])]["shout"]})
 	# S309: a habit punished (or the corner's fix holding) gets its own caption before the verdict.
@@ -97,6 +104,28 @@ static func _swap(beats: Array, who: String, moves: Array, odds: float, rng: Ran
 			continue
 		if not RoundScript.NOT_PUNCH.has(str(b["move"])) and str(b["move"]) != "say" and rng.randf() < odds:
 			b["move"] = str(moves[rng.randi_range(0, moves.size() - 1)])
+
+
+## S310 the set-up fired this exchange: her first punches become the combination - landed ones when it landed (the last
+## is the big shot: close-up, big reaction), missed or blocked ones when it did not. Who landed how many is unchanged.
+static func _setup(beats: Array, how: String, combo: String) -> void:
+	if how == "" or combo == "":
+		return
+	var moves: Array = Combos.row(combo).get("beats", [])
+	var want := "lands" if how == "landed" else ""
+	var mine: Array = []
+	for b in beats:
+		if str(b["who"]) != "a" or not RoundScript.PUNCHES.has(str(b["move"])):
+			continue
+		if (str(b["result"]) == "lands") == (want == "lands"):
+			mine.append(b)
+	for j in mini(moves.size(), mine.size()):
+		var b: Dictionary = mine[j]
+		b["move"] = str(moves[j])
+		b["combo"] = true
+		b["combo_id"] = combo
+		if want == "lands" and j == mini(moves.size(), mine.size()) - 1:
+			b["big"] = true
 
 
 ## S310: the ring lands the body shots the exchange counted (LiveRound rec "body" [hers, theirs]; the fight display counts
