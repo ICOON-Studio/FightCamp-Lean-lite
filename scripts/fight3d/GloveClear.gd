@@ -6,7 +6,8 @@ extends SkeletonModifier3D
 ## is moved straight out of it by the difference and the arm re-solved as a two-bone chain (hand keeps its rotation). A
 ## landed punch's glove front stops on the face (PunchReach), at about the touch distance, so it moves a cm or two at most.
 ## tools/inside_guard_probe.gd, round 1's first 90 s: glove centre < 0.09 m from a head centre 36 -> 8 of 571 inside frames.
-## Runs after HitSnap, before ElbowClear. `-- noglove` = the control arm.
+## Runs after HitSnap, before ElbowClear. `-- noglove` = the control arm (gloves and heads), `-- noheads` = heads only.
+## S316: her head clears the other's too (_clear_head, run before the gloves).
 ##   setup(skel)  other (the other boxer's Skeleton3D, set by FightStage)
 
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
@@ -17,10 +18,24 @@ const CLEAR_M := 0.15
 const GLOVE_FWD_M := 0.08
 const HEAD_UP_M := 0.08
 
+## Head centre 8 cm up the head bone, ~0.09-0.10 m radius: two heads touch at ~0.19 m.
+const HEAD_TOUCH_M := 0.19
+## Each boxer leans out of this share of the overlap; over half, since the first boxer of the frame reads the other's
+## head a frame late (peer.shown_head) and the arc's chord falls a little short of the push.
+const HEAD_SHARE := 0.7
+
 var other: Skeleton3D
+## The other boxer's GloveClear: its head centre AS SHOWN (after her snap, sway and hit fold), in world space. Read from
+## outside the stack, her skeleton gives the animated pose without them - up to ~0.15 m off in a gut shot's fold.
+var peer = null
+var shown_head := Vector3.INF
+var heads := true        # `-- noheads` turns the head clearance off (control arm)
 var pushes := 0          # frames a glove was moved out (for probes)
+var head_pushes := 0     # frames her trunk leaned out of the other's head
 var _arms := {}
 var _head := -1
+var _spine := -1
+var _chest := -1
 
 
 func setup(skel: Skeleton3D) -> bool:
@@ -30,6 +45,9 @@ func setup(skel: Skeleton3D) -> bool:
 			return false
 		_arms[side] = ids
 	_head = skel.find_bone("Head")
+	_spine = skel.find_bone("Spine")
+	_chest = skel.find_bone("Chest")
+	heads = _spine >= 0 and _chest >= 0 and not OS.get_cmdline_user_args().has("noheads")
 	return _head >= 0
 
 
@@ -41,9 +59,16 @@ func _process_modification() -> void:
 	var oh := other.find_bone("Head")
 	if oh < 0:
 		return
-	var hc: Vector3 = to_me * (other.global_transform * other.get_bone_global_pose(oh).origin + Vector3.UP * HEAD_UP_M)
+	var oc: Vector3 = other.global_transform * other.get_bone_global_pose(oh).origin + Vector3.UP * HEAD_UP_M
+	if peer != null and is_instance_valid(peer) and peer.shown_head.is_finite():
+		oc = peer.shown_head
+	var hc: Vector3 = to_me * oc
 	# Skeleton space may be scaled (each body is scaled to her height): measure in world metres.
 	var k := skel.global_transform.basis.get_scale().x
+	# The head first: her lean moves her own arms, and the gloves are cleared after it.
+	if heads:
+		_clear_head(skel, hc, k)
+	shown_head = skel.global_transform * (skel.get_bone_global_pose(_head).origin + Vector3.UP * HEAD_UP_M / k)
 	for side in _arms:
 		var ids: Array = _arms[side]
 		var g_la: Transform3D = skel.get_bone_global_pose(int(ids[1]))
@@ -59,3 +84,34 @@ func _process_modification() -> void:
 		var l2 := g_la.origin.distance_to(g_hd.origin)
 		PunchReach.solve(skel, ids, s, g_hd.origin + dir * (CLEAR_M - d) / k, l1, l2, g_hd.basis)
 		pushes += 1
+
+
+## S316: heads touch up close (temple to temple, a head on a shoulder) but never pass through each other - inside_guard_probe
+## measured 8 of 571 inside frames with the head centres under 0.16 m (the closest 0.026 m: a gut shot's fold into a cross).
+## Her trunk leans back from the other head by HEAD_SHARE of the overlap (both boxers do it, so the pair clears it), half on
+## the spine, half on the chest, in the horizontal plane only. `-- noheads` = the control arm.
+func _clear_head(skel: Skeleton3D, hc: Vector3, k: float) -> void:
+	var c := skel.get_bone_global_pose(_head).origin + Vector3.UP * HEAD_UP_M / k
+	var away := c - hc
+	away.y = 0.0
+	var d := (c - hc).length() * k
+	if d >= HEAD_TOUCH_M or away.length() < 1e-5:
+		return
+	var dir := away.normalized()
+	# Horizontal only: the gap that makes the 3D distance the touch, given the heads' height difference (a gut shot's fold
+	# drops one head well below the other).
+	var v := absf((c - hc).y) * k
+	var h := away.length() * k
+	var push := (sqrt(maxf(HEAD_TOUCH_M * HEAD_TOUCH_M - v * v, 0.0)) - h) * HEAD_SHARE / k
+	if push <= 0.0:
+		return
+	for b in [_spine, _chest]:
+		var g: Transform3D = skel.get_bone_global_pose(b)
+		var arm := c - g.origin
+		var axis := arm.cross(dir)
+		if axis.length() < 1e-5 or arm.length() < 1e-3:
+			continue
+		var q := Quaternion(axis.normalized(), 0.5 * push / arm.length())
+		skel.set_bone_global_pose(b, Transform3D(Basis(q) * g.basis, g.origin))
+		c = g.origin + q * arm
+	head_pushes += 1

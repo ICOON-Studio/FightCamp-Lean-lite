@@ -5,7 +5,8 @@ extends SceneTree
 ## 2. punches keep who/t/result, body hook counts unchanged; combos and big shots keep their move
 ## 3. clinch count unchanged; every clinch keeps its two referee step_outs at its break_t; no punch inside a moved hold
 ## 4. a tie ends on its clinch (end_t <= clinch t); a pivot ends PIVOT_S after end_t; spells still >= 0.3 s long
-## 5. exit shares over the realistic mix: pivot 0.25-0.60, tie 0.10-0.50, step 0.15-0.55 (none of the three is gone)
+## 5. exit shares over the realistic mix (S317 John J-INSIDE3, 312 real exits: step 84 %, pivot 12 %, referee/clinch 4 %):
+##    pivot 0.08-0.25, tie 0.03-0.20, step 0.60-0.88 (none of the three is gone)
 ## 6. a pivot with a check hook: the leaver's lead hook lands HOOK_CONTACT_S before end_t
 ## 7. determinism
 
@@ -80,8 +81,8 @@ func _initialize() -> void:
 	_check(ok[1], "2: punches keep who/t/result, body hooks, combo/big moves")
 	_check(ok[2], "3: clinch count kept, referee breaks follow their clinch, no punch inside a moved hold")
 	_check(ok[3], "4: tie ends on its clinch, pivot_t = end_t + PIVOT_S, spells >= 0.3 s, sorted")
-	_check(_between(counts["pivot"] / total, 0.25, 0.60) and _between(counts["tie"] / total, 0.10, 0.50)
-		and _between(counts["step"] / total, 0.15, 0.55), "5: exit shares in their bands")
+	_check(_between(counts["pivot"] / total, 0.08, 0.25) and _between(counts["tie"] / total, 0.03, 0.20)
+		and _between(counts["step"] / total, 0.60, 0.88), "5: exit shares in their bands")
 	_check(hooks > counts["pivot"] / 4, "6: check hooks before pivots (%d of %d)" % [hooks, counts["pivot"]])
 	var x := _exchange(2, 77, "press", true)
 	var y := _exchange(2, 77, "press", true)

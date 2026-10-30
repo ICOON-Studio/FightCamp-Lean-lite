@@ -10,15 +10,18 @@ extends SceneTree
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const STOP_S := 90.0
-const BONES := ["Head", "Chest", "Hips", "LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm", "LeftHand", "RightHand"]
+const BONES := ["Head", "Chest", "Hips", "LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm", "LeftHand", "RightHand", "LeftMiddleProximal", "RightMiddleProximal"]
 
 var main: Node
 var view: Node
 var taps: Array = []
-var rows := {"inside": [], "pocket": []}   # [fwd, side, up, daylight] per hand-frame
+var rows := {"inside": [], "pocket": [], "rest": []}   # [fwd, side, up, daylight] per hand-frame
 var deep_clips := {}   # clip -> frames it put a glove deep in a head
-var deep := {"inside": [0, 0], "pocket": [0, 0]}   # [frames, frames with a glove centre < DEEP_M from the other's head centre]
+var deep := {"inside": [0, 0], "pocket": [0, 0], "rest": [0, 0]}   # [frames, frames with a glove centre < DEEP_M from the other's head centre]
 const DEEP_M := 0.09
+var heads := {"inside": [], "pocket": [], "rest": []}   # head centre to head centre, per frame
+var head_clips := {}   # "clip a/clip b" -> frames the heads went through each other
+const HEADS_M := 0.16
 
 
 func _initialize() -> void:
@@ -47,7 +50,7 @@ func _log() -> void:
 	if not is_instance_valid(view) or view.stage == null or not bool(view.playing) or bool(view.stage.scene):
 		return
 	var ph: String = view.stage.feet.phase()
-	if not ph in ["inside", "pocket"] or (ph == "inside" and float(view.stage.feet.inside_w) < 0.95):
+	if not ph in ["inside", "pocket", "rest"] or (ph == "inside" and float(view.stage.feet.inside_w) < 0.95):
 		return
 	# Any clip: a glove centre (8 cm past the wrist along the forearm) deep inside the other's head (centre 8 cm up the
 	# head bone; head ~0.09 m + glove ~0.06 m radius touch at ~0.15 m).
@@ -70,6 +73,13 @@ func _log() -> void:
 				deep_clips[c] = int(deep_clips.get(c, 0)) + 1
 	if hit:
 		deep[ph][1] += 1
+	# Heads (centre 8 cm up the head bone, ~0.09-0.10 m radius): touching at ~0.19 m, through each other below HEADS_M.
+	var h0: Vector3 = (view.stage.boxers[0]["skel"] as Skeleton3D).global_transform * (taps[0].shown["Head"] as Vector3) + Vector3.UP * 0.08
+	var h1: Vector3 = (view.stage.boxers[1]["skel"] as Skeleton3D).global_transform * (taps[1].shown["Head"] as Vector3) + Vector3.UP * 0.08
+	heads[ph].append(h0.distance_to(h1))
+	if h0.distance_to(h1) < HEADS_M:
+		var cl := str((view.stage.boxers[0]["ap"] as AnimationPlayer).current_animation) + "/" + str((view.stage.boxers[1]["ap"] as AnimationPlayer).current_animation)
+		head_clips[cl] = int(head_clips.get(cl, 0)) + 1
 	for i in 2:
 		var bx: Dictionary = view.stage.boxers[i]
 		if not str((bx["ap"] as AnimationPlayer).current_animation) in BeatClips.GUARD:
@@ -90,28 +100,50 @@ func _log() -> void:
 			var w: Vector3 = sh[hand + "Hand"] - sh["Head"]
 			var el: Vector3 = sh[hand + "LowerArm"] - sh["Hips"]
 			var off := el - axis * el.dot(axis)
-			rows[ph].append([w.dot(fwd), w.dot(out), w.y, off.dot(out), off.dot(fwd)])
+			rows[ph].append([w.dot(fwd), w.dot(out), w.y, off.dot(out), off.dot(fwd), (sh["LeftHand"] - sh["RightHand"]).dot(left),
+				_glove_bend(bx, hand)])
 
 
 func _report() -> void:
 	for ph in deep:
 		print("INGUARD %s glove deep in a head: %d of %d frames" % [ph, deep[ph][1], deep[ph][0]])
 	print("INGUARD deep by clip: ", deep_clips)
+	for ph in heads:
+		var hv: Array = heads[ph].duplicate()
+		if hv.is_empty():
+			continue
+		hv.sort()
+		var thru := hv.filter(func(x): return float(x) < HEADS_M).size()
+		var touch := hv.filter(func(x): return float(x) < 0.19).size()
+		print("INGUARD %s heads apart: min %.3f p10 %.3f median %.3f | through each other (< %.2f) %d, touching (< 0.19) %d of %d frames" % [
+			ph, hv[0], hv[hv.size() / 10], hv[hv.size() / 2], HEADS_M, thru, touch, hv.size()])
+	print("INGUARD heads through by clips: ", head_clips)
 	for i in 2:
 		var gcl = view.stage.boxers[i].get("gclear")
-		print("INGUARD GloveClear pushes boxer %d: %s" % [i, str(gcl.pushes) if gcl != null else "off"])
+		print("INGUARD GloveClear pushes boxer %d: %s, head leans %s" % [i, str(gcl.pushes) if gcl != null else "off",
+			str(gcl.head_pushes) if gcl != null and gcl.heads else "off"])
 	for ph in rows:
 		var r: Array = rows[ph]
 		if r.is_empty():
 			print("INGUARD %s no frames" % ph)
 			continue
 		var cols := []
-		for c in 5:
+		for c in 7:
 			var v := r.map(func(x): return float(x[c]))
 			v.sort()
 			cols.append("%.3f (p10 %.3f p90 %.3f)" % [v[v.size() / 2], v[v.size() / 10], v[v.size() * 9 / 10]])
-		print("INGUARD %s hand-frames %d | wrist fwd of head %s | out to her side %s | up from head %s | elbow out from torso axis %s | elbow in front %s" % [
-			ph, r.size(), cols[0], cols[1], cols[2], cols[3], cols[4]])
+		print("INGUARD %s hand-frames %d | wrist fwd of head %s | out to her side %s | up from head %s | elbow out from torso axis %s | elbow in front %s | wrists apart %s | glove off the forearm deg %s" % [
+			ph, r.size(), cols[0], cols[1], cols[2], cols[3], cols[4], cols[5], cols[6]])
+
+
+## Degrees between her forearm (as shown) and the glove's long axis (Gloves.gd lays it along +Y of its node).
+func _glove_bend(bx: Dictionary, hand: String) -> float:
+	var i: int = view.stage.boxers.find(bx)
+	var sh: Dictionary = taps[i].shown
+	var sk: Transform3D = (bx["skel"] as Skeleton3D).global_transform
+	var arm: Vector3 = sk * (sh[hand + "Hand"] as Vector3) - sk * (sh[hand + "LowerArm"] as Vector3)
+	var g: Node3D = (bx["gloves"] as Node).gloves.get("l" if hand == "Left" else "r")
+	return rad_to_deg(arm.angle_to(g.global_transform.basis.y)) if g != null else 0.0
 
 
 func _wait(n: int) -> void:

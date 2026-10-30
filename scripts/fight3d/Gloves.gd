@@ -6,11 +6,16 @@ extends Node
 
 const MeshCut := preload("res://scripts/fight3d/MeshCut.gd")
 const GLOVE_PATH := "res://assets/models/gloves/boxing_glove.glb"
-## Wrist, middle knuckle, index knuckle, little knuckle.
+## Wrist, middle knuckle, index knuckle, little knuckle, elbow.
 const HANDS := {
-	"l": ["LeftHand", "LeftMiddleProximal", "LeftIndexProximal", "LeftLittleProximal"],
-	"r": ["RightHand", "RightMiddleProximal", "RightIndexProximal", "RightLittleProximal"],
+	"l": ["LeftHand", "LeftMiddleProximal", "LeftIndexProximal", "LeftLittleProximal", "LeftLowerArm"],
+	"r": ["RightHand", "RightMiddleProximal", "RightIndexProximal", "RightLittleProximal", "RightLowerArm"],
 }
+## S316 (operator: "the gloves do not stick properly on the wrist"): the clips bend the bare wrist (the guard idles cock the
+## hand back and down), and a glove laid along the hand then leaves the forearm at an angle, its cuff off the wrist. A taped,
+## gloved wrist is held nearly straight: the glove's long axis is this share of the way from the hand to the forearm.
+## `-- bentwrist` = the control arm (the glove along the hand, as before).
+const WRIST_STRAIGHT := 0.85
 ## Palms in, thumbs on top (the old repo's S162e measure on the certified clips), about the glove's long axis.
 const TWIST_DEG := {"l": -75.0, "r": 71.0}
 const CUT_FINGERS := ["Thumb", "Index", "Middle", "Ring", "Little"]
@@ -29,6 +34,7 @@ void fragment() {
 static var _shader: Shader = null
 
 var skel: Skeleton3D
+var _straight := 0.0 if OS.get_cmdline_user_args().has("bentwrist") else WRIST_STRAIGHT
 var gloves := {}
 var idx := {}
 
@@ -100,6 +106,9 @@ func _follow() -> void:
 		if along.length() < 1e-5:
 			continue
 		along = along.normalized()
+		var arm: Vector3 = wrist - (p[4] as Vector3)
+		if _straight > 0.0 and arm.length() > 1e-5 and along.angle_to(arm) > 1e-3:
+			along = along.slerp(arm.normalized(), _straight).normalized()
 		var across: Vector3 = (p[2] as Vector3) - (p[3] as Vector3)
 		across = across - along * across.dot(along)
 		across = across.normalized() if across.length() > 1e-5 else along.cross(Vector3.UP).normalized()

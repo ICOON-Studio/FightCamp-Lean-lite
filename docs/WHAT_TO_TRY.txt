@@ -1,3 +1,24 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 19 (2026-10-30): A REAL GUARD, GLOVES ON THE WRIST, SMOOTHER FOOTWORK
+=============================================================================================
+
+NEW IN UPDATE 19 (board: "Test: fight night WITH film study" - watch round 1 at 1x)
+ 1. A REAL GUARD AT EVERY RANGE (you: "this guard is so wrong"). At long range the gloves used to drop to the chest and
+    touch in front of it, elbows out. Now each glove stays on its own side of the face at every range: the rear glove
+    at the cheek, the lead out in front at chin height, elbows down. Measured: wrists 31 cm -> 3 cm below the head,
+    12 cm -> 20 cm apart.
+ 2. GLOVES ON THE WRIST (you: "the gloves do not stick properly on the wrist"). The glove used to follow the bare hand,
+    which the clips bend back, so the cuff stood off the forearm. Now the glove runs in line with the forearm, like a
+    taped wrist (2-6 degrees off it).
+ 3. SMOOTHER FOOTWORK (you: "nowhere near that smooth"). The fight cut to a new clip about 5 times a second: every step
+    started its clip again and the guard flashed for 4 frames between steps. Now a run of steps flows as one walk.
+    Clip changes down 41 %, the typical frame-to-frame jerk down 38 %. The punches themselves are next.
+ 4. HEADS NEVER GO THROUGH EACH OTHER up close (8 -> 4 frames of 571, closest 2.6 cm -> 14 cm), and no glove goes
+    into a head any more (0 frames).
+ 5. THE CLINCH: heads side by side (was nose to nose), arms over the other's arms (was a hug round the neck). Still
+    built from a block pose - a real two-boxer clinch clip is coming.
+ Unchanged: who lands what, the ranges, the ways out of the inside.
+
+---- update 18 notes below ----
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 18 (2026-10-30): THE GUARD UP CLOSE, NO GLOVES THROUGH HEADS
 =============================================================================================
 

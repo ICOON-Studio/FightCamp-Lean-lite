@@ -1,7 +1,8 @@
 extends RefCounted
 ## One boxer on the 3D ring (split from Fightstage.gd S307, 500-line rule): the MetaHuman body scaled to her height, her
 ## corner's kit and gloves, the clip library (mirrored for a southpaw) and the modifier stack in its order - join smoother,
-## guard tuck, punch reach, head snap, elbows clear, planted feet.
+## guard tuck, punch reach, head snap, elbows clear, planted feet. S316 control arms (tools/smooth_probe.gd): `noguard`,
+## `noreach`, `nosnap`, `noglove`, `nojoin`, `nofeet`.
 ## Reads the kit colours off the stage (its TRUNKS / VESTS / CORNERS / CLOTH_ROUGHNESS).
 ##   build(stage, spec, index) -> {node, skel, ap, gloves, js, reach, snap, feet, south, front, pos, vel, move_left}
 
@@ -65,7 +66,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	gt.name = "GuardTuck"
 	gt.lead = "RightHand" if south else "LeftHand"
 	# S313: the step clips too (Footwork.STRIDE) - at rest they step most of the time, and the guard drops there (gap 5).
-	if gt.setup(skel, ap, body, BeatClips.GUARD + GuardLife.FIDGETS + ["advance", "retreat", "strafe_left", "strafe_right"], index * 31 + 7):
+	if not OS.get_cmdline_user_args().has("noguard") and gt.setup(skel, ap, body, BeatClips.GUARD + GuardLife.FIDGETS + ["advance", "retreat", "strafe_left", "strafe_right"], index * 31 + 7):
 		skel.add_child(gt)
 		skel.move_child(gt, (js.get_index() + 1) if js != null else 0)
 	else:
@@ -74,7 +75,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	# S302: a landed punch reaches the head past the guard (after the guard tuck, before the elbows clear).
 	var pr := PunchReach.new()
 	pr.name = "PunchReach"
-	if pr.setup(skel, ap):
+	if not OS.get_cmdline_user_args().has("noreach") and pr.setup(skel, ap):
 		skel.add_child(pr)
 		skel.move_child(pr, (gt.get_index() + 1) if gt != null else ((js.get_index() + 1) if js != null else 0))
 	else:
@@ -82,7 +83,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 		pr = null
 	var hs := HitSnap.new()
 	hs.name = "HitSnap"
-	if hs.setup(skel):
+	if not OS.get_cmdline_user_args().has("nosnap") and hs.setup(skel):
 		skel.add_child(hs)
 		skel.move_child(hs, (pr.get_index() + 1) if pr != null else 0)
 	else:

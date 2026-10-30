@@ -9,11 +9,14 @@ extends RefCounted
 ## pivot's end, absolute exchange time like end_t). Who lands what is unchanged: a check hook is the leaver's own last
 ## free single punch of the spell turned into a lead hook. Call after InsideBeats and ClinchBeats.
 
-## Of the spells no clinch ends, this share pivots out (no source counts exits; the coaching books teach the pivot
-## first - S315 estimate, John J-INSIDE3 asked for real shares).
-const PIVOT := 0.5
-## A spell whose clinch could move to its end ties up this often (the rest of the clinches stay where ClinchBeats put them).
-const TIE := 0.5
+## Of the spells no clinch ends, this share pivots out. S317 John J-INSIDE3 (312 exits, three women's Olympic finals,
+## Game Godot/research/J_INSIDE3_JOHN.md): step straight back 84 %, pivot 12 %, referee break 4 %, self-released
+## clinch 1 %, push-off 0; his game shares (nudged for the side camera hiding pivots and short holds): step 0.75,
+## pivot 0.15, tie-up + referee 0.09, push-off 0.01 (a step here). 0.165 of the untied 0.91 = 0.15 (was 0.5, S315 guess).
+const PIVOT := 0.165
+## A spell whose clinch could move to its end ties up this often (the rest of the clinches stay where ClinchBeats put them);
+## measured with tests/inside_exits_test.gd to land the tie share near 0.09 (was 0.5).
+const TIE := 0.05
 ## A clinch starting this close to a spell's end already ends it.
 const TIE_NEAR_S := 0.6
 ## The pivot's window: the step itself takes ~0.4 s (Footwork.PIVOT_SCALE), starting once her check hook is back in guard.

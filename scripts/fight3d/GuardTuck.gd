@@ -2,7 +2,7 @@ extends SkeletonModifier3D
 ## S302 (operator on the S301 film: "the guard looks fake"). tools/punch_reach.gd measured the Pro guard (pro_idle) on our
 ## bodies: the wrists hang 0.22 m in front of the face, the gloves out at arm's length (John J-GUARDPACE1: gloves ~0.10-0.20 m
 ## in front of the face, chin tucked, small hand pumps). While she stands in her guard, each wrist is drawn back toward
-## her face by TUCK_M (never closer than MIN_FRONT_M) and pumps a little (lead more than rear), the arm re-solved as a
+## her face (S316: to the GUARD point) and pumps a little (lead more than rear), the arm re-solved as a
 ## two-bone chain, the hand keeping its rotation. Eases in and out (EASE_S) so leaving the guard for a punch never pops.
 ## Runs after JoinSmoother, before PunchReach.
 ## S313 real-fight gap 5 (Game Godot/research/S310_REAL_FIGHT_GAPS.md "Guard at range"): out of range the real
@@ -18,8 +18,6 @@ extends SkeletonModifier3D
 
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 
-const TUCK_M := 0.10
-const MIN_FRONT_M := 0.10
 const EASE_S := 0.15
 ## Hand pumps: metres along her forward axis, cycles a second.
 const PUMP_M := {"lead": 0.035, "rear": 0.015}
@@ -28,8 +26,15 @@ const PUMP_HZ := 1.3
 const FACE_FWD_M := 0.09
 const FACE_UP_M := 0.07
 
-const LOW_M := {"lead": 0.26, "rear": 0.16}
-const LOW_FWD_M := 0.06
+## S316 (operator on the update 18 build, a still at long range: "this guard is so wrong", "bad"): the S313 low guard put
+## the wrists 0.31 m under the head bone and 0.12 m apart - gloves crossed at the chest, elbows flared (inside_guard_probe
+## "rest"). Now the guard is one place at every range: each wrist on its own side of the face, the rear glove at the cheek,
+## the lead out in front at chin height (forward, out to her side, up - metres from the head bone; the face is FACE_FWD_M
+## in front of it, the chin ~0.08 forward and ~0.02 down), elbows bent down and in. At long range only the lead drops a
+## few cm (LOW_M) - the real guard's lead sags there, the gloves never meet.
+const GUARD := {"lead": Vector3(0.26, 0.07, -0.04), "rear": Vector3(0.14, 0.10, -0.03)}
+const ELBOW_IN := 0.5
+const LOW_M := {"lead": 0.05, "rear": 0.0}
 const LOW_UP_S := 0.15
 const LOW_DOWN_S := 0.6
 
@@ -86,7 +91,8 @@ func _process_modification() -> void:
 	fwd.y = 0.0
 	fwd = fwd.normalized()
 	var head: Vector3 = skel.get_bone_global_pose(_head).origin
-	var face := head + fwd * FACE_FWD_M + Vector3.UP * FACE_UP_M
+	# Skeleton space is scaled with her height: the guard points are world metres.
+	var k := skel.global_transform.basis.get_scale().x
 	var iw := inner * inner * (3.0 - 2.0 * inner) * e
 	var left := skel.get_bone_global_pose(int(_sh[0])).origin - skel.get_bone_global_pose(int(_sh[1])).origin
 	left.y = 0.0
@@ -94,18 +100,18 @@ func _process_modification() -> void:
 	for hand in _arms:
 		var ids: Array = _arms[hand]
 		var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
-		var front := (g_hd.origin - face).dot(fwd)
-		var back := clampf(front - MIN_FRONT_M, 0.0, TUCK_M) * (1.0 - lw)
-		var pump := float(PUMP_M["lead" if hand == lead else "rear"]) * sin(TAU * PUMP_HZ * _t + _phase + (0.0 if hand == "LeftHand" else 2.1))
-		var move := (-back + pump + LOW_FWD_M * lw) * e
-		var drop := float(LOW_M["lead" if hand == lead else "rear"]) * lw * e
-		if absf(move) < 1e-4 and drop < 1e-4 and iw <= 0.0:
-			continue
+		var role := "lead" if hand == lead else "rear"
+		var pump := float(PUMP_M[role]) * sin(TAU * PUMP_HZ * _t + _phase + (0.0 if hand == "LeftHand" else 2.1))
+		var out := left if hand == "LeftHand" else -left
+		# S316 one guard at every range: her own wrist point from the head bone (GUARD), the lead a little lower at long
+		# range, the inside guard up close; the clip's own guard only shows through the ease in and out.
+		var gp: Vector3 = GUARD[role] / k
+		var to := head + fwd * (gp.x + pump / k) + out * gp.y + Vector3.UP * (gp.z - float(LOW_M[role]) * lw / k)
+		if iw > 0.0:
+			to = to.lerp(head + (fwd * (IN_FWD_M + pump * 0.5) + out * IN_SIDE_M + Vector3.UP * IN_UP_M) / k, iw / e)
+		to = g_hd.origin.lerp(to, e)
 		var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 		var l1 := s.distance_to(skel.get_bone_global_pose(int(ids[1])).origin)
 		var l2 := skel.get_bone_global_pose(int(ids[1])).origin.distance_to(g_hd.origin)
-		var to := g_hd.origin + fwd * move - Vector3.UP * drop
-		var out := left if hand == "LeftHand" else -left
-		if iw > 0.0:
-			to = to.lerp(head + fwd * IN_FWD_M + out * IN_SIDE_M + Vector3.UP * IN_UP_M, iw)
-		PunchReach.solve(skel, ids, s, to, l1, l2, g_hd.basis, (Vector3.DOWN - out * IN_ELBOW_IN).normalized(), iw)
+		var pole := (Vector3.DOWN - out * lerpf(ELBOW_IN, IN_ELBOW_IN, iw / e)).normalized()
+		PunchReach.solve(skel, ids, s, to, l1, l2, g_hd.basis, pole, e)

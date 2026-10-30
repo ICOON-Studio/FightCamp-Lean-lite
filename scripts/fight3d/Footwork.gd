@@ -165,6 +165,11 @@ func circle(dir: int, seconds: float = 0.45) -> void:
 	life.later(other, life.follow_delay(), walk.bind(other, clip, seconds * life.rng.randf_range(0.75, 1.2)))
 
 
+## S316 how long a finished step's clip plays on, slowing to GRACE_SPEED, waiting for the next step (else the guard).
+const STEP_GRACE_S := 0.35
+const GRACE_SPEED := 0.35
+
+
 ## Standing in her guard (or a fidget), not stepping, not locked in a hit reaction: free to take a step.
 func can_step(who: int) -> bool:
 	var clip := str((stage.boxers[who]["ap"] as AnimationPlayer).current_animation)
@@ -191,8 +196,16 @@ func walk(who: int, clip: String, seconds: float, scale: float = WALK_SCALE, aim
 	bx["vel"] = dir.normalized() * float(spec[0]) * scale
 	bx["move_left"] = seconds
 	stage._cut[who] = {}
-	ap.speed_scale = 1.0
-	stage._start(who, clip, scale, 0.08)
+	# S316 smoothness (tools/smooth_probe.gd: a step clip restarted 176 times in 1.8 min, each played 0.23 s, the guard
+	# idle flashed 0.13 s between them - a cut every 0.4 s): a step that follows a step on the same clip carries the clip
+	# on instead of starting it again.
+	var going := float(bx.get("step_grace", 0.0)) > 0.0 and str(ap.current_animation) == clip
+	bx["step_grace"] = 0.0
+	if going:
+		ap.speed_scale = scale
+	else:
+		ap.speed_scale = 1.0
+		stage._start(who, clip, scale, 0.08)
 
 
 ## The step ends: a punch or a reaction started mid-step plays on (the step only carried her body).
@@ -202,8 +215,10 @@ func stop(who: int) -> void:
 	bx["move_left"] = 0.0
 	bx["aim_dir"] = 0.0
 	bx["hold_m"] = 0.0
+	# S316: the step clip plays on (slowing) for STEP_GRACE_S before the guard comes back - footwork is a run of steps,
+	# and the next one usually comes inside it (FightStage._compose ends the grace).
 	if STRIDE.has(str((bx["ap"] as AnimationPlayer).current_animation)):
-		stage.guard(who)
+		bx["step_grace"] = STEP_GRACE_S
 
 
 ## An aimed step from `dist` to `to` at `scale`, long enough to get there (it stops on arrival).

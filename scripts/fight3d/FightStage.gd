@@ -95,6 +95,7 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 	for i in boxers.size():
 		if boxers[i].get("gclear") != null:
 			boxers[i]["gclear"].other = boxers[1 - i]["skel"]
+			boxers[i]["gclear"].peer = boxers[1 - i].get("gclear")
 	gap_m = _jab_gap()
 	feet.setup(self)
 	add_child(clinch)
@@ -254,6 +255,13 @@ func _compose(delta: float) -> void:
 			bx["move_left"] = float(bx["move_left"]) - delta
 			if float(bx["move_left"]) <= 0.0:
 				feet.stop(i)
+		elif float(bx.get("step_grace", 0.0)) > 0.0:
+			# S316: a finished step's clip slows while it waits for the next step; none came - back to the guard.
+			var ap: AnimationPlayer = bx["ap"]
+			ap.speed_scale = move_toward(ap.speed_scale, feet.GRACE_SPEED, delta * 4.0)
+			bx["step_grace"] = float(bx["step_grace"]) - delta
+			if float(bx["step_grace"]) <= 0.0 and feet.STRIDE.has(str(ap.current_animation)):
+				guard(i)
 	var a: Vector3 = boxers[0]["pos"]
 	var b: Vector3 = boxers[1]["pos"]
 	var dist := a.distance_to(b)
@@ -309,6 +317,7 @@ func _compose(delta: float) -> void:
 ## Her guard between moves: the Punch Pro idle when loaded (every Pro clip starts and ends in it, S300), else the old one.
 func guard(who: int) -> void:
 	var ap: AnimationPlayer = boxers[who]["ap"]
+	boxers[who]["step_grace"] = 0.0
 	var idle := BeatClips.first(BeatClips.GUARD, ap.has_animation)
 	ap.speed_scale = 1.0
 	if idle != "":
@@ -325,6 +334,9 @@ func guard(who: int) -> void:
 
 ## S301: a Pro clip plays its recovery fast (BeatClips.recover_scale, from its measured contact) and hands over to the guard
 ## the moment it is back in guard, instead of standing on to the end of the take.
+const RECOVER_RAMP_S := 0.12
+
+
 func _recover() -> void:
 	for who in boxers.size():
 		var cut: Dictionary = _cut[who]
@@ -337,7 +349,10 @@ func _recover() -> void:
 		var at := ap.current_animation_position
 		if not bool(cut["fast"]) and float(cut["contact"]) >= 0.0 and at >= float(cut["contact"]):
 			cut["fast"] = true
-			ap.speed_scale = float(cut["scale"])
+		# S316 smoothness: the recovery speeds up over RECOVER_RAMP_S, not in one frame (an instant x2-3 jumps the hand's
+		# speed at contact - tools/smooth_probe.gd counted the hook and body-shot clips' kinks there).
+		if bool(cut["fast"]) and ap.speed_scale < float(cut["scale"]):
+			ap.speed_scale = minf(float(cut["scale"]), ap.speed_scale + float(cut["scale"]) * get_process_delta_time() / RECOVER_RAMP_S)
 		if float(cut["back"]) > 0.0 and at >= float(cut["back"]):
 			_cut[who] = {}
 			guard(who)
@@ -359,6 +374,7 @@ func play(who: int, move: String, speed: float = 1.0, from_s: float = 0.0) -> vo
 		if move == "" or not ap.has_animation(move):
 			return
 	ap.speed_scale = 1.0
+	boxers[who]["step_grace"] = 0.0
 	life.cancel(who)
 	if boxers[who].get("reach") != null:
 		(boxers[who]["reach"] as Node).disarm()

@@ -14,7 +14,9 @@ const ENGAGE_M := 0.62
 ## Nobody closes inside this while tied up (the stage's usual floor is MIN_GAP_M 0.62).
 const MIN_M := 0.32
 ## Each body shifts this far to her own left: heads 2 x SIDE_M apart sideways, cheek past the other's ear.
-const SIDE_M := 0.1
+## S316 (operator on a clinch still: "very bad" - faces nose to nose): 0.13 puts the heads ear by ear, chin over the
+## other's shoulder.
+const SIDE_M := 0.13
 const EASE_S := 0.3
 ## The pose is held between these shares of its loop (a block loop played to its end would hand back to the guard).
 ## Letting go: the shift and the closest gap ease back over this long (the referee's push and their step out cover it).
@@ -25,6 +27,10 @@ const HOLD_SPEED := 0.35
 const BACK_M := 0.13
 const BLADE_DOWN_M := 0.06
 const FLANK_M := 0.14
+## S316 the overhook: the holder's wrist this far outside, behind and above the other's elbow.
+const OVERHOOK_OUT_M := 0.07
+const OVERHOOK_BACK_M := 0.06
+const OVERHOOK_UP_M := 0.08
 
 var stage: Node
 var holder := -1
@@ -121,9 +127,11 @@ func _engage() -> void:
 			continue
 		var other := 1 - i
 		# Facing each other, her left hand meets the other's right side.
+		# S316: the holder overhooks - each arm over the other's arm at the elbow, pinning it (was: a hug around the
+		# shoulders); the held boxer's gloves stay on the holder's ribs (she can only work the body).
 		if i == holder:
-			ik.reach("Left", _blade.bind(other, "Right"))
-			ik.reach("Right", _blade.bind(other, "Left"))
+			ik.reach("Left", _overhook.bind(other, "Right"))
+			ik.reach("Right", _overhook.bind(other, "Left"))
 		else:
 			ik.reach("Left", _flank.bind(other, -1.0))
 			ik.reach("Right", _flank.bind(other, 1.0))
@@ -140,6 +148,13 @@ func _fwd(i: int) -> Vector3:
 	return (stage.boxers[i]["node"] as Node3D).global_transform.basis.z.normalized()
 
 
+## Over the other's arm just above her elbow on her `side`, from outside and a little behind: the holder's forearm pins it.
+func _overhook(i: int, side: String) -> Vector3:
+	var left := Vector3.UP.cross(_fwd(i)).normalized()
+	var out := left if side == "Left" else -left
+	return _bone(i, side + "LowerArm") + out * OVERHOOK_OUT_M - _fwd(i) * OVERHOOK_BACK_M + Vector3.UP * OVERHOOK_UP_M
+
+
 ## Over the other's shoulder blade on her `side`.
 func _blade(i: int, side: String) -> Vector3:
 	return _bone(i, side + "UpperArm") - _fwd(i) * BACK_M - Vector3.UP * BLADE_DOWN_M
@@ -154,4 +169,4 @@ func _flank(i: int, sgn: float) -> Vector3:
 ## Past the other's shoulder (her own right of the other's head: the heads sit side by side).
 func _past(i: int) -> Vector3:
 	var left := Vector3.UP.cross(_fwd(i)).normalized()
-	return _bone(i, "Head") - left * 0.2 - _fwd(i) * 0.3
+	return _bone(i, "Head") - left * 0.35 - _fwd(i) * 0.3 - Vector3.UP * 0.15
