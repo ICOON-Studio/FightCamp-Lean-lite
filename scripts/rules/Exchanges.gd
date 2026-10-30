@@ -191,6 +191,16 @@ static func next_mode(style: String, weak: String, n: int, ex: int, prev: String
 	return str(weights.keys()[0])
 
 
+## S310 the game film study shows the corner she fights most: her style's heaviest game (Data's style words).
+static func favourite(style: String) -> String:
+	var weights: Dictionary = STYLE_MODES.get(style, STYLE_MODES["Boxer-puncher"])
+	var top := ""
+	for k in weights.keys():
+		if top == "" or float(weights[k]) > float(weights[top]):
+			top = str(k)
+	return top
+
+
 ## One clue line for a situation, filled with the two names.
 static func clue(sit: String, names: Array, pick: int) -> String:
 	var pool: Array = CLUES.get(sit, CLUES["press"])

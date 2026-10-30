@@ -2,7 +2,8 @@ extends SceneTree
 ## S308: bout win share by paper edge and by how the corner shouts, through the game's real bout (Bouts.fight_step with
 ## LiveRound exchanges). Lucy against Priya (OPPONENTS[1], Counter-puncher) with the rating set for each edge.
 ## Policies: none = say nothing all night (the plan only); seen = shout the corner's read every 30 s; seen2 = the read,
-## two shouts a round; oracle = the true best call; wrong = the wrong call every time.
+## two shouts a round; oracle = the true best call; wrong = the wrong call every time; mark = follow the shout bar's
+## "coach's pick" blindly (S310: none without film study; with it the answer to her favourite game).
 ##   <godot.exe> --headless --path . --script res://tools/exchange_balance.gd
 
 const Data := preload("res://scripts/state/Data.gd")
@@ -24,7 +25,8 @@ func _initialize() -> void:
 		for pol in ["none", "seen", "seen2", "oracle", "wrong", "fix"]:
 			row += "  %.2f" % share(edge, pol, 1)
 		print(row)
-	print("EXB film 3 (the corner reads her next game), edge 0: none %.2f seen %.2f" % [share(0.0, "none", 3), share(0.0, "seen", 3)])
+	print("EXB film 3 (the corner reads her next game), edge 0: none %.2f seen (read the clue) %.2f mark (follow the coach's pick) %.2f" % [
+		share(0.0, "none", 3), share(0.0, "seen", 3), share(0.0, "mark", 3)])
 	print("EXB Lucy with drops_right_after_jab (Priya punishes it), edge 0: none %.2f seen %.2f fix %.2f" % [
 		share(0.0, "none", 1, ["drops_right_after_jab"]), share(0.0, "seen", 1, ["drops_right_after_jab"]), share(0.0, "fix", 1, ["drops_right_after_jab"])])
 	quit(0)
@@ -83,6 +85,8 @@ static func pick(f: Dictionary, m: Dictionary, pol: String) -> String:
 			return str(LiveRound.preview(f, m)["coach"])
 		"seen2":
 			return str(LiveRound.preview(f, m)["coach"]) if int(lv["shouts"]) < 2 else ""
+		"mark":
+			return str(LiveRound.preview(f, m)["mark"])
 		"oracle":
 			return str(Exchanges.MODES[true_sit]["best"])
 		"wrong":

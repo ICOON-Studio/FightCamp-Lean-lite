@@ -66,7 +66,7 @@ static func card(summary: Dictionary, energy: float, names: Array) -> Dictionary
 	# her fighter ("you" = ours, the opponent by name).
 	var worked := "%s landed nothing clean." % names[0] if good == "" else "%s landed %s." % [names[0], landed(int(mine[good]), good)]
 	if not whole.is_empty():
-		worked += " Her %s landed whole." % str(whole[0])
+		worked += " %s's %s landed whole." % [names[0], str(whole[0])]
 	var hurt := "%s landed nothing clean." % names[1] if bad == "" else "%s landed %s." % [names[1], landed(int(theirs[bad]), bad)]
 	var call := "long"
 	var why := "Keep %s behind your jab." % names[1]

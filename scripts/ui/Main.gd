@@ -13,6 +13,7 @@ const BoutActs := preload("res://scripts/ui/BoutActs.gd")
 const RosterActs := preload("res://scripts/ui/RosterActs.gd")
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
+const TestJump := preload("res://scripts/ui/TestJump.gd")
 
 const TITLE := preload("res://scenes/Title.tscn")
 const CREATE := preload("res://scenes/Create.tscn")
@@ -71,6 +72,10 @@ func _ready() -> void:
 	_toast_timer.timeout.connect(func(): UI.clear(_toast_layer))
 	add_child(_toast_timer)
 	render()
+	# S310: the ops board's Play buttons start the build at the part to test (TestJump: `-- jump=fight`).
+	var jump := TestJump.wanted(OS.get_cmdline_user_args())
+	if jump != "":
+		(func(): print("TESTJUMP %s reached fight night: %s" % [jump, TestJump.run(self, jump)])).call_deferred()
 
 
 func _layer() -> Control:

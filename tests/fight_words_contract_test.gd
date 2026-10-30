@@ -14,8 +14,9 @@ const EXPECTED := {"close": [4, 3], "clear": [5, 2], "dominant": [6, 1]}
 const CALLS := {"long": [["jab", "lands"], ["jab", "blocked"]],
 	"body": [["lead_hook", "lands"], ["cross", "blocked"]],
 	"calm": [["step_out", "none"], ["jab", "lands"]]}
-const CALL_TEXT := {"long": "Stay long: she starts behind the jab.", "body": "Go to the body: she digs one in early.",
-	"calm": "Calm, breathe: she resets and jabs."}
+# S310 "fix the wording": the caption names our fighter ({her} = her first name, round["names"]).
+const CALL_TEXT := {"long": "Stay long: {her} starts behind the jab.", "body": "Go to the body: {her} digs one in early.",
+	"calm": "Calm, breathe: {her} resets and jabs."}
 # Observed production discrepancies, not waivers. S305: the three Arena found are fixed (CornerCard.WORD, RoundScript._left)
 # and are hard checks again; keep this empty.
 const FINDINGS := []
@@ -88,7 +89,7 @@ func _fighters() -> Array:
 func _play(fighter: Dictionary, opp: Dictionary, n: int, won: bool, margin_name: String, seed_value: int) -> void:
 	var diff: float = {"close": 3.0, "clear": 10.0, "dominant": 20.0}[margin_name]
 	var call: String = ["long", "body", "calm"][seed_value % 3]
-	var round_data := {"n": n, "won": won, "mine": 60.0 + (diff if won else 0.0),
+	var round_data := {"n": n, "won": won, "names": [fighter["first"], opp["first"]], "mine": 60.0 + (diff if won else 0.0),
 		"theirs": 60.0 + (0.0 if won else diff), "corner": call, "lines": ["Opening line", "Closing line"]}
 	var a: Dictionary = RoundStyle.of_fighter(fighter)
 	var b: Dictionary = RoundStyle.from_opponent(opp)
@@ -133,7 +134,7 @@ func _play(fighter: Dictionary, opp: Dictionary, n: int, won: bool, margin_name:
 		if opening_ok:
 			for k in 2:
 				opening_ok = opening_ok and str(beats[k]["who"]) == "a" and str(beats[k]["move"]) == CALLS[call][k][0] and str(beats[k]["result"]) == CALLS[call][k][1]
-			opening_ok = opening_ok and str(beats[0].get("caption", "")) == CALL_TEXT[call]
+			opening_ok = opening_ok and str(beats[0].get("caption", "")) == str(CALL_TEXT[call]).replace("{her}", str(fighter["first"]))
 		if not opening_ok:
 			_bad("corner call opening", context + " call=%s" % call)
 	_check_card(beats, counts, actual, context)

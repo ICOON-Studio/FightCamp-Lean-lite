@@ -1,6 +1,7 @@
 extends PanelContainer
 ## S308: the shout bar at each 30 seconds of a 3D round. The fight slows (FightView), the clue line shows the game the corner
-## reads, and the three calls that fit it + Say nothing wait SHOW_S real seconds; no pick = say nothing.
+## reads, and the three calls that fit it + Say nothing wait SHOW_S real seconds; no pick = say nothing. The coach's pick is marked only
+## with film study (LiveRound.preview "mark", S310).
 ##   setup(preview, round_n)   signal picked(call)   ("" = say nothing)
 
 const UI := preload("res://scripts/ui/UI.gd")
@@ -8,7 +9,9 @@ const CallButtons := preload("res://scripts/ui/CallButtons.gd")
 
 signal picked(call: String)
 
-const SHOW_S := 8.0
+## S310: 10 s (was 8). With no "coach's pick" mark the clue and the three calls are read before a pick: ~22 words (clue +
+## labels) at 238 words a minute (Brysbaert 2019 silent reading) ~5.5 s, a 4-way choice + the mouse ~2 s; 8 s left no slack.
+const SHOW_S := 10.0
 
 var _left := SHOW_S
 var _count: Label
@@ -42,7 +45,7 @@ func setup(pv: Dictionary, round_n: int) -> void:
 	var clue := UI.label("You see: " + str(pv.get("clue", "")), 24, UI.AMBER, "bold", true)
 	clue.name = "Clue"
 	v.add_child(clue)
-	v.add_child(CallButtons.shout_row(pv.get("offers", []), pv.get("grades", {}), str(pv.get("coach", "")), names, _pick))
+	v.add_child(CallButtons.shout_row(pv.get("offers", []), pv.get("grades", {}), str(pv.get("mark", "")), names, _pick))
 	_tick()
 
 

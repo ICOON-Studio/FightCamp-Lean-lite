@@ -14,4 +14,6 @@ cp "$ROOT/docs/WHAT_TO_TRY.txt" "$ROOT/Builds/WHAT_TO_TRY.txt"
 mkdir -p "$ROOT/Builds/assets/models/metahuman" "$ROOT/Builds/assets/anim/metahuman"
 cp "$ROOT"/assets/models/metahuman/mh_*.glb "$ROOT"/assets/models/metahuman/mh_*.json "$ROOT/Builds/assets/models/metahuman/"
 cp "$ROOT"/assets/anim/metahuman/*.glb "$ROOT/Builds/assets/anim/metahuman/"
+# S310: the ops board's "Test: ..." buttons open these shortcuts (Explorer drops plain arguments).
+powershell -NoProfile -ExecutionPolicy Bypass -File "$(cygpath -w "$ROOT/tools/make_shortcuts.ps1" 2>/dev/null || echo "$ROOT/tools/make_shortcuts.ps1")"
 echo "built $ROOT/Builds/FightCamp.exe"

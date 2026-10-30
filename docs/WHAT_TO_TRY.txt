@@ -1,3 +1,22 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 11 (2026-10-30): THE SHOUT BAR NO LONGER GIVES THE ANSWER AWAY
+=============================================================================================
+
+NEW IN UPDATE 11 (10 minutes: two fights, one with film study in camp and one without)
+ 1. NO FREE ANSWER. Before, "coach's pick" sat on the right call at every shout, so you never had to read the fight.
+    Now:
+      - WITHOUT film study (SET CAMP, "Film study on ...: no"): no mark. Read the clue ("You see: Maria keeps coming
+        forward, chin down.") and match it to the buttons, which now say when to use each call ("Use when Maria
+        presses"). What each call does moved to the button's tooltip.
+      - WITH film study ($150, on by default): the coach marks "coach's pick (from film)" - the answer to the game her
+        tapes show most. It is right while she fights her usual way and wrong when she switches; the clue always shows
+        what she is doing now.
+    Measured over 400 even fights with film study: say nothing wins 56%, following the coach's pick 66%, reading the
+    clue yourself 72%.
+ 2. THE SHOUT BAR WAITS 10 SECONDS (was 8), long enough to read the clue and the three calls before you pick.
+ 3. THE LAST "HER"S IN THE FIGHT ARE NAMES NOW: the corner card ("Lucy's 1-2 landed whole."), the caption of your
+    corner call ("Stay long: Lucy starts behind the jab."), the result's reasons ("The film study: Lucy knew the left
+    hook was coming.") and a round's closing line ("Lucy's round.").
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 10 (2026-10-30): CLEARER WORDS, THE COACH'S NECK, ONE FIX FOR A HABIT
 =============================================================================================
 

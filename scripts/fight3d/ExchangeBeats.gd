@@ -21,7 +21,7 @@ static var _ring_lines: Dictionary = {}
 static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Array:
 	var band := Exchanges.band(float(x["margin"]))
 	var rl := {"n": int(ctx["n"]), "won": bool(x["won"]), "mine": BAND_MINE[band], "theirs": 0.0,
-		"corner": str(ctx["plan"]) if k == 0 else "", "lines": []}
+		"corner": str(ctx["plan"]) if k == 0 else "", "lines": [], "names": ctx["names"]}
 	if k == Exchanges.EXCHANGES - 1 and not r.is_empty():
 		rl["counts"] = int(r.get("counts", 0))
 		rl["stopped"] = str(r.get("stopped", ""))

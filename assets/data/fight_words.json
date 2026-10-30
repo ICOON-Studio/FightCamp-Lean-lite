@@ -245,7 +245,7 @@
  },
  "close": {
   "her": [
-   "{her} finishes round {round} with a jab and a step off. Her round.",
+   "{her} finishes round {round} with a jab and a step off. {her}'s round.",
    "The bell goes with {her} on the outside and {opp} breathing hard.",
    "{her} lands the last clean punch of round {round}.",
    "{opp} walks back to her corner shaking her head. {her} took that one.",

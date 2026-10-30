@@ -55,9 +55,13 @@ static func opp_energy(lv: Dictionary, i: int) -> float:
 	return lerpf(float(e.get("b", 100.0)), float(e.get("b_end", 100.0)), float(i) / Exchanges.EXCHANGES)
 
 
-## What the corner sees before the next exchange: {sit, clue, offers, coach, grades {call: word}, at (seconds into the
-## round)}. With full film study (depth 3) the corner reads her NEXT game; without, the one she just showed. Our own
-## fighter's state is always seen.
+## What the corner sees before the next exchange: {sit, clue, offers, coach, mark, grades {call: word}, at (seconds into
+## the round)}. With full film study (depth 3) the corner reads her NEXT game; without, the one she just showed. Our own
+## fighter's state is always seen. coach = the best call for what the corner sees (the clue's answer); mark = the call the
+## shout bar marks "coach's pick" (S310: the mark on every shout gave the answer away). Without film study there is no
+## mark - the player reads the clue. With it the coach marks the answer to the game her tapes show most
+## (Exchanges.favourite) or to our own fighter's state: right while she fights her usual way, wrong when she switches -
+## the clue, which shows what she does now, beats following the mark blindly.
 static func preview(f: Dictionary, m: Dictionary) -> Dictionary:
 	var lv := live(m)
 	if lv.is_empty():
@@ -70,11 +74,16 @@ static func preview(f: Dictionary, m: Dictionary) -> Dictionary:
 	var sit := Exchanges.situation(seen, her_energy(lv, i), bool(lv["her_hurt"]))
 	var names := [str(f["first"]), str(opp["first"])]
 	var vals := values(f)
+	var coach := str(Exchanges.MODES[sit]["best"])
+	var mark := ""
+	if int(f["bout"]["film"]) >= BoutRules.FILM_DEPTH_WITH_STUDY:
+		var fav := Exchanges.favourite(str(opp.get("style", "")))
+		mark = str(Exchanges.MODES[Exchanges.situation(fav, her_energy(lv, i), bool(lv["her_hurt"]))]["best"])
 	var grades := {}
 	for k in Exchanges.CALLS.keys():
 		grades[k] = Exchanges.grade(str(k), vals)["word"]
 	return {"sit": sit, "clue": Exchanges.clue(sit, names, i + int(lv["n"]) * 3), "offers": Exchanges.offers(sit),
-		"coach": str(Exchanges.MODES[sit]["best"]), "grades": grades, "at": i * Exchanges.EX_SECONDS, "i": i,
+		"coach": coach, "mark": mark, "grades": grades, "at": i * Exchanges.EX_SECONDS, "i": i,
 		"shouts": int(lv["shouts"]), "names": names}
 
 

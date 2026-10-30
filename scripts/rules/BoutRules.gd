@@ -137,7 +137,7 @@ static func why(rounds: Array, has_camp: bool, protocol: int, camp_focus_label: 
 		first: String) -> Array:
 	var out: Array = []
 	if film_depth >= FILM_DEPTH_WITH_STUDY:
-		out.append("The film study: she knew the %s was coming." % threat)
+		out.append("The film study: %s knew the %s was coming." % [first, threat])
 	if has_camp and protocol >= 2:
 		out.append("The camp: %s held up when it mattered." % camp_focus_label.to_lower())
 	if not has_camp:

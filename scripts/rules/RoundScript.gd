@@ -41,8 +41,9 @@ const CALL_BEATS := {
 	"body": [["lead_hook", "lands"], ["cross", "blocked"]],
 	"calm": [["step_out", "none"], ["jab", "lands"]],
 }
-const CALL_CAPTION := {"long": "Stay long: she starts behind the jab.", "body": "Go to the body: she digs one in early.",
-	"calm": "Calm, breathe: she resets and jabs."}
+## S310 "fix the wording": {her} = our fighter by name (round["names"]), never a bare "she" with two women in the ring.
+const CALL_CAPTION := {"long": "Stay long: {her} starts behind the jab.", "body": "Go to the body: {her} digs one in early.",
+	"calm": "Calm, breathe: {her} resets and jabs."}
 
 
 static func margin(round: Dictionary) -> String:
@@ -191,7 +192,7 @@ static func build(round: Dictionary, a_style: String, b_style: String, seconds: 
 		bt["t"] = snappedf(float(starts[int(bt["group"])]) + float(bt["t"]), 0.01)
 		bt.erase("group")
 	beats.append_array(timed)
-	_captions(beats, round.get("lines", []), call if int(round.get("n", 1)) >= 2 else "")
+	_captions(beats, round.get("lines", []), call if int(round.get("n", 1)) >= 2 else "", str((round.get("names", ["Your fighter"]) as Array)[0]))
 	var end := "bell"
 	if str(round.get("stopped", "")) != "":
 		end = "stoppage"
@@ -310,10 +311,10 @@ static func _shuffle(a: Array, rng: RandomNumberGenerator) -> void:
 
 ## The round's word lines ride the beats: the call's caption on the first beat (round 2 on), the first line on the
 ## opening punch, the last line on the winner's last punch, any line between on a landed beat in the middle.
-static func _captions(beats: Array, lines: Array, call: String) -> void:
+static func _captions(beats: Array, lines: Array, call: String, her: String) -> void:
 	var start := 0
 	if call != "" and CALL_CAPTION.has(call):
-		beats[0]["caption"] = CALL_CAPTION[call]
+		beats[0]["caption"] = str(CALL_CAPTION[call]).replace("{her}", her)
 		start = 2
 	if lines.is_empty():
 		return
