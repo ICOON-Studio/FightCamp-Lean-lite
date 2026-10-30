@@ -1,3 +1,40 @@
+# Next session: S314 (written S313, 2026-10-30, after update 15)
+
+## Start
+1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then `cd /e/FightCamp/Lean && git pull`.
+2. Board: Q-S294-24 (update 14) and Q-S294-25 (update 15: clinch + referee, contact sheet attached) are open; quote
+   and act on any answer. Review board: S313 stills (clinch, break, guard low at range, guard up in the pocket).
+3. John J-INSIDE1 is queued (seat_queue SQ19 -> Game Godot/research/J_INSIDE1_JOHN.md): inside range share, spell
+   length, what is thrown and how they defend in there. `start` prints SEAT ANSWERS when it lands.
+
+## Where S313 stopped (Lean main, update 15 exported, 31/31 tests, smoke 0 errors)
+- ClinchBeats (Qwen + 3 review fixes) -> ExchangeBeats._clinches; RangeBreath "clinch" phase 0.38 m; Clinch.gd (tie-up
+  pose, CornerIK arms, heads side by side, release eases the floor back over 0.5 s); Referee.gd (built in FightCast.crew;
+  cutman body, white shirt; far side from the camera, 0.6 m along the line; 0.85 m while they hold; af_push square
+  between them; other side when the ropes pin him; keeps 0.55 m / 0.42 m in the push).
+- GuardTuck.low (gap 5): wrists 0.26/0.16 m down + 0.06 m forward at rest; Footwork.aim sets it; runs on step clips.
+- BurstShape (Qwen + SIZE_W retuned) in ExchangeBeats after _setup/_body, before _show_game and _clinches (gap 6).
+- Ziva's defects: Exchanges press ok = body, MAX_RUN 3 (next_mode run arg from LiveRound), CornerJobs.fits (hurt).
+- Round 1 probe: long 62 %, swings 23.5/min, feet 58 % (real 53-56), travel 122 m (real ~155), 3 clinches, referee
+  nearest 0.48 m, inside 5 % (real 17-31 %).
+- Tools: tools/range_probe.gd (clinch + referee lines), tools/clinch_still.gd (tie, break, range, pocket stills).
+
+## Next (in order)
+1. Board answers (Q-S294-24/25).
+2. Inside range from John's J-INSIDE1: who steps inside and when (pressure fighter, after a clinch break, on the
+   ropes), how long, hooks/uppercuts/body inside, heads on shoulders / forearms. RangeBreath has INSIDE_M (hooks 0.12 m
+   inside the jab gap) - real inside is < 0.65 m pelvis to pelvis. Measure with range_probe (inside share), stills.
+3. Ziva on Lean: start says ZIVA DOWN; wt/ZIVA_LEAN merge main, start its editor through Tools/godot_hidden.ps1, then
+   a playtest of update 15 (preview_start http://127.0.0.1:7012/).
+4. Gap 7 (stance a little longer, minor).
+
+## Traps
+- Bash eats backslashes in agent_window.ps1 arguments: launch agents from the PowerShell tool.
+- Qwen tunes weights to pass a bound: read its constants against the brief and measure the output yourself.
+- GuardTuck only ran on guard clips; at rest they step most of the time, so a guard change must cover the step clips.
+
+---- previous prompt (S313) below ----
+
 # Next session: S313 (written S312, 2026-10-30, after update 14)
 
 ## Start

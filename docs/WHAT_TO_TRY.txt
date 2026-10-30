@@ -9,6 +9,10 @@ NEW IN UPDATE 15 (board: "Test: fight night WITH film study" - watch round 1 at 
     from the camera. In a clinch he comes close, then pushes them apart ("Break!") and both step back out.
  3. THE GUARD DROPS AT RANGE. Out of reach the gloves sit chin-to-chest and forward (the lead lower), as in the real
     footage; they come up to the face for the attack and in the pocket. Before: gloves at eye level all round.
+ 4. PUNCHES COME IN BURSTS. Real boxers throw 2-5 punches, then reset at range for a few seconds; ours threw an
+    even tick of single shots. Now an exchange is about six attacks of 1-5 punches with quiet spells between (about 4 s
+    on average). Same number of punches as before, grouped like a real fight. The feet now move 58 % of the round
+    (real 53-56 %).
 
 FIXED FROM ZIVA'S PLAYTEST (your answer: "Yes, fix in this order")
  - "Go to the body" is now offered against a pressure fighter (a presser walks onto body shots). Before, round 1
@@ -19,7 +23,8 @@ FIXED FROM ZIVA'S PLAYTEST (your answer: "Yes, fix in this order")
    NOW). Before, following the coach's plan could leave her hurt and the set-up never got its moment.
  - (Update 14 already fixed: the Begin-fight freeze and BODY TAKEN.)
 
-STILL TO COME: punches in bursts of 2-5 with quiet spells between (being built).
+STILL TO COME: more work at close range (real bouts spend 17-31 % of a round inside; ours about 5 %) - John is
+researching what boxers do in there first.
 
 ---- update 14 notes below ----
 

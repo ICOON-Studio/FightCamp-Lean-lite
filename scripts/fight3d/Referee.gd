@@ -21,6 +21,9 @@ const NEAR_M := 0.85
 const IN_M := 0.45
 const SLIDE_S := 0.25
 const ALONG_M := 0.6
+const PINNED_M := 0.3
+const KEEP_M := 0.55
+const KEEP_PUSH_M := 0.42
 ## He walks to his spot once it is this far away.
 const SLACK_M := 0.45
 ## af_walk's ground speed at 1x (CornerCrew.WALK_MS); stepping in he hurries.
@@ -80,6 +83,11 @@ func _process(delta: float) -> void:
 	if bool(stage.get("scene")):
 		_walk_to(_neutral(), WALK_MS, delta)
 		return
+	_move(delta)
+	_keep_clear(KEEP_PUSH_M if _mode == "part" else KEEP_M)
+
+
+func _move(delta: float) -> void:
 	match _mode:
 		"part":
 			_part_left -= delta
@@ -113,11 +121,30 @@ func _spot(out: float, along_m: float = ALONG_M) -> Vector3:
 	var cam: Camera3D = stage.get("camera")
 	if cam != null and _mode == "watch":
 		_side = -1.0 if perp.dot(cam.global_position - _mid()) > 0.0 else 1.0
+		# S313 probe: near the ropes on his side the spot was pinned onto the boxers - then he takes the other side.
+		if _pinned(perp * out * _side) > PINNED_M and _pinned(-perp * out * _side) < _pinned(perp * out * _side):
+			_side = -_side
 	# At an angle (not for the push, which goes square between them), not square behind them: from the side camera he shows beside the pair, never between their heads.
 	var along := line.normalized() * along_m if line.length() > 0.01 else Vector3.ZERO
 	var p := _mid() + perp * out * _side + along
 	var edge: float = float(stage.RING_M) * 0.5 - EDGE_IN_M
 	return Vector3(clampf(p.x, -edge, edge), 0.0, clampf(p.z, -edge, edge))
+
+
+## How far the ropes would push a spot this offset from the boxers' middle back in.
+func _pinned(off: Vector3) -> float:
+	var p := _mid() + off
+	var edge: float = float(stage.RING_M) * 0.5 - EDGE_IN_M
+	return Vector2(p.x - clampf(p.x, -edge, edge), p.z - clampf(p.z, -edge, edge)).length()
+
+
+## Never inside `keep` metres of a boxer (he steps round them, not through them).
+func _keep_clear(keep: float) -> void:
+	for bx in stage.boxers:
+		var bp: Vector3 = bx["pos"]
+		var d := Vector3(body.position.x - bp.x, 0, body.position.z - bp.z)
+		if d.length() < keep:
+			body.position = Vector3(bp.x, 0, bp.z) + (d.normalized() if d.length() > 0.01 else Vector3.RIGHT) * keep
 
 
 ## The neutral corner farther from the camera.

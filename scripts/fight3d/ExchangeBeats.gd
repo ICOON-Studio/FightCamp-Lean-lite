@@ -11,6 +11,7 @@ const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const ClinchBeats := preload("res://scripts/rules/ClinchBeats.gd")
+const BurstShape := preload("res://scripts/rules/BurstShape.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 ## RoundScript.margin reads |mine - theirs| on the round's scale: these land each band in RoundScript's own band.
 const BAND_MINE := {"close": 3.0, "clear": 10.0, "dominant": 20.0}
@@ -34,10 +35,15 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 		_habits(plan, ctx, k, str(x.get("fix", "")))
 	var f: Dictionary = ctx["f"]
 	ComboWords.caption(plan["beats"], {"a": f.get("combos", {}), "b": (ctx["profiles"]["b"] as Dictionary).get("combos", {})}, ctx["names"], int(ctx["day"]) + k * 17)
-	_show_game(plan["beats"], str(x["sit"]), int(ctx["seed"]) + k * 29)
-	_clinches(plan["beats"], x, ctx, int(ctx["seed"]) + k * 31)
 	_setup(plan["beats"], str(x.get("setup", "")), str(x.get("setup_combo", "")))
 	_body(plan["beats"], x.get("body", []))
+	# S313 real-fight gap 6: bursts of 2-5 punches and quiet spells at range (who lands what is unchanged; only when).
+	# Before the game's extras and the clinches, which go into the quiet spells it opens.
+	var brng := RandomNumberGenerator.new()
+	brng.seed = int(ctx["seed"]) + k * 37
+	BurstShape.apply(plan["beats"], brng)
+	_show_game(plan["beats"], str(x["sit"]), int(ctx["seed"]) + k * 29)
+	_clinches(plan["beats"], x, ctx, int(ctx["seed"]) + k * 31)
 	var at := k * Exchanges.EX_SECONDS
 	var out: Array = []
 	for b in plan["beats"]:
