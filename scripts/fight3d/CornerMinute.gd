@@ -341,8 +341,11 @@ func _pick(k: String) -> void:
 
 ## The bell: the fight takes the boxers back, the corner goes, the next round starts on the call.
 func finish() -> void:
-	if not is_inside_tree():
+	if not is_inside_tree() or not is_processing():
 		return
+	# S308: skipped from a button, this node stays in the tree to the frame's end; its _process must not film again
+	# (round 1 opened stuck on the intro's wide lens).
+	set_process(false)
 	if pick == "":
 		pick = str(ctx["card"]["call"])
 	for i in 2:

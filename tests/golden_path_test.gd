@@ -12,6 +12,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -83,6 +84,20 @@ func _shell_button(name: String) -> Button:
 func _modal_button(name: String) -> Button:
 	var m: Node = main.modal_node()
 	return null if m == null else m.find_child(name, true, false) as Button
+
+
+## S308: fights the open round from the shout bar: the coach's read, once Say nothing; checks the clock moved on.
+func _shout_round() -> void:
+	var i := 0
+	while not LiveRound.live(main.modal).is_empty() and i < 6:
+		var pv := LiveRound.preview(c_fighter(), main.modal)
+		_press(_modal_button("SayNothing" if i == 2 else "Shout_" + str(pv["coach"])), "shout at %d:%02d" % [int(pv["at"]) / 60, int(pv["at"]) % 60])
+		i += 1
+	_check(LiveRound.live(main.modal).is_empty(), "the round's five shouts fought it to the bell")
+
+
+func c_fighter() -> Dictionary:
+	return main.career.fighter_by_id(str(main.modal["fid"]))
 
 
 func _press(b: Button, label: String) -> void:
@@ -176,14 +191,18 @@ func _week_two(c: Career) -> void:
 	main.act("go_btn")
 	_check(main.modal.get("type", "") == "fight" and main.modal["step"] == "tape", "fight night opens on the tale of the tape")
 	_press(_modal_button("Begin"), "Begin fight")
-	_check(int(main.modal.get("round", 0)) == 1 and (main.modal["rounds"][0]["lines"] as Array).size() == 3, "round 1 told in three lines")
+	_check(main.modal_node() != null and main.modal_node().find_child("Shout_*", true, false) != null, "S308: round 1 opens on the shout bar")
+	_shout_round()
+	_check(int(main.modal.get("round", 0)) == 1 and (main.modal["rounds"][0]["lines"] as Array).size() >= 3, "round 1 told in words, exchanges counted")
 	_press(_modal_button("Corner_long"), "corner call after round 1")
+	_shout_round()
 	_press(_modal_button("Corner_body"), "corner call after round 2")
+	_shout_round()
 	_check(int(main.modal["round"]) == 3 and main.modal["rounds"][2]["corner"] == "body", "round 3 carries the call")
 	var told: Array = []
 	for r in main.modal["rounds"]:
 		told.append_array(r["lines"])
-	_check(told.size() == 9 and told.all(func(l): return not str(l).contains("{")), "nine lines, every name filled: %s" % str(told[4]))
+	_check(told.size() >= 9 and told.all(func(l): return not str(l).contains("{")), "three rounds in words, every name filled: %s" % str(told[4]))
 	_check(FileAccess.file_exists("res://assets/data/fight_words.json"), "the fight-words bank is in the game")
 	_press(_modal_button("Scorecards"), "To the scorecards")
 	_check(main.modal.get("step", "") == "result" and (main.modal.get("cards", []) as Array).size() == 3, "the result shows three scorecards")
@@ -471,8 +490,10 @@ func _week_four(c: Career) -> void:
 	main.act("go_btn")
 	_check(main.modal.get("type", "") == "fight" and int(main.modal.get("total", 0)) == 4, "fight night: four rounds")
 	_press(_modal_button("Begin"), "Begin the debut")
+	_shout_round()
 	for k in ["long", "body", "calm"]:
 		_press(_modal_button("Corner_" + k), "corner call: " + k)
+		_shout_round()
 	_check(int(main.modal.get("round", 0)) == 4, "four rounds played")
 	_press(_modal_button("Scorecards"), "To the scorecards")
 	print("  pro debut: %s, %s" % [main.modal.get("outcome", "?"), ", ".join(main.modal.get("cards", []))])

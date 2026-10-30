@@ -1,27 +1,32 @@
-﻿extends Control
-## Fight night in 3D: plays each round the words already settled (RoundScript beats on the FightStage), with a scorebug,
-## the round's lines as captions, Highlights / Full, 1x / 2x, SKIP ROUND and SKIP BOUT (Kalli K-FIGHT3D1). Skipping never
-## changes a thing: the result is decided before anyone watches. Between rounds the 2D corner picker draws over the
-## frozen ring. Main keeps one FightView on its fight layer while a fight modal is open (FightView.sync).
+extends Control
+## Fight night in 3D. S308 (operator: "rounds should be 3 minutes and callouts from corner every 25-30 seconds"; "Build it,
+## full 3:00"): a round runs 3:00 in real time as six 30-second exchanges. LiveRound settles each one; at every 30 seconds
+## the ring slows and the shout bar (ShoutBar) shows the clue and the calls, and the pick fights the next exchange
+## (ExchangeBeats turns it into beats on the FightStage). Scorebug with the clock and the exchanges, 1x / 2x, SKIP ROUND
+## (the rest of the round with no shouts) and SKIP BOUT. Between rounds the corner minute (FightCast.corner).
+## Main keeps one FightView on its fight layer while a fight modal is open (FightView.sync).
 ## Headless (the tests) has no picture: the view is off there and fight night stays in words.
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
-const HabitBeats := preload("res://scripts/rules/HabitBeats.gd")
+const ExchangeBeats := preload("res://scripts/fight3d/ExchangeBeats.gd")
+const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const LiveRound := preload("res://scripts/state/LiveRound.gd")
+const Bouts := preload("res://scripts/state/Bouts.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
-const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
-const HABITS_PATH := "res://assets/data/fight_habits.json"
 const UI := preload("res://scripts/ui/UI.gd")
 const FightCast := preload("res://scripts/fight3d/FightCast.gd")
+const FightHud := preload("res://scripts/fight3d/FightHud.gd")
 
-## The player's choices last the session.
-static var highlights := true
+## The player's choice lasts the session.
 static var fast := false
+## The ring's pace under the shout bar.
+const SHOUT_PACE := 0.3
 
-const REAL_ROUND_S := 180.0
 ## S302 (operator: "still too slow"): a follow-up by the same boxer starts part-way through its wind-up so it lands this
 ## long after her last punch, never with less than MIN_WIND_S of visible throw. Piorkowski, Lees & Barton 2011 (the paper
 ## itself, p. 11; John's "125 ms" is not in it): contact of the 1st to contact of the 4th punch 1.06 +- 0.46 s with
@@ -45,6 +50,10 @@ var _tired := [false, false]     # she has tired this round: her punches are the
 var _last_contact := [-9.0, -9.0]  # view time her last punch lands (S302 combos)
 var _last_hand := ["", ""]
 var _profiles: Dictionary = {}
+var _ctx: Dictionary = {}
+var _ex_done := 0      # exchanges queued into beats this round
+var _shouting: Node = null
+var _round_beats: Array = []
 var total := 3
 var t := 0.0
 var length := 40.0
@@ -125,56 +134,12 @@ func setup(m_main: Node, m: Dictionary) -> void:
 
 
 func _build_hud() -> void:
-	var bug := PanelContainer.new()
-	bug.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.86), UI.LINE, 6, 1, 14, 10))
-	bug.position = Vector2(28, 24)
-	add_child(bug)
-	_bug_box = bug
-	var bv := UI.vbox(2)
-	bug.add_child(bv)
-	_bug = UI.label("", UI.BODY, UI.FG, "bold")
-	bv.add_child(_bug)
-	_clock = UI.mono("", UI.SMALL, UI.MUTED)
-	bv.add_child(_clock)
-	_buttons = UI.hbox(8)
-	_buttons.alignment = BoxContainer.ALIGNMENT_END
-	add_child(_buttons)
-	_pin(_buttons, Vector4(1, 0, 1, 0), Vector4(-640, 24, -28, 68))
-	_cap_box = PanelContainer.new()
-	_cap_box.add_theme_stylebox_override("panel", UI.box(Color(0.04, 0.03, 0.03, 0.78), Color(0, 0, 0, 0), 6, 0, 22, 10))
-	_cap_box.visible = false
-	add_child(_cap_box)
-	_pin(_cap_box, Vector4(0.5, 1, 0.5, 1), Vector4(-620, -78, 620, -22))
-	_caption = UI.label("", 26, UI.FG, "body", true)
-	_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_cap_box.add_child(_caption)
-	_banner = UI.display("", 64)
-	_banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_banner.add_theme_constant_override("outline_size", 10)
-	_banner.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
-	add_child(_banner)
-	_pin(_banner, Vector4(0.5, 0, 0.5, 0), Vector4(-640, 150, 640, 250))
+	FightHud.build(self)
 	_draw_buttons()
-
-
-## Anchors (left, top, right, bottom) and offsets in pixels from them.
-func _pin(c: Control, anchors: Vector4, offsets: Vector4) -> void:
-	c.anchor_left = anchors.x
-	c.anchor_top = anchors.y
-	c.anchor_right = anchors.z
-	c.anchor_bottom = anchors.w
-	c.offset_left = offsets.x
-	c.offset_top = offsets.y
-	c.offset_right = offsets.z
-	c.offset_bottom = offsets.w
 
 
 func _draw_buttons() -> void:
 	UI.clear(_buttons)
-	var mode := UI.button("Highlights" if highlights else "Full round", "BtnQuiet", _toggle_mode)
-	mode.tooltip_text = "Highlights: only the punches that land. Full: every exchange, 40 seconds a round."
-	_buttons.add_child(mode)
 	var speed := UI.button("2x" if fast else "1x", "BtnQuiet", _toggle_speed)
 	speed.tooltip_text = "Speed (Space)"
 	_buttons.add_child(speed)
@@ -187,14 +152,9 @@ func _draw_buttons() -> void:
 	_buttons.visible = playing
 
 
-func _toggle_mode() -> void:
-	highlights = not highlights
-	_draw_buttons()
-
-
 func _toggle_speed() -> void:
 	fast = not fast
-	if playing and _close_left <= 0.0:
+	if playing and _close_left <= 0.0 and _shouting == null:
 		Engine.time_scale = pace()
 	_draw_buttons()
 
@@ -211,33 +171,30 @@ static func pace() -> float:
 	return 2.0 if fast else 1.0
 
 
-## Builds the round's beats from the round the words settled, and starts it.
+## Starts round n: its first exchange is already fought on the corner's plan (Bouts opens a round that way).
 func play_round(m: Dictionary, n: int) -> void:
 	var c: Career = main.career
 	var f: Dictionary = c.fighter_by_id(fid)
 	var opp: Dictionary = f["bout"]["opp"]
-	var r: Dictionary = (m["rounds"] as Array)[n - 1]
 	round_n = n
 	var profiles := {"a": RoundStyle.of_fighter(f), "b": RoundStyle.from_opponent(opp)}
-	# S302: each starts the round on the energy the sim left her (Bouts._energy): tired = shorter runs, tired beats.
-	var en: Dictionary = r.get("energy", {})
-	for side in ["a", "b"]:
-		profiles[side]["energy"] = float(en.get(side, Combos.TANK))
-		profiles[side]["energy_end"] = float(en.get(side + "_end", profiles[side]["energy"]))
 	_profiles = profiles
-	plan = RoundScript.build(r, str(f.get("style", "")), str(opp.get("style", "")), RoundScript.SECONDS, c.day * 97 + n, profiles)
-	_play_habits(m, n, f, opp)
-	# S303 Kalli K-COMBOWORDS1: a SIGNATURE combination landing whole, or one she is too tired to finish, gets its line.
-	ComboWords.caption(plan["beats"], {"a": f.get("combos", {}), "b": profiles["b"].get("combos", {})}, _names, c.day + n * 17)
-	# S303 corner card: read off the beats this round plays, so the corner screen agrees with what was watched.
-	r["card"] = CornerCard.summarize(plan["beats"])
-	_stop = str(r.get("stopped", ""))
+	var rounds: Array = m["rounds"]
+	_ctx = {"n": n, "plan": str(LiveRound.live(m).get("plan", "")), "a_style": str(f.get("style", "")),
+		"b_style": str(opp.get("style", "")), "seed": c.day * 97 + n, "profiles": profiles, "f": f, "opp": opp,
+		"names": _names, "day": c.day,
+		"won_last": n >= 2 and rounds.size() >= n - 1 and bool((rounds[n - 2] as Dictionary).get("won", false))}
+	_stop = ""
 	_stepped = [false, false]
 	_tired = [false, false]
 	_last_contact = [-9.0, -9.0]
 	_last_hand = ["", ""]
-	beats = RoundScript.highlights(plan) if highlights else (plan["beats"] as Array).duplicate(true)
-	length = float(beats[-1]["t"]) + 2.0 if highlights and not beats.is_empty() else float(plan["seconds"])
+	beats = []
+	_round_beats = []
+	_ex_done = 0
+	length = Exchanges.EXCHANGES * Exchanges.EX_SECONDS
+	plan = {"seconds": length}
+	_queue(m, 0)
 	t = 0.0
 	next = 0
 	_amb_rng.seed = c.day * 131 + n
@@ -259,33 +216,48 @@ func play_round(m: Dictionary, n: int) -> void:
 	playing = not (n == 1 and FightCast.intro(self))
 
 
-## Fight model step 5 (S301): both boxers' habits show in the round (HabitBeats rewrites the beats; who lands how many is
-## unchanged). Ours are her profile's two; the opponent's come from the scout's words. Kalli's ring line for a habit
-## (fight_habits.json ring_lines "<id> fires") captions its first fire.
-func _play_habits(m: Dictionary, n: int, f: Dictionary, opp: Dictionary) -> void:
-	var rounds: Array = m["rounds"]
-	var won_last := n >= 2 and bool((rounds[n - 2] as Dictionary).get("won", false))
-	var rng := RandomNumberGenerator.new()
-	rng.seed = main.career.day * 53 + n
-	var fires := HabitBeats.apply(plan, {"a": f.get("habits", []), "b": RoundStyle.opponent_habits(opp)},
-		{"won_last": {"a": won_last, "b": n >= 2 and not won_last}}, rng)
-	var lines := {}
-	if FileAccess.file_exists(HABITS_PATH):
-		var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(HABITS_PATH))
-		for row in (data as Dictionary).get("ring_lines", []) if data is Dictionary else []:
-			var when := str(row.get("when", ""))
-			if when.contains(" fires"):
-				lines[when.get_slice(" fires", 0)] = str(row.get("line", ""))
-	var said := {}
-	for fire in fires:
-		var id := str(fire["habit"])
-		if said.has(id) or not lines.has(id):
-			continue
-		for b in plan["beats"]:
-			if str(b.get("habit", "")) == id and str(b["caption"]) == "":
-				b["caption"] = str(lines[id]).replace("{name}", _names[0 if str(fire["who"]) == "a" else 1])
-				said[id] = true
-				break
+## Exchange k's beats into the round. Its energy runs from where the round has her at its start to its end.
+func _queue(m: Dictionary, k: int) -> void:
+	var lv := LiveRound.live(m)
+	var closed := lv.is_empty()
+	var r: Dictionary = (m["rounds"] as Array)[round_n - 1] if closed else {}
+	var exs: Array = r.get("exchanges", []) if closed else lv["ex"]
+	if k >= exs.size():
+		return
+	var e: Dictionary = r.get("energy", {}) if closed else lv["e"]
+	for side in ["a", "b"]:
+		var e0 := float(e.get(side, Combos.TANK))
+		var e1 := float(e.get(side + "_end", e0))
+		_profiles[side]["energy"] = lerpf(e0, e1, float(k) / Exchanges.EXCHANGES)
+		_profiles[side]["energy_end"] = lerpf(e0, e1, float(k + 1) / Exchanges.EXCHANGES)
+	var bs := ExchangeBeats.build(exs[k], k, r, _ctx)
+	beats.append_array(bs)
+	_round_beats.append_array(bs)
+	if closed:
+		_stop = str(r.get("stopped", ""))
+	_ex_done = k + 1
+
+
+## Every 30 seconds: the ring slows and the shout bar waits for the call.
+func _open_shout() -> void:
+	var f: Dictionary = main.career.fighter_by_id(fid)
+	var bar := ShoutBar.new()
+	add_child(bar)
+	bar.setup(LiveRound.preview(f, main.modal), round_n)
+	bar.picked.connect(_shouted)
+	_shouting = bar
+	_say("")
+	Engine.time_scale = SHOUT_PACE * pace()
+
+
+func _shouted(call: String) -> void:
+	if _shouting != null:
+		_shouting.queue_free()
+		_shouting = null
+	var c: Career = main.career
+	Bouts.fight_step(c, c.fighter_by_id(fid), main.modal, "shout:" + call)
+	_queue(main.modal, _ex_done)
+	Engine.time_scale = pace()
 
 
 ## Between rounds and at the result: the ring stays, frozen and dimmed, under the 2D modal.
@@ -307,6 +279,12 @@ func _process(delta: float) -> void:
 		_bell_left -= dt
 		if _bell_left < 0.0:
 			_done()
+		return
+	if _shouting != null:
+		_ambient(dt)
+		return
+	if _ex_done < Exchanges.EXCHANGES and t >= _ex_done * Exchanges.EX_SECONDS and not LiveRound.live(main.modal).is_empty():
+		_open_shout()
 		return
 	t += dt
 	if t > 1.2 and _banner.text.begins_with("ROUND"):
@@ -337,6 +315,8 @@ func _fire(b: Dictionary) -> void:
 		_say(str(b["caption"]))
 	_quiet = 0.0
 	match move:
+		"say":
+			pass
 		"step_in":
 			stage.step(who, 1, 0.32)
 			stage.step(other, -1, 0.32, true)
@@ -371,7 +351,7 @@ func _fire(b: Dictionary) -> void:
 				# Her drilled combo lands at its own rhythm: quicker the better she has it, slower when she is tired.
 				var p: Dictionary = _profiles.get(str(b["who"]), {})
 				gap = Combos.interval(float((p.get("combos", {}) as Dictionary).get(str(b["combo_id"]), 0.0)), same_hand,
-					RoundScript.energy_at(p, float(b["t"]) / maxf(1.0, float(plan["seconds"]))))
+					RoundScript.energy_at(p, fmod(float(b["t"]), Exchanges.EX_SECONDS) / Exchanges.EX_SECONDS))
 			var skip := combo_skip(contact, sp, float(_last_contact[who]), t, same_hand, gap)
 			_last_hand[who] = hand
 			stage.play(who, clip, sp, skip)
@@ -436,7 +416,11 @@ func _say(text: String) -> void:
 
 
 func _bell() -> void:
-	var red := str(plan.get("winner", "a")) == "a"
+	var r: Dictionary = (main.modal["rounds"] as Array)[round_n - 1]
+	# S303 corner card: read off the beats this round played, so the corner screen agrees with what was watched.
+	r["card"] = CornerCard.summarize(_round_beats)
+	_stop = str(r.get("stopped", ""))
+	var red := bool(r.get("won", true))
 	_banner.text = "BELL. %s'S ROUND" % ("RED" if red else "BLUE") if _stop == "" else "STOPPED. %s WINS" % ("RED" if red else "BLUE")
 	_banner.add_theme_color_override("font_color", Color(0.95, 0.35, 0.3) if red else Color(0.45, 0.6, 1.0))
 	_say("")
@@ -447,8 +431,21 @@ func _bell() -> void:
 
 func _hud() -> void:
 	_bug.text = "%s  vs  %s" % [_names[0], _names[1]]
-	var left := maxf(0.0, REAL_ROUND_S * (1.0 - t / maxf(1.0, length)))
-	_clock.text = "ROUND %d OF %d   %d:%02d" % [round_n, total, int(left) / 60, int(left) % 60]
+	var left := maxf(0.0, length - t)
+	var seen := _exchanges().slice(0, int(t / Exchanges.EX_SECONDS))
+	var won := seen.filter(func(x): return bool(x["won"])).size()
+	_clock.text = "ROUND %d OF %d   %d:%02d   EXCHANGES %d-%d" % [round_n, total, int(left) / 60, int(left) % 60, won, seen.size() - won]
+
+
+## This round's exchanges fought so far (live, or the closed round's).
+func _exchanges() -> Array:
+	if main == null or round_n < 1:
+		return []
+	var lv := LiveRound.live(main.modal)
+	if not lv.is_empty():
+		return lv["ex"]
+	var rounds: Array = main.modal.get("rounds", [])
+	return (rounds[round_n - 1] as Dictionary).get("exchanges", []) if rounds.size() >= round_n else []
 
 
 func _done() -> void:
@@ -476,12 +473,25 @@ func corner_done(pick: String) -> void:
 func skip_round() -> void:
 	Engine.time_scale = 1.0
 	if playing:
+		_close_shout()
+		var c: Career = main.career
+		Bouts.fight_step(c, c.fighter_by_id(fid), main.modal, "round_out")
+		var r: Dictionary = (main.modal["rounds"] as Array)[round_n - 1]
+		r["card"] = CornerCard.summarize(_round_beats)
+		_stop = str(r.get("stopped", ""))
 		_bell_left = -1.0
 		_done()
+
+
+func _close_shout() -> void:
+	if _shouting != null:
+		_shouting.queue_free()
+		_shouting = null
 
 
 ## Skips the rest of the bout: the corner takes the calls (the same as "Sim to result").
 func skip_bout() -> void:
 	Engine.time_scale = 1.0
 	playing = false
+	_close_shout()
 	main.act("fightskip", "")

@@ -7,6 +7,8 @@ const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
 const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const LiveRound := preload("res://scripts/state/LiveRound.gd")
 
 const BODIES := ["res://assets/models/metahuman/mh_boxer_10.glb", "res://assets/models/metahuman/mh_boxer_11.glb",
 	"res://assets/models/metahuman/mh_boxer_12.glb"]
@@ -54,6 +56,14 @@ static func corner(view: Node) -> bool:
 	var names := [str(f["first"]), str(f["bout"]["opp"]["first"])]
 	var en: Dictionary = r.get("energy", {})
 	var card := CornerCard.card(r.get("card", CornerCard.summarize([])), float(en.get("a_end", 100.0)), names)
+	# S308: the coach's call reads the round's exchanges (the game the opponent ended it on).
+	if r.has("exchanges"):
+		card.merge(Exchanges.read(r["exchanges"], names), true)
+	var vals := LiveRound.values(f)
+	var grades := {}
+	for k in Exchanges.CALLS.keys():
+		grades[k] = Exchanges.grade(str(k), vals)["word"]
+	card["grades"] = grades
 	view.hide_hud()
 	Engine.time_scale = view.pace()
 	var cm := CornerMinute.new()
@@ -85,6 +95,8 @@ static func intro(view: Node) -> bool:
 static func _intro_over(view: Node) -> void:
 	view.playing = true
 	view.t = 0.0
+	# S308: round 1 opened on the intro's last (wide) shot; hand the ring back to the broadcast camera.
+	view.stage.broadcast(true)
 	Engine.time_scale = view.pace()
 	view._bug_box.visible = true
 	view._banner.text = "ROUND 1"

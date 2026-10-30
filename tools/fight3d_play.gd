@@ -1,6 +1,6 @@
 extends SceneTree
-## Plays the real game to fight night and films the 3D rounds: stills at set moments of round 1 (highlights), a full
-## round 2, the corner minute (S307, skipped here after a still), SKIP BOUT, the result. Also checks the flow: every round watched,
+## Plays the real game to fight night and films the 3D rounds (S308: 3:00 rounds, run at 2x here): the clock, the shout
+## bar at 0:30 and its pick, the verdict, round 2 on the corner's plan, the corner minute (S307, skipped here after a still), SKIP BOUT, the result. Also checks the flow: every round watched,
 ## the modal back between rounds, the result reached. Real pictures only (run it on the never-shown desktop):
 ##   python tools/hidden_desktop.py run --timeout=400 <godot.exe> --path . --windowed --resolution 1920x1080 \
 ##       --script res://tools/fight3d_play.gd -- <out_dir>
@@ -10,6 +10,7 @@ const W := 1920
 const H := 1080
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
+const LiveRound := preload("res://scripts/state/LiveRound.gd")
 
 var main: Node
 var out_dir := "user://fight3d_play"
@@ -65,32 +66,60 @@ func _initialize() -> void:
 	await _wait(2)
 	_check(view != null and bool(view.playing), "round 1 plays in 3D (the words modal waits)")
 	_check(main._modal_layer.get_child_count() == 0, "no modal over the ring while the round plays")
-	await _shot("p01_round1_open", 0.6)
-	await _until(func(): return int(view.next) > 0 and str(view.beats[int(view.next) - 1]["result"]) == "lands", 20.0)
-	await _shot("p02_round1_contact", 0.25)
+	# S308: 3:00 rounds; this check runs them at 2x (90 s a round).
+	FightView.fast = true
+	view._toggle_speed()
+	view._toggle_speed()
+	await _shot("p01_round1_open", 3.0)
+	print("CLOCK \"%s\"" % view._clock.text)
+	var cam: Camera3D = view.stage.camera
+	print("CAM pos=%s fov=%.0f close=%s scene=%s current=%s a=%s b=%s" % [cam.global_position, cam.fov, cam.close, view.stage.scene,
+		cam == cam.get_viewport().get_camera_3d(), view.stage.boxers[0]["pos"], view.stage.boxers[1]["pos"]])
+	_check(str(view._clock.text).contains("2:5") or str(view._clock.text).contains("2:4"), "the round clock counts down from 3:00")
+	await _until(func(): return view._shouting != null, 40.0)
+	_check(view._shouting != null, "at 0:30 the shout bar comes up")
+	await _shot("p02_shout_bar", 1.2)
+	var bar: Node = view._shouting
+	if bar != null:
+		var shouts := bar.find_children("Shout_*", "", true, false).size()
+		var clue: Label = bar.find_child("Clue", true, false)
+		print("CLUE \"%s\"" % (clue.text if clue != null else ""))
+		_check(shouts == 3 and bar.find_child("SayNothing", true, false) != null and clue != null and clue.text.length() > 10,
+			"the bar: a clue line, three calls, Say nothing")
+		var coach := str(LiveRound.preview(main.career.fighter(), main.modal)["coach"])
+		bar._pick(coach)
+	await _shot("p03_after_shout", 0.5)
 	print("CAPTION \"%s\"" % view._caption.text)
-	await _until(func(): return float(view._close_left) > 0.0, 30.0)
-	await _shot("p03_round1_closeup", 0.3)
-	await _until(func(): return not bool(view.playing), 40.0)
-	# S307: the corner minute plays in the ring (tools/corner_film.gd checks it); the call is made on its card.
+	_check(str(view._caption.text).begins_with("Corner:"), "the shout is heard: the corner's line captions the next 30 seconds")
+	await _until(func(): return float(view.t) > 58.2, 40.0)
+	await _shot("p04_verdict", 0.1)
+	print("VERDICT \"%s\"" % view._caption.text)
+	await _until(func(): return view._shouting != null, 20.0)
+	if view._shouting != null:
+		view._shouting._pick("")
+	view.skip_round()
+	await _wait(2)
+	var r1: Dictionary = (main.modal["rounds"] as Array)[0]
+	_check((r1.get("exchanges", []) as Array).size() == 6 and int(r1.get("calls", 0)) == 1, "round 1: six exchanges, one shout (the rest skipped)")
 	var cm: Node = null
 	for ch in view.get_children():
 		if ch.has_method("cue_walk_out"):
 			cm = ch
 	_check(cm != null, "round 1's bell starts the corner minute")
-	await _shot("p04_corner_minute", 1.0)
-	FightView.highlights = false
 	if cm != null:
-		cm._pick("body")
+		await _until(func(): return cm.ui != null and cm.ui._card.visible, 40.0)
+		await _shot("p05_corner_card", 0.6)
+		_check(cm.ui.find_children("Corner_*", "", true, false).size() == 8, "the corner card offers all eight calls")
+		cm._pick("lead")
 		cm.finish()
 	await _wait(2)
-	_check(bool(view.playing) and int(view.round_n) == 2, "round 2 plays after the corner call")
-	await _shot("p05_round2_full_open", 2.5)
-	await _shot("p06_round2_full_mid", 14.0)
+	_check(bool(view.playing) and int(view.round_n) == 2 and str(LiveRound.live(main.modal).get("plan", "")) == "lead",
+		"round 2 plays on the corner's plan")
+	await _shot("p06_round2_mid", 12.0)
 	view.skip_bout()
 	await _wait(6)
 	_check(str(main.modal.get("step", "")) == "result", "SKIP BOUT reaches the result")
-	_check((main.modal["rounds"] as Array).size() == int(main.modal["total"]), "every round was fought (the corner took the rest)")
+	_check((main.modal["rounds"] as Array).size() == int(main.modal["total"]) or str(main.modal.get("stopped", "")) != "", "every round was fought (the corner took the rest)")
 	await _shot("p07_result_over_ring", 0.3)
 	print("FIGHT3D_PLAY failures=%d" % failures)
 	quit(0 if failures == 0 else 1)

@@ -75,7 +75,7 @@ func _initialize() -> void:
 		process_frame.connect(_log_joins.bind(view))
 	await _until(func(): return not bool(view.playing), 90.0)
 	await _wait(45)
-	FightView.highlights = false
+	pass   # S308: rounds are always full (3:00)
 	main.act("fightstep", "corner:body")
 	await _until(func(): return not bool(view.playing), 120.0)
 	await _wait(45)

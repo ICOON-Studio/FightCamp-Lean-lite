@@ -200,8 +200,11 @@ func cue_bell() -> void:
 
 ## The bell: the fight takes the boxers back where they stand, ROUND 1 starts.
 func finish() -> void:
-	if not is_inside_tree():
+	if not is_inside_tree() or not is_processing():
 		return
+	# S308: skipped from a button, this node stays in the tree to the frame's end; its _process must not film again
+	# (round 1 opened stuck on the intro's wide lens).
+	set_process(false)
 	for i in 2:
 		var a: Dictionary = stage.boxers[i]
 		a["ik"].reach("Left", null)

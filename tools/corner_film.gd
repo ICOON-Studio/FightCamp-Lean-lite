@@ -50,7 +50,7 @@ func _initialize() -> void:
 	await _wait(4)
 	var f: Dictionary = main.career.fighter()
 	print("CORNER_FILM fighter %s %s vs %s (%s)" % [f["name"], f["stats"], f["bout"]["opp"]["name"], f["bout"]["opp"]["style"]])
-	FightView.highlights = true
+	FightView.fast = true   # S308: 3:00 rounds; the film runs them at 2x
 	main.act("fightstep", "start")
 	var view: Node = main._fight_layer.get_child(0)
 	var total := int(main.modal["total"])

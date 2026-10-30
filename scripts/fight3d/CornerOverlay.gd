@@ -6,6 +6,7 @@ extends Control
 
 const UI := preload("res://scripts/ui/UI.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const CallButtons := preload("res://scripts/ui/CallButtons.gd")
 
 signal chose(call: String)
 signal skip
@@ -17,7 +18,7 @@ const BAR_COLOUR := Color(0, 0, 0, 1)
 var _clock: Label
 var _caption: Label
 var _card: PanelContainer
-var _calls: HBoxContainer
+var _calls: Control
 var _said: Label
 
 
@@ -45,7 +46,7 @@ func build(card: Dictionary, names: Array) -> void:
 	_card = PanelContainer.new()
 	_card.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.88), UI.LINE, 6, 1, 18, 14))
 	add_child(_card)
-	_pin(_card, Vector4(1, 1.0 - BAR, 1, 1.0 - BAR), Vector4(-900, -230, -28, -16))
+	_pin(_card, Vector4(1, 1.0 - BAR, 1, 1.0 - BAR), Vector4(-1100, -330, -28, -16))
 	var v := UI.vbox(6)
 	_card.add_child(v)
 	v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL %s?" % str(names[0]).to_upper()))
@@ -59,12 +60,8 @@ func build(card: Dictionary, names: Array) -> void:
 		said.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		line.add_child(said)
 		v.add_child(line)
-	_calls = UI.hbox(6)
-	for k in BoutRules.CORNER.keys():
-		var b := UI.button(BoutRules.CORNER[k] + ("  (coach)" if str(k) == str(card["call"]) else ""), "Choice", func(): chose.emit(str(k)))
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		b.name = "Corner_" + str(k)
-		_calls.add_child(b)
+	# S308: all eight calls, with when to use each and whether she can do it.
+	_calls = CallButtons.corner_grid(card.get("grades", {}), str(card["call"]), func(k: String): chose.emit(k))
 	v.add_child(_calls)
 	_said = UI.muted("", UI.SMALL)
 	_said.visible = false

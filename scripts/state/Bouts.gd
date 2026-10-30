@@ -19,6 +19,8 @@ const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 const CoachNotes := preload("res://scripts/rules/CoachNotes.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
+const LiveRound := preload("res://scripts/state/LiveRound.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -206,25 +208,51 @@ static func rounds_of(f: Dictionary) -> int:
 	return int((f.get("bout", {}) as Dictionary).get("rounds", BoutRules.ROUNDS))
 
 
-## Advances fight night: "start" plays round 1, "corner:<call>" the next round, "sim" the whole bout, "rest" the rounds
-## still to come (the corner's calls; the 3D view's SKIP BOUT), "end" the scorecards.
+## Advances fight night: "start" opens round 1, "corner:<call>" the next round on that plan, "shout:<call>" fights the
+## open round's next 30 seconds ("shout:" = say nothing), "sim" the whole bout, "rest" the rest of it (the corner's calls;
+## the 3D view's SKIP BOUT), "end" the scorecards. S308: a round is six exchanges (LiveRound); opening one fights its first
+## 30 seconds on the plan, so the corner always has a clue to read before the first shout.
 static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> void:
 	if a == "start" or a == "sim":
 		m["step"] = "round"
-		m["round"] = 1
-		m["rounds"] = [_round(c, f, 1, "")]
-		_counts(c, f, m, m["rounds"][0])
-	elif a.begins_with("corner:") and not stopped(m):
-		m["round"] = int(m["round"]) + 1
-		(m["rounds"] as Array).append(_round(c, f, int(m["round"]), a.trim_prefix("corner:")))
-		_counts(c, f, m, m["rounds"][-1])
+		m["round"] = 0
+		m["rounds"] = []
+		_open(c, f, m, "")
+	elif a.begins_with("corner:") and not stopped(m) and LiveRound.live(m).is_empty():
+		_open(c, f, m, a.trim_prefix("corner:"))
+	elif a.begins_with("shout:"):
+		_shout(c, f, m, a.trim_prefix("shout:"))
+	elif a == "round_out":
+		_shout_out(c, f, m)
 	if a == "sim" or a == "rest":
+		_shout_out(c, f, m)
 		while int(m["round"]) < rounds_of(f) and not stopped(m):
-			m["round"] = int(m["round"]) + 1
-			(m["rounds"] as Array).append(_round(c, f, int(m["round"]), BoutRules.auto_corner(f["stats"])))
-			_counts(c, f, m, m["rounds"][-1])
+			_open(c, f, m, BoutRules.auto_corner(f["stats"]))
+			_shout_out(c, f, m)
 	if a == "sim" or a == "rest" or a == "end":
 		_finish(c, f, m)
+
+
+static func _open(c: Career, f: Dictionary, m: Dictionary, plan: String) -> void:
+	m["round"] = int(m["round"]) + 1
+	var n := int(m["round"])
+	LiveRound.open(c, f, m, n, plan, _energy(f, n, plan))
+	_shout(c, f, m, "")
+
+
+## One exchange; the sixth closes the round into m["rounds"] with its lines and counts.
+static func _shout(c: Career, f: Dictionary, m: Dictionary, call: String) -> void:
+	var r := LiveRound.exchange(c, f, m, call)
+	if r.is_empty():
+		return
+	_lines(c, f, r)
+	(m["rounds"] as Array).append(r)
+	_counts(c, f, m, r)
+
+
+static func _shout_out(c: Career, f: Dictionary, m: Dictionary) -> void:
+	while not LiveRound.live(m).is_empty():
+		_shout(c, f, m, "")
 
 
 ## "RSC" / "KO" when the referee stopped the bout in its last round, else "".
@@ -265,19 +293,17 @@ static func _counts(c: Career, f: Dictionary, m: Dictionary, r: Dictionary) -> v
 		lines.append("The referee waves it off: %s has taken enough." % name)
 
 
-static func _round(c: Career, f: Dictionary, n: int, corner: String) -> Dictionary:
+static func _lines(c: Career, f: Dictionary, r: Dictionary) -> void:
 	var opp: Dictionary = f["bout"]["opp"]
 	var camp: Dictionary = f["camp"]
-	var rng := RandomNumberGenerator.new()
-	rng.seed = c.day * 31 + n * 7 + 3 + c.fighters.find(f) * 1009
-	var e := _energy(f, n, corner)
-	var r := BoutRules.play_round(n, f["stats"], camp, int(f["bout"]["film"]), corner, opp, rng.randf(), rng.randf(),
-		BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {}))) + float(e["bonus"]))
-	r["energy"] = e
+	var n := int(r["n"])
 	var subs := {"her": f["first"], "opp": opp["first"], "threat": str(opp["threat"]).to_lower(), "round": n,
 		"focus": str(Data.LABEL.get(camp.get("focus", ""), "")).to_lower()}
-	r["lines"] = FightWords.round_lines(str(opp["style"]), bool(r["won"]), corner, subs, c.day + n * 13)
-	return r
+	r["lines"] = FightWords.round_lines(str(opp["style"]), bool(r["won"]), str(r["corner"]), subs, c.day + n * 13)
+	var ln: Array = r["landed"]
+	(r["lines"] as Array).append("Exchanges %d-%d; punches landed %d-%d." % [int(r["won_n"]), Exchanges.EXCHANGES - int(r["won_n"]), int(ln[0]), int(ln[1])])
+	if int(r["calls"]) > 0:
+		(r["lines"] as Array).append("Your shouts that worked: %d of %d." % [int(r["worked"]), int(r["calls"])])
 
 
 ## S302 combos + energy (operator: "combos should also be associated with energy (stamina) in the fight"). Both tanks run

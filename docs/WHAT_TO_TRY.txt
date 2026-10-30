@@ -1,3 +1,40 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 9 (2026-10-30): YOUR CALLS CHANGE THE FIGHT - 3:00 ROUNDS, A SHOUT EVERY 30 SECONDS
+=====================================================================================================================
+
+NEW IN UPDATE 9 (15 minutes: play one whole amateur fight at 1x and shout every time)
+ 1. 3-MINUTE ROUNDS. A round now runs a real 3:00 (top left: the clock and the exchanges won so far). Highlights is
+    gone; 1x / 2x stays (Space), Skip round plays the rest of the round with no shouts.
+ 2. A SHOUT EVERY 30 SECONDS. The round is six 30-second exchanges, each decided on its own. At 2:30, 2:00, 1:30,
+    1:00 and 0:30 the fight slows and the shout bar comes up for 8 seconds:
+      - THE CLUE (orange): what the opponent is doing, e.g. "Maria keeps coming forward, chin down."
+      - THREE CALLS that could fit, each with what to expect and whether your fighter can do it (Can: Good / OK / Poor,
+        from her stats). "(coach)" marks your coach's read.
+      - SAY NOTHING: she keeps her focus. No pick = say nothing.
+    The first two shouts of a round land fully; each one after lands at half (real corners get two instructions
+    through), so you choose when to talk.
+ 3. SEE IT WORK. Your shout captions the next 30 seconds ("Corner: Turn her! Jab and move!") and the exchange ends on
+    the verdict: "It worked", "Right idea, but she lost the exchange", or "Wrong call: played into her hands".
+ 4. HOW TO READ HER. Six ways to fight, one best call each (wrong calls cost):
+      Pressing (walks you to the ropes) -> Jab and move      | wrong: Let your hands go
+      Boxing at range (jabs, steps out)  -> Go to the body    | wrong: Jab and move
+      Waiting to counter                -> Make her lead     | wrong: Let your hands go
+      Loading up (one big right)         -> Hands up, move your head | wrong: Go to the body
+      Tiring (mouth open, holding)       -> Let your hands go | wrong: Breathe
+      Hurt (wobbles, grabs)              -> Go get her        | wrong: Breathe
+      Your fighter tired -> Breathe, pick your shots.  Your fighter hurt -> Tie her up.
+    The ring shows it: a presser steps in, an out-boxer jabs and steps back out, a loader throws single big rights,
+    a tired boxer holds.
+ 5. FILM STUDY PAYS. With the full film study (camp option) your corner reads her NEXT move; without it the clue
+    shows what she did in the last 30 seconds (she keeps her game more often than not).
+ 6. THE CORNER MINUTE now offers all eight calls (when to use each, can she do it) and the coach's advice reads how
+    the opponent ended the round. Your call is her plan for the whole next round.
+ 7. In words (Sim to result / the 2D fight screen): the same shout bar after each 30 seconds, and "Sim the round".
+ Measured (400 fights each, even match): saying nothing wins 60%, shouting the coach's read 70%, the right call every
+ time 77%, the wrong call every time 31%; 10 points behind, even perfect calls win only 27%.
+ Fixed on the way: skipping the intro left round 1 on the intro's wide camera.
+ Not yet: the "one fix for a habit" part of the corner minute; no sound.
+
+(UPDATE 8 below)
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 8 (2026-10-30): FIGHT NIGHT LIKE A FILM - THE INTRO AND THE CORNER MINUTE
 =====================================================================================================
 
