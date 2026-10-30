@@ -13,6 +13,7 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
 const CornerShots := preload("res://scripts/fight3d/CornerShots.gd")
 const FightCast := preload("res://scripts/fight3d/FightCast.gd")
+const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const STILLS := [[1.0, "c01_bell_part"], [3.2, "c02_behind_walk"], [5.3, "c03_low_sits"], [7.0, "c04_water"], [8.5, "c05_ice"],
 	[11.0, "c06_coach_card"], [13.5, "c07_reverse_pick"], [16.0, "c075_side2"], [24.0, "c08_corner_wide"], [28.5, "c08b_ots"], [31.5, "c085_cutman"], [41.5, "c09_other_corner"], [53.0, "c10_seconds_out"],
 	[56.5, "c11_walk_out"]]
@@ -26,6 +27,7 @@ var failures := 0
 var film := false
 var pick := "body"
 var pro := false
+var habits: Array = []
 var _flagged := {}
 var _feet := {}
 var _taps: Array = []       # "<i>:<foot>" -> {last: Vector3, slide: float, worst: float}
@@ -40,6 +42,8 @@ func _initialize() -> void:
 		pro = pro or str(a) == "pro"
 		if str(a).begins_with("pick="):
 			pick = str(a).substr(5)
+		if str(a).begins_with("habits="):
+			habits = Array(str(a).substr(7).split(","))
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	root.size = Vector2i(W, H)
 	main = load("res://scenes/Main.tscn").instantiate()
@@ -49,7 +53,9 @@ func _initialize() -> void:
 	main.act("fightnight")
 	await _wait(4)
 	var f: Dictionary = main.career.fighter()
-	print("CORNER_FILM fighter %s %s vs %s (%s)" % [f["name"], f["stats"], f["bout"]["opp"]["name"], f["bout"]["opp"]["style"]])
+	if not habits.is_empty():
+		f["habits"] = habits   # S309 `habits=a,b`: habits her opponent punishes, so the corner has one to fix
+	print("CORNER_FILM fighter %s %s habits %s vs %s (%s)" % [f["name"], f["stats"], f.get("habits", []), f["bout"]["opp"]["name"], f["bout"]["opp"]["style"]])
 	FightView.fast = true   # S308: 3:00 rounds; the film runs them at 2x
 	main.act("fightstep", "start")
 	var view: Node = main._fight_layer.get_child(0)
@@ -95,6 +101,10 @@ func _initialize() -> void:
 			await _watch(view, cm)
 		await _wait(3)
 		_check(bool(view.playing) and int(view.round_n) == n + 1, "round %d plays after the corner" % (n + 1))
+		if not habits.is_empty():
+			var fx := str(LiveRound.live(main.modal).get("fix", ""))
+			print("CORNER_FILM round %d opened with fix '%s'" % [n + 1, fx])
+			_check(fx != "", "the corner's fix reaches the next round")
 		_check(not view.stage.scene, "the fight has the boxers back")
 		if not film:
 			break
@@ -138,6 +148,7 @@ func _watch_intro(fi: Node) -> void:
 func _watch(view: Node, cm: Node) -> void:
 	var k := 0
 	var picked := false
+	var fixed := false
 	var seat_ok := false
 	var bottle_best := 9.0
 	while is_instance_valid(cm):
@@ -153,6 +164,11 @@ func _watch(view: Node, cm: Node) -> void:
 			bottle_best = minf(bottle_best, _tip(b).distance_to(cm._mouth(view.stage.boxers[0])))
 		if tm > 10.0 and not seat_ok:
 			seat_ok = _seated(view, cm)
+		if not fixed and tm > 10.5 and not (cm.ctx["card"].get("fixes", []) as Array).is_empty():
+			# S309: fix the first habit the corner offers (the card's FIX ONE HABIT row).
+			fixed = true
+			cm.ui._fix(str(cm.ctx["card"]["fixes"][0]["id"]))
+			print("CORNER_FILM fix %s" % cm.fix)
 		if not picked and tm > 12.5:
 			picked = true
 			cm._pick(pick)

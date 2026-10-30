@@ -10,22 +10,28 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const HabitFix := preload("res://scripts/rules/HabitFix.gd")
 const N := 400
 
 
 func _initialize() -> void:
 	print("EXB population: Lucy (Data.lucy) vs Priya (Counter-puncher) rating = paper - edge, film 1, no camp, n=%d" % N)
-	print("EXB edge   none   seen  seen2 oracle  wrong")
+	var lucy: Dictionary = Data.fighter_state(Data.lucy(), 20)
+	print("EXB Lucy's habits %s (S309: a punished habit costs %.0f; fix = the read + the corner fixes the costliest)" % [str(lucy.get("habits", [])), HabitFix.HABIT_COST])
+	print("EXB edge   none   seen  seen2 oracle  wrong    fix")
 	for edge in [-10.0, -5.0, 0.0, 5.0, 10.0]:
 		var row := "EXB %+5.1f" % edge
-		for pol in ["none", "seen", "seen2", "oracle", "wrong"]:
+		for pol in ["none", "seen", "seen2", "oracle", "wrong", "fix"]:
 			row += "  %.2f" % share(edge, pol, 1)
 		print(row)
 	print("EXB film 3 (the corner reads her next game), edge 0: none %.2f seen %.2f" % [share(0.0, "none", 3), share(0.0, "seen", 3)])
+	print("EXB Lucy with drops_right_after_jab (Priya punishes it), edge 0: none %.2f seen %.2f fix %.2f" % [
+		share(0.0, "none", 1, ["drops_right_after_jab"]), share(0.0, "seen", 1, ["drops_right_after_jab"]), share(0.0, "fix", 1, ["drops_right_after_jab"])])
 	quit(0)
 
 
-static func share(edge: float, pol: String, film: int) -> float:
+## habits: Lucy's habits replaced by these (S309), null = her own.
+static func share(edge: float, pol: String, film: int, habits: Variant = null) -> float:
 	var c := Career.quick_start()
 	c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
 	var wins := 0
@@ -33,6 +39,9 @@ static func share(edge: float, pol: String, film: int) -> float:
 		c.day = 20 + i
 		var f: Dictionary = c.fighter()
 		f["camp"] = {}
+		if habits != null:
+			f["habits"] = habits
+		f["notes_seen"] = []
 		var opp: Dictionary = (Data.OPPONENTS[1] as Dictionary).duplicate(true)
 		var paper := BoutRules.fight_power(f["stats"], {}, film, "")
 		opp["rating"] = paper - edge
@@ -53,7 +62,15 @@ static func play(c: Career, f: Dictionary, m: Dictionary, pol: String) -> void:
 			break
 		var last: Dictionary = (m["rounds"] as Array)[-1]
 		var plan := "" if pol == "none" else str(Exchanges.MODES[str(last["exchanges"][-1]["sit"])]["best"])
-		Bouts.fight_step(c, f, m, "corner:" + (plan if plan != "" else BoutRules.auto_corner(f["stats"])))
+		# S309 "fix": the read, and the corner fixes the habit she paid for most in the round.
+		var fix := ""
+		if pol == "fix":
+			var most := 0
+			for h in LiveRound.fixes(f, last):
+				if int(h["paid"]) > most:
+					most = int(h["paid"])
+					fix = str(h["id"])
+		Bouts.fight_step(c, f, m, "corner:" + (plan if plan != "" else BoutRules.auto_corner(f["stats"])) + ("|" + fix if fix != "" else ""))
 	Bouts.fight_step(c, f, m, "end")
 
 
@@ -62,7 +79,7 @@ static func pick(f: Dictionary, m: Dictionary, pol: String) -> String:
 	var i := (lv["ex"] as Array).size()
 	var true_sit := Exchanges.situation(str(lv["mode"]), LiveRound.her_energy(lv, i), bool(lv["her_hurt"]))
 	match pol:
-		"seen":
+		"seen", "fix":
 			return str(LiveRound.preview(f, m)["coach"])
 		"seen2":
 			return str(LiveRound.preview(f, m)["coach"]) if int(lv["shouts"]) < 2 else ""

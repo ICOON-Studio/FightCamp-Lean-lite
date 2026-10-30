@@ -1,3 +1,33 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 10 (2026-10-30): CLEARER WORDS, THE COACH'S NECK, ONE FIX FOR A HABIT
+=============================================================================================
+
+NEW IN UPDATE 10 (10 minutes: one fight; read the shout bar, and in the corner fix a habit she paid for)
+ 1. WHO IS "SHE"? Two women are in the ring, and the old lines said "her" for both. Every line now uses names:
+      shout bar:  "Lucy wins it from range and saves energy" / "Maria's big shots miss; Lucy throws less"
+      verdicts:   "It worked: 'Jab and move' won Lucy those 30 seconds." / "Wrong call: played into Maria's hands."
+      corner:     "Lucy landed 3 clean jabs." / "Maria landed 2 clean straight rights."
+ 2. PLAIN BUTTONS. "Expect: ... Can: Good" is gone. Each call says what happens, then "Lucy is good at this" /
+    "Lucy can do this" / "Lucy is weak at this" (green / orange / red). "(coach)" now reads "coach's pick".
+    The corner minute's buttons say when to use each call ("Use when Maria presses").
+ 3. THE SHOUT BAR asks "What do you shout to Lucy?", the clue starts "You see:", and the top right says how many
+    more shouts she takes in fully ("Lucy takes in 2 more shouts this round"); the timer shows seconds ("6 s").
+    The scorebug reads "EXCHANGES WON 2-1" (Lucy first, as in the names above it).
+ 4. THE COACH TALKS TO HER. Between rounds his line is spoken to the fighter: "Maria was waiting to counter at the
+    end of that round. Feint and make her lead: take her counters away."
+ 5. YOUR MARK ON THE CORNER STILL ("his neck looks weird"): the crouch clip bent his back to the floor and only his
+    neck turned up to her, so his head stuck out of his shoulders. Looking up now lifts his back too, the neck
+    stays natural, and Lucy looks back into his eyes. The side shot sits lower so the top rope stays out of it.
+ 6. ONE FIX FOR A HABIT (the last open piece of the plan you approved, Miro frames 6-11). Her habits now cost her
+    when the opponent's game punishes them - Kalli's habit sheet says who punishes what: "drops the right after the
+    jab" costs against a counter-puncher, "freezes on the ropes" against a presser, "fades late" in the last round.
+    The fight says so ("Maria made Lucy pay for a habit: freezes on the ropes."). Your coach sees each habit she paid
+    for, and in the next corner minute the card offers FIX ONE HABIT (optional) above the eight calls: the fix holds
+    for the round as far as she takes it in, and she stops showing it in the ring ("The fix held: Lucy caught herself").
+    Measured (400 even fights, Lucy given "drops the right" vs Priya the counter-puncher): no shouts 43%, the coach's
+    read 53%, the read + the fix 59%. Habits make every fight a little harder: even fight, no shouts 56% (was 60).
+ 7. The coach no longer argues for his own call after you pick a different one.
+
+(UPDATE 9 below)
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 9 (2026-10-30): YOUR CALLS CHANGE THE FIGHT - 3:00 ROUNDS, A SHOUT EVERY 30 SECONDS
 =====================================================================================================================
 

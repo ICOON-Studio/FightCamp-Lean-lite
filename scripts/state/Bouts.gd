@@ -208,7 +208,8 @@ static func rounds_of(f: Dictionary) -> int:
 	return int((f.get("bout", {}) as Dictionary).get("rounds", BoutRules.ROUNDS))
 
 
-## Advances fight night: "start" opens round 1, "corner:<call>" the next round on that plan, "shout:<call>" fights the
+## Advances fight night: "start" opens round 1, "corner:<call>[|<habit>]" the next round on that plan (and that habit
+## fixed, S309), "shout:<call>" fights the
 ## open round's next 30 seconds ("shout:" = say nothing), "sim" the whole bout, "rest" the rest of it (the corner's calls;
 ## the 3D view's SKIP BOUT), "end" the scorecards. S308: a round is six exchanges (LiveRound); opening one fights its first
 ## 30 seconds on the plan, so the corner always has a clue to read before the first shout.
@@ -219,7 +220,9 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		m["rounds"] = []
 		_open(c, f, m, "")
 	elif a.begins_with("corner:") and not stopped(m) and LiveRound.live(m).is_empty():
-		_open(c, f, m, a.trim_prefix("corner:"))
+		# S309: "corner:<call>|<habit>" also fixes one habit for the round.
+		var parts := a.trim_prefix("corner:").split("|")
+		_open(c, f, m, parts[0], parts[1] if parts.size() > 1 else "")
 	elif a.begins_with("shout:"):
 		_shout(c, f, m, a.trim_prefix("shout:"))
 	elif a == "round_out":
@@ -233,10 +236,10 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		_finish(c, f, m)
 
 
-static func _open(c: Career, f: Dictionary, m: Dictionary, plan: String) -> void:
+static func _open(c: Career, f: Dictionary, m: Dictionary, plan: String, fix: String = "") -> void:
 	m["round"] = int(m["round"]) + 1
 	var n := int(m["round"])
-	LiveRound.open(c, f, m, n, plan, _energy(f, n, plan))
+	LiveRound.open(c, f, m, n, plan, _energy(f, n, plan), fix)
 	_shout(c, f, m, "")
 
 

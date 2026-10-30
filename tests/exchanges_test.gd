@@ -21,6 +21,19 @@ func _initialize() -> void:
 		table_ok = table_ok and three.all(func(c): return X.CALLS.has(c)) and X.CLUES.has(k)
 		table_ok = table_ok and X.offers(str(k)).size() == 3 and X.offers(str(k)).has(three[0])
 	_check(table_ok, "every game: best / ok / wrong differ, are calls, have clues, and the shout bar offers all three")
+	# 1b. S309 "fix the wording": two women in the ring, so every button line and verdict names whom it means, with no
+	# placeholder left over.
+	var nm := ["Lucy", "Maria"]
+	var words_ok := true
+	for k in X.CALLS.keys():
+		for field in ["when", "expect", "tell"]:
+			var line := X.named(str(X.CALLS[k][field]), nm)
+			words_ok = words_ok and not line.contains("{") and (field == "tell" or line.contains("Lucy") or line.contains("Maria"))
+		for sit in X.MODES.keys():
+			for won in [true, false]:
+				var v := X.verdict(str(k), str(sit), won, nm)
+				words_ok = words_ok and (v.contains("Lucy") or v.contains("Maria"))
+	_check(words_ok and X.verdict("", "press", true, nm).contains("Lucy"), "every call line and verdict names a boxer")
 	# 2. The fit orders the edge for a fighter who can do every call.
 	var able := {"power": 70.0, "speed": 70.0, "technique": 70.0, "defense": 70.0, "conditioning": 70.0, "fight_iq": 70.0,
 		"footwork": 70.0, "discipline": 70.0, "heart": 70.0}

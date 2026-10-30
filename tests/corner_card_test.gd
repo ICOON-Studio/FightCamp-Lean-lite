@@ -29,11 +29,14 @@ func _initialize() -> void:
 	var s3 := K.summarize([_b("a", "body_hook", "lands"), _b("a", "body_hook", "lands"), _b("b", "jab", "missed")])
 	var c3 := K.card(s3, 80.0, names)
 	_check(str(c3["call"]) == "body" and str(c3["hurt"]).contains("nothing"), "card: her body shots work -> body; hurt says nothing landed")
-	# A cut combination never counts as whole; an empty round reads 'Nothing clean landed.'
+	# A cut combination never counts as whole; an empty round names her: 'Lucy landed nothing clean.' (S309: two women in
+	# the ring, every line says whose punches).
 	var cut := [_b("a", "jab", "lands", "1-2-3"), _b("a", "cross", "lands", "1-2-3")]
 	cut[1]["combo_cut"] = true
 	_check((K.summarize(cut)["a"]["whole"] as Array).is_empty(), "summarize: an unfinished combination is not whole")
-	_check(str(K.card(K.summarize([]), 90.0, names)["worked"]) == "Nothing clean landed.", "card: empty round")
+	_check(str(K.card(K.summarize([]), 90.0, names)["worked"]) == "Lucy landed nothing clean.", "card: empty round")
+	_check(str(c["worked"]).begins_with("Lucy landed 3 clean jabs") and str(K.card(s3, 80.0, names)["worked"]) == "Lucy landed 2 clean hooks to the body.",
+		"card: whose punches and how many, plural right (%s / %s)" % [c["worked"], K.card(s3, 80.0, names)["worked"]])
 	print("CORNER_CARD %s fails=%d" % ["PASS" if _fails == 0 else "FAIL", _fails])
 	quit(1 if _fails > 0 else 0)
 

@@ -62,25 +62,35 @@ static func card(summary: Dictionary, energy: float, names: Array) -> Dictionary
 	var whole: Array = summary.get("a", {}).get("whole", [])
 	var good := top(mine)
 	var bad := top(theirs)
-	var worked := "Nothing clean landed." if good == "" else "Her %s: landed %d." % [WORD[good], int(mine[good])]
+	# S309 "fix the wording": two women in the ring, so the card names who landed what; "why" is the coach talking to
+	# her fighter ("you" = ours, the opponent by name).
+	var worked := "%s landed nothing clean." % names[0] if good == "" else "%s landed %s." % [names[0], landed(int(mine[good]), good)]
 	if not whole.is_empty():
-		worked += " The %s landed whole." % str(whole[0])
-	var hurt := "%s landed nothing clean." % names[1] if bad == "" else "%s's %s: landed %d." % [names[1], WORD[bad], int(theirs[bad])]
+		worked += " Her %s landed whole." % str(whole[0])
+	var hurt := "%s landed nothing clean." % names[1] if bad == "" else "%s landed %s." % [names[1], landed(int(theirs[bad]), bad)]
 	var call := "long"
-	var why := "Keep her behind the jab."
+	var why := "Keep %s behind your jab." % names[1]
 	if energy < WEARY_AT:
 		call = "calm"
-		why = "She is tired: let her breathe and pick her shots."
+		why = "You're tired. Breathe and pick your shots."
 	elif bad in SHORT and int(theirs[bad]) >= 2:
 		call = "long"
-		why = "The %s needs her close: keep her on the end of the jab." % WORD[bad]
+		why = "%s's %s needs you close: keep her on the end of your jab." % [names[1], WORD[bad]]
 	elif bad in LONG and int(theirs[bad]) >= 2:
 		call = "body"
 		why = "%s is winning at range: get inside and go to the body." % names[1]
 	elif good == "body_hook":
 		call = "body"
-		why = "The body shots are working: keep digging."
+		why = "Your body shots are working: keep digging."
 	elif good in LONG:
 		call = "long"
-		why = "The %s is working: stay long." % WORD[good]
+		why = "Your %s is working: stay long." % WORD[good]
 	return {"worked": worked, "hurt": hurt, "call": call, "why": why}
+
+
+## "3 clean jabs" / "1 clean left hook".
+static func landed(n: int, move: String) -> String:
+	var w := str(WORD[move])
+	if n != 1:
+		w = "hooks to the body" if move == "body_hook" else w + "s"
+	return "%d clean %s" % [n, w]

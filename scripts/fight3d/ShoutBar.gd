@@ -30,18 +30,27 @@ func setup(pv: Dictionary, round_n: int) -> void:
 	add_child(v)
 	var head := UI.hbox(12)
 	var left := 180 - int(pv.get("at", 30))
-	head.add_child(UI.caps("ROUND %d   %d:%02d LEFT   SHOUT FROM THE CORNER" % [round_n, left / 60, left % 60]))
+	var names: Array = pv.get("names", ["Your fighter", "Her opponent"])
+	head.add_child(UI.caps("ROUND %d   %d:%02d LEFT   WHAT DO YOU SHOUT TO %s?" % [round_n, left / 60, left % 60, str(names[0]).to_upper()]))
 	head.add_child(UI.spacer())
+	# S309 wording: she takes in two shouts a round in full (Exchanges.FULL_SHOUTS), the rest at half.
 	var shouts := int(pv.get("shouts", 0))
-	head.add_child(UI.muted("%d shouted this round%s" % [shouts, "; the next lands at half" if shouts >= 2 else ""], UI.SMALL))
+	head.add_child(UI.muted(shout_note(shouts, str(names[0])), UI.SMALL))
 	_count = UI.mono("", UI.BODY, UI.AMBER)
 	head.add_child(_count)
 	v.add_child(head)
-	var clue := UI.label("Clue: " + str(pv.get("clue", "")), 24, UI.AMBER, "bold", true)
+	var clue := UI.label("You see: " + str(pv.get("clue", "")), 24, UI.AMBER, "bold", true)
 	clue.name = "Clue"
 	v.add_child(clue)
-	v.add_child(CallButtons.shout_row(pv.get("offers", []), pv.get("grades", {}), str(pv.get("coach", "")), _pick))
+	v.add_child(CallButtons.shout_row(pv.get("offers", []), pv.get("grades", {}), str(pv.get("coach", "")), names, _pick))
 	_tick()
+
+
+## How many more of your shouts she takes in fully this round.
+static func shout_note(shouts: int, her: String) -> String:
+	if shouts >= 2:
+		return "%s has heard 2 shouts this round: she takes in only half of the next" % her
+	return "%s takes in %d more shout%s this round" % [her, 2 - shouts, "" if shouts == 1 else "s"]
 
 
 func _process(delta: float) -> void:
@@ -55,7 +64,7 @@ func _process(delta: float) -> void:
 
 
 func _tick() -> void:
-	_count.text = "%d" % int(ceilf(maxf(0.0, _left)))
+	_count.text = "%d s" % int(ceilf(maxf(0.0, _left)))
 
 
 func _pick(call: String) -> void:

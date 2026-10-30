@@ -35,24 +35,40 @@ const KEEP := 0.6
 
 ## Eight real corner calls. long / body / calm keep their old ids (BoutRules.CORNER, RoundScript.CALL_BEATS, Combos).
 ## needs: the values she does it with (stats, footwork, personality). cost: energy per exchange on top of the round's.
+## when / expect: the buttons' lines ({her} ours, {opp} the opponent; S309). tell: the coach saying it to her between rounds.
 const CALLS := {
 	"long": {"label": "Jab and move", "shout": "Turn her! Jab and move!", "needs": ["footwork", "technique"], "cost": -0.5,
-		"when": "Opponent presses", "expect": "Wins it at range, little energy"},
+		"when": "Use when {opp} presses", "expect": "{her} wins it from range and saves energy",
+		"tell": "Jab and move: win it from range and save your legs."},
 	"body": {"label": "Go to the body", "shout": "Downstairs! Go to the body!", "needs": ["power"], "cost": 1.5,
-		"when": "Opponent boxes at range", "expect": "Slows her down later; shots coming in"},
+		"when": "Use when {opp} boxes at range", "expect": "{opp} slows down later; {her} takes shots getting in",
+		"tell": "Get inside and go to the body: it slows her down for later."},
 	"lead": {"label": "Make her lead", "shout": "Feint! Make her lead!", "needs": ["fight_iq"], "cost": -0.5,
-		"when": "Opponent waits to counter", "expect": "Her counters stop; a quiet exchange"},
+		"when": "Use when {opp} waits to counter", "expect": "{opp}'s counters dry up; a quiet 30 seconds",
+		"tell": "Feint and make her lead: take her counters away."},
 	"hands": {"label": "Hands up, move your head", "shout": "Hands up! Move your head!", "needs": ["defense"], "cost": 0.0,
-		"when": "Opponent loads up", "expect": "Big shots miss; fewer of her own"},
+		"when": "Use when {opp} loads up", "expect": "{opp}'s big shots miss; {her} throws less",
+		"tell": "Hands up and move your head: make the big shots miss."},
 	"let_go": {"label": "Let your hands go", "shout": "Let your hands go!", "needs": ["conditioning", "speed"], "cost": 3.0,
-		"when": "Opponent tires", "expect": "Her busiest 30 seconds; costs energy"},
+		"when": "Use when {opp} tires", "expect": "{her}'s busiest 30 seconds; it costs her energy",
+		"tell": "Let your hands go: she can't keep up with you."},
 	"calm": {"label": "Breathe, pick your shots", "shout": "Breathe! Pick your shots!", "needs": ["discipline"], "cost": -3.0,
-		"when": "Your fighter is tired", "expect": "Energy back for later; gives a little now"},
+		"when": "Use when {her} is tired", "expect": "{her} gets energy back; gives a little now",
+		"tell": "Breathe and pick your shots: get your legs back."},
 	"tie": {"label": "Tie her up", "shout": "Hold! Tie her up!", "needs": ["heart"], "cost": -2.0,
-		"when": "Your fighter is hurt", "expect": "Gets through the 30 seconds"},
+		"when": "Use when {her} is hurt", "expect": "{her} holds and gets through the 30 seconds",
+		"tell": "Tie her up, clear your head, get through it."},
 	"finish": {"label": "Go get her", "shout": "She's hurt! Go get her!", "needs": ["power", "heart"], "cost": 3.0,
-		"when": "Opponent is hurt", "expect": "A knockdown chance; open if tired"},
+		"when": "Use when {opp} is hurt", "expect": "A knockdown chance; {her} is open if she is tired",
+		"tell": "She's hurt: go get her, but keep your chin down."},
 }
+## How well she can do a call: grade word -> the line the buttons show ({her} her name).
+const GRADE_LINE := {"Good": "{her} is good at this", "OK": "{her} can do this", "Poor": "{her} is weak at this"}
+
+
+## A line with {her} / {opp} filled in. names = [hers, the opponent's].
+static func named(line: String, names: Array) -> String:
+	return line.replace("{her}", str(names[0])).replace("{opp}", str(names[1]))
 
 ## The opponent's six games, and our fighter's own two states (they come first: a tired or hurt boxer is the problem).
 const MODES := {
@@ -178,7 +194,7 @@ static func next_mode(style: String, weak: String, n: int, ex: int, prev: String
 ## One clue line for a situation, filled with the two names.
 static func clue(sit: String, names: Array, pick: int) -> String:
 	var pool: Array = CLUES.get(sit, CLUES["press"])
-	return str(pool[absi(pick) % pool.size()]).replace("{her}", str(names[0])).replace("{opp}", str(names[1]))
+	return named(str(pool[absi(pick) % pool.size()]), names)
 
 
 ## The three calls the shout bar offers for a situation (its best, ok and wrong, in CALLS order so the order gives
@@ -235,18 +251,19 @@ static func round_of(exs: Array) -> Dictionary:
 static func verdict(call: String, sit: String, won: bool, names: Array) -> String:
 	var k := fit(call, sit)
 	var her := str(names[0])
+	var opp := str(names[1])
 	if call == "":
-		return "%s %s that exchange on her own." % [her, "won" if won else "lost"]
+		return "No shout: %s %s those 30 seconds on her own." % [her, "won" if won else "lost"]
 	var label := str(CALLS[call]["label"])
 	if won and (k == "best" or k == "ok"):
-		return "It worked: \"%s\" won the exchange." % label
+		return "It worked: \"%s\" won %s those 30 seconds." % [label, her]
 	if won:
-		return "%s won it, but not because of \"%s\"." % [her, label]
+		return "%s won those 30 seconds, but not because of \"%s\"." % [her, label]
 	if k == "wrong":
-		return "Wrong call: \"%s\" played into her hands." % label
+		return "Wrong call: \"%s\" played into %s's hands." % [label, opp]
 	if k == "best" or k == "ok":
-		return "Right idea, \"%s\", but she lost the exchange." % label
-	return "\"%s\" changed nothing: exchange lost." % label
+		return "Right idea, \"%s\", but %s still lost those 30 seconds." % [label, her]
+	return "\"%s\" changed nothing: %s lost those 30 seconds." % [label, her]
 
 
 ## The corner's read of a finished round for the next round's plan: the game of the last three exchanges (the latest wins a
@@ -265,6 +282,8 @@ static func read(exs: Array, names: Array) -> Dictionary:
 		sit = "press"
 	var call := str(MODES[sit]["best"])
 	var c: Dictionary = CALLS[call]
-	var state := str(names[0]) + (" was tired" if sit == "she_tired" else " was hurt") if sit.begins_with("she_") 		else "%s was %s" % [str(names[1]), str(MODES[sit]["label"]).to_lower()]
-	var why := "%s at the end of that round. %s: %s." % [state, c["label"], str(c["expect"]).to_lower()]
+	# S309: the coach talking to her fighter between rounds ("you" = ours, the opponent by name).
+	var state := ("You were tired" if sit == "she_tired" else "You got hurt") if sit.begins_with("she_") \
+		else "%s was %s" % [str(names[1]), str(MODES[sit]["label"]).to_lower()]
+	var why := "%s at the end of that round. %s" % [state, named(str(c["tell"]), names)]
 	return {"sit": sit, "call": call, "why": why}

@@ -194,6 +194,9 @@ static func face(a: Dictionary) -> Vector3:
 	var skel: Skeleton3D = a["skel"]
 	var n: Node3D = a["node"]
 	var head := skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Head")).origin
+	var ik: Object = a.get("ik")
+	if ik != null and ik.head_world != Vector3.INF:
+		head = ik.head_world   # S309: the head as shown (a look moves it)
 	return head + n.global_transform.basis.z.normalized() * 0.09 * n.scale.x + Vector3.UP * 0.04 * n.scale.x
 
 

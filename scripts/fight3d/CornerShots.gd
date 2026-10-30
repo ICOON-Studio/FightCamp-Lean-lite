@@ -54,7 +54,9 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 			var coach: Dictionary = ctx["coach"]
 			var cf := bone(coach, "Head")
 			var mid := (face + cf) * 0.5
-			var p := mid + l * 1.7 + Vector3.UP * 0.15
+			# S309: the coach's head is higher now (his look lifts his back): the lens sits just under the line of their
+			# eyes, so the top rope stays out of the frame.
+			var p := mid + l * 1.7 + Vector3.UP * 0.02
 			return {"pos": p, "look": mid, "fov": 32.0, "focus": p.distance_to(mid), "drift": d * 0.12}
 		"corner_wide":
 			# The whole corner from the ring's middle: her on the stool, the coach in front, the second on the apron.
@@ -87,8 +89,12 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 	return {}
 
 
-## A bone's world position on an actor ({skel}).
+## A bone's world position on an actor ({skel}). The head as shown when the actor's CornerIK has turned it (S309: a look
+## moves the head, and an outside read gets the clip's pose).
 static func bone(a: Dictionary, name: String) -> Vector3:
+	var ik: Object = a.get("ik")
+	if name == "Head" and ik != null and ik.head_world != Vector3.INF:
+		return ik.head_world
 	var skel: Skeleton3D = a["skel"]
 	return skel.global_transform * skel.get_bone_global_pose(skel.find_bone(name)).origin
 

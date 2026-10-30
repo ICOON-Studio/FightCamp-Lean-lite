@@ -2,13 +2,14 @@ extends Control
 ## S307 the corner minute's screen (docs/FIGHT_NIGHT_SCRIPT.md v2): letterbox bars (2.39:1 on the 16:9 frame), the rest
 ## clock, the coach's lines as captions in the lower bar, the corner card (what worked, what hurt, the coach's call) with
 ## the three calls to pick while the minute runs, and SKIP TO THE BELL.
-##   build(card, names)  build_intro()  clock(left_s)  say(text)  show_card(on)  picked(call)   signals: chose(call), skip
+##   build(card, names)  build_intro()  clock(left_s)  say(text)  show_card(on)  picked(call)   signals: chose(call), fixed(habit), skip
 
 const UI := preload("res://scripts/ui/UI.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
 
 signal chose(call: String)
+signal fixed(habit: String)
 signal skip
 
 ## Each bar's share of the frame height: (1 - (16/9) / 2.39) / 2.
@@ -20,6 +21,10 @@ var _caption: Label
 var _card: PanelContainer
 var _calls: Control
 var _said: Label
+var _fix_box: VBoxContainer
+var _fixes: Array = []
+var _names: Array = []
+var fix := ""
 
 
 func build(card: Dictionary, names: Array) -> void:
@@ -47,6 +52,7 @@ func build(card: Dictionary, names: Array) -> void:
 	_card.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.88), UI.LINE, 6, 1, 18, 14))
 	add_child(_card)
 	_pin(_card, Vector4(1, 1.0 - BAR, 1, 1.0 - BAR), Vector4(-1100, -330, -28, -16))
+	_card.grow_vertical = Control.GROW_DIRECTION_BEGIN   # a taller card (the fix row, S309) grows up, not into the bar
 	var v := UI.vbox(6)
 	_card.add_child(v)
 	v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL %s?" % str(names[0]).to_upper()))
@@ -60,8 +66,14 @@ func build(card: Dictionary, names: Array) -> void:
 		said.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		line.add_child(said)
 		v.add_child(line)
+	# S309: one fix for a habit the coach has seen (optional), then the plan.
+	_fixes = card.get("fixes", [])
+	_names = names
+	_fix_box = UI.vbox(4)
+	v.add_child(_fix_box)
+	_draw_fixes()
 	# S308: all eight calls, with when to use each and whether she can do it.
-	_calls = CallButtons.corner_grid(card.get("grades", {}), str(card["call"]), func(k: String): chose.emit(k))
+	_calls = CallButtons.corner_grid(card.get("grades", {}), str(card["call"]), names, func(k: String): chose.emit(k))
 	v.add_child(_calls)
 	_said = UI.muted("", UI.SMALL)
 	_said.visible = false
@@ -71,7 +83,7 @@ func build(card: Dictionary, names: Array) -> void:
 
 ## The intro's screen: the letterbox, the announcer's captions and SKIP TO THE BELL only.
 func build_intro() -> void:
-	build({"worked": "", "hurt": "", "why": "", "call": ""}, [""])
+	build({"worked": "", "hurt": "", "why": "", "call": ""}, ["", ""])
 	_clock.text = "FIGHT NIGHT"
 
 
@@ -87,11 +99,30 @@ func show_card(on: bool) -> void:
 	_card.visible = on
 
 
-## The call is made: the buttons go, the call stays on the card.
+## The call is made: the buttons go, the call (and the fix) stay on the card.
 func picked(call: String) -> void:
 	_calls.visible = false
+	_fix_box.visible = false
 	_said.text = "Your call: \"%s\"" % BoutRules.CORNER[call]
+	for h in _fixes:
+		if str(h["id"]) == fix:
+			_said.text += "   Fix: %s" % str(h["name"]).to_lower()
 	_said.visible = true
+
+
+func _draw_fixes() -> void:
+	for ch in _fix_box.get_children():
+		ch.queue_free()
+	if _fixes.is_empty():
+		return
+	_fix_box.add_child(UI.caps("FIX ONE HABIT FOR NEXT ROUND? (OPTIONAL)"))
+	_fix_box.add_child(CallButtons.fix_row(_fixes, _names, fix, _fix))
+
+
+func _fix(id: String) -> void:
+	fix = id
+	fixed.emit(id)
+	_draw_fixes()
 
 
 func _pin(c: Control, anchors: Vector4, offsets: Vector4) -> void:

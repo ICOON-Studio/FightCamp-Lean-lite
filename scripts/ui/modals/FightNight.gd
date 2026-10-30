@@ -11,6 +11,7 @@ const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
+const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -80,14 +81,18 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	for x in exs:
 		la += int(x["landed"][0])
 		lb += int(x["landed"][1])
-	v.add_child(UI.display("EXCHANGES %d-%d" % [won, exs.size() - won], 40, UI.GREEN if won * 2 > exs.size() else (UI.RED if won * 2 < exs.size() else UI.FG)))
-	v.add_child(UI.muted("Punches landed %d-%d. Her energy %d." % [la, lb, int(LiveRound.her_energy(lv, exs.size()))], UI.SMALL))
+	var names: Array = pv["names"]
+	v.add_child(UI.display("EXCHANGES WON %d-%d" % [won, exs.size() - won], 40, UI.GREEN if won * 2 > exs.size() else (UI.RED if won * 2 < exs.size() else UI.FG)))
+	v.add_child(UI.muted("Punches landed: %s %d, %s %d. %s's energy %d." % [names[0], la, names[1], lb, names[0], int(LiveRound.her_energy(lv, exs.size()))], UI.SMALL))
 	var last: Dictionary = exs[-1]
 	v.add_child(UI.label(str(last["verdict"]), 20, UI.GREEN if bool(last["won"]) else UI.RED, "body", true))
-	v.add_child(UI.caps("THE CLUE"))
+	if str(last.get("habit_line", "")) != "":
+		v.add_child(UI.label(str(last["habit_line"]), 18, UI.AMBER, "body", true))
+	v.add_child(UI.caps("WHAT YOU SEE"))
 	v.add_child(UI.label(str(pv["clue"]), 24, UI.AMBER, "bold", true))
-	v.add_child(UI.caps("SHOUT FROM THE CORNER (%d shouted this round; after two, each lands at half)" % int(pv["shouts"])))
-	v.add_child(CallButtons.shout_row(pv["offers"], pv["grades"], str(pv["coach"]), func(k: String): main.act("fightstep", "shout:" + k)))
+	v.add_child(UI.caps("WHAT DO YOU SHOUT TO %s?" % str(names[0]).to_upper()))
+	v.add_child(UI.muted(ShoutBar.shout_note(int(pv["shouts"]), str(names[0])), UI.SMALL))
+	v.add_child(CallButtons.shout_row(pv["offers"], pv["grades"], str(pv["coach"]), names, func(k: String): main.act("fightstep", "shout:" + k)))
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	var sim := UI.button("Sim the round", "BtnQuiet", main.act.bind("fightstep", "round_out"))
@@ -101,8 +106,10 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	var last: Dictionary = rounds[rounds.size() - 1]
 	var n := int(m["round"])
 	var total := int(m.get("total", BoutRules.ROUNDS))
+	var fname := str(main.career.fighter_by_id(str(m["fid"]))["first"])
+	var oname := str(main.career.fighter_by_id(str(m["fid"]))["bout"]["opp"]["first"])
 	v.add_child(UI.caps("ROUND %d OF %d" % [n, total]))
-	v.add_child(UI.display("HER ROUND" if bool(last["won"]) else "THEIR ROUND", 48, UI.GREEN if bool(last["won"]) else UI.RED))
+	v.add_child(UI.display("%s'S ROUND" % (fname if bool(last["won"]) else oname).to_upper(), 48, UI.GREEN if bool(last["won"]) else UI.RED))
 	if str(last["corner"]) != "":
 		v.add_child(UI.muted("Your call: \"%s\"" % BoutRules.CORNER[last["corner"]], UI.SMALL))
 	var beats := UI.vbox(6)
@@ -111,7 +118,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	v.add_child(beats)
 	var so_far: Array = []
 	for r in rounds:
-		so_far.append("red" if bool(r["won"]) else "blue")
+		so_far.append(fname if bool(r["won"]) else oname)
 	v.add_child(UI.muted("Rounds so far: " + ", ".join(so_far), UI.SMALL))
 	# S302 energy: what each has left at the bell (the minute's rest gives some back; combos and the call spend it).
 	var en: Dictionary = last.get("energy", {})
@@ -130,13 +137,16 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	# S303 corner card (watched rounds only: the 3D view reads it off the beats it played).
 	var advice := ""
 	if (last.has("card") or last.has("exchanges")) and stop == "":
-		var fname := str(main.career.fighter_by_id(str(m["fid"]))["first"])
-		var oname := str(main.career.fighter_by_id(str(m["fid"]))["bout"]["opp"]["first"])
 		var cc := CornerCard.card(last.get("card", CornerCard.summarize([])), float(en.get("a_end", 100.0)), [fname, oname])
+		# S309: the exchanges' read already says the call in the coach's words.
+		var coach_says := "\"%s\"" % cc["why"]
 		if last.has("exchanges"):
 			cc.merge(Exchanges.read(last["exchanges"], [fname, oname]), true)
+			coach_says = "\"%s\"" % cc["why"]
+		else:
+			coach_says = "\"%s. %s\"" % [BoutRules.CORNER[cc["call"]], cc["why"]]
 		var grid := UI.vbox(2)
-		for row in [["WORKED", cc["worked"], UI.GREEN], ["HURT", cc["hurt"], UI.RED], ["COACH", "\"%s.\" %s" % [BoutRules.CORNER[cc["call"]], cc["why"]], UI.AMBER]]:
+		for row in [["WORKED", cc["worked"], UI.GREEN], ["HURT", cc["hurt"], UI.RED], ["COACH", coach_says, UI.AMBER]]:
 			var line := UI.hbox(10)
 			var tag := UI.caps(str(row[0]))
 			tag.custom_minimum_size = Vector2(90, 0)
@@ -149,11 +159,21 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		v.add_child(grid)
 		advice = str(cc["call"]) if n < total else ""
 	if n < total and stop == "":
-		v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL HER?"))
+		v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL %s?" % fname.to_upper()))
+		# S309: one fix for a habit the coach has seen (kept on the moment until the call is made).
+		var fixes := LiveRound.fixes(main.career.fighter_by_id(str(m["fid"])), last)
+		if not fixes.is_empty():
+			v.add_child(UI.muted("Fix one habit for next round? (optional)", UI.SMALL))
+			v.add_child(CallButtons.fix_row(fixes, [fname, oname], str(m.get("fix_pick", "")), func(h: String):
+				m["fix_pick"] = h
+				main.redraw_modal()))
 		var grades := {}
 		for k in Exchanges.CALLS.keys():
 			grades[k] = Exchanges.grade(str(k), LiveRound.values(main.career.fighter_by_id(str(m["fid"]))))["word"]
-		v.add_child(CallButtons.corner_grid(grades, advice, func(k: String): main.act("fightstep", "corner:" + k)))
+		v.add_child(CallButtons.corner_grid(grades, advice, [fname, oname], func(k: String):
+			var fx := str(m.get("fix_pick", ""))
+			m.erase("fix_pick")
+			main.act("fightstep", "corner:" + k + ("|" + fx if fx != "" else ""))))
 	else:
 		var foot := UI.hbox(10)
 		foot.add_child(UI.spacer())

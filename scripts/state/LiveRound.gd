@@ -6,6 +6,8 @@ extends RefCounted
 
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const HabitFix := preload("res://scripts/rules/HabitFix.gd")
+const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
 ## Her values a call is done with: the fight stats, her footwork and her personality.
@@ -22,8 +24,9 @@ static func _rng(c: Career, f: Dictionary, n: int, i: int) -> RandomNumberGenera
 	return rng
 
 
-## Opens round n. plan = the corner minute's call ("" before round 1); e = Bouts._energy's round.
-static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, e: Dictionary) -> void:
+## Opens round n. plan = the corner minute's call ("" before round 1); e = Bouts._energy's round; fix = the habit the
+## corner fixed for this round (S309 HabitFix, "" = none).
+static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, e: Dictionary, fix: String = "") -> void:
 	var opp: Dictionary = f["bout"]["opp"]
 	var base := BoutRules.fight_power(f["stats"], f["camp"], int(f["bout"]["film"]), "") \
 		+ BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {}))) + float(e.get("bonus", 0.0)) - float(opp.get("rating", 60.0))
@@ -34,7 +37,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	var rng := _rng(c, f, n, 0)
 	var mode := Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, 0, "", float(e.get("b", 100.0)), false, rng)
 	m["live"] = {"n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": false, "opp_hurt": false,
-		"cost": 0.0, "e": e, "base": base}
+		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS))}
 
 
 static func live(m: Dictionary) -> Dictionary:
@@ -72,7 +75,7 @@ static func preview(f: Dictionary, m: Dictionary) -> Dictionary:
 		grades[k] = Exchanges.grade(str(k), vals)["word"]
 	return {"sit": sit, "clue": Exchanges.clue(sit, names, i + int(lv["n"]) * 3), "offers": Exchanges.offers(sit),
 		"coach": str(Exchanges.MODES[sit]["best"]), "grades": grades, "at": i * Exchanges.EX_SECONDS, "i": i,
-		"shouts": int(lv["shouts"])}
+		"shouts": int(lv["shouts"]), "names": names}
 
 
 ## Fights the next exchange with this shout ("" = say nothing). Returns the closed round after the sixth, else {}.
@@ -94,12 +97,16 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		lv["shouts"] = int(lv["shouts"]) + 1
 	var same_game := i > 0 and str((exs[i - 1] as Dictionary)["mode"]) == str(lv["mode"])
 	var finds := same_game and float(vals.get("fight_iq", 55.0)) >= Exchanges.IQ_FINDS
-	var d := float(lv["base"]) + Exchanges.call_edge(call, sit, vals, heard, finds)
+	# S309: a habit the situation punishes costs her, unless the corner fixed it (as far as she took it in).
+	var fix := str(lv.get("fix", ""))
+	var habit := HabitFix.punished(f.get("habits", []), sit, n, i, bool(lv.get("last", false)))
+	var d := float(lv["base"]) + Exchanges.call_edge(call, sit, vals, heard, finds) + HabitFix.cost(habit, fix, Exchanges.uptake(coach, 0))
 	var rng := _rng(c, f, n, i + 1)
 	var s := Exchanges.settle(d, rng.randf(), rng.randf())
 	var names := [str(f["first"]), str(opp["first"])]
 	var rec := {"i": i, "mode": str(lv["mode"]), "sit": sit, "call": call, "shout": shouted, "fit": Exchanges.fit(call, sit),
-		"won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names)}
+		"won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
+		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix) if habit != "" else ""}
 	exs.append(rec)
 	if call != "":
 		lv["cost"] = float(lv["cost"]) + float(Exchanges.CALLS[call]["cost"])
@@ -127,13 +134,45 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 		fb["energy"]["a"] = clampf(float(fb["energy"]["a"]) - spent, 0.0, 100.0)
 	var worked := 0
 	var calls := 0
+	var paid := {}
 	for x in exs:
 		if bool(x["shout"]):
 			calls += 1
 			worked += 1 if bool(x["won"]) and str(x["fit"]) in ["best", "ok"] else 0
+		var h := str(x.get("habit", ""))
+		if h != "" and h != str(lv.get("fix", "")):
+			paid[h] = int(paid.get(h, 0)) + 1
+	# S309: the coach saw each habit she paid for; he can fix it in the next corner.
+	if not f.has("notes_seen"):
+		f["notes_seen"] = []
+	for h in paid.keys():
+		if not (f["notes_seen"] as Array).has("habit:" + str(h)):
+			(f["notes_seen"] as Array).append("habit:" + str(h))
 	m.erase("live")
 	return {"n": int(lv["n"]), "won": ro["won"], "won_n": ro["won_n"], "mine": ro["mine"], "theirs": ro["theirs"],
-		"corner": str(lv["plan"]), "energy": e, "exchanges": exs, "landed": ro["landed"], "calls": calls, "worked": worked}
+		"corner": str(lv["plan"]), "energy": e, "exchanges": exs, "landed": ro["landed"], "calls": calls, "worked": worked,
+		"fix": str(lv.get("fix", "")), "habits_paid": paid}
+
+
+## The habits the corner can fix before the next round: [{id, name, paid (times this round)}]. r = the closed round.
+static func fixes(f: Dictionary, r: Dictionary) -> Array:
+	var out: Array = []
+	var paid: Dictionary = r.get("habits_paid", {})
+	for h in HabitFix.offers(f.get("habits", []), f.get("notes_seen", [])):
+		out.append({"id": h, "name": habit_name(h), "paid": int(paid.get(h, 0))})
+	return out
+
+
+static var _names := {}
+
+
+## A habit's name from Kalli's bank ("Drops the right after the jab"); the id when the bank lacks it.
+static func habit_name(id: String) -> String:
+	if _names.is_empty() and FileAccess.file_exists(HABITS_PATH):
+		var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(HABITS_PATH))
+		for row in (data as Dictionary).get("habits", []) if data is Dictionary else []:
+			_names[str(row.get("id", ""))] = str(row.get("name", ""))
+	return str(_names.get(id, id.replace("_", " ").capitalize()))
 
 
 ## Plays the rest of the open round with no shouts (the corner's plan). Returns the closed round.

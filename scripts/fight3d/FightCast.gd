@@ -64,6 +64,7 @@ static func corner(view: Node) -> bool:
 	for k in Exchanges.CALLS.keys():
 		grades[k] = Exchanges.grade(str(k), vals)["word"]
 	card["grades"] = grades
+	card["fixes"] = LiveRound.fixes(f, r)   # S309: one habit the corner can fix
 	view.hide_hud()
 	Engine.time_scale = view.pace()
 	var cm := CornerMinute.new()

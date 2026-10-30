@@ -434,7 +434,7 @@ func _hud() -> void:
 	var left := maxf(0.0, length - t)
 	var seen := _exchanges().slice(0, int(t / Exchanges.EX_SECONDS))
 	var won := seen.filter(func(x): return bool(x["won"])).size()
-	_clock.text = "ROUND %d OF %d   %d:%02d   EXCHANGES %d-%d" % [round_n, total, int(left) / 60, int(left) % 60, won, seen.size() - won]
+	_clock.text = "ROUND %d OF %d   %d:%02d   EXCHANGES WON %d-%d" % [round_n, total, int(left) / 60, int(left) % 60, won, seen.size() - won]
 
 
 ## This round's exchanges fought so far (live, or the closed round's).

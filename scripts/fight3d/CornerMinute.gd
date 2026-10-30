@@ -37,6 +37,7 @@ var ctx: Dictionary
 var ui: Control
 var t := 0.0
 var pick := ""
+var fix := ""             # S309: the habit fixed for the next round ("" = none)
 var _shot_i := -1
 var _cue_i := 0
 var _frame: Dictionary = {}
@@ -62,6 +63,7 @@ func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
 	view.add_child(ui)
 	ui.build(ctx["card"], ctx["names"])
 	ui.chose.connect(_pick)
+	ui.fixed.connect(func(h: String): fix = h)
 	ui.skip.connect(finish)
 	_tick_ui()
 
@@ -331,7 +333,12 @@ func _pick(k: String) -> void:
 	ui.picked(k)
 	_lines.clear()
 	_lines.append([t, "\"%s\"" % LINES.get(k, BoutRules.CORNER[k])])
-	_lines.append([t + 3.4, "\"%s\"" % str(ctx["card"]["why"])])
+	# S309: his read only when it backs your call (it argued for his own call after you picked another).
+	if k == str(ctx["card"]["call"]):
+		_lines.append([t + 3.4, "\"%s\"" % str(ctx["card"]["why"])])
+	for h in ctx["card"].get("fixes", []):
+		if str(h["id"]) == fix:
+			_lines.append([t + 3.4, "\"One more thing. %s: fix it this round.\"" % str(h["name"])])
 	_lines.append([t + 7.5, ""])
 	crew.play(crew.actors["coach"], "af_crouch_idle")
 	crew.play(ctx_actor("her"), "af_sit_idle")
@@ -356,4 +363,4 @@ func finish() -> void:
 	stage.broadcast(true)
 	ui.queue_free()
 	queue_free()
-	done.emit(pick)
+	done.emit(pick + ("|" + fix if fix != "" else ""))

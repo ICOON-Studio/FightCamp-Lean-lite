@@ -3,12 +3,14 @@ extends SkeletonModifier3D
 ## a hand reaches a point (the bottle at her lips, the cutman's fingers on her cheekbone) by analytic two-bone arm IK
 ## (FootPlant's solver, Holden "Simple Two Joint IK"), and the head turns to look at a point (the coach and his boxer face
 ## to face; the ActionForge crouch and sit look at the floor). Each eases in and out over EASE_S; the hand keeps the turn
-## the clip gave it; the head turns at most MAX_LOOK_DEG, the neck taking NECK_SHARE of it.
+## the clip gave it; the head turns at most MAX_LOOK_DEG, shared down the spine (CHAIN_SHARE).
 ##   attach(skel, body) -> CornerIK   reach(side, target: Callable | null)   look(target: Callable | null)
 
 const EASE_S := 0.35
 const MAX_LOOK_DEG := 65.0
-const NECK_SHARE := 0.4
+## A look's share per bone from the head down to the chest (MetaHuman: head, neck_02, neck_01, spine_05, spine_04,
+## spine_03); a shorter chain uses its first entries, rescaled.
+const CHAIN_SHARE := [0.14, 0.12, 0.14, 0.2, 0.2, 0.2]
 
 var _body: Node3D
 var _arms := {}            # "Left"/"Right" -> [upper, lower, hand]
@@ -16,6 +18,10 @@ var _reach := {}           # side -> {target: Callable, w: float, on: bool}
 var _look := {"target": Callable(), "w": 0.0, "on": false}
 var _neck := -1
 var _head := -1
+var _chain: Array = []      # the look's bones, head first, up to the chest
+## The head as shown (world), after this modifier ran; INF before the first frame. A bone read from outside gets the clip's
+## pose, before the modifiers (S307 trap), and the look moves the head now (S309): the cameras frame this instead.
+var head_world := Vector3.INF
 var _face_local := Vector3.BACK   # the face's direction in the head bone's own frame
 var _fwd_skel := Vector3.BACK     # the body's forward in the skeleton's space (a straight arm's elbow bends behind it)
 
@@ -46,6 +52,13 @@ func _setup(skel: Skeleton3D) -> bool:
 	_head = skel.find_bone("Head")
 	if _neck < 0 or _head < 0:
 		return false
+	var chest := skel.find_bone("Chest")
+	var b := _head
+	while b >= 0 and _chain.size() < CHAIN_SHARE.size():
+		_chain.append(b)
+		if b == chest:
+			break
+		b = skel.get_bone_parent(b)
 	# In the rest pose the body faces +Z of its own frame; read that direction in the head bone's frame.
 	var fwd_skel := (skel.global_transform.basis.inverse() * _body.global_transform.basis * Vector3.BACK).normalized()
 	_fwd_skel = fwd_skel
@@ -73,6 +86,10 @@ func _process_modification() -> void:
 		return
 	var delta := maxf(get_process_delta_time(), 1e-4)
 	var to_skel := skel.global_transform.affine_inverse()
+	# The look first: it turns the chest (S309), and the hands then still meet what they reach.
+	_look["w"] = move_toward(float(_look["w"]), 1.0 if bool(_look["on"]) else 0.0, delta / EASE_S)
+	if float(_look["w"]) > 0.0 and (_look["target"] as Callable).is_valid():
+		_turn_head(skel, to_skel * ((_look["target"] as Callable).call() as Vector3), _smooth(float(_look["w"])))
 	for side in _arms:
 		var r: Dictionary = _reach[side]
 		r["w"] = move_toward(float(r["w"]), 1.0 if bool(r["on"]) else 0.0, delta / EASE_S)
@@ -81,18 +98,18 @@ func _process_modification() -> void:
 			var anim := skel.get_bone_global_pose(ids[2]).origin
 			var want: Vector3 = to_skel * ((r["target"] as Callable).call() as Vector3)
 			_solve(skel, ids, anim.lerp(want, _smooth(float(r["w"]))))
-	_look["w"] = move_toward(float(_look["w"]), 1.0 if bool(_look["on"]) else 0.0, delta / EASE_S)
-	if float(_look["w"]) > 0.0 and (_look["target"] as Callable).is_valid():
-		_turn_head(skel, to_skel * ((_look["target"] as Callable).call() as Vector3), _smooth(float(_look["w"])))
+	head_world = skel.global_transform * skel.get_bone_global_pose(_head).origin
 
 
 static func _smooth(u: float) -> float:
 	return u * u * (3.0 - 2.0 * u)
 
 
-## Turns neck and head (skeleton space) so the face points at `t`, by at most MAX_LOOK_DEG, `w` of the way.
+## Turns the spine, neck and head (skeleton space) so the face points at `t`, by at most MAX_LOOK_DEG, `w` of the way.
+## S309 (operator on the corner still: "his neck looks wierd"): the crouching coach looked up at her with the neck and head
+## alone (40/60) out of a back bent to the floor, so the head jutted out of hunched shoulders. The turn is now shared down
+## the chain from the head to the chest (CHAIN_SHARE, head first): the back lifts and no joint takes more than a quarter.
 func _turn_head(skel: Skeleton3D, t: Vector3, w: float) -> void:
-	var gn := skel.get_bone_global_pose(_neck)
 	var gh := skel.get_bone_global_pose(_head)
 	var face := (gh.basis.orthonormalized() * _face_local).normalized()
 	var want := (t - gh.origin).normalized()
@@ -102,18 +119,21 @@ func _turn_head(skel: Skeleton3D, t: Vector3, w: float) -> void:
 	var axis := face.cross(want)
 	if axis.length() < 1e-6:
 		return
+	axis = axis.normalized()
 	var turn := minf(angle, deg_to_rad(MAX_LOOK_DEG)) * w
-	var qn := Quaternion(axis.normalized(), turn * NECK_SHARE)
-	var qh := Quaternion(axis.normalized(), turn * (1.0 - NECK_SHARE))
-	var parent := skel.get_bone_parent(_neck)
-	var qp := skel.get_bone_global_pose(parent).basis.get_rotation_quaternion() if parent >= 0 else Quaternion.IDENTITY
-	var n1 := qn * gn.basis.get_rotation_quaternion()
-	var h1 := qh * qn * gh.basis.get_rotation_quaternion()
-	# The head's parent (neck_02 on a MetaHuman) turns with the neck: its new global turn is qn on the old one.
-	var hp := skel.get_bone_parent(_head)
-	var qhp := qn * skel.get_bone_global_pose(hp).basis.get_rotation_quaternion()
-	skel.set_bone_pose_rotation(_neck, (qp.inverse() * n1).normalized())
-	skel.set_bone_pose_rotation(_head, (qhp.inverse() * h1).normalized())
+	var share_sum := 0.0
+	for i in _chain.size():
+		share_sum += float(CHAIN_SHARE[i])
+	# Old global turns first (setting a bone moves its children's globals), then each bone from the chest up.
+	var old: Array = _chain.map(func(b): return skel.get_bone_global_pose(b).basis.get_rotation_quaternion())
+	var parent := skel.get_bone_parent(_chain[-1])
+	var parent_new := skel.get_bone_global_pose(parent).basis.get_rotation_quaternion() if parent >= 0 else Quaternion.IDENTITY
+	var acc := Quaternion.IDENTITY
+	for i in range(_chain.size() - 1, -1, -1):
+		acc = Quaternion(axis, turn * float(CHAIN_SHARE[i]) / share_sum) * acc
+		var g1: Quaternion = acc * (old[i] as Quaternion)
+		skel.set_bone_pose_rotation(_chain[i], (parent_new.inverse() * g1).normalized())
+		parent_new = g1
 
 
 ## Two-bone IK in the skeleton's space (FootPlant._solve): the elbow bends in the plane it bends in now.

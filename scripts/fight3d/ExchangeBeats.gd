@@ -27,7 +27,7 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 		rl["stopped"] = str(r.get("stopped", ""))
 	var plan := RoundScript.build(rl, str(ctx["a_style"]), str(ctx["b_style"]), Exchanges.EX_SECONDS, int(ctx["seed"]) + k * 13, ctx["profiles"])
 	if k == 1 or k == 4:
-		_habits(plan, ctx, k)
+		_habits(plan, ctx, k, str(x.get("fix", "")))
 	var f: Dictionary = ctx["f"]
 	ComboWords.caption(plan["beats"], {"a": f.get("combos", {}), "b": (ctx["profiles"]["b"] as Dictionary).get("combos", {})}, ctx["names"], int(ctx["day"]) + k * 17)
 	_show_game(plan["beats"], str(x["sit"]), int(ctx["seed"]) + k * 29)
@@ -40,6 +40,9 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 		out.append(b)
 	if bool(x.get("shout", false)):
 		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": "Corner: \"%s\"" % Exchanges.CALLS[str(x["call"])]["shout"]})
+	# S309: a habit punished (or the corner's fix holding) gets its own caption before the verdict.
+	if str(x.get("habit_line", "")) != "":
+		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["habit_line"])})
 	out.append({"t": at + Exchanges.EX_SECONDS - 2.4, "who": "a", "move": "say", "result": "none", "caption": str(x["verdict"])})
 	out.sort_custom(func(a, b): return float(a["t"]) < float(b["t"]))
 	return out
@@ -95,12 +98,14 @@ static func _swap(beats: Array, who: String, moves: Array, odds: float, rng: Ran
 			b["move"] = str(moves[rng.randi_range(0, moves.size() - 1)])
 
 
-## Fight model step 5 (S301): both boxers' habits show; Kalli's ring line captions a habit's first fire.
-static func _habits(plan: Dictionary, ctx: Dictionary, k: int) -> void:
+## Fight model step 5 (S301): both boxers' habits show; Kalli's ring line captions a habit's first fire. fix = the habit
+## the corner fixed this round (S309): she does not show it.
+static func _habits(plan: Dictionary, ctx: Dictionary, k: int, fix: String = "") -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = int(ctx["day"]) * 53 + int(ctx["n"]) * 7 + k
 	var won_last := bool(ctx.get("won_last", false))
-	var fires := HabitBeats.apply(plan, {"a": (ctx["f"] as Dictionary).get("habits", []), "b": RoundStyle.opponent_habits(ctx["opp"])},
+	var mine: Array = ((ctx["f"] as Dictionary).get("habits", []) as Array).filter(func(h): return str(h) != fix)
+	var fires := HabitBeats.apply(plan, {"a": mine, "b": RoundStyle.opponent_habits(ctx["opp"])},
 		{"won_last": {"a": won_last, "b": int(ctx["n"]) >= 2 and not won_last}}, rng)
 	var lines := ring_lines()
 	var said := {}
