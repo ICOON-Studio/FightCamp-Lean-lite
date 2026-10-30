@@ -28,6 +28,10 @@ const MOCAP_ONLINE := {
 	"mc_hit_hook": "Punch_M3_Hit_By_Hook_V1_Short", "mc_hit_combo": "Punch_M3_Hit_By_Combo_V1_Short",
 	"mc_knockout": "Punch_M3_Knockout_V1", "mc_knockout_count": "Punch_M3_Knockout_Countdown_V1", "mc_win": "Punch_M3_Win_V1",
 }
+## S317 ring entry (operator S316: "the first animation is about entering the ring through the ropes"): Mixamo "Entry"
+## (7.3 s, she bends and ducks between the ropes IN PLACE - FightIntro carries her through), retargeted to MetaHuman in
+## the old repo (Game Godot/assets/anim/mixamo_s215/mh). Its hips keys are absolute heights, not deltas.
+const ENTRY := {"entry_ring": "res://assets/anim/entry/entry_entering_ring.res"}
 const PRO_PREFIX := "mc_Box1_M3_"
 ## Clips that travel (their hips keep the X/Z they author); every other clip is thrown in place. Pro clips travel when
 ## their name says the body goes somewhere (knockouts, falls, wins, steps).
@@ -69,6 +73,9 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D, corner_only: bool =
 	for name in baked:
 		if _add_baked(lib, skel, prefix, str(name), str(baked[name])):
 			added.append(name)
+	for name in ({} if corner_only else ENTRY):
+		if _add_baked(lib, skel, prefix, str(name), str(ENTRY[name]), true):
+			added.append(name)
 	return added
 
 
@@ -87,7 +94,8 @@ static func pro_name(stem: String) -> String:
 	return "pro_" + stem.trim_prefix(PRO_PREFIX).to_lower()
 
 
-static func _add_baked(lib: AnimationLibrary, skel: Skeleton3D, prefix: String, name: String, path: String) -> bool:
+## `absolute`: the clip's hips keys are heights, not deltas - made deltas from its first key (she starts standing).
+static func _add_baked(lib: AnimationLibrary, skel: Skeleton3D, prefix: String, name: String, path: String, absolute: bool = false) -> bool:
 	if not ResourceLoader.exists(path):
 		return false
 	var anim := (load(path) as Animation).duplicate(true) as Animation
@@ -95,6 +103,10 @@ static func _add_baked(lib: AnimationLibrary, skel: Skeleton3D, prefix: String, 
 	for t in anim.get_track_count():
 		anim.track_set_path(t, NodePath("%s:%s" % [prefix, str(anim.track_get_path(t))]))
 		if anim.track_get_type(t) == Animation.TYPE_POSITION_3D:
+			if absolute:
+				var first: Vector3 = anim.track_get_key_value(t, 0)
+				for k in anim.track_get_key_count(t):
+					anim.track_set_key_value(t, k, (anim.track_get_key_value(t, k) as Vector3) - first)
 			# Hips keys are deltas from the source body's rest: this body keeps its own hip height.
 			var rest: Vector3 = skel.get_bone_rest(hips).origin
 			for k in anim.track_get_key_count(t):

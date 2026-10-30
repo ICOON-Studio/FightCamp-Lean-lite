@@ -18,6 +18,10 @@ const BODY := [["Hips", 0.17], ["Chest", 0.19], ["Head", 0.12], ["LeftHand", 0.0
 const RADIUS_M := 0.018
 ## S312: the furthest a ring rope gives under a body (a real ring rope bows ~0.1-0.4 m). S311's film bowed one 0.71 m.
 const MAX_BOW_M := 0.35
+## S317 the ring entry: her cornerman holds the ropes apart where she ducks in - the middle rope pressed down, the top
+## one lifted (by height: metres up/down at the crossing point), easing off over PART_R along the rope.
+const PART_DY := [-0.05, -0.3, 0.16]   # bottom, middle, top rope
+const PART_R := 0.9
 
 var segments: Array = []      # MeshInstance3D, SEGMENTS per rope
 var _ropes: Array = []        # [{a, b, n (outward), u: PackedVector3Array, prev: PackedVector3Array, segs: Array}]
@@ -25,6 +29,15 @@ var _left := 0.0
 ## The deepest push a body part wanted past MAX_BOW_M (it went through the rope): metres past the line, "<boxer> <bone>".
 var through_m := 0.0
 var through_who := ""
+var _parts := {}              # id -> [crossing point on the rope line, weight 0..1]
+
+
+## Holds the ropes apart at `at` (a point on a rope side) with weight `w` (0 = let go); `id` = who is coming through.
+func part(id: int, at: Vector3, w: float) -> void:
+	if w <= 0.0:
+		_parts.erase(id)
+	else:
+		_parts[id] = [at, minf(w, 1.0)]
 
 
 ## `half` = posts at (+-half, +-half); one rope per side at each of `heights`; `mat_of.call(h)` a new material for a piece.
@@ -98,6 +111,13 @@ func _step(rope: Dictionary, spheres: Array) -> void:
 					through_who = str(s[2])
 		if next[k].length() > MAX_BOW_M:
 			next[k] = next[k].normalized() * MAX_BOW_M
+		for id in _parts:
+			var at: Vector3 = _parts[id][0]
+			var d := Vector2(rest.x - at.x, rest.z - at.z).length()
+			if d >= PART_R:
+				continue
+			var f := 0.5 * (1.0 + cos(PI * d / PART_R)) * float(_parts[id][1])
+			next[k] = next[k].lerp(Vector3(0, float(PART_DY[0 if a.y < 0.65 else (1 if a.y < 1.05 else 2)]), 0), f)
 	rope["prev"] = u
 	rope["u"] = next
 

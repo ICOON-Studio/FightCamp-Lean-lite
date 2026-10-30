@@ -20,8 +20,12 @@ const STILLS := [[1.0, "c01_bell_part"], [3.2, "c02_behind_walk"], [5.3, "c03_lo
 
 ## S310: the tale of the tape holds FightIntro.TAPE_S after the wide; every later still moves by it.
 const TAPE_S := 5.5
-const INTRO_STILLS := [[1.2, "i01_wide"], [4.6, "i015_tale_of_the_tape"], [3.4 + TAPE_S, "i02_red_named"], [6.4 + TAPE_S, "i03_blue_named"],
-	[9.0 + TAPE_S, "i04_walk_in"], [10.9 + TAPE_S, "i05_touch"], [12.0 + TAPE_S, "i06_seconds_out"]]
+## S317: the ring entry (FightIntro.ENTER_S) comes first; every later intro still moves by it.
+const E := 8.8
+const INTRO_STILLS := [[0.6, "e01_red_outside"], [2.7, "e02_red_ducks"], [3.9, "e03_red_inside"], [5.1, "e04_blue_ducks"],
+	[7.2, "e05_to_corners"], [1.2 + E, "i01_wide"], [4.6 + E, "i015_tale_of_the_tape"], [3.4 + TAPE_S + E, "i02_red_named"],
+	[6.4 + TAPE_S + E, "i03_blue_named"], [9.0 + TAPE_S + E, "i04_walk_in"], [10.9 + TAPE_S + E, "i05_touch"],
+	[12.0 + TAPE_S + E, "i06_seconds_out"]]
 
 var main: Node
 var out_dir := "user://corner_film"
@@ -79,7 +83,7 @@ func _initialize() -> void:
 	_check(intro != null and not bool(view.playing), "the intro plays before round 1")
 	if intro != null:
 		if film:
-			await _until(func(): return not is_instance_valid(intro), 30.0)
+			await _until(func(): return not is_instance_valid(intro), 45.0)
 		else:
 			await _watch_intro(intro)
 		await _wait(2)
@@ -130,9 +134,19 @@ func _find(view: Node, method: String) -> Node:
 func _watch_intro(fi: Node) -> void:
 	var k := 0
 	var touch := 9.0
+	var head := [[9.0, 0.0], [9.0, 0.0]]   # per boxer: lowest / highest head height during her entry
+	var crossed := [false, false]
 	while is_instance_valid(fi):
 		var tm := float(fi.t)
-		if tm > 10.7 + TAPE_S and tm < 11.2 + TAPE_S:
+		for i in 2:
+			var t0 := 0.0 if i == 0 else float(fi.BLUE_ENTER_S)
+			if tm > t0 + 0.2 and tm < t0 + 5.4:
+				var hy: float = CornerShots.bone(fi.stage.boxers[i], "Head").y
+				head[i] = [minf(head[i][0], hy), maxf(head[i][1], hy)]
+				var e: Dictionary = fi._entry(i)
+				var pos: Vector3 = CornerShots.pos(fi.stage.boxers[i])
+				crossed[i] = crossed[i] or (pos - (e["rope"] as Vector3)).dot(e["in"]) > 0.3
+		if tm > 10.7 + TAPE_S + E and tm < 11.2 + TAPE_S + E:
 			var st: Node3D = fi.stage
 			var g0: Vector3 = st.glove_front(0, st.hand_of(0, "LeftHand"))
 			var g1: Vector3 = st.glove_front(1, st.hand_of(1, "LeftHand"))
@@ -144,6 +158,10 @@ func _watch_intro(fi: Node) -> void:
 			print("wrote ", path)
 			k += 1
 		await process_frame
+	for i in 2:
+		print("CORNER entry boxer %d: head %.2f -> %.2f m (ducks %.2f), crossed the ropes %s" % [i, head[i][1], head[i][0],
+			head[i][1] - head[i][0], crossed[i]])
+		_check(head[i][1] - head[i][0] > 0.15 and crossed[i], "boxer %d ducks through the ropes (head drops > 15 cm, ends inside)" % i)
 	print("CORNER intro gloves at the touch, closest %.3f m" % touch)
 	_check(touch < 0.12, "the gloves touch in the intro (< 12 cm apart)")
 

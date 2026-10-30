@@ -27,3 +27,7 @@ common/snap_controls_to_pixels=true
 renderer/rendering_method="forward_plus"
 renderer/rendering_method.mobile="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.113725, 0.0901961, 0.0784314, 1)
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/easy-compositor/plugin.cfg", "res://addons/godot-motion-blur/plugin.cfg")

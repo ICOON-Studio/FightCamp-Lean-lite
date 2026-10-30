@@ -20,7 +20,8 @@ func build(ring_m: float, apron_m: float) -> void:
 
 func _build_ring() -> void:
 	var half := RING_M * 0.5
-	_box(Vector3(RING_M + APRON_M * 2.0, 0.08, RING_M + APRON_M * 2.0), Vector3(0, -0.04, 0), Color(0.22, 0.31, 0.46), 0.95)
+	# S317 look pass: a saturated canvas blue under the rig (was a dull 0.22/0.31/0.46 that read grey on camera).
+	_box(Vector3(RING_M + APRON_M * 2.0, 0.08, RING_M + APRON_M * 2.0), Vector3(0, -0.04, 0), Color(0.09, 0.28, 0.6), 0.85)
 	_box(Vector3(RING_M + APRON_M * 2.0 + 0.02, 1.0, RING_M + APRON_M * 2.0 + 0.02), Vector3(0, -0.58, 0), Color(0.08, 0.08, 0.1), 0.8)
 	var floor := MeshInstance3D.new()
 	floor.mesh = PlaneMesh.new()
@@ -46,24 +47,36 @@ func _rope_mat(h: float) -> StandardMaterial3D:
 
 
 ## Fight-night lighting: the ring bright under an overhead rig, the hall dark around it, the crowd just readable.
+## S317 look pass (operator, on a reference boxing game: "look how much better their game looks"): the reference's light
+## is a hard bright top rig with soft bounce on the skin, contact shadow where bodies meet, glow on the lights and a soft
+## dark background. Here: AgX tonemapping, screen-space bounce light (SSIL) beside the AO, soft spot shadows from every
+## bank, a darker hall (less ambient, thicker haze) so the ring pops, a stronger glow.
 func _build_lights() -> void:
 	var env := WorldEnvironment.new()
 	var e := Environment.new()
 	e.background_mode = Environment.BG_COLOR
-	e.background_color = Color(0.012, 0.012, 0.018)
+	e.background_color = Color(0.008, 0.008, 0.012)
 	e.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	e.ambient_light_color = Color(0.45, 0.47, 0.55)
-	e.ambient_light_energy = 0.32
-	e.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	e.tonemap_exposure = 1.05
+	e.ambient_light_color = Color(0.5, 0.5, 0.56)
+	e.ambient_light_energy = 0.2
+	e.tonemap_mode = Environment.TONE_MAPPER_AGX
+	e.tonemap_exposure = 1.15
 	e.ssao_enabled = true
-	e.ssao_intensity = 1.2
+	e.ssao_intensity = 1.6
+	e.ssao_radius = 0.8
+	e.ssil_enabled = true
+	e.ssil_intensity = 1.2
+	e.ssil_radius = 2.0
 	e.glow_enabled = true
-	e.glow_intensity = 0.35
-	e.glow_hdr_threshold = 1.4
+	e.glow_intensity = 0.55
+	e.glow_bloom = 0.04
+	e.glow_hdr_threshold = 1.0
+	e.adjustment_enabled = true
+	e.adjustment_saturation = 1.12
+	e.adjustment_contrast = 1.06
 	e.fog_enabled = true
-	e.fog_light_color = Color(0.1, 0.1, 0.13)
-	e.fog_density = 0.012
+	e.fog_light_color = Color(0.07, 0.07, 0.09)
+	e.fog_density = 0.02
 	env.environment = e
 	add_child(env)
 	var key := DirectionalLight3D.new()
@@ -80,16 +93,20 @@ func _build_lights() -> void:
 		spot.look_at_from_position(top, Vector3(0, 0.8, 0) if c != Vector3.ZERO else Vector3(0, 0, 0.01), Vector3.UP)
 		spot.spot_range = 12.0
 		spot.spot_angle = 34.0
-		spot.light_energy = 2.2 if c != Vector3.ZERO else 3.0
+		spot.light_energy = 3.0 if c != Vector3.ZERO else 3.6
 		spot.light_color = Color(1.0, 0.97, 0.92)
-		spot.shadow_enabled = c == Vector3.ZERO
+		spot.light_specular = 0.7
+		# S317: every bank casts a soft shadow (was the centre one only): bodies sit on the mat and shade each other.
+		spot.shadow_enabled = true
+		spot.light_size = 0.35
+		spot.shadow_blur = 1.5
 	# The hall: a dim warm wash over the crowd.
 	for x in [-7.0, 7.0]:
 		for z in [-7.0, 7.0]:
 			var o := OmniLight3D.new()
 			o.position = Vector3(x, 4.0, z)
 			o.omni_range = 9.0
-			o.light_energy = 0.35
+			o.light_energy = 0.18
 			o.light_color = Color(1.0, 0.85, 0.7)
 			add_child(o)
 	_build_crowd()

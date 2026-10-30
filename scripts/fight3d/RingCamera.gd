@@ -14,7 +14,35 @@ const SIGHT_SHORT_M := 0.25
 const SEE_ALPHA := 0.18
 const FADE_S := 0.2
 
+## S317 shot director (operator, on a reference boxing game's video: "look how much better their game looks"; the
+## reference cuts every 5.8 s on average - 15 shots in 86 s - between ringside lenses at chest height that keep
+## orbiting, the pair filling ~70 % of the frame; ours sat 3.6 m out at 1.45 m on one slowly drifting angle, ~45 %).
+## Each shot: dist (m from the pair's middle), h (lens height), look_h, fov, yaw (deg off the side-on line), orbit
+## (deg/s while it holds); "shoulder" = behind one boxer's shoulder onto the other. HOLD_S = how long a shot holds.
+const SHOTS := [
+	{"name": "side", "dist": 3.0, "h": 1.3, "look_h": 1.0, "fov": 36.0, "yaw": 0.0, "orbit": 6.0},
+	{"name": "low_diag", "dist": 2.7, "h": 1.0, "look_h": 1.1, "fov": 40.0, "yaw": 38.0, "orbit": -9.0},
+	{"name": "shoulder", "dist": 1.75, "h": 1.78, "look_h": 1.25, "fov": 40.0, "yaw": 0.0, "orbit": 0.0},
+	{"name": "side_wide", "dist": 3.7, "h": 1.55, "look_h": 1.0, "fov": 34.0, "yaw": -30.0, "orbit": 8.0},
+	{"name": "low_diag", "dist": 2.7, "h": 1.0, "look_h": 1.1, "fov": 40.0, "yaw": -40.0, "orbit": 10.0},
+	{"name": "shoulder", "dist": 1.75, "h": 1.78, "look_h": 1.25, "fov": 40.0, "yaw": 0.0, "orbit": 0.0},
+]
+const HOLD_S := Vector2(4.0, 7.5)
+## S317 motion blur (operator: "go ahead" on the download): sphynx-owner's Godot Motion Blur Addon v1.1.1 (MIT, per-object
+## velocity blur as a compositor effect; needs his Easy Compositor Addon v1.0.4, MIT) - res://addons. The reference's fast
+## punches smear; ours stepped frame to frame. Camera rotation counts little (an orbit should not smear the ring); a cut
+## or a jump of the lens past JUMP_M gets no blur on that frame. `-- noblur` = the control arm; headless runs have none.
+const MOTION_BLUR := "res://addons/godot-motion-blur/guertin/guertin_motion_blur.gd"
+const BLUR := 1.0
+const JUMP_M := 0.4
+
 var close := false            # the big-shot close-up holds until broadcast() runs again
+var _shot := -1
+var _shot_t := 0.0            # seconds the current shot has held
+var _shot_hold := 0.0
+var _over := 0                # the shoulder shot's boxer (alternates)
+var _rng := RandomNumberGenerator.new()
+var _blur: CompositorEffect = null
 var _side := Vector3.LEFT     # the side of the pair the camera is on (it never jumps across the ring)
 var _clock := 0.0
 var _shake := 0.0             # metres, decaying
@@ -25,30 +53,66 @@ func _init() -> void:
 	# A broadcast lens: the ring sharp, the hall beyond it soft.
 	var lens := CameraAttributesPractical.new()
 	lens.dof_blur_far_enabled = true
-	lens.dof_blur_far_transition = 2.5
-	lens.dof_blur_amount = 0.14
+	lens.dof_blur_far_transition = 2.0
+	lens.dof_blur_amount = 0.22
 	attributes = lens
+	if DisplayServer.get_name() != "headless" and not OS.get_cmdline_user_args().has("noblur") and ResourceLoader.exists(MOTION_BLUR):
+		_blur = (load(MOTION_BLUR) as Script).new() as CompositorEffect
+		_blur.set("intensity", BLUR)
+		_blur.set("multiplier_camera_rotation", 0.1)
+		var comp := Compositor.new()
+		comp.compositor_effects = [_blur]
+		compositor = comp
 
 
-## At the apron, side-on to the pair, both women head to feet filling about 60% of the frame; it follows the pair
-## smoothly and drifts slowly along the ropes like a TV camera operator.
+## No blur on a frame whose lens jumped (a cut): its motion vectors would smear the whole picture.
+func _place_lens(pos: Vector3, look: Vector3) -> void:
+	if _blur != null:
+		_blur.set("intensity", 0.0 if position.distance_to(pos) > JUMP_M else BLUR)
+	look_at_from_position(pos, look, Vector3.UP)
+
+
+## The ringside lenses (SHOTS): each follows the pair, orbits slowly while it holds, and cuts to the next after HOLD_S
+## (a cut is a snap, never a swing across the ring). `snap` = start on a fresh shot.
 func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -> void:
 	close = false
 	_clock += delta
+	_shot_t += delta
+	var cut := snap or _shot < 0 or _shot_t >= _shot_hold
+	if cut:
+		if _shot < 0:
+			_rng.seed = 317
+		_shot = (_shot + 1) % SHOTS.size()
+		_shot_t = 0.0
+		_shot_hold = _rng.randf_range(HOLD_S.x, HOLD_S.y)
+		if str(SHOTS[_shot]["name"]) == "shoulder":
+			_over = 1 - _over
+	var sh: Dictionary = SHOTS[_shot]
 	var mid := (a + b) * 0.5
 	var side := _side_of(a, b)
 	_side = side
-	side = Basis(Vector3.UP, deg_to_rad(18.0) * sin(_clock * 0.11)) * side
 	_lens(false)
-	var want_pos := mid + side * 3.6 + Vector3(0, 1.45, 0)
-	var want_look := mid + Vector3(0, 0.98, 0)
-	(attributes as CameraAttributesPractical).dof_blur_far_distance = 3.6 + 2.2
-	fov = 34.0
-	if snap:
-		look_at_from_position(want_pos, want_look, Vector3.UP)
+	var want_pos: Vector3
+	var want_look: Vector3
+	if str(sh["name"]) == "shoulder":
+		# Behind one boxer's shoulder, a little to the camera's side, onto the other's face.
+		var near: Vector3 = a if _over == 0 else b
+		var far: Vector3 = b if _over == 0 else a
+		var axis := (far - near).normalized()
+		want_pos = near - axis * float(sh["dist"]) + side * 0.95 + Vector3(0, float(sh["h"]), 0)
+		want_look = far + Vector3(0, float(sh["look_h"]), 0)
+	else:
+		var yaw := deg_to_rad(float(sh["yaw"]) + float(sh["orbit"]) * _shot_t)
+		var dir := Basis(Vector3.UP, yaw) * side
+		want_pos = mid + dir * float(sh["dist"]) + Vector3(0, float(sh["h"]), 0)
+		want_look = mid + Vector3(0, float(sh["look_h"]), 0)
+	(attributes as CameraAttributesPractical).dof_blur_far_distance = want_pos.distance_to(want_look) + 1.6
+	fov = float(sh["fov"])
+	if cut:
+		_place_lens(want_pos, want_look)
 		return
-	var k := clampf(delta * 2.2, 0.0, 1.0)
-	look_at_from_position(position.lerp(want_pos, k), want_look, Vector3.UP)
+	var k := clampf(delta * 3.0, 0.0, 1.0)
+	_place_lens(position.lerp(want_pos, k), want_look)
 
 
 ## Low at the side, both heads in frame (`head_y` = the hit boxer's head height), held until broadcast() is called again.
@@ -61,7 +125,7 @@ func close_up(a: Vector3, b: Vector3, head_y: float, hit: int) -> void:
 	fov = 32.0
 	(attributes as CameraAttributesPractical).dof_blur_far_distance = 2.5 + 1.2
 	var hitter := axis if hit == 1 else -axis
-	look_at_from_position(mid + side * 2.5 - hitter * 0.15 + Vector3(0, 0.08, 0), mid, Vector3.UP)
+	_place_lens(mid + side * 2.5 - hitter * 0.15 + Vector3(0, 0.08, 0), mid)
 
 
 func _side_of(a: Vector3, b: Vector3) -> Vector3:
@@ -123,7 +187,7 @@ func film(pos: Vector3, look: Vector3, lens_fov: float, focus: float) -> void:
 	close = true
 	fov = lens_fov
 	_lens(focus > 0.0, focus)
-	look_at_from_position(pos, look, Vector3.UP)
+	_place_lens(pos, look)
 
 
 func _lens(shallow: bool, focus: float = 0.0) -> void:
@@ -137,5 +201,6 @@ func _lens(shallow: bool, focus: float = 0.0) -> void:
 		lens.dof_blur_far_transition = 1.2
 		lens.dof_blur_amount = 0.2
 	else:
-		lens.dof_blur_far_transition = 2.5
-		lens.dof_blur_amount = 0.14
+		# S317: the hall behind the ring goes properly soft (was 0.14: the crowd read sharp and cheap).
+		lens.dof_blur_far_transition = 2.0
+		lens.dof_blur_amount = 0.22
