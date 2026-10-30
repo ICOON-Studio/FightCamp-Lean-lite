@@ -88,7 +88,8 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 		hs.free()
 		hs = null
 	# S306: her planted feet stay where they stand; a foot steps when her body has moved off it.
-	var fp := FootPlant.attach(skel, ap, null) if not OS.get_cmdline_user_args().has("nofeet") else null
+	# S314 `nostagger` = the clip's own stance spread (the control arm of gap 7).
+	var fp := FootPlant.attach(skel, ap, null, null if OS.get_cmdline_user_args().has("nostagger") else body) if not OS.get_cmdline_user_args().has("nofeet") else null
 	ap.animation_finished.connect(stage._on_finished.bind(index))
 	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "tuck": gt, "feet": fp, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,

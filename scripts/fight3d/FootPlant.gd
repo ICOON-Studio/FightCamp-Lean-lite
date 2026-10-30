@@ -7,7 +7,9 @@ extends SkeletonModifier3D
 ## (SWING_S, a LIFT_M arc, landing a little ahead of the way the body moves) onto where the animation puts it, one foot
 ## at a time; analytic two-bone leg IK (Holden, "Simple Two Joint IK") holds the knees. The foot keeps the animation's
 ## own height (never under her standing height) and turn. Falls, knockouts and the win play free (WEIGHT eases out). Runs after the join smoother.
-##   attach(skel, ap, after) -> FootPlant | null
+## S314 real-fight gap 7 (Game Godot/research/S310_REAL_FIGHT_GAPS.md): her stance was a little square - feet front to
+## back 0.26 NA vs 0.30-0.34 real - so the animated feet's spread along her facing is stretched by STAGGER about their middle.
+##   attach(skel, ap, after, body) -> FootPlant | null
 
 const LEGS := [["LeftUpperLeg", "LeftLowerLeg", "LeftFoot"], ["RightUpperLeg", "RightLowerLeg", "RightFoot"]]
 const STEP_M := 0.10        # how far the animation may carry a planted foot before it steps
@@ -19,8 +21,12 @@ const SNAP_M := 0.3         # an animated foot that jumps this far in one frame 
 const URGENT := 2.5         # a foot left this many STEP_M behind steps even while the other is stepping
 const FREE := ["knockout", "win", "countdown", "fall"]
 const EASE_S := 0.2
+## Front-back feet spread x this. tools/range_probe.gd round 1 (feet as shown): control 0.24 NA (p90 0.40); x1.23 read
+## 0.30 (p90 0.49); real medians 0.30 / 0.32 / 0.34 NA (p90 ~0.6), so x1.32 aims at the middle, 0.32.
+const STAGGER := 1.32
 
 var _ap: AnimationPlayer
+var _body: Node3D          # her facing is its +Z (Footwork.walk); null = no stagger stretch
 var _bones: Array = []      # per leg [upper, lower, foot] indices
 var _plant: Array = []      # per leg: world Vector3 where the foot stands
 var _swing: Array = []      # per leg: {} or {"from": Vector3, "t": s}
@@ -31,9 +37,10 @@ var _weight := 1.0
 var last_target: Array = [Vector3.ZERO, Vector3.ZERO]   # world, per leg (probes read it)
 
 
-static func attach(skel: Skeleton3D, ap: AnimationPlayer, after: Node) -> Node:
+static func attach(skel: Skeleton3D, ap: AnimationPlayer, after: Node, body: Node3D = null) -> Node:
 	var fp := new()
 	fp.name = "FootPlant"
+	fp._body = body
 	if not fp.setup(skel, ap):
 		fp.free()
 		return null
@@ -70,9 +77,13 @@ func _process_modification() -> void:
 		free = free or clip.contains(w)
 	_weight = move_toward(_weight, 0.0 if free else 1.0, delta / EASE_S)
 	var xf := skel.global_transform
+	var raw: Array = []
+	for ids in _bones:
+		raw.append(xf * skel.get_bone_global_pose(ids[2]).origin)
+	var spread := _spread(raw)
 	for i in _bones.size():
 		var ids: Array = _bones[i]
-		var anim: Vector3 = xf * skel.get_bone_global_pose(ids[2]).origin
+		var anim: Vector3 = (raw[i] as Vector3) + (spread if i == 0 else -spread)
 		var jump := _flat(anim - (_prev[i] as Vector3)) if _prev[i] != null else INF
 		var vel: Vector3 = (anim - (_prev[i] as Vector3)) / delta if jump < INF else Vector3.ZERO
 		_prev[i] = anim
@@ -85,8 +96,22 @@ func _process_modification() -> void:
 		if _weight < 1.0:
 			target = anim.lerp(target, _weight)
 		last_target[i] = target
-		if _flat(target - anim) > 0.002:
+		if _flat(target - (raw[i] as Vector3)) > 0.002:
 			_solve(skel, ids, xf.affine_inverse() * target)
+
+
+## How far the left foot moves (the right the opposite way) so the spread along her facing is STAGGER x the clip's;
+## eased out with the free clips (falls, knockouts).
+func _spread(raw: Array) -> Vector3:
+	if _body == null:
+		return Vector3.ZERO
+	var fwd := _body.global_transform.basis.z
+	fwd = Vector3(fwd.x, 0.0, fwd.z)
+	if fwd.length() < 1e-5:
+		return Vector3.ZERO
+	fwd = fwd.normalized()
+	var half := ((raw[0] as Vector3) - (raw[1] as Vector3)).dot(fwd) * 0.5
+	return fwd * half * (STAGGER - 1.0) * _weight
 
 
 ## Where foot i stands this frame (world): its plant, or the arc of its step onto the animated spot.

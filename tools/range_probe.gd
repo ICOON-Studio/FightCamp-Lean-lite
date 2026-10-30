@@ -29,6 +29,7 @@ var cl_gap := 0.0
 var _was := [-1, false]
 var ref_min := 99.0
 var ref_frames_near := 0
+var stagger := [PackedFloat32Array(), PackedFloat32Array()]   # S314 gap 7: feet front-back as shown (FootPlant targets), m
 
 
 func _initialize() -> void:
@@ -69,6 +70,12 @@ func _log() -> void:
 	for i in 2:
 		if Footwork.STRIDE.has(str((bx[i]["ap"] as AnimationPlayer).current_animation)):
 			feet[i] += 1
+		var fp: Node = bx[i]["feet"]
+		if fp != null:
+			var fwd: Vector3 = (bx[i]["node"] as Node3D).global_transform.basis.z
+			fwd = Vector3(fwd.x, 0.0, fwd.z).normalized()
+			var lt: Array = fp.last_target
+			stagger[i].append(absf(((lt[0] as Vector3) - (lt[1] as Vector3)).dot(fwd)))
 		var p: Vector3 = bx[i]["pos"]
 		if last_pos.size() == 2:
 			travel[i] += p.distance_to(last_pos[i])
@@ -136,6 +143,13 @@ func _report() -> void:
 		float(ropes.through_m), str(ropes.through_who) if str(ropes.through_who) != "" else "nobody", float(ropes.MAX_BOW_M)])
 	print("RANGE_PROBE feet moving red %.0f %% blue %.0f %%, travel red %.1f m blue %.1f m (per round: x %.2f)" % [
 		100.0 * feet[0] / n, 100.0 * feet[1] / n, travel[0], travel[1], 180.0 / secs])
+	# NA = nose to ankle, 1.48 m for a 1.67 m woman (S310's metres conversion); real median 0.30-0.34 NA, ours was 0.26.
+	for who in 2:
+		var st := Array(stagger[who])
+		st.sort()
+		if st.size() > 0:
+			print("RANGE_PROBE stance stagger %s median %.2f m = %.2f NA (p90 %.2f NA)" % [["red", "blue"][who],
+				st[st.size() / 2], st[st.size() / 2] / 1.48, st[st.size() * 9 / 10] / 1.48])
 
 
 func _wait(n: int) -> void:
