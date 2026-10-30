@@ -78,8 +78,9 @@ static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable) 
 	return row
 
 
-## The corner minute: all eight calls, four to a row. pick(call).
-static func corner_grid(grades: Dictionary, coach: String, names: Array, pick: Callable) -> GridContainer:
+## The corner minute: all eight calls, four to a row. pick(call). S318: `evidence` (CallEvidence.lines) puts the round's
+## number for each call between its "when" line and its grade.
+static func corner_grid(grades: Dictionary, coach: String, names: Array, pick: Callable, evidence: Dictionary = {}) -> GridContainer:
 	var grid := GridContainer.new()
 	grid.columns = 4
 	grid.add_theme_constant_override("h_separation", 8)
@@ -87,8 +88,9 @@ static func corner_grid(grades: Dictionary, coach: String, names: Array, pick: C
 	for k in Exchanges.CALLS.keys():
 		var c: Dictionary = Exchanges.CALLS[k]
 		var big := "%s%s" % [c["label"], PICK if str(k) == coach else ""]
-		var b := UI.button2(big, _small(str(k), grades, str(c["when"]), names), "Choice", pick.bind(str(k)),
-			Vector2(240, 66), UI.FG, GRADE_COLOR.get(str(grades.get(k, "OK")), UI.MUTED), false, UI.SMALL + 1, UI.TINY)
+		var when := str(c["when"]) if not evidence.has(k) else "%s\n%s" % [c["when"], evidence[k]]
+		var b := UI.button2(big, _small(str(k), grades, when, names), "Choice", pick.bind(str(k)),
+			Vector2(240, 66 if evidence.is_empty() else 84), UI.FG, GRADE_COLOR.get(str(grades.get(k, "OK")), UI.MUTED), false, UI.SMALL + 1, UI.TINY)
 		b.name = "Corner_" + str(k)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.tooltip_text = Exchanges.named(str(c["expect"]), names)

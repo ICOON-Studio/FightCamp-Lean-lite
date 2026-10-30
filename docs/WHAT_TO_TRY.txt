@@ -1,3 +1,26 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 21 (2026-10-30): THE BODY MAP, THE NUMBERS BEHIND EACH CALL, A CLEAN CLINCH
+=============================================================================================
+
+NEW IN UPDATE 21 (board: "Test: fight night WITH film study" - watch round 1 at 1x, then the corner minute)
+ 1. THE BODY MAP (you: "a body visual ... real time ... where the hits are being taken and changing colour on that
+    area"). Under the score, a small figure for each boxer: head, both eyes, nose, both rib sides. The place a punch
+    lands on flashes white, then holds its colour: green fine, amber hurt, red critical, purple doctor. Hover a place:
+    its number and the last 3 punches that landed there. A 3-round fight leaves the loser hurt somewhere about 3 times
+    in 4; the winner usually stays green.
+ 2. THE CORNER USES IT. The corner card shows her figure big, and the cutman's one job: enswell an eye that is hurt,
+    close a cut, or nothing (a clean boxer: "the cutman waits"). Ice on the ribs now eases her worst rib side. Both last
+    one round.
+ 3. THE NUMBER BEHIND EACH CALL (you: "the decision on the round has no real data"). Every one of the eight calls shows
+    the round's number that argues for it: "Lucy's jab: 11 of 39 landed", "Maria threw 64 punches, landed 22",
+    "Maria's ribs: 97 (fine), 2 to the body", "Lucy's energy: 71 at the bell". A new SEEN line says what the opponent
+    left open: "Maria digs to the body when hurt: 3 times".
+ 4. SKIP ROUND STILL COUNTS. A skipped round's punches now mark the body and fill the corner card (it showed only the
+    part you watched).
+ 5. A CLEAN CLINCH (update 20's tie-up was built from a cage clinch: one glove rode on top of the other's head). Now the
+    holder's arm overhooks the other's arm at the elbow and the held boxer grips the holder's free elbow - no glove above
+    a head, southpaw or orthodox.
+ 6. A LITTLE SMOOTHER. After a punch she stays in the punch's own return to guard a moment longer, so the next move
+    joins straight on (fewer clip changes: 173 -> 160 a minute).
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 20 (2026-10-30): THE TV LOOK, MOTION BLUR, THROUGH THE ROPES, A REAL CLINCH
 =============================================================================================
 

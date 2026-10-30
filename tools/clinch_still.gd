@@ -23,6 +23,7 @@ var _range_done := false
 var _pocket_done := false
 var _inside_only := false
 var _in_s := 0.0
+var _taps: Array = []
 var _pv_s := -1.0             # S315: time since a pivot out began (inside mode also shoots it 0, 0.5 and 1.1 s in)
 
 
@@ -42,6 +43,13 @@ func _initialize() -> void:
 	await _wait(4)
 	main.act("fightstep", "start")
 	view = main._fight_layer.get_child(0)
+	# S318: the hands as SHOWN (pose_tap, the last modifier) - a bone read from outside misses the IK.
+	for i in 2:
+		var skel: Skeleton3D = view.stage.boxers[i]["skel"]
+		var tap: SkeletonModifier3D = load("res://tools/pose_tap.gd").new()
+		tap.setup(skel, ["Head", "LeftHand", "RightHand"])
+		skel.add_child(tap)
+		_taps.append(tap)
 	process_frame.connect(_watch)
 	var left := 840.0
 	while saved < max_stills and left > 0.0:
@@ -105,6 +113,16 @@ func _shot(kind: String) -> void:
 	var a: Vector3 = view.stage.boxers[0]["pos"]
 	var b: Vector3 = view.stage.boxers[1]["pos"]
 	print("CLINCH_STILL wrote %s gap %.2f m holder %d" % [path, a.distance_to(b), int(view.stage.clinch.holder)])
+	for i in 2:
+		var sh: Dictionary = _taps[i].shown
+		if sh.size() == 3:
+			var ik: Node = view.stage.boxers[i].get("ik")
+			print("  boxer %d hands over own head: L %+.2f R %+.2f m  ik reach %s" % [i, (sh["LeftHand"] as Vector3).y - (sh["Head"] as Vector3).y,
+				(sh["RightHand"] as Vector3).y - (sh["Head"] as Vector3).y, str(ik.get("_reach")) if ik != null else "none"])
+	var bl: Node = view.get("body")
+	if bl != null:
+		for side in ["a", "b"]:
+			print("  body %s: %s" % [side, str(bl.map[side]["places"])])
 	saved += 1
 	_busy = false
 

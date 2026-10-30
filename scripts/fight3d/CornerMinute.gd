@@ -355,6 +355,7 @@ func finish() -> void:
 	set_process(false)
 	if pick == "":
 		pick = str(ctx["card"]["call"])
+	ui.apply_body()   # S318 the cutman's job and the ice land even when the minute ran out unpicked
 	for i in 2:
 		crew.look(stage.boxers[i], null)
 	crew.set_shown(false)

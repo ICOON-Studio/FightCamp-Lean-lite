@@ -12,6 +12,9 @@ const CornerJobsRow := preload("res://scripts/ui/CornerJobsRow.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
+const BodyMap := preload("res://scripts/rules/BodyMap.gd")
+const CallEvidence := preload("res://scripts/rules/CallEvidence.gd")
+const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 const BODIES := ["res://assets/models/metahuman/mh_boxer_10.glb", "res://assets/models/metahuman/mh_boxer_11.glb",
 	"res://assets/models/metahuman/mh_boxer_12.glb"]
@@ -70,6 +73,16 @@ static func corner(view: Node) -> bool:
 	card["grades"] = grades
 	card["fixes"] = LiveRound.fixes(f, r)   # S309: one habit the corner can fix
 	card["jobs_menu"] = CornerJobsRow.menu(f, r)   # S310: recover, set-up, talk
+	# S318 the body map on the card (plan Q-S294-29): her figure + the cutman's job, and the number behind each call.
+	var bl: Node = view.get("body")
+	if bl != null:
+		card["body_map"] = bl.map
+		var fires := []
+		for b in view._round_beats:
+			if (b as Dictionary).has("habit"):
+				fires.append({"who": str(b["who"]), "habit": str(b["habit"]), "t": float(b["t"])})
+		card["evidence"] = CallEvidence.lines(bl.map, BodyMap.tally(view._round_beats), fires,
+			{"a": float(en.get("a_end", 100.0)), "b": float(en.get("b_end", 100.0))}, names, _habit_words())
 	view.hide_hud()
 	Engine.time_scale = view.pace()
 	var cm := CornerMinute.new()
@@ -78,6 +91,15 @@ static func corner(view: Node) -> bool:
 	cm.run(view, view.stage, view.crew, {"round": int(view.round_n), "card": card, "won": bool(r.get("won", false)),
 		"pro": (view.crew.actors as Dictionary).has("cutman"), "names": names})
 	return true
+
+
+## Kalli's habit names (fight_habits.json), lower case, for "Maria drops the right after the jab: 2 times".
+static func _habit_words() -> Dictionary:
+	var out := {}
+	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(HABITS_PATH)) if FileAccess.file_exists(HABITS_PATH) else null
+	for row in (data as Dictionary).get("habits", []) if data is Dictionary else []:
+		out[str(row.get("id", ""))] = str(row.get("name", "")).to_lower()
+	return out
 
 
 ## Before round 1, once a fight: the intro (FightIntro). True while it plays; at its bell round 1 runs.

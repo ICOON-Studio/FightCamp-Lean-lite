@@ -16,6 +16,12 @@ const CornerJobsRow := preload("res://scripts/ui/CornerJobsRow.gd")
 var jobs := {}               # S310 the corner jobs picked (CornerJobsRow sel)
 var _menu := {}
 var _jobs_box: VBoxContainer = null
+const BodyMap := preload("res://scripts/rules/BodyMap.gd")
+const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
+var _map := {}               # S318 the bout's BodyMap (BodyLive.map, shared: the corner's jobs land on it)
+var cutman := ""
+var _cut_box: VBoxContainer = null
+var _body_done := false
 
 ## Each bar's share of the frame height: (1 - (16/9) / 2.39) / 2.
 const BAR := 0.128
@@ -58,10 +64,21 @@ func build(card: Dictionary, names: Array) -> void:
 	add_child(_card)
 	_pin(_card, Vector4(1, 1.0 - BAR, 1, 1.0 - BAR), Vector4(-1100, -330, -28, -16))
 	_card.grow_vertical = Control.GROW_DIRECTION_BEGIN   # a taller card (the fix row, S309) grows up, not into the bar
+	var hb := UI.hbox(18)
+	_card.add_child(hb)
+	_map = card.get("body_map", {})
+	if not _map.is_empty():
+		_pin(_card, Vector4(1, 1.0 - BAR, 1, 1.0 - BAR), Vector4(-1290, -330, -28, -16))
+		hb.add_child(_body_column(str(names[0])))
 	var v := UI.vbox(6)
-	_card.add_child(v)
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hb.add_child(v)
 	v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL %s?" % str(names[0]).to_upper()))
-	for row in [["WORKED", card["worked"], UI.GREEN], ["HURT", card["hurt"], UI.RED], ["COACH", "%s" % card["why"], UI.AMBER]]:
+	var evidence: Dictionary = card.get("evidence", {})
+	var rows := [["WORKED", card["worked"], UI.GREEN], ["HURT", card["hurt"], UI.RED], ["COACH", "%s" % card["why"], UI.AMBER]]
+	if str(evidence.get("open", "")) != "":
+		rows.insert(2, ["SEEN", evidence["open"], UI.FG])   # S318 what the opponent left open this round
+	for row in rows:
 		var line := UI.hbox(10)
 		var tag := UI.caps(str(row[0]))
 		tag.custom_minimum_size = Vector2(84, 0)
@@ -85,7 +102,7 @@ func build(card: Dictionary, names: Array) -> void:
 		v.add_child(_jobs_box)
 		_draw_jobs()
 	# S308: all eight calls, with when to use each and whether she can do it.
-	_calls = CallButtons.corner_grid(card.get("grades", {}), str(card["call"]), names, func(k: String): chose.emit(k))
+	_calls = CallButtons.corner_grid(card.get("grades", {}), str(card["call"]), names, func(k: String): chose.emit(k), evidence)
 	v.add_child(_calls)
 	_said = UI.muted("", UI.SMALL)
 	_said.visible = false
@@ -117,6 +134,7 @@ func picked(call: String) -> void:
 	_fix_box.visible = false
 	if _jobs_box != null:
 		_jobs_box.visible = false
+	apply_body()
 	_said.text = "Your call: \"%s\"" % BoutRules.CORNER[call]
 	for h in _fixes:
 		if str(h["id"]) == fix:
@@ -148,6 +166,67 @@ func _fix(id: String) -> void:
 	fix = id
 	fixed.emit(id)
 	_draw_fixes()
+
+
+## S318 her figure on the card and the cutman's one job (S316 plan: "one pair of hands per job"): enswell an eye that is
+## hurt or worse, close a cut that is open, or nothing. The cutman's own pick (the worst place) is lit to start.
+func _body_column(her: String) -> VBoxContainer:
+	var col := UI.vbox(4)
+	col.custom_minimum_size = Vector2(170, 0)
+	var fig: Control = BodyFigure.new()
+	fig.custom_minimum_size = Vector2(108, 180)
+	fig.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	col.add_child(fig)
+	var vals := {}
+	for p in BodyMap.PLACES:
+		vals[p] = BodyMap.value(_map, "a", p)
+	fig.set_values(vals)
+	var opts := _cutman_jobs(vals)
+	if opts.size() > 1:
+		cutman = str(opts[0][0])
+		col.add_child(UI.caps("CUTMAN"))
+		_cut_box = UI.vbox(4)
+		col.add_child(_cut_box)
+		_draw_cutman(opts)
+	else:
+		col.add_child(UI.muted("%s is clean: the cutman waits." % her, UI.TINY))
+	return col
+
+
+## [[job, label], ...] worst first, "Nothing" last.
+func _cutman_jobs(vals: Dictionary) -> Array:
+	var out: Array = []
+	var cuts: Dictionary = (_map.get("a", {}) as Dictionary).get("cuts", {})
+	if not cuts.is_empty():
+		out.append(["cut", "Close the cut"])
+	var eyes := [["enswell_left", "left_eye", "Enswell the left eye"], ["enswell_right", "right_eye", "Enswell the right eye"]]
+	eyes.sort_custom(func(x, y): return float(vals[x[1]]) < float(vals[y[1]]))
+	for e in eyes:
+		if float(vals[e[1]]) <= BodyMap.HURT:
+			out.append([e[0], e[2]])
+	out.append(["", "Nothing"])
+	return out
+
+
+func _draw_cutman(opts: Array) -> void:
+	for ch in _cut_box.get_children():
+		ch.queue_free()
+	for o in opts:
+		var b := UI.button(str(o[1]), "Choice" if str(o[0]) == cutman else "BtnQuiet", func():
+			cutman = str(o[0])
+			_draw_cutman(opts))
+		_cut_box.add_child(b)
+
+
+## The cutman's job and the second's ice go on her map for the next round (BodyMap.corner; end_round lifts them).
+func apply_body() -> void:
+	if _map.is_empty() or _body_done:
+		return
+	_body_done = true
+	var second := ""
+	if int(((jobs.get("rec", {}) as Dictionary).get("ice", 0))) > 0:
+		second = "ice_left" if BodyMap.value(_map, "a", "left_ribs") <= BodyMap.value(_map, "a", "right_ribs") else "ice_right"
+	BodyMap.corner(_map, "a", cutman, second)
 
 
 func _pin(c: Control, anchors: Vector4, offsets: Vector4) -> void:

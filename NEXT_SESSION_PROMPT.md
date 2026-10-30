@@ -1,18 +1,21 @@
-# S318 - next session (written S317, 2026-10-30)
+# S319 - next session (written S318, 2026-10-30)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 20 exported (Lean ef45185): ringside shot director + new light (RingCamera/RingSet), motion blur
-(addons/, MIT), ring entry through the ropes (FightIntro + RingRopes.part), the clinch from a two-person Cascadeur clip
-(tools/pair_bake.gd -> baked clinch_att/vic, Clinch.gd), guard ease 0.3 s. Digest: Game Godot/research/S317_DIGEST.md.
+Where it stands: update 21 exported (Lean 6b51aa5, 36/36 tests): the body map live in the scorebug (BodyLive +
+BodyFigure), the corner card's figure + cutman job + the number behind each call + SEEN line (CallEvidence), skipped
+rounds still mark the body, a clean clinch (Clinch.gd overhook + free-elbow grip, stance-aware), punch tail hold 0.3 s.
+Digest: Game Godot/research/S318_DIGEST.md.
 
-1. Board: Q-S294-31 (update 20).
-2. Collect Qwen BODYMAP1 (E:\FightCamp\wt\LEAN_BODYMAP1, qwen/bodymap1 86ae8d3): it claims test 5 (loser hurt 40-90 %)
-   is impossible; its reason contradicts itself - check RoundScript's landed counts per side, then fix and merge.
-3. Clinch: the victim half's hand rises over the top (Game docs/previews/s317/clinch_paired_ring.jpg, 14 s); gloves on the
-   grip (operator C143). Re-bake with tools/pair_bake.gd (stills in its out dir), then tools/clinch_still.gd.
-4. Smoothness: tools/smooth_probe.gd (raw baseline) - ours 557/min, ~330 at clip changes; pro_idle plays 0.17 s 41x/min.
-5. Body map figure / corner jobs / round data on BodyMap.
+1. Board: Q-S294-32 (update 21), Q-S294-31 (update 20).
+2. Smoothness: smooth_probe now reads ours 444/min, 160 clip changes/min; steps (advance/retreat ~100 starts per
+   1.8 min) lead the changes, and 559 of 815 of our kinks are INSIDE clips - run the control arms
+   (`-- noguard`, `noreach`, `nosnap`, `noglove`, `nojoin`, `nofeet`) to find the layer, fix, measure. A step starting
+   inside the step grace was tried and READ WORSE (212 changes/min) - do not retry it.
+3. FightView.gd is at 500 lines (the cap): move _fire (the beat switch) into its own file before adding anything there.
+4. SHOVEL1 short hooks/uppercuts up close; recheck the Begin-fight stall in the exe.
+5. Qwen is free: give it the next pure piece the moment one appears (worktree E:\FightCamp\wt\LEAN_BODYMAP1).
 
-Traps: the probe must stop logging before its raw pass (fixed); a bake retarget needs each half in its own facing and the
-clip's real pelvis gap (0.83 x hip height); motion blur needs the plugin classes imported (`--import` once after a clone).
+Traps: parse-check Lean files with `godot --headless --path . --check-only --script <file>` (the Game repo's
+check_scripts.py resolves res:// against the Game project); hidden_desktop.py prints the game's output only with
+`--log=<file>`; a pure module tuned on one RoundScript is 6x off the live game (a 3:00 round = six exchanges).

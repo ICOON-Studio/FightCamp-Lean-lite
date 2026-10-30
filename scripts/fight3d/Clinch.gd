@@ -39,6 +39,10 @@ const FLANK_M := 0.14
 const OVERHOOK_OUT_M := 0.07
 const OVERHOOK_BACK_M := 0.06
 const OVERHOOK_UP_M := 0.08
+## S318 the held boxer's grip in the paired clinch: her glove on the outside of the holder's elbow, a little under it
+## (a glove's half-width out, so the glove meets the arm instead of sinking into it - C143 "the grip without the glove").
+const ELBOW_OUT_M := 0.06
+const ELBOW_DOWN_M := 0.03
 
 var stage: Node
 var holder := -1
@@ -143,6 +147,23 @@ func _free(i: int) -> bool:
 func _engage() -> void:
 	engaged = true
 	if _pair:
+		# S318 (tools/clinch_probe.gd): the Cascadeur clinch is a cage clinch - the holder's left glove rides 6 cm above her
+		# own head, cupping the other's head for the whole loop (the S317 14 s still), a foul in boxing. That one hand
+		# overhooks the other's right arm at the elbow instead (the S316 tie). The other's left glove rides on the holder's
+		# upper arm 6-15 cm under her own head - leaning in, it reads as over the top too (41.9 s still) - so it grips the
+		# holder's right elbow (the flank is out of reach at the clip's spacing: 0.65 m for a 0.49 m arm). The clip keeps
+		# the other two hands.
+		# A southpaw plays the clip mirrored (BoxerBuild), so her raised hand is the right one (clinch_still 41.9 s: +0.08 m).
+		var ik_h: Node = stage.boxers[holder].get("ik")
+		if ik_h != null:
+			var hs := _lead(holder)
+			ik_h.reach(hs, _overhook.bind(1 - holder, _other_side(hs)))
+		# The held boxer grips the holder's FREE arm (the overhook arm's clip elbow is the raised one: a southpaw gripping
+		# it put her glove by the holder's ear, S318 14.1 s), with the hand that faces it, whatever her own stance.
+		var ik_v: Node = stage.boxers[1 - holder].get("ik")
+		if ik_v != null:
+			var free := _other_side(_lead(holder))
+			ik_v.reach(_other_side(free), _elbow.bind(holder, free))
 		return
 	for i in 2:
 		var ik: Node = stage.boxers[i].get("ik")
@@ -176,6 +197,23 @@ func _overhook(i: int, side: String) -> Vector3:
 	var left := Vector3.UP.cross(_fwd(i)).normalized()
 	var out := left if side == "Left" else -left
 	return _bone(i, side + "LowerArm") + out * OVERHOOK_OUT_M - _fwd(i) * OVERHOOK_BACK_M + Vector3.UP * OVERHOOK_UP_M
+
+
+## The clip's "left" hand as she plays it: the right one for a southpaw (mirrored clips).
+func _lead(i: int) -> String:
+	return "Right" if bool(stage.boxers[i].get("south", false)) else "Left"
+
+
+## Facing each other, her `side` meets the other's opposite side.
+static func _other_side(side: String) -> String:
+	return "Right" if side == "Left" else "Left"
+
+
+## On the outside of the other's elbow on her `side`, a little under it.
+func _elbow(i: int, side: String) -> Vector3:
+	var left := Vector3.UP.cross(_fwd(i)).normalized()
+	var out := left if side == "Left" else -left
+	return _bone(i, side + "LowerArm") + out * ELBOW_OUT_M + Vector3.DOWN * ELBOW_DOWN_M
 
 
 ## Over the other's shoulder blade on her `side`.

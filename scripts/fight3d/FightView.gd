@@ -67,6 +67,7 @@ var _caption_left := 0.0
 var _banner: Label
 var _buttons: HBoxContainer
 var _names := ["", ""]
+var body: Node   # S318 BodyLive: the bout's body map + the scorebug figures (FightHud.build)
 
 
 ## Called on every modal draw. True while a round is playing (the modal stays hidden then).
@@ -366,6 +367,7 @@ func _fire(b: Dictionary) -> void:
 			stage.play(who, clip, sp, skip)
 			_last_contact[who] = t + (contact - skip) / sp
 			var at := (contact - skip) / sp
+			body.land(b, at)
 			if land == "lands":
 				# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
 				stage.land(who, clip, move == "body_hook" or clip.contains("kidney"))
@@ -417,6 +419,7 @@ func _bell() -> void:
 	var r: Dictionary = (main.modal["rounds"] as Array)[round_n - 1]
 	# S303 corner card: read off the beats this round played, so the corner screen agrees with what was watched.
 	r["card"] = CornerCard.summarize(_round_beats)
+	body.bell()
 	_stop = str(r.get("stopped", ""))
 	var red := bool(r.get("won", true))
 	_banner.text = "BELL. %s'S ROUND" % ("RED" if red else "BLUE") if _stop == "" else "STOPPED. %s WINS" % ("RED" if red else "BLUE")
@@ -475,6 +478,7 @@ func skip_round() -> void:
 		_close_shout()
 		var c: Career = main.career
 		Bouts.fight_step(c, c.fighter_by_id(fid), main.modal, "round_out")
+		body.catch_up()   # S318: the skipped exchanges' beats still mark the body (and the corner card reads them)
 		var r: Dictionary = (main.modal["rounds"] as Array)[round_n - 1]
 		r["card"] = CornerCard.summarize(_round_beats)
 		_stop = str(r.get("stopped", ""))

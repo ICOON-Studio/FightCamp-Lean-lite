@@ -4,7 +4,7 @@ extends SceneTree
 ## 2. Sides (orthodox / southpaw), blocked/missed, big, b-punch-on-a
 ## 3. Bands + value() cap
 ## 4. Cuts + corner (cut/enswell/ice/water/clear) + end_round
-## 5. Realistic bout (3 rounds rolled with BoutRules' ROUND_SPREAD; the bout winner takes 2+ rounds)
+## 5. Realistic bout (3 rounds of 6 exchanges as the game plays them, margins rolled with BoutRules' ROUND_SPREAD)
 ## 6. tally()
 ## 7. Determinism + split-add equivalence
 
@@ -14,7 +14,7 @@ const BR := preload("res://scripts/rules/BoutRules.gd")
 
 var failures := 0
 const SEEDS := 300
-const EXCHANGES_PER_ROUND := 1
+const EXCHANGES_PER_ROUND := 6
 const ROUNDS := 3
 
 
@@ -53,6 +53,15 @@ func _build_round(rn: int, seed: int, a_won: bool, mine: float = -1.0, theirs: f
 		var sc: Dictionary = RS.build(rd, "Out-boxer", "Out-boxer", 30.0, s)
 		all_beats.append_array(sc["beats"])
 	return all_beats
+
+
+## One 30-second exchange at its own margin (test 5).
+func _build_exchange(rn: int, seed: int, a_won: bool, mine: float, theirs: float) -> Array:
+	var rd := _rl(rn)
+	rd["won"] = a_won
+	rd["mine"] = mine
+	rd["theirs"] = theirs
+	return RS.build(rd, "Out-boxer", "Out-boxer", 30.0, seed)["beats"]
 
 
 func _count_landed(beats: Array, who: String) -> int:
@@ -219,14 +228,13 @@ func _test4() -> void:
 	var one_more: Array = [{"t": 20.0, "who": "a", "move": "rear_uppercut", "result": "lands", "big": false}]
 	BM.add_beats(m, one_more, {"a": false, "b": false})
 	nose_val = BM.value(m, "b", "nose")
-	if nose_val > BM.CRITICAL:
-		# Still above CRITICAL, add more hits.
-		var more_hits: Array = []
-		for i in 10:
-			more_hits.append({"t": float(21 + i), "who": "a", "move": "rear_uppercut",
-				"result": "lands", "big": false})
-		BM.add_beats(m, more_hits, {"a": false, "b": false})
+	# S318: one uppercut at a time until the nose crosses CRITICAL (any FACE_HIT size; a cap so it cannot spin).
+	var k := 0
+	while nose_val > BM.CRITICAL and k < 200:
+		BM.add_beats(m, [{"t": float(21 + k), "who": "a", "move": "rear_uppercut", "result": "lands", "big": false}],
+			{"a": false, "b": false})
 		nose_val = BM.value(m, "b", "nose")
+		k += 1
 	if nose_val > BM.CRITICAL:
 		_check(false, "test 4: could not drive nose to CRITICAL (nose=%.1f)" % nose_val)
 		return
@@ -335,23 +343,27 @@ func _test5() -> void:
 		var a_south: bool = (s % 2 == 1)
 		var south := {"a": a_south, "b": false}
 		var mp: Dictionary = BM.fresh()
-		# Rounds as BoutRules.play_round rolls them: power + (roll - 0.5) * ROUND_SPREAD, "a" a small favourite,
-		# so close, clear and dominant rounds mix as in a real bout.
+		# S318: a round as the game plays it (FightView, S308): EXCHANGES_PER_ROUND 30-second exchanges, each a script of
+		# its own, its margin rolled as BoutRules.play_round rolls a round (power + (roll - 0.5) * ROUND_SPREAD, "a" a small
+		# favourite), so close, clear and dominant exchanges mix. The round goes to whoever won more exchanges.
 		var rng := RandomNumberGenerator.new()
 		rng.seed = s * 7919 + 1
 		var a_round_wins := 0
 		for rn in ROUNDS:
-			var mine: float = 63.0 + (rng.randf() - 0.5) * BR.ROUND_SPREAD
-			var theirs: float = 60.0 + (rng.randf() - 0.5) * BR.ROUND_SPREAD
-			var a_won: bool = mine > theirs
-			if a_won:
+			var a_ex := 0
+			for ex in EXCHANGES_PER_ROUND:
+				var mine: float = 63.0 + (rng.randf() - 0.5) * BR.ROUND_SPREAD
+				var theirs: float = 60.0 + (rng.randf() - 0.5) * BR.ROUND_SPREAD
+				var a_won: bool = mine > theirs
+				if a_won:
+					a_ex += 1
+				var beats: Array = _build_exchange(rn + 1, (s * 100 + rn) * 10 + ex, a_won, mine, theirs)
+				BM.add_beats(mp, beats, south)
+				total_winner_landed += _count_landed(beats, "a" if a_won else "b")
+				total_loser_landed += _count_landed(beats, "b" if a_won else "a")
+				total_rounds += 1
+			if a_ex * 2 >= EXCHANGES_PER_ROUND:
 				a_round_wins += 1
-			var beats: Array = _build_round(rn + 1, s * 100 + rn, a_won, mine, theirs)
-			BM.add_beats(mp, beats, south)
-			var rw: String = "a" if a_won else "b"
-			total_winner_landed += _count_landed(beats, rw)
-			total_loser_landed += _count_landed(beats, "b" if rw == "a" else "a")
-			total_rounds += 1
 		var bout_winner: String = "a" if a_round_wins * 2 > ROUNDS else "b"
 		var bout_loser: String = "b" if bout_winner == "a" else "a"
 		var loser_has_hurt := false
@@ -385,7 +397,7 @@ func _test5() -> void:
 	var winner_fine_pct: float = float(winner_all_fine_count) / float(SEEDS) * 100.0
 	var head_lowest_pct: float = float(head_lowest_count) / float(SEEDS) * 100.0
 	var mean_landed: float = float(total_winner_landed + total_loser_landed) / float(total_rounds * 2)
-	print("  t5: loser_hurt=%.0f%% doctor=%.0f%% winner_fine=%.0f%% head_lowest=%.0f%% mean_landed=%.1f (round winner %.1f, loser %.1f)" % [
+	print("  t5: loser_hurt=%.0f%% doctor=%.0f%% winner_fine=%.0f%% head_lowest=%.0f%% mean_landed=%.1f per exchange (its winner %.1f, loser %.1f)" % [
 		loser_hurt_pct, doctor_pct, winner_fine_pct, head_lowest_pct, mean_landed,
 		float(total_winner_landed) / float(total_rounds), float(total_loser_landed) / float(total_rounds)])
 	_check(loser_hurt_pct >= 40.0 and loser_hurt_pct <= 90.0,

@@ -335,6 +335,7 @@ func guard(who: int) -> void:
 ## S301: a Pro clip plays its recovery fast (BeatClips.recover_scale, from its measured contact) and hands over to the guard
 ## the moment it is back in guard, instead of standing on to the end of the take.
 const RECOVER_RAMP_S := 0.12
+const TAIL_HOLD_S := 0.3
 
 
 func _recover() -> void:
@@ -351,11 +352,18 @@ func _recover() -> void:
 			cut["fast"] = true
 		# S316 smoothness: the recovery speeds up over RECOVER_RAMP_S, not in one frame (an instant x2-3 jumps the hand's
 		# speed at contact - tools/smooth_probe.gd counted the hook and body-shot clips' kinks there).
-		if bool(cut["fast"]) and ap.speed_scale < float(cut["scale"]):
+		if bool(cut["fast"]) and not cut.has("hold") and ap.speed_scale < float(cut["scale"]):
 			ap.speed_scale = minf(float(cut["scale"]), ap.speed_scale + float(cut["scale"]) * get_process_delta_time() / RECOVER_RAMP_S)
 		if float(cut["back"]) > 0.0 and at >= float(cut["back"]):
-			_cut[who] = {}
-			guard(who)
+			# S318 smoothness (tools/smooth_probe.gd: pro_idle started 39x in 1.8 min and played a median 0.27 s before the
+			# next move): back in guard, the punch's own tail (every Pro clip ends in its idle) plays on for up to TAIL_HOLD_S,
+			# easing to normal speed, so a move that comes inside it is one clip change instead of two.
+			var hold := float(cut.get("hold", TAIL_HOLD_S)) - get_process_delta_time()
+			cut["hold"] = hold
+			ap.speed_scale = maxf(1.0, ap.speed_scale - float(cut["scale"]) * get_process_delta_time() / RECOVER_RAMP_S)
+			if hold <= 0.0:
+				_cut[who] = {}
+				guard(who)
 
 
 func _on_finished(_name: StringName, who: int) -> void:

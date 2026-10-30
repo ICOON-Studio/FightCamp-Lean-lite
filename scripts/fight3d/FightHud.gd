@@ -6,6 +6,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const ExchangeBeats := preload("res://scripts/fight3d/ExchangeBeats.gd")
+const BodyLive := preload("res://scripts/fight3d/BodyLive.gd")
 
 
 ## [won, lost] exchanges at round time t. S312 (Ziva review: the caption said the 30 s was won while the score still read
@@ -29,6 +30,7 @@ static func build(view: Control) -> void:
 	view._clock = UI.mono("", UI.SMALL, UI.MUTED)
 	bv.add_child(view._clock)
 	_build_status(view, bv)
+	view.body = BodyLive.attach(view)   # S318 the body map figures, under the status rows
 	view._buttons = UI.hbox(8)
 	view._buttons.alignment = BoxContainer.ALIGNMENT_END
 	view.add_child(view._buttons)

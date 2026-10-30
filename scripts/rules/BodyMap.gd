@@ -8,10 +8,11 @@ const FACE_PLACES := ["left_eye", "right_eye", "nose"]
 const HURT := 55.0
 const CRITICAL := 35.0
 const DOCTOR := 15.0
-## Points one landed punch takes off. S318: tuned on test 5 (BoutRules round spread, 300 seeds): loser hurt 40-90 %, doctor <= 8 %.
-const FACE_HIT := 5.5
-const HEAD_HIT := 2.75
-const RIB_HIT := 7.5
+## Points one landed punch takes off. S318: tuned on test 5 - 3 rounds of 6 exchanges as the game plays them (BoutRules
+## spread, 300 seeds): loser hurt 40-90 %, doctor <= 8 %, winner fine >= 50 %.
+const FACE_HIT := 1.1
+const HEAD_HIT := 0.55
+const RIB_HIT := 1.5
 const BIG_MULT := 2.0
 const CUT_MULT := 1.5
 const PUNCHES := ["jab", "cross", "lead_hook", "body_hook", "rear_uppercut"]

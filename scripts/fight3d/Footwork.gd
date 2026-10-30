@@ -171,6 +171,8 @@ const GRACE_SPEED := 0.35
 
 
 ## Standing in her guard (or a fidget), not stepping, not locked in a hit reaction: free to take a step.
+## S318 tried letting a step start inside a finished step's grace: smooth_probe read MORE clip changes (160 -> 212/min,
+## steps started sooner and more often) - kept out.
 func can_step(who: int) -> bool:
 	var clip := str((stage.boxers[who]["ap"] as AnimationPlayer).current_animation)
 	return float(stage.boxers[who]["move_left"]) <= 0.0 and stage.stun.left(who) <= 0.0 \
