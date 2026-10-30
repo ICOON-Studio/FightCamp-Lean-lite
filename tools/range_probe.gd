@@ -35,6 +35,7 @@ var in_spells := 0            # S314 inside range: InsideBeats spells started, f
 var in_frames := 0
 var in_gap := 0.0
 var _was_in := false
+var exits: Array = []         # S315 inside exits: [kind, line yaw at the spell's end, frames since, turn after 1.2 s]
 
 
 func _initialize() -> void:
@@ -100,6 +101,14 @@ func _log() -> void:
 	if now_in:
 		in_frames += 1
 		in_gap += a.distance_to(b)
+	if _was_in and not now_in:
+		exits.append([_exit_kind(float(view.t)), atan2(b.x - a.x, b.z - a.z), 0, -1.0])
+	for e in exits:
+		if int(e[2]) >= 0:
+			e[2] = int(e[2]) + 1
+			if int(e[2]) == 36:
+				e[3] = absf(rad_to_deg(angle_difference(float(e[1]), atan2(b.x - a.x, b.z - a.z))))
+				e[2] = -1
 	_was_in = now_in
 	var ref: Node3D = view.stage.referee
 	if ref != null:
@@ -119,7 +128,21 @@ func _log() -> void:
 				ref_blocks += 1
 
 
+## The exit InsideExits gave the spell that just ended (its end_t nearest round time t).
+func _exit_kind(t: float) -> String:
+	var best := "?"
+	var d := 99.0
+	for bt in view._round_beats:
+		if str(bt["move"]) == "inside" and absf(float(bt["end_t"]) - t) < d:
+			d = absf(float(bt["end_t"]) - t)
+			best = str(bt.get("exit", "?"))
+	return best
+
+
 func _report() -> void:
+	for kind in ["pivot", "tie", "step"]:
+		var turns := exits.filter(func(e): return str(e[0]) == kind and float(e[3]) >= 0.0).map(func(e): return snappedf(float(e[3]), 1.0))
+		print("RANGE_PROBE exits %s %d, line turned in 1.2 s (deg): %s" % [kind, exits.filter(func(e): return str(e[0]) == kind).size(), str(turns)])
 	var s := Array(gaps)
 	s.sort()
 	var n := s.size()

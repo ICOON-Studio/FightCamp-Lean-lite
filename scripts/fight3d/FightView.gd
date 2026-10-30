@@ -401,7 +401,7 @@ func _ambient(dt: float) -> void:
 	var gap := 99.0
 	if next < beats.size():
 		gap = float(beats[next]["t"]) - t
-	if _quiet > 1.1 and gap > 1.2 and not stage.feet.phase() in ["clinch", "inside"]:
+	if _quiet > 1.1 and gap > 1.2 and not stage.feet.phase() in ["clinch", "inside", "pivot"]:
 		_quiet = 0.0
 		if _amb_rng.randf() < 0.65:
 			stage.circle(-1 if _amb_rng.randf() < 0.5 else 1, _amb_rng.randf_range(0.3, 0.55))

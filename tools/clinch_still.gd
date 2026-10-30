@@ -23,6 +23,7 @@ var _range_done := false
 var _pocket_done := false
 var _inside_only := false
 var _in_s := 0.0
+var _pv_s := -1.0             # S315: time since a pivot out began (inside mode also shoots it 0, 0.5 and 1.1 s in)
 
 
 func _initialize() -> void:
@@ -59,6 +60,13 @@ func _watch() -> void:
 		_in_s = _in_s + 1.0 / 30.0 if ph == "inside" else 0.0
 		if (absf(_in_s - 0.9) < 0.017 or absf(_in_s - 1.7) < 0.017):
 			_shot("inside")
+		if ph == "pivot" and _pv_s < 0.0:
+			_pv_s = 0.0
+		if _pv_s >= 0.0:
+			for at in [0.0, 0.5, 1.1]:
+				if absf(_pv_s - at) < 0.017:
+					_shot("pivot%.1f" % at)
+			_pv_s = _pv_s + 1.0 / 30.0 if _pv_s < 1.2 else -1.0
 		return
 	_rest_s = _rest_s + 1.0 / 30.0 if ph == "rest" else 0.0
 	if _rest_s >= 1.2 and not _range_done and float(view.t) > 5.0:

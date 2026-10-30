@@ -1,3 +1,39 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 17 (2026-10-30): GETTING OUT OF THE INSIDE, HEADS THAT MOVE UP CLOSE
+=============================================================================================
+
+NEW IN UPDATE 17 (board: "Test: fight night WITH film study" - watch round 1 at 1x)
+ 1. THREE WAYS OUT OF THE INSIDE. Before, every close-range spell ended with a straight step back. Now, as the coaching
+    books teach (John's research): the boxer being pressed often PIVOTS OUT - one quick step round to her lead side,
+    often right behind a short hook (the "check hook"), so the presser is left facing where she was. Or they TIE UP
+    and the referee breaks them. Or one simply steps back, as before. Measured on round 1: 6 pivots (the pair turned
+    37-84 degrees in a second), 7 steps back (9-39 degrees), 1 tie-up. Nobody has counted how often each happens in
+    real bouts, so the split is our estimate for now - John is counting it from real fights.
+ 2. HEADS MOVE UP CLOSE. Inside, each boxer's upper body now sways a little from side to side (about 5 cm each way, at
+    her own pace), with the head kept off the centre line - "keep making small side-to-side sways" (the coaching
+    sources). Before, the heads stood still while they punched.
+ Unchanged: who lands what, the inside share (21 % of round 1, real 17-31 %), feet moving 54-56 %, the referee.
+
+---- update 16 notes below ----
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 16 (2026-10-30): INSIDE FIGHTING, A LONGER STANCE, THE REFEREE OUT OF THE WAY
+=============================================================================================
+
+NEW IN UPDATE 16 (board: "Test: fight night WITH film study" - watch round 1 at 1x)
+ 1. THEY FIGHT INSIDE. Real women's finals spend 17-31 % of a round up close (pelvis to pelvis under 0.65 m); ours
+    was 5 % (only the clinches). Now some attacks are fought inside: the infighter steps in behind her punches, heads go
+    past each other's shoulder (about 14 cm apart, as the coaching books describe), and the straights there turn into
+    short hooks and uppercuts. They stay a couple of seconds, then one steps out or they tie up. A pressure fighter does
+    it far more than an out-boxer. Measured on round 1: 14 inside spells, 20 % of the round up close (real 17-31 %).
+    Who lands what is unchanged - only where and how it is thrown.
+ 2. A LONGER STANCE. The feet stood a little square (front-to-back 0.24 of her height-to-ankle vs 0.30-0.34 in the real
+    finals); now 0.32, the middle of the real range.
+ 3. THE REFEREE STAYS OUT OF THE WAY. When the boxers work on the ropes he used to cross to the camera's side and stand
+    in front of them; now he stays on the far side and moves along the ropes instead.
+
+STILL TO COME: getting out of the inside by a pivot (the coaching books' escape), and Ziva's playtest of this build
+(Ziva's weekly allowance ran out today - it resets on Monday).
+
+---- update 15 notes below ----
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 15 (2026-10-30): THE CLINCH, THE REFEREE, THE GUARD AT RANGE, ZIVA'S FIXES
 =============================================================================================
 

@@ -97,6 +97,15 @@ func _initialize() -> void:
 	var both := ins.duplicate(true)
 	both.insert(3, {"t": 6.5, "who": "a", "move": "clinch", "dur": 2.0, "break_t": 8.5})
 	_check(str(RB.phase(both, 4, 6.8)["phase"]) == "clinch", "a clinch inside the spell holds them tied up")
+	# 6. S315 a spell that ends in a pivot (InsideExits): the leaver pivots out from end_t to pivot_t, then rest.
+	var piv := ins.duplicate(true)
+	piv[0]["exit"] = "pivot"
+	piv[0]["exit_who"] = "a"
+	piv[0]["pivot_t"] = 8.9
+	var pv := RB.phase(piv, 4, 8.3)
+	_check(str(pv["phase"]) == "pivot" and int(pv["who"]) == 0, "the pressed one pivots out after end_t (phase %s)" % pv["phase"])
+	_check(str(RB.phase(piv, 3, 7.5)["phase"]) == "inside", "before end_t the spell holds")
+	_check(str(RB.phase(piv, 4, 9.5)["phase"]) == "rest", "after the pivot they part to rest")
 	print("RANGE_BREATH %s (%d failures)" % ["PASS" if failures == 0 else "FAIL", failures])
 	quit(failures)
 

@@ -292,6 +292,8 @@ func _compose(delta: float) -> void:
 		# S302: a landed punch carries her in (shown only; her place on the canvas stays).
 		var pr: Node = bx.get("reach")
 		n.position = me + (to.normalized() * float(pr.lunge()) if pr != null and to.length() > 0.01 else Vector3.ZERO) + clinch.offset(i, to) + feet.offset(to)
+		if bx.get("snap") != null:
+			bx["snap"].sway = feet.inside_w   # S315 small head sways inside
 		if to.length() > 0.01:
 			var yaw := atan2(to.x, to.z)
 			n.rotation = Vector3(0.0, yaw if delta <= 0.0 else lerp_angle(n.rotation.y, yaw, 1.0 - exp(-delta / FACE_S)), 0.0)

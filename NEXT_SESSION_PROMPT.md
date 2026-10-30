@@ -1,3 +1,37 @@
+# Next session: S316 (written S315, 2026-10-30, after update 17)
+
+## Start
+1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then `cd /e/FightCamp/Lean && git pull`.
+2. Board: Q-S294-24 (update 14), Q-S294-25 (15 clinch + referee), Q-S294-26 (16 inside fighting), Q-S294-27 (17 ways
+   out of the inside, pivot sequence attached) are open; quote and act on any answer. Review board: S315 stills.
+3. SEAT ANSWERS: John SQ21 J-INSIDE3 (how often each exit happens in real bouts) -> Game Godot/research/J_INSIDE3_JOHN.md.
+   Verify its sources, then set InsideExits.PIVOT / TIE from it (and the test's share bands) - today's are estimates.
+4. Ziva: weekly allowance resets Monday (his money call). Brief wt/ZIVA_LEAN/docs/ziva/S314_PLAYTEST_BRIEF.md -> update
+   it to 17 and merge main into ziva/lean first.
+
+## Where S315 stopped (Lean 4980e17, update 17 exported, 33/33 tests, smoke 0 errors)
+- scripts/rules/InsideExits.gd (after ClinchBeats in ExchangeBeats): exit pivot / tie / step + exit_who (the pressed one);
+  tie = the exchange's own clinch near the spell end or moved there with its referee break; pivot = check hook (her last
+  free single punch -> lead hook) + pivot_t = end_t + 0.9 s (shifted in ExchangeBeats).
+- RangeBreath phase "pivot"; Footwork._pivot: one fast circle step to her lead side (scale 1.3, 70 deg arc) once she is
+  back in guard. HitSnap.sway: +-6 deg trunk lean inside at 0.7-1.0 Hz (FightStage sets it from inside_w).
+- Round 1 probe: pivots turn the pair 37-84 deg in 1.2 s (6), steps back 9-39 (7), 1 tie; inside 21 %, feet 54-56 %.
+- Tools: range_probe "exits" lines; clinch_still `-- <dir> <n> inside` now also shoots each pivot at 0 / 0.5 / 1.1 s.
+
+## Next (in order)
+1. Board answers (Q-S294-24..27).
+2. The guard inside (John J_INSIDE2 item 2): elbows glued to the ribs, gloves at the cheeks/temples while inside_w is
+   up (GuardTuck only has the long-range `low` tuck). Measure elbow-to-ribs and glove height in inside stills.
+3. Short shovel hooks/uppercuts inside (item 3: 15-30 cm of fist travel, elbow sharply bent) - check PunchReach /
+   the hook clips' reach at 0.55 m.
+4. J-INSIDE3 shares into InsideExits; Ziva playtest when it runs.
+
+## Traps
+- A new beat key with an absolute time (end_t, break_t, pivot_t) must be shifted in ExchangeBeats.build.
+- docs/WHAT_TO_TRY.txt is the source; tools/export.sh copies it over Builds/ - never write notes only into Builds/.
+- The exe smoke always ends "timeout after 40 s" (rc 124): the pass is 0 ERROR lines in its log.
+
+---- previous prompt (S315) below ----
 # Next session: S315 (written S314, 2026-10-30, after update 16)
 
 ## Start

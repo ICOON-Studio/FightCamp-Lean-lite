@@ -5,7 +5,7 @@ extends RefCounted
 ## 0.95 m gap all round (sd 0.04 NA vs 0.39-0.49 real, 0 range swings vs 18-35 a minute).
 ## This reads the exchange's beats (absolute times, FightView fires them in order) and says what range the stage keeps
 ## now. The view never decides anything: who lands what is unchanged, only where they stand.
-##   phase(beats, next, t) -> {"phase": "in"|"pocket"|"rest"|"clinch"|"inside", "who": 0|1|-1, "move": String}
+##   phase(beats, next, t) -> {"phase": "in"|"pocket"|"rest"|"clinch"|"inside"|"pivot", "who": 0|1|-1, "move": String}
 ## S313 real-fight gap 4: a "clinch" beat (ClinchBeats: dur, break_t) holds them chest to chest until the referee's break.
 
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
@@ -40,6 +40,10 @@ static func phase(beats: Array, next: int, t: float) -> Dictionary:
 	var spell := _spell_at(beats, next, t, "inside", "end_t", INSIDE_LOOK_S)
 	if not spell.is_empty():
 		return {"phase": "inside", "who": _who(spell), "move": "inside"}
+	# S315: a spell that ends in a pivot (InsideExits): the pressed boxer pivots out off the line until pivot_t.
+	var out := _spell_at(beats, next, t, "inside", "pivot_t", INSIDE_LOOK_S)
+	if not out.is_empty() and t >= float(out["end_t"]):
+		return {"phase": "pivot", "who": 0 if str(out.get("exit_who", "a")) == "a" else 1, "move": "pivot"}
 	var last := _punch(beats, next - 1, -1)
 	var nxt := _punch(beats, next, 1)
 	var to_next := float(nxt["t"]) - t if not nxt.is_empty() else 99.0
@@ -58,7 +62,7 @@ static func want_m(ph: Dictionary, jab_gap: float, roll: float) -> float:
 		return lerpf(REST_M.x, REST_M.y, roll)
 	if str(ph["phase"]) == "clinch":
 		return CLINCH_M
-	if str(ph["phase"]) == "inside":
+	if str(ph["phase"]) in ["inside", "pivot"]:
 		return INSIDE_SPELL_M
 	return jab_gap - (INSIDE_M if INSIDE.has(str(ph["move"])) else 0.0)
 

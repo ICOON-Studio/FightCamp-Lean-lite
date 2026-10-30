@@ -32,6 +32,11 @@ const HALF_STEP_S := Vector2(0.14, 0.26)
 const CIRCLE_STEP_S := Vector2(0.25, 0.55)
 ## Pressed (a step_in beat), the other steps back this long (her answer to his step).
 const GIVE_S := Vector2(0.22, 0.34)
+## S315 the pivot out of the inside (InsideExits "pivot", John J_INSIDE2: ~90 deg on the lead foot behind a check hook):
+## the leaver circles to her lead side at the held gap until the line between them has turned this far, fast; the other
+## turns after her at her own facing pace (FightStage.FACE_S), so for a moment she faces where the leaver was.
+const PIVOT_DEG := 70.0
+const PIVOT_SCALE := 1.3
 
 var stage: Node
 var _pause := [0.0, 0.0]
@@ -39,6 +44,7 @@ var want_m := 1.0           # the gap kept now
 var _aim := {"phase": "pocket", "who": -1, "move": "jab"}
 var _rest_roll := 0.5
 var inside_w := 0.0         # 0..1, how far into an inside spell (FightStage lowers its floor and shifts the bodies by it)
+var _pivoted := false       # this pivot phase's step is taken
 
 
 func setup(owner: Node) -> void:
@@ -50,6 +56,8 @@ func setup(owner: Node) -> void:
 func aim(ph: Dictionary) -> void:
 	if str(ph["phase"]) == "rest" and str(_aim["phase"]) != "rest":
 		_rest_roll = stage.life.rng.randf()
+	if str(ph["phase"]) == "pivot" and str(_aim["phase"]) != "pivot":
+		_pivoted = false
 	_aim = ph
 	want_m = RangeBreath.want_m(ph, float(stage.gap_m), _rest_roll)
 	# S313 gap 5: the guard drops out of range and comes up for the entry and the pocket (GuardTuck.low).
@@ -66,6 +74,9 @@ func phase() -> String:
 ## attacker (a lunge, while the other may still move); otherwise the phase's boxer first, one at a time.
 func aim_step(dist: float, a_far: bool) -> void:
 	var ph := str(_aim["phase"])
+	if ph == "pivot":
+		_pivot(int(_aim["who"]), dist)
+		return
 	var err := dist - want_m
 	if absf(err) <= float(BAND_M.get(ph, 0.08)):
 		return
@@ -125,6 +136,16 @@ func step(who: int, dir: int) -> void:
 		life.later(1 - who, life.follow_delay(), _give.bind(1 - who, life.rng.randf_range(GIVE_S.x, GIVE_S.y)))
 	else:
 		_to(who, dist, RangeBreath.REST_M.y, EXIT_SCALE)
+
+
+## The pivot out: once the leaver is free (her check hook back in guard), one fast circle step to her lead side (the
+## left for an orthodox, the right for a southpaw) at the held gap; the arc it covers turns the line PIVOT_DEG.
+func _pivot(who: int, dist: float) -> void:
+	if _pivoted or who < 0 or not can_step(who):
+		return
+	_pivoted = true
+	var side := "strafe_right" if bool(stage.boxers[who].get("south", false)) else "strafe_left"
+	walk(who, side, deg_to_rad(PIVOT_DEG) * dist / (float(STRIDE[side][0]) * PIVOT_SCALE), PIVOT_SCALE)
 
 
 ## Pressed, she steps back (if she is free to): the pair travels her way.

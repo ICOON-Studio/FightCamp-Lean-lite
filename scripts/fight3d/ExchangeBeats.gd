@@ -13,6 +13,7 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const ClinchBeats := preload("res://scripts/rules/ClinchBeats.gd")
 const BurstShape := preload("res://scripts/rules/BurstShape.gd")
 const InsideBeats := preload("res://scripts/rules/InsideBeats.gd")
+const InsideExits := preload("res://scripts/rules/InsideExits.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 ## RoundScript.margin reads |mine - theirs| on the round's scale: these land each band in RoundScript's own band.
 const BAND_MINE := {"close": 3.0, "clear": 10.0, "dominant": 20.0}
@@ -50,6 +51,9 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	irng.seed = int(ctx["seed"]) + k * 41
 	InsideBeats.apply(plan["beats"], {"sit": str(x["sit"])}, irng)
 	_clinches(plan["beats"], x, ctx, int(ctx["seed"]) + k * 31)
+	# S315: how each inside spell ends - a pivot behind a check hook, a tie-up until Break, or a step back.
+	irng.seed = int(ctx["seed"]) + k * 43
+	InsideExits.apply(plan["beats"], irng)
 	var at := k * Exchanges.EX_SECONDS
 	var out: Array = []
 	for b in plan["beats"]:
@@ -60,6 +64,8 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 			b["break_t"] = float(b["break_t"]) + at
 		if b.has("end_t"):
 			b["end_t"] = float(b["end_t"]) + at   # S314 an inside spell's end
+		if b.has("pivot_t"):
+			b["pivot_t"] = float(b["pivot_t"]) + at   # S315 its pivot out
 		out.append(b)
 	# S310 the set-up fired: the corner's NOW and her combination, lands or not, with its own caption.
 	if str(x.get("setup", "")) != "":

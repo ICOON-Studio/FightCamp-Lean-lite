@@ -35,6 +35,13 @@ var _bt := -1.0
 var _bleft := true
 var _gain := 1.0               # 1 = the brace, FOLD_GAIN = a landed body shot
 var _b := {}                   # bone ids: spine, chest, hips, l/r upper, lower, hand
+## S315 inside range (John J_INSIDE2: "keep making small side-to-side sways", head off the centre line): the trunk leans
+## side to side about the hips while sway (FightStage: Footwork.inside_w) is up, each boxer at her own pace.
+const SWAY_DEG := 6.0          # ~5-6 cm of head travel each way
+const SWAY_HZ := Vector2(0.7, 1.0)
+var sway := 0.0
+var _sway_t := 0.0
+var _sway_hz := 0.0
 
 
 func setup(skel: Skeleton3D) -> bool:
@@ -95,6 +102,8 @@ static func fold_envelope(t: float) -> float:
 
 
 func _process_modification() -> void:
+	if sway > 0.0:
+		_sway_step()
 	if _bt >= 0.0:
 		_brace_step()
 	if _t < 0.0:
@@ -125,6 +134,23 @@ func _turn(skel: Skeleton3D, bone: int, angle: float) -> void:
 		return
 	var q := Quaternion(axis.normalized(), angle)
 	skel.set_bone_global_pose(bone, Transform3D(Basis(q) * g.basis, g.origin))
+
+
+func _sway_step() -> void:
+	var skel := get_skeleton()
+	if skel == null or int(_b.get("Chest", -1)) < 0 or int(_b.get("Hips", -1)) < 0:
+		return
+	if _sway_hz <= 0.0:
+		_sway_hz = randf_range(SWAY_HZ.x, SWAY_HZ.y)
+		_sway_t = randf() * 10.0
+	_sway_t += get_process_delta_time()
+	var up: Vector3 = (skel.get_bone_global_pose(int(_b["Chest"])).origin - skel.get_bone_global_pose(int(_b["Hips"])).origin).normalized()
+	var left: Vector3 = (skel.get_bone_global_pose(int(_b["LeftUpperArm"])).origin - skel.get_bone_global_pose(int(_b["RightUpperArm"])).origin).normalized()
+	var fwd := left.cross(up).normalized()
+	var w := sway * sway * (3.0 - 2.0 * sway)
+	var angle := deg_to_rad(SWAY_DEG) * sin(TAU * _sway_hz * _sway_t) * w
+	for n in ["Spine", "Chest"]:
+		_rotate(skel, int(_b[n]), fwd, angle * 0.5)
 
 
 func _brace_step() -> void:
