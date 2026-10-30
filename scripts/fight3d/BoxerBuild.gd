@@ -14,6 +14,7 @@ const ElbowClear := preload("res://scripts/fight3d/ElbowClear.gd")
 const JoinSmoother := preload("res://scripts/fight3d/JoinSmoother.gd")
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
+const GloveClear := preload("res://scripts/fight3d/GloveClear.gd")
 const GuardTuck := preload("res://scripts/fight3d/GuardTuck.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
@@ -87,11 +88,22 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	else:
 		hs.free()
 		hs = null
+	# S315: no glove inside the other's head (FightStage gives it the other boxer); `noglove` = the control arm.
+	var gc: GloveClear = null
+	if not OS.get_cmdline_user_args().has("noglove"):
+		gc = GloveClear.new()
+		gc.name = "GloveClear"
+		if gc.setup(skel):
+			skel.add_child(gc)
+			skel.move_child(gc, (hs.get_index() + 1) if hs != null else 0)
+		else:
+			gc.free()
+			gc = null
 	# S306: her planted feet stay where they stand; a foot steps when her body has moved off it.
 	# S314 `nostagger` = the clip's own stance spread (the control arm of gap 7).
 	var fp := FootPlant.attach(skel, ap, null, null if OS.get_cmdline_user_args().has("nostagger") else body) if not OS.get_cmdline_user_args().has("nofeet") else null
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "tuck": gt, "feet": fp, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "feet": fp, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 

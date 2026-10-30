@@ -155,8 +155,9 @@ func _lean(skel: Skeleton3D, s: Vector3, want: Vector3, reach: float, w: float) 
 
 
 ## Two-bone solve: shoulder fixed, wrist on `want` (clamped to the arm's reach), elbow kept on its current side; the hand
-## keeps `hand_basis`. ids = [upper arm, lower arm, hand, ...] (GuardTuck uses it too).
-static func solve(skel: Skeleton3D, ids: Array, s: Vector3, want: Vector3, l1: float, l2: float, hand_basis: Basis) -> void:
+## keeps `hand_basis`. ids = [upper arm, lower arm, hand, ...] (GuardTuck uses it too). S315: `pole_w` > 0 turns the elbow's
+## side that far toward `pole` (skeleton space; GuardTuck's inside guard drops the elbows onto the ribs).
+static func solve(skel: Skeleton3D, ids: Array, s: Vector3, want: Vector3, l1: float, l2: float, hand_basis: Basis, pole := Vector3.ZERO, pole_w := 0.0) -> void:
 	var ua: int = ids[0]
 	var la: int = ids[1]
 	var hd: int = ids[2]
@@ -173,6 +174,10 @@ static func solve(skel: Skeleton3D, ids: Array, s: Vector3, want: Vector3, l1: f
 	var c := s + axis * a
 	var bend := (e - c) - axis * (e - c).dot(axis)
 	bend = bend.normalized() if bend.length() > 1e-4 else Vector3.DOWN
+	if pole_w > 0.0:
+		var pp := pole - axis * pole.dot(axis)
+		if pp.length() > 1e-4:
+			bend = bend.slerp(pp.normalized(), clampf(pole_w, 0.0, 1.0)).normalized()
 	var e2 := c + bend * r
 	var rot_ua := Quaternion((e - s).normalized(), (e2 - s).normalized())
 	skel.set_bone_global_pose(ua, Transform3D(Basis(rot_ua) * g_ua.basis, s))

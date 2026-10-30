@@ -1,15 +1,19 @@
-# Next session: S316 (written S315, 2026-10-30, after update 17)
+# Next session: S316 (written S315, 2026-10-30, after updates 17 and 18)
 
 ## Start
 1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then `cd /e/FightCamp/Lean && git pull`.
 2. Board: Q-S294-24 (update 14), Q-S294-25 (15 clinch + referee), Q-S294-26 (16 inside fighting), Q-S294-27 (17 ways
-   out of the inside, pivot sequence attached) are open; quote and act on any answer. Review board: S315 stills.
+   out of the inside, pivot sequence attached), Q-S294-28 (18 the guard up close) are open; quote and act on any answer. Review board: S315 stills.
 3. SEAT ANSWERS: John SQ21 J-INSIDE3 (how often each exit happens in real bouts) -> Game Godot/research/J_INSIDE3_JOHN.md.
    Verify its sources, then set InsideExits.PIVOT / TIE from it (and the test's share bands) - today's are estimates.
 4. Ziva: weekly allowance resets Monday (his money call). Brief wt/ZIVA_LEAN/docs/ziva/S314_PLAYTEST_BRIEF.md -> update
    it to 17 and merge main into ziva/lean first.
 
-## Where S315 stopped (Lean 4980e17, update 17 exported, 33/33 tests, smoke 0 errors)
+## Where S315 stopped (Lean f804417, update 18 exported, 33/33 tests, smoke 0 errors)
+- Update 18: GuardTuck.inner (gloves at the cheeks, elbow bend down and in; `-- noinguard` = control) and GloveClear
+  (after HitSnap: a glove centre stays 0.15 m from the other's head centre; `-- noglove` = control). Measured with
+  tools/inside_guard_probe.gd (pose as shown): wrists 0.23 -> 0.14 m in front of the face, glove deep in a head 36 -> 8
+  of 571 inside frames.
 - scripts/rules/InsideExits.gd (after ClinchBeats in ExchangeBeats): exit pivot / tie / step + exit_who (the pressed one);
   tie = the exchange's own clinch near the spell end or moved there with its referee break; pivot = check hook (her last
   free single punch -> lead hook) + pivot_t = end_t + 0.9 s (shifted in ExchangeBeats).
@@ -20,8 +24,8 @@
 
 ## Next (in order)
 1. Board answers (Q-S294-24..27).
-2. The guard inside (John J_INSIDE2 item 2): elbows glued to the ribs, gloves at the cheeks/temples while inside_w is
-   up (GuardTuck only has the long-range `low` tuck). Measure elbow-to-ribs and glove height in inside stills.
+2. Head to head up close: still E:/FightCamp/tmp/s315/stills2/c01 shows Maria's head past Lucy's in a deep lean -
+   add a head-centre distance line to inside_guard_probe and fix if they meet.
 3. Short shovel hooks/uppercuts inside (item 3: 15-30 cm of fist travel, elbow sharply bent) - check PunchReach /
    the hook clips' reach at 0.55 m.
 4. J-INSIDE3 shares into InsideExits; Ziva playtest when it runs.

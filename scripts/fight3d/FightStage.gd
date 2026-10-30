@@ -76,6 +76,8 @@ var side := SideStep.new()    # S306: a dodge's step stays taken; a weave steps 
 ## S307 corner minute / intro: while `scene` is on, a director (CornerMinute) places and plays both boxers; the fight rules
 ## (face each other, keep the gap, the guard between moves, fidgets) are off.
 var scene := false
+## S315 `-- noinguard` = the old guard up close (the control arm of the inside guard).
+var _no_inguard := OS.get_cmdline_user_args().has("noinguard")
 ## S306: the turn to face her opponent eases over this (a committed side step turned both bodies ~10 degrees in one frame).
 const FACE_S := 0.08
 
@@ -90,6 +92,9 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 	_ropes = ring.ropes
 	for spec in [a, b]:
 		boxers.append(BoxerBuild.build(self, spec, boxers.size()))
+	for i in boxers.size():
+		if boxers[i].get("gclear") != null:
+			boxers[i]["gclear"].other = boxers[1 - i]["skel"]
 	gap_m = _jab_gap()
 	feet.setup(self)
 	add_child(clinch)
@@ -294,6 +299,8 @@ func _compose(delta: float) -> void:
 		n.position = me + (to.normalized() * float(pr.lunge()) if pr != null and to.length() > 0.01 else Vector3.ZERO) + clinch.offset(i, to) + feet.offset(to)
 		if bx.get("snap") != null:
 			bx["snap"].sway = feet.inside_w   # S315 small head sways inside
+		if bx.get("tuck") != null and not _no_inguard:
+			bx["tuck"].inner = feet.inside_w   # S315 the inside guard: elbows on the ribs, gloves at the cheeks
 		if to.length() > 0.01:
 			var yaw := atan2(to.x, to.z)
 			n.rotation = Vector3(0.0, yaw if delta <= 0.0 else lerp_angle(n.rotation.y, yaw, 1.0 - exp(-delta / FACE_S)), 0.0)

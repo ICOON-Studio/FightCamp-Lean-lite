@@ -1,3 +1,17 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 18 (2026-10-30): THE GUARD UP CLOSE, NO GLOVES THROUGH HEADS
+=============================================================================================
+
+NEW IN UPDATE 18 (board: "Test: fight night WITH film study" - watch round 1 at 1x)
+ 1. THE GUARD UP CLOSE. Inside, the coaching books keep the gloves at the cheeks and the elbows tight on the ribs
+    ("if you can see daylight between your elbow and your ribs, the punch is too wide"). Ours kept the long-range guard:
+    gloves 23 cm out in front of the face and 10 cm below it. Now up close the gloves come back to the cheeks (14 cm in
+    front, at cheek height) and the elbows drop down by the ribs (within about 2 cm, was up to 8 cm out).
+ 2. NO GLOVE THROUGH A HEAD. Up close, a hook, a jab or even the guard sometimes put a glove right inside the other
+    boxer's head - about 1 frame in 16 of inside fighting. Now a glove that would go into a head stops at its surface:
+    36 -> 8 frames of 571 measured (the rest are single frames while a head snaps back).
+ Unchanged: who lands what, the ranges, the footwork, the ways out of the inside (update 17).
+
+---- update 17 notes below ----
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 17 (2026-10-30): GETTING OUT OF THE INSIDE, HEADS THAT MOVE UP CLOSE
 =============================================================================================
 

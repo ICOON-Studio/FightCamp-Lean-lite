@@ -10,7 +10,11 @@ extends SkeletonModifier3D
 ## and forward; ours sat at eye level everywhere. `low` (0..1, Footwork sets it from the range phase: 1 at rest) lowers
 ## each wrist by LOW_M and carries it FWD_M forward, and lets the tuck go; it comes back up fast for the entry lunge
 ## (RangeBreath's "in" starts 0.38 s before the punch) and drops slowly once they are back out.
-##   setup(skel, ap, body, guard_clips, seed)   low
+## S315 inside range (John J_INSIDE2, coaching sources): up close the elbows are glued to the ribs ("if you can see
+## daylight between your elbow and your ribs, the punch is too wide") and the gloves sit at the cheeks/temples. `inner`
+## (0..1, FightStage sets it from Footwork.inside_w) draws each wrist to a point by the cheek on its own side and turns
+## the elbow's bend down and in (ElbowClear then keeps it just outside the ribs).
+##   setup(skel, ap, body, guard_clips, seed)   low   inner
 
 const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 
@@ -30,6 +34,13 @@ const LOW_UP_S := 0.15
 const LOW_DOWN_S := 0.6
 
 var low := 0.0        # wanted: 1 = the long-range guard (set every frame by Footwork.aim)
+var inner := 0.0      # 1 = the inside guard (set every frame by FightStage from Footwork.inside_w)
+## The inside guard's wrist, from the head bone: forward, out to her own side, up (metres).
+const IN_FWD_M := 0.13
+const IN_SIDE_M := 0.10
+const IN_UP_M := -0.03
+## The elbow's bend: down and this much in toward her ribs (ElbowClear stops it at the ribs).
+const IN_ELBOW_IN := 0.8
 var _low := 0.0
 var ap: AnimationPlayer
 var body: Node3D
@@ -40,6 +51,7 @@ var _head := -1
 var _w := 0.0
 var _t := 0.0
 var _phase := 0.0
+var _sh := [-1, -1]
 
 
 func setup(skel: Skeleton3D, player: AnimationPlayer, body_node: Node3D, guard_clips: Array, seed: int) -> bool:
@@ -48,6 +60,7 @@ func setup(skel: Skeleton3D, player: AnimationPlayer, body_node: Node3D, guard_c
 	guards = guard_clips
 	_phase = float(seed % 97) * 0.37
 	_head = skel.find_bone("Head")
+	_sh = [skel.find_bone("LeftUpperArm"), skel.find_bone("RightUpperArm")]
 	for side in ["Left", "Right"]:
 		var ids := [skel.find_bone(side + "UpperArm"), skel.find_bone(side + "LowerArm"), skel.find_bone(side + "Hand")]
 		if ids.has(-1):
@@ -74,6 +87,10 @@ func _process_modification() -> void:
 	fwd = fwd.normalized()
 	var head: Vector3 = skel.get_bone_global_pose(_head).origin
 	var face := head + fwd * FACE_FWD_M + Vector3.UP * FACE_UP_M
+	var iw := inner * inner * (3.0 - 2.0 * inner) * e
+	var left := skel.get_bone_global_pose(int(_sh[0])).origin - skel.get_bone_global_pose(int(_sh[1])).origin
+	left.y = 0.0
+	left = left.normalized() if left.length() > 1e-4 else fwd.cross(Vector3.UP)
 	for hand in _arms:
 		var ids: Array = _arms[hand]
 		var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
@@ -82,9 +99,13 @@ func _process_modification() -> void:
 		var pump := float(PUMP_M["lead" if hand == lead else "rear"]) * sin(TAU * PUMP_HZ * _t + _phase + (0.0 if hand == "LeftHand" else 2.1))
 		var move := (-back + pump + LOW_FWD_M * lw) * e
 		var drop := float(LOW_M["lead" if hand == lead else "rear"]) * lw * e
-		if absf(move) < 1e-4 and drop < 1e-4:
+		if absf(move) < 1e-4 and drop < 1e-4 and iw <= 0.0:
 			continue
 		var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 		var l1 := s.distance_to(skel.get_bone_global_pose(int(ids[1])).origin)
 		var l2 := skel.get_bone_global_pose(int(ids[1])).origin.distance_to(g_hd.origin)
-		PunchReach.solve(skel, ids, s, g_hd.origin + fwd * move - Vector3.UP * drop, l1, l2, g_hd.basis)
+		var to := g_hd.origin + fwd * move - Vector3.UP * drop
+		var out := left if hand == "LeftHand" else -left
+		if iw > 0.0:
+			to = to.lerp(head + fwd * IN_FWD_M + out * IN_SIDE_M + Vector3.UP * IN_UP_M, iw)
+		PunchReach.solve(skel, ids, s, to, l1, l2, g_hd.basis, (Vector3.DOWN - out * IN_ELBOW_IN).normalized(), iw)
