@@ -98,9 +98,10 @@ func _lens(shallow: bool, focus: float = 0.0) -> void:
 	var lens := attributes as CameraAttributesPractical
 	lens.dof_blur_near_enabled = shallow
 	if shallow:
-		lens.dof_blur_near_distance = maxf(0.1, focus - 0.35)
-		lens.dof_blur_near_transition = 0.25
-		lens.dof_blur_far_distance = focus + 0.5
+		# The sharp band grows with the distance, as a real lens's depth of field does.
+		lens.dof_blur_near_distance = maxf(0.1, focus * 0.7)
+		lens.dof_blur_near_transition = focus * 0.25
+		lens.dof_blur_far_distance = focus * 1.35 + 0.2
 		lens.dof_blur_far_transition = 1.2
 		lens.dof_blur_amount = 0.2
 	else:

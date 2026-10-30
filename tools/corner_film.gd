@@ -14,8 +14,11 @@ const FightView := preload("res://scripts/fight3d/FightView.gd")
 const CornerShots := preload("res://scripts/fight3d/CornerShots.gd")
 const FightCast := preload("res://scripts/fight3d/FightCast.gd")
 const STILLS := [[1.0, "c01_bell_part"], [3.2, "c02_behind_walk"], [5.3, "c03_low_sits"], [7.0, "c04_water"], [8.5, "c05_ice"],
-	[11.0, "c06_coach_card"], [13.5, "c07_reverse_pick"], [24.0, "c08_ots"], [31.5, "c085_cutman"], [41.5, "c09_other_corner"], [53.0, "c10_seconds_out"],
+	[11.0, "c06_coach_card"], [13.5, "c07_reverse_pick"], [16.0, "c075_side2"], [24.0, "c08_corner_wide"], [28.5, "c08b_ots"], [31.5, "c085_cutman"], [41.5, "c09_other_corner"], [53.0, "c10_seconds_out"],
 	[56.5, "c11_walk_out"]]
+
+const INTRO_STILLS := [[1.2, "i01_wide"], [3.4, "i02_red_named"], [6.4, "i03_blue_named"], [9.0, "i04_walk_in"], [10.9, "i05_touch"],
+	[12.0, "i06_seconds_out"]]
 
 var main: Node
 var out_dir := "user://corner_film"
@@ -62,15 +65,31 @@ func _initialize() -> void:
 		tap.setup(skel, ["LeftFoot", "RightFoot"])
 		skel.add_child(tap)
 		_taps.append(tap)
+	var intro: Node = _find(view, "cue_touch")
+	_check(intro != null and not bool(view.playing), "the intro plays before round 1")
+	if intro != null:
+		if film:
+			await _until(func(): return not is_instance_valid(intro), 20.0)
+		else:
+			await _watch_intro(intro)
+		await _wait(2)
+	_check(bool(view.playing) and int(view.round_n) == 1, "round 1 plays after the intro")
+	_check(not view.stage.scene, "the fight has the boxers back after the intro")
 	for n in range(1, total):
 		await _wait(30)
-		view.skip_round()
+		if film:
+			# The film watches each round to its bell.
+			await _until(func(): return _find(view, "cue_walk_out") != null or not bool(view.playing), 120.0)
+		else:
+			view.skip_round()
 		await _wait(2)
-		var cm: Node = _minute(view)
+		var cm: Node = _find(view, "cue_walk_out")
 		_check(cm != null, "round %d's bell starts the corner minute" % n)
 		if cm == null:
 			break
 		if film:
+			await _until(func(): return float(cm.t) > 13.0, 20.0)
+			cm._pick(pick)
 			await _until(func(): return not is_instance_valid(cm), 70.0)
 		else:
 			await _watch(view, cm)
@@ -79,15 +98,40 @@ func _initialize() -> void:
 		_check(not view.stage.scene, "the fight has the boxers back")
 		if not film:
 			break
+	if film:
+		await _until(func(): return not bool(view.playing), 120.0)
+		await _wait(90)
 	print("CORNER_FILM failures=%d" % failures)
 	quit(0 if failures == 0 else 1)
 
 
-func _minute(view: Node) -> Node:
+func _find(view: Node, method: String) -> Node:
 	for c in view.get_children():
-		if c.has_method("cue_walk"):
+		if c.has_method(method):
 			return c
 	return null
+
+
+## The intro's stills, and its gloves meeting at the touch.
+func _watch_intro(fi: Node) -> void:
+	var k := 0
+	var touch := 9.0
+	while is_instance_valid(fi):
+		var tm := float(fi.t)
+		if tm > 10.7 and tm < 11.2:
+			var st: Node3D = fi.stage
+			var g0: Vector3 = st.glove_front(0, st.hand_of(0, "LeftHand"))
+			var g1: Vector3 = st.glove_front(1, st.hand_of(1, "LeftHand"))
+			touch = minf(touch, g0.distance_to(g1))
+		if k < INTRO_STILLS.size() and tm >= float(INTRO_STILLS[k][0]):
+			await RenderingServer.frame_post_draw
+			var path := out_dir.path_join(str(INTRO_STILLS[k][1]) + ".png")
+			root.get_texture().get_image().save_png(path)
+			print("wrote ", path)
+			k += 1
+		await process_frame
+	print("CORNER intro gloves at the touch, closest %.3f m" % touch)
+	_check(touch < 0.12, "the gloves touch in the intro (< 12 cm apart)")
 
 
 ## Stills on the shot list; the checks run every frame of the minute.

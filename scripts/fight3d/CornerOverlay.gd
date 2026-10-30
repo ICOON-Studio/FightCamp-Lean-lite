@@ -2,7 +2,7 @@ extends Control
 ## S307 the corner minute's screen (docs/FIGHT_NIGHT_SCRIPT.md v2): letterbox bars (2.39:1 on the 16:9 frame), the rest
 ## clock, the coach's lines as captions in the lower bar, the corner card (what worked, what hurt, the coach's call) with
 ## the three calls to pick while the minute runs, and SKIP TO THE BELL.
-##   build(card, names)  clock(left_s)  say(text)  show_card(on)  picked(call)   signals: chose(call), skip
+##   build(card, names)  build_intro()  clock(left_s)  say(text)  show_card(on)  picked(call)   signals: chose(call), skip
 
 const UI := preload("res://scripts/ui/UI.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -70,6 +70,12 @@ func build(card: Dictionary, names: Array) -> void:
 	_said.visible = false
 	v.add_child(_said)
 	_card.visible = false
+
+
+## The intro's screen: the letterbox, the announcer's captions and SKIP TO THE BELL only.
+func build_intro() -> void:
+	build({"worked": "", "hurt": "", "why": "", "call": ""}, [""])
+	_clock.text = "FIGHT NIGHT"
 
 
 func clock(left_s: float, round_next: int) -> void:

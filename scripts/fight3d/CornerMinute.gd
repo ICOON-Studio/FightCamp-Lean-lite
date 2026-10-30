@@ -17,8 +17,10 @@ signal done(call: String)
 ## The bell rings at the end of the minute: the next round starts here (seconds).
 const MINUTE_S := 58.0
 ## The shot list: [start s, framing] (CornerShots). "cutman" plays in pro bouts only.
-const SHOTS := [[0.0, "part"], [2.2, "behind"], [4.4, "low_out"], [6.4, "water"], [7.8, "ice"], [9.0, "ots"], [15.0, "reverse"],
-	[19.0, "ots"], [30.0, "cutman"], [34.0, "ots"], [40.0, "other"], [43.5, "reverse"], [47.0, "ots"], [52.0, "push"], [54.6, "broadcast"]]
+## S307 film check: no shot holds longer than ~6 s; over the shoulder, profile, the whole corner and the reverse take turns.
+const SHOTS := [[0.0, "part"], [2.2, "behind"], [4.4, "low_out"], [6.4, "water"], [7.8, "ice"], [9.0, "ots"], [14.0, "side2"],
+	[19.0, "reverse"], [23.0, "corner_wide"], [27.0, "ots"], [30.0, "cutman"], [34.0, "side2"], [40.0, "other"], [43.5, "reverse"],
+	[47.0, "corner_wide"], [52.0, "push"], [54.6, "broadcast"]]
 ## What happens when: [s, cue] (the cue_<name> methods).
 const CUES := [[0.3, "walk"], [2.2, "crew_in"], [6.4, "water"], [7.8, "ice"], [9.0, "face"], [30.0, "cutman"], [34.0, "cutman_off"],
 	[40.0, "blue_talk"], [50.0, "default_call"], [52.0, "seconds_out"], [52.4, "stand"], [54.6, "walk_out"]]
@@ -43,6 +45,7 @@ var _shot_len := 1.0
 var _hold_until := -1.0
 var _shots: Array = []
 var _lines: Array = []    # [[at s, text]] captions still to show
+var _card_off := -1.0     # the card steps aside this long after the call (the picture is the minute's)
 
 
 func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
@@ -73,6 +76,9 @@ func _process(delta: float) -> void:
 	while not _lines.is_empty() and float(_lines[0][0]) <= t:
 		ui.say(str(_lines[0][1]))
 		_lines.pop_front()
+	if _card_off > 0.0 and t >= _card_off:
+		_card_off = -1.0
+		ui.show_card(false)
 	_tick_ui()
 	if t >= MINUTE_S:
 		finish()
@@ -188,8 +194,6 @@ func cue_crew_in() -> void:
 		crew.play(second, "af_crouch_idle")
 		(coach["node"] as Node3D).visible = true
 		(second["node"] as Node3D).visible = true
-		if side == "red":
-			crew.hold_at("towel", second, "RightShoulder", Vector3(0, 0.07, 0))
 		(crew.props[side + "_stool"] as Node3D).visible = true
 		(crew.props[side + "_bucket"] as Node3D).visible = true
 
@@ -270,7 +274,6 @@ func cue_seconds_out() -> void:
 	ui.show_card(false)
 	_lines.append([t, "\"Seconds out!\""])
 	crew.drop("ice")
-	crew.drop("towel")
 	for i in 2:
 		crew.look(stage.boxers[i], null)
 	for role in crew.actors:
@@ -324,6 +327,7 @@ func _pick(k: String) -> void:
 	if pick != "":
 		return
 	pick = k
+	_card_off = t + 6.0
 	ui.picked(k)
 	_lines.clear()
 	_lines.append([t, "\"%s\"" % LINES.get(k, BoutRules.CORNER[k])])

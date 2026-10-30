@@ -47,8 +47,21 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 			var coach: Dictionary = ctx["coach"]
 			var sh := bone(coach, "RightUpperArm")
 			var dir := (sh - face).normalized()
-			var p := sh + dir * 0.32 + Vector3.UP * 0.12 - side(coach) * 0.06
-			return {"pos": p, "look": face, "fov": 30.0, "focus": p.distance_to(face), "drift": -side(coach) * 0.04}
+			var p := sh + dir * 0.6 + Vector3.UP * 0.16 - side(coach) * 0.2
+			return {"pos": p, "look": face, "fov": 32.0, "focus": p.distance_to(face), "drift": -side(coach) * 0.05}
+		"side2":
+			# Both in profile from her left: the coach crouched, talking up to her on the stool.
+			var coach: Dictionary = ctx["coach"]
+			var cf := bone(coach, "Head")
+			var mid := (face + cf) * 0.5
+			var p := mid + l * 1.7 + Vector3.UP * 0.15
+			return {"pos": p, "look": mid, "fov": 32.0, "focus": p.distance_to(mid), "drift": d * 0.12}
+		"corner_wide":
+			# The whole corner from the ring's middle: her on the stool, the coach in front, the second on the apron.
+			var seat: Vector3 = red["seat"]
+			var p := seat + d * 3.4 - l * 0.9 + Vector3.UP * 1.45
+			var look := seat + d * 0.4 + Vector3.UP * 0.8
+			return {"pos": p, "look": look, "fov": 30.0, "focus": p.distance_to(look), "drift": -l * 0.25}
 		"reverse":
 			# The reverse: over her shoulder onto the coach as he speaks, looking up at her (three-quarter, never long straight-on).
 			var coach: Dictionary = ctx["coach"]

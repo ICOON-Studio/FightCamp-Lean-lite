@@ -255,6 +255,8 @@ func play_round(m: Dictionary, n: int) -> void:
 		stage.guard(i)
 	_draw_buttons()
 	_hud()
+	# S307: before round 1 the intro plays (FightCast.intro); it hands the ring back at the bell.
+	playing = not (n == 1 and FightCast.intro(self))
 
 
 ## Fight model step 5 (S301): both boxers' habits show in the round (HabitBeats rewrites the beats; who lands how many is

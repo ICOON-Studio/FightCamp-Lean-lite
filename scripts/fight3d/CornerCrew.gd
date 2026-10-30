@@ -12,6 +12,7 @@ const MH := preload("res://scripts/fight3d/MHRig.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const IdleMatch := preload("res://scripts/fight3d/IdleMatch.gd")
 const CornerIK := preload("res://scripts/fight3d/CornerIK.gd")
+const FighterKit := preload("res://scripts/fight3d/FighterKit.gd")
 
 const DIR := "res://assets/models/metahuman/"
 const BODIES := {"coach": "mh_staff_coach", "second": "mh_staff_trainer", "cutman": "mh_staff_cutman_1",
@@ -59,7 +60,6 @@ func build(s: Node3D, pro: bool) -> void:
 	props["bottle"] = _cyl(0.035, 0.22, Color(0.55, 0.8, 0.95, 0.75), 0.15)
 	# An ice bag in a towel, held flat against the back of her neck (thin side front to back).
 	props["ice"] = _box(Vector3(0.12, 0.09, 0.03), Color(0.82, 0.88, 0.95), 0.85)
-	props["towel"] = _box(Vector3(0.12, 0.02, 0.42), Color(0.95, 0.95, 0.93), 0.9)
 	set_shown(false)
 
 
@@ -316,6 +316,8 @@ func _body(glb: String) -> Dictionary:
 	var ap := body.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 	FightClips.load_into(ap, skel, true)
 	_loops(ap)
+	# The staff bodies come barefoot: the boxers' black boots, fitted to their feet, read as shoes.
+	FighterKit._dress_metahuman(body, skel, load(FighterKit.BOOT_PATH))
 	return {"node": body, "skel": skel, "ap": ap, "js": null, "ik": CornerIK.attach(skel, body)}
 
 

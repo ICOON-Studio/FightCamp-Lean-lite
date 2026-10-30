@@ -1,6 +1,6 @@
 extends SceneTree
 ## Plays the real game to fight night and films the 3D rounds: stills at set moments of round 1 (highlights), a full
-## round 2, the corner picker over the frozen ring, SKIP BOUT, the result. Also checks the flow: every round watched,
+## round 2, the corner minute (S307, skipped here after a still), SKIP BOUT, the result. Also checks the flow: every round watched,
 ## the modal back between rounds, the result reached. Real pictures only (run it on the never-shown desktop):
 ##   python tools/hidden_desktop.py run --timeout=400 <godot.exe> --path . --windowed --resolution 1920x1080 \
 ##       --script res://tools/fight3d_play.gd -- <out_dir>
@@ -57,6 +57,12 @@ func _initialize() -> void:
 	await _wait(4)
 	main.act("fightstep", "start")
 	var view: Node = main._fight_layer.get_child(0) if main._fight_layer.get_child_count() > 0 else null
+	# S307: the intro plays first; skip it to the bell (tools/corner_film.gd films it).
+	await _wait(2)
+	for ch in view.get_children():
+		if ch.has_method("cue_touch"):
+			ch.finish()
+	await _wait(2)
 	_check(view != null and bool(view.playing), "round 1 plays in 3D (the words modal waits)")
 	_check(main._modal_layer.get_child_count() == 0, "no modal over the ring while the round plays")
 	await _shot("p01_round1_open", 0.6)
@@ -66,10 +72,18 @@ func _initialize() -> void:
 	await _until(func(): return float(view._close_left) > 0.0, 30.0)
 	await _shot("p03_round1_closeup", 0.3)
 	await _until(func(): return not bool(view.playing), 40.0)
-	_check(int(main.modal.get("watched", 0)) == 1, "round 1 watched -> the modal shows the corner picker")
-	await _shot("p04_corner_over_ring", 0.3)
+	# S307: the corner minute plays in the ring (tools/corner_film.gd checks it); the call is made on its card.
+	var cm: Node = null
+	for ch in view.get_children():
+		if ch.has_method("cue_walk_out"):
+			cm = ch
+	_check(cm != null, "round 1's bell starts the corner minute")
+	await _shot("p04_corner_minute", 1.0)
 	FightView.highlights = false
-	main.act("fightstep", "corner:body")
+	if cm != null:
+		cm._pick("body")
+		cm.finish()
+	await _wait(2)
 	_check(bool(view.playing) and int(view.round_n) == 2, "round 2 plays after the corner call")
 	await _shot("p05_round2_full_open", 2.5)
 	await _shot("p06_round2_full_mid", 14.0)

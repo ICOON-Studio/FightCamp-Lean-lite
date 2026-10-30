@@ -1,10 +1,11 @@
 extends RefCounted
 ## Who appears in the 3D ring (split from FightView.gd S307, 500-line rule): the two boxers' bodies and sizes, the corner
 ## teams (CornerCrew), and the corner minute between rounds (CornerMinute, docs/FIGHT_NIGHT_SCRIPT.md v2).
-##   bodies_for(limit)  body_scales(limit, her_cm, opp_cm)  crew(stage, pro)  corner(view) -> bool
+##   bodies_for(limit)  body_scales(limit, her_cm, opp_cm)  crew(stage, pro)  intro(view) -> bool  corner(view) -> bool
 
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
+const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 
 const BODIES := ["res://assets/models/metahuman/mh_boxer_10.glb", "res://assets/models/metahuman/mh_boxer_11.glb",
@@ -61,3 +62,31 @@ static func corner(view: Node) -> bool:
 	cm.run(view, view.stage, view.crew, {"round": int(view.round_n), "card": card, "won": bool(r.get("won", false)),
 		"pro": (view.crew.actors as Dictionary).has("cutman"), "names": names})
 	return true
+
+
+## Before round 1, once a fight: the intro (FightIntro). True while it plays; at its bell round 1 runs.
+static func intro(view: Node) -> bool:
+	if view.crew == null or view.has_meta("intro_seen"):
+		return false
+	view.set_meta("intro_seen", true)
+	var c: Career = view.main.career
+	var f: Dictionary = c.fighter_by_id(str(view.fid))
+	var opp: Dictionary = f["bout"]["opp"]
+	var intros := ["In the red corner, from %s, %d and %d: %s" % [c.gym_name, int(f["w"]), int(f["l"]), str(f["name"]).to_upper()],
+		"In the blue corner, from %s, %d and %d: %s" % [str(opp["club"]), int(opp["w"]), int(opp["l"]), str(opp["name"]).to_upper()]]
+	view.hide_hud()
+	var fi := FightIntro.new()
+	view.add_child(fi)
+	fi.done.connect(_intro_over.bind(view))
+	fi.run(view, view.stage, view.crew, {"intros": intros})
+	return true
+
+
+static func _intro_over(view: Node) -> void:
+	view.playing = true
+	view.t = 0.0
+	Engine.time_scale = view.pace()
+	view._bug_box.visible = true
+	view._banner.text = "ROUND 1"
+	view._draw_buttons()
+	view._hud()
