@@ -44,6 +44,8 @@ const GUARD_HALF_LIFE_S := 0.1
 const GUARD_JOIN_S := 0.45
 ## S311: nobody closes inside this pelvis gap (gloves in guard would meet).
 const MIN_GAP_M := 0.62
+## S314: in an inside spell the heads pass each other's shoulder (Footwork.offset), so they may close to this.
+const INSIDE_FLOOR_M := 0.48
 ## S311: the pair's middle stays this far inside the ropes (was 0.9: nobody ever reached them), and a boxer's pelvis
 ## at least ROPE_LEAN_M (backed onto the ropes she leans on them).
 const MID_IN_M := 0.55
@@ -258,7 +260,7 @@ func _compose(delta: float) -> void:
 	var keep := dist
 	if pin[0] or pin[1]:
 		keep = float(boxers[0 if pin[0] else 1]["hold_m"])
-	keep = maxf(keep, clinch.floor_m(MIN_GAP_M))
+	keep = maxf(keep, clinch.floor_m(lerpf(MIN_GAP_M, INSIDE_FLOOR_M, feet.inside_w)))
 	if absf(dist - keep) > 0.001:
 		var err := dist - keep
 		var share := [0.5, 0.5] if pin[0] == pin[1] else ([1.0, 0.0] if pin[0] else [0.0, 1.0])
@@ -289,7 +291,7 @@ func _compose(delta: float) -> void:
 		var to := other - me
 		# S302: a landed punch carries her in (shown only; her place on the canvas stays).
 		var pr: Node = bx.get("reach")
-		n.position = me + (to.normalized() * float(pr.lunge()) if pr != null and to.length() > 0.01 else Vector3.ZERO) + clinch.offset(i, to)
+		n.position = me + (to.normalized() * float(pr.lunge()) if pr != null and to.length() > 0.01 else Vector3.ZERO) + clinch.offset(i, to) + feet.offset(to)
 		if to.length() > 0.01:
 			var yaw := atan2(to.x, to.z)
 			n.rotation = Vector3(0.0, yaw if delta <= 0.0 else lerp_angle(n.rotation.y, yaw, 1.0 - exp(-delta / FACE_S)), 0.0)

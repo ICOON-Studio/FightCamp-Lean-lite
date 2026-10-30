@@ -5,7 +5,7 @@ extends RefCounted
 ## 0.95 m gap all round (sd 0.04 NA vs 0.39-0.49 real, 0 range swings vs 18-35 a minute).
 ## This reads the exchange's beats (absolute times, FightView fires them in order) and says what range the stage keeps
 ## now. The view never decides anything: who lands what is unchanged, only where they stand.
-##   phase(beats, next, t) -> {"phase": "in"|"pocket"|"rest"|"clinch", "who": 0|1|-1, "move": String}
+##   phase(beats, next, t) -> {"phase": "in"|"pocket"|"rest"|"clinch"|"inside", "who": 0|1|-1, "move": String}
 ## S313 real-fight gap 4: a "clinch" beat (ClinchBeats: dur, break_t) holds them chest to chest until the referee's break.
 
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
@@ -26,6 +26,10 @@ const INSIDE := ["lead_hook", "body_hook", "rear_uppercut"]
 const CLINCH_M := 0.38
 ## A clinch beat is looked for this far back (ClinchBeats.DUR_MAX_S + a margin).
 const CLINCH_LOOK_S := 9.0
+## S314 inside range (InsideBeats spells: real women's finals 17-31 % of a round under 0.65 m, ours was 5 %): pelvis to
+## pelvis while they dig hooks and uppercuts, heads past each other's shoulder (Footwork.offset).
+const INSIDE_SPELL_M := 0.55
+const INSIDE_LOOK_S := 7.0
 
 
 ## The range the stage keeps at view time t. `next` = the first beat not yet fired.
@@ -33,6 +37,9 @@ static func phase(beats: Array, next: int, t: float) -> Dictionary:
 	var held := clinch_at(beats, next, t)
 	if not held.is_empty():
 		return {"phase": "clinch", "who": _who(held), "move": "clinch"}
+	var spell := _spell_at(beats, next, t, "inside", "end_t", INSIDE_LOOK_S)
+	if not spell.is_empty():
+		return {"phase": "inside", "who": _who(spell), "move": "inside"}
 	var last := _punch(beats, next - 1, -1)
 	var nxt := _punch(beats, next, 1)
 	var to_next := float(nxt["t"]) - t if not nxt.is_empty() else 99.0
@@ -51,14 +58,21 @@ static func want_m(ph: Dictionary, jab_gap: float, roll: float) -> float:
 		return lerpf(REST_M.x, REST_M.y, roll)
 	if str(ph["phase"]) == "clinch":
 		return CLINCH_M
+	if str(ph["phase"]) == "inside":
+		return INSIDE_SPELL_M
 	return jab_gap - (INSIDE_M if INSIDE.has(str(ph["move"])) else 0.0)
 
 
 ## The clinch beat already fired (index < next) whose hold covers t (t < break_t); {} if none.
 static func clinch_at(beats: Array, next: int, t: float) -> Dictionary:
+	return _spell_at(beats, next, t, "clinch", "break_t", CLINCH_LOOK_S)
+
+
+## The `move` beat already fired (index < next) whose window covers t (t < its `until` key), looked for `look` s back.
+static func _spell_at(beats: Array, next: int, t: float, move: String, until: String, look: float) -> Dictionary:
 	var i := mini(next, beats.size()) - 1
-	while i >= 0 and float(beats[i]["t"]) >= t - CLINCH_LOOK_S:
-		if str(beats[i]["move"]) == "clinch" and t < float(beats[i].get("break_t", -1.0)):
+	while i >= 0 and float(beats[i]["t"]) >= t - look:
+		if str(beats[i]["move"]) == move and t < float(beats[i].get(until, -1.0)):
 			return beats[i]
 		i -= 1
 	return {}

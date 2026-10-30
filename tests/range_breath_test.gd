@@ -79,6 +79,24 @@ func _initialize() -> void:
 	_check(is_equal_approx(RB.want_m(held, jab_gap, 0.5), RB.CLINCH_M) and RB.CLINCH_M < 0.65, "tied up they stand inside range")
 	_check(str(RB.phase(cl, 4, 5.6)["phase"]) == "rest", "after the break they part to rest")
 	_check(str(RB.phase(cl, 2, 5.45)["phase"]) != "clinch", "the hold ends at break_t even before its beats fire")
+	# 5. S314 inside range: an InsideBeats spell keeps them inside (< 0.65 m) from its beat to end_t, gaps between punches
+	# included; a clinch inside the spell wins; after end_t the usual pocket / rest rules return.
+	var ins := [
+		{"t": 4.62, "who": "b", "move": "inside", "result": "none", "end_t": 8.0},
+		{"t": 5.0, "who": "b", "move": "lead_hook", "result": "lands"},
+		{"t": 6.3, "who": "a", "move": "rear_uppercut", "result": "blocked"},
+		{"t": 7.0, "who": "b", "move": "body_hook", "result": "lands"},
+		{"t": 12.0, "who": "a", "move": "jab", "result": "lands"},
+	]
+	var spell := RB.phase(ins, 1, 4.7)
+	_check(str(spell["phase"]) == "inside" and int(spell["who"]) == 1, "the infighter's step in opens the spell (phase %s)" % spell["phase"])
+	_check(RB.want_m(spell, jab_gap, 0.5) < 0.65, "an inside spell stands inside range")
+	_check(str(RB.phase(ins, 3, 6.9)["phase"]) == "inside", "between punches they stay inside")
+	_check(str(RB.phase(ins, 4, 9.5)["phase"]) == "rest", "after end_t they part to rest")
+	_check(str(RB.phase(ins, 0, 4.7)["phase"]) != "inside", "no spell before its beat fires")
+	var both := ins.duplicate(true)
+	both.insert(3, {"t": 6.5, "who": "a", "move": "clinch", "dur": 2.0, "break_t": 8.5})
+	_check(str(RB.phase(both, 4, 6.8)["phase"]) == "clinch", "a clinch inside the spell holds them tied up")
 	print("RANGE_BREATH %s (%d failures)" % ["PASS" if failures == 0 else "FAIL", failures])
 	quit(failures)
 

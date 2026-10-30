@@ -32,6 +32,8 @@ const HURRY := 1.5
 const PUSH_S := 0.9
 const TURN_S := 0.15
 const EDGE_IN_M := 0.4
+## Pinned by the ropes on his side, he tries these spots along the line (x his `out`; 0 = ALONG_M), first with room wins.
+const ALONG_TRY := [0, 1, -1, 1.6, -1.6]
 
 var stage: Node3D
 var body: Node3D
@@ -39,6 +41,7 @@ var ap: AnimationPlayer
 var _mode := "watch"      # watch | in | part
 var _part_left := 0.0
 var _side := 1.0          # which side of the line he keeps (away from the camera)
+var _along_k := 0.0       # 0 = ALONG_M; else how far along the line, in units of his `out` (pinned by the ropes)
 
 
 static func build(s: Node3D) -> Node3D:
@@ -119,13 +122,22 @@ func _spot(out: float, along_m: float = ALONG_M) -> Vector3:
 	var line := Vector3(b.x - a.x, 0, b.z - a.z)
 	var perp := Vector3.UP.cross(line.normalized()) if line.length() > 0.01 else Vector3.RIGHT
 	var cam: Camera3D = stage.get("camera")
+	var dir := line.normalized() if line.length() > 0.01 else Vector3.ZERO
 	if cam != null and _mode == "watch":
 		_side = -1.0 if perp.dot(cam.global_position - _mid()) > 0.0 else 1.0
-		# S313 probe: near the ropes on his side the spot was pinned onto the boxers - then he takes the other side.
-		if _pinned(perp * out * _side) > PINNED_M and _pinned(-perp * out * _side) < _pinned(perp * out * _side):
-			_side = -_side
+		# S313 probe: near the ropes on his side the spot was pinned onto the boxers. S314 still (inside work on the
+		# ropes): taking the camera side then put him in front of them - he stays on the far side and slides along
+		# the line, beyond one boxer's back, to the spot the ropes leave room for.
+		var best := INF
+		for k in ALONG_TRY:
+			var pin := _pinned(perp * out * _side + dir * (ALONG_M if float(k) == 0.0 else out * float(k)))
+			if pin < best - 0.01:
+				best = pin
+				_along_k = float(k)
+			if pin <= PINNED_M:
+				break
 	# At an angle (not for the push, which goes square between them), not square behind them: from the side camera he shows beside the pair, never between their heads.
-	var along := line.normalized() * along_m if line.length() > 0.01 else Vector3.ZERO
+	var along := dir * (along_m if _along_k == 0.0 or along_m == 0.0 else out * _along_k)
 	var p := _mid() + perp * out * _side + along
 	var edge: float = float(stage.RING_M) * 0.5 - EDGE_IN_M
 	return Vector3(clampf(p.x, -edge, edge), 0.0, clampf(p.z, -edge, edge))

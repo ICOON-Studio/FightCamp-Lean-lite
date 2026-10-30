@@ -29,7 +29,12 @@ var cl_gap := 0.0
 var _was := [-1, false]
 var ref_min := 99.0
 var ref_frames_near := 0
+var ref_blocks := 0
 var stagger := [PackedFloat32Array(), PackedFloat32Array()]   # S314 gap 7: feet front-back as shown (FootPlant targets), m
+var in_spells := 0            # S314 inside range: InsideBeats spells started, frames in one, the gap during them
+var in_frames := 0
+var in_gap := 0.0
+var _was_in := false
 
 
 func _initialize() -> void:
@@ -89,6 +94,13 @@ func _log() -> void:
 		cl_frames += 1
 		cl_gap += a.distance_to(b)
 	_was = [int(cl.holder), bool(cl.engaged)]
+	var now_in: bool = str(view.stage.feet.phase()) == "inside"
+	if now_in and not _was_in:
+		in_spells += 1
+	if now_in:
+		in_frames += 1
+		in_gap += a.distance_to(b)
+	_was_in = now_in
 	var ref: Node3D = view.stage.referee
 	if ref != null:
 		var rp: Vector3 = ref.body.position
@@ -96,6 +108,15 @@ func _log() -> void:
 		ref_min = minf(ref_min, near)
 		if near < 0.45:
 			ref_frames_near += 1
+		# S314 still: the referee between the lens and the boxers (within 0.35 m of the camera -> pair line, nearer than them).
+		var cam: Camera3D = view.stage.get("camera")
+		if cam != null:
+			var c := Vector2(cam.global_position.x, cam.global_position.z)
+			var m := Vector2((a.x + b.x) * 0.5, (a.z + b.z) * 0.5)
+			var r := Vector2(rp.x, rp.z)
+			var u := clampf((r - c).dot(m - c) / maxf(0.01, (m - c).length_squared()), 0.0, 1.0)
+			if u < 0.9 and (c + (m - c) * u).distance_to(r) < 0.35:
+				ref_blocks += 1
 
 
 func _report() -> void:
@@ -132,7 +153,17 @@ func _report() -> void:
 	var secs := n / 30.0
 	print("RANGE_PROBE clinches started %d, tied up %d, tied %.1f s (%.0f %% of the round), gap while tied %.2f m (real: 2.5 a round in R1)" % [
 		cl_starts, cl_tied, cl_frames / 30.0, 100.0 * cl_frames / n, cl_gap / maxf(1.0, cl_frames)])
-	print("RANGE_PROBE referee nearest a boxer %.2f m, within 0.45 m in %d frames" % [ref_min, ref_frames_near])
+	var plan := ""
+	var plan_s := 0.0
+	for bt in view._round_beats:
+		if str(bt["move"]) == "inside":
+			plan += " %.1f-%.1f" % [float(bt["t"]), float(bt["end_t"])]
+			plan_s += float(bt["end_t"]) - float(bt["t"])
+	print("RANGE_PROBE inside spells planned %.1f s:%s" % [plan_s, plan])
+	print("RANGE_PROBE inside spells %d, %.1f s (%.0f %% of the round), gap during them %.2f m" % [
+		in_spells, in_frames / 30.0, 100.0 * in_frames / n, in_gap / maxf(1.0, in_frames)])
+	print("RANGE_PROBE referee nearest a boxer %.2f m, within 0.45 m in %d frames, in front of the boxers in %d frames (%.1f s)" % [
+		ref_min, ref_frames_near, ref_blocks, ref_blocks / 30.0])
 	print("RANGE_PROBE in-round %.0f s (%d frames)" % [secs, n])
 	print("RANGE_PROBE gap median %.2f m (p10 %.2f - p90 %.2f), sd %.2f m, min %.2f" % [s[n / 2], s[n / 10], s[n * 9 / 10], sd, min_gap])
 	print("RANGE_PROBE range mix inside %.0f %% / mid %.0f %% / long %.0f %%" % [100.0 * inside / n, 100.0 * (n - inside - long) / n, 100.0 * long / n])

@@ -323,8 +323,8 @@ func _fire(b: Dictionary) -> void:
 		_say(str(b["caption"]))
 	_quiet = 0.0
 	match move:
-		"say":
-			pass
+		"say", "inside":
+			pass   # S314: an inside spell only moves the range (RangeBreath)
 		"step_in", "step_out":
 			# S311: one boxer lunges into the pocket or steps out of range; the other holds (RangeBreath).
 			if b.has("ref"):
@@ -401,7 +401,7 @@ func _ambient(dt: float) -> void:
 	var gap := 99.0
 	if next < beats.size():
 		gap = float(beats[next]["t"]) - t
-	if _quiet > 1.1 and gap > 1.2 and stage.feet.phase() != "clinch":
+	if _quiet > 1.1 and gap > 1.2 and not stage.feet.phase() in ["clinch", "inside"]:
 		_quiet = 0.0
 		if _amb_rng.randf() < 0.65:
 			stage.circle(-1 if _amb_rng.randf() < 0.5 else 1, _amb_rng.randf_range(0.3, 0.55))

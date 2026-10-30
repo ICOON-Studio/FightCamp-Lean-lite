@@ -29,7 +29,7 @@ const COMBO_GAP_S := 0.35
 const RESET_FIT_MAX := 2.0
 const PUNCHES := ["jab", "cross", "lead_hook", "body_hook", "rear_uppercut"]
 ## Beats that are not a thrown punch.
-const NOT_PUNCH := ["step_in", "step_out", "slip", "clinch", "tired", "count"]
+const NOT_PUNCH := ["step_in", "step_out", "slip", "clinch", "tired", "count", "inside"]
 ## |mine - theirs| in BoutRules power points (ROUND_SPREAD 27): below CLOSE_DIFF a close round, from DOMINANT_DIFF dominant.
 ## S305 J-UPSETS1: scales with ROUND_SPREAD (0.25 * 27 = 6.75, 0.667 * 27 = 18.009 at spread 27; was 1.5 / 4.0 at spread 6).
 const CLOSE_DIFF := 6.75

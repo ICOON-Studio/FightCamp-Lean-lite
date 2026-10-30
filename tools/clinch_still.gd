@@ -21,6 +21,8 @@ var _busy := false
 var _rest_s := 0.0
 var _range_done := false
 var _pocket_done := false
+var _inside_only := false
+var _in_s := 0.0
 
 
 func _initialize() -> void:
@@ -29,6 +31,7 @@ func _initialize() -> void:
 		out_dir = args[0]
 	if args.size() > 1:
 		max_stills = int(args[1])
+	_inside_only = args.size() > 2 and args[2] == "inside"
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	root.size = Vector2i(1920, 1080)
 	main = load("res://scenes/Main.tscn").instantiate()
@@ -51,6 +54,12 @@ func _watch() -> void:
 	if _busy or not is_instance_valid(view) or view.stage == null or not bool(view.playing) or bool(view.stage.scene):
 		return
 	var ph: String = view.stage.feet.phase()
+	# S314 inside range (`-- <out_dir> <max> inside`): only inside spells, 0.9 s and 1.7 s in (the punches land there).
+	if _inside_only:
+		_in_s = _in_s + 1.0 / 30.0 if ph == "inside" else 0.0
+		if (absf(_in_s - 0.9) < 0.017 or absf(_in_s - 1.7) < 0.017):
+			_shot("inside")
+		return
 	_rest_s = _rest_s + 1.0 / 30.0 if ph == "rest" else 0.0
 	if _rest_s >= 1.2 and not _range_done and float(view.t) > 5.0:
 		_range_done = true

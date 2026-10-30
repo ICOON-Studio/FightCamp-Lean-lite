@@ -1,3 +1,39 @@
+# Next session: S315 (written S314, 2026-10-30, after update 16)
+
+## Start
+1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then `cd /e/FightCamp/Lean && git pull`.
+2. Board: Q-S294-24 (update 14), Q-S294-25 (update 15 clinch + referee), Q-S294-26 (update 16 inside fighting, still
+   attached) are open; quote and act on any answer. Review board: S314 stills (inside hook, inside on the ropes, stance).
+3. Ziva: the editor runs on wt/ZIVA_LEAN (ziva/lean 303be40 = main + the brief). In S314 every Ziva run aborted at once
+   with $0 spent and the operator opened Ziva's Upgrade page (weekly limits reset Monday) - his money call. If `start`
+   says ZIVA DOWN, start it: `powershell -NoProfile -ExecutionPolicy Bypass -File E:\FightCamp\Game\Tools\godot_hidden.ps1
+   -e --path E:/FightCamp/wt/ZIVA_LEAN --log-file E:/FightCamp/tmp/ziva_lean_editor.log`; chat at http://127.0.0.1:7012/
+   (New chat button by ref, the composer sends on Return, not the arrow), brief docs/ziva/S314_PLAYTEST_BRIEF.md.
+   The newest log: %APPDATA%/Godot/app_userdata/FightCamp/ziva/zivacode-chats/*.jsonl ("stopReason" tells why it ended).
+
+## Where S314 stopped (Lean de55cac, update 16 exported, 32/32 tests, smoke 0 errors)
+- Inside range: InsideBeats (Qwen, TURN 0.75) in ExchangeBeats before _clinches; RangeBreath "inside" phase 0.55 m;
+  Footwork.offset (0.07 m each, heads 14 cm apart), inside_w eases FightStage's floor 0.62 -> 0.48 m.
+- Gap 7: FootPlant STAGGER 1.32 (`-- nostagger` = control). Referee: ALONG_TRY - never the camera side.
+- Round 1 probe: inside 20 % (real 17-31), long 55 %, swings 25/min, feet 54-56 %, stance 0.32 NA, 14 spells, 3
+  clinches, referee in front of the boxers 0 s (was 12.4 s).
+- Tools: range_probe (planned vs shown spells, stance stagger, referee-in-front frames), clinch_still `-- <dir> <n> inside`.
+
+## Next (in order)
+1. Board answers (Q-S294-24/25/26).
+2. Getting out of the inside (John J_INSIDE2, Game Godot/research/J_INSIDE2_JOHN.md): today a spell ends by a straight
+   step back; the coaching books' exits are a ~90 deg pivot on the lead foot behind a check hook, or tie up the arms
+   until "Break". A pivot = Footwork circle steps at the spell's end (no new clip); measure turn angle at spell ends.
+3. Small head sways inside (heads off the centre line, side to side).
+4. Ziva playtest when it runs again.
+
+## Traps
+- A new beat key with an absolute time (end_t, break_t) must be shifted in ExchangeBeats.build (`at`): the probe's
+  planned-vs-shown line catches it.
+- PowerShell `-Encoding utf8NoBOM` does not exist in 5.1; write files with [IO.File]::WriteAllText (no BOM).
+- Python inside a PowerShell double-quoted -c: `$` gets eaten - edit JSON text with the Edit tool instead.
+
+---- previous prompt (S314) below ----
 # Next session: S314 (written S313, 2026-10-30, after update 15)
 
 ## Start

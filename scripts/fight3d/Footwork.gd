@@ -2,7 +2,7 @@ extends RefCounted
 ## The boxers' steps on the canvas (out of FightStage, S311): a body moves only while a step clip plays, at that clip's
 ## measured stride speed x its play rate, so the planted foot stays planted. S311 real-fight gap 1: the range follows
 ## RangeBreath - rest out of reach, an entry lunge by the attacker, the pocket, a step out after the last punch.
-##   aim(phase)  aim_step(dist, a_far)  step(who, dir)  circle(dir, s)  walk(who, clip, s, scale, aim_m)  stop(who)
+##   aim(phase)  aim_step(dist, a_far)  step(who, dir)  circle(dir, s)  walk(who, clip, s, scale, aim_m)  stop(who)  offset(to)
 
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
@@ -18,7 +18,11 @@ const WALK_SCALE := 0.55
 const LUNGE_SCALE := 1.15
 const EXIT_SCALE := 0.8
 ## How far off want_m the gap may sit in each phase before someone steps.
-const BAND_M := {"in": 0.06, "pocket": 0.08, "rest": 0.12, "clinch": 0.06}
+const BAND_M := {"in": 0.06, "pocket": 0.08, "rest": 0.12, "clinch": 0.06, "inside": 0.06}
+## S314 inside range: each body shifts this far to her own left so the heads pass each other's shoulder (forehead by the
+## other's shoulder, as real inside work looks), easing in and out over INSIDE_EASE_S.
+const INSIDE_SIDE_M := 0.07
+const INSIDE_EASE_S := 0.3
 
 ## S311 real-fight gap 3: out of range their feet never stop (real: feet moving 53-56 % of a round, ~155 m travel; ours
 ## 8-9 %, 10 m). Each boxer at rest takes her own rhythm steps - a half step in or out inside the rest band, or a short
@@ -34,6 +38,7 @@ var _pause := [0.0, 0.0]
 var want_m := 1.0           # the gap kept now
 var _aim := {"phase": "pocket", "who": -1, "move": "jab"}
 var _rest_roll := 0.5
+var inside_w := 0.0         # 0..1, how far into an inside spell (FightStage lowers its floor and shifts the bodies by it)
 
 
 func setup(owner: Node) -> void:
@@ -66,20 +71,23 @@ func aim_step(dist: float, a_far: bool) -> void:
 		return
 	var first := int(_aim["who"])
 	var order: Array = [first, 1 - first] if first >= 0 else ([0, 1] if a_far else [1, 0])
-	if ph == "in" or ph == "clinch":
-		order = [first]   # the attacker lunges; S313 the one who ties up walks in on the other
+	if ph in ["in", "clinch", "inside"]:
+		order = [first]   # the attacker lunges; S313 the one who ties up walks in on the other; S314 so does the infighter
+		if ph == "inside" and err > 0.0 and first >= 0:
+			order = [first, 1 - first]   # S314: she is busy punching - the other closes the last bit (both work inside)
 	for who in order:
-		if float(stage.boxers[1 - who]["move_left"]) > 0.0 and ph != "in":
+		if float(stage.boxers[1 - who]["move_left"]) > 0.0 and not ph in ["in", "inside"]:
 			return
 		if not can_step(who):
 			continue
-		var scale := LUNGE_SCALE if ph in ["in", "clinch"] else (EXIT_SCALE if ph == "rest" else WALK_SCALE)
+		var scale := LUNGE_SCALE if ph in ["in", "clinch", "inside"] else (EXIT_SCALE if ph == "rest" else WALK_SCALE)
 		_to(who, dist, want_m, scale)
 		return
 
 
 ## Every frame at rest: a boxer free to step takes her next rhythm step once her pause runs out.
 func rhythm(delta: float, dist: float) -> void:
+	inside_w = move_toward(inside_w, 1.0 if str(_aim["phase"]) == "inside" else 0.0, delta / INSIDE_EASE_S)
 	if str(_aim["phase"]) != "rest":
 		return
 	var rng: RandomNumberGenerator = stage.life.rng
@@ -94,6 +102,13 @@ func rhythm(delta: float, dist: float) -> void:
 		else:
 			walk(who, "strafe_left" if rng.randf() < 0.5 else "strafe_right", rng.randf_range(CIRCLE_STEP_S.x, CIRCLE_STEP_S.y))
 		return
+
+
+## The shown body's shift in an inside spell (FightStage._compose adds it like Clinch.offset): her own left of the line.
+func offset(to: Vector3) -> Vector3:
+	if inside_w <= 0.0 or to.length() < 0.01:
+		return Vector3.ZERO
+	return Vector3.UP.cross(to.normalized()) * INSIDE_SIDE_M * inside_w * inside_w * (3.0 - 2.0 * inside_w)
 
 
 ## Footwork beat: `who` lunges in to the pocket (+1) or steps out of range (-1). Stepping in is pressure: the other gives
