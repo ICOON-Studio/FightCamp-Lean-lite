@@ -1,11 +1,14 @@
 extends Node3D
 ## The fight-night set around the 3D ring (split from FightStage.gd in S301 to keep it under 500 lines): the ring with its
-## posts and ropes, the lights, and the seated crowd. `ring_side` = the posts and ropes FightStage hides when they stand
+## posts and ropes, the lights, and the seated crowd. `ring_side` = the posts and ropes FightStage makes see-through when they stand
 ## between the camera and the boxers.
+
+const RingRopes := preload("res://scripts/fight3d/RingRopes.gd")
 
 var RING_M := 5.5
 var APRON_M := 0.6
 var ring_side: Array = []
+var ropes: Node3D = null    # RingRopes (S311)
 
 
 func build(ring_m: float, apron_m: float) -> void:
@@ -29,22 +32,17 @@ func _build_ring() -> void:
 	var post_cols := [Color(0.6, 0.06, 0.06), Color(0.9, 0.9, 0.9), Color(0.06, 0.16, 0.6), Color(0.9, 0.9, 0.9)]
 	for i in 4:
 		ring_side.append(_cyl(0.05, 1.45, posts[i] + Vector3(0, 0.725, 0), post_cols[i]))
-	for h in [0.45, 0.85, 1.25]:
-		for i in 4:
-			var p0: Vector3 = posts[i]
-			var p1: Vector3 = posts[(i + 1) % 4]
-			var rope := MeshInstance3D.new()
-			var cm := CylinderMesh.new()
-			cm.top_radius = 0.018
-			cm.bottom_radius = 0.018
-			cm.height = p0.distance_to(p1)
-			rope.mesh = cm
-			rope.material_override = _mat(Color(0.85, 0.08, 0.08) if h == 0.85 else Color(0.92, 0.92, 0.92), 0.5)
-			add_child(rope)
-			ring_side.append(rope)
-			rope.position = (p0 + p1) * 0.5 + Vector3(0, h, 0)
-			rope.look_at(rope.position + (p1 - p0).normalized(), Vector3.UP)
-			rope.rotate_object_local(Vector3.RIGHT, PI * 0.5)
+	# S311: the ropes are springy chains that bow where a body leans on them (RingRopes); each piece fades on its own.
+	ropes = RingRopes.new()
+	ropes.name = "Ropes"
+	add_child(ropes)
+	ropes.build(half, [0.45, 0.85, 1.25], _rope_mat)
+	ring_side.append_array(ropes.segments)
+
+
+## A rope piece's own material (the middle rope red): its own, so the camera can fade one piece.
+func _rope_mat(h: float) -> StandardMaterial3D:
+	return _mat(Color(0.85, 0.08, 0.08) if h == 0.85 else Color(0.92, 0.92, 0.92), 0.5)
 
 
 ## Fight-night lighting: the ring bright under an overhead rig, the hall dark around it, the crowd just readable.

@@ -21,6 +21,7 @@ const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const FightCast := preload("res://scripts/fight3d/FightCast.gd")
 const FightHud := preload("res://scripts/fight3d/FightHud.gd")
+const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
 
 ## The player's choice lasts the session.
 static var fast := false
@@ -292,6 +293,7 @@ func _process(delta: float) -> void:
 	while next < beats.size() and float(beats[next]["t"]) <= t:
 		_fire(beats[next])
 		next += 1
+	stage.aim(RangeBreath.phase(beats, next, t))
 	if _caption_left > 0.0:
 		_caption_left -= dt
 		if _caption_left <= 0.0:
@@ -317,13 +319,10 @@ func _fire(b: Dictionary) -> void:
 	match move:
 		"say":
 			pass
-		"step_in":
-			stage.step(who, 1, 0.32)
-			stage.step(other, -1, 0.32, true)
-			_stepped[who] = true
-		"step_out":
-			stage.step(who, -1, 0.32)
-			stage.step(other, 1, 0.32, true)
+		"step_in", "step_out":
+			# S311: one boxer lunges into the pocket or steps out of range; the other holds (RangeBreath).
+			stage.step(who, 1 if move == "step_in" else -1)
+			_stepped[who] = move == "step_in"
 		"slip", "clinch":
 			stage.play(who, "slip")
 		"tired":

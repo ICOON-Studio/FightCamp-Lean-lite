@@ -1,3 +1,63 @@
+# Next session: S312 (written S311, 2026-10-30, in a hurry: the PC went for a cooling service mid-session)
+
+## Start
+1. `cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then `cd /e/FightCamp/Lean && git pull`.
+2. Board: Q-S294-22 (clinch: build free vs paid capture quote) is NEW and open. Q-S294-19/21 were answered "ask ziva
+   for playtest and review" - Ziva was mid-review when the PC went (see Ziva below).
+3. After the service: watchdog numbers (idle was 64-70 C at 8-16% CPU on the Ryzen 7 7800X3D; he asked if 15 C less is
+   plausible - yes at idle, 5-10 C under load from a repaste, more with a cooler upgrade). Record the new idle/load temps.
+
+## Where S311 stopped (Lean 536e743, WIP: NOT exported, run_tests.sh NOT run)
+- Real-fight gaps 1-3 (Game Godot/research/S310_REAL_FIGHT_GAPS.md) built:
+  - scripts/fight3d/RangeBreath.gd (pure, tests/range_breath_test.gd PASS): phase in/pocket/rest from the beats; rest
+    1.35-1.65 m, lunge LEAD_S 0.38 before a burst's first punch, pocket while punches are < 1.4 s apart, exit 0.5 s after.
+  - scripts/fight3d/Footwork.gd (steps/circles moved out of FightStage, which is 423 lines): aim_step (attacker lunges at
+    1.15x, exit 0.8x), rhythm steps at rest, step_in = pressure (the other gives ground a beat later), stop on arrival.
+  - HitStun light lock 0.28 s + head_cut (reaction cut 0.12 s after its peak) for plain head shots; HitSnap FOLD_HOLD_S 0.45.
+  - Measured round 1 (tools/range_probe.gd on the hidden desktop, same fight every run): gap median 1.14 m (p10 0.82 -
+    p90 1.55), sd 0.29 m, long 52 %, inside 0 %, 29 swings/min, feet moving 46 %, travel ~107 m. S310 control: 0.95 m,
+    sd 0.06, long 1 %, 0 swings, feet 9 %, travel 10 m. Real: long 40-63 %, swings 18-35/min, feet 53-56 %, 155 m.
+    Inside range (< 0.65 m, real 17-31 %) is still 0 %: that is the clinch work (fix 4).
+- His asks this session, both built: "make the ropes transparent when they block in the view" -> RingCamera.clear_view
+  fades any rope/post crossing the lens->boxer line to 18 % (film round1c: works). "add kinetics to the ropes" ->
+  scripts/fight3d/RingRopes.gd: 12 rope chains x 10 segments, springs + tension (~3.8 Hz, damped), bowed outward by
+  spheres on the boxers' bones. FIRST FILM: ropes never bowed (nobody reached them) -> FightStage MID_IN_M 0.55 (was
+  0.9) + per-boxer ROPE_LEAN_M 0.06 + step_in pressure. That film (E:/FightCamp/tmp/s311_film/round1e.mp4, eyes id
+  round1e-a7b5bf11) finished: ropes bowed > 3 cm in 296 frames (~10 s), gap median 1.07 m, long 49 %, 29 swings/min,
+  feet 46 %, travel ~105 m. BUT the deepest bow is 0.71 m (round time 34.2 s, about video 0:42-0:50, where a faded near
+  rope bends) - too deep for a ring rope (real ~0.1-0.4 m). Find which sphere did it (likely a reaction clip whose hips
+  travel past the ropes, or a glove) and cap the bow (MAX_BOW ~0.35 m) or keep the body inside; then look again.
+- Films: E:/FightCamp/tmp/s311_film/round1*.mp4 (eyes index). Command:
+  `python tools/hidden_desktop.py run --timeout=900 --log=<log> <godot.exe> --path E:/FightCamp/Lean --windowed
+  --resolution 1280x720 --audio-driver Dummy --fixed-fps 30 [--write-movie <x>.avi] --script res://tools/range_probe.gd`
+  (hidden_desktop needs --log= or the output is lost).
+
+## Ziva (his answer to Q-S294-19/21: "ask ziva for playtest and review")
+- Ziva for Lean = worktree E:/FightCamp/wt/ZIVA_LEAN (branch ziva/lean, addon copied from wt/ZIVA, excluded in
+  .git/info/exclude, override.cfg Dummy audio). Start: `powershell -NoProfile -ExecutionPolicy Bypass -File
+  E:\FightCamp\Game\Tools\godot_hidden.ps1 -e --path E:/FightCamp/wt/ZIVA_LEAN --log-file E:/FightCamp/tmp/ziva_lean_editor.log`,
+  chat at http://127.0.0.1:7012/ (built-in browser pane), Ziva Smart, effort slider max.
+- scenes/dev/JumpFight.tscn / JumpFightNofilm.tscn / JumpCorner.tscn (Main.jump_override) open the build at a test part
+  without command-line args - run_scene caps a run at ~27 s, so Ziva reached round 2 with the game's skip buttons.
+- Brief: wt/ZIVA_LEAN/docs/ziva/S311_PLAYTEST_BRIEF.md; it had 9 checked shots in docs/ziva/shots and was writing
+  docs/ziva/S311_PLAYTEST_REVIEW.md when the PC went. If the review is missing: a NEW Ziva chat, "finish the review from
+  the shots in docs/ziva/shots and the brief" (approve its mv of its own shots one by one, not "always allow").
+- Then: put Ziva's ranked findings to him on the board with the shots attached; fix defects first.
+
+## Next
+1. Re-run the rope film; tests (`sh tools/run_tests.sh`) + export; WHAT_TO_TRY update 14 (the range breathes, head
+   shots let her fight on, feet keep moving, see-through + springy ropes) + a board question with a still.
+2. Ziva's review -> board.
+3. Gap 4 clinch + referee (his Q-S294-22 answer), 5 guard by range, 6 2-5 punch bursts.
+
+## Traps
+- FightStage is 423 lines, FightView 497: fight footwork goes in Footwork.gd, range rules in RangeBreath.gd.
+- `free` is an Object method: a GDScript method named free() fails to parse ("signature doesn't match the parent").
+- A bone read from outside the skeleton's modifiers gets the clip pose (RingRopes reads pre-modifier bones; fine for contact).
+- PowerShell 5.1 mangles `git commit -m` with quotes: commit with `-F <file>`.
+
+---- previous prompt (S310) below ----
+
 # Next session: S311 (written S310, 2026-10-30, after updates 11-12: shout bar without the free answer; fight display, body damage)
 
 ## Start

@@ -1,10 +1,18 @@
 extends Camera3D
 ## The ring's broadcast camera (split from FightStage S302): a TV lens at the apron that follows the pair, the close-up on
-## a big shot, the ropes between it and the boxers hidden, and the nudge on a power shot.
-##   broadcast(a, b, snap, delta)  close_up(a, b, head_y, hit)  shake(m)  nudge(delta)  clear_view(ring_side, mid)
+## a big shot, the ropes between it and the boxers made see-through, and the nudge on a power shot.
+##   broadcast(a, b, snap, delta)  close_up(a, b, head_y, hit)  shake(m)  nudge(delta)  clear_view(ring_side, a, b, delta)
 
 ## The nudge decays with this time constant (seconds).
 const SHAKE_TAU_S := 0.09
+## S311 clear view: a rope or post within this of the line from the lens to a boxer (stopped this short of her, so the
+## ropes behind her stay) is hidden.
+const SIGHT_MARGIN_M := 0.3
+const SIGHT_SHORT_M := 0.25
+## S311 (operator: "make the ropes transparent when they block in the view"): a blocking rope or post fades to SEE_ALPHA
+## over FADE_S instead of vanishing, and back to solid when the view clears.
+const SEE_ALPHA := 0.18
+const FADE_S := 0.2
 
 var close := false            # the big-shot close-up holds until broadcast() runs again
 var _side := Vector3.LEFT     # the side of the pair the camera is on (it never jumps across the ring)
@@ -78,11 +86,35 @@ func nudge(delta: float) -> void:
 
 
 ## A TV camera shoots between the ropes: every rope or post nearer the camera than the boxers is hidden.
-func clear_view(ring_side: Array, mid: Vector3) -> void:
-	var to_cam := Vector3(position.x - mid.x, 0, position.z - mid.z).normalized()
+func clear_view(ring_side: Array, a: Vector3, b: Vector3, delta: float = 0.0) -> void:
+	var mid := (a + b) * 0.5
+	var to_cam := Vector3(global_position.x - mid.x, 0, global_position.z - mid.z).normalized()
+	var cam := Vector2(global_position.x, global_position.z)
 	for n in ring_side:
-		var d := Vector3((n as Node3D).position.x - mid.x, 0, (n as Node3D).position.z - mid.z)
-		(n as Node3D).visible = d.dot(to_cam) < 1.2
+		var node := n as Node3D
+		var at := node.global_position
+		var d := Vector3(at.x - mid.x, 0, at.z - mid.z)
+		var hide := d.dot(to_cam) >= 1.2
+		# S311: the range breathes and the pair reaches the ropes (~110 m a round): from a corner angle the side next to
+		# the camera crossed both bodies. A rope or post that crosses the camera's line to either boxer goes too.
+		var along := node.global_transform.basis.y
+		var half := Vector2(along.x, along.z) * float(((node as MeshInstance3D).mesh as CylinderMesh).height) * 0.5
+		var c := Vector2(at.x, at.z)
+		for p in [a, b]:
+			var to := Vector2(p.x, p.z)
+			var end := to + (cam - to).normalized() * SIGHT_SHORT_M
+			var q := Geometry2D.get_closest_points_between_segments(c - half, c + half, cam, end)
+			hide = hide or q[0].distance_to(q[1]) < SIGHT_MARGIN_M
+		_fade(node as MeshInstance3D, SEE_ALPHA if hide else 1.0, delta)
+
+
+## Eases a ring piece's own material toward `want` alpha (delta 0 = at once); solid pieces stay opaque.
+static func _fade(m: MeshInstance3D, want: float, delta: float) -> void:
+	var mat := m.material_override as StandardMaterial3D
+	var c := mat.albedo_color
+	c.a = want if delta <= 0.0 else move_toward(c.a, want, delta / FADE_S)
+	mat.albedo_color = c
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA if c.a < 0.999 else BaseMaterial3D.TRANSPARENCY_DISABLED
 
 
 ## S307 the corner minute's film shots: a lens at `pos` on `look`, sharp only around `focus` metres (shallow depth of

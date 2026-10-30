@@ -8,6 +8,13 @@ extends RefCounted
 
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const MAX_S := 1.0
+## S311 real-fight gap 2 (Game Godot/research/S310_REAL_FIGHT_GAPS.md): a plain head shot (not hurt, not the round's big
+## shot) snaps her head and she fights on - real boxers counter at +0.16 s and are upright by +0.3 s (R1 2:10.9, R2
+## 4:52.3); ours stood locked in the whole reaction 0.67 s. She is locked to the snap's peak plus a short settle, the
+## reaction is cut HEAD_SETTLE_S after its peak and the join smoother eases her back into her guard. Hurt, big and body
+## shots keep the full lock.
+const HEAD_LOCK_S := 0.28
+const HEAD_SETTLE_S := 0.12
 ## Clip names that are a defence, a fidget or a tired idle (blocked while she is stunned).
 const BLOCKED := ["dodge", "weave", "block", "fidget", "idle_tired", "slighty_tired", "slip", "pull"]
 
@@ -27,8 +34,11 @@ func clear(who: int) -> void:
 	_left[who] = 0.0
 
 
-## A hit reaction `clip` starts at recovery `speed`: lock her until it is back in guard.
-func start(who: int, clip: String, speed: float) -> void:
+## A hit reaction `clip` starts at recovery `speed`: lock her until it is back in guard (`light`: a plain head shot).
+func start(who: int, clip: String, speed: float, light: bool = false) -> void:
+	if light:
+		_left[who] = HEAD_LOCK_S
+		return
 	var r := BeatClips.recovery(clip)
 	var pk := BeatClips.peak(clip)
 	var s := BeatClips.REACT_PEAK_S + maxf(0.0, r.y - maxf(pk, 0.0)) / maxf(speed, 0.1) if r.y > 0.0 else 0.5
@@ -51,3 +61,11 @@ static func react_cut(clip: String, speed: float, fast: float) -> Dictionary:
 	if fast <= speed or pk <= 0.0:
 		return {}
 	return {"clip": clip, "contact": pk, "back": BeatClips.recovery(clip).y, "fast": false, "scale": speed / fast}
+
+
+## S311: a plain head shot's reaction (playing at `fast` to its peak) hands back to the guard HEAD_SETTLE_S after the peak.
+static func head_cut(clip: String, fast: float) -> Dictionary:
+	var pk := BeatClips.peak(clip)
+	if pk <= 0.0:
+		return {}
+	return {"clip": clip, "contact": -1.0, "back": pk + HEAD_SETTLE_S * fast, "fast": false, "scale": 1.0}

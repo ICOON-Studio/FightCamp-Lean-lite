@@ -17,10 +17,8 @@ const HitStun := preload("res://scripts/fight3d/HitStun.gd")
 const SideStep := preload("res://scripts/fight3d/SideStep.gd")
 const FootPlant := preload("res://scripts/fight3d/FootPlant.gd")
 const BoxerBuild := preload("res://scripts/fight3d/BoxerBuild.gd")
+const Footwork := preload("res://scripts/fight3d/Footwork.gd")
 
-## Stride speed of each footwork clip at 1x, metres a second, and its direction in the boxer's own frame (old repo U84,
-## measured on the source): the body moves exactly this fast while the clip plays, so the planted foot stays planted.
-const STRIDE := {"advance": [1.736, 0.0], "retreat": [1.781, 180.0], "strafe_left": [1.705, -90.0], "strafe_right": [1.764, 90.0]}
 const CONTACT_S := 8.0 / 30.0
 ## When the glove lands, seconds into each move (natives frame 8; baked: the old repo's clip_phases contact_s).
 const CONTACT := {"jab": CONTACT_S, "cross": CONTACT_S, "lead_hook": CONTACT_S, "body_hook": 0.70, "rear_uppercut": 0.58}
@@ -43,7 +41,12 @@ const BLEND_S := 0.15
 const GUARD_FADE_S := 0.2
 const GUARD_HALF_LIFE_S := 0.1
 const GUARD_JOIN_S := 0.45
-const WALK_SCALE := 0.55
+## S311: nobody closes inside this pelvis gap (gloves in guard would meet).
+const MIN_GAP_M := 0.62
+## S311: the pair's middle stays this far inside the ropes (was 0.9: nobody ever reached them), and a boxer's pelvis
+## at least ROPE_LEAN_M (backed onto the ropes she leans on them).
+const MID_IN_M := 0.55
+const ROPE_LEAN_M := 0.06
 const RING_M := 5.5       # inside the ropes (amateur rings are 4.9-6.1 m)
 const APRON_M := 0.6
 const CORNERS := {"red": [Color(0.62, 0.06, 0.06), Color(0.95, 0.95, 0.92)], "blue": [Color(0.06, 0.16, 0.6), Color(0.95, 0.95, 0.92)]}
@@ -56,7 +59,9 @@ const CLOTH_ROUGHNESS := 0.65
 var boxers: Array = []      # [{node, skel, ap, gloves, pos: Vector3, vel: Vector3, move_left: float}]
 var camera: Camera3D        # RingCamera
 var gap_m := 1.0            # pelvis to pelvis, set from the jab's reach
-var _ring_side: Array = []    # ropes and posts: hidden while they stand between the camera and the boxers
+var feet := Footwork.new()   # S311: steps, circles and the range that breathes (RangeBreath)
+var _ropes: Node3D = null     # S311 RingRopes: they bow where a boxer leans on them
+var _ring_side: Array = []    # ropes and posts: see-through while they stand between the camera and the boxers
 var _cut: Array = [{}, {}]    # per boxer, the Pro clip playing: {clip, contact, back, fast} (S301 recovery cut)
 var _hold_left := 0.0         # S302 hit-stop: both bodies still while > 0
 var _held_speed := [1.0, 1.0]
@@ -77,9 +82,11 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 	add_child(ring)
 	ring.build(RING_M, APRON_M)
 	_ring_side = ring.ring_side
+	_ropes = ring.ropes
 	for spec in [a, b]:
 		boxers.append(BoxerBuild.build(self, spec, boxers.size()))
 	gap_m = _jab_gap()
+	feet.setup(self)
 	for bx in boxers:
 		bx["idle_match"] = IdleMatch.sample(bx, BeatClips.first(BeatClips.GUARD, (bx["ap"] as AnimationPlayer).has_animation))
 	side.setup(self)
@@ -149,6 +156,7 @@ func _start(who: int, clip: String, speed: float, fade: float = BLEND_S) -> void
 
 
 func _process(delta: float) -> void:
+	_ropes.tick(delta, boxers.map(func(bx): return bx["skel"]))
 	if scene:
 		camera.nudge(delta)
 		return
@@ -161,7 +169,7 @@ func _process(delta: float) -> void:
 	if not camera.close:
 		broadcast(false, delta)
 	camera.nudge(delta)
-	camera.clear_view(_ring_side, _mid())
+	camera.clear_view(_ring_side, boxers[0]["pos"], boxers[1]["pos"], delta)
 
 
 ## The hit-stop: both AnimationPlayers stand still (whatever speed a move set is kept and given back after).
@@ -187,9 +195,11 @@ func hit(who: int, clip: String, speed: float, hitter: int, move: String, big: b
 	stun.clear(who)
 	play(who, clip, fast)
 	if str((boxers[who]["ap"] as AnimationPlayer).current_animation) == clip:
-		var cut := HitStun.react_cut(clip, speed, fast)
+		# S311: a plain head shot snaps and lets her fight on; hurt, big and body shots keep the full reaction.
+		var light := not big and not move.contains("body") and not (BeatClips.REACT["hurt"] as Array).has(clip)
+		var cut := HitStun.head_cut(clip, fast) if light else HitStun.react_cut(clip, speed, fast)
 		_cut[who] = cut if not cut.is_empty() else _cut[who]
-		stun.start(who, clip, speed)
+		stun.start(who, clip, speed, light)
 	var kind := "big" if big else ("jab" if move == "jab" else "power")
 	_hold_left = float(HOLD_S[kind])
 	for i in boxers.size():
@@ -215,9 +225,15 @@ func hit(who: int, clip: String, speed: float, hitter: int, move: String, big: b
 	snap.snap(target_point(who, false) - shoulder, deg * (1.5 if big else 1.0))
 
 
-## Positions: each boxer moves only by her own stepping velocity; both always face each other. The jab gap is kept by
-## stepping: while one of them steps, she is held on the gap (her feet are moving, so it reads as part of the step); when
-## both stand and the gap is off by more than 5 cm, the nearer-to-centre one takes a short corrective step.
+## S311: what range to keep now (FightView passes RangeBreath.phase every frame).
+func aim(ph: Dictionary) -> void:
+	feet.aim(ph)
+
+
+## Positions: each boxer moves only by her own stepping velocity; both always face each other. S311: the gap is no
+## longer held - it follows want_m (RangeBreath). A circling boxer keeps the distance she started at (a strafe round a
+## point would open it); an aimed step in or out stops where it was aimed; nobody closes inside MIN_GAP_M. When the gap
+## is outside its band, a boxer standing in her guard steps to it: the attacker lunges in, otherwise one steps out.
 func _compose(delta: float) -> void:
 	for i in boxers.size():
 		var bx: Dictionary = boxers[i]
@@ -225,38 +241,43 @@ func _compose(delta: float) -> void:
 			bx["pos"] = (bx["pos"] as Vector3) + (bx["vel"] as Vector3) * delta
 			bx["move_left"] = float(bx["move_left"]) - delta
 			if float(bx["move_left"]) <= 0.0:
-				bx["vel"] = Vector3.ZERO
-				guard(i)
+				feet.stop(i)
 	var a: Vector3 = boxers[0]["pos"]
 	var b: Vector3 = boxers[1]["pos"]
 	var dist := a.distance_to(b)
 	var axis := (b - a).normalized() if dist > 0.01 else Vector3.BACK
 	var moving := [float(boxers[0]["move_left"]) > 0.0, float(boxers[1]["move_left"]) > 0.0]
-	if moving[0] or moving[1]:
-		var err := dist - gap_m
-		if moving[0] and moving[1]:
-			boxers[0]["pos"] = a + axis * err * 0.5
-			boxers[1]["pos"] = b - axis * err * 0.5
-		elif moving[0]:
-			boxers[0]["pos"] = a + axis * err
-		else:
-			boxers[1]["pos"] = b - axis * err
-	elif absf(dist - gap_m) > 0.05 and delta > 0.0:
-		# Only a boxer standing in her guard steps (never mid-punch or mid-reaction); the one farther from centre first.
-		var order := [0, 1] if a.length() > b.length() else [1, 0]
-		for who in order:
-			if str((boxers[who]["ap"] as AnimationPlayer).current_animation) in BeatClips.GUARD:
-				var speed := float(STRIDE["advance"][0]) * WALK_SCALE
-				_walk(who, "advance" if dist > gap_m else "retreat", minf(0.4, absf(dist - gap_m) / speed))
-				break
+	var pin := [moving[0] and float(boxers[0]["hold_m"]) > 0.0, moving[1] and float(boxers[1]["hold_m"]) > 0.0]
+	if (moving[0] and float(boxers[0]["aim_dir"]) != 0.0) or (moving[1] and float(boxers[1]["aim_dir"]) != 0.0):
+		pin = [false, false]    # an aimed step changes the range; a circle beside it does not hold it
+	var keep := dist
+	if pin[0] or pin[1]:
+		keep = float(boxers[0 if pin[0] else 1]["hold_m"])
+	keep = maxf(keep, MIN_GAP_M)
+	if absf(dist - keep) > 0.001:
+		var err := dist - keep
+		var share := [0.5, 0.5] if pin[0] == pin[1] else ([1.0, 0.0] if pin[0] else [0.0, 1.0])
+		boxers[0]["pos"] = a + axis * err * float(share[0])
+		boxers[1]["pos"] = b - axis * err * float(share[1])
+	for i in boxers.size():
+		var bx: Dictionary = boxers[i]
+		if moving[i] and float(bx["aim_dir"]) != 0.0 and (keep - float(bx["aim_m"])) * float(bx["aim_dir"]) <= 0.0:
+			feet.stop(i)
+	if delta > 0.0:
+		feet.aim_step(keep, a.length() > b.length())
+		feet.rhythm(delta, keep)
 	a = boxers[0]["pos"]
 	b = boxers[1]["pos"]
 	var mid := (a + b) * 0.5
-	var limit := RING_M * 0.5 - 0.9
+	var limit := RING_M * 0.5 - MID_IN_M
 	var shift := Vector3(clampf(mid.x, -limit, limit) - mid.x, 0, clampf(mid.z, -limit, limit) - mid.z)
+	# S311: each boxer may reach the ropes (her pelvis ROPE_LEAN_M inside them: her hips lean on the middle rope, which
+	# bows - RingRopes), never through them.
+	var edge := RING_M * 0.5 - ROPE_LEAN_M
 	for i in boxers.size():
 		var bx: Dictionary = boxers[i]
-		bx["pos"] = (bx["pos"] as Vector3) + shift
+		var at: Vector3 = (bx["pos"] as Vector3) + shift
+		bx["pos"] = Vector3(clampf(at.x, -edge, edge), at.y, clampf(at.z, -edge, edge))
 		var me: Vector3 = bx["pos"]
 		var other: Vector3 = boxers[1 - i]["pos"]
 		var n: Node3D = bx["node"]
@@ -267,11 +288,6 @@ func _compose(delta: float) -> void:
 		if to.length() > 0.01:
 			var yaw := atan2(to.x, to.z)
 			n.rotation = Vector3(0.0, yaw if delta <= 0.0 else lerp_angle(n.rotation.y, yaw, 1.0 - exp(-delta / FACE_S)), 0.0)
-
-
-## The boxer's own frame: forward toward the other, left = her left.
-func _frame(i: int) -> Basis:
-	return (boxers[i]["node"] as Node3D).transform.basis
 
 
 ## Her guard between moves: the Punch Pro idle when loaded (every Pro clip starts and ends in it, S300), else the old one.
@@ -339,43 +355,17 @@ func play(who: int, move: String, speed: float = 1.0, from_s: float = 0.0) -> vo
 	side.arm(who, move)
 
 
-## Footwork: `who` steps in (+1) or out (-1) for `seconds`, feet stepping at the clip's stride speed. `follow` = she
-## answers the other's step a beat later (S302: never in the same frame).
-func step(who: int, dir: int, seconds: float = 0.3, follow: bool = false) -> void:
-	var clip := "advance" if dir > 0 else "retreat"
-	if follow:
-		life.later(who, life.follow_delay(), _walk.bind(who, clip, seconds * life.rng.randf_range(0.8, 1.15)))
-	else:
-		_walk(who, clip, seconds)
+## Footwork (Footwork.gd): a lunge in (+1) or a step out (-1); both circling; one step clip on `who`.
+func step(who: int, dir: int) -> void:
+	feet.step(who, dir)
 
 
-## Both circle the same way (her left when dir = -1): one leads, the other follows a beat later for her own length of
-## time, so the pair turns about its middle without moving as one.
 func circle(dir: int, seconds: float = 0.45) -> void:
-	var clip := "strafe_left" if dir < 0 else "strafe_right"
-	var lead := life.rng.randi() % boxers.size()
-	_walk(lead, clip, seconds)
-	var other := 1 - lead
-	life.later(other, life.follow_delay(), _walk.bind(other, clip, seconds * life.rng.randf_range(0.75, 1.2)))
+	feet.circle(dir, seconds)
 
 
-func _walk(who: int, clip: String, seconds: float) -> void:
-	var bx: Dictionary = boxers[who]
-	var ap: AnimationPlayer = bx["ap"]
-	if not ap.has_animation(clip) or stun.left(who) > 0.0:
-		return
-	var spec: Array = STRIDE[clip]
-	# A southpaw's step clips are mirrored: the clip that steps to her left is the mirrored strafe_right (same stride).
-	if bool(bx.get("south", false)) and clip.begins_with("strafe_"):
-		clip = MirrorClip.counterpart(clip.replace("left", "Left").replace("right", "Right")).to_lower()
-	var dir := Basis(Vector3.UP, deg_to_rad(-float(spec[1]))) * _frame(who).z
-	# Boxers shuffle, they do not stride: the step clip plays at WALK_SCALE and the body moves at the same fraction of
-	# the clip's stride speed, so the feet still match the ground.
-	bx["vel"] = dir.normalized() * float(spec[0]) * WALK_SCALE
-	bx["move_left"] = seconds
-	_cut[who] = {}
-	ap.speed_scale = 1.0
-	_start(who, clip, WALK_SCALE, 0.08)
+func _walk(who: int, clip: String, seconds: float, scale: float = Footwork.WALK_SCALE, aim_m: float = 0.0) -> void:
+	feet.walk(who, clip, seconds, scale, aim_m)
 
 
 ## Pelvis-to-pelvis distance at which A's jab glove, at contact, meets B's face (both in the guard frame of the clip).
@@ -392,10 +382,6 @@ func _jab_gap() -> float:
 
 func _scale(i: int) -> float:
 	return (boxers[i]["node"] as Node3D).scale.x
-
-
-func _mid() -> Vector3:
-	return ((boxers[0]["pos"] as Vector3) + (boxers[1]["pos"] as Vector3)) * 0.5
 
 
 ## The broadcast camera follows the pair (RingCamera); `snap` jumps straight there.

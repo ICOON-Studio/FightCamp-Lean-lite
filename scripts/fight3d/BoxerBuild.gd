@@ -90,7 +90,8 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	var fp := FootPlant.attach(skel, ap, null) if not OS.get_cmdline_user_args().has("nofeet") else null
 	ap.animation_finished.connect(stage._on_finished.bind(index))
 	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "feet": fp, "south": south, "front": gl.front_m(),
-		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0}
+		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
+		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 
 
 ## The bones the guard, footwork and a punch animate (every clip in the library drives the same set).

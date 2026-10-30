@@ -28,7 +28,7 @@ const BRACE_SIDE_DEG := 6.0
 ## as the brace, bigger (FOLD_GAIN), held FOLD_HOLD_S and let go slowly (FOLD_TAU_S): winded, not flicked. The 30 fps film
 ## of the gut-shot clip alone (tools/fight3d_bodyshot.gd) showed the fold for ~0.3 s at fight speed.
 const FOLD_GAIN := 2.6
-const FOLD_HOLD_S := 0.3
+const FOLD_HOLD_S := 0.45   # S311: real ~0.45 s folded over a body shot (R1 1:31.83); was 0.3
 const FOLD_TAU_S := 0.24
 const FOLD_LIFE_S := 1.3
 var _bt := -1.0
