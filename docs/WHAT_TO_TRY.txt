@@ -1,3 +1,13 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 34 (2026-11-01): CLOSE-RANGE PUNCHES LAND ON THE FACE
+=====================================================================================
+
+ 1. Up close (inside), when the heads come together the boxer leans her trunk away from the other head. That lean used
+    to carry a landing glove with it: some inside jabs and body hooks landed 15-25 cm beside the target. The glove now
+    lands again after the lean. Measured over 150 s of a fight (26 landed punches): 2 far misses -> 0, the worst
+    0.21 m -> 0.08 m; gloves inside a head up close 2 -> 0 frames.
+ Board: 'Test: fight night WITH film study' - watch the exchanges up close.
+ HOME: three new looks are on the board (Q-S294-52) - pick one and every page follows it.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 33 (2026-11-01): THE NATIONALS COME SOONER
 ==========================================================================
 

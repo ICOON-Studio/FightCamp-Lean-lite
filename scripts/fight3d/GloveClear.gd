@@ -72,6 +72,8 @@ func _process_modification() -> void:
 	# The head first: her lean moves her own arms, and the gloves are cleared after it.
 	if heads:
 		_clear_head(skel, hc, k)
+	if reach != null:
+		reach.settle()   # S331: her lean (and HitSnap's) carried the landing glove off the face; it lands again
 	shown_head = skel.global_transform * (skel.get_bone_global_pose(_head).origin + Vector3.UP * HEAD_UP_M / k)
 	for side in _arms:
 		if reach != null and str(reach.get("_hand")).begins_with(side) and float(reach.get("last_weight")) > 0.0:

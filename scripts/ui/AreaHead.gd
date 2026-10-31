@@ -1,5 +1,5 @@
 extends RefCounted
-## The head of every area: big name, its job in a few words, an optional extra, then its one row of tabs.
+## The head of every area: big name, an optional extra, then its one row of tabs (S331: no job line - operator "remove these texts").
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -10,9 +10,6 @@ static func add(parent: Container, main: Node, area_id: String, extra: Array = [
 	var head := UI.hbox(16)
 	var h1 := UI.display(a["name"], 52)
 	head.add_child(h1)
-	var job := UI.muted(a["job"], UI.BODY)
-	job.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	head.add_child(job)
 	for e in extra:
 		(e as Control).size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		head.add_child(e)

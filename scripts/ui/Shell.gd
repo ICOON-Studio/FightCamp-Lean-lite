@@ -167,6 +167,7 @@ func _build_rail(main: Node) -> void:
 	UI.clear(_rail)
 	for a in Data.AREAS:
 		var on: bool = main.route["area"] == a["id"]
-		var b := UI.button2(a["name"], a["job"], "RailOn" if on else "Rail", main.act.bind("area", a["id"]), Vector2(0, 62),
+		# S331 (operator on the menu: "remove these texts"): the name alone, no job line under it.
+		var b := UI.button2(a["name"], "", "RailOn" if on else "Rail", main.act.bind("area", a["id"]), Vector2(0, 52),
 			UI.GOLD if on else UI.MUTED, UI.MUTED, false, 17, UI.TINY)
 		_rail.add_child(b)

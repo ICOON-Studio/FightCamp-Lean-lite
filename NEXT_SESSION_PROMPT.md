@@ -2,22 +2,27 @@
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 33 is exported (Builds/, WHAT_TO_TRY.txt).
+Where it stands: update 34 is exported (Builds/, WHAT_TO_TRY.txt).
 - Update 33 (S331), his Q-S294-48 "Too long to reach": the nationals' 3 months count from her England Boxing
-  registration (Roster.registered_day: bouts x 4 weeks before signing; a novice registers when she signs), not from the
-  day she joined our club. SeasonPath.ENTRY_CLOSE_DAY 70 (week 10, was 140), NATIONALS_GAP 21 (was 28). Lucy can enter
-  in week 5 (was 14); the national final is week 18 (was 29).
-Digest: Game Godot/research/S331_DIGEST.md. Stills: S331_stills/.
+  registration (Roster.registered_day), entries close week 10 (SeasonPath.ENTRY_CLOSE_DAY 70), NATIONALS_GAP 21.
+  Lucy enters week 5 (was 14), national final week 18 (was 29).
+- Update 34 (S331, INSIDEMISS1): PunchReach.settle() re-lands the glove after GloveClear's head lean (control
+  `-- nosettle`); hit_gap_probe far misses 2/26 -> 0/26.
+- His answers in S331: Q-S294-49 "Yes, both right" (debut costs stay); Q-S294-50 "Change the look first".
+  -> three HOME looks as HTML mockups (Game Godot/research/S331_looks: a_fightbill, b_whiteboard, c_broadcast; source
+  .html beside the .png, rendered with headless Edge, own --user-data-dir) on the board as Q-S294-52.
+Digest: Game Godot/research/S331_DIGEST.md (parts 1 and 2).
 
-1. Board Q-S294-47 (update 29), 49 (update 31), 50 (update 32 look), 51 (update 33). Act on them first.
-2. If he says yes to the look (Q-S294-50): GYM, MONEY, FIGHTS and the fighter page as pictures with the same parts
-   (FighterTile rings, WeekStrip, SeasonRoad, Bracket, CashChart, NeedRing). One page per commit; before/after stills with
-   tools/pages_now_still.gd; keep every script under 500 lines.
-   If the debut is too costly (Q-S294-49): ProDebut.FAMILY / PER_MEMBER up, or she pays her own scans.
-   If update 33 is still too long / too easy (Q-S294-51): SeasonPath.ENTRY_CLOSE_DAY / NATIONALS_GAP.
-3. With no answers: INSIDEMISS1 (two close-range punches land 15-20 cm to the side) on game-camera stills.
-4. Export, WHAT_TO_TRY, stills, board question with --attach, review_add, Miro P0 + part cards (not moved in S331).
+1. Board: Q-S294-52 (which HOME look), 51 (nationals soon enough), 53 (inside punches land), 47 (update 29).
+2. On a look pick: build it in Godot on HOME first - one Theme + the shell (top bar, nav) + HOME - before/after stills
+   with tools/pages_now_still.gd, board question; then GYM, MONEY, FIGHTS, her page one per commit (500-line rule).
+   All three looks show faces: FightCast._class_body(limit) picks the body by weight class, only 3 bodies exist (two
+   lightweights share a face) - give each fighter her own body/look before pages show faces (portrait crops from
+   assets/ui/body/mh_boxer_*_red.png, top 42 % width x 1.15).
+   "None - mark what is wrong": read his markup (Feedback/<date>/README.md) and redo.
+3. If Q-S294-51 says still too long / too easy: SeasonPath.ENTRY_CLOSE_DAY / NATIONALS_GAP.
+4. Not on the plan yet: CORNERCUT1 (corner card cut to the pit stop, S323 plan) - check what S310/S318 already built.
 
-Traps: Career.seed is randi() per career - any test that rolls dice fixes c.seed; PowerShell Set-Content utf8 writes a
-BOM; a test finds modal nodes via main.modal_node(); roadmap.json is written with indent=1 (indent=2 rewrites the whole
-file); champs_test's day numbers follow SeasonPath's calendar (close 70, semi 84, final 91, nationals 112).
+Traps: Career.seed is randi() per career - dice tests fix c.seed; PowerShell Set-Content utf8 writes a BOM;
+roadmap.json is json indent=1; champs_test's days follow SeasonPath (close 70, semi 84, final 91, nationals 112);
+headless Edge screenshot: an escaped `\$f` in a bash path writes a literal file - use cygpath -w on the full path.

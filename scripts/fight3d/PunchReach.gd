@@ -114,6 +114,15 @@ func _process_modification() -> void:
 			_reach(skel, _hand, _w_now, _target, _front)
 
 
+## S331 (INSIDEMISS1): re-lands the armed glove after later modifiers moved her trunk (GloveClear's head lean, HitSnap):
+## an inside jab's glove rode the lean 0.25 m to the side of the face (hit_gap_probe). `-- nosettle` = the control arm.
+static var SETTLE: bool = not OS.get_cmdline_user_args().has("nosettle")
+func settle() -> void:
+	var skel := get_skeleton()
+	if SETTLE and skel != null and _clip != "" and _w_now > 0.0:
+		_reach(skel, _hand, _w_now, _target, _front)
+
+
 ## Carries `hand`'s glove front onto the target by weight w.
 func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove_front: float) -> void:
 	if not target_fn.is_valid() or not _arms.has(hand):
