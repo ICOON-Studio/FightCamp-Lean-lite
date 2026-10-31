@@ -22,6 +22,9 @@ const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const BoutBurn := preload("res://scripts/rules/BoutBurn.gd")
+const BodyReport := preload("res://scripts/rules/BodyReport.gd")
+const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -187,7 +190,8 @@ static func _lines(c: Career, f: Dictionary, r: Dictionary) -> void:
 static func _energy(f: Dictionary, n: int, corner: String) -> Dictionary:
 	var fb: Dictionary = f["bout"]
 	if n == 1 or not fb.has("energy"):
-		fb["energy"] = {"a": Combos.TANK, "b": Combos.TANK, "qa": 0.0, "qb": 0.0}
+		# S327 she fights hurt (the player's call, Injuries.fight_hurt): less in her tank from the first bell.
+		fb["energy"] = {"a": Combos.TANK - float(fb.get("hurt", 0.0)), "b": Combos.TANK, "qa": 0.0, "qb": 0.0}
 	var op := RoundStyle.from_opponent(fb["opp"])
 	var mine: Dictionary = f.get("combos", {})
 	var cond_a := float(f["stats"].get("conditioning", 55.0))
@@ -281,6 +285,26 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	f["goal"] = {}
 	f["goal_talk"] = true
 	f["bout"]["done"] = true
+	# S327 update 29 part B: the body report - the part that went first from the settled rounds' burn (BoutBurn, the same
+	# BodyLoad pipeline as the 3D view), what to train next, and how it compares to her last bout.
+	var burn := BoutBurn.per_round(rounds, f["stats"], str(f.get("style", "")))
+	var report := BodyReport.report(burn, str(f["first"]))
+	m["body_report"] = report
+	# A bout not watched in 3D (words, or skipped) has no body track: her figure on the result page shows the same burn the
+	# report reads, so the picture and the line agree.
+	var track: Dictionary = m.get("body_track", {})
+	var shown := 0.0
+	for v in (track.get("a", {}) as Dictionary).values():
+		shown += float(v)
+	if not burn.is_empty() and shown <= 0.0:
+		var south := str(f.get("stance", "")).to_lower() == "southpaw"
+		var hers := {}
+		for part in burn[-1]:
+			hers[BodyTrack.body_place(part, south)] = float(burn[-1][part])
+		track["a"] = hers
+		m["body_track"] = track
+	m["body_change"] = BodyReport.change_line(f.get("last_body_report", {}), report)
+	f["last_body_report"] = report
 	Injuries.after_bout(c, f, m)
 	Roster.check_pro(c)
 

@@ -81,7 +81,7 @@ func _test5() -> void:
 		ok = false
 	if GB.status(-10, -324, 1) != "red":
 		ok = false
-	if GB.status(-10, -324, 4) != "closed":
+	if GB.status(-10, -324, 8) != "closed":
 		ok = false
 	if GB.status(500, 100, 0) != "ok":
 		ok = false
@@ -119,9 +119,9 @@ func _test9() -> void:
 		ok = false
 	if GB.line(3000, 50, 0) != "Runway: safe":
 		ok = false
-	if GB.line(-10, -324, 2) != "The gym closes in 2 weeks":
+	if GB.line(-10, -324, 2) != "The gym closes in 6 weeks":
 		ok = false
-	if GB.line(-10, -324, 4) != "The gym has closed":
+	if GB.line(-10, -324, 8) != "The gym has closed":
 		ok = false
 	_check(ok, "test 9: line() messages")
 

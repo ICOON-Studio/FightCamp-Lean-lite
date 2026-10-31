@@ -8,12 +8,16 @@ extends SceneTree
 ##              trains Normal, rests the week after a bout and comes back through a Light week (S326)
 ## Population: Lucy (quick start) with each stat jittered +-4 and the gym's reputation 10 +-3, seed = career index; the
 ## same seeds for both players. Plan bounds: careless closes in 15-40 % of careers by week 26, sensible under 5 %.
+## S327 bounds after "Money too harsh" (8 weeks below $0 to close, a loss costs 1-2 members): careless closes 5-25 %,
+## sensible 0 %; injured at least once: careless 50-80 %, sensible 30-50 % (real rates alone give ~43 %: 1.3 per 1000 h
+## training over 26 weeks ~29 %, ~3.7 bouts at ~6 % ~20 %; the bound moved, the rates did not).
 ##   <godot.exe> --headless --audio-driver Dummy --path . --script res://tools/career_harness.gd -- n=20 weeks=26
 ## Prints CAREER lines and a HARNESS summary per player.
 
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
+const Injuries := preload("res://scripts/state/Injuries.gd")
 
 const CARELESS_P := 0.5
 const HABITS := ["head_coach", "unsafe_bouts", "hard_camps", "no_sponsors", "hard_weeks"]
@@ -103,6 +107,9 @@ func _decide(policy: String, c: Career) -> void:
 		main.act("prooffer", str(c.pro_offer["fid"]))
 		main.act("declinepro")
 	for f in c.fighters:
+		# S327 (Q-S294-46) hurt before a booked bout: the careless player with unsafe_bouts lets her fight hurt, else pull out.
+		if Injuries.pending(f):
+			main.act("fighthurt" if habits["unsafe_bouts"] else "pullout", str(f["id"]))
 		# S326 update 29 the weekly load: careless with hard_weeks trains Hard every week; the sensible player trains Normal
 		# (camp included) and rests the week after a bout.
 		var want := "hard" if habits["hard_weeks"] else "normal"

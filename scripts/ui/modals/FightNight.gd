@@ -233,6 +233,33 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		v.add_child(foot)
 
 
+## S327 update 29 part B: which part of her went first, the change since her last bout, and one click to train it next week.
+func _body_report(main: Node, m: Dictionary) -> HBoxContainer:
+	var row := UI.hbox(18)
+	var rep: Dictionary = m.get("body_report", {})
+	if rep.is_empty():
+		return row
+	var col := UI.vbox(4)
+	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var t := UI.caps("BODY REPORT")
+	t.add_theme_color_override("font_color", UI.GOLD)
+	col.add_child(t)
+	col.add_child(UI.label(str(rep["line"]) + ("" if str(rep["advice"]) == "" else ". " + str(rep["advice"]) + "."), 20, UI.FG, "body", true))
+	if str(m.get("body_change", "")) != "":
+		col.add_child(UI.muted(str(m["body_change"]), UI.SMALL, true))
+	row.add_child(col)
+	var focus := str(rep.get("focus", ""))
+	if focus != "":
+		var f: Dictionary = main.career.fighter_by_id(str(m["fid"]))
+		var set_now := str(f.get("focus", "")) == focus
+		var btn := UI.button("Training %s next week" % str(Data.LABEL.get(focus, focus)).to_lower() if set_now else "Train %s next week" % str(Data.LABEL.get(focus, focus)).to_lower(),
+			"Btn", main.act.bind("bodyfocus", "%s|%s" % [m["fid"], focus]), set_now)
+		btn.name = "BodyFocus"
+		btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(btn)
+	return row
+
+
 func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	var c: Career = main.career
 	var f: Dictionary = c.fighter_by_id(str(m["fid"]))
@@ -274,6 +301,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	v.add_child(hero)
 	var why: Array = m["why"]
 	v.add_child(Broadcast.reasons(why if not why.is_empty() else ["A close night: the rolls of the rounds decided it."]))
+	v.add_child(_body_report(main, m))
 	var foot := UI.hbox(10)
 	var take := []
 	if bool(m.get("pro", false)):

@@ -7,6 +7,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const Injuries := preload("res://scripts/state/Injuries.gd")
 
 
 ## The fighter an action means: by id, else the open moment's, else the first.
@@ -29,6 +30,19 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var f := who(main, parts[0])
 			f[{"focus": "focus", "diet": "diet", "learn": "learning", "combo": "combo_learning", "trainload": "load_setting"}[name]] = parts[1] if parts.size() > 1 else parts[0]
 			main.render()
+		"bodyfocus":
+			var parts := arg.split("|")
+			who(main, parts[0])["focus"] = parts[1]
+			main.open_modal(main.modal)   # S327 the result page redraws: the button reads "Training ... next week"
+		"injurychoice":
+			main.open_modal(Injuries.choice_modal(c, who(main, arg)))
+		"pullout", "fighthurt":
+			var hf := who(main, arg)
+			if name == "pullout":
+				Injuries.pull_out(c, hf)
+			else:
+				Injuries.fight_hurt(c, hf)
+			main.close_modal()
 		"openBout":
 			main.nav({"area": "fights", "tab": 0, "bout": arg})
 		"accept":

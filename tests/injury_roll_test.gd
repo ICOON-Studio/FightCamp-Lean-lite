@@ -88,11 +88,11 @@ func _test4() -> void:
 ## 5. load_ratio.
 func _test5() -> void:
 	var ok := true
-	if not _near(IR.load_ratio(10, [10, 10, 10, 10]), 1.0):
+	if not _near(IR.load_ratio(10, 10.0), 1.0):
 		ok = false
-	if not _near(IR.load_ratio(15, [10, 10, 10, 10]), 1.5):
+	if not _near(IR.load_ratio(15, 10.0), 1.5):
 		ok = false
-	if not _near(IR.load_ratio(8, []), 1.0):
+	if not _near(IR.load_ratio(8, 0.0), 1.0):
 		ok = false
 	_check(ok, "test 5: load_ratio 1.0/1.5/1.0")
 

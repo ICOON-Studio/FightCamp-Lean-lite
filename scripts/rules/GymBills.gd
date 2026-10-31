@@ -11,7 +11,9 @@ const CLUB_YEAR := 315
 const BOXER_YEAR := 18
 const COACH_YEAR := 35
 const WEEKS_A_MONTH := 4.33
-const CLOSE_AFTER_WEEKS := 4
+## S327 (operator Q-S294-45 "Money too harsh"): 8 weeks, was 4 - a landlord or bank gives about two months of arrears
+## before it acts, and the player needs the time to play out of it (book a bout, sign a sponsor, cut the coach).
+const CLOSE_AFTER_WEEKS := 8
 const WARN_RUNWAY_WEEKS := 8
 const START_MONTHS := 3
 

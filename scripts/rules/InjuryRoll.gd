@@ -1,7 +1,8 @@
 extends RefCounted
 ## Real-world numbers (research S323): competition injury 6.8 per 1000 bout-minutes -> ~6 % a 3x3 bout, 72 % head/neck,
 ## cuts 20 % (Alevras 2022 meta-analysis); training 1.3 per 1000 h -> ~1.3 % a 10 h week; ~33 days lost per injury
-## (Loosemore 2015); load this week vs 4-week average >= 1.5 = 2-4x risk (Gabbett 2016); England Boxing KO rule 4.1.2.
+## (Loosemore 2015); load this week vs her usual >= 1.5 = 2-4x risk (Gabbett 2016; her usual = TrainingLoad's EWMA, S327);
+## England Boxing KO rule 4.1.2.
 
 const BOUT_BASE := 0.06
 const TRAIN_BASE_10H := 0.013
@@ -85,16 +86,11 @@ static func bout_roll(seed: int, damage: Dictionary) -> Dictionary:
 	return {"injured": true, "type": str(chosen[0]), "days_out": days}
 
 
-static func load_ratio(this_week: float, last4: Array) -> float:
-	if last4.is_empty():
+## S327: this week's hours against her usual (TrainingLoad's chronic EWMA), the same ratio TrainingLoad.ratio reads.
+static func load_ratio(this_week: float, chronic: float) -> float:
+	if chronic <= 0.0:
 		return 1.0
-	var total: float = 0.0
-	for w in last4:
-		total += float(w)
-	var avg: float = total / float(last4.size())
-	if avg <= 0.0:
-		return 1.0
-	return this_week / avg
+	return this_week / chronic
 
 
 static func load_mult(ratio: float) -> float:

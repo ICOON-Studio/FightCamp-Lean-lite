@@ -6,6 +6,8 @@ const Data := preload("res://scripts/state/Data.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
+const GameMoney := preload("res://scripts/rules/GameMoney.gd")
+const Injuries := preload("res://scripts/state/Injuries.gd")
 
 
 ## S324 update 27: GymBills' read of the gym's money now: "ok" | "warn" (runway under 8 weeks) | "red" (below $0) | "closed".
@@ -46,6 +48,9 @@ static func needs(career: Career) -> Array:
 		n.append({"red": true, "t": "A promoter wants to sign %s" % pf["name"], "s": "%s: a pro contract" % career.pro_offer["promoter"],
 			"act": "prooffer", "arg": pf["id"], "label": "Hear it"})
 	for f in career.fighters:
+		if Injuries.pending(f):
+			n.append({"red": true, "t": "%s is hurt before her bout" % f["first"], "s": Injuries.line(career, f) + "; pull her out or let her fight hurt",
+				"act": "injurychoice", "arg": f["id"], "label": "Decide"})
 		for o in f["offers"]:
 			if not bool(o["answered"]) and not bool(o["mismatch"]):
 				n.append({"red": true, "t": "Answer a bout offer: %s vs %s" % [f["name"], o["opp"]["name"]],
@@ -53,6 +58,11 @@ static func needs(career: Career) -> Array:
 		if Bouts.weigh_in_today(career, f):
 			n.append({"red": true, "t": "Weigh-in today: %s" % f["first"], "s": "%s must make %.1f kg" % [f["name"], f["limit"]],
 				"act": "weighin", "arg": f["id"], "label": "Weigh in"})
+	# S327 (operator "Money too harsh"): a sponsor on offer is money the player may not know is there - say so.
+	for d in career.deals:
+		if str(d["state"]) == "offer":
+			n.append({"red": false, "t": "A sponsor is waiting: %s" % d["name"], "s": "%s a week for %s" % [GameMoney.text(int(d["per"])), d["what"]],
+				"act": "go", "arg": "money:3", "label": "Deals"})
 	if not career.fighters.is_empty() and career.coach.is_empty():
 		n.append({"red": false, "t": "Hire a coach", "s": "without one, training runs at 60%",
 			"act": "go", "arg": "gym:1", "label": "Staff"})

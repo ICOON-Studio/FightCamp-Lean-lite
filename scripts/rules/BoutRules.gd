@@ -45,9 +45,11 @@ const WIN_MEMBERS := 8
 const WIN_REPUTATION := 5
 ## S324 update 27 "losses cost" (make-it-a-game plan decision 4): a loss loses members after the news and some reputation
 ## (the natural member count follows reputation, so a loss also lowers where the gym settles); a stoppage loss costs more.
-const LOSS_MEMBERS := 3
+## S327 (operator "Money too harsh"): 1 and 2 members, was 3 and 5 - club members train for themselves; one bout lost
+## does not empty a gym (the reputation loss still lowers where the member count settles).
+const LOSS_MEMBERS := 1
 const LOSS_REPUTATION := 2
-const STOPPED_LOSS_MEMBERS := 5
+const STOPPED_LOSS_MEMBERS := 2
 const STOPPED_LOSS_REPUTATION := 4
 
 ## Move mastery on the night: a move at USABLE (mastery 30) or better is a weapon. The first BASE_WEAPONS are what any

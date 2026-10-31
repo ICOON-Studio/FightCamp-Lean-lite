@@ -42,6 +42,9 @@ func _play() -> void:
 	_check(main.screen == "title", "the game opens on the title")
 	main.act("quick")
 	var c: Career = main.career
+	# S327: the golden path plays one known career - Career.seed is randi() per new career, so the injury dice could hurt
+	# her in the debut camp on some runs (the gate went red once). A fixed seed keeps the path the same every run.
+	c.seed = 1
 	_check(main.screen == "career" and c != null, "quick start opens the career")
 	_check(c.members == 30 and c.cash == 14600, "quick start: 30 members, $14,600 (3 months of costs, S324) - got %d" % c.cash)
 	_check(Needs.go_state(c, false)["t"] == "NEEDS YOU (1)", "CONTINUE reads NEEDS YOU while the walk-in waits")
@@ -210,6 +213,12 @@ func _week_two(c: Career) -> void:
 	print("  bout: %s, rounds %s, why %s" % ["WIN" if win else "LOSS",
 		str((main.modal["rounds"] as Array).map(func(r): return r["won"])), str(main.modal.get("why", []))])
 	var f := c.fighter()
+	# S327 update 29 part B: the body report on the result page; its button sets next week's focus.
+	var rep: Dictionary = main.modal.get("body_report", {})
+	_check(str(rep.get("line", "")).begins_with(str(f["first"])) and f.get("last_body_report", {}) == rep, "the body report: %s" % str(rep.get("line", "")))
+	if str(rep.get("focus", "")) != "":
+		_press(_modal_button("BodyFocus"), "Train it next week")
+		_check(str(f["focus"]) == str(rep["focus"]) and main.modal.get("step", "") == "result", "the body report's button sets her focus: %s" % str(f["focus"]))
 	_check(int(f["w"]) + int(f["l"]) == 5, "her record moved to %d-%d" % [f["w"], f["l"]])
 	_check(c.cash == cash_fight + 450, "the club's $450 ticket cut is in")
 	_check(c.members == members_fight + (8 if win else 0), "members after the news: %d" % c.members)

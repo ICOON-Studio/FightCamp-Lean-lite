@@ -1,3 +1,32 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 29 (2026-10-31): YOUR CALLS ON MONEY AND INJURIES + LOAD + THE BODY REPORT
+=========================================================================================================
+
+FROM YOUR BOARD ANSWERS
+ 1. MONEY, SOFTER (you: "Money too harsh"). The gym now closes only after 8 weeks in a row below $0 (was 4) - about
+    the two months of arrears a landlord or bank gives. A lost bout costs 1 member (a stoppage 2; was 3 and 5) - club
+    members train for themselves, one loss does not empty a gym. A sponsor who is waiting for your answer is now on
+    HOME's list ("A sponsor is waiting: Ironclad Supplements, $250 a week") with a button to MONEY > Deals.
+    Checked on 40 careers per player: a careless owner still closes 15 % of the time, a sensible one never.
+ 2. INJURIES: YOU DECIDE (you: "option on player if he pulls out ... how serious, how many weeks ... to judge").
+    Every injury line now says how serious and when she is fit: "Hand injury (serious) - heals in 5 weeks, fit on
+    Sat 5 Dec". If it runs past a bout you booked, time stops and you choose:
+      - Pull her out: the club pays $300 for the empty slot, she rests and heals.
+      - She fights hurt: she starts the bout 10 / 15 / 20 % down on energy (minor / moderate / serious) and the
+        injury comes out of the fight worse (50 % longer to heal).
+    A head knock or a stoppage suspension is never a choice - no doctor clears a boxer with a head injury.
+    Board: "Test: an injury pulls her out" now opens this choice.
+
+NEW IN UPDATE 29
+ 3. TRAINING LOAD, EACH WEEK. On her Training page: Rest / Light / Normal / Hard (3 / 6 / 10 / 15 hours; gains x0.25
+    to x1.3) and a gauge "Load 1.1x her usual - safe" (green), "injury risk up" (amber), "injury risk 3x" (red).
+    Her "usual" now moves slowly, like real fitness: a rest week after a fight does NOT make the next normal week
+    risky (it read as a spike before). A camp steps her up only as far as stays safe; the HARD camp still trains
+    Hard - the "more risk" it promises.
+ 4. THE BODY REPORT after every bout, on the result page under WHAT DECIDED IT: "Lucy's jab arm went in round 2.
+    Next week: Technique." and how it compares to her last bout. The button "Train technique next week" sets her
+    focus in one click. Board: "Test: fight night WITH film study" ends on the result page.
+ What to judge: is the money now fair but still felt? Is the injury choice clear enough to decide on?
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 28 (2026-10-31): INJURIES AND SUSPENSIONS
 =========================================================================
 

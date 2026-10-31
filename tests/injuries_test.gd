@@ -6,6 +6,7 @@ extends SceneTree
 
 const Sim := preload("res://scripts/state/Sim.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const Needs := preload("res://scripts/state/Needs.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 
@@ -69,10 +70,37 @@ func _initialize() -> void:
 	pf["offers"] = [{"id": "x", "answered": false}]
 	var cash := p.cash
 	Injuries._hurt(p, pf, {"type": "hand", "days_out": 35}, "in training")
-	_check((pf["bout"] as Dictionary).is_empty() and (pf["camp"] as Dictionary).is_empty(), "a hand injury inside the bout pulls her out")
-	_check(p.cash == cash - BoutRules.MISSED_WEIGHT_COST, "the club pays the empty slot: %d -> %d" % [cash, p.cash])
+	# S327 (Q-S294-46): the player decides - the bout keeps until he does, and the need blocks time.
+	_check(Injuries.pending(pf) and not (pf["bout"] as Dictionary).is_empty() and p.cash == cash, "a hand injury inside the bout asks first: bout kept, nothing paid")
+	_check(Needs.blockers(p).any(func(x): return str(x["act"]) == "injurychoice"), "the choice is a red need")
+	_check(Injuries.line(p, pf) == "Hand injury (serious) - heals in 5 weeks, fit on %s" % Clock.fmt(55), "the line says how serious and when: %s" % Injuries.line(p, pf))
+	var cm := Injuries.choice_modal(p, pf)
+	_check(str(cm["body"]).contains("serious") and str(cm["body"]).contains("5 weeks") and str(cm["body"]).contains("Dana Fox") and (cm["buttons"] as Array).size() == 2,
+		"the choice names the injury, how serious, the weeks to heal, the bout and both ways")
 	_check(bool(pf["offers"][0]["answered"]), "open offers are withdrawn")
+	Injuries.pull_out(p, pf)
+	_check((pf["bout"] as Dictionary).is_empty() and (pf["camp"] as Dictionary).is_empty() and not Injuries.pending(pf), "pulled out: no bout, no camp")
+	_check(p.cash == cash - BoutRules.MISSED_WEIGHT_COST, "the club pays the empty slot: %d -> %d" % [cash, p.cash])
 	_check(p.news.any(func(x): return str(x["t"]).contains("empty slot")) and p.news.any(func(x): return str(x["t"]).contains("Hand injury")), "the news reports both")
+	# She fights hurt: the bout keeps, less in the tank, and the injury comes out worse.
+	var h := _career()
+	var hf: Dictionary = h.fighter()
+	h.day = 20
+	hf["bout"] = {"opp": {"name": "Dana Fox"}, "day": 30, "weighed": false, "made": false, "done": false, "film": 0}
+	Injuries._hurt(h, hf, {"type": "ribs", "days_out": 21}, "in training")
+	Injuries.fight_hurt(h, hf)
+	_check(not Injuries.pending(hf) and not (hf["bout"] as Dictionary).is_empty() and float(hf["bout"]["hurt"]) == Injuries.HURT_ENERGY["moderate"], "fights hurt: bout kept, 15 off her tank")
+	h.day = 30
+	var hm := {"rounds": [{}, {}, {}], "outcome": "win", "stopped": "", "damage": {"a": 0.0}}
+	Injuries.after_bout(h, hf, hm)
+	_check(int(hf["injury"]["until_day"]) == 30 + 17 and str(hm.get("injury", "")).contains("Rib injury"), "the ribs come out worse: 11 days left -> 17 (%d)" % int(hf["injury"]["until_day"]))
+	# A head knock is never a choice: no doctor clears her.
+	var q := _career()
+	var qf: Dictionary = q.fighter()
+	q.day = 20
+	qf["bout"] = {"opp": {"name": "Dana Fox"}, "day": 30, "weighed": false, "made": false, "done": false, "film": 0}
+	Injuries._hurt(q, qf, {"type": "head", "days_out": 28}, "in training")
+	_check((qf["bout"] as Dictionary).is_empty() and not Injuries.pending(qf), "a head knock pulls her out with no choice")
 	# Control: an injury that heals before the bout keeps it.
 	var k := _career()
 	var kf: Dictionary = k.fighter()
@@ -108,7 +136,13 @@ func _initialize() -> void:
 	lf["camp"] = {}
 	for d in 7:
 		Sim.step_day(l)
-	var hist: Array = lf.get("load", [])
-	_check(hist.size() == TrainingLoad.HISTORY_WEEKS and float(hist[-1]) in [TrainingLoad.hours("normal"), TrainingLoad.hours("rest")], "the week's hours go into her history: %s" % str(hist))
+	var want := TrainingLoad.next_chronic(10.0, TrainingLoad.hours("rest" if Injuries.out(l, lf) else "normal"))
+	_check(lf.has("chronic") and not lf.has("load") and is_equal_approx(float(lf["chronic"]), want), "the week's hours go into her usual: %s" % str(lf.get("chronic")))
+	# S327 the load model: a rest week brings the risk DOWN - back at Normal it reads safe (the 4-week average read 1.21x).
+	var u := TrainingLoad.next_chronic(10.0, TrainingLoad.hours("rest"))
+	_check(TrainingLoad.band(TrainingLoad.ratio("normal", u)) == "safe" and TrainingLoad.ratio("normal", u) < 1.2, "back from a rest week at Normal: safe (%.2fx)" % TrainingLoad.ratio("normal", u))
+	# An old save's 4-week history is read as its average.
+	var old := {"load": [10.0, 10.0, 3.0, 10.0]}
+	_check(is_equal_approx(Injuries.chronic(old), 8.25), "an old save's history: its average")
 	print("INJURIES failures=%d" % failures)
 	quit(1 if failures > 0 else 0)

@@ -88,7 +88,9 @@ static func run(main: Node, jump: String) -> bool:
 	if jump == "injury":
 		Injuries._hurt(c, f, {"type": "hand", "days_out": 35}, "in training")
 		main.act("fighter", str(f["id"]))
-		return (f["bout"] as Dictionary).is_empty() and Injuries.out(c, f)
+		# S327 (Q-S294-46): the injury runs past her bout, so the player decides - the jump lands on that choice.
+		main.act("injurychoice", str(f["id"]))
+		return Injuries.pending(f) and str(main.modal.get("title", "")).contains("hurt before her bout")
 	for i in 60:
 		if Bouts.weigh_in_today(c, f):
 			break

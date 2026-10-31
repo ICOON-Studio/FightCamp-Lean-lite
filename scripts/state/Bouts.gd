@@ -24,6 +24,7 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
+const Injuries := preload("res://scripts/state/Injuries.gd")
 
 
 const OFFER_ANSWER_DAYS := 3
@@ -165,7 +166,9 @@ static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, f
 	if cost > 0:
 		c.pay(-cost, "Fight camp for %s: %s%s" % [f["first"], str(BoutRules.PROTOCOLS[protocol]["name"]).to_lower(), " + film study" if film else ""])
 	f["camp"] = {"focus": focus, "protocol": protocol, "film": film, "start": c.day}
-	f["load_setting"] = TrainingLoad.default_for(true)   # S326 update 29: a camp trains Hard unless the player says otherwise
+	# S327: the camp steps her load up only as far as stays safe against her usual (was straight to Hard - a 1.5x spike);
+	# the Hard camp is the player's "more risk" pick and trains Hard.
+	f["load_setting"] = "hard" if protocol == 3 else TrainingLoad.camp_default(Injuries.chronic(f))
 	if film:
 		f["bout"]["film"] = BoutRules.FILM_DEPTH_WITH_STUDY
 		film_notes(c, f)

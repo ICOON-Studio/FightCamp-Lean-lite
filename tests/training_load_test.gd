@@ -63,41 +63,34 @@ func _test2() -> void:
 	_check(ok, "test 2: hours + gain all settings")
 
 
-## 3. fresh_history, push, push immutability.
+## 3. S327 her usual: fresh 10 h, the EWMA step (42-day span), an old save's history read as its average.
 func _test3() -> void:
-	var fh: Array = TL.fresh_history()
 	var ok := true
-	if fh.size() != 4:
+	if not _near(TL.fresh_chronic(), 10.0):
 		ok = false
-	if not _near(fh[0], 10.0) or not _near(fh[1], 10.0) or not _near(fh[2], 10.0) or not _near(fh[3], 10.0):
+	if not _near(TL.CHRONIC_DECAY, 1.0 - exp(-7.0 / 42.0)):
 		ok = false
-	var p1: Array = TL.push([10.0, 10.0, 10.0, 10.0], 15.0)
-	if p1.size() != 4:
+	if not _near(TL.next_chronic(10.0, 15.0), 10.768):
 		ok = false
-	if not _near(p1[0], 10.0) or not _near(p1[1], 10.0) or not _near(p1[2], 10.0) or not _near(p1[3], 15.0):
+	if not _near(TL.next_chronic(10.0, 3.0), 8.925):
 		ok = false
-	var p2: Array = TL.push([6.0], 10.0)
-	if p2.size() != 2:
+	if not _near(TL.next_chronic(10.0, 10.0), 10.0):
 		ok = false
-	if not _near(p2[0], 6.0) or not _near(p2[1], 10.0):
+	if not _near(TL.chronic_from_history([10.0, 10.0, 3.0, 10.0]), 8.25) or not _near(TL.chronic_from_history([]), 10.0):
 		ok = false
-	var orig: Array = [10.0, 10.0, 10.0, 10.0]
-	var _p3: Array = TL.push(orig, 15.0)
-	if orig.size() != 4:
-		ok = false
-	_check(ok, "test 3: fresh_history + push + immutability")
+	_check(ok, "test 3: fresh_chronic 10 / next_chronic 10.768, 8.925, 10 / old history 8.25")
 
 
 ## 4. ratio.
 func _test4() -> void:
 	var ok := true
-	if not _near(TL.ratio("hard", TL.fresh_history()), 1.5):
+	if not _near(TL.ratio("hard", TL.fresh_chronic()), 1.5):
 		ok = false
-	if not _near(TL.ratio("normal", [6.0, 6.0, 6.0, 6.0]), 1.667):
+	if not _near(TL.ratio("normal", 6.0), 1.667):
 		ok = false
-	if not _near(TL.ratio("light", [10.0, 10.0, 10.0, 10.0]), 0.6):
+	if not _near(TL.ratio("light", 10.0), 0.6):
 		ok = false
-	if not _near(TL.ratio("normal", []), 1.0):
+	if not _near(TL.ratio("normal", 0.0), 1.0):
 		ok = false
 	_check(ok, "test 4: ratio 1.5/1.667/0.6/1.0")
 
@@ -130,24 +123,27 @@ func _test6() -> void:
 	_check(ok, "test 6: gauge_line messages")
 
 
-## 7. A month of Hard from Normal settles - spike only first week.
+## 7. A month of Hard from Normal settles slowly (her fitness rises): 1.5 / 1.393 / 1.314 / 1.253. And the S327 defect's
+## control: Normal, a rest week, Normal again reads safe (1.120x) - the 4-week average read 1.212x.
 func _test7() -> void:
-	var h: Array = TL.fresh_history()
+	var h: float = TL.fresh_chronic()
 	var ratios: Array = []
 	for i in range(4):
-		var r: float = TL.ratio("hard", h)
-		ratios.append(r)
-		h = TL.push(h, 15.0)
+		ratios.append(TL.ratio("hard", h))
+		h = TL.next_chronic(h, 15.0)
 	var ok := true
 	if not _near(ratios[0], 1.5):
 		ok = false
-	if not _near(ratios[1], 1.333):
+	if not _near(ratios[1], 1.393):
 		ok = false
-	if not _near(ratios[2], 1.2):
+	if not _near(ratios[2], 1.314):
 		ok = false
-	if not _near(ratios[3], 1.0909):
+	if not _near(ratios[3], 1.253):
 		ok = false
-	_check(ok, "test 7: month of Hard settles 1.5/1.333/1.2/1.091")
+	var back: float = TL.ratio("normal", TL.next_chronic(10.0, TL.hours("rest")))
+	if not _near(back, 1.120) or TL.band(back) != "safe":
+		ok = false
+	_check(ok, "test 7: month of Hard 1.5/1.393/1.314/1.253; back from rest 1.120 safe")
 
 
 ## 8. default_for.
@@ -158,6 +154,9 @@ func _test8() -> void:
 	if TL.default_for(false) != "normal":
 		ok = false
 	_check(ok, "test 8: default_for camp=true->hard camp=false->normal")
+	# S327 camp_default: from a normal month Hard is a spike, so Normal; once her usual is 11.6 h+ Hard is safe.
+	_check(TL.camp_default(10.0) == "normal" and TL.camp_default(11.6) == "hard" and TL.camp_default(5.0) == "normal",
+		"test 8b: camp_default 10 h -> normal, 11.6 h -> hard, 5 h -> normal")
 
 
 ## 9. cycle.

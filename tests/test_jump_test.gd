@@ -20,9 +20,9 @@ func _initialize() -> void:
 		var ok := TestJump.run(main, jump)
 		var f: Dictionary = main.career.fighter() if main.career != null else {}
 		if jump == "injury":
-			# S325 update 28: in camp, then a hand injury pulls her out; the jump lands on her fighter page.
-			_check(ok and (f["bout"] as Dictionary).is_empty() and str((f.get("injury", {}) as Dictionary).get("type", "")) == "hand",
-				"injury: the hand injury pulled her out of the bout")
+			# S327 (Q-S294-46): in camp, a hand injury past her bout opens the choice over her fighter page; the bout keeps.
+			_check(ok and not (f["bout"] as Dictionary).is_empty() and str((f.get("injury", {}) as Dictionary).get("type", "")) == "hand"
+				and (main.modal.get("buttons", []) as Array).size() == 2, "injury: the hand injury asks pull out or fight hurt")
 			_check(str(main.route.get("fighter", "")) == str(f["id"]) and main.save_path == TestJump.SAVE_PATH, "injury: her fighter page, its own save slot")
 			main.queue_free()
 			await process_frame
