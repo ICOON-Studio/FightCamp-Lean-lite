@@ -24,8 +24,9 @@ const RADIUS_M := 0.018
 const MAX_BOW_M := 0.35
 ## S317 the ring entry: her cornerman holds the ropes apart where she ducks in - the middle rope pressed down, the top
 ## one lifted (by height: metres up/down at the crossing point), easing off over PART_R along the rope.
-const PART_DY := [-0.05, -0.3, 0.16]   # bottom, middle, top rope
-const PART_R := 1.5
+const PART_DY := [0.0, -0.3, 0.0]   # bottom, middle, top. S320 (operator: "why the white rope is angled up like that"): nobody holds the top rope up on screen, so it stays; only the middle rope she presses down with her glove moves
+const PART_R := 1.5   # (kept for the record; S320 the hold is a straight-line tent on its own side)
+const PART_SIDE_M := 0.4
 
 var segments: Array = []      # MeshInstance3D, SEGMENTS per rope
 var _ropes: Array = []        # [{a, b, n (outward), u: PackedVector3Array, prev: PackedVector3Array, segs: Array}]
@@ -117,12 +118,18 @@ func _step(rope: Dictionary, spheres: Array) -> void:
 		if next[k].length() > MAX_BOW_M:
 			next[k] = next[k].normalized() * MAX_BOW_M
 		for id in _parts:
+			# S320 (operator on the parted ropes: "wtf stop trolling" - a 1.5 m bell bent them into waves and reached round
+			# the corner post onto the next side): a taut rope held at one point is two straight lines, post to hand to
+			# post, and only the rope of the side she comes through is held.
 			var at: Vector3 = _parts[id][0]
-			var d := Vector2(rest.x - at.x, rest.z - at.z).length()
-			if d >= PART_R:
+			var ab := Vector2(b.x - a.x, b.z - a.z)
+			var t := clampf(Vector2(at.x - a.x, at.z - a.z).dot(ab) / ab.length_squared(), 0.0, 1.0)
+			if Vector2(a.x, a.z).lerp(Vector2(b.x, b.z), t).distance_to(Vector2(at.x, at.z)) > PART_SIDE_M or t <= 0.02 or t >= 0.98:
 				continue
-			var f := 0.5 * (1.0 + cos(PI * d / PART_R)) * float(_parts[id][1])
-			next[k] = next[k].lerp(Vector3(0, float(PART_DY[0 if a.y < 0.65 else (1 if a.y < 1.05 else 2)]), 0), f)
+			var sk := float(k) / SEGMENTS
+			var tent := sk / t if sk <= t else (1.0 - sk) / (1.0 - t)
+			var dy := float(PART_DY[0 if a.y < 0.65 else (1 if a.y < 1.05 else 2)])
+			next[k] = next[k].lerp(Vector3(0, dy * tent, 0), float(_parts[id][1]))
 	rope["prev"] = u
 	rope["u"] = next
 

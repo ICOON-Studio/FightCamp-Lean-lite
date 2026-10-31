@@ -189,8 +189,19 @@ func _carry_in() -> void:
 		var at: Vector3 = (e["out_at"] as Vector3).lerp(e["in_at"], u * u * (3.0 - 2.0 * u))
 		var n: Node3D = stage.boxers[i]["node"]
 		n.position = Vector3(at.x, 0.0, at.z)
-		# Her cornerman parts the ropes before she bends in and lets go once she is through.
-		var held := clampf((t - _entering[i] - 0.2) / 0.6, 0.0, 1.0) * clampf((_entering[i] + DUCK.y + 0.9 - t) / 0.6, 0.0, 1.0)
+		# S320 (operator: "do you seriously donot see the errors"): a timer pressed the rope while she still stood upright
+		# and held it after she stood up inside. The rope goes down only while she is bent over AT it: by how low her head
+		# is (upright ~1.45 m, through the ropes ~1.0 m) and how near her hips are to the crossing point.
+		var skel: Skeleton3D = stage.boxers[i]["skel"]
+		var head_y: float = (skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Head")).origin).y
+		var hips: Vector3 = skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Hips")).origin
+		var near := 1.0 - clampf((Vector2(hips.x, hips.z).distance_to(Vector2((e["rope"] as Vector3).x, (e["rope"] as Vector3).z)) - 0.35) / 0.4, 0.0, 1.0)
+		# ROPELOG (S320): her head stays low (1.0-1.3 m) while she straightens up already inside, so the rope stayed
+		# down 0.3-0.6 s too long. It lets go as her hips come through the rope line (0 -> 0.15 m inside).
+		var through: float = (hips - (e["rope"] as Vector3)).dot(e["in"] as Vector3)
+		var held := clampf((1.40 - head_y) / 0.3, 0.0, 1.0) * near * clampf(1.0 - through / 0.15, 0.0, 1.0)
+		if OS.get_cmdline_user_args().has("ropelog"):
+			print("ROPELOG %d t=%.2f head=%.3f through=%.2f held=%.2f" % [i, t - _entering[i], head_y, through, held])
 		stage._ropes.part(i, e["rope"], held)
 
 

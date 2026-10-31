@@ -1,20 +1,21 @@
-# S320 - next session (written S319, 2026-10-31)
+# S321 - next session (written S320, 2026-10-31)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 22 exported (Lean 7d98932, 37/37 tests): short punches up close (SHOVEL1: BeatFire + ShortPunch +
-clip_travel.json, glove travel p50 ~0.2 m vs 0.86 m), motion blur really in the exe (glsl sources beside it), FightView
-split (BeatFire.gd). Digest: Game Godot/research/S319_DIGEST.md (the control-arm table is there).
+Where it stands: update 23 exported (Lean 9a55d90, 37/37 tests): glide steps (no walking-stride clips; clip changes
+167 -> 97/min), punches from outside their range step in (PunchRange.gd), body maps on each boxer's own baked portrait
+at her own screen edge with live punch stats, round + result pages as pictures (RoundGraphics.gd), the habit fix says
+what it did, smooth ropes. Digest: Game Godot/research/S320_DIGEST.md.
 
-1. Board: Q-S294-33 (update 22 short punches), Q-S294-32 (update 21 body map), Q-S294-31 (update 20 TV look). If the
-   short punches look jumpy to him, turn them off (`noshort` path) and keep the rest.
-2. Smoothness frame by frame: our kinks are 445/min (502 with short punches). Top clips of OURS: pro_left_hook_v2 (~100),
-   retreat (~75). Extend tools/smooth_probe.gd to print the frames around each kink of those clips with the live modifier
-   state (PunchReach.last_weight, GloveClear.pushes delta, HitSnap active, join active) and fix the one cause. Measured and
-   NOT helping (do not retry): a soft GloveClear zone, a longer/smootherstep PunchReach ramp, a longer join for short
-   punches, a step starting inside the step grace.
-3. Give Qwen the next pure piece the moment one appears (worktree E:\FightCamp\wt\LEAN_BODYMAP1, branch per task).
+1. Board: Q-S294-35 (update 23), Q-S294-34 (in-round plan: aim the shout on the body map, Push/Steady/Save), Q-S294-32/33.
+   He sends films and stills now: judge them with `tools/judge_film.gd` (movie writer, then ffmpeg to mp4) and
+   `tools/fight3d_play.gd` (p08 = the round page).
+2. Inside punches still land 0.15-0.22 m short of the face with PunchReach weight 1.0 (tools/hit_gap_probe.gd prints each
+   far hit with its miss direction). Not GloveClear (exempted, no change). Log the striking glove before/after each
+   modifier at the contact frame (ElbowClear, HitSnap) and the ShortPunch skip; fix that one cause.
+3. Referee drifts between the boxers in quiet spells (S320 film ~1:10): Referee.gd keep-clear.
 
-Traps: parse-check Lean files with `godot --headless --path . --check-only --script <file>` and gate every probe batch
-on it (S319 lost two runs to an untyped `:=`); run a probe on the exe with `Builds/FightCamp.exe --script
-E:/FightCamp/Lean/tools/<probe>.gd` (tools/ is not packed); a pure module tuned on one RoundScript is 6x off the live game.
+Traps: a png a tool rewrites needs `godot --headless --path . --import` again (the exe showed the old picture with the
+new anchors); every new json the game reads goes in export_presets include_filter; probe the exe itself with
+`Builds/FightCamp.exe --headless --script E:/FightCamp/Lean/tools/<probe>.gd`. Two Godot jobs at once are fine (operator
+S320; heat stayed under 75 C).
