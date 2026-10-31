@@ -34,7 +34,7 @@ const CIRCLE_STEP_S := Vector2(0.25, 0.55)
 const GIVE_S := Vector2(0.22, 0.34)
 ## S315 the pivot out of the inside (InsideExits "pivot", John J_INSIDE2: ~90 deg on the lead foot behind a check hook):
 ## the leaver circles to her lead side at the held gap until the line between them has turned this far, fast; the other
-## turns after her at her own facing pace (FightStage.FACE_S), so for a moment she faces where the leaver was.
+## turns after her at her own facing pace (RingPlace.FACE_S), so for a moment she faces where the leaver was.
 const PIVOT_DEG := 70.0
 const PIVOT_SCALE := 1.3
 

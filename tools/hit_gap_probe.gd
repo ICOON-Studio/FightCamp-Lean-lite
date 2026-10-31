@@ -53,6 +53,9 @@ func _initialize() -> void:
 			parts.append("%s %d far %d max %.2f" % [k, d[k][0], d[k][1], d[k][2]])
 		print("HIT_GAP by %s: %s" % [key, ", ".join(parts)])
 	for r in far.slice(0, 12):
+		var lf: Array = r.get("land_f", [])
+		if lf.size() == 3:
+			print("HIT_GAP timing: armed at clip %.2f s, hit due %.2f s later, came %.2f s later (%d frames)" % [float(lf[2]), float(lf[1]), (int(r["now_f"]) - int(lf[0])) / 30.0, int(r["now_f"]) - int(lf[0])])
 		print("HIT_GAP far: %s %s miss %.2f m (ahead %+.2f left %+.2f up %+.2f) pelvis gap %.2f m reach weight %.2f glove pushes %d | clip %s at %.2f s, contact %.2f s, speed %.2f" % [
 			r["move"], r["phase"], r["miss"], r.get("fwd", 0.0), r.get("side", 0.0), r.get("up", 0.0), r["gap"], r.get("w", -1.0), r.get("push", -1), r.get("clip", "?"), r.get("pos", -1.0), r.get("contact", -1.0), r.get("speed", -1.0)])
 	quit(0)
