@@ -85,7 +85,8 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 		# the glove covers only the last stretch of its measured path (clip_travel.json) - a short hook, not a wide one.
 		skip = ShortPunch.merge(skip, ShortPunch.skip(BeatClips.travel_path(clip), contact, ShortPunch.want(move, float(ctx["roll"])), sp))
 	last_hand[who] = hand
-	stage.play(who, clip, sp, skip)
+	# S321: a punch refused (she is locked in a hit reaction) never shows, so its hit must not either (punch_id -1).
+	var punch_id: int = int(stage.boxers[who]["play_id"]) if stage.play(who, clip, sp, skip) else -1
 	if short and skip > 0.0 and stage.boxers[who].get("js") != null:
 		# Started mid-swing, the clip's glove is up to a metre from the guard's: a slower join (S319 smooth_probe: the
 		# strike join's 0.06 s half-life added ~50 kinks/min up close) eases the glove onto the swing.
@@ -96,9 +97,9 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 	var tree: SceneTree = v.get_tree()
 	if land == "lands":
 		# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
-		stage.land(who, clip, move == "body_hook" or clip.contains("kidney"), at)
+		stage.land(who, clip, move == "body_hook" or clip.contains("kidney"), at, contact)
 		var hit := BeatClips.react(move, bool(b.get("knockback", false)), stage.has_move, rng.randf(), bool(b.get("big", false)))
-		tree.create_timer(at).timeout.connect(stage.hit.bind(other, hit, BeatClips.speed(hit, ""), who, move, bool(b.get("big", false))))
+		tree.create_timer(at).timeout.connect(stage.hit.bind(other, hit, BeatClips.speed(hit, ""), who, move, bool(b.get("big", false)), punch_id))
 		if bool(b.get("big", false)):
 			# The round's big shot: cut close as it is thrown and run it at half speed through the contact.
 			stage.close_up(other)

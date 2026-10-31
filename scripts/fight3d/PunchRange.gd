@@ -3,7 +3,7 @@ extends RefCounted
 ## the striking glove 0.21 m off its target at contact (p50), 66 % of landed punches past 0.15 m, up to 0.98 m - punches
 ## landed from a 1.6 m gap). FightStage.land works out how much closer her body must be by the contact; this carries her
 ## in and records every landed contact's miss for the probe.
-##   close_in(stage, who, m, at_s)   record(stage, who, hitter, move)
+##   close_in(stage, who, m, at_s)   record(stage, who, hitter, move, cut)
 
 ## The fastest a step in with a punch carries her body, m/s (a step-jab covers ~0.5-0.7 m in ~0.25 s).
 const STEP_IN_MAX := 3.0
@@ -31,7 +31,7 @@ static func close_in(stage: Node, who: int, m: float, at_s: float) -> void:
 
 
 ## At a landed contact: how far the striking glove is from where it lands (m), the pelvis gap and the range phase.
-static func record(stage: Node, who: int, hitter: int, move: String) -> void:
+static func record(stage: Node, who: int, hitter: int, move: String, cut := false) -> void:
 	var pr: Node = stage.boxers[hitter].get("reach")
 	if pr == null or str(pr.get("_hand")) == "":
 		return
@@ -43,14 +43,19 @@ static func record(stage: Node, who: int, hitter: int, move: String) -> void:
 	var gc: Node = stage.boxers[hitter].get("gclear")
 	var gaps: Array = stage.hit_gaps
 	gaps.append({"miss": g.distance_to(tp), "gap": stage._gap(), "move": move, "phase": stage.feet.phase(),
-		"fwd": d.z, "side": d.x, "up": d.y, "w": float(pr.get("last_weight")), "push": int(gc.get("pushes")) if gc != null else -1})
+		"fwd": d.z, "side": d.x, "up": d.y, "w": float(pr.get("last_weight")), "cut": cut, "clip": str(pr.get("_clip")), "contact": float(pr.get("_contact")),
+		"pos": (stage.boxers[hitter]["ap"] as AnimationPlayer).current_animation_position, "speed": (stage.boxers[hitter]["ap"] as AnimationPlayer).speed_scale, "push": int(gc.get("pushes")) if gc != null else -1})
 	if gaps.size() > KEEP:
 		gaps.pop_front()
 
 
 ## True when the hitter's punch is no longer on screen at its contact (its clip was replaced - the clinch took the pair,
 ## a reaction or another move started): hit_gap_probe found 3 of 35 landed punches arriving that way, the reach off.
-static func cut_off(stage: Node, hitter: int) -> bool:
+## S321 punch_id: the play_id her punch started with (-1 = it never started: she was locked in a hit reaction); a later
+## start - even of the same clip - means this punch was replaced. -2 = not checked.
+static func cut_off(stage: Node, hitter: int, punch_id: int = -2) -> bool:
+	if punch_id != -2 and punch_id != int(stage.boxers[hitter].get("play_id", 0)):
+		return true
 	var pr: Node = stage.boxers[hitter].get("reach")
 	if pr == null:
 		return false

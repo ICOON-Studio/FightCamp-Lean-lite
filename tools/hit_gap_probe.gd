@@ -28,7 +28,10 @@ func _initialize() -> void:
 	var view: Node = main._fight_layer.get_child(0)
 	await _until(func(): return bool(view.playing), 120.0)
 	await _until(func(): return not bool(view.playing) or float(view.t) > secs, secs * 2.0 + 30.0)
-	var rows: Array = view.stage.hit_gaps
+	# S321: a punch cut off before it arrived shows no hit (FightStage.hit) - only the hits the viewer sees count.
+	var all_rows: Array = view.stage.hit_gaps
+	var rows: Array = all_rows.filter(func(r): return not bool(r.get("cut", false)))
+	print("HIT_GAP cut off (no hit shown, not counted): %d of %d" % [all_rows.size() - rows.size(), all_rows.size()])
 	var misses: Array = rows.map(func(r): return float(r["miss"]))
 	misses.sort()
 	var pc := func(q: float) -> float: return float(misses[int(misses.size() * q)]) if not misses.is_empty() else -1.0
@@ -50,8 +53,8 @@ func _initialize() -> void:
 			parts.append("%s %d far %d max %.2f" % [k, d[k][0], d[k][1], d[k][2]])
 		print("HIT_GAP by %s: %s" % [key, ", ".join(parts)])
 	for r in far.slice(0, 12):
-		print("HIT_GAP far: %s %s miss %.2f m (ahead %+.2f left %+.2f up %+.2f) pelvis gap %.2f m reach weight %.2f glove pushes %d" % [
-			r["move"], r["phase"], r["miss"], r.get("fwd", 0.0), r.get("side", 0.0), r.get("up", 0.0), r["gap"], r.get("w", -1.0), r.get("push", -1)])
+		print("HIT_GAP far: %s %s miss %.2f m (ahead %+.2f left %+.2f up %+.2f) pelvis gap %.2f m reach weight %.2f glove pushes %d | clip %s at %.2f s, contact %.2f s, speed %.2f" % [
+			r["move"], r["phase"], r["miss"], r.get("fwd", 0.0), r.get("side", 0.0), r.get("up", 0.0), r["gap"], r.get("w", -1.0), r.get("push", -1), r.get("clip", "?"), r.get("pos", -1.0), r.get("contact", -1.0), r.get("speed", -1.0)])
 	quit(0)
 
 

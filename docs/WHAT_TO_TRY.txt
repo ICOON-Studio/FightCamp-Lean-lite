@@ -1,4 +1,16 @@
-FIGHTCAMP - WEEK 6 BUILD, UPDATE 23 (2026-10-31): SMOOTHER FEET, HITS THAT REACH, PICTURES INSTEAD OF TEXT
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 24 (2026-10-31): PUNCHES THAT TOUCH THE FACE
+=============================================================================
+
+NEW IN UPDATE 24 (board: "Test: fight night WITH film study" - watch the chest-to-chest spells in round 1 at 1x)
+ 1. CLOSE-RANGE PUNCHES LAND ON THE FACE (your mark C148 "clipping ?", and "needs fine tuning" on update 22). Up close
+    the jabs and hooks stopped 15-25 cm short and off to the side: the glove is held along the forearm (a taped wrist,
+    update 19) but the punch was aimed along the bare hand. Measured on round 1: close-range punches more than 15 cm
+    off the face 10 of 13 -> 0 of 13.
+ 2. NO HIT WITHOUT A PUNCH. A punch she could not throw (still shaken from a hit) or that was replaced by the next one
+    could still show a hit, the glove nowhere near. Now only punches that arrive show a hit. All shown hits more than
+    15 cm off the target: 54 % -> 8 % (one step-in jab left, next on the list).
+
+UPDATE 23 (2026-10-31): SMOOTHER FEET, HITS THAT REACH, PICTURES INSTEAD OF TEXT
 =============================================================================================
 
 NEW IN UPDATE 23 (board: "Test: fight night WITH film study" - watch round 1 at 1x, then the corner and the result)

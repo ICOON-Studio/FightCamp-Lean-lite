@@ -122,13 +122,13 @@ func has_move(move: String) -> bool:
 
 
 ## S302: `who` throws `clip` and it LANDS: around contact her glove is carried onto the other's face (ribs if `body`).
-func land(who: int, clip: String, body: bool, at_s: float = 0.0) -> void:
+func land(who: int, clip: String, body: bool, at_s: float = 0.0, contact_s: float = -1.0) -> void:
 	var pr: Node = boxers[who].get("reach")
-	if pr == null:
-		return
+	if pr == null: return
 	var row := BeatClips.contact_row(clip)
 	var hand := hand_of(who, str(row.get("hand", "LeftHand" if clip.contains("left_") or clip.contains("jab") else "RightHand")))
-	pr.arm(clip, hand, BeatClips.contact(clip, CONTACT_S), target_point.bind(1 - who, body), float(boxers[who]["front"]))
+	# S321: the beat's own contact (its per-move fallback: a body hook's 0.70 s, not the jab's 0.27 s).
+	pr.arm(clip, hand, contact_s if contact_s >= 0.0 else BeatClips.contact(clip, CONTACT_S), target_point.bind(1 - who, body), float(boxers[who]["front"]))
 	# S320 (operator: "some hits seem to register even when opponent is way to far"; tools/hit_gap_probe.gd: the glove
 	# 0.21 m off the target at contact (p50), 66 % past 0.15 m, up to 0.98 m - punches landed from 1.6 m). The clip touches
 	# at the gap gap_m - short_m (clip_contact.json, measured at the jab gap); she must close the rest of today's gap by the
@@ -227,9 +227,10 @@ func _hold(delta: float) -> void:
 
 ## S302: `hitter`'s `move` lands on `who`: her hit reaction starts, both bodies hold for the hit-stop, her head snaps the
 ## way the glove drove it (not on a body shot), and a power shot nudges the camera.
-func hit(who: int, clip: String, speed: float, hitter: int, move: String, big: bool) -> void:
-	PunchRange.record(self, who, hitter, move)
-	if PunchRange.cut_off(self, hitter):
+func hit(who: int, clip: String, speed: float, hitter: int, move: String, big: bool, punch_id: int = -2) -> void:
+	var was_cut := PunchRange.cut_off(self, hitter, punch_id)
+	PunchRange.record(self, who, hitter, move, was_cut)
+	if was_cut:
 		return   # S320: her punch was cut off before it arrived (a clinch, a reaction): no hit shows without a punch
 	# S305: fast to its peak, then the clip's own pace back to guard; locked in it until then (HitStun).
 	var fast := BeatClips.react_fast(clip, speed)
@@ -406,14 +407,16 @@ func _on_finished(_name: StringName, who: int) -> void:
 
 ## A punch, a defence or a hit reaction, played where she stands at `speed` (BeatClips.speed: Pro clips on shipped timing),
 ## from `from_s` seconds into the clip (S302: a combo's follow-up starts part-way through its wind-up).
-func play(who: int, move: String, speed: float = 1.0, from_s: float = 0.0) -> void:
+## False when nothing started (hit-locked, no clip). S321: each start is numbered (play_id) so a hit knows its punch.
+func play(who: int, move: String, speed: float = 1.0, from_s: float = 0.0) -> bool:
 	var ap: AnimationPlayer = boxers[who]["ap"]
 	if stun.blocks(who, move):
-		return
+		return false
 	if not ap.has_animation(move):
 		move = {"body_hook": "lead_hook", "rear_uppercut": "cross", "slip": "", "pull": ""}.get(move, "")
 		if move == "" or not ap.has_animation(move):
-			return
+			return false
+	boxers[who]["play_id"] = int(boxers[who].get("play_id", 0)) + 1
 	ap.speed_scale = 1.0
 	boxers[who]["step_grace"] = 0.0
 	life.cancel(who)
@@ -426,6 +429,7 @@ func play(who: int, move: String, speed: float = 1.0, from_s: float = 0.0) -> vo
 	_cut[who] = {} if r.y <= 0.0 else {"clip": move, "contact": r.x if r.x >= 0.15 else -1.0, "back": r.y, "fast": false,
 		"scale": BeatClips.recover_scale(move, speed)}
 	side.arm(who, move)
+	return true
 
 
 ## Footwork (Footwork.gd): a lunge in (+1) or a step out (-1); both circling; one step clip on `who`.
