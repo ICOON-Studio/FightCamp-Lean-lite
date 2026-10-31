@@ -3,6 +3,9 @@ extends RefCounted
 ## started with user args jumps straight to the part a weekly update asks him to test. The ops board's Play buttons pass
 ##   FightCamp.exe -- jump=fight          quick start -> Lucy booked -> camp WITH film study -> weigh-in -> fight night
 ##   FightCamp.exe -- jump=fight_nofilm   the same, camp WITHOUT film study (no coach's pick on the shout bar)
+##   FightCamp.exe -- jump=round3         S323 (Ziva's playtest could not reach round 3 inside its 27 s runs): jump=fight,
+##                                        then the bout starts and rounds 1-2 are skipped (corner calls "lead") - round 3
+##                                        plays live, where the tired look shows
 ##   FightCamp.exe -- jump=corner         jump=fight with two combinations drilled on the pads (1-2, 1-2-3), so the
 ##                                        corner minute's set-up has something to set up (S310)
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
@@ -10,9 +13,38 @@ extends RefCounted
 const Bouts := preload("res://scripts/state/Bouts.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm", "corner"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
+
+
+## S323 jump=round3: from fight night, start the bout and skip rounds 1 and 2 (the corner takes "lead"); round 3 then
+## plays live. A coroutine - Main fires it after run().
+static func to_round3(main: Node) -> void:
+	var tree := main.get_tree()
+	main.act("fightstep", "start")
+	for k in 4:
+		await tree.process_frame
+	var view: Node = main.get("_fight_layer").get_child(0)
+	for ch in view.get_children():
+		if ch.has_method("cue_touch"):
+			ch.finish()
+	for n in [1, 2]:
+		while not (bool(view.playing) and int(view.round_n) == n):
+			await tree.process_frame
+		view.skip_round()
+		var cm: Node = null
+		for k in 120:
+			await tree.process_frame
+			for ch in view.get_children():
+				if ch.has_method("cue_walk_out"):
+					cm = ch
+			if cm != null and cm.get("ui") != null and cm.ui._card.visible:
+				break
+		if cm != null:
+			cm._pick("lead")
+			cm.finish()
+	print("TESTJUMP round3 reached: round ", view.round_n)
 
 
 ## The jump the command line asks for ("" = none).

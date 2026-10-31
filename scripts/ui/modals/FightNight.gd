@@ -156,7 +156,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		var mid := UI.hbox(28)
 		var bodies: Array = m.get("bodies", ["", ""])
 		var fr: Dictionary = main.career.fighter_by_id(str(m["fid"]))
-		mid.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "a", str(bodies[0]), "red"), str(fr.get("name", fname)), Broadcast.HERS, false))
+		mid.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "a", str(bodies[0]), "red", m.get("body_track", {})), str(fr.get("name", fname)), Broadcast.HERS, false))
 		var centre := UI.vbox(18)
 		centre.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		centre.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -171,7 +171,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 				sl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 				centre.add_child(sl)
 		mid.add_child(centre)
-		mid.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "b", str(bodies[1]), "blue"), str(fr["bout"]["opp"].get("name", oname)), Broadcast.THEIRS, true))
+		mid.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "b", str(bodies[1]), "blue", m.get("body_track", {})), str(fr["bout"]["opp"].get("name", oname)), Broadcast.THEIRS, true))
 		v.add_child(mid)
 	else:
 		var beats := UI.vbox(6)
@@ -247,7 +247,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	# the three cards in very large type between them.
 	var hero := UI.hbox(28)
 	var bodies: Array = m.get("bodies", ["", ""])
-	hero.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "a", str(bodies[0]), "red"), str(f.get("name", f["first"])), Broadcast.HERS, false))
+	hero.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "a", str(bodies[0]), "red", m.get("body_track", {})), str(f.get("name", f["first"])), Broadcast.HERS, false))
 	var centre := UI.vbox(10)
 	centre.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	centre.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -270,7 +270,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		when.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		centre.add_child(when)
 	hero.add_child(centre)
-	hero.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "b", str(bodies[1]), "blue"), str(opp.get("name", opp["first"])), Broadcast.THEIRS, true))
+	hero.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "b", str(bodies[1]), "blue", m.get("body_track", {})), str(opp.get("name", opp["first"])), Broadcast.THEIRS, true))
 	v.add_child(hero)
 	var why: Array = m["why"]
 	v.add_child(Broadcast.reasons(why if not why.is_empty() else ["A close night: the rolls of the rounds decided it."]))

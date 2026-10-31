@@ -1,23 +1,23 @@
-# S323 - next session (written S322, 2026-10-31)
+# S324 - next session (written S323, 2026-10-31)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 25 exported (built from 1685692, 38/38 tests); main is de915d0 (BodyRates wired, next build).
-"The body is the track" (operator Q-S294-38 "Build it") part 1 is in: BodyLoad (per-part Burn rules), BodyBurn (the 3D:
-each shoulder drops its own glove, legs shorten steps, arms lose snap; `-- noburn` control), BodyRates (stats + style set
-each part's rate). Cutman/second work by themselves (Q-S294-36). Digest: Game Godot/research/S322_DIGEST.md.
+Where it stands: update 26 exported (main after fde28b1, 41/41 tests). The body is the track, part 2 is in: tired shows
+(TiredSag + tank), the body view (BodyTrack) on the side panels / corner card / round+result pages with a key, Pace + Aim
+on the shout bar (PaceAim, balance-checked: no dominant plan), broadcast round/result pages (Broadcast.gd), referee off the
+gap between their heads on screen (13 %, was 43 %), `-- jump=round3`. Digest: Game Godot/research/S323_DIGEST.md;
+playtest + Ziva comparison: docs/playtest/S323_*.md.
 
-1. Board: Q-S294-39 (update 24 close punches), Q-S294-40 (what the round/result pages need), his verdict on update 25.
-2. The body view (plan step 3, Game Godot/research/BODY_TRACK_PLAN_S321.md): both bodies on the fight screen, every part
-   outlined and coloured by BodyLoad.band (BodyBurn.load), hurt outlines from BodyMap (BodyLive.map). Stand-in look: the
-   glass body (tools/preview_body_track.gd) - no muscle model bought ("Not yet"). Pure layout/colour mapping -> Qwen brief;
-   the view itself is yours. Then Pace (Push/Steady/Save; BodyLoad already takes ctx.pace) and Aim.
-3. The referee stands between their heads ON SCREEN (update 25 exe still) - measure his screen position, not the ground.
-4. Two inside punches still end 0.15-0.20 m to the side (tools/hit_gap_probe.gd "far" lines; it now prints timing too).
+1. Board: Q-S294-42 (update 26 verdict), Q-S294-43 (Ziva's model - his money).
+2. The corner card cut to the pit stop (docs/playtest/S323_CLAUDE_PLAYTEST.md: ~16 things in 60 s): body track big, the
+   three calls the corner sees, the second's part (he may move it - Q-S294-36 ruling), the rest behind "More".
+3. The management screens get the broadcast look (HOME, FIGHTS, FIGHTERS: lists in brown boxes, 60 % empty). Load the
+   `godot-ui-theming` skill first: one Theme with type variations instead of per-node overrides.
+4. Aim visible in the 3D: an aimed exchange's landed punches go to that place (BodyMap + the beats' targets).
+5. Referee residual 13 % (mostly walking past behind them): route him round the far side.
 
-Tools: tools/burn_probe.gd (Burn per round + shown glove height, round 3 late; `noburn` arm), tools/ref_probe.gd (referee
-vs the boxers' line), tools/hit_gap_probe.gd. All on the hidden desktop (tools/hidden_desktop.py run --log=...).
-Traps: AnimationPlayer.play() on the playing clip continues it (FightStage._start now stops it first); the board's Test
-runs skip rounds - anything "at the bell" must also run in FightView.skip_round; probe numbers jitter run to run
-(measure master and the change, twice, before calling a regression); tune feel numbers on the GAME's beats (burn_probe),
-the test builder throws fewer lead-hand punches.
+Skills now installed (user scope): balance-check (run it on any new number), playtest-report (fill it after each build),
+design-review, godot-ui-theming, godot-animation-tree-mastery, godot-economy-system, godot-genre-simulation.
+Tools: tools/exchange_balance.gd (pace line), tools/ref_probe.gd (screen count), tools/burn_probe.gd, tools/pages_still.gd,
+tools/fight3d_play.gd. Traps: a var initialised from a function that reads a later-declared var gets null; restoring .import
+files under a running editor blocks run_scene; open an agent's screenshots before quoting them (Ziva generated its own).

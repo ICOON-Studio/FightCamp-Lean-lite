@@ -148,9 +148,18 @@ func _paint_view(stage: Node, delta: float) -> void:
 	_paint_t = PAINT_S
 	var figs: Array = live.get("figures")
 	for i in mini(2, figs.size()):
-		var south := bool(stage.boxers[i].get("south", false))
-		var burns := {}
-		for part in BodyLoad.PARTS:
-			burns[BodyTrack.body_place(part, south)] = float(_shown[i]["b_" + part])
 		if figs[i].has_method("set_track"):
-			figs[i].set_track(burns)
+			figs[i].set_track(track(i))
+	# S323 playtest: the corner card and the round/result pages draw the same track (the modal is shared, as BodyLive's map).
+	if view.get("main") != null:
+		view.main.modal["body_track"] = {"a": track(0), "b": track(1)}
+
+
+## {body place: Burn as shown now} for boxer i (BodyTrack.body_place: her own left/right; a southpaw's jab side is her right).
+func track(i: int) -> Dictionary:
+	var stage: Node = view.get("stage")
+	var south: bool = stage != null and stage.boxers.size() > i and bool(stage.boxers[i].get("south", false))
+	var out := {}
+	for part in BodyLoad.PARTS:
+		out[BodyTrack.body_place(part, south)] = float(_shown[i]["b_" + part])
+	return out

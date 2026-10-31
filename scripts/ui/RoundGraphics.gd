@@ -203,7 +203,7 @@ static func tile(title: String, value: String, colour: Color, big: bool = false)
 
 
 ## One boxer's body map figure on her own body (BodyLive keeps the bout's map in the modal), or null with no map.
-static func body(map: Dictionary, side: String, glb: String, corner: String) -> Control:
+static func body(map: Dictionary, side: String, glb: String, corner: String, track: Dictionary = {}) -> Control:
 	if map.is_empty():
 		return null
 	var fig: Control = BodyFigure.new()
@@ -213,4 +213,6 @@ static func body(map: Dictionary, side: String, glb: String, corner: String) -> 
 	for p in BodyMap.PLACES:
 		vals[p] = BodyMap.value(map, side, p)
 	fig.set_values(vals)
+	if track.has(side):
+		fig.set_track(track[side])   # S323: the body track (BodyBurn) on the pages too
 	return fig

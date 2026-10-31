@@ -7,6 +7,7 @@ extends Node
 
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
+const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
@@ -55,6 +56,7 @@ func _build() -> void:
 		fig.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		fig.set_portrait(BodyFigure.portrait_for(str(view.get("bodies")[side]) if view.get("bodies") != null else "", CORNER[side]))
 		col.add_child(fig)
+		col.add_child(_track_key())
 		var who := UI.label(str(view._names[side]).get_slice(" ", 0).to_upper(), UI.TINY, Color(0.95, 0.4, 0.35) if side == 0 else Color(0.5, 0.65, 1.0), "bold")
 		who.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		col.add_child(who)
@@ -75,6 +77,16 @@ func _build() -> void:
 		panels.append(panel)
 		figures.append(fig)
 	_paint_stats()
+
+
+## S323 playtest ("blue = fresh is not obvious"): the body view's key under each figure, in its own colours.
+func _track_key() -> HBoxContainer:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 5)
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	for pair in [["FRESH", 12.0], ["WARM", 37.5], ["HOT", 62.5], ["BURNING", 87.5]]:
+		row.add_child(UI.label(str(pair[0]), 10, BodyTrack.colour(float(pair[1])), "bold"))
+	return row
 
 
 ## A beat FightView fires; a landed punch reaches the other boxer `at_s` from now (its contact).

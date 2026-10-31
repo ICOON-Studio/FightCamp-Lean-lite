@@ -18,6 +18,7 @@ var _menu := {}
 var _jobs_box: VBoxContainer = null
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
+var _track := {}             # S323 her body track (BodyBurn.track) - the pit stop shows which part burns
 var _map := {}               # S318 the bout's BodyMap (BodyLive.map, shared: the corner's jobs land on it)
 var cutman := ""
 var _cut_box: VBoxContainer = null
@@ -67,6 +68,7 @@ func build(card: Dictionary, names: Array) -> void:
 	var hb := UI.hbox(18)
 	_card.add_child(hb)
 	_map = card.get("body_map", {})
+	_track = card.get("body_track", {})
 	if not _map.is_empty():
 		_pin(_card, Vector4(1, 1.0 - BAR, 1, 1.0 - BAR), Vector4(-1290, -330, -28, -16))
 		hb.add_child(_body_column(str(names[0]), str(card.get("body_glb", ""))))
@@ -184,6 +186,8 @@ func _body_column(her: String, glb: String = "") -> VBoxContainer:
 	for p in BodyMap.PLACES:
 		vals[p] = BodyMap.value(_map, "a", p)
 	fig.set_values(vals)
+	if not _track.is_empty():
+		fig.set_track(_track)
 	var opts := _cutman_jobs(vals)
 	if opts.size() > 1:
 		cutman = str(opts[0][0])

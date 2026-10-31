@@ -5,10 +5,12 @@ extends RefCounted
 const PACES := ["push", "steady", "save"]
 const AIMS := ["", "head", "body", "left_ribs", "right_ribs", "head_hurt"]
 
-const PACE_EDGE := {"push": 6.0, "steady": 0.0, "save": -6.0}
+## S323 balance-check (tools/exchange_balance.gd, 400 bouts a plan): at save -6 / +3 breath, "save all" won 0.46 and
+## "save-steady-push" 0.64 < steady 0.67 - a round off never paid. Save -4 / +6.
+const PACE_EDGE := {"push": 6.0, "steady": 0.0, "save": -4.0}
 const PACE_SPEND := {"push": 1.35, "steady": 1.0, "save": 0.6}
 const PACE_OUTPUT := {"push": 1.25, "steady": 1.0, "save": 0.75}
-const SAVE_RECOVER := 3.0
+const SAVE_RECOVER := 6.0
 
 const AIM_BODY_SHARE := {"": 0.2, "head": 0.08, "body": 0.5, "left_ribs": 0.6, "right_ribs": 0.6, "head_hurt": 0.08}
 const HURT_AIM_EDGE := 4.0

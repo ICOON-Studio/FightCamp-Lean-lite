@@ -70,6 +70,20 @@ static func live(m: Dictionary) -> Dictionary:
 	return m.get("live", {})
 
 
+## S323 balance-check (tools/exchange_balance.gd: Push all fight won 0.88 vs Steady 0.67 - a dominant strategy; the tank
+## it spent never came back to bite): pushing on an empty tank is sloppy work that walks onto counters. Push's edge fades
+## from PUSH_GAS_FROM energy and turns against her by PUSH_GAS_ALL (PUSH_GAS off the edge there).
+const PUSH_GAS_FROM := 55.0
+const PUSH_GAS_ALL := 25.0
+const PUSH_GAS := 12.0
+
+
+static func push_gassed(pace: String, energy: float) -> float:
+	if pace != "push":
+		return 0.0
+	return PUSH_GAS * clampf((PUSH_GAS_FROM - energy) / (PUSH_GAS_FROM - PUSH_GAS_ALL), 0.0, 1.0)
+
+
 ## Her energy as exchange i starts (the round's start -> bell, less what the calls spent and the body shots she took).
 static func her_energy(lv: Dictionary, i: int) -> float:
 	var e: Dictionary = lv["e"]
@@ -172,7 +186,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var fits := fire and CornerJobs.fits(str(su.get("gap", "")), sit)
 	if fire:
 		d += CornerJobs.setup_edge(fits, float(su["mastery"]), her_energy(lv, i))
-	d += PaceAim.edge(pace, aim, opp_hurt, {})
+	d += PaceAim.edge(pace, aim, opp_hurt, {}) - push_gassed(pace, her_energy(lv, i))
 	var rng := _rng(c, f, n, i + 1)
 	var s := Exchanges.settle(d, rng.randf(), rng.randf())
 	# S323 Push throws more (and so lands more), Save less.

@@ -77,7 +77,11 @@ func _ready() -> void:
 	# S310: the ops board's Play buttons start the build at the part to test (TestJump: `-- jump=fight`).
 	var jump := jump_override if TestJump.JUMPS.has(jump_override) else TestJump.wanted(OS.get_cmdline_user_args())
 	if jump != "":
-		(func(): print("TESTJUMP %s reached fight night: %s" % [jump, TestJump.run(self, jump)])).call_deferred()
+		(func():
+			var ok := TestJump.run(self, jump)
+			print("TESTJUMP %s reached fight night: %s" % [jump, ok])
+			if ok and jump == "round3":
+				TestJump.to_round3(self)).call_deferred()
 
 
 func _layer() -> Control:

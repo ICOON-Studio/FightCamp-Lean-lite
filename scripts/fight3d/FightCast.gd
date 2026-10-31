@@ -81,6 +81,9 @@ static func corner(view: Node) -> bool:
 	if bl != null:
 		card["body_map"] = bl.map
 		card["body_glb"] = str(view.bodies[0])   # S320 her own body on the card (C146)
+		# S323 playtest: the pit stop shows the tyres - her body track on the card.
+		if view.get("burn") != null:
+			card["body_track"] = view.burn.track(0)
 		var fires := []
 		for b in view._round_beats:
 			if (b as Dictionary).has("habit"):

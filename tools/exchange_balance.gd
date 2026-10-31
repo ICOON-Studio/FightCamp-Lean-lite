@@ -13,6 +13,8 @@ const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const HabitFix := preload("res://scripts/rules/HabitFix.gd")
 const N := 400
+## S323 Pace (PaceAim): the pace by round for the bout - "" = the shout bar's default (steady).
+static var pace_plan := ["", "", ""]
 
 
 func _initialize() -> void:
@@ -34,6 +36,15 @@ func _initialize() -> void:
 		var st := {}
 		var w := share(0.0, pol, 3, null, st)
 		print("EXB   %-12s %.2f  stoppages %.3f" % [pol, w, float(st.get("stops", 0)) / N])
+	# S323 balance-check of Pace: is Push a dominant strategy? (edge 0, film 1, the corner reads the clue)
+	var plans := {"steady": ["steady", "steady", "steady"], "push all": ["push", "push", "push"], "save all": ["save", "save", "save"],
+		"save-steady-push": ["save", "steady", "push"], "push-push-save": ["push", "push", "save"]}
+	var line := "EXB S323 pace (edge 0, film 1, seen):"
+	for k in plans:
+		pace_plan = plans[k]
+		line += "  %s %.2f" % [k, share(0.0, "seen", 1)]
+	pace_plan = ["", "", ""]
+	print(line)
 	print("EXB Lucy with drops_right_after_jab (Priya punishes it), edge 0: none %.2f seen %.2f fix %.2f" % [
 		share(0.0, "none", 1, ["drops_right_after_jab"]), share(0.0, "seen", 1, ["drops_right_after_jab"]), share(0.0, "fix", 1, ["drops_right_after_jab"])])
 	quit(0)
@@ -70,7 +81,8 @@ static func play(c: Career, f: Dictionary, m: Dictionary, pol: String) -> void:
 	Bouts.fight_step(c, f, m, "start")
 	while true:
 		while not LiveRound.live(m).is_empty():
-			Bouts.fight_step(c, f, m, "shout:" + pick(f, m, pol))
+			var pc := str(pace_plan[clampi(int(LiveRound.live(m)["n"]) - 1, 0, 2)])
+			Bouts.fight_step(c, f, m, "shout:" + pick(f, m, pol) + ("|pace=" + pc if pc != "" else ""))
 		if int(m["round"]) >= Bouts.rounds_of(f) or Bouts.stopped(m) != "":
 			break
 		var last: Dictionary = (m["rounds"] as Array)[-1]

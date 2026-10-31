@@ -24,6 +24,8 @@ var aim := ""
 var _drive: HBoxContainer
 var _aims: Array = []
 var _her := ""
+const PACE_COST := {"push": "wins more exchanges, burns her faster", "steady": "her own rhythm",
+	"save": "gives exchanges away, she gets her breath back"}
 const PACE_LABEL := {"push": "Push", "steady": "Steady", "save": "Save"}
 const AIM_LABEL := {"": "Her own game", "head": "Head", "body": "Body", "left_ribs": "Left ribs", "right_ribs": "Right ribs", "head_hurt": "The hurt head"}
 
@@ -81,6 +83,8 @@ func _draw_drive() -> void:
 		b.name = "Pace_" + str(p)
 		b.tooltip_text = PaceAim.pace_word(str(p))
 		_drive.add_child(b)
+	# S323 playtest ("PACE has no visible cost"): what the chosen pace buys and costs, in a line.
+	_drive.add_child(UI.muted(str(PACE_COST[pace]), UI.SMALL))
 	_drive.add_child(UI.spacer())
 	_drive.add_child(UI.caps("AIM"))
 	for a in _aims:

@@ -44,12 +44,12 @@ func _test1() -> void:
 	_check(ok, "test 1: edge(steady, '', {}, {}) == 0.0")
 
 
-## 2. Pace: push 6, save -6, unknown 0.
+## 2. Pace: push 6, save -4 (S323 balance-check), unknown 0.
 func _test2() -> void:
 	var ok := true
 	if not is_equal_approx(PA.edge("push", "", {}, {}), 6.0):
 		ok = false
-	if not is_equal_approx(PA.edge("save", "", {}, {}), -6.0):
+	if not is_equal_approx(PA.edge("save", "", {}, {}), -4.0):
 		ok = false
 	if not is_equal_approx(PA.edge("bogus", "", {}, {}), 0.0):
 		ok = false
@@ -113,7 +113,7 @@ func _test6() -> void:
 		ok = false
 	if not is_equal_approx(PA.recover("steady"), 0.0):
 		ok = false
-	if not is_equal_approx(PA.recover("save"), 3.0):
+	if not is_equal_approx(PA.recover("save"), 6.0):
 		ok = false
 	if not is_equal_approx(PA.recover("bogus"), 0.0):
 		ok = false
