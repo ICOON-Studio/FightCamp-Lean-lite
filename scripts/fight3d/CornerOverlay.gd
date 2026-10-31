@@ -69,7 +69,7 @@ func build(card: Dictionary, names: Array) -> void:
 	_map = card.get("body_map", {})
 	if not _map.is_empty():
 		_pin(_card, Vector4(1, 1.0 - BAR, 1, 1.0 - BAR), Vector4(-1290, -330, -28, -16))
-		hb.add_child(_body_column(str(names[0])))
+		hb.add_child(_body_column(str(names[0]), str(card.get("body_glb", ""))))
 	var v := UI.vbox(6)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hb.add_child(v)
@@ -78,6 +78,8 @@ func build(card: Dictionary, names: Array) -> void:
 	var rows := [["WORKED", card["worked"], UI.GREEN], ["HURT", card["hurt"], UI.RED], ["COACH", "%s" % card["why"], UI.AMBER]]
 	if str(evidence.get("open", "")) != "":
 		rows.insert(2, ["SEEN", evidence["open"], UI.FG])   # S318 what the opponent left open this round
+	if str(card.get("fixed", "")) != "":
+		rows.insert(1, ["FIXED", card["fixed"], UI.GREEN])   # S320 what last round's habit fix did
 	for row in rows:
 		var line := UI.hbox(10)
 		var tag := UI.caps(str(row[0]))
@@ -170,11 +172,12 @@ func _fix(id: String) -> void:
 
 ## S318 her figure on the card and the cutman's one job (S316 plan: "one pair of hands per job"): enswell an eye that is
 ## hurt or worse, close a cut that is open, or nothing. The cutman's own pick (the worst place) is lit to start.
-func _body_column(her: String) -> VBoxContainer:
+func _body_column(her: String, glb: String = "") -> VBoxContainer:
 	var col := UI.vbox(4)
 	col.custom_minimum_size = Vector2(170, 0)
 	var fig: Control = BodyFigure.new()
-	fig.custom_minimum_size = Vector2(108, 180)
+	fig.custom_minimum_size = Vector2(160, 226)
+	fig.set_portrait(BodyFigure.portrait_for(glb, "red"))   # S320 C146: her own body, not a drawn figure
 	fig.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	col.add_child(fig)
 	var vals := {}

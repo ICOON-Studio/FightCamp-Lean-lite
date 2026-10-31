@@ -96,7 +96,7 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 	var tree: SceneTree = v.get_tree()
 	if land == "lands":
 		# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
-		stage.land(who, clip, move == "body_hook" or clip.contains("kidney"))
+		stage.land(who, clip, move == "body_hook" or clip.contains("kidney"), at)
 		var hit := BeatClips.react(move, bool(b.get("knockback", false)), stage.has_move, rng.randf(), bool(b.get("big", false)))
 		tree.create_timer(at).timeout.connect(stage.hit.bind(other, hit, BeatClips.speed(hit, ""), who, move, bool(b.get("big", false))))
 		if bool(b.get("big", false)):

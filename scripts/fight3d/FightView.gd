@@ -65,6 +65,7 @@ var _caption_left := 0.0
 var _banner: Label
 var _buttons: HBoxContainer
 var _names := ["", ""]
+var bodies := ["", ""]   # S320 each boxer's glb (BodyLive / the corner card draw her own body)
 var body: Node   # S318 BodyLive: the bout's body map + the scorebug figures (FightHud.build)
 
 
@@ -142,6 +143,7 @@ func setup(m_main: Node, m: Dictionary) -> void:
 	stage = Stage.new()
 	_vp.add_child(stage)
 	var picks := FightCast.bodies_for(float(f.get("limit", 61.2)))
+	bodies = picks.duplicate()
 	var sc := FightCast.body_scales(float(f.get("limit", 61.2)), float(f.get("height", 0.0)), float(opp.get("height", 0.0)))
 	stage.setup({"glb": picks[0], "corner": "red", "scale": sc[0], "stance": str(f.get("stance", "orthodox"))},
 		{"glb": picks[1], "corner": "blue", "scale": sc[1], "stance": str(opp.get("stance", "orthodox"))})

@@ -81,6 +81,11 @@ func _initialize() -> void:
 	var fix_share := XB.share(0.0, "fix", 1, ["drops_right_after_jab"])
 	print("  Lucy who drops the right vs Priya, even: the read %.2f, the read + the fix %.2f" % [seen_share, fix_share])
 	_check(fix_share >= seen_share + 0.03, "fixing the punished habit wins more than the read alone")
+	# S320: the next corner card says what the fix did.
+	_check(H.result("", 2, 0.7, "Lucy") == "", "no fix: no line")
+	_check(H.result("Chases the stoppage", 0, 0.7, "Lucy").contains("never came up"), "a fix that never came up says so")
+	var said := H.result("Chases the stoppage", 2, 0.7, "Lucy")
+	_check(said.contains("2 times") and said.contains("70 %") and said.contains("chases the stoppage"), "the fix's line: how often, how much less (%s)" % said)
 	print("HABIT_FIX failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

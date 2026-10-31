@@ -95,6 +95,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 		gc = GloveClear.new()
 		gc.name = "GloveClear"
 		if gc.setup(skel):
+			gc.reach = pr   # S320: her landing glove is not pushed off the face
 			skel.add_child(gc)
 			skel.move_child(gc, (hs.get_index() + 1) if hs != null else 0)
 		else:

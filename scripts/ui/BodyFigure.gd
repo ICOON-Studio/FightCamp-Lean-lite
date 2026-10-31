@@ -1,6 +1,8 @@
 extends Control
 ## Front-view body figure that tints six places by BodyMap band and flashes on hit.
 ## Pure _draw() Control; no preloads except BodyMap. Design space 90 x 150, scaled to fit size.
+## S320 (operator C146: "we have real andropoid,use it"): with a portrait (set_portrait / portrait_for) it draws the
+## boxer's own baked front picture (tools/bake_body_portraits.gd) and the places where they sit on her body.
 
 const BM := preload("res://scripts/rules/BodyMap.gd")
 
@@ -30,10 +32,42 @@ var _flash := {}
 var _punches := {}
 var _sc := 1.0
 var _off := Vector2.ZERO
+var _tex: Texture2D = null
+var _anchors := {}   # place -> [x, y, rx, ry] as fractions of the portrait
+const PORTRAITS := "res://assets/ui/body"
+## The body is dimmed a little so the places' colours read on top of it.
+const BODY_TINT := Color(0.7, 0.7, 0.74)
+
+
+## {"tex", "anchors"} for a boxer's body (her glb path) in her corner's colours; {} when it was never baked.
+static func portrait_for(glb: String, corner: String) -> Dictionary:
+	var stem := glb.get_file().get_basename()
+	var png := PORTRAITS.path_join("%s_%s.png" % [stem, corner])
+	var js := PORTRAITS.path_join(stem + ".json")
+	if stem == "" or not ResourceLoader.exists(png) or not FileAccess.file_exists(js):
+		return {}
+	var anchors = JSON.parse_string(FileAccess.get_file_as_string(js))
+	if not anchors is Dictionary:
+		return {}
+	return {"tex": load(png), "anchors": anchors}
+
+
+## Draw this picture instead of the drawn figure ({} keeps the drawn one).
+func set_portrait(p: Dictionary) -> void:
+	_tex = p.get("tex") as Texture2D
+	_anchors = p.get("anchors", {})
+	queue_redraw()
+
+
+func _portrait_rect() -> Rect2:
+	var ts := Vector2(_tex.get_size())
+	var k := minf(size.x / ts.x, size.y / ts.y)
+	return Rect2((size - ts * k) * 0.5, ts * k)
 
 
 func _ready() -> void:
-	custom_minimum_size = Vector2(DESIGN_W, DESIGN_H)
+	if custom_minimum_size == Vector2.ZERO:
+		custom_minimum_size = Vector2(DESIGN_W, DESIGN_H)
 	mouse_filter = MOUSE_FILTER_PASS
 	for p in BM.PLACES:
 		_values[p] = 100.0
@@ -54,6 +88,9 @@ func _s(d: Vector2) -> Vector2:
 
 func _draw() -> void:
 	_update_xform()
+	if _tex != null:
+		_draw_portrait()
+		return
 
 	# Body silhouette fill.
 	var body := PackedVector2Array([
@@ -91,6 +128,48 @@ func _draw() -> void:
 	# Body outline on top.
 	draw_polyline(body, OUTLINE, 1.5)
 	draw_arc(_s(Vector2(45, 22)), 14.0 * _sc, 0, TAU, 32, OUTLINE, 1.5)
+
+
+func _draw_portrait() -> void:
+	draw_texture_rect(_tex, _portrait_rect(), false, BODY_TINT)
+	var edge := Color(0, 0, 0, 0.7)
+	for p in BM.PLACES:
+		var g := _geom_px(p)
+		var col := colour_of(p)
+		var c: Vector2 = g["c"]
+		if p == "head":
+			_ellipse(c, g["rx"], g["ry"], Color(col.r, col.g, col.b, 0.22))
+			draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), col, maxf(2.0, size.y * 0.012), true)
+		else:
+			_ellipse(c, g["rx"], g["ry"], Color(col.r, col.g, col.b, 0.62 if p.ends_with("ribs") else 0.92))
+			draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), edge, 1.0, true)
+
+
+func _ellipse_pts(c: Vector2, rx: float, ry: float) -> PackedVector2Array:
+	var pts := PackedVector2Array()
+	for i in 33:
+		var a := TAU * i / 32.0
+		pts.append(c + Vector2(cos(a) * rx, sin(a) * ry))
+	return pts
+
+
+func _ellipse(c: Vector2, rx: float, ry: float, col: Color) -> void:
+	var pts := _ellipse_pts(c, rx, ry)
+	pts.remove_at(32)
+	draw_colored_polygon(pts, col)
+
+
+## A place in local pixels: {c, rx, ry} - on the portrait when there is one, else on the drawn figure.
+func _geom_px(place: String) -> Dictionary:
+	if _tex != null and _anchors.has(place):
+		var r := _portrait_rect()
+		var a: Array = _anchors[place]
+		return {"c": r.position + Vector2(float(a[0]) * r.size.x, float(a[1]) * r.size.y),
+			"rx": float(a[2]) * r.size.x, "ry": float(a[3]) * r.size.y}
+	_update_xform()
+	var g: Dictionary = _place_geom(place)
+	var rad: float = float(g["radius"]) * _sc
+	return {"c": (g["centre"] as Vector2) * _sc + _off, "rx": rad, "ry": rad}
 
 
 func _draw_place(place: String, col: Color) -> void:
@@ -167,17 +246,16 @@ func tip_of(place: String) -> String:
 ## Which place a point (in local pixels) is on, "" if none.
 ## When regions overlap (eyes/nose inside the head circle), the smaller (more specific) wins.
 func place_at(local_pos: Vector2) -> String:
-	_update_xform()
-	var d: Vector2 = (local_pos - _off) / _sc
 	var best := ""
-	var best_r := 999.0
+	var best_r := INF
 	for p in BM.PLACES:
-		var g: Dictionary = _place_geom(p)
-		var c: Vector2 = g["centre"]
-		var r: float = g["radius"]
-		if d.distance_to(c) <= r and r < best_r:
+		var g := _geom_px(p)
+		var rx: float = maxf(0.001, g["rx"])
+		var ry: float = maxf(0.001, g["ry"])
+		var d: Vector2 = local_pos - (g["c"] as Vector2)
+		if (d.x * d.x) / (rx * rx) + (d.y * d.y) / (ry * ry) <= 1.0 and rx * ry < best_r:
 			best = p
-			best_r = r
+			best_r = rx * ry
 	return best
 
 
@@ -191,10 +269,7 @@ func _get_tooltip(at_position: Vector2) -> String:
 
 ## Exposed for tests: design-space centre of a place, mapped to local pixels.
 func centre_of(place: String) -> Vector2:
-	_update_xform()
-	var g: Dictionary = _place_geom(place)
-	var c: Vector2 = g["centre"]
-	return c * _sc + _off
+	return _geom_px(place)["c"]
 
 
 func _place_geom(place: String) -> Dictionary:

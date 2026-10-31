@@ -3,6 +3,7 @@ extends RefCounted
 ## teams (CornerCrew), and the corner minute between rounds (CornerMinute, docs/FIGHT_NIGHT_SCRIPT.md v2).
 ##   bodies_for(limit)  body_scales(limit, her_cm, opp_cm)  crew(stage, pro)  intro(view) -> bool  corner(view) -> bool
 
+const HabitFix := preload("res://scripts/rules/HabitFix.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const Referee := preload("res://scripts/fight3d/Referee.gd")
 const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
@@ -72,11 +73,14 @@ static func corner(view: Node) -> bool:
 		grades[k] = Exchanges.grade(str(k), vals)["word"]
 	card["grades"] = grades
 	card["fixes"] = LiveRound.fixes(f, r)   # S309: one habit the corner can fix
+	card["fixed"] = HabitFix.result(LiveRound.habit_name(str(r["fix"])) if str(r.get("fix", "")) != "" else "",
+		int(r.get("fix_came", 0)), float(r.get("fix_hold", 0.0)), names[0])   # S320: what last round's fix did
 	card["jobs_menu"] = CornerJobsRow.menu(f, r)   # S310: recover, set-up, talk
 	# S318 the body map on the card (plan Q-S294-29): her figure + the cutman's job, and the number behind each call.
 	var bl: Node = view.get("body")
 	if bl != null:
 		card["body_map"] = bl.map
+		card["body_glb"] = str(view.bodies[0])   # S320 her own body on the card (C146)
 		var fires := []
 		for b in view._round_beats:
 			if (b as Dictionary).has("habit"):

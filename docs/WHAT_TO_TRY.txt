@@ -1,3 +1,23 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 23 (2026-10-31): SMOOTHER FEET, HITS THAT REACH, PICTURES INSTEAD OF TEXT
+=============================================================================================
+
+NEW IN UPDATE 23 (board: "Test: fight night WITH film study" - watch round 1 at 1x, then the corner and the result)
+ 1. THE FEET (you: "the footing and moving of the fighters looks very bad"). The fight used to build every step out of
+    a scrap of an old WALKING clip, slowed down and cut after half a second - 154 cuts a minute, each one a jolt of
+    the hands and head. Now no step plays a clip: the guard keeps playing, the body moves, and each foot shuffles onto
+    its new spot by itself (0.15 s per step). Clip changes 167 -> 97 a minute; the guard now plays ~2 s at a time.
+ 2. HITS FROM TOO FAR (you: "some hits seem to register even when opponent is way to far"). Measured: a landed punch's
+    glove was 21 cm off the face at contact on average and up to 98 cm. Now a boxer who lands from outside her range
+    steps in with the punch. Worst miss 98 -> 49 cm; still working on the close-range ones.
+ 3. THE BODY MAP ON THEIR OWN BODIES, ON THEIR OWN SIDE (your marks on the still). Each boxer's map is a picture of
+    her own 3D body (her skin, her corner's colours), Lucy's at the left edge, the opponent's at the right edge.
+ 4. THE ROUND AND THE RESULT AS PICTURES (you: "these needs much better visuals"). After a round: six tiles, who won
+    each 30 seconds (and where you shouted), punches landed side by side between the two body maps, energy bars, the
+    rounds so far. The result: each judge's card round by round, what decided it as tiles.
+ 5. THE HABIT FIX SAYS WHAT IT DID. The next corner card: "Last round's fix (...): it came up 2 times - Lucy caught
+    herself, it cost her 70 % less." (Measured: fixing a punished habit lifts her share of an even fight 60 -> 65 %.)
+ 6. THE ROPES on the ring entry bend in a smooth curve where the cornerman holds them apart (they bent in sharp V's).
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 22 (2026-10-31): SHORT PUNCHES UP CLOSE
 =============================================================================================
 

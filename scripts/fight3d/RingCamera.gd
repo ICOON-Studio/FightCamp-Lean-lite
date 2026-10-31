@@ -13,6 +13,9 @@ const SIGHT_SHORT_M := 0.25
 ## over FADE_S instead of vanishing, and back to solid when the view clears.
 const SEE_ALPHA := 0.18
 const FADE_S := 0.2
+## S320: a piece this far toward the lens from the pair's middle starts to fade, and is see-through from the second (it
+## was see-through at once past 1.2 m).
+const NEAR_FADE := Vector2(0.9, 1.5)
 
 ## S317 shot director (operator, on a reference boxing game's video: "look how much better their game looks"; the
 ## reference cuts every 5.8 s on average - 15 shots in 86 s - between ringside lenses at chest height that keep
@@ -154,11 +157,16 @@ func clear_view(ring_side: Array, a: Vector3, b: Vector3, delta: float = 0.0) ->
 	var mid := (a + b) * 0.5
 	var to_cam := Vector3(global_position.x - mid.x, 0, global_position.z - mid.z).normalized()
 	var cam := Vector2(global_position.x, global_position.z)
+	var hidden := {}
+	var ropes := {}
+	var near := {}
 	for n in ring_side:
 		var node := n as Node3D
 		var at := node.global_position
 		var d := Vector3(at.x - mid.x, 0, at.z - mid.z)
-		var hide := d.dot(to_cam) >= 1.2
+		var hide := false
+		# S320: nearer the lens than the pair, a piece fades by how near (a ramp along the rope, not a cut into stubs).
+		near[node] = smoothstep(NEAR_FADE.x, NEAR_FADE.y, d.dot(to_cam))
 		# S311: the range breathes and the pair reaches the ropes (~110 m a round): from a corner angle the side next to
 		# the camera crossed both bodies. A rope or post that crosses the camera's line to either boxer goes too.
 		var along := node.global_transform.basis.y
@@ -169,7 +177,14 @@ func clear_view(ring_side: Array, a: Vector3, b: Vector3, delta: float = 0.0) ->
 			var end := to + (cam - to).normalized() * SIGHT_SHORT_M
 			var q := Geometry2D.get_closest_points_between_segments(c - half, c + half, cam, end)
 			hide = hide or q[0].distance_to(q[1]) < SIGHT_MARGIN_M
-		_fade(node as MeshInstance3D, SEE_ALPHA if hide else 1.0, delta)
+		hidden[node] = hide
+		if hide and node.has_meta("rope"):
+			ropes[node.get_meta("rope")] = true
+	# S320 (the smooth ropes, 40 pieces a side): a rope fades WHOLE when any piece of it is in the way - faded piece by
+	# piece it broke into floating stubs.
+	for n in ring_side:
+		var hide: bool = hidden[n] or ((n as Node).has_meta("rope") and ropes.has((n as Node).get_meta("rope")))
+		_fade(n as MeshInstance3D, SEE_ALPHA if hide else lerpf(1.0, SEE_ALPHA, float(near[n])), delta)
 
 
 ## Eases a ring piece's own material toward `want` alpha (delta 0 = at once); solid pieces stay opaque.

@@ -7,6 +7,10 @@ extends Node3D
 ##   build(half, heights, mat_of)  tick(delta, skeletons)  segments = every piece (the camera fades the ones in the way)
 
 const SEGMENTS := 10
+## S320 (operator on the ring entry: "the ropes look wierd" - the parted ropes bent into sharp V's, 10 straight 0.55 m
+## pieces a side): the physics keeps its SEGMENTS points, the picture draws each rope as a smooth curve through them
+## (Catmull-Rom), SUB pieces per physics segment.
+const SUB := 4
 ## Per unit mass: the pull back to the line (~3.5 Hz alone), the neighbour coupling (rope tension), damping per substep.
 const K_REST := 480.0
 const K_TENSION := 900.0
@@ -21,7 +25,7 @@ const MAX_BOW_M := 0.35
 ## S317 the ring entry: her cornerman holds the ropes apart where she ducks in - the middle rope pressed down, the top
 ## one lifted (by height: metres up/down at the crossing point), easing off over PART_R along the rope.
 const PART_DY := [-0.05, -0.3, 0.16]   # bottom, middle, top rope
-const PART_R := 0.9
+const PART_R := 1.5
 
 var segments: Array = []      # MeshInstance3D, SEGMENTS per rope
 var _ropes: Array = []        # [{a, b, n (outward), u: PackedVector3Array, prev: PackedVector3Array, segs: Array}]
@@ -52,16 +56,17 @@ func build(half: float, heights: Array, mat_of: Callable) -> void:
 				"u": PackedVector3Array(), "prev": PackedVector3Array()}
 			rope["u"].resize(SEGMENTS + 1)
 			rope["prev"].resize(SEGMENTS + 1)
-			for k in SEGMENTS:
+			for k in SEGMENTS * SUB:
 				var m := MeshInstance3D.new()
 				var cm := CylinderMesh.new()
 				cm.top_radius = RADIUS_M
 				cm.bottom_radius = RADIUS_M
-				cm.height = a.distance_to(b) / SEGMENTS
+				cm.height = a.distance_to(b) / (SEGMENTS * SUB)
 				cm.radial_segments = 8
 				cm.rings = 1
 				m.mesh = cm
 				m.material_override = mat_of.call(float(h))
+				m.set_meta("rope", _ropes.size())   # S320: the camera fades a rope whole (RingCamera.clear_view)
 				add_child(m)
 				(rope["segs"] as Array).append(m)
 				segments.append(m)
@@ -122,20 +127,33 @@ func _step(rope: Dictionary, spheres: Array) -> void:
 	rope["u"] = next
 
 
-## Each segment between its two points (rest line + displacement), stretched to fit.
+## Each drawn piece between two points of the smooth curve (rest line + the displacement, Catmull-Rom through the physics
+## points), stretched to fit.
 func _place(rope: Dictionary) -> void:
 	var u: PackedVector3Array = rope["u"]
 	var a: Vector3 = rope["a"]
 	var b: Vector3 = rope["b"]
-	var rest_len := a.distance_to(b) / SEGMENTS
-	for k in SEGMENTS:
-		var p0 := a.lerp(b, float(k) / SEGMENTS) + u[k]
-		var p1 := a.lerp(b, float(k + 1) / SEGMENTS) + u[k + 1]
+	var n := SEGMENTS * SUB
+	var rest_len := a.distance_to(b) / n
+	for k in n:
+		var p0 := a.lerp(b, float(k) / n) + _curve(u, float(k) / SUB)
+		var p1 := a.lerp(b, float(k + 1) / n) + _curve(u, float(k + 1) / SUB)
 		var m: MeshInstance3D = rope["segs"][k]
 		var dir := p1 - p0
 		var up := dir.normalized()
 		var side := up.cross(Vector3.UP if absf(up.y) < 0.9 else Vector3.RIGHT).normalized()
 		m.transform = Transform3D(Basis(side, up * (dir.length() / rest_len), side.cross(up)), (p0 + p1) * 0.5)
+
+
+## The displacement at physics position x (0..SEGMENTS) on a Catmull-Rom curve through the points (the ends stay at 0).
+func _curve(u: PackedVector3Array, x: float) -> Vector3:
+	var i := clampi(int(floor(x)), 0, SEGMENTS - 1)
+	var t := x - i
+	var p0 := u[maxi(i - 1, 0)]
+	var p1 := u[i]
+	var p2 := u[i + 1]
+	var p3 := u[mini(i + 2, SEGMENTS)]
+	return 0.5 * ((2.0 * p1) + (p2 - p0) * t + (2.0 * p0 - 5.0 * p1 + 4.0 * p2 - p3) * t * t + (3.0 * p1 - p0 - 3.0 * p2 + p3) * t * t * t)
 
 
 ## The furthest any rope point sits off its straight line now, metres (tools/range_probe.gd).

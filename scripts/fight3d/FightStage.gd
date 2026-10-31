@@ -17,6 +17,8 @@ const HitStun := preload("res://scripts/fight3d/HitStun.gd")
 const SideStep := preload("res://scripts/fight3d/SideStep.gd")
 const FootPlant := preload("res://scripts/fight3d/FootPlant.gd")
 const BoxerBuild := preload("res://scripts/fight3d/BoxerBuild.gd")
+const GloveClearScript := preload("res://scripts/fight3d/GloveClear.gd")
+const PunchRange := preload("res://scripts/fight3d/PunchRange.gd")
 const Footwork := preload("res://scripts/fight3d/Footwork.gd")
 const Clinch := preload("res://scripts/fight3d/Clinch.gd")
 
@@ -36,6 +38,8 @@ const SHAKE_M := {"jab": 0.0, "power": 0.025, "big": 0.06}
 ## lean covers about LEAN_COVER_M, her body carries in for the rest, at most LUNGE_MAX_M, on the reach's ease in/out.
 const LEAN_COVER_M := 0.06
 const LUNGE_MAX_M := 0.26
+## S320 a glide step's speed eases in and out over this (Footwork.glide).
+const STEP_RAMP_S := 0.07
 const BLEND_S := 0.15
 ## S305 (operator: "make it more fluid", "doesnt always reset to a default clip"): the return to guard enters the idle loop
 ## at the point nearest the pose she is in (IdleMatch) and eases in slower than a strike.
@@ -118,14 +122,27 @@ func has_move(move: String) -> bool:
 
 
 ## S302: `who` throws `clip` and it LANDS: around contact her glove is carried onto the other's face (ribs if `body`).
-func land(who: int, clip: String, body: bool) -> void:
+func land(who: int, clip: String, body: bool, at_s: float = 0.0) -> void:
 	var pr: Node = boxers[who].get("reach")
 	if pr == null:
 		return
 	var row := BeatClips.contact_row(clip)
 	var hand := hand_of(who, str(row.get("hand", "LeftHand" if clip.contains("left_") or clip.contains("jab") else "RightHand")))
 	pr.arm(clip, hand, BeatClips.contact(clip, CONTACT_S), target_point.bind(1 - who, body), float(boxers[who]["front"]))
-	pr.lunge_m = clampf(float(row.get("short_m", 0.0)) - LEAN_COVER_M, 0.0, LUNGE_MAX_M)
+	# S320 (operator: "some hits seem to register even when opponent is way to far"; tools/hit_gap_probe.gd: the glove
+	# 0.21 m off the target at contact (p50), 66 % past 0.15 m, up to 0.98 m - punches landed from 1.6 m). The clip touches
+	# at the gap gap_m - short_m (clip_contact.json, measured at the jab gap); she must close the rest of today's gap by the
+	# contact: the lean and the reach's lunge take up to LEAN_COVER_M + LUNGE_MAX_M, a step in carries the remainder.
+	var need := _gap() - (gap_m - float(row.get("short_m", 0.0)))
+	pr.lunge_m = clampf(need - LEAN_COVER_M, 0.0, LUNGE_MAX_M)
+	var rest := need - LEAN_COVER_M - float(pr.lunge_m)
+	if rest > 0.03 and at_s > 0.0:
+		PunchRange.close_in(self, who, rest, at_s)
+
+
+## Pelvis to pelvis now, metres.
+func _gap() -> float:
+	return Vector2(boxers[0]["pos"].x - boxers[1]["pos"].x, boxers[0]["pos"].z - boxers[1]["pos"].z).length()
 
 
 ## The hand an orthodox clip names, on boxer i: a southpaw's clips are mirrored, so Left and Right swap.
@@ -144,6 +161,11 @@ func target_point(i: int, body: bool) -> Vector3:
 		var ch := skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Chest")).origin
 		return ch + (fwd * 0.11 + Vector3.DOWN * 0.14) * s
 	var head := skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Head")).origin
+	# S320 hit_gap_probe: up close her trunk leans out of the other head (GloveClear._clear_head), so the animated head
+	# read here sat ~0.15 m behind the face the camera shows and inside punches stopped short. Aim at the head as SHOWN.
+	var gc: Node = boxers[i].get("gclear")
+	if gc != null and (gc.get("shown_head") as Vector3).is_finite():
+		head = (gc.get("shown_head") as Vector3) - Vector3.UP * GloveClearScript.HEAD_UP_M
 	return head + (fwd * FACE_FWD_M + Vector3.UP * FACE_UP_M) * s
 
 
@@ -185,6 +207,9 @@ func _process(delta: float) -> void:
 	camera.clear_view(_ring_side, boxers[0]["pos"], boxers[1]["pos"], delta)
 
 
+var hit_gaps: Array = []   # S320 PunchRange.record: every landed contact's glove miss (tools/hit_gap_probe.gd)
+
+
 ## The hit-stop: both AnimationPlayers stand still (whatever speed a move set is kept and given back after).
 func _hold(delta: float) -> void:
 	if _hold_left <= 0.0:
@@ -203,6 +228,9 @@ func _hold(delta: float) -> void:
 ## S302: `hitter`'s `move` lands on `who`: her hit reaction starts, both bodies hold for the hit-stop, her head snaps the
 ## way the glove drove it (not on a body shot), and a power shot nudges the camera.
 func hit(who: int, clip: String, speed: float, hitter: int, move: String, big: bool) -> void:
+	PunchRange.record(self, who, hitter, move)
+	if PunchRange.cut_off(self, hitter):
+		return   # S320: her punch was cut off before it arrived (a clinch, a reaction): no hit shows without a punch
 	# S305: fast to its peak, then the clip's own pace back to guard; locked in it until then (HitStun).
 	var fast := BeatClips.react_fast(clip, speed)
 	stun.clear(who)
@@ -251,7 +279,12 @@ func _compose(delta: float) -> void:
 	for i in boxers.size():
 		var bx: Dictionary = boxers[i]
 		if float(bx["move_left"]) > 0.0:
-			bx["pos"] = (bx["pos"] as Vector3) + (bx["vel"] as Vector3) * delta
+			# S320 glide steps: the body eases into and out of its step speed (no clip carries it any more).
+			var ramp := 1.0
+			if feet.glide:
+				var el := float(bx.get("move_total", 0.0)) - float(bx["move_left"])
+				ramp = clampf(minf(el, float(bx["move_left"])) / STEP_RAMP_S, 0.25, 1.0)
+			bx["pos"] = (bx["pos"] as Vector3) + (bx["vel"] as Vector3) * delta * ramp
 			bx["move_left"] = float(bx["move_left"]) - delta
 			if float(bx["move_left"]) <= 0.0:
 				feet.stop(i)

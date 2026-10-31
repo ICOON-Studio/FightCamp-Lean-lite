@@ -37,10 +37,18 @@ var acc: Array = []           # every second difference (all points), for the pe
 var poss := [[], []]          # per boxer: last 3 frames' [clip position, playing speed]
 var events: Array = []        # every kink: [boxer, clip, position, speed, point, d, at a change]
 var raw := {}                 # "boxer|clip" -> Array of {point: Vector3} every RAW_STEP_S
+## S320 frame by frame: every frame's clip time and each modifier's live state per boxer, so the OURS kinks of the focus
+## clips (`-- focus=a,b`, default the S319 top two) print with the frames around them.
+var flog := [[], []]
+var focus: Array = ["pro_left_hook_v2", "retreat"]
+const MOD_PROPS := ["last_weight", "pushes", "head_pushes", "_t", "_bt", "_low", "inner", "_w_now"]
 
 
 func _initialize() -> void:
 	root.size = Vector2i(1280, 720)
+	for a in OS.get_cmdline_user_args():
+		if str(a).begins_with("focus="):
+			focus = str(a).trim_prefix("focus=").split(",")
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)
 	await _wait(4)
@@ -87,6 +95,14 @@ func _log() -> void:
 		var ap: AnimationPlayer = view.stage.boxers[i]["ap"]
 		clips[i].append(str(ap.current_animation))
 		poss[i].append([ap.current_animation_position if ap.current_animation != "" else 0.0, ap.get_playing_speed()])
+		var mods := {}
+		for m in (view.stage.boxers[i]["skel"] as Skeleton3D).get_children():
+			if m is SkeletonModifier3D and m != taps[i]:
+				for k in MOD_PROPS:
+					var v = m.get(k)
+					if v != null:
+						mods["%s.%s" % [m.name, k]] = snappedf(float(v), 0.001)
+		flog[i].append({"clip": clips[i][-1], "pos": poss[i][-1][0], "spd": poss[i][-1][1], "pt": now, "mods": mods})
 		if hist[i].size() > 3:
 			hist[i].pop_front()
 			clips[i].pop_front()
@@ -111,7 +127,7 @@ func _log() -> void:
 					at_change += 1
 				var c: String = clips[i][1]
 				by_clip[c] = int(by_clip.get(c, 0)) + 1
-				events.append([i, c, float(poss[i][1][0]), float(poss[i][1][1]), p, d, changed])
+				events.append([i, c, float(poss[i][1][0]), float(poss[i][1][1]), p, d, changed, flog[i].size() - 2])
 
 
 func _report() -> void:
@@ -212,6 +228,7 @@ func _report_raw() -> void:
 		else:
 			own += 1
 			own_clip[e[1]] = int(own_clip.get(e[1], 0)) + 1
+	_report_frames()
 	print("SMOOTH RAW baseline: %d clips sampled | kinks OURS (fight tops the raw clip by > %.2f m): %.0f/min (%d, %d at a clip change) | the clip's own: %.0f/min (%d)" % [
 		raw.size(), KINK_M, ours / maxf(mins, 0.01), ours, ours_change, own / maxf(mins, 0.01), own])
 	for pair in [["OURS by clip", ours_clip], ["clip's own by clip", own_clip]]:
@@ -222,6 +239,41 @@ func _report_raw() -> void:
 		for c in top.slice(0, 10):
 			parts.append("%s %d" % [c, d[c]])
 		print("SMOOTH RAW %s: %s" % [pair[0], ", ".join(parts)])
+
+
+## The focus clips' OURS kinks, each with frames -3..+2: clip time, the kinked point's step and second difference, and
+## every modifier value that changed across those frames (a layer switching on or off at the kink names itself).
+func _report_frames() -> void:
+	var shown := {}
+	for e in events:
+		var c := str(e[1])
+		if not c in focus or int(shown.get(c, 0)) >= 12:
+			continue
+		var key := "%d|%s" % [e[0], c]
+		var d_raw := 0.0
+		if raw.has(key):
+			var dt := float(e[3]) / 30.0
+			d_raw = (_raw_at(raw[key], float(e[2]) + dt, e[4]) - 2.0 * _raw_at(raw[key], float(e[2]), e[4]) + _raw_at(raw[key], float(e[2]) - dt, e[4])).length()
+		if float(e[5]) - d_raw <= KINK_M:
+			continue
+		shown[c] = int(shown.get(c, 0)) + 1
+		var fl: Array = flog[int(e[0])]
+		var k := int(e[7])
+		print("SMOOTH KINK %s boxer %d %s at %.3f s x%.2f d %.3f raw %.3f%s" % [c, e[0], e[4], e[2], e[3], e[5], d_raw, " (clip change)" if e[6] else ""])
+		var keys := {}
+		for j in range(maxi(0, k - 3), mini(fl.size(), k + 3)):
+			for mk in fl[j]["mods"]:
+				if j > maxi(0, k - 3) and fl[j]["mods"][mk] != fl[j - 1]["mods"].get(mk):
+					keys[mk] = true
+		for j in range(maxi(0, k - 3), mini(fl.size(), k + 3)):
+			var r: Dictionary = fl[j]
+			var step := 0.0
+			if j > 0:
+				step = ((r["pt"][e[4]] as Vector3) - (fl[j - 1]["pt"][e[4]] as Vector3)).length()
+			var parts := []
+			for mk in keys:
+				parts.append("%s=%s" % [mk, r["mods"].get(mk)])
+			print("   %s f%+d %s %.3f x%.2f step %.3f | %s" % [">" if j == k else " ", j - k, r["clip"], r["pos"], r["spd"], step, " ".join(parts)])
 
 
 func _wait(n: int) -> void:

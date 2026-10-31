@@ -2,6 +2,7 @@ extends PanelContainer
 ## Fight night in words: the tale of the tape, three rounds with a corner call between them, then the scorecards and what
 ## decided it. Bouts.fight_step moves it on; this draws whichever step the moment is at.
 
+const RoundGraphics := preload("res://scripts/ui/RoundGraphics.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Tape := preload("res://scripts/ui/Tape.gd")
@@ -121,27 +122,56 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	var oname := str(main.career.fighter_by_id(str(m["fid"]))["bout"]["opp"]["first"])
 	v.add_child(UI.caps("ROUND %d OF %d" % [n, total]))
 	v.add_child(UI.display("%s'S ROUND" % (fname if bool(last["won"]) else oname).to_upper(), 48, UI.GREEN if bool(last["won"]) else UI.RED))
+	var ex_won := RoundGraphics.totals(last.get("exchanges", []))["won"] as Array
+	if int(ex_won[0]) == int(ex_won[1]) and int(ex_won[0]) > 0:
+		# S320: level on the 30-second exchanges, the round goes to whoever did more in them.
+		v.add_child(UI.muted("Level on exchanges %d-%d: %s took it on the work done in them." % [ex_won[0], ex_won[1],
+			fname if bool(last["won"]) else oname], UI.SMALL))
 	if str(last["corner"]) != "":
 		v.add_child(UI.muted("Your call: \"%s\"" % BoutRules.CORNER[last["corner"]], UI.SMALL))
-	var beats := UI.vbox(6)
-	for line in last["lines"]:
-		beats.add_child(UI.label(line, 22, UI.FG, "body", true))
-	v.add_child(beats)
-	var so_far: Array = []
-	for r in rounds:
-		so_far.append(fname if bool(r["won"]) else oname)
-	v.add_child(UI.muted("Rounds so far: " + ", ".join(so_far), UI.SMALL))
-	# S302 energy: what each has left at the bell (the minute's rest gives some back; combos and the call spend it).
+	# S320 (operator: "these needs much better visuals for the player to understand what happenned"): the round as
+	# pictures - who won each 30 seconds, the punches side by side between the two body maps, the energy left.
+	var exs: Array = last.get("exchanges", [])
 	var en: Dictionary = last.get("energy", {})
+	if not exs.is_empty():
+		v.add_child(UI.muted("Every 30 seconds: who won it", UI.TINY))
+		v.add_child(RoundGraphics.strip(exs))
+		var tot := RoundGraphics.totals(exs)
+		var mid := UI.hbox(18)
+		var bodies: Array = m.get("bodies", ["", ""])
+		var fig_a := RoundGraphics.body(m.get("body_map", {}), "a", str(bodies[0]), "red")
+		if fig_a != null:
+			mid.add_child(fig_a)
+		var bars := UI.vbox(10)
+		bars.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var names_row := UI.hbox(8)
+		names_row.add_child(UI.label(fname.to_upper(), UI.SMALL, RoundGraphics.HERS.lightened(0.3), "bold"))
+		names_row.add_child(UI.spacer())
+		names_row.add_child(UI.label(oname.to_upper(), UI.SMALL, RoundGraphics.THEIRS.lightened(0.3), "bold"))
+		bars.add_child(names_row)
+		bars.add_child(RoundGraphics.versus([["Exchanges won", tot["won"][0], tot["won"][1]],
+			["Punches landed", tot["landed"][0], tot["landed"][1]], ["To the body", tot["body"][0], tot["body"][1]]]))
+		if not en.is_empty():
+			bars.add_child(RoundGraphics.energy(float(en.get("a_end", 100.0)), float(en.get("b_end", 100.0))))
+		mid.add_child(bars)
+		var fig_b := RoundGraphics.body(m.get("body_map", {}), "b", str(bodies[1]), "blue")
+		if fig_b != null:
+			mid.add_child(fig_b)
+		v.add_child(mid)
+	else:
+		var beats := UI.vbox(6)
+		for line in last["lines"]:
+			beats.add_child(UI.label(line, 22, UI.FG, "body", true))
+		v.add_child(beats)
+	var foot_row := UI.hbox(12)
+	foot_row.add_child(RoundGraphics.rounds(rounds))
+	foot_row.add_child(UI.spacer())
 	if not en.is_empty():
-		var opp: Dictionary = main.career.fighter_by_id(str(m["fid"]))["bout"]["opp"]
-		v.add_child(UI.muted("Energy at the bell: %s %s, %s %s. The minute's rest gives some back." % [
-			main.career.fighter_by_id(str(m["fid"]))["first"], _energy_word(float(en.get("a_end", 100.0))),
-			opp["first"], _energy_word(float(en.get("b_end", 100.0)))], UI.SMALL, true))
 		# S303 Kalli K-COMBOWORDS1: the corner reads her tank in a line.
-		var said := ComboWords.energy_line(float(en.get("a_end", 100.0)), str(main.career.fighter_by_id(str(m["fid"]))["first"]), n * 7 + main.career.day)
+		var said := ComboWords.energy_line(float(en.get("a_end", 100.0)), fname, n * 7 + main.career.day)
 		if said != "":
-			v.add_child(UI.label(said, 20, UI.FG, "body", true))
+			foot_row.add_child(UI.label(said, UI.SMALL, UI.FG, "body"))
+	v.add_child(foot_row)
 	var stop := str(last.get("stopped", ""))
 	if stop != "":
 		v.add_child(UI.display("STOPPED: %s" % ("KNOCKOUT" if stop == "KO" else "REFEREE STOPS IT"), 32, UI.AMBER))
@@ -150,23 +180,21 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	if (last.has("card") or last.has("exchanges")) and stop == "":
 		var cc := CornerCard.card(last.get("card", CornerCard.summarize([])), float(en.get("a_end", 100.0)), [fname, oname])
 		# S309: the exchanges' read already says the call in the coach's words.
+		if not last.has("card") and not exs.is_empty():
+			# S320: a skipped round has no punch-by-punch card - say what its exchanges landed (it read "nothing clean").
+			var tt := RoundGraphics.totals(exs)
+			cc["worked"] = "%s landed %d punches, %d to the body." % [fname, tt["landed"][0], tt["body"][0]]
+			cc["hurt"] = "%s landed %d punches, %d to the body." % [oname, tt["landed"][1], tt["body"][1]]
 		var coach_says := "\"%s\"" % cc["why"]
 		if last.has("exchanges"):
 			cc.merge(Exchanges.read(last["exchanges"], [fname, oname]), true)
 			coach_says = "\"%s\"" % cc["why"]
 		else:
 			coach_says = "\"%s. %s\"" % [BoutRules.CORNER[cc["call"]], cc["why"]]
-		var grid := UI.vbox(2)
+		var grid := HFlowContainer.new()   # S320: the corner card as three tiles
+		grid.add_theme_constant_override("h_separation", 10)
 		for row in [["WORKED", cc["worked"], UI.GREEN], ["HURT", cc["hurt"], UI.RED], ["COACH", coach_says, UI.AMBER]]:
-			var line := UI.hbox(10)
-			var tag := UI.caps(str(row[0]))
-			tag.custom_minimum_size = Vector2(90, 0)
-			tag.add_theme_color_override("font_color", row[2])
-			line.add_child(tag)
-			var said_row := UI.label(str(row[1]), 20, UI.FG, "body", true)
-			said_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			line.add_child(said_row)
-			grid.add_child(line)
+			grid.add_child(RoundGraphics.tile(str(row[0]), str(row[1]), row[2]))
 		v.add_child(grid)
 		advice = str(cc["call"]) if n < total else ""
 	if n < total and stop == "":
@@ -214,27 +242,18 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	var head := "A DRAW" if outcome == "draw" else "%s WINS %s" % [(str(f["first"]) if win else str(opp["first"])).to_upper(), by]
 	v.add_child(UI.display(head, 48, UI.GREEN if win else (UI.AMBER if outcome == "draw" else UI.RED)))
 	if stop == "":
-		v.add_child(UI.mono("Scorecards: " + ", ".join(m["cards"]), UI.BODY))
+		v.add_child(RoundGraphics.judges(m["rounds"], m["cards"]))   # S320: each judge's card, round by round
 	else:
 		v.add_child(UI.mono("Stopped in round %d of %d" % [(m["rounds"] as Array).size(), int(m.get("total", BoutRules.ROUNDS))], UI.BODY))
-	var why := UI.card("WHAT DECIDED IT")
-	var rows: Array = []
-	for w in m["why"]:
-		rows.append(UI.label(w, UI.BODY, UI.FG, "body", true))
-	if rows.is_empty():
-		rows.append(UI.muted("A close night: the rolls of the rounds decided it.", UI.BODY))
-	UI.add_rows(why[1], rows)
-	v.add_child(why[0])
-	var money := UI.hbox(16)
-	var cut := UI.card()
+	v.add_child(UI.caps("WHAT DECIDED IT"))
+	var why: Array = m["why"]
+	v.add_child(RoundGraphics.decided(why if not why.is_empty() else ["A close night: the rolls of the rounds decided it."]))
+	var money := UI.hbox(10)
 	if bool(m.get("pro", false)):
-		cut[1].add_child(UI.kv("The gym's purse share", UI.signed(int(m.get("gym_cut", 0))), UI.GREEN, "mono"))
+		money.add_child(RoundGraphics.tile("THE GYM'S PURSE SHARE", UI.signed(int(m.get("gym_cut", 0))), UI.GREEN, true))
 	else:
-		cut[1].add_child(UI.kv("Club ticket cut", UI.signed(BoutRules.TICKET_CUT), UI.GREEN, "mono"))
-	money.add_child(cut[0])
-	var members := UI.card()
-	members[1].add_child(UI.kv("Members after the news", "+%d" % BoutRules.WIN_MEMBERS if win else "no change"))
-	money.add_child(members[0])
+		money.add_child(RoundGraphics.tile("CLUB TICKET CUT", UI.signed(BoutRules.TICKET_CUT), UI.GREEN, true))
+	money.add_child(RoundGraphics.tile("MEMBERS AFTER THE NEWS", "+%d" % BoutRules.WIN_MEMBERS if win else "no change", UI.GOLD, true))
 	v.add_child(money)
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())

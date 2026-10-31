@@ -5,6 +5,8 @@ extends SceneTree
 ## 3. Tips: last 3 punches, newest first.
 ## 4. Geometry: front-view mirror; place_at(centre) == place; (2,2) == "".
 ## 5. Scale: centres double at 2x size (within 1 px).
+## 6. Portrait (S320 C146): every fight body has a baked picture in both corners; on it each place is found at its own
+##    centre, the boxer's left eye/ribs sit on the viewer's right, the eyes above the nose above the ribs, all inside it.
 
 const BF_SCRIPT := preload("res://scripts/ui/BodyFigure.gd")
 
@@ -17,6 +19,7 @@ func _initialize() -> void:
 	_test3()
 	_test4()
 	_test5()
+	_test6()
 	print("BODY_FIGURE failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -131,6 +134,37 @@ func _test5() -> void:
 	bf1.queue_free()
 	bf2.queue_free()
 	_check(ok, "test 5: scale 2x")
+
+
+func _test6() -> void:
+	var ok := true
+	for stem in ["mh_boxer_10", "mh_boxer_11", "mh_boxer_12"]:
+		for corner in ["red", "blue"]:
+			var p: Dictionary = BF_SCRIPT.portrait_for("res://assets/models/metahuman/%s.glb" % stem, corner)
+			if p.is_empty() or p["tex"] == null:
+				ok = false
+				print("  no portrait %s %s" % [stem, corner])
+				continue
+			var bf := _make_bf()
+			bf.size = Vector2(150, 210)
+			bf.set_portrait(p)
+			for place in ["head", "left_eye", "right_eye", "nose", "left_ribs", "right_ribs"]:
+				var c: Vector2 = bf.centre_of(place)
+				if bf.place_at(c) != place or not Rect2(Vector2.ZERO, bf.size).has_point(c):
+					ok = false
+					print("  %s %s: %s at %s" % [stem, place, bf.place_at(c), str(c)])
+			var le: Vector2 = bf.centre_of("left_eye")
+			var re: Vector2 = bf.centre_of("right_eye")
+			if le.x <= re.x or bf.centre_of("left_ribs").x <= bf.centre_of("right_ribs").x:
+				ok = false
+				print("  %s: left side not on the viewer's right" % stem)
+			if not (le.y < bf.centre_of("nose").y and bf.centre_of("nose").y < bf.centre_of("left_ribs").y):
+				ok = false
+				print("  %s: eyes/nose/ribs out of order" % stem)
+			bf.queue_free()
+	if not BF_SCRIPT.portrait_for("", "red").is_empty():
+		ok = false
+	_check(ok, "test 6: portraits")
 
 
 func _check(cond: bool, label: String) -> void:

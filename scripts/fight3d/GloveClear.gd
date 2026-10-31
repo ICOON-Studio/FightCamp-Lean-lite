@@ -28,6 +28,10 @@ var other: Skeleton3D
 ## The other boxer's GloveClear: its head centre AS SHOWN (after her snap, sway and hit fold), in world space. Read from
 ## outside the stack, her skeleton gives the animated pose without them - up to ~0.15 m off in a gut shot's fold.
 var peer = null
+## S320 hit_gap_probe: her own PunchReach. A landing punch's glove is meant to touch the face - this modifier kept every
+## glove 0.15 m from the other head's centre and pushed the scoring glove 0.13-0.22 m off the face it was carried onto
+## (inside jabs and hooks "landed" short). The striking hand is left alone while its reach is on.
+var reach: Node = null
 var shown_head := Vector3.INF
 var heads := true        # `-- noheads` turns the head clearance off (control arm)
 var pushes := 0          # frames a glove was moved out (for probes)
@@ -70,6 +74,8 @@ func _process_modification() -> void:
 		_clear_head(skel, hc, k)
 	shown_head = skel.global_transform * (skel.get_bone_global_pose(_head).origin + Vector3.UP * HEAD_UP_M / k)
 	for side in _arms:
+		if reach != null and str(reach.get("_hand")).begins_with(side) and float(reach.get("last_weight")) > 0.0:
+			continue
 		var ids: Array = _arms[side]
 		var g_la: Transform3D = skel.get_bone_global_pose(int(ids[1]))
 		var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))

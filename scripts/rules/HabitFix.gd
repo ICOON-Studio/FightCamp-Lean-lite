@@ -79,3 +79,16 @@ static func line(name: String, names: Array, held: bool) -> String:
 	if held:
 		return "The fix held: %s caught herself (%s)." % [str(names[0]), what]
 	return "%s made %s pay for a habit: %s." % [str(names[1]), str(names[0]), what]
+
+
+## S320 (operator: "the fix option ... does it actually works?"): the next corner card says what last round's fix did.
+## name = the habit's name, came = exchanges where it would have cost her, hold = how much of the fix she took in (0..1),
+## her = her first name. "" when nothing was fixed.
+static func result(name: String, came: int, hold: float, her: String) -> String:
+	if name == "":
+		return ""
+	var what := name.substr(0, 1).to_lower() + name.substr(1)
+	if came <= 0:
+		return "Last round's fix (%s): it never came up." % what
+	return "Last round's fix (%s): it came up %d time%s - %s caught herself, it cost her %d %% less." % [
+		what, came, "" if came == 1 else "s", her, int(round(clampf(hold, 0.0, 1.0) * 100.0))]

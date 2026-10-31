@@ -121,6 +121,12 @@ func _initialize() -> void:
 	_check(str(main.modal.get("step", "")) == "result", "SKIP BOUT reaches the result")
 	_check((main.modal["rounds"] as Array).size() == int(main.modal["total"]) or str(main.modal.get("stopped", "")) != "", "every round was fought (the corner took the rest)")
 	await _shot("p07_result_over_ring", 0.3)
+	# S320 the last round's page (the one the 3D view shows before the scorecards): drawn from the same modal.
+	main.modal["step"] = "round"
+	main.redraw_modal()
+	await _shot("p08_round_page", 0.3)
+	main.modal["step"] = "result"
+	main.redraw_modal()
 	print("FIGHT3D_PLAY failures=%d" % failures)
 	quit(0 if failures == 0 else 1)
 

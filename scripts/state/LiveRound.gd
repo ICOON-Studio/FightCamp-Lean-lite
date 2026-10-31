@@ -212,7 +212,10 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	var worked := 0
 	var calls := 0
 	var paid := {}
+	var fix_came := 0   # S320: exchanges the fixed habit would have cost her (the next corner card says so)
 	for x in exs:
+		if str(lv.get("fix", "")) != "" and str(x.get("habit", "")) == str(lv.get("fix", "")):
+			fix_came += 1
 		if bool(x["shout"]):
 			calls += 1
 			worked += 1 if bool(x["won"]) and str(x["fit"]) in ["best", "ok"] else 0
@@ -228,7 +231,8 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	m.erase("live")
 	return {"n": int(lv["n"]), "won": ro["won"], "won_n": ro["won_n"], "mine": ro["mine"], "theirs": ro["theirs"],
 		"corner": str(lv["plan"]), "energy": e, "exchanges": exs, "landed": ro["landed"], "calls": calls, "worked": worked,
-		"fix": str(lv.get("fix", "")), "habits_paid": paid, "start": lv.get("start", {}),
+		"fix": str(lv.get("fix", "")), "habits_paid": paid, "fix_came": fix_came,
+		"fix_hold": Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0), "start": lv.get("start", {}),
 		"talk": str(lv.get("talk_kind", "")), "setup": (lv.get("setup", {}) as Dictionary).duplicate(),
 		"hurt_at_bell": bool(exs[-1].get("after", {}).get("hurt", [false, false])[0]) if not exs.is_empty() else false}
 

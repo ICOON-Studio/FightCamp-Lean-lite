@@ -45,6 +45,13 @@ var _aim := {"phase": "pocket", "who": -1, "move": "jab"}
 var _rest_roll := 0.5
 var inside_w := 0.0         # 0..1, how far into an inside spell (FightStage lowers its floor and shifts the bodies by it)
 var _pivoted := false       # this pivot phase's step is taken
+## S320 GLIDE STEPS (operator: "the footing and moving of the fighters looks very bad, why the clips we have are so much
+## smoother than what i see in the fight"; smooth_probe: 167 clip changes a minute, 154 of them the old game's WALKING
+## strides - advance/retreat/strafe at 1.7 m/s - played at 0.19-1.15x for 0.2-0.9 s and cut, every cut a jolt of hands and
+## head). A step no longer plays a clip: her guard plays on uncut, her body moves, and FootPlant takes the steps (each foot
+## holds the canvas and shuffles onto its new spot, 0.15 s, the procedural stepping shipped games use). `-- stepclips` =
+## the old stride clips (the control arm).
+var glide: bool = not OS.get_cmdline_user_args().has("stepclips")
 
 
 func setup(owner: Node) -> void:
@@ -197,6 +204,9 @@ func walk(who: int, clip: String, seconds: float, scale: float = WALK_SCALE, aim
 	var dir := Basis(Vector3.UP, deg_to_rad(-float(spec[1]))) * (bx["node"] as Node3D).transform.basis.z
 	bx["vel"] = dir.normalized() * float(spec[0]) * scale
 	bx["move_left"] = seconds
+	bx["move_total"] = seconds
+	if glide:
+		return
 	stage._cut[who] = {}
 	# S316 smoothness (tools/smooth_probe.gd: a step clip restarted 176 times in 1.8 min, each played 0.23 s, the guard
 	# idle flashed 0.13 s between them - a cut every 0.4 s): a step that follows a step on the same clip carries the clip
