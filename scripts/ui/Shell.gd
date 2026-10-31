@@ -118,7 +118,8 @@ func _build_top(main: Node) -> void:
 		(l as Label).text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	go.tooltip_text = "%s: %s" % [g["t"], g["s"]]
 	h.add_child(go)
-	var cash := UI.mono(UI.money(c.cash), 21, UI.RED if c.cash < 5000 else UI.FG)
+	var ms := Needs.money_status(c)   # S324: coloured by GymBills (runway under 8 weeks amber, below $0 red)
+	var cash := UI.mono(UI.money(c.cash), 21, UI.RED if ms == "red" or ms == "closed" else (UI.AMBER if ms == "warn" else UI.FG))
 	cash.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(cash)
 	var mail := UI.button("Mail", "Ghost", main.act.bind("mail", ""))

@@ -1,3 +1,27 @@
+﻿FIGHTCAMP - WEEK 6 BUILD, UPDATE 27 (2026-10-31): MONEY THAT BITES + THE BODY VIEW ON HER OWN BODY
+==================================================================================================
+
+NEW IN UPDATE 27 (board: "Play latest" for the money - a new career; "Test: fight night WITH film study" for the body view)
+ 1. THE BODY VIEW, REDONE (your markup on update 26: "looks terrible needs to be bigger and look like a human stop
+    doing cube things as limbs"). No more capsules: her own body is coloured part by part - her shoulders, her arms,
+    her body, her legs - with her shape and shading kept, about 40 % bigger in the fight panels, on the corner card
+    and on the round/result pages. A FRESH part is simply her own skin and kit; colour rises in as the part works:
+    green warm, yellow hot, red burning (so at the first bell both look like themselves, by round 3 you see who is
+    spent and where).
+ 2. MONEY THAT BITES (the make-it-a-game plan, update 27 of 4). Real small-club numbers (England Boxing clubs, in $):
+    members pay $35 a month (was $22 a WEEK - three times the real fee), rent $1,800 a month, England Boxing's yearly
+    fees, your coach and your fighters' stipends. A new career starts with $14,600 = about 3 months of costs (was
+    $25,000). MONEY > Overview shows your runway ("Runway: 9 weeks") and the members you need to break even.
+ 3. WHEN IT GOES WRONG. Under 8 weeks of runway the cash on the top bar turns amber and a LOW CASH flag shows; below
+    $0 it turns red, BELOW $0 shows and HOME tells you how many weeks are left. Time never stops for it - you can
+    play out of it (book a bout: $450 ticket cut; sign a sponsor; keep the coach sessional). Four weeks in a row
+    below $0 and the gym closes: a summary of your career, then New career / Load career / Title.
+ 4. A LOSS COSTS. Members leave after a loss (3, or 5 after a stoppage) and the gym's reputation drops (2, or 4) -
+    so fewer people join next weeks. A win still brings 8 members and the ticket cut.
+    Checked over 80 played careers of 26 weeks: a sensible manager (sessional coach, safe bouts, sponsors signed)
+    never closes and ends around $18,000; careless managers close in 23 % of careers - always the full-time head
+    coach with no sponsor signed.
+    Next (update 28, already written): injuries and suspensions - a bout or a hard week can put her out for weeks.
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 26 (2026-10-31): THE BODY IS THE TRACK, PART 2 - SEE IT, DRIVE IT
 ====================================================================================================
 

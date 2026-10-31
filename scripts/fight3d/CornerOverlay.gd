@@ -1,4 +1,4 @@
-extends Control
+﻿extends Control
 ## S307 the corner minute's screen (docs/FIGHT_NIGHT_SCRIPT.md v2): letterbox bars (2.39:1 on the 16:9 frame), the rest
 ## clock, the coach's lines as captions in the lower bar, the corner card (what worked, what hurt, the coach's call) with
 ## the three calls to pick while the minute runs, and SKIP TO THE BELL.
@@ -176,9 +176,9 @@ func _fix(id: String) -> void:
 ## hurt or worse, close a cut that is open, or nothing. The cutman's own pick (the worst place) is lit to start.
 func _body_column(her: String, glb: String = "") -> VBoxContainer:
 	var col := UI.vbox(4)
-	col.custom_minimum_size = Vector2(170, 0)
+	col.custom_minimum_size = Vector2(200, 0)
 	var fig: Control = BodyFigure.new()
-	fig.custom_minimum_size = Vector2(160, 226)
+	fig.custom_minimum_size = Vector2(190, 268)   # S324 C149 bigger (was 160 x 226)
 	fig.set_portrait(BodyFigure.portrait_for(glb, "red"))   # S320 C146: her own body, not a drawn figure
 	fig.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	col.add_child(fig)

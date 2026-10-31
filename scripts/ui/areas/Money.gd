@@ -8,6 +8,8 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CashChart := preload("res://scripts/ui/CashChart.gd")
+const GymBills := preload("res://scripts/rules/GymBills.gd")
+const Needs := preload("res://scripts/state/Needs.gd")
 
 ## One-offs shown on Income / Bills: the last this many days.
 const LEDGER_DAYS := 56
@@ -49,17 +51,31 @@ func _overview(c: Career) -> void:
 		UI.kv("Weekly net", UI.signed(net), UI.GREEN if net >= 0 else UI.RED, "mono"),
 		UI.kv("Owed, billed %s" % Clock.fmt(GameMoney.next_bill_day(c.day)), UI.money(c.accrued), UI.FG, "mono"),
 	])
+	# S324 update 27: the runway and the close rule, in plain words.
+	var ms := Needs.money_status(c)
+	var rl := UI.label(GymBills.line(c.cash, net, c.weeks_below), UI.BODY, UI.RED if ms == "red" or ms == "closed" else
+		(UI.AMBER if ms == "warn" else UI.GREEN), "bold")
+	rl.name = "Runway"
+	now[1].add_child(rl)
+	now[1].add_child(UI.muted("%d weeks in a row below $0 closes the gym. Break-even: %d members." % [GymBills.CLOSE_AFTER_WEEKS,
+		_break_even(c, inc, cost)], UI.SMALL, true))
 	now[1].add_child(UI.muted("Bouts add a %s ticket cut each; camps and repairs are one-offs." % UI.money(BoutRules.TICKET_CUT), UI.SMALL, true))
 	grid.add_child(now[0])
 	for child in grid.get_children():
 		(child as Control).size_flags_vertical = Control.SIZE_FILL
 
 
+## Members needed for dues alone to cover this week's costs less the other income.
+func _break_even(c: Career, inc: Dictionary, cost: Dictionary) -> int:
+	var need := int(cost["total"]) - int(inc["classes"]) - int(inc["sponsors"])
+	return int(ceil(float(maxi(0, need)) / (float(GymBills.FEE_MONTH) / GymBills.WEEKS_A_MONTH)))
+
+
 func _income(c: Career) -> void:
 	var inc: Dictionary = Sim.weekly_income(c)
 	var card := UI.card("INCOME, PER WEEK")
 	UI.add_rows(card[1], [
-		UI.kv("Members' dues (%d x %s)" % [c.members, UI.money(Membership.weekly_rate())], UI.money(int(inc["dues"])), UI.FG, "mono"),
+		UI.kv("Members' dues (%d x %s a month)" % [c.members, UI.money(Membership.weekly_rate())], UI.money(int(inc["dues"])), UI.FG, "mono"),
 		UI.kv("Evening classes" + ("" if not c.coach.is_empty() else " (need a coach)"), UI.money(int(inc["classes"])), UI.FG, "mono"),
 		UI.kv("Sponsors", UI.money(int(inc["sponsors"])), UI.FG, "mono"),
 		UI.kv("Total a week", UI.money(int(inc["total"])), UI.GREEN, "mono"),
@@ -72,7 +88,8 @@ func _bills(c: Career) -> void:
 	var cost: Dictionary = Sim.weekly_costs(c)
 	var card := UI.card("BILLS, PER WEEK, PAID AT THE MONTH END")
 	UI.add_rows(card[1], [
-		UI.kv("Upkeep", UI.money(int(cost["upkeep"])), UI.FG, "mono"),
+		UI.kv("Rent (%s a month)" % UI.money(GymBills.RENT_MONTH), UI.money(int(cost.get("rent", cost["upkeep"]))), UI.FG, "mono"),
+		UI.kv("England Boxing fees (yearly, by the week)", UI.money(int(cost.get("fees", 0))), UI.FG, "mono"),
 		UI.kv("Coach" if not c.coach.is_empty() else "Coach (none yet)", UI.money(int(cost["staff"])), UI.FG, "mono"),
 		UI.kv("Fighter stipends (%d)" % c.fighters.size(), UI.money(int(cost["fighters"])), UI.FG, "mono"),
 		UI.kv("Total a week", UI.money(int(cost["total"])), UI.FG, "mono"),

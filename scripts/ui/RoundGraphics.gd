@@ -1,4 +1,4 @@
-extends RefCounted
+﻿extends RefCounted
 ## S320 (operator on the round and result screens: "these needs much better visuals for the player to understand what
 ## happenned"; "you change the menu concept, try more modern panels"): the fight's numbers as pictures - who won each
 ## 30 seconds, the punches landed side by side, the energy left, the rounds so far, each judge's round-by-round card and
@@ -207,7 +207,7 @@ static func body(map: Dictionary, side: String, glb: String, corner: String, tra
 	if map.is_empty():
 		return null
 	var fig: Control = BodyFigure.new()
-	fig.custom_minimum_size = Vector2(120, 168)
+	fig.custom_minimum_size = Vector2(168, 235)   # S324 C149 bigger (was 120 x 168)
 	fig.set_portrait(BodyFigure.portrait_for(glb, corner))
 	var vals := {}
 	for p in BodyMap.PLACES:

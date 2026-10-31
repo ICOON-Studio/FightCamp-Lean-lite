@@ -4,11 +4,13 @@ class_name Career
 
 const Data := preload("res://scripts/state/Data.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
+const GymBills := preload("res://scripts/rules/GymBills.gd")
+const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 
 @export var gym_name: String = "Anvil Street Gym"
 @export var city: String = "London"
 @export var day: int = 0
-@export var cash: int = 25000
+@export var cash: int = 25000   # a new career starts with start_cash() (S324); 25000 is only an old save's default
 @export var members: int = Membership.OPENING_MEMBERS
 @export var reputation: int = 10
 @export var coach: Dictionary = {}
@@ -32,12 +34,17 @@ const Membership := preload("res://scripts/rules/Membership.gd")
 @export var prospects: Array = []
 ## Week 4: a promoter's offer to turn a fighter pro ({} when none).
 @export var pro_offer: Dictionary = {}
+## S324 update 27 money that bites (GymBills): weeks in a row the cash ended a week below $0; at CLOSE_AFTER_WEEKS the gym
+## closes (closed = the career is over: a summary, then load or a new career).
+@export var weeks_below: int = 0
+@export var closed: bool = false
 
 
 static func quick_start(name: String = "Anvil Street Gym", town: String = "London") -> Career:
 	var c := Career.new()
 	c.gym_name = name if name.strip_edges() != "" else "Anvil Street Gym"
 	c.city = town
+	c.cash = start_cash()
 	c.applicant = Data.lucy()
 	c.cash_history = [{"w": 1, "c": c.cash}]
 	for r in Data.OPPONENTS + [Data.MISMATCH] + Data.RIVALS:
@@ -52,6 +59,14 @@ static func quick_start(name: String = "Anvil Street Gym", town: String = "Londo
 		c.facilities.append((f as Dictionary).duplicate())
 	c.add_news("%s opens its doors in %s with %d members on the books." % [c.gym_name, c.city, c.members])
 	return c
+
+
+## Start cash: GymBills.START_MONTHS months of a first-year gym's costs - rent and fees, the first sessional coach and
+## one fighter's stipend (S324: was $25,000, ~8 months of costs, so money never forced a decision).
+static func start_cash() -> int:
+	var bills: Dictionary = GymBills.week({"members": Membership.OPENING_MEMBERS, "coaches": 1, "boxers": 1})
+	var week := int(bills["rent"]) + int(bills["fees"]) + int(Data.coach("reid")["salary"]) + GameMoney.FIGHTER_STIPEND
+	return roundi(float(week) * GymBills.WEEKS_A_MONTH * float(GymBills.START_MONTHS) / 100.0) * 100
 
 
 ## The first fighter signed (Lucy in a quick start), {} before anyone signs.

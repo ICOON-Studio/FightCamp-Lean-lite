@@ -1,4 +1,4 @@
-extends SceneTree
+﻿extends SceneTree
 ## R44 THE MEMBERSHIP, copied from E:\FightCamp\Game\Godot\tests\membership_test.gd and trimmed to the rules the lean game
 ## keeps (the walk, the dues, the natural count, the weekly settle). The GameState, ledger and market rows went with their code.
 
@@ -44,8 +44,8 @@ func _test_the_walk_is_gradual() -> void:
 
 ## Q11: dues are the count at the authored rate ($22, S292).
 func _test_dues() -> void:
-	_check(Membership.weekly_rate() == 22, "Q11a the rate is the decided $22")
-	_check(Membership.weekly_dues(30) == 660, "Q11b 30 members pay $660 a week")
+	_check(Membership.weekly_rate() == 35, "Q11a the rate is the real $35 a month (S324 GymBills)")
+	_check(Membership.weekly_dues(30) == 242, "Q11b 30 members pay $242 a week (30 x 35 / 4.33)")
 	_check(Membership.weekly_dues(-4) == 0, "Q11c a negative count bills nothing")
 
 
@@ -54,6 +54,6 @@ func _test_settle_week() -> void:
 	var first: Dictionary = Membership.settle_week(Membership.OPENING_MEMBERS, 10)
 	_check(int(first["target"]) == 54, "Q14 reputation 10 sets a target of 54")
 	_check(int(first["members"]) == 36 and int(first["delta"]) == 6, "Q15 the first week walks the capped 6 (30 -> 36)")
-	_check(int(first["dues"]) == 36 * 22, "Q16 the week bills the count after the step")
+	_check(int(first["dues"]) == Membership.weekly_dues(36), "Q16 the week bills the count after the step")
 	var second: Dictionary = Membership.settle_week(int(first["members"]), 10)
 	_check(int(second["members"]) == 41, "Q17 the second week closes a quarter of the 18 gap (36 -> 41)")

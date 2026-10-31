@@ -6,8 +6,9 @@ extends RefCounted
 ## kit types, title spikes and the front door (one gym, no floor in week 1). The magnitudes moved from membership.json
 ## into constants; every one is an authored game rule, not a claim about what a real gym charges.
 
-## S292 (operator: "you make the decision"): $22 a member a week.
-const WEEKLY_DUES_PER_MEMBER := 22
+## S324 update 27 (make-it-a-game plan, operator "Build it"): members pay the real monthly fee, GymBills.FEE_MONTH ($35,
+## England Boxing club ~GBP 28), the game keeps it by the week (was $22 a week = 3x the real fee).
+const GymBills := preload("res://scripts/rules/GymBills.gd")
 ## Quick start opens the doors with 30 members on the books.
 const OPENING_MEMBERS := 30
 ## What a gym with no reputation still carries: the neighbourhood walking in.
@@ -19,8 +20,9 @@ const WEEKLY_DRIFT_FRACTION := 0.25
 const MAX_WEEKLY_MEMBER_CHANGE := 6
 
 
+## A member's MONTHLY fee (what the screens show).
 static func weekly_rate() -> int:
-	return WEEKLY_DUES_PER_MEMBER
+	return GymBills.FEE_MONTH
 
 
 ## What the gym as it stands could carry. Reputation is the only input in week 1.
@@ -43,7 +45,7 @@ static func step_members(current: int, target: int, fraction: float = WEEKLY_DRI
 
 
 static func weekly_dues(members: int) -> int:
-	return maxi(0, members) * weekly_rate()
+	return int(GymBills.week({"members": maxi(0, members)})["income"])
 
 
 ## The weekly pass: walk the count one step, then bill that count. The caller credits the cash.

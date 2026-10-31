@@ -1,4 +1,4 @@
-extends Node
+﻿extends Node
 ## S318 the body map live (operator S316: "a body visual ... real time interactive on where the hits are being taken and
 ## changing colour on that area"; plan Q-S294-29 "Yes, build it", Game Godot/research/S316_BODY_MAP_PLAN.md step 2).
 ## Keeps the bout's BodyMap (six places a boxer, over all its rounds) and a BodyFigure per boxer in the scorebug panel:
@@ -14,7 +14,7 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 ## S320 (operator C145: "each of these needs to be on each fighters side"): each boxer's figure stands at her own edge
 ## of the screen - hers (red) on the left under the scorebug, the opponent's (blue) on the right - drawn on her own body
 ## (C146: "we have real andropoid,use it"; BodyFigure.portrait_for).
-const FIG_SIZE := Vector2(150, 210)
+const FIG_SIZE := Vector2(210, 294)   # S324 C149 "needs to be bigger" (was 150 x 210)
 const TOP := 214.0
 const EDGE := 28.0
 const CORNER := ["red", "blue"]
@@ -85,7 +85,9 @@ func _track_key() -> HBoxContainer:
 	row.add_theme_constant_override("separation", 5)
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	for pair in [["FRESH", 12.0], ["WARM", 37.5], ["HOT", 62.5], ["BURNING", 87.5]]:
-		row.add_child(UI.label(str(pair[0]), 10, BodyTrack.colour(float(pair[1])), "bold"))
+		# S324: a fresh part shows her own skin (BodyFigure.FRESH_END), so FRESH reads in plain grey.
+		var c: Color = Color(0.78, 0.78, 0.8) if str(pair[0]) == "FRESH" else BodyTrack.colour(float(pair[1]))
+		row.add_child(UI.label(str(pair[0]), 12, c, "bold"))
 	return row
 
 

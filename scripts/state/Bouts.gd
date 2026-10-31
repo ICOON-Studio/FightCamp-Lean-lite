@@ -406,6 +406,10 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.reputation += BoutRules.WIN_REPUTATION
 	elif outcome == "loss":
 		f[rec + "l"] = int(f.get(rec + "l", 0)) + 1
+		var gone := mini(c.members, BoutRules.STOPPED_LOSS_MEMBERS if stop != "" else BoutRules.LOSS_MEMBERS)
+		c.members -= gone
+		c.reputation = maxi(0, c.reputation - (BoutRules.STOPPED_LOSS_REPUTATION if stop != "" else BoutRules.LOSS_REPUTATION))
+		m["members_lost"] = gone
 	else:
 		f[rec + "d"] = int(f.get(rec + "d", 0)) + 1
 	if pro:
@@ -434,7 +438,8 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	elif outcome == "draw":
 		c.add_news("%s and %s draw (%s)." % [f["name"], opp["name"], card_text])
 	else:
-		c.add_news("%s loses to %s %s (%s)." % [f["name"], opp["name"], how, card_text])
+		c.add_news("%s loses to %s %s (%s). %d members leave the gym." % [f["name"], opp["name"], how, card_text,
+			int(m.get("members_lost", 0))])
 	FighterProfile.apply_morale(f, outcome, {"win": "Beat %s", "loss": "Lost to %s", "draw": "Drew with %s"}[outcome] % opp["name"])
 	coach_note(c, f, "fight")
 	var goal: Dictionary = f.get("goal", {})

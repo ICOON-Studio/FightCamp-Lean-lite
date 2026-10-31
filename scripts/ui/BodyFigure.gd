@@ -45,6 +45,32 @@ var _track := {}     # body place (BodyTrack.body_place) -> Burn 0..100
 var _pulse := {}     # body place -> 0..1, a part that just went up a band
 const PULSE_S := 0.8
 const TRACK_ALPHA := 0.82
+## S324 (operator C149: "look like a human stop doing cube things as limbs"): with a baked part mask
+## (tools/bake_body_masks.gd) her OWN body pixels take each part's Burn colour, her shading kept; the strokes are only the
+## fallback for a portrait without a mask. Index i in the mask (value i * 32) = MASK_KEYS[i - 1].
+const MASK_KEYS := ["core", "left_shoulder", "right_shoulder", "left_arm", "right_arm", "legs"]
+const TINT_ALPHA := 0.86
+const FRESH_START := 12.5   # Burn up to this = untinted ...
+const FRESH_END := 30.0     # ... fully coloured from here (warm)
+const SKIN_SHADER := """
+shader_type canvas_item;
+uniform sampler2D mask : filter_nearest;
+uniform vec4 part_col[7];
+uniform vec4 body_tint : source_color = vec4(0.7, 0.7, 0.74, 1.0);
+void fragment() {
+	vec4 c = texture(TEXTURE, UV);
+	int i = int(round(texture(mask, UV).r * 255.0 / 32.0));
+	vec3 rgb = c.rgb * body_tint.rgb;
+	if (i > 0 && i < 7) {
+		float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
+		vec4 pc = part_col[i];
+		rgb = mix(rgb, pc.rgb * clamp(0.62 + 0.85 * lum, 0.6, 1.25), pc.a);
+	}
+	COLOR = vec4(rgb, c.a);
+}
+"""
+var _mask: Texture2D = null
+var _skin: TextureRect = null
 
 
 ## {"tex", "anchors"} for a boxer's body (her glb path) in her corner's colours; {} when it was never baked.
@@ -57,14 +83,60 @@ static func portrait_for(glb: String, corner: String) -> Dictionary:
 	var anchors = JSON.parse_string(FileAccess.get_file_as_string(js))
 	if not anchors is Dictionary:
 		return {}
-	return {"tex": load(png), "anchors": anchors}
+	var mask := PORTRAITS.path_join(stem + "_mask.png")
+	return {"tex": load(png), "anchors": anchors, "mask": load(mask) if ResourceLoader.exists(mask) else null}
 
 
 ## Draw this picture instead of the drawn figure ({} keeps the drawn one).
 func set_portrait(p: Dictionary) -> void:
 	_tex = p.get("tex") as Texture2D
 	_anchors = p.get("anchors", {})
+	_mask = p.get("mask") as Texture2D
+	if _tex != null and _mask != null:
+		_build_skin()
+	elif _skin != null:
+		_skin.queue_free()
+		_skin = null
 	queue_redraw()
+
+
+## Her body as a child drawn BEHIND this control's own drawing (the hurt rings stay on top), coloured by the mask shader.
+func _build_skin() -> void:
+	if _skin == null:
+		_skin = TextureRect.new()
+		_skin.name = "Skin"
+		_skin.show_behind_parent = true
+		_skin.mouse_filter = MOUSE_FILTER_IGNORE
+		_skin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		_skin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		_skin.set_anchors_and_offsets_preset(PRESET_FULL_RECT)
+		var mat := ShaderMaterial.new()
+		mat.shader = Shader.new()
+		mat.shader.code = SKIN_SHADER
+		_skin.material = mat
+		add_child(_skin)
+	_skin.texture = _tex
+	(_skin.material as ShaderMaterial).set_shader_parameter("mask", _mask)
+	_paint_skin()
+
+
+## The shader's colour per mask part: its Burn colour (a fresh pulse whitens it), alpha 0 = her own colours.
+func _paint_skin() -> void:
+	if _skin == null:
+		return
+	var cols: Array[Color] = [Color(0, 0, 0, 0)]
+	for key in MASK_KEYS:
+		if not _track.has(key):
+			cols.append(Color(0, 0, 0, 0))
+			continue
+		# A fresh part is her own skin and kit; the colour rises in as the part works (blue-for-fresh read as "a blue
+		# statue" in the S324 still - both corners looked the same).
+		var burn: float = float(_track[key])
+		var pu: float = float(_pulse.get(key, 0.0))
+		var col := BodyTrack.colour(maxf(burn, FRESH_END + 5.0)).lerp(Color.WHITE, 0.5 * pu)
+		col.a = TINT_ALPHA * clampf((burn - FRESH_START) / (FRESH_END - FRESH_START), 0.0, 1.0)
+		cols.append(col)
+	(_skin.material as ShaderMaterial).set_shader_parameter("part_col", cols)
 
 
 func _portrait_rect() -> Rect2:
@@ -139,16 +211,18 @@ func _draw() -> void:
 
 
 func _draw_portrait() -> void:
-	draw_texture_rect(_tex, _portrait_rect(), false, BODY_TINT)
 	var edge := Color(0, 0, 0, 0.7)
 	var strokes: Dictionary = _anchors.get("track", {})
-	if not _track.is_empty() and not strokes.is_empty():
-		_draw_track(strokes)
+	var tracked := not _track.is_empty() and (_skin != null or not strokes.is_empty())
+	if _skin == null:
+		draw_texture_rect(_tex, _portrait_rect(), false, BODY_TINT)
+		if tracked:
+			_draw_track(strokes)
 	for p in BM.PLACES:
 		var g := _geom_px(p)
 		var col := colour_of(p)
 		var c: Vector2 = g["c"]
-		if not _track.is_empty() and not strokes.is_empty():
+		if tracked:
 			if BM.band(float(_values.get(p, 100.0))) != "fine" or float(_flash.get(p, 0.0)) > 0.0:
 				draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), col, maxf(2.0, size.y * 0.014), true)
 			continue
@@ -191,6 +265,7 @@ func set_track(burns: Dictionary) -> void:
 		if BodyTrack.pulse(float(_track.get(k, 0.0)), float(burns[k])):
 			_pulse[k] = 1.0
 		_track[k] = float(burns[k])
+	_paint_skin()
 	queue_redraw()
 
 
@@ -374,4 +449,5 @@ func _process(delta: float) -> void:
 			_flash[p] = fa
 			any = true
 	if any:
+		_paint_skin()
 		queue_redraw()

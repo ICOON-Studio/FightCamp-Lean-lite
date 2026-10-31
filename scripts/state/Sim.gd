@@ -7,6 +7,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
+const GymBills := preload("res://scripts/rules/GymBills.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
@@ -65,9 +66,21 @@ static func step_day(career: Career) -> void:
 		end_week(career)
 
 
+## S324 update 27: the flat $500 upkeep became the real bills (GymBills): rent, and the governing body's yearly fees by the
+## week. The coach's own sessional pay stays the staff line (it is his hours), so GymBills' coaching line is not used.
 static func weekly_costs(career: Career) -> Dictionary:
 	var staff: Array = [] if career.coach.is_empty() else [career.coach]
-	return GameMoney.weekly_costs(staff, career.fighters)
+	var bills: Dictionary = GymBills.week(bills_setup(career))
+	var out := GameMoney.weekly_costs(staff, career.fighters, int(bills["rent"]) + int(bills["fees"]))
+	out["rent"] = int(bills["rent"])
+	out["fees"] = int(bills["fees"])
+	return out
+
+
+static func bills_setup(career: Career) -> Dictionary:
+	return {"members": career.members, "coach_hours_week": 0.0, "coaches": 0 if career.coach.is_empty() else 1,
+		"boxers": career.fighters.size()}
+
 
 
 static func sponsors(career: Career) -> int:
@@ -173,6 +186,14 @@ static func end_week(career: Career) -> void:
 		career.add_news("Month-end bill paid: %s for wages and upkeep." % GameMoney.text(int(money["billed"])))
 	if int(roll["delta"]) > 0:
 		career.add_news("%d new members joined this week. %d on the books." % [int(roll["delta"]), career.members])
+	var net := int(income["total"]) - int(costs["total"])
+	career.weeks_below = GymBills.next_below(career.cash, career.weeks_below)
+	var status := GymBills.status(career.cash, net, career.weeks_below)
+	if status == "closed" and not career.closed:
+		career.closed = true
+		career.add_news("%s has closed its doors: %d weeks below $0." % [career.gym_name, career.weeks_below])
+	elif status == "red":
+		career.add_news("The bank balance is below $0. %s." % GymBills.line(career.cash, net, career.weeks_below))
 	var reports: Array = []
 	for f in career.fighters:
 		var rows: Array = []
@@ -190,7 +211,8 @@ static func end_week(career: Career) -> void:
 		f["week_start"] = (f["stats"] as Dictionary).duplicate()
 	career.last_report = {
 		"week": week, "fighters": reports, "members": career.members, "members_delta": int(roll["delta"]),
-		"money": {"in": int(career.week_money["in"]), "out": int(career.week_money["out"])},
+		"money": {"in": int(career.week_money["in"]), "out": int(career.week_money["out"]),
+			"line": GymBills.line(career.cash, net, career.weeks_below), "status": status},
 		"coach": coach_line(career, career.fighter()),
 	}
 	career.review_pending = true

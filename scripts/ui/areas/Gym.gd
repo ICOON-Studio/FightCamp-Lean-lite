@@ -37,7 +37,7 @@ func _members(c: Career) -> void:
 		UI.kv("On the books", str(c.members), UI.FG, "mono"),
 		UI.kv("What the gym can carry now", "%d (%s)" % [target, drift], UI.FG, "mono"),
 		UI.kv("Reputation", str(c.reputation), UI.FG, "mono"),
-		UI.kv("Dues", "%s a week each" % UI.money(Membership.weekly_rate()), UI.FG, "mono"),
+		UI.kv("Dues", "%s a month each" % UI.money(Membership.weekly_rate()), UI.FG, "mono"),
 		UI.kv("Evening classes", ("3 a week, +%s" % UI.money(GameMoney.CLASSES_WITH_COACH)) if not c.coach.is_empty() else "need a coach"),
 	])
 	card[1].add_child(UI.muted("Reputation grows with her wins (+%d each) and a well-kept gym; the count walks toward what the gym can carry, a few a week." % BoutRules.WIN_REPUTATION, UI.SMALL, true))

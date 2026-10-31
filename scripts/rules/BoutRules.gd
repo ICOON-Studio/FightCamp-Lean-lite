@@ -43,6 +43,12 @@ const MISSED_WEIGHT_COST := 300
 const TICKET_CUT := 450
 const WIN_MEMBERS := 8
 const WIN_REPUTATION := 5
+## S324 update 27 "losses cost" (make-it-a-game plan decision 4): a loss loses members after the news and some reputation
+## (the natural member count follows reputation, so a loss also lowers where the gym settles); a stoppage loss costs more.
+const LOSS_MEMBERS := 3
+const LOSS_REPUTATION := 2
+const STOPPED_LOSS_MEMBERS := 5
+const STOPPED_LOSS_REPUTATION := 4
 
 ## Move mastery on the night: a move at USABLE (mastery 30) or better is a weapon. The first BASE_WEAPONS are what any
 ## amateur brings; each weapon beyond them is worth WEAPON_EDGE, up to WEAPON_EDGE_CAP (a new weapon every 2-3 weeks).

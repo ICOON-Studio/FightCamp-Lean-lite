@@ -63,6 +63,8 @@ static func step(career: Career) -> bool:
 
 
 static func stop_now(career: Career) -> bool:
+	if career.closed:
+		return true
 	if not Needs.blockers(career).is_empty() or not Bouts.fighting_today(career).is_empty():
 		return true
 	if career.review_pending and career.day % 7 == 0:

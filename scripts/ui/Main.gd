@@ -191,6 +191,8 @@ func _tick() -> void:
 		return
 	if Clock.step(career):
 		pause()
+		if career.closed:
+			act("closedgym")
 		return
 	render()
 	_timer.start(Clock.TICK_MS[speed - 1] / 1000.0)
@@ -245,7 +247,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if key == KEY_SPACE and screen == "career" and modal.is_empty():
 		on_go()
 		get_viewport().set_input_as_handled()
-	elif key == KEY_ESCAPE and not modal.is_empty() and not ["fight", "weighin", "trial"].has(str(modal["type"])):
+	elif key == KEY_ESCAPE and not modal.is_empty() and not ["fight", "weighin", "trial"].has(str(modal["type"])) \
+			and not bool(modal.get("locked", false)):
 		close_modal()
 		get_viewport().set_input_as_handled()
 
@@ -257,6 +260,8 @@ func act(name: String, arg: String = "") -> void:
 		"quick":
 			_start_career("Anvil Street Gym", "London")
 		"newcareer":
+			modal = {}
+			_render_modal()
 			create = {"step": 0, "country": "United Kingdom", "city": "London", "gym": ""}
 			screen = "create"
 			render()
@@ -341,11 +346,27 @@ func act(name: String, arg: String = "") -> void:
 			render()
 		"close":
 			close_modal()
+		"closedgym":
+			open_modal(closed_modal(career))
 		"quit":
 			get_tree().quit()
 		_:
 			if not (GymActs.act(self, name, arg) or BoutActs.act(self, name, arg) or RosterActs.act(self, name, arg)):
 				push_warning("unknown action " + name)
+
+
+## S324 update 27: the close screen - the career in numbers, then load a save or start again. It cannot be dismissed.
+static func closed_modal(c: Career) -> Dictionary:
+	var w := 0
+	var l := 0
+	for f in c.fighters:
+		w += int(f.get("w", 0)) + int(f.get("pro_w", 0))
+		l += int(f.get("l", 0)) + int(f.get("pro_l", 0))
+	var body := "%s closed on %s after %d weeks: %d weeks in a row below $0 (%s in the bank).\n\nFighters %d, record %d-%d, members at the end %d, reputation %d." % [
+		c.gym_name, Clock.fmt_long(c.day), Clock.week_of(c.day), c.weeks_below, UI.money(c.cash), c.fighters.size(), w, l,
+		c.members, c.reputation]
+	return {"type": "info", "title": "The gym has closed", "body": body, "locked": true,
+		"buttons": [["New career", "newcareer", ""], ["Load career", "load", ""], ["Title", "title", ""]]}
 
 
 func _start_career(gym_name: String, city: String) -> void:

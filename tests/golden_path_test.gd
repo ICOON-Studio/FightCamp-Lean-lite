@@ -1,4 +1,4 @@
-extends SceneTree
+﻿extends SceneTree
 ## The golden path, played through the real scenes. Week 1: quick start -> the walk-in (CONTINUE says NEEDS YOU and opens
 ## her) -> three cards -> sign -> GYM > Staff -> hire Luke Reid -> a week of CONTINUE that stops at the review. Week 2: two
 ## offers arrive (one legal, one unsafe that cannot be accepted) -> accept -> SET CAMP -> the weeks run to the weigh-in ->
@@ -43,7 +43,7 @@ func _play() -> void:
 	main.act("quick")
 	var c: Career = main.career
 	_check(main.screen == "career" and c != null, "quick start opens the career")
-	_check(c.members == 30 and c.cash == 25000, "quick start: 30 members, $25,000")
+	_check(c.members == 30 and c.cash == 14600, "quick start: 30 members, $14,600 (3 months of costs, S324) - got %d" % c.cash)
 	_check(Needs.go_state(c, false)["t"] == "NEEDS YOU (1)", "CONTINUE reads NEEDS YOU while the walk-in waits")
 
 	main.act("go_btn")
@@ -59,7 +59,7 @@ func _play() -> void:
 	main.act("go", "gym:1")
 	_check(main.route["area"] == "gym" and int(main.route["tab"]) == 1, "GYM > Staff is open")
 	main.act("hire", "reid")
-	_check(str(c.coach.get("name", "")) == "Luke Reid" and c.cash == 24000, "Luke Reid hired, $1,000 paid")
+	_check(str(c.coach.get("name", "")) == "Luke Reid" and c.cash == 13600, "Luke Reid hired, $1,000 paid (14,600 - 1,000)")
 	var debut := str(Sim.goal_read(c, c.fighter())["status"])
 	_check(["ON TRACK", "AT RISK"].has(debut), "with a coach her debut goal is within reach: %s" % debut)
 	main.act("back")
@@ -364,7 +364,7 @@ func _week_three(c: Career) -> void:
 	_check(unfilled.is_empty(), "every news line has its names filled (%d of %d not: %s)" % [unfilled.size(), c.news.size(), str(unfilled.slice(0, 1))])
 	_check(c.unread < 40, "Mail counts mail, not every rival result (%d unread)" % c.unread)
 	_check(c.cash_history.size() >= 13, "MONEY has a cash bar for every week (%d)" % c.cash_history.size())
-	_check(c.cash > 15000, "the gym's money holds over twelve weeks: %s" % GameMoney_text(c.cash))
+	_check(c.cash > 8000 and not c.closed, "the gym's money holds over twelve weeks (S324: the real bills bite; was > 15,000 on a $25,000 start): %s" % GameMoney_text(c.cash))
 	_check(c.ledger.filter(func(e): return str(e["t"]).begins_with("Month-end bill")).size() == 3, "three month-end bills paid (days 28, 56, 84)")
 	var f := c.fighter()
 	_check(int(f["rank"]) == Region.our_rank(c, f) and (int(f["rank"]) > 0) == (int(f["w"]) >= Region.RANK_MIN_WINS),

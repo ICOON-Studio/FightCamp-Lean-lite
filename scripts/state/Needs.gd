@@ -4,11 +4,34 @@ extends RefCounted
 
 const Data := preload("res://scripts/state/Data.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const Sim := preload("res://scripts/state/Sim.gd")
+const GymBills := preload("res://scripts/rules/GymBills.gd")
+
+
+## S324 update 27: GymBills' read of the gym's money now: "ok" | "warn" (runway under 8 weeks) | "red" (below $0) | "closed".
+static func money_status(career: Career) -> String:
+	if career.closed:
+		return "closed"
+	return GymBills.status(career.cash, money_net(career), career.weeks_below)
+
+
+static func money_net(career: Career) -> int:
+	return int(Sim.weekly_income(career)["total"]) - int(Sim.weekly_costs(career)["total"])
 
 
 ## [{red, t, s, act, arg, label}]
 static func needs(career: Career) -> Array:
 	var n: Array = []
+	# S324: a closed gym is the one thing left; money trouble warns but never stops time (the player must be able to
+	# play out of it - book a bout, sign a sponsor, cut the coach).
+	if career.closed:
+		return [{"red": true, "t": "The gym has closed", "s": "%d weeks below $0" % career.weeks_below,
+			"act": "closedgym", "arg": "", "label": "See the summary"}]
+	var ms := money_status(career)
+	if ms == "red" or ms == "warn":
+		n.append({"red": false, "t": "Money: " + GymBills.line(career.cash, money_net(career), career.weeks_below),
+			"s": "below $0 for %d weeks in a row closes the gym; book bouts, sign sponsors, or cut costs" % GymBills.CLOSE_AFTER_WEEKS,
+			"act": "go", "arg": "money:0", "label": "Money"})
 	var a := career.applicant
 	if not a.is_empty():
 		n.append({"red": true, "t": "A fighter is waiting at reception",
@@ -56,6 +79,13 @@ static func blockers(career: Career) -> Array:
 ## [{t, act, arg, red}]
 static func flags(career: Career) -> Array:
 	var out: Array = []
+	var ms := money_status(career)
+	if ms == "closed":
+		out.append({"t": "GYM CLOSED", "act": "closedgym", "arg": "", "red": true})
+	elif ms == "red":
+		out.append({"t": "BELOW $0", "act": "go", "arg": "money:0", "red": true})
+	elif ms == "warn":
+		out.append({"t": "LOW CASH", "act": "go", "arg": "money:0", "red": false})
 	if not career.applicant.is_empty():
 		out.append({"t": "APPLICANT", "act": "interview", "arg": "", "red": true})
 	for p in career.prospects:
