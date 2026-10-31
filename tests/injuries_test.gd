@@ -84,6 +84,7 @@ func _initialize() -> void:
 	_check(p.news.any(func(x): return str(x["t"]).contains("empty slot")) and p.news.any(func(x): return str(x["t"]).contains("Hand injury")), "the news reports both")
 	# She fights hurt: the bout keeps, less in the tank, and the injury comes out worse.
 	var h := _career()
+	h.seed = 1   # S330: the bout's own injury roll uses the career's dice; a random seed added a fresh fight injury ~1 run in 12
 	var hf: Dictionary = h.fighter()
 	h.day = 20
 	hf["bout"] = {"opp": {"name": "Dana Fox"}, "day": 30, "weighed": false, "made": false, "done": false, "film": 0}

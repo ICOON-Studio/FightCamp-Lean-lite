@@ -14,6 +14,7 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
+const FighterTile := preload("res://scripts/ui/FighterTile.gd")
 const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
 
 
@@ -50,43 +51,18 @@ func _roster(main: Node, c: Career) -> void:
 		h.add_child(UI.button("Meet the walk-in", "Btn", main.act.bind("interview", ""), c.applicant.is_empty()))
 		card[1].add_child(h)
 		return
+	# S330 (MENULOOK1): a tile per fighter - rings for weight, condition, goal and her next bout - two to a row.
 	var grid := GridContainer.new()
 	grid.name = "Roster"
-	grid.columns = 8
-	grid.add_theme_constant_override("h_separation", 28)
-	grid.add_theme_constant_override("v_separation", 10)
-	for head in ["FIGHTER", "CLASS", "RECORD", "RANK", "WEIGHT", "MOOD", "GOAL", "NEXT BOUT"]:
-		grid.add_child(UI.caps(head))
+	grid.columns = 2
+	grid.add_theme_constant_override("h_separation", 16)
+	grid.add_theme_constant_override("v_separation", 16)
 	for f in c.fighters:
-		grid.add_child(UI.button(f["name"], "Link", main.act.bind("fighter", f["id"])))
-		grid.add_child(UI.label(f["wc"]))
-		var pro := bool(f.get("pro", false))
-		grid.add_child(UI.mono("%d-%d %s" % [f.get("pro_w", 0), f.get("pro_l", 0), "PRO"] if pro else "%d-%d AM" % [f["w"], f["l"]]))
-		grid.add_child(UI.mono(str(f["rank"]) if int(f.get("rank", 0)) > 0 else "-"))
-		grid.add_child(UI.mono("%.1f / %.1f" % [f["weight"], f["limit"]]))
-		grid.add_child(_mood(f))
-		var g: Dictionary = f.get("goal", {})
-		grid.add_child(UI.label(g.get("title", "talk in the office" if bool(f["goal_talk"]) else "none")))
-		var fb: Dictionary = f["bout"]
-		if Injuries.out(c, f):   # S325 update 28: out injured or suspended, in red where her next bout would be
-			grid.add_child(UI.label(Injuries.line(c, f), UI.BODY, UI.RED))
-		else:
-			grid.add_child(UI.mono(Clock.fmt(int(fb["day"])) if not fb.is_empty() else "none"))
+		grid.add_child(FighterTile.build(main, c, f))
 	card[1].add_child(grid)
 	var scouting := UI.button("Find another fighter: Scouting", "Btn", main.act.bind("tab", "3"))
 	scouting.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	card[1].add_child(scouting)
-
-
-## Her mood word (fight model: one stored morale) in its colour; the reason it moved last rides the tooltip.
-func _mood(f: Dictionary) -> Label:
-	var word := FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START)))
-	var col: Color = {"Fired up": UI.GREEN, "Steady": UI.FG, "Flat": UI.AMBER, "Low": UI.RED}[word]
-	var l := UI.label(word, UI.BODY, col)
-	l.name = "Mood_" + str(f["id"])
-	l.tooltip_text = str(f.get("mood_reason", ""))
-	l.mouse_filter = Control.MOUSE_FILTER_STOP
-	return l
 
 
 func _training(main: Node, c: Career, f: Dictionary) -> void:

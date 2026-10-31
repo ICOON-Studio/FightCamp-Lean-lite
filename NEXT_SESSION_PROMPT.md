@@ -1,25 +1,23 @@
-﻿# S330 - next session (written S329, 2026-11-01)
+﻿# S332 - next session (written S331, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 31 is exported (Builds/, WHAT_TO_TRY.txt).
-- The pro debut costs money (John J-PRODEBUT1): scripts/rules/ProDebut.gd (Qwen, pure) - licence $230, first-licence
-  scans $875, trainer licence $140 (c.coach["pro_licence"]); 100 tickets at $50, break-even 60, her half past it, the gym
-  keeps 25 % (Roster.GYM_SHARE, was 0.35). Tickets = family 20 + members/2 + 2 per amateur win + 10 per title.
-  Roster.turn_pro pays the costs and books the debut with "tickets": true; BoutNight._finish pays the gym's share of her
-  ticket half (members before the result); flat purse from bout 2. ProOffer shows TicketBar + THE GYM PAYS NOW.
-- WORLD > Nationals as pictures after the operator's C150 note: scripts/ui/NationalsView.gd + SeasonRoad / NeedRing /
-  Bracket (custom _draw controls). Finished road stays until next season's entries open.
-- Championship result ribbon no longer shows a $450 cut (BoutNight m["club_cut"]).
-- TestJump "pro" + board button "Test: the pro offer and her debut (update 31)" (task FightCamp Play test pro).
-Digest: Game Godot/research/S329_DIGEST.md. Stills: Game Godot/research/S329_stills/.
+Where it stands: update 33 is exported (Builds/, WHAT_TO_TRY.txt).
+- Update 33 (S331), his Q-S294-48 "Too long to reach": the nationals' 3 months count from her England Boxing
+  registration (Roster.registered_day: bouts x 4 weeks before signing; a novice registers when she signs), not from the
+  day she joined our club. SeasonPath.ENTRY_CLOSE_DAY 70 (week 10, was 140), NATIONALS_GAP 21 (was 28). Lucy can enter
+  in week 5 (was 14); the national final is week 18 (was 29).
+Digest: Game Godot/research/S331_DIGEST.md. Stills: S331_stills/.
 
-1. Board Q-S294-47 (update 29), Q-S294-48 (update 30), Q-S294-49 (update 31) - act on his verdicts first. If he says
-   the debut is too costly: the levers are ProDebut.FAMILY / PER_MEMBER and the gym paying only the licence (scans by her).
-2. MENULOOK1: management screens as pictures - his C150 on a page of rows says rows read flat. HOME and FIGHTERS first,
-   the way Nationals now is (custom _draw controls: road, rings, bars), stills on the hidden desktop, board question.
-3. Export, WHAT_TO_TRY, stills, board question with --attach, review_add, Miro P0 + part cards.
+1. Board Q-S294-47 (update 29), 49 (update 31), 50 (update 32 look), 51 (update 33). Act on them first.
+2. If he says yes to the look (Q-S294-50): GYM, MONEY, FIGHTS and the fighter page as pictures with the same parts
+   (FighterTile rings, WeekStrip, SeasonRoad, Bracket, CashChart, NeedRing). One page per commit; before/after stills with
+   tools/pages_now_still.gd; keep every script under 500 lines.
+   If the debut is too costly (Q-S294-49): ProDebut.FAMILY / PER_MEMBER up, or she pays her own scans.
+   If update 33 is still too long / too easy (Q-S294-51): SeasonPath.ENTRY_CLOSE_DAY / NATIONALS_GAP.
+3. With no answers: INSIDEMISS1 (two close-range punches land 15-20 cm to the side) on game-camera stills.
+4. Export, WHAT_TO_TRY, stills, board question with --attach, review_add, Miro P0 + part cards (not moved in S331).
 
-Traps: PowerShell Set-Content -Encoding utf8 writes a BOM (broke nothing in Godot, but strip it from .sh files); a test
-looks for modal nodes under main.modal_node(), not main._shell; editing a test while run_tests.sh runs makes it red -
-rerun alone (tools/run_some.sh <tests>); a scripted career that books bouts must start a camp (Lucy 62.6 vs 61.2 kg).
+Traps: Career.seed is randi() per career - any test that rolls dice fixes c.seed; PowerShell Set-Content utf8 writes a
+BOM; a test finds modal nodes via main.modal_node(); roadmap.json is written with indent=1 (indent=2 rewrites the whole
+file); champs_test's day numbers follow SeasonPath's calendar (close 70, semi 84, final 91, nationals 112).

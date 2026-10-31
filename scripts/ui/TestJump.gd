@@ -131,7 +131,7 @@ static func _tidy(main: Node, c: Career) -> void:
 
 
 ## S328 jump=nationals: one known career (fixed dice) plays on - every even offer taken with a camp, every bout boxed, a hurt bout
-## pulled out - until she can enter (5 bouts, 13 weeks with the club, entries open); lands on WORLD > Nationals.
+## pulled out - until she can enter (5 bouts, 3 months registered, entries open); lands on WORLD > Nationals.
 static func _to_nationals(main: Node, c: Career, f: Dictionary) -> bool:
 	c.seed = 1
 	for i in 400:

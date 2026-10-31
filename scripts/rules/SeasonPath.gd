@@ -1,23 +1,27 @@
 extends RefCounted
 ## England Boxing 2026 guidance (Elite NAC): 5 bouts + 3 months' registered membership to enter; Elite age 19-40;
 ## entering the NAC moves the boxer to Elite for life. Regional qualifier, then the national draw (up to 4 bouts).
+## S331 (operator Q-S294-48 on update 30: "Too long to reach"): the 3 months count from her England Boxing registration
+## (the sourced rule), not from the day she joined our club - a walk-in with bouts on her card is already registered. The
+## game calendar (a decision, not a sourced date) moved up: entries close in week 10 (was 20), the nationals 3 weeks after
+## the regional final (was 4) - her first title run ends about week 16 instead of week 28.
 
 const MIN_BOUTS := 5
 const MIN_CLUB_DAYS := 91
 const AGE_MIN := 19
 const AGE_MAX := 40
 const YEAR_DAYS := 364
-const ENTRY_CLOSE_DAY := 140
+const ENTRY_CLOSE_DAY := 70
 const REGIONAL_START := 14
 const REGIONAL_GAP := 7
-const NATIONALS_GAP := 28
+const NATIONALS_GAP := 21
 const NATIONAL_ROUND_DAYS := [0, 1, 7, 8]
 const STAGE_NAMES := ["Regional semi-final", "Regional final", "National last 16", "National quarter-final",
 	"National semi-final", "National final"]
 
 
-## Can she enter? Checks in order: turned_pro, injured, age, bouts, club_days.
-static func eligible(bouts: int, club_days: int, age: int, injured: bool, turned_pro: bool) -> Dictionary:
+## Can she enter? Checks in order: turned_pro, injured, age, bouts, reg_days (days registered with England Boxing).
+static func eligible(bouts: int, reg_days: int, age: int, injured: bool, turned_pro: bool) -> Dictionary:
 	if turned_pro:
 		return {"ok": false, "reason": "Professionals cannot enter"}
 	if injured:
@@ -28,10 +32,10 @@ static func eligible(bouts: int, club_days: int, age: int, injured: bool, turned
 		return {"ok": false, "reason": "Too old for Elite (40 max)"}
 	if bouts < MIN_BOUTS:
 		return {"ok": false, "reason": "Needs 5 bouts (has %d)" % bouts}
-	if club_days < MIN_CLUB_DAYS:
-		var remaining: int = MIN_CLUB_DAYS - club_days
+	if reg_days < MIN_CLUB_DAYS:
+		var remaining: int = MIN_CLUB_DAYS - reg_days
 		var weeks: int = (remaining + 6) / 7
-		return {"ok": false, "reason": "Needs 3 months with the club (%d weeks to go)" % weeks}
+		return {"ok": false, "reason": "Needs 3 months registered (%d weeks to go)" % weeks}
 	return {"ok": true, "reason": ""}
 
 
@@ -107,10 +111,12 @@ static func result_words(reached: int, won_it: bool) -> String:
 
 
 ## One line for HOME: progress toward entry, or ready to enter.
-static func goal_line(day: int, bouts: int, club_days: int, ok: bool) -> String:
+static func goal_line(day: int, bouts: int, reg_days: int, ok: bool) -> String:
 	var d: int = entry_close(day) - day
 	if ok:
 		return "Ready for the nationals - enter before entries close in %d days" % d
 	var b: int = mini(bouts, MIN_BOUTS)
-	var w: int = mini(club_days / 7, 13)
-	return "Road to the nationals: %d/5 bouts, %d of 13 weeks with the club, entries close in %d days" % [b, w, d]
+	var w: int = mini(reg_days / 7, 13)
+	if w >= 13:
+		return "Road to the nationals: %d/5 bouts, entries close in %d days" % [b, d]
+	return "Road to the nationals: %d/5 bouts, %d of 13 weeks registered, entries close in %d days" % [b, w, d]

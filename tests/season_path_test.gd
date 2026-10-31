@@ -88,7 +88,7 @@ func _test3() -> void:
 	var ok := true
 	if r1 != "Needs 5 bouts (has 3)":
 		ok = false
-	if r2 != "Needs 3 months with the club (2 weeks to go)":
+	if r2 != "Needs 3 months registered (2 weeks to go)":
 		ok = false
 	if not r3.ends_with("(1 weeks to go)"):
 		ok = false
@@ -98,19 +98,19 @@ func _test3() -> void:
 ## 4. entry_close.
 func _test4() -> void:
 	var a: int = SP.entry_close(0)
-	var b: int = SP.entry_close(140)
-	var c: int = SP.entry_close(141)
+	var b: int = SP.entry_close(70)
+	var c: int = SP.entry_close(71)
 	var d: int = SP.entry_close(600)
 	var ok := true
-	if a != 140:
+	if a != 70:
 		ok = false
-	if b != 140:
+	if b != 70:
 		ok = false
-	if c != 504:
+	if c != 434:
 		ok = false
-	if d != 868:
+	if d != 798:
 		ok = false
-	_check(ok, "test 4: entry_close (0->%d, 140->%d, 141->%d, 600->%d)" % [a, b, c, d])
+	_check(ok, "test 4: entry_close (0->%d, 70->%d, 71->%d, 600->%d)" % [a, b, c, d])
 
 
 ## 5. bouts_to_win.
@@ -146,10 +146,10 @@ func _test7() -> void:
 	var expected: Array = [
 		{"stage": 0, "day": 154},
 		{"stage": 1, "day": 161},
-		{"stage": 2, "day": 189},
-		{"stage": 3, "day": 190},
-		{"stage": 4, "day": 196},
-		{"stage": 5, "day": 197},
+		{"stage": 2, "day": 182},
+		{"stage": 3, "day": 183},
+		{"stage": 4, "day": 189},
+		{"stage": 5, "day": 190},
 	]
 	_check(_same_sched(got, expected) and got.size() == 6,
 		"test 7: schedule(140,4,3,16,9) 6 bouts (got %s)" % str(got))
@@ -160,9 +160,9 @@ func _test8() -> void:
 	var got: Array = SP.schedule(140, 2, 1, 8, 1)
 	var expected: Array = [
 		{"stage": 1, "day": 161},
-		{"stage": 3, "day": 190},
-		{"stage": 4, "day": 196},
-		{"stage": 5, "day": 197},
+		{"stage": 3, "day": 183},
+		{"stage": 4, "day": 189},
+		{"stage": 5, "day": 190},
 	]
 	_check(_same_sched(got, expected),
 		"test 8: schedule(140,2,1,8,1) (got %s)" % str(got))
@@ -173,8 +173,8 @@ func _test9() -> void:
 	var got: Array = SP.schedule(140, 3, 1, 6, 2)
 	var expected: Array = [
 		{"stage": 1, "day": 161},
-		{"stage": 4, "day": 196},
-		{"stage": 5, "day": 197},
+		{"stage": 4, "day": 189},
+		{"stage": 5, "day": 190},
 	]
 	_check(_same_sched(got, expected),
 		"test 9: schedule byes (140,3,1,6,2) (got %s)" % str(got))
@@ -184,7 +184,7 @@ func _test9() -> void:
 func _test10() -> void:
 	var got: Array = SP.schedule(140, 1, 1, 2, 1)
 	var expected: Array = [
-		{"stage": 5, "day": 197},
+		{"stage": 5, "day": 190},
 	]
 	_check(_same_sched(got, expected),
 		"test 10: walkover (got %s)" % str(got))
@@ -211,13 +211,16 @@ func _test11() -> void:
 ## 12. goal_line.
 func _test12() -> void:
 	var a: String = SP.goal_line(0, 2, 35, false)
-	var b: String = SP.goal_line(100, 7, 120, true)
+	var b: String = SP.goal_line(30, 7, 120, true)
+	var e: String = SP.goal_line(0, 4, 112, false)
 	var ok := true
-	if a != "Road to the nationals: 2/5 bouts, 5 of 13 weeks with the club, entries close in 140 days":
+	if a != "Road to the nationals: 2/5 bouts, 5 of 13 weeks registered, entries close in 70 days":
 		ok = false
 	if b != "Ready for the nationals - enter before entries close in 40 days":
 		ok = false
-	_check(ok, "test 12: goal_line (a='%s', b='%s')" % [a, b])
+	if e != "Road to the nationals: 4/5 bouts, entries close in 70 days":
+		ok = false
+	_check(ok, "test 12: goal_line (a='%s', b='%s', e='%s')" % [a, b, e])
 
 
 ## 13. Same input -> same output; no function changes its inputs.

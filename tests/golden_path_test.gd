@@ -452,9 +452,12 @@ func _week_four(c: Career) -> void:
 	_check(int(Sim.weekly_costs(c)["fighters"]) == 500, "two club stipends: $500 a week")
 	main.act("go", "fighters:0")
 	var roster: Node = main._shell.find_child("Roster", true, false)
-	_check(roster != null and roster.get_child_count() == 8 * 3, "the roster table lists both")
-	var mood: Label = roster.find_child("Mood_kira", true, false) if roster != null else null
-	_check(mood != null and mood.text in ["Fired up", "Steady", "Flat", "Low"], "her mood word shows: %s" % (mood.text if mood else "none"))
+	# S330: the roster is a tile per fighter (rings: weight, condition, goal, next bout).
+	_check(roster != null and roster.find_child("Tile_lucy", true, false) != null and roster.find_child("Tile_kira", true, false) != null,
+		"the roster shows both as tiles")
+	var mood_chip: Node = roster.find_child("Mood_kira", true, false) if roster != null else null
+	var mood: Label = mood_chip.get_child(0) as Label if mood_chip != null else null
+	_check(mood != null and mood.text in ["FIRED UP", "STEADY", "FLAT", "LOW"], "her mood word shows: %s" % (mood.text if mood else "none"))
 	# Her new weapon: two weeks of pads with a coach.
 	var up_start := float(kira["moves"]["Uppercut"])
 	var weeks_start := c.cash_history.size()

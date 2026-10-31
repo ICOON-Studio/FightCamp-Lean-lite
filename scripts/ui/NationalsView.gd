@@ -1,4 +1,4 @@
-﻿extends RefCounted
+extends RefCounted
 ## WORLD > Nationals (S328 update 30; S329 rebuilt as pictures after the operator's C150 "can be improved" on the
 ## page of rows): per amateur, her season as a road (SeasonRoad), what she still needs to enter as rings (NeedRing), Enter,
 ## and the draw as a bracket (Bracket) - the national one once it is made, the London regional under it.
@@ -18,7 +18,7 @@ static func build(page: Control, main: Node, c: Career) -> void:
 	if amateurs.is_empty():
 		var card := UI.card("THE NATIONAL AMATEUR CHAMPIONSHIPS")
 		page.add_child(card[0])
-		var text := "The season's goal for an amateur: 5 bouts and 3 months with the club, the London regional, then the nationals. Sign a fighter first."
+		var text := "The season's goal for an amateur: 5 bouts and 3 months registered with England Boxing, the London regional, then the nationals. Sign a fighter first."
 		if not c.fighters.is_empty():
 			text = "Your fighters are pros: the nationals are for amateurs."
 		card[1].add_child(UI.muted(text, UI.BODY, true))
@@ -69,7 +69,7 @@ static func _road_card(page: Control, main: Node, c: Career, f: Dictionary) -> v
 ## Her road as SeasonRoad stops: ready, entered, then each round (Champs.path); before she enters, the next season's dates.
 static func stops(c: Career, f: Dictionary) -> Array:
 	if _this_year(c, f):
-		var out: Array = [{"label": "Ready to enter", "date": "5 bouts, 13 weeks", "state": "done"},
+		var out: Array = [{"label": "Ready to enter", "date": "5 bouts, 3 months registered", "state": "done"},
 			{"label": "Entered", "date": "by " + Clock.fmt(int(f["champ"]["close"])), "state": "done"}]
 		for r in Champs.path(c, f):
 			var st := str(r["state"])
@@ -104,7 +104,7 @@ static func _needs(c: Career, f: Dictionary) -> HBoxContainer:
 	var met := func(ok: bool) -> Color: return UI.GREEN if ok else UI.AMBER
 	row.add_child(_tile("BOUTS", "%d of %d" % [mini(n, SeasonPath.MIN_BOUTS), SeasonPath.MIN_BOUTS], str(mini(n, SeasonPath.MIN_BOUTS)),
 		n, SeasonPath.MIN_BOUTS, met.call(n >= SeasonPath.MIN_BOUTS)))
-	row.add_child(_tile("WITH THE CLUB", "%d of 13 weeks" % weeks, str(weeks), weeks, 13, met.call(Champs.club_days(c, f) >= SeasonPath.MIN_CLUB_DAYS)))
+	row.add_child(_tile("REGISTERED", "%d of 13 weeks" % weeks, str(weeks), weeks, 13, met.call(Champs.club_days(c, f) >= SeasonPath.MIN_CLUB_DAYS)))
 	row.add_child(_tile("AGE", "Elite is %d to %d" % [SeasonPath.AGE_MIN, SeasonPath.AGE_MAX], str(age), 1, 1, UI.GREEN if right_age else UI.RED))
 	row.add_child(_tile("FIT TO BOX", "yes" if fit else Injuries.line(c, f), "OK" if fit else "HURT", 1, 1, UI.GREEN if fit else UI.RED))
 	return row

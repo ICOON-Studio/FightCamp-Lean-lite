@@ -14,6 +14,7 @@ const Region := preload("res://scripts/state/Region.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
+const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 
 ## The goal a new signing brings: a booked bout and her engine up inside a month.
 const SIGNING_GOAL := "debut_inside_a_month"
@@ -123,11 +124,21 @@ static func sign_prospect(c: Career, id: String, picks: Array) -> Dictionary:
 static func sign_fighter(c: Career, raw: Dictionary, picks: Array) -> Dictionary:
 	var f := Data.fighter_state(raw.duplicate(true), c.day)
 	f["cards"] = picks.duplicate()
-	f["joined"] = c.day   # S328 the nationals need 3 months with the club
+	f["joined"] = c.day
+	f["registered"] = registered_day(f, c.day)   # S331 the nationals need 3 months REGISTERED (England Boxing), not with us
 	f["goal"] = FighterGoal.goal_for(f, SIGNING_GOAL, c.day)
 	c.fighters.append(f)
 	c.add_news("%s signs for %s on the club stipend." % [f["name"], c.gym_name])
 	return f
+
+
+## The day she registered with England Boxing: a fighter with bouts on her card boxed them at the club-show pace (one bout
+## per AmateurBooking.LEAD_WEEKS_MAX weeks at most), so she registered at least that long before signing; a novice registers now.
+static func registered_day(f: Dictionary, day: int) -> int:
+	if f.has("registered"):
+		return int(f["registered"])
+	var bouts: int = int(f.get("w", 0)) + int(f.get("l", 0)) + int(f.get("d", 0))
+	return day - bouts * 7 * AmateurBooking.LEAD_WEEKS_MAX
 
 
 static func pass_on(c: Career, id: String) -> void:

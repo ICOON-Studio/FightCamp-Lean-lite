@@ -1,6 +1,6 @@
 extends RefCounted
 ## S328 update 30: the road to the National Amateur Championships (make-it-a-game plan decision 6; rules SeasonPath +
-## ChampDraw). England Boxing: 5 bouts and 3 months with the club to enter, Elite age 19-40, entering makes her Elite for
+## ChampDraw). England Boxing: 5 bouts and 3 months registered to enter, Elite age 19-40, entering makes her Elite for
 ## life. The London regional (her and 3 of the region's women in her division), then the national draw (the other
 ## regions' champions, 8-12 boxers). Every round she boxes is a normal booked bout - camp, weigh-in, fight night, the
 ## corner - marked bout["champ"] = the stage; a bye passes on its day; a loss, an injury or missed weight ends the run.
@@ -32,9 +32,9 @@ static func bouts(f: Dictionary) -> int:
 	return int(f["w"]) + int(f["l"]) + int(f.get("d", 0))
 
 
-## Days with the club (a save from before update 30 has no "joined": she counts from the career's first day).
+## Days registered with England Boxing (S331: "registered", set at signing; an older save falls back to "joined", then day 0).
 static func club_days(c: Career, f: Dictionary) -> int:
-	return c.day - int(f.get("joined", 0))
+	return c.day - int(f.get("registered", f.get("joined", 0)))
 
 
 static func check(c: Career, f: Dictionary) -> Dictionary:

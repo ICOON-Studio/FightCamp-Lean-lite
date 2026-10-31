@@ -1,5 +1,6 @@
 extends VBoxContainer
-## HOME: what needs me. Needs you, your fighters | next up, money this week, news and mail.
+## HOME: what needs me. Needs you, your fighters (tiles), the next 4 weeks (a picture) | next up, money this week (with its
+## cash chart), news and mail. S330 MENULOOK1: the rows became pictures after the operator's C150 note on a page of rows.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
@@ -7,6 +8,9 @@ const Needs := preload("res://scripts/state/Needs.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
+const FighterTile := preload("res://scripts/ui/FighterTile.gd")
+const WeekStrip := preload("res://scripts/ui/WeekStrip.gd")
+const CashChart := preload("res://scripts/ui/CashChart.gd")
 
 
 func build(main: Node) -> void:
@@ -37,40 +41,19 @@ func build(main: Node) -> void:
 	var fighters_card := UI.card("YOUR FIGHTERS")
 	if c.fighters.is_empty():
 		fighters_card[1].add_child(UI.muted("No fighters yet. Someone is waiting at reception.", UI.BODY))
-	var frows: Array = []
+	# S330 (MENULOOK1): each fighter as a tile - record, mood, rings for weight, condition, goal and her next bout.
 	for f in c.fighters:
-		var g := Sim.goal_read(c, f)
-		var h := UI.hbox(14)
-		var t := UI.vbox(1)
-		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		var name_line := UI.hbox(0)
-		name_line.add_child(UI.button(f["name"], "Link", main.act.bind("fighter", f["id"])))
-		var record := "pro %d-%d" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0))] if bool(f.get("pro", false)) else "%d-%d" % [f["w"], f["l"]]
-		name_line.add_child(UI.label(", %s %s" % [str(f["wc"]).to_lower(), record]))
-		t.add_child(name_line)
-		var sub := "%.1f of %.1f kg, %s" % [f["weight"], f["limit"], "fresh" if int(f["fatigue"]) < 30 else "tired"]
-		if int(f.get("rank", 0)) > 0:
-			sub += ", ranked %d" % int(f["rank"])
-		if not g.is_empty():
-			sub += ", goal: " + str(g["title"]).to_lower()
-		t.add_child(UI.muted(sub, UI.SMALL, true))
-		# S328 update 30: the season goal - the road to the nationals, her next round, or how far she went.
-		var season := Champs.home_line(c, f)
-		if season != "":
-			var sl := UI.label(season, UI.SMALL, UI.GOLD if Champs.active(f) else UI.FG)
-			sl.name = "Season_" + str(f["id"])
-			sl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-			t.add_child(sl)
-		h.add_child(t)
-		if not g.is_empty():
-			h.add_child(UI.chip(g["status"], g["cls"]))
-		var fb: Dictionary = f["bout"]
-		var bout := UI.mono("bout " + Clock.fmt(int(fb["day"])) if not fb.is_empty() else "no bout", UI.SMALL, UI.MUTED)
-		bout.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		h.add_child(bout)
-		frows.append(h)
-	UI.add_rows(fighters_card[1], frows)
+		fighters_card[1].add_child(FighterTile.build(main, c, f))
 	left.add_child(fighters_card[0])
+
+	var weeks := UI.card("THE NEXT 4 WEEKS")
+	weeks[0].name = "NextWeeks"
+	var strip := WeekStrip.new()
+	strip.name = "WeekStrip"
+	strip.today = c.day
+	strip.events = events(c)
+	weeks[1].add_child(strip)
+	left.add_child(weeks[0])
 
 	var next := UI.card("NEXT UP")
 	var stop: Dictionary = Clock.next_stop(c)
@@ -79,6 +62,12 @@ func build(main: Node) -> void:
 	right.add_child(next[0])
 
 	var money := UI.card("MONEY THIS WEEK")
+	if c.cash_history.size() >= 2:
+		var chart: Control = CashChart.new()
+		chart.name = "HomeCash"
+		chart.points = c.cash_history.slice(-8)
+		chart.height = 120.0
+		money[1].add_child(chart)
 	var inc: Dictionary = Sim.weekly_income(c)
 	var cost: Dictionary = Sim.weekly_costs(c)
 	UI.add_rows(money[1], [
@@ -98,3 +87,23 @@ func build(main: Node) -> void:
 	all.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	news[1].add_child(all)
 	right.add_child(news[0])
+
+
+## What happens in the next four weeks, for the strip: her bouts and weigh-ins, the championship dates, the bills.
+static func events(c: Career) -> Array:
+	var ev: Array = []
+	for f in c.fighters:
+		var fb: Dictionary = f["bout"]
+		if fb.is_empty():
+			continue
+		ev.append({"d": int(fb["day"]), "t": "%s vs %s" % [f["first"], fb["opp"]["name"]], "kind": "bout"})
+		if not bool(fb["weighed"]):
+			ev.append({"d": int(fb["day"]) - 1, "t": "weigh-in", "kind": "weigh"})
+	for e in Champs.calendar(c):
+		if not ev.any(func(x): return int(x["d"]) == int(e["d"]) and str(x["kind"]) == "bout"):
+			ev.append({"d": int(e["d"]), "t": str(e["t"]), "kind": "champ"})
+	# The month's bills: owed so far plus the weeks still to run at this week's costs.
+	var bill := GameMoney.next_bill_day(c.day)
+	var due := c.accrued + int(Sim.weekly_costs(c)["total"]) * int(ceil((bill - c.day) / 7.0))
+	ev.append({"d": bill, "t": "bills about %s" % UI.money(due), "kind": "bill"})
+	return ev
