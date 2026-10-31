@@ -22,6 +22,7 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
+const Injuries := preload("res://scripts/state/Injuries.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -453,6 +454,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	f["goal"] = {}
 	f["goal_talk"] = true
 	f["bout"]["done"] = true
+	Injuries.after_bout(c, f, m)
 	Roster.check_pro(c)
 
 

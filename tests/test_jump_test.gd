@@ -19,6 +19,14 @@ func _initialize() -> void:
 		await process_frame
 		var ok := TestJump.run(main, jump)
 		var f: Dictionary = main.career.fighter() if main.career != null else {}
+		if jump == "injury":
+			# S325 update 28: in camp, then a hand injury pulls her out; the jump lands on her fighter page.
+			_check(ok and (f["bout"] as Dictionary).is_empty() and str((f.get("injury", {}) as Dictionary).get("type", "")) == "hand",
+				"injury: the hand injury pulled her out of the bout")
+			_check(str(main.route.get("fighter", "")) == str(f["id"]) and main.save_path == TestJump.SAVE_PATH, "injury: her fighter page, its own save slot")
+			main.queue_free()
+			await process_frame
+			continue
 		var film := int((f.get("bout", {}) as Dictionary).get("film", 0))
 		_check(ok and str(main.modal.get("type", "")) == "fight", "%s: fight night is open" % jump)
 		_check(film == (BoutRules.FILM_DEPTH_DEFAULT if jump == "fight_nofilm" else BoutRules.FILM_DEPTH_WITH_STUDY), "%s: film depth %d" % [jump, film])

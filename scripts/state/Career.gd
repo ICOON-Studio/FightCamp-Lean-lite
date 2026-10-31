@@ -38,12 +38,15 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 ## closes (closed = the career is over: a summary, then load or a new career).
 @export var weeks_below: int = 0
 @export var closed: bool = false
+## S325 the career's own dice for what should differ career to career (injuries); 0 on a save from before update 28.
+@export var seed: int = 0
 
 
 static func quick_start(name: String = "Anvil Street Gym", town: String = "London") -> Career:
 	var c := Career.new()
 	c.gym_name = name if name.strip_edges() != "" else "Anvil Street Gym"
 	c.city = town
+	c.seed = randi()
 	c.cash = start_cash()
 	c.applicant = Data.lucy()
 	c.cash_history = [{"w": 1, "c": c.cash}]

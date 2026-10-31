@@ -12,6 +12,7 @@ const Roster := preload("res://scripts/state/Roster.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
+const Injuries := preload("res://scripts/state/Injuries.gd")
 const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
 
 
@@ -66,7 +67,10 @@ func _roster(main: Node, c: Career) -> void:
 		var g: Dictionary = f.get("goal", {})
 		grid.add_child(UI.label(g.get("title", "talk in the office" if bool(f["goal_talk"]) else "none")))
 		var fb: Dictionary = f["bout"]
-		grid.add_child(UI.mono(Clock.fmt(int(fb["day"])) if not fb.is_empty() else "none"))
+		if Injuries.out(c, f):   # S325 update 28: out injured or suspended, in red where her next bout would be
+			grid.add_child(UI.label(Injuries.line(c, f), UI.BODY, UI.RED))
+		else:
+			grid.add_child(UI.mono(Clock.fmt(int(fb["day"])) if not fb.is_empty() else "none"))
 	card[1].add_child(grid)
 	var scouting := UI.button("Find another fighter: Scouting", "Btn", main.act.bind("tab", "3"))
 	scouting.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN

@@ -1,4 +1,23 @@
-﻿FIGHTCAMP - WEEK 6 BUILD, UPDATE 27 (2026-10-31): MONEY THAT BITES + THE BODY VIEW ON HER OWN BODY
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 28 (2026-10-31): INJURIES AND SUSPENSIONS
+=========================================================================
+
+NEW IN UPDATE 28 (board: "Test: an injury pulls her out" to see one at once; "Play latest" for a new career)
+ 1. A FIGHT CAN HURT HER. After every bout the doctor checks her: a cut, a broken nose, a head knock, a hand or the
+    ribs (real amateur numbers: about 6 bouts in 100 end with an injury; the harder the beating, the likelier). A
+    stoppage loss is England Boxing's suspension: 30 days, 90 if it is her second inside three months, a year for a
+    third inside a year. The result page shows it in red under the ticket cut ("INJURY REPORT").
+ 2. TRAINING CAN HURT HER. Each week a small chance (about 1 in 75 for a normal week); a HARD camp (the top camp
+    setting) carries up to three times the risk in its first week - the jump in hours is what hurts boxers.
+ 3. WHILE SHE IS OUT: her fighter page's Injuries row is red ("Hand injury - out 5 weeks"), the roster shows it where
+    her next bout would be, no bout offers come in, she trains at a quarter of the gains. If the injury runs past a
+    bout you booked, she is pulled out and the club pays $300 for the empty slot. The news tells you when she is
+    cleared to box again.
+ 4. ALSO FIXED: after a LOSS the result page said "NO CHANGE" for members though members left (update 27) - it now
+    shows how many left, in red.
+ Coming next (update 29): you choose each week Light / Normal / Hard - harder = faster gains, more injury risk -
+ plus a body report after each bout ("her legs went in round 2") with a one-click focus for next week.
+
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 27 (2026-10-31): MONEY THAT BITES + THE BODY VIEW ON HER OWN BODY
 ==================================================================================================
 
 NEW IN UPDATE 27 (board: "Play latest" for the money - a new career; "Test: fight night WITH film study" for the body view)

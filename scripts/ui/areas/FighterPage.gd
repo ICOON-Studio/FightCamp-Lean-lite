@@ -9,6 +9,7 @@ const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const CoachNotes := preload("res://scripts/rules/CoachNotes.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const Injuries := preload("res://scripts/state/Injuries.gd")
 
 const TABS := ["Overview", "Attributes and moves", "Body", "Record", "Camp", "Contract and goals"]
 
@@ -58,7 +59,7 @@ func build(main: Node, f: Dictionary) -> void:
 		2:
 			var card := _card("BODY")
 			UI.add_rows(card, [UI.kv("Weight", "%.1f kg" % f["weight"], UI.FG, "mono"), UI.kv("Class limit", "%.1f kg" % f["limit"], UI.FG, "mono"),
-				UI.kv("Plan", "cutting" if str(f["diet"]) == "cut" else "holding"), UI.kv("Injuries", "None")])
+				UI.kv("Plan", "cutting" if str(f["diet"]) == "cut" else "holding"), _injury_row(main.career, f)])
 		3:
 			var title := "RECORD: %d-%d AMATEUR" % [f["w"], f["l"]]
 			if bool(f.get("pro", false)):
@@ -124,6 +125,11 @@ func _combos(f: Dictionary, moves: Dictionary) -> void:
 	card.add_child(UI.muted("Each combination in a fight costs energy, longer ones more; her conditioning decides how fast she tires.", UI.SMALL, true))
 
 
+## S325 update 28: her injury or suspension, red while she is out.
+func _injury_row(c: Career, f: Dictionary) -> HBoxContainer:
+	return UI.kv("Injuries", Injuries.line(c, f), UI.RED if Injuries.out(c, f) else UI.FG)
+
+
 func _card(title: String, parent: Container = null) -> VBoxContainer:
 	var c := UI.card(title)
 	(parent if parent != null else self).add_child(c[0])
@@ -142,7 +148,7 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	_stats(attrs, f)
 	var body := _card("BODY", grid)
 	UI.add_rows(body, [UI.kv("Weight", "%.1f of %.1f kg" % [f["weight"], f["limit"]], UI.FG, "mono"),
-		UI.kv("Condition", "Fresh" if int(f["fatigue"]) < 30 else "Tired"), UI.kv("Injuries", "None")])
+		UI.kv("Condition", "Fresh" if int(f["fatigue"]) < 30 else "Tired"), _injury_row(main.career, f)])
 	body.add_child(UI.caps("COACH SAYS"))
 	body.add_child(UI.label(Sim.coach_line(c, f), UI.BODY, UI.FG, "italic", true))
 	# S302: what the coach has learned about her so far (fights and sparring fill it in).

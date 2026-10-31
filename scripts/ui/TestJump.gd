@@ -8,12 +8,15 @@ extends RefCounted
 ##                                        plays live, where the tired look shows
 ##   FightCamp.exe -- jump=corner         jump=fight with two combinations drilled on the pads (1-2, 1-2-3), so the
 ##                                        corner minute's set-up has something to set up (S310)
+##   FightCamp.exe -- jump=injury         S325 update 28: Lucy booked and in camp, then a hand injury in training pulls her
+##                                        out of the bout (the club pays the empty slot); opens on her fighter page
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
 
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const Injuries := preload("res://scripts/state/Injuries.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm", "corner", "round3"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 
@@ -82,6 +85,10 @@ static func run(main: Node, jump: String) -> bool:
 	if jump == "fight_nofilm" and bool(main.modal.get("film", false)):
 		main.act("cfilm", "")
 	main.act("startcamp")
+	if jump == "injury":
+		Injuries._hurt(c, f, {"type": "hand", "days_out": 35}, "in training")
+		main.act("fighter", str(f["id"]))
+		return (f["bout"] as Dictionary).is_empty() and Injuries.out(c, f)
 	for i in 60:
 		if Bouts.weigh_in_today(c, f):
 			break

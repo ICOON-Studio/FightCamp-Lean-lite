@@ -48,6 +48,7 @@ func _career(policy: String, i: int, weeks: int) -> Dictionary:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = i * 7919 + 1
 	c.reputation = 10 + rng.randi_range(-3, 3)
+	c.seed = i * 7919 + 1   # S325 the career's dice (injuries): one per career, the same for both players
 	for k in Data.STATS:
 		c.applicant["stats"][k] = float(c.applicant["stats"][k]) + rng.randf_range(-4.0, 4.0)
 	main.act("interview")
@@ -73,10 +74,15 @@ func _career(policy: String, i: int, weeks: int) -> Dictionary:
 		bouts = c.results.size()
 	var f := c.fighter()
 	var on: Array = HABITS.filter(func(h): return bool(habits[h]))
+	# S325 update 28: her injuries this career (the news lines Injuries._hurt writes), split by where they came from.
+	var hurt_bout := c.news.filter(func(x): return str(x["t"]).contains("is hurt in the fight") or str(x["t"]).contains("is suspended")).size()
+	var hurt_train := c.news.filter(func(x): return str(x["t"]).contains("is hurt in training")).size()
+	var pulled := c.news.filter(func(x): return str(x["t"]).contains("for the empty slot") and str(x["t"]).contains(" is out of the ")).size()
 	var row := {"policy": policy, "i": i, "habits": on, "closed": c.closed, "week": Clock.week_of(c.day), "cash": c.cash, "min_cash": min_cash,
-		"w": int(f.get("w", 0)), "l": int(f.get("l", 0)), "bouts": bouts, "members": c.members, "rep": c.reputation}
-	print("CAREER %s #%d habits=%s closed=%s week=%d cash=%d min=%d record=%d-%d members=%d rep=%d" % [policy, i, ",".join(on), str(c.closed),
-		row["week"], c.cash, min_cash, row["w"], row["l"], c.members, c.reputation])
+		"w": int(f.get("w", 0)), "l": int(f.get("l", 0)), "bouts": bouts, "members": c.members, "rep": c.reputation,
+		"inj_bout": hurt_bout, "inj_train": hurt_train, "pulled": pulled}
+	print("CAREER %s #%d habits=%s closed=%s week=%d cash=%d min=%d record=%d-%d members=%d rep=%d injuries bout=%d training=%d pulled=%d" % [
+		policy, i, ",".join(on), str(c.closed), row["week"], c.cash, min_cash, row["w"], row["l"], c.members, c.reputation, hurt_bout, hurt_train, pulled])
 	main.queue_free()
 	await process_frame
 	return row
@@ -136,6 +142,14 @@ func _summary(policy: String, rows: Array, weeks: int) -> void:
 	print("HARNESS %s n=%d weeks=%d closed=%d (%.0f %%) close weeks %s | cash end median %d (min %d, max %d) | bouts %.1f wins %.1f a career" % [
 		policy, rows.size(), weeks, closed.size(), 100.0 * closed.size() / maxf(1.0, rows.size()), str(close_weeks),
 		int(cash[cash.size() / 2]), int(cash[0]), int(cash[cash.size() - 1]), bouts / rows.size(), wins / rows.size()])
+	var hurt := rows.filter(func(r): return int(r["inj_bout"]) + int(r["inj_train"]) > 0)
+	var ib := 0
+	var it := 0
+	for r in rows:
+		ib += int(r["inj_bout"])
+		it += int(r["inj_train"])
+	print("HARNESS %s injured at least once %d (%.0f %%) | bout injuries %d, training %d, pulled out %d" % [policy, hurt.size(),
+		100.0 * hurt.size() / maxf(1.0, rows.size()), ib, it, rows.reduce(func(a, r): return a + int(r["pulled"]), 0)])
 	for h in HABITS:
 		var with_h := rows.filter(func(r): return (r.get("habits", []) as Array).has(h))
 		if with_h.is_empty():

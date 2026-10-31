@@ -16,6 +16,7 @@ const Region := preload("res://scripts/state/Region.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
+const Injuries := preload("res://scripts/state/Injuries.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -53,13 +54,15 @@ static func daily_gain(career: Career, f: Dictionary) -> Dictionary:
 static func step_day(career: Career) -> void:
 	for f in career.fighters:
 		var gain := daily_gain(career, f)
+		var mult := Injuries.gain_mult(career, f)   # S325 an injured fighter trains at the rest week's share
 		for key in Data.STATS:
-			f["stats"][key] = minf(STAT_CAP, float(f["stats"][key]) + float(gain.get(key, 0.0)))
+			f["stats"][key] = minf(STAT_CAP, float(f["stats"][key]) + float(gain.get(key, 0.0)) * mult)
 		if str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty():
 			f["weight"] = maxf(float(f["limit"]) - 0.15, float(f["weight"]) - 0.11)
 		else:
 			f["weight"] = minf(float(f["limit"]) + 1.6, float(f["weight"]) + 0.01)
 	career.day += 1
+	Injuries.day_tick(career)
 	Bouts.day_events(career)
 	Region.day_events(career)
 	if career.day % 7 == 0:
@@ -194,6 +197,7 @@ static func end_week(career: Career) -> void:
 		career.add_news("%s has closed its doors: %d weeks below $0." % [career.gym_name, career.weeks_below])
 	elif status == "red":
 		career.add_news("The bank balance is below $0. %s." % GymBills.line(career.cash, net, career.weeks_below))
+	Injuries.end_week(career)
 	var reports: Array = []
 	for f in career.fighters:
 		var rows: Array = []
