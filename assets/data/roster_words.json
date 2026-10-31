@@ -24,10 +24,10 @@
   "{name} could be useful if we're patient with her {worst}. The {best} is real."
  ],
  "pro_offer": [
-  "{promoter} rang about {her}: a 4-round debut on their next show, {purse} purse.",
-  "{promoter} wants {her} on their card. Pro contract, {purse} for the debut.",
-  "{promoter} has watched {her} box and is offering a pro deal, starting at {purse}.",
-  "A call from {promoter}: they think {her} is ready to turn pro. {purse} to start."
+  "{promoter} rang about {her}: a 4-round debut on their next show, 100 tickets for her to sell.",
+  "{promoter} wants {her} on their card. Pro contract: her debut pays from the tickets she sells.",
+  "{promoter} has watched {her} box and is offering a pro deal: a debut on their small-hall show.",
+  "A call from {promoter}: they think {her} is ready to turn pro. {purse} a bout after her debut."
  ],
  "pro_debut": [
   "{her} makes her pro debut against {opp} over four rounds.",

@@ -235,6 +235,8 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	m["pro"] = pro
 	m["cards"] = cards
 	m["why"] = why
+	# S329 update 31: the debut pays from the tickets she sold before the bell (the members before tonight's result).
+	var tickets: Dictionary = Roster.debut_night(c, f) if pro and bool(f["bout"].get("tickets", false)) else {}
 	var rec := "pro_" if pro else ""
 	if outcome == "win":
 		f[rec + "w"] = int(f.get(rec + "w", 0)) + 1
@@ -248,7 +250,13 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 		m["members_lost"] = gone
 	else:
 		f[rec + "d"] = int(f.get(rec + "d", 0)) + 1
-	if pro:
+	if not tickets.is_empty():
+		m["tickets"] = tickets
+		m["gym_cut"] = int(tickets["gym"])
+		c.pay(int(tickets["gym"]), "Debut tickets: %d sold, the gym's %d%% of her share - %s vs %s" % [int(tickets["sold"]),
+			int(Roster.GYM_SHARE * 100), f["first"], opp["name"]])
+		c.add_news(Roster.debut_words(f, tickets))
+	elif pro:
 		var purse := int(f["bout"]["purse"])
 		m["gym_cut"] = Roster.gym_cut(purse)
 		c.pay(Roster.gym_cut(purse), "Purse share (%d%%): %s vs %s" % [int(Roster.GYM_SHARE * 100), f["first"], opp["name"]])
@@ -256,6 +264,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 			f["purse"] = mini(int(f["purse_top"]), int(f["purse"]) + int(f["purse_step"]))
 	else:
 		# S328 a championship is England Boxing's show: no ticket cut for the club.
+		m["club_cut"] = 0 if f["bout"].has("champ") else BoutRules.TICKET_CUT
 		if not f["bout"].has("champ"):
 			c.pay(BoutRules.TICKET_CUT, "Ticket cut: %s vs %s" % [f["first"], opp["name"]])
 		var r := c.rival(str(opp["name"]))

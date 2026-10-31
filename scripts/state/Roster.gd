@@ -2,9 +2,12 @@ extends RefCounted
 ## Growing the roster and the end of the amateur arc: scouting trials (invite a prospect, watch her trial on the Monday,
 ## sign her or pass) and turning pro (a promoter's offer at the line, a contract, the pro debut).
 ## Turning-pro line and terms: Kalli K-PROLINE1 (Godot/research/K_PROLINE1_KALLI.md in the old repo), game-tuned, not
-## measured against real purse data; the ticket-selling duty Kalli proposed waits for ticket sales to exist.
+## measured against real purse data. S329 update 31 (John J-PRODEBUT1, measured): the debut is a small-hall show - the gym
+## pays her BBBofC licence and brain scans when she signs, she sells tickets, and the debut pays her half of what she sells
+## above the promoter's break-even (ProDebut); the flat purse starts from her second pro bout.
 
 const Data := preload("res://scripts/state/Data.gd")
+const ProDebut := preload("res://scripts/rules/ProDebut.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const FightWords := preload("res://scripts/state/FightWords.gd")
 const Region := preload("res://scripts/state/Region.gd")
@@ -23,11 +26,12 @@ const PRO_WINS_ANY_RANK := 9
 const PRO_RETURN_WINS := 2
 const PRO_SECOND_TERMS := 0.9
 const PROMOTERS: Array[String] = ["Bow Lane Promotions", "Harrow & Finch Boxing"]
-## Debut purse, rising per pro win to the top; the gym's cut (manager 25% + trainer 10%).
+## Her purse from the second pro bout, rising per pro win to the top; the gym's cut (manager 15% + trainer 10%, John
+## J-PRODEBUT1 - the 25% manager cut of K-PROLINE1 had no source).
 const PRO_PURSE := 1500
 const PRO_PURSE_STEP := 500
 const PRO_PURSE_TOP := 3000
-const GYM_SHARE := 0.35
+const GYM_SHARE := ProDebut.MANAGER + ProDebut.TRAINER
 const PRO_ROUNDS := 4
 ## The debut is booked this many weeks after she signs.
 const PRO_DEBUT_WEEKS := 4
@@ -39,7 +43,7 @@ const TRIAL_FALLBACK := {
 	"trial_open": ["{name} is in for a trial at {gym}."],
 	"trial_good": ["Good trial. {name}'s {best} is the real thing."],
 	"trial_mixed": ["{name}'s {best} is good, but her {worst} needs work."],
-	"pro_offer": ["{promoter} wants {her} on their card: a pro contract, {purse} for the debut."],
+	"pro_offer": ["{promoter} wants {her} on their card: a pro contract, her debut paid from the tickets she sells."],
 	"pro_debut": ["{her} makes her pro debut against {opp} over four rounds."],
 }
 const WORDS_PATH := "res://assets/data/roster_words.json"
@@ -169,10 +173,45 @@ static func gym_cut(purse: int) -> int:
 	return int(round(purse * GYM_SHARE))
 
 
+## Her championship titles (London or national champion) - each sells tickets.
+static func titles(f: Dictionary) -> int:
+	return (f.get("titles", []) as Array).filter(func(t): return str(t["t"]).to_lower().contains("champion")).size()
+
+
+## The gym's trainer needs a BBBofC licence to work her pro corner (no coach: nobody to license).
+static func trainer_licensed(c: Career) -> bool:
+	return c.coach.is_empty() or bool(c.coach.get("pro_licence", false))
+
+
+## The pro offer's money sheet: what signing costs the gym, the tickets she would sell today, the night that pays.
+static func debut_sheet(c: Career, f: Dictionary, terms: float) -> Dictionary:
+	return ProDebut.sheet(c.members, int(f["w"]), titles(f), not bool(f.get("licensed", false)), trainer_licensed(c), terms)
+
+
+## The debut night's tickets, sold from the gym's members and her amateur record as they are on the night.
+static func debut_night(c: Career, f: Dictionary) -> Dictionary:
+	return ProDebut.night(ProDebut.tickets_sold(c.members, int(f["w"]), titles(f)), float(f["bout"].get("terms", 1.0)))
+
+
+static func debut_words(f: Dictionary, t: Dictionary) -> String:
+	if int(t["above"]) == 0:
+		return "%s sold %d of her %d debut tickets - not past the promoter's %d, so she boxed for nothing. More members, more tickets." % [
+			f["first"], int(t["sold"]), ProDebut.TICKETS, ProDebut.BREAK_EVEN]
+	return "%s sold %d debut tickets, %d past the promoter's %d: her share %s, the gym's %s of it." % [f["first"], int(t["sold"]),
+		int(t["above"]), ProDebut.BREAK_EVEN, GameMoney.text(int(t["share"])), GameMoney.text(int(t["gym"]))]
+
+
 ## She signs pro: the stipend and the amateur career end, the debut is booked.
 static func turn_pro(c: Career) -> Dictionary:
 	var o := c.pro_offer
 	var f := c.fighter_by_id(str(o["fid"]))
+	# S329 update 31: the gym pays her licence and brain scans (and the trainer's licence) now.
+	var sheet := debut_sheet(c, f, float(o["terms"]))
+	if int(sheet["costs"]) > 0:
+		c.pay(-int(sheet["costs"]), "BBBofC licence and brain scans: %s" % f["first"])
+	f["licensed"] = true
+	if not c.coach.is_empty():
+		c.coach["pro_licence"] = true
 	f["pro"] = true
 	f["promoter"] = o["promoter"]
 	f["purse"] = int(o["purse"])
@@ -189,7 +228,8 @@ static func turn_pro(c: Career) -> Dictionary:
 		"stance": "orthodox", "style": "Boxer-puncher", "w": 0, "l": 0, "rating": snappedf(night - PRO_OPP_GAP, 0.1),
 		"threat": "Heavy right hand", "weak": "Fades after round 3", "div": f["div"], "pro": true}
 	f["bout"] = {"opp": opp, "day": debut_day(c.day), "weighed": false, "made": false, "done": false,
-		"film": BoutRules.FILM_DEPTH_DEFAULT, "pro": true, "rounds": PRO_ROUNDS, "purse": int(o["purse"])}
+		"film": BoutRules.FILM_DEPTH_DEFAULT, "pro": true, "rounds": PRO_ROUNDS, "purse": int(o["purse"]),
+		"tickets": true, "terms": float(o["terms"])}
 	f["booked_fight"] = true
 	c.add_news("%s turns pro with %s." % [f["name"], o["promoter"]])
 	c.add_news(words("pro_debut", {"her": f["name"], "opp": opp_name}, c.day + 1))

@@ -1,16 +1,14 @@
 extends VBoxContainer
 ## WORLD: News (Mail opens it), Rankings (the region's women's lightweights; hers once she has 4 wins), Events (club shows
 ## and her bout), Search (every fighter, coach, prospect and gym the game knows), Nationals (S328 update 30: the road to the
-## National Amateur Championships - what she still needs, the dates, Enter, her road round by round and the draw).
+## National Amateur Championships; S329 pictures in NationalsView: her road, the entry rings, Enter, the brackets).
 
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Data := preload("res://scripts/state/Data.gd")
-const Injuries := preload("res://scripts/state/Injuries.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
-const SeasonPath := preload("res://scripts/rules/SeasonPath.gd")
-const ChampDraw := preload("res://scripts/rules/ChampDraw.gd")
+const NationalsView := preload("res://scripts/ui/NationalsView.gd")
 
 var _hits: VBoxContainer
 var _career: Career
@@ -36,7 +34,7 @@ func build(main: Node) -> void:
 		3:
 			_search()
 		4:
-			_nationals(main, c)
+			NationalsView.build(self, main, c)
 
 
 ## One table per division the gym has a fighter in (the women's lightweights before anyone signs).
@@ -142,109 +140,3 @@ func _on_search(q: String) -> void:
 		_hits.add_child(UI.muted("Nobody by that name.", UI.BODY))
 	for x in found:
 		_hits.add_child(UI.label(x, UI.BODY))
-
-
-## ---------- Nationals (S328) ----------
-
-func _nationals(main: Node, c: Career) -> void:
-	var amateurs := c.fighters.filter(func(f): return not bool(f.get("pro", false)))
-	if amateurs.is_empty():
-		var card := UI.card("THE NATIONAL AMATEUR CHAMPIONSHIPS")
-		add_child(card[0])
-		var text := "The season's goal for an amateur: 5 bouts and 3 months with the club, the London regional, then the nationals. Sign a fighter first."
-		if not c.fighters.is_empty():
-			text = "Your fighters are pros: the nationals are for amateurs."
-		card[1].add_child(UI.muted(text, UI.BODY, true))
-		return
-	for f in amateurs:
-		_road_card(main, c, f)
-		var ch: Dictionary = f.get("champ", {})
-		if not ch.is_empty():
-			_path_card(c, f)
-			_draw_card(f)
-
-
-func _road_card(main: Node, c: Career, f: Dictionary) -> void:
-	var card := UI.card("ROAD TO THE NATIONALS: %s" % str(f["name"]).to_upper())
-	card[0].name = "Road_" + str(f["id"])
-	add_child(card[0])
-	var close := SeasonPath.entry_close(c.day)
-	var weeks := mini(Champs.club_days(c, f) / 7, 13)
-	var age := int(f.get("age", 21))
-	var fit := not Injuries.out(c, f)
-	var enough := Champs.bouts(f) >= SeasonPath.MIN_BOUTS
-	var long_enough := Champs.club_days(c, f) >= SeasonPath.MIN_CLUB_DAYS
-	var right_age := age >= SeasonPath.AGE_MIN and age <= SeasonPath.AGE_MAX
-	UI.add_rows(card[1], [
-		UI.kv("Bouts", "%d of %d" % [mini(Champs.bouts(f), SeasonPath.MIN_BOUTS), SeasonPath.MIN_BOUTS], UI.GREEN if enough else UI.AMBER),
-		UI.kv("With the club", "%d of 13 weeks" % weeks, UI.GREEN if long_enough else UI.AMBER),
-		UI.kv("Age", "%d (Elite is 19 to 40)" % age, UI.GREEN if right_age else UI.RED),
-		UI.kv("Fit to box", "yes" if fit else Injuries.line(c, f), UI.GREEN if fit else UI.RED),
-		UI.kv("Entries", "open %s, close %s" % [Clock.fmt(close - Champs.ENTRY_WINDOW), Clock.fmt(close)]),
-		UI.kv("London regional", "%s and %s" % [Clock.fmt(Champs.stage_day(close, 0)), Clock.fmt(Champs.stage_day(close, 1))]),
-		UI.kv("Nationals", "from %s, up to 4 bouts in 9 days" % Clock.fmt(Champs.stage_day(close, 2))),
-	])
-	var why := Champs.cannot_enter(c, f)
-	if why == "":
-		var b := UI.button("Enter %s" % f["first"], "Btn", main.act.bind("enterchamp", str(f["id"])))
-		b.name = "Enter_" + str(f["id"])
-		b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		card[1].add_child(b)
-		card[1].add_child(UI.muted("Entering makes her an Elite boxer for life. No other offers come while she is in it; each round is a normal bout - camp, weigh-in, your corner. The club gets no ticket cut at the championships.", UI.SMALL, true))
-	else:
-		card[1].add_child(UI.muted(why + ".", UI.BODY, true))
-	var titles: Array = f.get("titles", [])
-	if not titles.is_empty():
-		var past: Array = []
-		for t in titles:
-			past.append("%d: %s" % [int(t["year"]), t["t"]])
-		card[1].add_child(UI.muted("Past championships - " + "; ".join(past) + ".", UI.SMALL, true))
-
-
-func _path_card(c: Career, f: Dictionary) -> void:
-	var ch: Dictionary = f["champ"]
-	var card := UI.card("HER ROAD %d" % int(Clock._date(int(ch["close"]))["year"]))
-	card[0].name = "Path_" + str(f["id"])
-	add_child(card[0])
-	var col := {"done": UI.GREEN, "out": UI.RED, "next": UI.GOLD, "ahead": UI.MUTED}
-	var rows: Array = []
-	for r in Champs.path(c, f):
-		rows.append(UI.kv(Clock.fmt(int(r["d"])), "%s: %s" % [r["label"], r["t"]], col[str(r["state"])]))
-	if bool(ch["done"]):
-		rows.append(UI.kv("Result", str(ch["result"]), UI.GOLD))
-	UI.add_rows(card[1], rows)
-
-
-## The draw so far: each round played (her pair in gold), then the round still to box.
-func _draw_card(f: Dictionary) -> void:
-	var ch: Dictionary = f["champ"]
-	var card := UI.card("THE DRAW")
-	card[0].name = "Draw_" + str(f["id"])
-	add_child(card[0])
-	var me := str(f["id"])
-	for r in ch["rounds"]:
-		card[1].add_child(UI.caps("%s, %s" % [Champs.stage_name(int(r["stage"])), Clock.fmt(Champs.stage_day(int(ch["close"]), int(r["stage"])))]))
-		for i in (r["pairs"] as Array).size():
-			var p: Array = r["pairs"][i]
-			var w := str(r["winners"][i])
-			var ours := p.has(me)
-			var loser := str(p[1]) if w == str(p[0]) else str(p[0])
-			var line := "%s: a bye" % _who(f, w) if p.has(ChampDraw.BYE) else "%s beat %s" % [_who(f, w), _who(f, loser)]
-			card[1].add_child(UI.label(line, UI.BODY, UI.GOLD if ours else UI.FG, "bold" if ours else "body"))
-	if Champs.active(f):
-		var st := int(ch["stage"])
-		card[1].add_child(UI.caps("%s, %s" % [Champs.stage_name(st), Clock.fmt(Champs.stage_day(int(ch["close"]), st))]))
-		for p in ch["pairs"]:
-			var ours: bool = (p as Array).has(me)
-			card[1].add_child(UI.label("%s vs %s" % [_who(f, str(p[0])), _who(f, str(p[1]))], UI.BODY, UI.GOLD if ours else UI.FG,
-				"bold" if ours else "body"))
-	if str(ch["level"]) == "national":
-		card[1].add_child(UI.muted("%d regional champions in the national draw; the top seeds get the byes." % int(ch["national_size"]), UI.SMALL, true))
-	else:
-		card[1].add_child(UI.muted("The London regional: the winner goes to the national draw.", UI.SMALL, true))
-
-
-func _who(f: Dictionary, id: String) -> String:
-	if id == ChampDraw.BYE:
-		return "bye"
-	return str(f["name"]) if id == str(f["id"]) else id

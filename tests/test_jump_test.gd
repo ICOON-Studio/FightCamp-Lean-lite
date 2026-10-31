@@ -38,6 +38,16 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump == "pro":
+			# S329 update 31: the offer opens; signing pays her licence and books the ticket debut.
+			_check(ok and main.modal.get("type", "") == "prooffer", "pro: the promoter's offer is open")
+			var cash: int = main.career.cash
+			main.act("turnpro")
+			_check(bool(f.get("pro", false)) and bool(f["bout"].get("tickets", false)) and main.career.cash < cash,
+				"pro: signed, the gym paid her licence, a ticket debut is booked")
+			main.queue_free()
+			await process_frame
+			continue
 		var film := int((f.get("bout", {}) as Dictionary).get("film", 0))
 		_check(ok and str(main.modal.get("type", "")) == "fight", "%s: fight night is open" % jump)
 		_check(film == (BoutRules.FILM_DEPTH_DEFAULT if jump == "fight_nofilm" else BoutRules.FILM_DEPTH_WITH_STUDY), "%s: film depth %d" % [jump, film])

@@ -304,10 +304,16 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	v.add_child(_body_report(main, m))
 	var foot := UI.hbox(10)
 	var take := []
-	if bool(m.get("pro", false)):
+	if m.has("tickets"):
+		# S329 update 31: the debut pays from her tickets.
+		take.append(["%d SOLD" % int(m["tickets"]["sold"]), "DEBUT TICKETS", UI.GOLD])
+		take.append([UI.signed(int(m.get("gym_cut", 0))), "THE GYM'S SHARE OF HER HALF", UI.GREEN if int(m.get("gym_cut", 0)) > 0 else UI.MUTED])
+	elif bool(m.get("pro", false)):
 		take.append([UI.signed(int(m.get("gym_cut", 0))), "THE GYM'S PURSE SHARE", UI.GREEN])
 	else:
-		take.append([UI.signed(BoutRules.TICKET_CUT), "CLUB TICKET CUT", UI.GREEN])
+		# S329: a championship bout pays the club nothing (the ribbon said +$450 at the nationals).
+		var cut := int(m.get("club_cut", BoutRules.TICKET_CUT))
+		take.append([UI.signed(cut), "CLUB TICKET CUT" if cut > 0 else "NO TICKET CUT AT THE CHAMPIONSHIPS", UI.GREEN if cut > 0 else UI.MUTED])
 	# S325: a loss shows the members it cost (update 27 took them, the ribbon still said NO CHANGE); an injury shows red.
 	var lost := int(m.get("members_lost", 0))
 	take.append(["+%d" % BoutRules.WIN_MEMBERS if win else ("-%d" % lost if lost > 0 else "NO CHANGE"), "MEMBERS AFTER THE NEWS", UI.GOLD if lost == 0 else UI.RED])

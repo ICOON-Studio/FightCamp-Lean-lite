@@ -16,6 +16,9 @@ const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const Roster := preload("res://scripts/state/Roster.gd")
+const ProDebut := preload("res://scripts/rules/ProDebut.gd")
+const UI := preload("res://scripts/ui/UI.gd")
 
 var failures := 0
 var main: Node
@@ -483,7 +486,16 @@ func _week_four(c: Career) -> void:
 	main.act("go_btn")
 	_check(main.modal.get("type", "") == "prooffer", "NEEDS YOU opens the offer")
 	var stipends := int(Sim.weekly_costs(c)["fighters"])
+	# S329 update 31: the offer shows the debut's tickets and what the gym pays now; signing pays it.
+	var offer_node: Node = main.modal_node()
+	_check(offer_node != null and offer_node.find_child("Tickets", true, false) != null and offer_node.find_child("PaysNow", true, false) != null,
+		"the offer shows her debut tickets and what the gym pays now")
+	var sheet := Roster.debut_sheet(c, lucy, 1.0)
+	var before_sign := c.cash
 	_press(_modal_button("TurnPro"), "Turn Lucy pro")
+	_check(c.cash == before_sign - int(sheet["costs"]) and int(sheet["costs"]) >= ProDebut.LICENCE + ProDebut.MEDICALS,
+		"signing pays her licence and brain scans: %s" % UI.money(int(sheet["costs"])))
+	_check(bool(lucy.get("licensed", false)) and Roster.trainer_licensed(c), "she and her trainer hold BBBofC licences")
 	_check(bool(lucy.get("pro", false)) and int(Sim.weekly_costs(c)["fighters"]) == stipends - 250, "she is a pro: her stipend stops")
 	_check(int(lucy["bout"].get("rounds", 0)) == 4 and bool(lucy["bout"].get("pro", false)), "her debut is booked: 4 rounds, %s" % Clock.fmt(int(lucy["bout"].get("day", 0))))
 	_check(Region.our_rank(c, lucy) == 0, "a pro leaves the amateur rankings")
@@ -498,6 +510,7 @@ func _week_four(c: Career) -> void:
 	main.act("go", "home:0")
 	main.act("go_btn")
 	_check(main.modal.get("type", "") == "fight" and int(main.modal.get("total", 0)) == 4, "fight night: four rounds")
+	var debut_gym := int(ProDebut.night(ProDebut.tickets_sold(c.members, int(lucy["w"]), Roster.titles(lucy)), 1.0)["gym"])
 	_press(_modal_button("Begin"), "Begin the debut")
 	_shout_round()
 	for k in ["long", "body", "calm"]:
@@ -508,7 +521,9 @@ func _week_four(c: Career) -> void:
 	print("  pro debut: %s, %s" % [main.modal.get("outcome", "?"), ", ".join(main.modal.get("cards", []))])
 	_check(int(lucy.get("pro_w", 0)) + int(lucy.get("pro_l", 0)) + int(lucy.get("pro_d", 0)) == 1 and int(lucy["w"]) == 9,
 		"a pro record of one bout; the amateur record stays 9-%d" % lucy["l"])
-	_check(c.ledger.any(func(e): return str(e["t"]).begins_with("Purse share") and int(e["amount"]) == 525), "the gym's 35% share of $1,500: $525")
+	_check(c.ledger.any(func(e): return str(e["t"]).begins_with("Debut tickets") and int(e["amount"]) == debut_gym),
+		"the debut pays from her tickets: the gym's 25%% of her share, %s" % UI.money(debut_gym))
+	_check(not c.ledger.any(func(e): return str(e["t"]).begins_with("Purse share")), "no flat purse on the debut")
 	_press(_modal_button("BackHome"), "Back home")
 	_check(c.news.any(func(x): return str(x["t"]).contains("turns pro")), "the news: she turns pro")
 	_check(c.cash > cash - 5000, "the money holds through week 4 (%d)" % c.cash)

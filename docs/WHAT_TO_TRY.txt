@@ -1,3 +1,29 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 31 (2026-11-01): THE PRO DEBUT COSTS MONEY + THE NATIONALS PAGE AS PICTURES
+============================================================================================================
+
+FROM YOUR NOTE ON THE NATIONALS PAGE ("can be improved", the whole page marked)
+ 1. WORLD > NATIONALS IS NOW PICTURES, NOT ROWS. Her season is a road left to right: ready, entries, the regional
+    semi-final and final, the nationals - a green tick for each step done, a red cross where she went out, a gold
+    ring on the next one, with the date and her opponent under it. What she still needs to enter is four rings
+    (bouts 5 of 5, 13 of 13 weeks, age, fit). The draw is a bracket: every bout in a box, the winner bright, her
+    name and her path in gold, the champion at the end. After the nationals her finished road stays on the page
+    until next season's entries open. Board: "Test: the road to the nationals".
+
+NEW IN UPDATE 31 (board: "Test: the pro offer and her debut" opens the promoter's offer)
+ 2. TURNING PRO COSTS THE GYM MONEY (real British numbers from John, BBBofC rules 2025): when she signs, the gym pays
+    her pro licence ($230) and the brain scans, medical and bloods a first licence needs ($875), plus your
+    trainer's licence the first time ($140) - $1,245 in all.
+ 3. HER DEBUT PAYS FROM THE TICKETS SHE SELLS. The promoter gives her 100 tickets at $50. The first 60 pay for his
+    night (the opponent's fee, the hall); she gets half of every ticket past 60, and the gym keeps 25 % of her half
+    (manager 15 + trainer 10 - it was 35 %, John found no source for that). Who buys them: family and friends (20),
+    your gym members (one for every two), her amateur wins (two each), her titles (ten each - a London or national
+    champion sells). The offer shows the 100 tickets as a bar coloured by who buys them, with the line at 60.
+    Under 60 sold she boxes her debut for nothing, like real debutants who cannot sell. From her second pro bout
+    she earns the purse ($1,500, +$500 a win, up to $3,000).
+ 4. The result page after her debut shows the tickets sold and the gym's share. Also fixed: a championship bout's
+    result page said "+$450 club ticket cut" - the club is paid nothing at the championships, and now it says so.
+ What to judge: does turning pro feel like a real step with a price - is it worth growing the gym first?
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 30 (2026-11-01): THE ROAD TO THE NATIONAL CHAMPIONSHIPS
 =======================================================================================
 

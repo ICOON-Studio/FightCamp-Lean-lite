@@ -1,26 +1,25 @@
-﻿# S329 - next session (written S328, 2026-11-01)
+﻿# S330 - next session (written S329, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 30 is exported (Builds/, WHAT_TO_TRY.txt): the road to the National Amateur Championships.
-scripts/state/Champs.gd wires SeasonPath + ChampDraw: England Boxing entry rules (5 bouts, 91 days with the club -
-fighter key "joined", Elite 19-40, fit, amateur), entry window day 84-140 (Mon 30 Mar - Mon 25 May), the London regional
-(her + 3 of the region, semi 8 Jun, final 15 Jun), the national draw of 8-12 regional champions (NationalField.gd, rating
-62-73) on 13/14/20/21 Jul. Every round is a normal booked bout (bout["champ"] = stage): camp, weigh-in, corner, 3D, the
-injury choice. No ticket cut and no draws at championships; byes pass on their day (Champs.day_events, last in
-Sim.step_day); pull-out / head suspension / missed weight = withdrawal; result in f["titles"]; a national finalist gets the
-pro call. HOME season line + amber "Enter Lucy for the nationals"; WORLD tab 4 Nationals (road, her road, the draw);
-calendar dates. TestJump "nationals" + board button "Test: the road to the nationals (update 30)".
-Digest: Game Godot/research/S328_DIGEST.md. Stills: Game Godot/research/S328_stills/.
+Where it stands: update 31 is exported (Builds/, WHAT_TO_TRY.txt).
+- The pro debut costs money (John J-PRODEBUT1): scripts/rules/ProDebut.gd (Qwen, pure) - licence $230, first-licence
+  scans $875, trainer licence $140 (c.coach["pro_licence"]); 100 tickets at $50, break-even 60, her half past it, the gym
+  keeps 25 % (Roster.GYM_SHARE, was 0.35). Tickets = family 20 + members/2 + 2 per amateur win + 10 per title.
+  Roster.turn_pro pays the costs and books the debut with "tickets": true; BoutNight._finish pays the gym's share of her
+  ticket half (members before the result); flat purse from bout 2. ProOffer shows TicketBar + THE GYM PAYS NOW.
+- WORLD > Nationals as pictures after the operator's C150 note: scripts/ui/NationalsView.gd + SeasonRoad / NeedRing /
+  Bracket (custom _draw controls). Finished road stays until next season's entries open.
+- Championship result ribbon no longer shows a $450 cut (BoutNight m["club_cut"]).
+- TestJump "pro" + board button "Test: the pro offer and her debut (update 31)" (task FightCamp Play test pro).
+Digest: Game Godot/research/S329_DIGEST.md. Stills: Game Godot/research/S329_stills/.
 
-1. Board Q-S294-47 (update 29 verdict) and Q-S294-48 (update 30 verdict). Act on them first.
-2. UPDATE 31: the pro debut costs money - John's numbers (Game Godot/research/J_PRODEBUT1_JOHN.md: BBBofC licence +
-   medical/MRI, the opponent's fee the boxer often pays, tickets to sell) into Roster.turn_pro / the debut booking, shown on
-   the pro offer before he signs; if it needs rules, brief Qwen for a pure ProDebut module (owned files, one test command).
-3. Export update 31 (sh tools/export.sh), WHAT_TO_TRY, stills on the hidden desktop, board question with --attach,
-   review_add, Miro P0 + part cards (P6 Stakes / P7 Roster).
+1. Board Q-S294-47 (update 29), Q-S294-48 (update 30), Q-S294-49 (update 31) - act on his verdicts first. If he says
+   the debut is too costly: the levers are ProDebut.FAMILY / PER_MEMBER and the gym paying only the licence (scans by her).
+2. MENULOOK1: management screens as pictures - his C150 on a page of rows says rows read flat. HOME and FIGHTERS first,
+   the way Nationals now is (custom _draw controls: road, rings, bars), stills on the hidden desktop, board question.
+3. Export, WHAT_TO_TRY, stills, board question with --attach, review_add, Miro P0 + part cards.
 
-Traps: a scripted career that books bouts must start a camp (Lucy 62.6 kg vs 61.2 limit: no camp = missed weight every
-bout); editing a test while run_tests.sh runs turns that test red - rerun it alone; Career.seed is randi() per career -
-long-path tests fix c.seed; run_tests.sh must list every new test; board JSON files keep their indent (roadmap.json 1,
-launch_targets.json 2).
+Traps: PowerShell Set-Content -Encoding utf8 writes a BOM (broke nothing in Godot, but strip it from .sh files); a test
+looks for modal nodes under main.modal_node(), not main._shell; editing a test while run_tests.sh runs makes it red -
+rerun alone (tools/run_some.sh <tests>); a scripted career that books bouts must start a camp (Lucy 62.6 vs 61.2 kg).

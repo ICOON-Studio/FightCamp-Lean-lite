@@ -12,14 +12,17 @@ extends RefCounted
 ##                                        out of the bout (the club pays the empty slot); opens on her fighter page
 ##   FightCamp.exe -- jump=nationals      S328 update 30: a known career played through its first bouts (offers accepted,
 ##                                        bouts boxed) until Lucy can enter the nationals; opens on WORLD > Nationals
+##   FightCamp.exe -- jump=pro            S329 update 31: quick start, Lucy put at the line (9-1 amateur) - the promoter's
+##                                        offer opens: her debut tickets, what the gym pays now; sign and play to the debut
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
 
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
+const Roster := preload("res://scripts/state/Roster.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 
@@ -74,6 +77,12 @@ static func run(main: Node, jump: String) -> bool:
 	var f: Dictionary = c.fighter()
 	if jump == "nationals":
 		return _to_nationals(main, c, f)
+	if jump == "pro":
+		f["w"] = 9
+		f["l"] = 1
+		Roster.check_pro(c)
+		main.act("prooffer")
+		return str(main.modal.get("type", "")) == "prooffer"
 	for i in 60:
 		if not (f["offers"] as Array).is_empty():
 			break
