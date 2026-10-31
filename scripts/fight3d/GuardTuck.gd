@@ -43,6 +43,13 @@ const LOW_DOWN_S := 0.6
 
 var low := 0.0        # wanted: 1 = the long-range guard (set every frame by Footwork.aim)
 var inner := 0.0      # 1 = the inside guard (set every frame by FightStage from Footwork.inside_w)
+## S322 the body is the track: 0..1 per glove from its own shoulder's Burn (BodyBurn, BodyLoad.part_effect). A tired
+## boxer's hands sink: at 1 the glove sits at her chest, not her face (half that up close, where she keeps them at the
+## cheeks longer).
+var tired := {"lead": 0.0, "rear": 0.0}
+## S322 burn_probe: 0.22 put the jab glove 0.16-0.18 m under her face late in round 3 (at the chest); a tired boxer's
+## lead sags to shoulder / top-of-chest height: 0.14 (~0.11 m at the round-3 reading).
+const TIRED_DROP_M := {"lead": 0.14, "rear": 0.12}
 ## The inside guard's wrist, from the head bone: forward, out to her own side, up (metres).
 const IN_FWD_M := 0.13
 const IN_SIDE_M := 0.10
@@ -112,6 +119,7 @@ func _process_modification() -> void:
 		var to := head + fwd * (gp.x + pump / k) + out * gp.y + Vector3.UP * (gp.z - float(LOW_M[role]) * lw / k)
 		if iw > 0.0:
 			to = to.lerp(head + (fwd * (IN_FWD_M + pump * 0.5) + out * IN_SIDE_M + Vector3.UP * IN_UP_M) / k, iw / e)
+		to += Vector3.DOWN * float(TIRED_DROP_M[role]) * float(tired[role]) * (1.0 - 0.5 * iw / e) / k
 		to = g_hd.origin.lerp(to, e)
 		var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 		var l1 := s.distance_to(skel.get_bone_global_pose(int(ids[1])).origin)

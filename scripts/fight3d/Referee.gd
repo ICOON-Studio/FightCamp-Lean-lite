@@ -22,7 +22,9 @@ const IN_M := 0.45
 const SLIDE_S := 0.25
 const ALONG_M := 0.6
 const PINNED_M := 0.3
-const KEEP_M := 0.55
+## S322 (burn_probe still, round 3: pinned by the ropes he stood pressed to a boxer's back - 0.55 from her hips lets
+## the bodies touch on screen): 0.8.
+const KEEP_M := 0.8
 const KEEP_PUSH_M := 0.42
 ## He walks to his spot once it is this far away.
 const SLACK_M := 0.45

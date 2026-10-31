@@ -67,6 +67,7 @@ var _buttons: HBoxContainer
 var _names := ["", ""]
 var bodies := ["", ""]   # S320 each boxer's glb (BodyLive / the corner card draw her own body)
 var body: Node   # S318 BodyLive: the bout's body map + the scorebug figures (FightHud.build)
+var burn: Node   # S322 BodyBurn: per-part Burn, shown as guard height, steps, punch snap
 
 
 ## Called on every modal draw. True while a round is playing (the modal stays hidden then).
@@ -236,6 +237,8 @@ func _queue(m: Dictionary, k: int) -> void:
 		_profiles[side]["energy"] = lerpf(e0, e1, float(k) / Exchanges.EXCHANGES)
 		_profiles[side]["energy_end"] = lerpf(e0, e1, float(k + 1) / Exchanges.EXCHANGES)
 	var bs := ExchangeBeats.build(exs[k], k, r, _ctx)
+	if burn != null:
+		burn.exchange(bs, str((exs[k] as Dictionary).get("sit", "")))
 	beats.append_array(bs)
 	_round_beats.append_array(bs)
 	if closed:
@@ -343,6 +346,8 @@ func _bell() -> void:
 	# S303 corner card: read off the beats this round played, so the corner screen agrees with what was watched.
 	r["card"] = CornerCard.summarize(_round_beats)
 	body.bell()
+	if burn != null:
+		burn.bell()
 	_stop = str(r.get("stopped", ""))
 	var red := bool(r.get("won", true))
 	_banner.text = "BELL. %s'S ROUND" % ("RED" if red else "BLUE") if _stop == "" else "STOPPED. %s WINS" % ("RED" if red else "BLUE")
@@ -404,6 +409,10 @@ func skip_round() -> void:
 		body.catch_up()   # S318: the skipped exchanges' beats still mark the body (and the corner card reads them)
 		var r: Dictionary = (main.modal["rounds"] as Array)[round_n - 1]
 		r["card"] = CornerCard.summarize(_round_beats)
+		# S322: a skipped round still ends at a bell - the corner's one-round fixes run out, the minute's rest refills.
+		body.bell()
+		if burn != null:
+			burn.bell()
 		_stop = str(r.get("stopped", ""))
 		_bell_left = -1.0
 		_done()

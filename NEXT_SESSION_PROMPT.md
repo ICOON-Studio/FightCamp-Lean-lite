@@ -1,21 +1,23 @@
-# S321 - next session (written S320, 2026-10-31)
+# S323 - next session (written S322, 2026-10-31)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 23 exported (Lean 9a55d90, 37/37 tests): glide steps (no walking-stride clips; clip changes
-167 -> 97/min), punches from outside their range step in (PunchRange.gd), body maps on each boxer's own baked portrait
-at her own screen edge with live punch stats, round + result pages as pictures (RoundGraphics.gd), the habit fix says
-what it did, smooth ropes. Digest: Game Godot/research/S320_DIGEST.md.
+Where it stands: update 25 exported (built from 1685692, 38/38 tests); main is de915d0 (BodyRates wired, next build).
+"The body is the track" (operator Q-S294-38 "Build it") part 1 is in: BodyLoad (per-part Burn rules), BodyBurn (the 3D:
+each shoulder drops its own glove, legs shorten steps, arms lose snap; `-- noburn` control), BodyRates (stats + style set
+each part's rate). Cutman/second work by themselves (Q-S294-36). Digest: Game Godot/research/S322_DIGEST.md.
 
-1. Board: Q-S294-35 (update 23), Q-S294-34 (in-round plan: aim the shout on the body map, Push/Steady/Save), Q-S294-32/33.
-   He sends films and stills now: judge them with `tools/judge_film.gd` (movie writer, then ffmpeg to mp4) and
-   `tools/fight3d_play.gd` (p08 = the round page).
-2. Inside punches still land 0.15-0.22 m short of the face with PunchReach weight 1.0 (tools/hit_gap_probe.gd prints each
-   far hit with its miss direction). Not GloveClear (exempted, no change). Log the striking glove before/after each
-   modifier at the contact frame (ElbowClear, HitSnap) and the ShortPunch skip; fix that one cause.
-3. Referee drifts between the boxers in quiet spells (S320 film ~1:10): Referee.gd keep-clear.
+1. Board: Q-S294-39 (update 24 close punches), Q-S294-40 (what the round/result pages need), his verdict on update 25.
+2. The body view (plan step 3, Game Godot/research/BODY_TRACK_PLAN_S321.md): both bodies on the fight screen, every part
+   outlined and coloured by BodyLoad.band (BodyBurn.load), hurt outlines from BodyMap (BodyLive.map). Stand-in look: the
+   glass body (tools/preview_body_track.gd) - no muscle model bought ("Not yet"). Pure layout/colour mapping -> Qwen brief;
+   the view itself is yours. Then Pace (Push/Steady/Save; BodyLoad already takes ctx.pace) and Aim.
+3. The referee stands between their heads ON SCREEN (update 25 exe still) - measure his screen position, not the ground.
+4. Two inside punches still end 0.15-0.20 m to the side (tools/hit_gap_probe.gd "far" lines; it now prints timing too).
 
-Traps: a png a tool rewrites needs `godot --headless --path . --import` again (the exe showed the old picture with the
-new anchors); every new json the game reads goes in export_presets include_filter; probe the exe itself with
-`Builds/FightCamp.exe --headless --script E:/FightCamp/Lean/tools/<probe>.gd`. Two Godot jobs at once are fine (operator
-S320; heat stayed under 75 C).
+Tools: tools/burn_probe.gd (Burn per round + shown glove height, round 3 late; `noburn` arm), tools/ref_probe.gd (referee
+vs the boxers' line), tools/hit_gap_probe.gd. All on the hidden desktop (tools/hidden_desktop.py run --log=...).
+Traps: AnimationPlayer.play() on the playing clip continues it (FightStage._start now stops it first); the board's Test
+runs skip rounds - anything "at the bell" must also run in FightView.skip_round; probe numbers jitter run to run
+(measure master and the change, twice, before calling a regression); tune feel numbers on the GAME's beats (burn_probe),
+the test builder throws fewer lead-hand punches.

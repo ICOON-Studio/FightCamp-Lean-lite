@@ -202,7 +202,8 @@ func walk(who: int, clip: String, seconds: float, scale: float = WALK_SCALE, aim
 	if bool(bx.get("south", false)) and clip.begins_with("strafe_"):
 		clip = MirrorClip.counterpart(clip.replace("left", "Left").replace("right", "Right")).to_lower()
 	var dir := Basis(Vector3.UP, deg_to_rad(-float(spec[1]))) * (bx["node"] as Node3D).transform.basis.z
-	bx["vel"] = dir.normalized() * float(spec[0]) * scale
+	# S322 burning legs (BodyBurn "legs", 1.0 .. BodyLoad.STEP_MIN): shorter, slower steps.
+	bx["vel"] = dir.normalized() * float(spec[0]) * scale * float(bx.get("legs", 1.0))
 	bx["move_left"] = seconds
 	bx["move_total"] = seconds
 	if glide:

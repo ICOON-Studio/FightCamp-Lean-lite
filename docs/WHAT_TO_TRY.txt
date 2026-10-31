@@ -1,4 +1,25 @@
-FIGHTCAMP - WEEK 6 BUILD, UPDATE 24 (2026-10-31): PUNCHES THAT TOUCH THE FACE
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 25 (2026-10-31): THE BODY IS THE TRACK, PART 1 - TIRED BOXERS LOOK TIRED
+=========================================================================================================
+
+NEW IN UPDATE 25 (board: "Test: fight night WITH film study" - skip to round 3 and watch the last minute at 1x)
+ 1. THE BODY BURNS (your "Build it" on the body-as-the-track plan). Every boxer now tracks how worked each body part
+    is: each shoulder, each arm, her core, her legs. Each punch works its own hand's shoulder and arm, holding in a
+    clinch works the shoulders, moving works the legs. Tired muscles burn faster, and the minute's rest gives back
+    about half of it (real recovery numbers), so it builds over the fight. In the corner the second works the
+    most burning part by himself, and the cutman works the cuts by himself (your ruling: nothing for you to do there).
+ 2. YOU CAN SEE IT. A burning shoulder drops its own glove: the jab hand works most, so it sinks first. Late in round
+    3 the busy boxer's jab hand sits around her chest while the rear glove stays at the face. Burning legs make her
+    steps shorter and slower, and a burning arm puts less snap on that hand's punches. Measured on the hidden
+    desktop at 2:30 of round 3: jab glove ~0.11 m lower than in round 1 (shoulder height, it was 0.17 m before tuning);
+    with the burn switched off it does not move.
+    Next: the body view itself (both bodies outlined part by part, coloured by Burn), then your Pace and Aim calls.
+ 3. THE DOUBLE JAB. A jab right after a jab carried on the first one's clip from halfway through, so its glove
+    passed the face 0.3 s before the hit showed. Each punch now starts its own clip. All shown hits more than 15 cm
+    off the target: 8 % (the worst miss was 0.34 m, now 0.20 m).
+ 4. THE REFEREE no longer stands pressed against a boxer's back when the ropes pin him (he keeps 0.8 m off her).
+    Measured: he is between the boxers only while he parts a clinch.
+
+UPDATE 24 (2026-10-31): PUNCHES THAT TOUCH THE FACE
 =============================================================================
 
 NEW IN UPDATE 24 (board: "Test: fight night WITH film study" - watch the chest-to-chest spells in round 1 at 1x)

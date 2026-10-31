@@ -394,8 +394,8 @@ func _test9() -> void:
 	var ok := true
 	# guard_drop: 0 at shoulders <= 50, GUARD_DROP_MAX at 100, monotone.
 	var l1: Dictionary = BL.fresh()
-	l1["a"]["lead_shoulder"] = 50.0
-	l1["a"]["rear_shoulder"] = 50.0
+	l1["a"]["lead_shoulder"] = BL.EFFECT_FROM
+	l1["a"]["rear_shoulder"] = BL.EFFECT_FROM
 	if absf(BL.guard_drop(l1, "a")) > 0.001:
 		ok = false
 	var l2: Dictionary = BL.fresh()
@@ -417,7 +417,7 @@ func _test9() -> void:
 		ok = false
 	# step_scale: 1.0 at legs <= 50, STEP_MIN at 100.
 	var l3: Dictionary = BL.fresh()
-	l3["a"]["legs"] = 50.0
+	l3["a"]["legs"] = BL.EFFECT_FROM
 	if absf(BL.step_scale(l3, "a") - 1.0) > 0.001:
 		ok = false
 	var l4: Dictionary = BL.fresh()
@@ -426,8 +426,8 @@ func _test9() -> void:
 		ok = false
 	# power_scale: 1.0 at arms <= 50, POWER_MIN at 100.
 	var l5: Dictionary = BL.fresh()
-	l5["a"]["lead_arm"] = 50.0
-	l5["a"]["rear_arm"] = 50.0
+	l5["a"]["lead_arm"] = BL.EFFECT_FROM
+	l5["a"]["rear_arm"] = BL.EFFECT_FROM
 	if absf(BL.power_scale(l5, "a") - 1.0) > 0.001:
 		ok = false
 	var l6: Dictionary = BL.fresh()

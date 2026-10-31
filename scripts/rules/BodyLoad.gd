@@ -9,7 +9,9 @@ const LEAD_MOVES := ["jab", "lead_hook", "body_hook"]
 const REAR_MOVES := ["cross", "rear_uppercut"]
 ## Burn added per THROWN punch (any result) to that hand's shoulder and arm. S322: 0.85 (Qwen measured 1.0 -> the busy
 ## shoulder 46 / 73 / 92 after rounds 1-3: every boxer's hands at her chest by round 3); 0.85 aims at 30-50 / 48-70 / 62-85.
-const SHOULDER_PER_PUNCH := 0.85
+## Then 0.70: the game's rounds throw more lead-hand punches than RoundScript alone (habits, combos) - burn_probe read the
+## jab shoulder ~93 at 2:30 of round 3 (lead glove 0.17 m down); 0.70 aims at ~75 there.
+const SHOULDER_PER_PUNCH := 0.70
 const ARM_PER_PUNCH := 0.7
 ## Hooks and uppercuts load the arm more.
 const POWER_ARM_MULT := 1.3
@@ -20,7 +22,8 @@ const CORE_PER_PUNCH := 0.25
 ## Holding in a clinch (clinch t .. break_t), BOTH boxers, per second: both shoulders and core.
 const CLINCH_PER_S := 0.6
 ## Legs per second of the exchange's 30 s (moving, bouncing); x SIT_LEGS for the boxer who moves more.
-const LEGS_PER_S := 0.035
+## S322: 0.035 -> 0.16 (burn_probe in the game: legs 5 at round 3 - the legs never showed); ~29 a round before the rest.
+const LEGS_PER_S := 0.16
 const SIT_LEGS := {"press": {"b": 1.3}, "range": {"a": 1.25, "b": 1.1}, "counter": {"a": 1.1}}
 ## Inside spells (inside t .. end_t) the feet stop: legs gain only this share during them.
 const INSIDE_LEGS := 0.5
@@ -34,8 +37,9 @@ const REST_BACK := 0.55
 const RIBS_HURT_REST := 0.7
 ## The corner's second works ONE part in the rest: that part loses SECOND_WORK more.
 const SECOND_WORK := 12.0
-## Effects start at EFFECT_FROM and are full at 100.
-const EFFECT_FROM := 50.0
+## Effects start at EFFECT_FROM and are full at 100. S322: 50 -> 40 (burn_probe: the busy shoulder ends a 3-round bout
+## ~60-70, so at 50 a guard barely moved in the last round).
+const EFFECT_FROM := 40.0
 const GUARD_DROP_MAX := 1.0
 const STEP_MIN := 0.6
 const POWER_MIN := 0.75
@@ -199,3 +203,9 @@ static func power_scale(load: Dictionary, who: String) -> float:
 		return 1.0
 	var t: float = (mean - EFFECT_FROM) / (100.0 - EFFECT_FROM)
 	return lerpf(1.0, POWER_MIN, clampf(t, 0.0, 1.0))
+
+
+## 0..1: how far one part's Burn is into its effect (0 up to EFFECT_FROM, 1 at 100). S322: the 3D drops each glove from
+## its OWN shoulder (the jab hand works most and sinks first) and takes the snap off a punch from its own arm.
+static func part_effect(load: Dictionary, who: String, part: String) -> float:
+	return clampf((float(load[who][part]) - EFFECT_FROM) / (100.0 - EFFECT_FROM), 0.0, 1.0)

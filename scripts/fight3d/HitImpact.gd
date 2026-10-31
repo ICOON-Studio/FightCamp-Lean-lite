@@ -57,7 +57,10 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 	var hand: String = st.hand_of(hitter, "LeftHand" if move in ["jab", "lead_hook", "lead_uppercut"] else "RightHand")
 	var skel: Skeleton3D = boxers[hitter]["skel"]
 	var shoulder := skel.global_transform * skel.get_bone_global_pose(skel.find_bone(hand.trim_suffix("Hand") + "UpperArm")).origin
-	snap.snap(st.target_point(who, false) - shoulder, deg * (1.5 if big else 1.0))
+	# S322 a burning arm (BodyBurn "power" per hand, 1.0 .. BodyLoad.POWER_MIN): its punches snap the head less.
+	var power: Dictionary = boxers[hitter].get("power", {})
+	var arm := "lead" if move in ["jab", "lead_hook", "lead_uppercut", "body_hook"] else "rear"
+	snap.snap(st.target_point(who, false) - shoulder, deg * (1.5 if big else 1.0) * float(power.get(arm, 1.0)))
 
 
 ## The hit-stop: both AnimationPlayers stand still (whatever speed a move set is kept and given back after).
