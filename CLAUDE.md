@@ -68,6 +68,9 @@ the operator go on the board (`python Tools/agent_comms.py ask "<text>" --option
    titles) and append the session to `sessions`; run `python Tools/render_roadmap.py`; commit that repo (stage roadmap.json and
    ROADMAP.md only).
 3. Rewrite `NEXT_SESSION_PROMPT.md` here for the next session.
+3b. The Miro production map (operator S323: "so i can always know what we work on and next"): move the cards between
+   DONE / NOW / NEXT in P0 and the part frames P1-P9 (https://miro.com/app/board/uXjVEV03QWA=/, right of frame 11) and keep
+   their scores honest; the ops board links them from roadmap.json `plan.maps`.
 4. Memorize the session (memory) and say so in the handover.
 5. Ask the operator whether to hand over or keep going; the handover is ONE copy/paste block.
 
