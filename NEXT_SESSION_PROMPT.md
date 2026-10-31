@@ -2,22 +2,25 @@
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 26 exported (main after fde28b1, 41/41 tests). The body is the track, part 2 is in: tired shows
-(TiredSag + tank), the body view (BodyTrack) on the side panels / corner card / round+result pages with a key, Pace + Aim
-on the shout bar (PaceAim, balance-checked: no dominant plan), broadcast round/result pages (Broadcast.gd), referee off the
-gap between their heads on screen (13 %, was 43 %), `-- jump=round3`. Digest: Game Godot/research/S323_DIGEST.md;
-playtest + Ziva comparison: docs/playtest/S323_*.md.
+Where it stands: update 26 exported (41/41 tests): tired shows, the body view everywhere (with a key), Pace + Aim (balance-
+checked), broadcast round/result pages, referee 13 % on screen, `-- jump=round3`. Digest: Game Godot/research/S323_DIGEST.md.
+The operator APPROVED the make-it-a-game plan ("Build it"): Game Godot/research/MAKE_IT_A_GAME_PLAN_S323.md - updates
+27 money that bites, 28 injuries + the 30-day KO rule, 29 train hard or rest + a body report after each fight, 30 the road
+to the National Championships. Production map: Miro P0-P9 (right of frame 11), linked on the ops board's "Production map".
 
 1. Board: Q-S294-42 (update 26 verdict), Q-S294-43 (Ziva's model - his money).
-2. The corner card cut to the pit stop (docs/playtest/S323_CLAUDE_PLAYTEST.md: ~16 things in 60 s): body track big, the
-   three calls the corner sees, the second's part (he may move it - Q-S294-36 ruling), the rest behind "More".
-3. The management screens get the broadcast look (HOME, FIGHTS, FIGHTERS: lists in brown boxes, 60 % empty). Load the
-   `godot-ui-theming` skill first: one Theme with type variations instead of per-node overrides.
-4. Aim visible in the 3D: an aimed exchange's landed punches go to that place (BodyMap + the beats' targets).
-5. Referee residual 13 % (mostly walking past behind them): route him round the far side.
+2. UPDATE 27. Collect Qwen GYMBILLS1 (running: branch qwen/gymbills1, wt E:/FightCamp/wt/LEAN_GYMBILLS1, out
+   E:/FightCamp/wt/GYMBILLS1_out.txt) by diff + `tests/gym_bills_test.gd`. Wire it: the weekly clock keeps cash and
+   weeks-below-zero (GymBills.next_below), the MONEY page line, a NEEDS YOU flag on "warn"/"red", the close screen on
+   "closed" (career summary -> load / new career), new careers start with GymBills.start_cash, a loss costs ranking and
+   members. Update Lean CLAUDE.md "Decided numbers" (dues now $35/month, rent $1,800/month, start cash ~3 months).
+3. Balance-check (skill): a 26-week career harness - careless (always fight, never rest) vs sensible; bounds in the plan
+   (careless closes in 15-40 %, sensible under 5 %). Quick start must still offer a first bout in week 2.
+4. Brief InjuryRoll (update 28) to Qwen the moment GymBills lands (plan decision 2: ~6 % a bout from the bout's damage,
+   types and weeks out, England Boxing's KO ladder, training injury from the load ratio).
+5. At wrap-up: move the Miro P0/P5/P6 cards (Lean CLAUDE.md step 3b), export, WHAT_TO_TRY, board question.
 
-Skills now installed (user scope): balance-check (run it on any new number), playtest-report (fill it after each build),
-design-review, godot-ui-theming, godot-animation-tree-mastery, godot-economy-system, godot-genre-simulation.
-Tools: tools/exchange_balance.gd (pace line), tools/ref_probe.gd (screen count), tools/burn_probe.gd, tools/pages_still.gd,
-tools/fight3d_play.gd. Traps: a var initialised from a function that reads a later-declared var gets null; restoring .import
-files under a running editor blocks run_scene; open an agent's screenshots before quoting them (Ziva generated its own).
+Skills installed (user scope): balance-check, playtest-report, design-review, godot-ui-theming,
+godot-animation-tree-mastery, godot-economy-system (wallet/transactions patterns for update 27), godot-genre-simulation.
+Traps: a var initialised from a function that reads a later-declared var gets null; restoring .import files under a running
+editor blocks run_scene; open an agent's screenshots before quoting them (Ziva Baby generated its own).
