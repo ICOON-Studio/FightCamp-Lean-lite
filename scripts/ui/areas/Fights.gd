@@ -5,6 +5,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const Champs := preload("res://scripts/state/Champs.gd")
 const BOUT_PAGE := preload("res://scenes/areas/BoutPage.tscn")
 
 
@@ -69,6 +70,7 @@ func _calendar(c: Career) -> void:
 	if not ["weigh-in", "fight night"].has(str(next["r"])):
 		ev.append({"d": int(next["d"]), "t": str(next["r"]).capitalize()})
 	ev.append({"d": GameMoney.next_bill_day(c.day), "t": "Month-end bill"})
+	ev.append_array(Champs.calendar(c))   # S328 the nationals: entries close, her road round by round
 	ev.sort_custom(func(a, b): return int(a["d"]) < int(b["d"]))
 	var seen := {}
 	var rows: Array = []

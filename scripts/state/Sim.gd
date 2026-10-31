@@ -18,6 +18,7 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
+const Champs := preload("res://scripts/state/Champs.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -68,6 +69,7 @@ static func step_day(career: Career) -> void:
 	Region.day_events(career)
 	if career.day % 7 == 0:
 		end_week(career)
+	Champs.day_events(career)   # S328 last: a pull-out from the week's injuries ends her championship run today
 
 
 ## S324 update 27: the flat $500 upkeep became the real bills (GymBills): rent, and the governing body's yearly fees by the

@@ -10,13 +10,16 @@ extends RefCounted
 ##                                        corner minute's set-up has something to set up (S310)
 ##   FightCamp.exe -- jump=injury         S325 update 28: Lucy booked and in camp, then a hand injury in training pulls her
 ##                                        out of the bout (the club pays the empty slot); opens on her fighter page
+##   FightCamp.exe -- jump=nationals      S328 update 30: a known career played through its first bouts (offers accepted,
+##                                        bouts boxed) until Lucy can enter the nationals; opens on WORLD > Nationals
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
 
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const Champs := preload("res://scripts/state/Champs.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 
@@ -69,6 +72,8 @@ static func run(main: Node, jump: String) -> bool:
 	main.act("hire", "reid")
 	var c: Career = main.career
 	var f: Dictionary = c.fighter()
+	if jump == "nationals":
+		return _to_nationals(main, c, f)
 	for i in 60:
 		if not (f["offers"] as Array).is_empty():
 			break
@@ -114,3 +119,34 @@ static func _tidy(main: Node, c: Career) -> void:
 			main.act("goaltalk", f["id"])
 			main.act("pickgoal", "five_round_engine")
 			main.act("setgoal")
+
+
+## S328 jump=nationals: one known career (fixed dice) plays on - every even offer taken with a camp, every bout boxed, a hurt bout
+## pulled out - until she can enter (5 bouts, 13 weeks with the club, entries open); lands on WORLD > Nationals.
+static func _to_nationals(main: Node, c: Career, f: Dictionary) -> bool:
+	c.seed = 1
+	for i in 400:
+		if Champs.cannot_enter(c, f) == "" or c.closed:
+			break
+		_tidy(main, c)
+		for o in f["offers"]:
+			if not bool(o["answered"]) and not bool(o["mismatch"]):
+				main.act("accept", str(o["id"]))
+		if Bouts.camp_due(c, f):
+			main.act("camp", str(f["id"]))   # the camp cuts her weight: without it she misses the limit
+			main.act("startcamp")
+		if Injuries.pending(f):
+			main.act("pullout", str(f["id"]))
+		if Bouts.weigh_in_today(c, f):
+			main.act("weighin", str(f["id"]))
+			main.act("doWeigh")
+		if Bouts.fight_day(c, f):
+			main.act("fightnight")
+			main.act("fightstep", "sim")
+			main.act("afterfight")
+			continue
+		if not main.modal.is_empty():
+			main.act("close")
+		main.run_to_stop()
+	main.act("go", "world:4")
+	return Champs.cannot_enter(c, f) == ""

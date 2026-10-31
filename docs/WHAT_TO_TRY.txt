@@ -1,3 +1,26 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 30 (2026-11-01): THE ROAD TO THE NATIONAL CHAMPIONSHIPS
+=======================================================================================
+
+NEW IN UPDATE 30 (board: "Test: the road to the nationals" jumps to the day Lucy can enter; "Play latest" for a career)
+ 1. A GOAL FOR THE SEASON. England Boxing's real rules for the National Amateur Championships: 5 bouts and 3 months
+    with the club to enter, Elite age 19 to 40. HOME shows the road under her name: "Road to the nationals: 4/5
+    bouts, 9 of 13 weeks with the club, entries close in 74 days".
+ 2. ENTER HER. Entries open Mon 30 Mar and close Mon 25 May. When she qualifies, HOME lists "Enter Lucy for the
+    nationals" and WORLD has a new tab, NATIONALS: what she still needs (bouts, weeks, age, fit), the dates, and the
+    Enter button. Entering makes her an Elite boxer for life; no other offers come while she is in it.
+ 3. THE LONDON REGIONAL: her and three of the region's women in her division (the draw seeds the best), a semi-final
+    Mon 8 Jun and the final Mon 15 Jun. Each round is a normal bout: a camp when there is time, the weigh-in, your
+    corner. No ticket cut for the club at the championships, and no draws - level cards go to the boxer who took the
+    last round.
+ 4. THE NATIONALS: win the regional and she is in the national draw with the other regions' champions (8 to 12 of
+    them, tougher than anyone in London; the top seeds get byes). Last 16 and quarter-final on back-to-back days
+    from Mon 13 Jul, the semi and the final a week later. WORLD > Nationals shows her road round by round and the
+    whole draw as it is boxed; FIGHTS > Calendar has every date.
+ 5. HOW FAR SHE WENT stays on her record ("2026: Regional champion", "National bronze", "National champion"). A
+    national finalist gets the promoters calling, whatever her record. A loss, an injury past the day (you can still
+    let her box hurt) or missed weight ends her run.
+ What to judge: does the season goal give the first months a direction? Is the road clear on HOME and WORLD?
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 29 (2026-10-31): YOUR CALLS ON MONEY AND INJURIES + LOAD + THE BODY REPORT
 =========================================================================================================
 

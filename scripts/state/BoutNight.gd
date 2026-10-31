@@ -221,6 +221,10 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	m["stopped"] = stop
 	if stop != "":
 		outcome = "loss" if str((rounds[-1] as Dictionary)["down"]) == "a" else "win"
+	# S328 a championship bout must have a winner (amateur judges pick one on every card): level cards go to the boxer who
+	# took the last round.
+	if outcome == "draw" and f["bout"].has("champ"):
+		outcome = "win" if bool((rounds[-1] as Dictionary)["won"]) else "loss"
 	var win := outcome == "win"
 	var focus_label := str(Data.LABEL.get(camp.get("focus", ""), ""))
 	var why := BoutRules.why(rounds, not camp.is_empty(), int(camp.get("protocol", 0)), focus_label, int(f["bout"]["film"]),
@@ -251,7 +255,9 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 		if win:
 			f["purse"] = mini(int(f["purse_top"]), int(f["purse"]) + int(f["purse_step"]))
 	else:
-		c.pay(BoutRules.TICKET_CUT, "Ticket cut: %s vs %s" % [f["first"], opp["name"]])
+		# S328 a championship is England Boxing's show: no ticket cut for the club.
+		if not f["bout"].has("champ"):
+			c.pay(BoutRules.TICKET_CUT, "Ticket cut: %s vs %s" % [f["first"], opp["name"]])
 		var r := c.rival(str(opp["name"]))
 		if not r.is_empty() and outcome != "draw":
 			Region.record(r, not win)

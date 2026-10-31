@@ -25,6 +25,7 @@ const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const Champs := preload("res://scripts/state/Champs.gd")
 
 
 const OFFER_ANSWER_DAYS := 3
@@ -102,8 +103,8 @@ static func weighing_today(c: Career) -> Dictionary:
 ## After each day: per fighter, a pair of offers arrives when nothing is booked or pending; unanswered offers expire.
 static func day_events(c: Career) -> void:
 	for f in c.fighters:
-		if bool(f.get("pro", false)):
-			continue
+		if bool(f.get("pro", false)) or Champs.active(f):
+			continue   # S328 no other offers while she is in the championships
 		if (f["bout"] as Dictionary).is_empty() and c.day >= int(f["next_offer_day"]) and offers_settled(f):
 			var div: Dictionary = Data.DIVISIONS[f["div"]]
 			var names: Array = div["opponents"]
@@ -193,6 +194,13 @@ static func weigh(c: Career, f: Dictionary) -> bool:
 	f["bout"]["weighed"] = true
 	var made := BoutRules.made_weight(float(f["weight"]), float(f["limit"]))
 	f["bout"]["made"] = made
+	if not made and f["bout"].has("champ"):
+		# S328 a championship has no empty slot to pay for: she is out of the draw.
+		f["bout"] = {}
+		f["camp"] = {}
+		f["booked_fight"] = false
+		Champs.withdraw(c, f, "she missed weight")
+		return made
 	if not made:
 		c.add_news("%s missed weight. The bout is off." % f["name"])
 		c.pay(-BoutRules.MISSED_WEIGHT_COST, "Empty slot: %s missed weight" % f["first"])
@@ -246,12 +254,24 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 
 
 static func after_fight(c: Career, f: Dictionary) -> void:
+	var champ := (f["bout"] as Dictionary).has("champ")
+	var won := false
+	for r in c.results:
+		if str(r.get("fid", "")) == str(f["id"]):
+			won = bool(r["win"])
+			break
 	f["bout"] = {}
 	f["camp"] = {}
-	f["opp_index"] = int(f["opp_index"]) + 1
+	if not champ:
+		f["opp_index"] = int(f["opp_index"]) + 1
 	f["load_setting"] = TrainingLoad.DEFAULT
 	f["next_offer_day"] = c.day + AFTER_FIGHT
 	f["booked_fight"] = false
+	# S328 a championship round books the next one (or ends her run); a bout booked before she entered hands over to it.
+	if champ:
+		Champs.after_bout(c, f, won)
+	elif Champs.active(f):
+		Champs.book_next(c, f)
 	Roster.check_pro(c)
 
 

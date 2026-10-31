@@ -1,30 +1,26 @@
-﻿# S328 - next session (written S327, 2026-10-31)
+﻿# S329 - next session (written S328, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 29 is exported (Builds/, WHAT_TO_TRY.txt). From his board answers (Q-S294-45 "Money too harsh",
-Q-S294-46 "option on player if he pulls out ... how serious, how many weeks"): the gym closes after 8 weeks below $0, a loss
-costs 1-2 members, a waiting sponsor is a HOME need; an injury past a booked bout asks pull out ($300) or fight hurt (10-20
-off her tank, heals 50 % slower after), every injury line says minor/moderate/serious + "fit on <date>" (head knocks and
-stoppage suspensions are never a choice). Her usual load is an EWMA with a 42-day fitness span (f["chronic"]); a camp steps
-up only as far as stays safe (Hard camp trains Hard). Qwen BoutBurn collected; the result page shows the body report + a
-"Train <focus> next week" button, and colours her figure from the report when the bout was not watched in 3D.
-Digest: Game Godot/research/S327_DIGEST.md. Stills: Game Godot/research/S327_stills/.
+Where it stands: update 30 is exported (Builds/, WHAT_TO_TRY.txt): the road to the National Amateur Championships.
+scripts/state/Champs.gd wires SeasonPath + ChampDraw: England Boxing entry rules (5 bouts, 91 days with the club -
+fighter key "joined", Elite 19-40, fit, amateur), entry window day 84-140 (Mon 30 Mar - Mon 25 May), the London regional
+(her + 3 of the region, semi 8 Jun, final 15 Jun), the national draw of 8-12 regional champions (NationalField.gd, rating
+62-73) on 13/14/20/21 Jul. Every round is a normal booked bout (bout["champ"] = stage): camp, weigh-in, corner, 3D, the
+injury choice. No ticket cut and no draws at championships; byes pass on their day (Champs.day_events, last in
+Sim.step_day); pull-out / head suspension / missed weight = withdrawal; result in f["titles"]; a national finalist gets the
+pro call. HOME season line + amber "Enter Lucy for the nationals"; WORLD tab 4 Nationals (road, her road, the draw);
+calendar dates. TestJump "nationals" + board button "Test: the road to the nationals (update 30)".
+Digest: Game Godot/research/S328_DIGEST.md. Stills: Game Godot/research/S328_stills/.
 
-1. Board Q-S294-47 (update 29 verdict). Act on it first.
-2. UPDATE 30: the road to the National Championships - SeasonPath + ChampDraw (both on main, pure + tested) wired into the
-   game: the season goal on HOME, the qualifying events on the calendar, the draw on the World page, her path round by round.
-   Read both modules and the make-it-a-game plan section for update 30 first; brief Qwen/Kalli/John for any missing piece
-   (numbers -> John, words -> Kalli, pure module -> Qwen) before building.
-3. Export update 30 (sh tools/export.sh), WHAT_TO_TRY, stills (a tools/*_still.gd on the hidden desktop), board question
-   with --attach, review_add, Miro P0 + part cards.
-Later: John's pro-debut costs (Game Godot/research/J_PRODEBUT1_JOHN.md) feed the pro debut after update 30.
+1. Board Q-S294-47 (update 29 verdict) and Q-S294-48 (update 30 verdict). Act on them first.
+2. UPDATE 31: the pro debut costs money - John's numbers (Game Godot/research/J_PRODEBUT1_JOHN.md: BBBofC licence +
+   medical/MRI, the opponent's fee the boxer often pays, tickets to sell) into Roster.turn_pro / the debut booking, shown on
+   the pro offer before he signs; if it needs rules, brief Qwen for a pure ProDebut module (owned files, one test command).
+3. Export update 31 (sh tools/export.sh), WHAT_TO_TRY, stills on the hidden desktop, board question with --attach,
+   review_add, Miro P0 + part cards (P6 Stakes / P7 Roster).
 
-Harness bounds now (tools/career_harness.gd header): careless closes 5-25 %, sensible 0 %; injured careless 50-80 %,
-sensible 30-50 % (real rates alone give ~43 %). Last run n=40: 15 % / 0 %; 53 % / 48 %.
-
-Traps: Career.seed is randi() per career - any test that plays a long path fixes c.seed (golden path uses 1); an action
-name in Main.act may already exist (grep first); run_tests.sh must list every new test; any balance harness needs a
-population AND Career.seed per career; the 3D body track exists but is all zeros after a skipped bout (check the sum, not
-is_empty); rule_guard blocks command text naming the console exe (write briefs with the file tool); board JSON files keep
-their own indent (roadmap.json indent 1) - rewrite them in their original format.
+Traps: a scripted career that books bouts must start a camp (Lucy 62.6 kg vs 61.2 limit: no camp = missed weight every
+bout); editing a test while run_tests.sh runs turns that test red - rerun it alone; Career.seed is randi() per career -
+long-path tests fix c.seed; run_tests.sh must list every new test; board JSON files keep their indent (roadmap.json 1,
+launch_targets.json 2).

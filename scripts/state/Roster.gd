@@ -10,6 +10,7 @@ const FightWords := preload("res://scripts/state/FightWords.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
+const Champs := preload("res://scripts/state/Champs.gd")
 
 ## The goal a new signing brings: a booked bout and her engine up inside a month.
 const SIGNING_GOAL := "debut_inside_a_month"
@@ -118,6 +119,7 @@ static func sign_prospect(c: Career, id: String, picks: Array) -> Dictionary:
 static func sign_fighter(c: Career, raw: Dictionary, picks: Array) -> Dictionary:
 	var f := Data.fighter_state(raw.duplicate(true), c.day)
 	f["cards"] = picks.duplicate()
+	f["joined"] = c.day   # S328 the nationals need 3 months with the club
 	f["goal"] = FighterGoal.goal_for(f, SIGNING_GOAL, c.day)
 	c.fighters.append(f)
 	c.add_news("%s signs for %s on the club stipend." % [f["name"], c.gym_name])
@@ -137,6 +139,8 @@ static func pass_on(c: Career, id: String) -> void:
 static func pro_ready(f: Dictionary) -> bool:
 	if bool(f.get("pro", false)) or int(f.get("pro_declines", 0)) >= 3:
 		return false
+	if bool(f.get("nat_final", false)) and int(f.get("pro_declines", 0)) == 0:
+		return true   # S328 a national finalist: the promoters call whatever her record
 	var w := int(f["w"])
 	var need := PRO_WINS + int(f.get("pro_declines", 0)) * PRO_RETURN_WINS
 	if int(f.get("pro_declines", 0)) >= 2:
@@ -150,7 +154,7 @@ static func check_pro(c: Career) -> void:
 	if not c.pro_offer.is_empty():
 		return
 	for f in c.fighters:
-		if pro_ready(f) and (f["bout"] as Dictionary).is_empty():
+		if pro_ready(f) and (f["bout"] as Dictionary).is_empty() and not Champs.active(f):
 			var declines := int(f.get("pro_declines", 0))
 			var terms := 1.0 if declines == 0 else PRO_SECOND_TERMS
 			var purse := int(round(PRO_PURSE * terms))

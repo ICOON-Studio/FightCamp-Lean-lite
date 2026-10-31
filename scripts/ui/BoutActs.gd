@@ -8,6 +8,7 @@ const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const Champs := preload("res://scripts/state/Champs.gd")
 
 
 ## The fighter an action means: by id, else the open moment's, else the first.
@@ -40,9 +41,15 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var hf := who(main, arg)
 			if name == "pullout":
 				Injuries.pull_out(c, hf)
+				Champs.day_events(c)   # S328 out of a championship round: her run ends now, not tomorrow
 			else:
 				Injuries.fight_hurt(c, hf)
 			main.close_modal()
+		"enterchamp":
+			var ef := who(main, arg)
+			if Champs.enter(c, ef):
+				main.toast("%s is entered for the nationals: the draw is on WORLD > Nationals." % ef["first"])
+			main.render()
 		"openBout":
 			main.nav({"area": "fights", "tab": 0, "bout": arg})
 		"accept":

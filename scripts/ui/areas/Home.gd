@@ -6,6 +6,7 @@ const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
+const Champs := preload("res://scripts/state/Champs.gd")
 
 
 func build(main: Node) -> void:
@@ -53,6 +54,13 @@ func build(main: Node) -> void:
 		if not g.is_empty():
 			sub += ", goal: " + str(g["title"]).to_lower()
 		t.add_child(UI.muted(sub, UI.SMALL, true))
+		# S328 update 30: the season goal - the road to the nationals, her next round, or how far she went.
+		var season := Champs.home_line(c, f)
+		if season != "":
+			var sl := UI.label(season, UI.SMALL, UI.GOLD if Champs.active(f) else UI.FG)
+			sl.name = "Season_" + str(f["id"])
+			sl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			t.add_child(sl)
 		h.add_child(t)
 		if not g.is_empty():
 			h.add_child(UI.chip(g["status"], g["cls"]))

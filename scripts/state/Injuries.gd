@@ -88,6 +88,13 @@ static func pull_out(c: Career, f: Dictionary) -> void:
 		return
 	if not (f.get("injury", {}) as Dictionary).is_empty():
 		f["injury"]["choice"] = "out"
+	if b.has("champ"):
+		# S328 out of a championship round: no slot to pay for; Champs ends her run (day_events, or the pull-out action).
+		f["champ"]["withdraw"] = true
+		f["bout"] = {}
+		f["camp"] = {}
+		f["booked_fight"] = false
+		return
 	c.pay(-BoutRules.MISSED_WEIGHT_COST, "Empty slot: %s injured" % f["first"])
 	c.add_news("%s is out of the %s bout with %s. The club pays $%d for the empty slot." % [f["first"], Clock.fmt(int(b["day"])),
 		b["opp"]["name"], BoutRules.MISSED_WEIGHT_COST])

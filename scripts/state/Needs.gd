@@ -8,6 +8,8 @@ const Sim := preload("res://scripts/state/Sim.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const Champs := preload("res://scripts/state/Champs.gd")
+const SeasonPath := preload("res://scripts/rules/SeasonPath.gd")
 
 
 ## S324 update 27: GymBills' read of the gym's money now: "ok" | "warn" (runway under 8 weeks) | "red" (below $0) | "closed".
@@ -72,6 +74,13 @@ static func needs(career: Career) -> Array:
 			n.append({"red": false, "t": "Set %s's fight camp" % f["first"],
 				"s": "bout on %s, %d weeks: time for a camp" % [Clock.fmt(int(f["bout"]["day"])), int(days / 7.0)],
 				"act": "camp", "arg": f["id"], "label": "Set camp"})
+	# S328 update 30: the season goal - she is eligible and the entry window is open.
+	for f in career.fighters:
+		if Champs.cannot_enter(career, f) == "":
+			var close := SeasonPath.entry_close(career.day)
+			n.append({"red": false, "t": "Enter %s for the nationals" % f["first"],
+				"s": "entries close %s; the regional starts %s" % [Clock.fmt(close), Clock.fmt(Champs.stage_day(close, 0))],
+				"act": "go", "arg": "world:4", "label": "Nationals"})
 	if career.review_pending and not career.last_report.is_empty():
 		n.append({"red": false, "t": "Week %d review is ready" % int(career.last_report["week"]),
 			"s": "gains, moves, rankings, money", "act": "review", "arg": "", "label": "Open"})
