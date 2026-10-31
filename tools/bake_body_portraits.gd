@@ -67,6 +67,7 @@ func _initialize() -> void:
 			img.save_png(ProjectSettings.globalize_path(OUT.path_join("%s_%s.png" % [stem, corner])))
 			if corner == "red":
 				var places := _places(cam, g, crop)
+				places["track"] = _track(body, crop)   # S323 the body view: BodyLoad's parts on her own body
 				var f := FileAccess.open(OUT.path_join(stem + ".json"), FileAccess.WRITE)
 				f.store_string(JSON.stringify(places, "  "))
 				f.close()
@@ -149,6 +150,37 @@ func _places(cam: Camera3D, g: Dictionary, crop: Rect2i) -> Dictionary:
 	var rb := _px(Vector3(-float(g["rib_x"]), g["rib_y"], g["rib_z"]))
 	out["left_ribs"] = _frac(ra if ra.x > rb.x else rb, 0.055 * px_m, 0.075 * px_m, crop)
 	out["right_ribs"] = _frac(rb if ra.x > rb.x else ra, 0.055 * px_m, 0.075 * px_m, crop)
+	return out
+
+
+## S323 "the body is the track" step 3: where BodyLoad's parts sit on the portrait, as thick strokes - {place: {"pts":
+## [[x, y], ...], "w": width}} in fractions of the picture (width of the picture's width). place = BodyTrack.body_place:
+## left/right shoulder and arm (HER left/right), core, legs_left / legs_right (both drawn in the legs' colour).
+func _track(body: Node3D, crop: Rect2i) -> Dictionary:
+	var skel := body.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+	var at := func(bone: String) -> Vector3: return (skel.global_transform * skel.get_bone_global_pose(skel.find_bone(bone))).origin
+	var out := {}
+	var stroke := func(pts: Array, w_m: float) -> Dictionary:
+		var ppm: float = _img_size.y / _cam.size
+		var fr: Array = []
+		for q in pts:
+			var f := _frac(_px(q), 0.0, 0.0, crop)
+			fr.append([f[0], f[1]])
+		return {"pts": fr, "w": snappedf(w_m * ppm / float(crop.size.x), 0.0001)}
+	for side in ["Left", "Right"]:
+		var lr: String = str(side).to_lower()
+		var up: Vector3 = at.call(str(side) + "UpperArm")
+		var lo: Vector3 = at.call(side + "LowerArm")
+		var hd: Vector3 = at.call(side + "Hand")
+		var cl: Vector3 = at.call(side + "Shoulder")
+		out[lr + "_shoulder"] = stroke.call([cl.lerp(up, 0.45), up.lerp(lo, 0.22)], 0.10)
+		out[lr + "_arm"] = stroke.call([up.lerp(lo, 0.38), lo, lo.lerp(hd, 0.8)], 0.07)
+		var th: Vector3 = at.call(side + "UpperLeg")
+		var kn: Vector3 = at.call(side + "LowerLeg")
+		out["legs_" + lr] = stroke.call([th.lerp(kn, 0.12), th.lerp(kn, 0.92)], 0.12)
+	var hips: Vector3 = at.call("Hips")
+	var chest: Vector3 = at.call("Chest")
+	out["core"] = stroke.call([hips.lerp(chest, 0.25), hips.lerp(chest, 0.95)], 0.17)
 	return out
 
 

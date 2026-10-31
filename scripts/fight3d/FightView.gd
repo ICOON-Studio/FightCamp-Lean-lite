@@ -238,7 +238,7 @@ func _queue(m: Dictionary, k: int) -> void:
 		_profiles[side]["energy_end"] = lerpf(e0, e1, float(k + 1) / Exchanges.EXCHANGES)
 	var bs := ExchangeBeats.build(exs[k], k, r, _ctx)
 	if burn != null:
-		burn.exchange(bs, str((exs[k] as Dictionary).get("sit", "")))
+		burn.exchange(bs, str((exs[k] as Dictionary).get("sit", "")), (exs[k] as Dictionary).get("after", {}), str((exs[k] as Dictionary).get("pace", "steady")))
 	beats.append_array(bs)
 	_round_beats.append_array(bs)
 	if closed:

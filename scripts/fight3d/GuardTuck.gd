@@ -49,7 +49,9 @@ var inner := 0.0      # 1 = the inside guard (set every frame by FightStage from
 var tired := {"lead": 0.0, "rear": 0.0}
 ## S322 burn_probe: 0.22 put the jab glove 0.16-0.18 m under her face late in round 3 (at the chest); a tired boxer's
 ## lead sags to shoulder / top-of-chest height: 0.14 (~0.11 m at the round-3 reading).
-const TIRED_DROP_M := {"lead": 0.14, "rear": 0.12}
+## S323 (operator on update 25, Q-S294-41 "Too little / can't see it": 0.10 m read as nothing from the broadcast camera): the
+## spent jab hand hangs at the belly, the rear at the chest - and TiredSag folds the trunk under them.
+const TIRED_DROP_M := {"lead": 0.30, "rear": 0.20}
 ## The inside guard's wrist, from the head bone: forward, out to her own side, up (metres).
 const IN_FWD_M := 0.13
 const IN_SIDE_M := 0.10

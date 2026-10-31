@@ -34,8 +34,18 @@ const HURRY := 1.5
 const PUSH_S := 0.9
 const TURN_S := 0.15
 const EDGE_IN_M := 0.4
-## Pinned by the ropes on his side, he tries these spots along the line (x his `out`; 0 = ALONG_M), first with room wins.
-const ALONG_TRY := [0, 1, -1, 1.6, -1.6]
+## S323 (update 25 exe still: 1.25 m behind the line, centred, he stood BETWEEN their heads on screen - ref_probe only
+## measured the ground): his spot is picked on the SCREEN. Candidates along the line (metres from their middle; BEYOND =
+## past a boxer's back by that much), scored: off the gap between their heads on screen first, then room inside the
+## ropes, then the least move from where he stands.
+const ALONG_TRY := [0.6, -0.6]
+const BEYOND_TRY := [0.9, 1.4, 2.0]
+## Crossing to the other end of their line walks him behind them, through the gap on screen (S323 ref_probe: 1059 of the
+## 1143 between-frames were him walking across): he keeps his end unless it has no clear spot.
+const SWITCH_COST := 60.0
+## Screen pixels each side of the two heads that count as "between them"; his head height (metres).
+const SCREEN_GAP_PX := 70.0
+const HEAD_Y_M := 1.65
 
 var stage: Node3D
 var body: Node3D
@@ -43,7 +53,7 @@ var ap: AnimationPlayer
 var _mode := "watch"      # watch | in | part
 var _part_left := 0.0
 var _side := 1.0          # which side of the line he keeps (away from the camera)
-var _along_k := 0.0       # 0 = ALONG_M; else how far along the line, in units of his `out` (pinned by the ropes)
+var _along := ALONG_M     # metres along the boxers' line from their middle (picked on screen in watch mode)
 
 
 static func build(s: Node3D) -> Node3D:
@@ -104,8 +114,10 @@ func _move(delta: float) -> void:
 			_walk_to(_spot(NEAR_M), WALK_MS * HURRY, delta, 0.08)
 		_:
 			var to := _spot(WATCH_M)
-			if body.position.distance_to(to) > SLACK_M or str(ap.current_animation) == "af_walk":
-				_walk_to(to, WALK_MS, delta, 0.1)
+			# S323: in the gap between their heads on screen he hurries out of it (and never idles there).
+			var seen := between_on_screen()
+			if seen or body.position.distance_to(to) > SLACK_M or str(ap.current_animation) == "af_walk":
+				_walk_to(to, WALK_MS * (HURRY if seen else 1.0), delta, 0.1)
 			else:
 				if str(ap.current_animation) == "":
 					_play("af_idle")
@@ -117,7 +129,8 @@ func _mid() -> Vector3:
 	return Vector3(m.x, 0.0, m.z)
 
 
-## `out` metres off the boxers' line, on the side away from the camera, inside the ropes.
+## `out` metres off the boxers' line, on the side away from the camera, inside the ropes; `along_m` 0 = square between
+## them (the push), else the spot picked on screen (_pick_along).
 func _spot(out: float, along_m: float = ALONG_M) -> Vector3:
 	var a: Vector3 = stage.boxers[0]["pos"]
 	var b: Vector3 = stage.boxers[1]["pos"]
@@ -127,22 +140,48 @@ func _spot(out: float, along_m: float = ALONG_M) -> Vector3:
 	var dir := line.normalized() if line.length() > 0.01 else Vector3.ZERO
 	if cam != null and _mode == "watch":
 		_side = -1.0 if perp.dot(cam.global_position - _mid()) > 0.0 else 1.0
-		# S313 probe: near the ropes on his side the spot was pinned onto the boxers. S314 still (inside work on the
-		# ropes): taking the camera side then put him in front of them - he stays on the far side and slides along
-		# the line, beyond one boxer's back, to the spot the ropes leave room for.
-		var best := INF
-		for k in ALONG_TRY:
-			var pin := _pinned(perp * out * _side + dir * (ALONG_M if float(k) == 0.0 else out * float(k)))
-			if pin < best - 0.01:
-				best = pin
-				_along_k = float(k)
-			if pin <= PINNED_M:
-				break
-	# At an angle (not for the push, which goes square between them), not square behind them: from the side camera he shows beside the pair, never between their heads.
-	var along := dir * (along_m if _along_k == 0.0 or along_m == 0.0 else out * _along_k)
-	var p := _mid() + perp * out * _side + along
+		_along = _pick_along(cam, perp * out * _side, dir, line.length() * 0.5)
+	var p := _mid() + perp * out * _side + dir * (0.0 if along_m == 0.0 else _along)
 	var edge: float = float(stage.RING_M) * 0.5 - EDGE_IN_M
 	return Vector3(clampf(p.x, -edge, edge), 0.0, clampf(p.z, -edge, edge))
+
+
+## The spot along the line (metres from their middle) that keeps him off the gap between their heads ON SCREEN (S313/S314:
+## on the far side, sliding beyond a boxer's back when the ropes pin him).
+func _pick_along(cam: Camera3D, off: Vector3, dir: Vector3, half: float) -> float:
+	var tries: Array = ALONG_TRY.duplicate()
+	for k in BEYOND_TRY:
+		tries.append(half + float(k))
+		tries.append(-half - float(k))
+	var h0 := cam.unproject_position(stage.boxers[0]["pos"] + Vector3.UP * HEAD_Y_M).x
+	var h1 := cam.unproject_position(stage.boxers[1]["pos"] + Vector3.UP * HEAD_Y_M).x
+	var lo := minf(h0, h1) - SCREEN_GAP_PX
+	var hi := maxf(h0, h1) + SCREEN_GAP_PX
+	var best := _along
+	var best_score := INF
+	for t in tries:
+		var spot := _mid() + off + dir * float(t)
+		var sx := cam.unproject_position(spot + Vector3.UP * HEAD_Y_M).x
+		var score := absf(float(t) - _along) * 0.2 + _pinned(off + dir * float(t)) * 10.0
+		if signf(float(t)) != signf(_along):
+			score += SWITCH_COST
+		if sx > lo and sx < hi and not cam.is_position_behind(spot):
+			score += 100.0
+		if score < best_score:
+			best_score = score
+			best = float(t)
+	return best
+
+
+## True when his head shows between the two boxers' heads on screen (ref_probe, the S323 screen check).
+func between_on_screen() -> bool:
+	var cam: Camera3D = stage.get("camera")
+	if cam == null:
+		return false
+	var h0 := cam.unproject_position(stage.boxers[0]["pos"] + Vector3.UP * HEAD_Y_M).x
+	var h1 := cam.unproject_position(stage.boxers[1]["pos"] + Vector3.UP * HEAD_Y_M).x
+	var sx := cam.unproject_position(body.position + Vector3.UP * HEAD_Y_M).x
+	return sx > minf(h0, h1) and sx < maxf(h0, h1)
 
 
 ## How far the ropes would push a spot this offset from the boxers' middle back in.

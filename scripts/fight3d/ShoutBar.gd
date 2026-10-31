@@ -6,6 +6,7 @@ extends PanelContainer
 
 const UI := preload("res://scripts/ui/UI.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
+const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 
 signal picked(call: String)
 
@@ -16,6 +17,15 @@ const SHOW_S := 10.0
 var _left := SHOW_S
 var _count: Label
 var _done := false
+## S323 the driver mode (the body is the track): her pace and where she aims, kept from shout to shout; the pick carries
+## them ("<call>|pace=..|aim=..", LiveRound.exchange).
+var pace := "steady"
+var aim := ""
+var _drive: HBoxContainer
+var _aims: Array = []
+var _her := ""
+const PACE_LABEL := {"push": "Push", "steady": "Steady", "save": "Save"}
+const AIM_LABEL := {"": "Her own game", "head": "Head", "body": "Body", "left_ribs": "Left ribs", "right_ribs": "Right ribs", "head_hurt": "The hurt head"}
 
 
 func setup(pv: Dictionary, round_n: int) -> void:
@@ -27,7 +37,7 @@ func setup(pv: Dictionary, round_n: int) -> void:
 	anchor_bottom = 1.0
 	offset_left = 28
 	offset_right = -28
-	offset_top = -196
+	offset_top = -248
 	offset_bottom = -16
 	var v := UI.vbox(8)
 	add_child(v)
@@ -52,7 +62,41 @@ func setup(pv: Dictionary, round_n: int) -> void:
 		row.add_child(now)
 		row.move_child(now, 0)
 	v.add_child(row)
+	pace = str(pv.get("pace", "steady"))
+	aim = str(pv.get("aim", ""))
+	_aims = pv.get("aims", ["", "head", "body"])
+	_her = str(names[0])
+	_drive = UI.hbox(8)
+	v.add_child(_drive)
+	_draw_drive()
 	_tick()
+
+
+## PACE  [Push] [Steady] [Save]      AIM  [Her own game] [Head] [Body] (+ a hurt place): the chosen one gold.
+func _draw_drive() -> void:
+	UI.clear(_drive)
+	_drive.add_child(UI.caps("PACE"))
+	for p in PaceAim.PACES:
+		var b := UI.button(str(PACE_LABEL[p]), "ChoiceOn" if p == pace else "Choice", _set_pace.bind(str(p)))
+		b.name = "Pace_" + str(p)
+		b.tooltip_text = PaceAim.pace_word(str(p))
+		_drive.add_child(b)
+	_drive.add_child(UI.spacer())
+	_drive.add_child(UI.caps("AIM"))
+	for a in _aims:
+		var b := UI.button(str(AIM_LABEL.get(a, a)), "ChoiceOn" if str(a) == aim else "Choice", _set_aim.bind(str(a)))
+		b.name = "Aim_" + (str(a) if str(a) != "" else "own")
+		_drive.add_child(b)
+
+
+func _set_pace(p: String) -> void:
+	pace = p
+	_draw_drive()
+
+
+func _set_aim(a: String) -> void:
+	aim = a
+	_draw_drive()
 
 
 ## How many more of your shouts she takes in fully this round.
@@ -80,4 +124,4 @@ func _pick(call: String) -> void:
 	if _done:
 		return
 	_done = true
-	picked.emit(call)
+	picked.emit("%s|pace=%s|aim=%s" % [call, pace, aim])

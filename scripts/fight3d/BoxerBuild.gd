@@ -1,7 +1,7 @@
 extends RefCounted
 ## One boxer on the 3D ring (split from Fightstage.gd S307, 500-line rule): the MetaHuman body scaled to her height, her
 ## corner's kit and gloves, the clip library (mirrored for a southpaw) and the modifier stack in its order - join smoother,
-## guard tuck, punch reach, head snap, elbows clear, planted feet. S316 control arms (tools/smooth_probe.gd): `noguard`,
+## tired sag, guard tuck, punch reach, head snap, elbows clear, planted feet. S316 control arms (tools/smooth_probe.gd): `noguard`,
 ## `noreach`, `nosnap`, `noglove`, `nojoin`, `nofeet`.
 ## Reads the kit colours off the stage (its TRUNKS / VESTS / CORNERS / CLOTH_ROUGHNESS).
 ##   build(stage, spec, index) -> {node, skel, ap, gloves, js, reach, snap, feet, south, front, pos, vel, move_left}
@@ -20,6 +20,7 @@ const GuardTuck := preload("res://scripts/fight3d/GuardTuck.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const FootPlant := preload("res://scripts/fight3d/FootPlant.gd")
+const TiredSag := preload("res://scripts/fight3d/TiredSag.gd")
 
 
 static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
@@ -61,6 +62,15 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	else:
 		js.free()
 		js = null
+	# S323: a tired trunk folds, the head hangs, the shoulders heave (before the guard, so the gloves follow the face).
+	var ts := TiredSag.new()
+	ts.name = "TiredSag"
+	if ts.setup(skel, index * 17 + 3):
+		skel.add_child(ts)
+		skel.move_child(ts, (js.get_index() + 1) if js != null else 0)
+	else:
+		ts.free()
+		ts = null
 	# S302: her guard tucks in toward her face and pumps (after the join smoother).
 	var gt := GuardTuck.new()
 	gt.name = "GuardTuck"
@@ -68,7 +78,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	# S313: the step clips too (Footwork.STRIDE) - at rest they step most of the time, and the guard drops there (gap 5).
 	if not OS.get_cmdline_user_args().has("noguard") and gt.setup(skel, ap, body, BeatClips.GUARD + GuardLife.FIDGETS + ["advance", "retreat", "strafe_left", "strafe_right"], index * 31 + 7):
 		skel.add_child(gt)
-		skel.move_child(gt, (js.get_index() + 1) if js != null else 0)
+		skel.move_child(gt, (ts.get_index() + 1) if ts != null else ((js.get_index() + 1) if js != null else 0))
 	else:
 		gt.free()
 		gt = null
@@ -107,7 +117,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	# S314 `nostagger` = the clip's own stance spread (the control arm of gap 7).
 	var fp := FootPlant.attach(skel, ap, null, null if OS.get_cmdline_user_args().has("nostagger") else body) if not OS.get_cmdline_user_args().has("nofeet") else null
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "feet": fp, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "feet": fp, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 

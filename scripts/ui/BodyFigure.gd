@@ -5,6 +5,7 @@ extends Control
 ## boxer's own baked front picture (tools/bake_body_portraits.gd) and the places where they sit on her body.
 
 const BM := preload("res://scripts/rules/BodyMap.gd")
+const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 
 const DESIGN_W := 90.0
 const DESIGN_H := 150.0
@@ -37,6 +38,13 @@ var _anchors := {}   # place -> [x, y, rx, ry] as fractions of the portrait
 const PORTRAITS := "res://assets/ui/body"
 ## The body is dimmed a little so the places' colours read on top of it.
 const BODY_TINT := Color(0.7, 0.7, 0.74)
+## S323 "the body is the track" step 3 (Q-S294-38 "Build it"): BodyLoad's Burn per part painted on her own body like tyre
+## temperatures (BodyTrack colours), the baked strokes in the portrait's json "track". With a track the hurt places are
+## drawn as outlines only (a hurt place rings in its BodyMap colour, a fine one is not drawn) so the two never mix.
+var _track := {}     # body place (BodyTrack.body_place) -> Burn 0..100
+var _pulse := {}     # body place -> 0..1, a part that just went up a band
+const PULSE_S := 0.8
+const TRACK_ALPHA := 0.82
 
 
 ## {"tex", "anchors"} for a boxer's body (her glb path) in her corner's colours; {} when it was never baked.
@@ -133,16 +141,78 @@ func _draw() -> void:
 func _draw_portrait() -> void:
 	draw_texture_rect(_tex, _portrait_rect(), false, BODY_TINT)
 	var edge := Color(0, 0, 0, 0.7)
+	var strokes: Dictionary = _anchors.get("track", {})
+	if not _track.is_empty() and not strokes.is_empty():
+		_draw_track(strokes)
 	for p in BM.PLACES:
 		var g := _geom_px(p)
 		var col := colour_of(p)
 		var c: Vector2 = g["c"]
+		if not _track.is_empty() and not strokes.is_empty():
+			if BM.band(float(_values.get(p, 100.0))) != "fine" or float(_flash.get(p, 0.0)) > 0.0:
+				draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), col, maxf(2.0, size.y * 0.014), true)
+			continue
 		if p == "head":
 			_ellipse(c, g["rx"], g["ry"], Color(col.r, col.g, col.b, 0.22))
 			draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), col, maxf(2.0, size.y * 0.012), true)
 		else:
 			_ellipse(c, g["rx"], g["ry"], Color(col.r, col.g, col.b, 0.62 if p.ends_with("ribs") else 0.92))
 			draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), edge, 1.0, true)
+
+
+## Each part as a thick stroke along her limb in its Burn colour, round-ended, a dark edge under it; a part that just went
+## up a band swells and whitens for PULSE_S.
+func _draw_track(strokes: Dictionary) -> void:
+	var r := _portrait_rect()
+	for place in strokes:
+		var key := "legs" if str(place).begins_with("legs") else str(place)
+		if not _track.has(key):
+			continue
+		var st: Dictionary = strokes[place]
+		var pts := PackedVector2Array()
+		for q in st["pts"]:
+			pts.append(r.position + Vector2(float(q[0]) * r.size.x, float(q[1]) * r.size.y))
+		var pu: float = float(_pulse.get(key, 0.0))
+		var w: float = maxf(3.0, float(st["w"]) * r.size.x) * (1.0 + 0.35 * pu)
+		var col := BodyTrack.colour(float(_track[key])).lerp(Color.WHITE, 0.5 * pu)
+		col.a = TRACK_ALPHA
+		draw_polyline(pts, Color(0, 0, 0, 0.55), w + 2.0, true)
+		draw_circle(pts[0], (w + 2.0) * 0.5, Color(0, 0, 0, 0.55))
+		draw_circle(pts[pts.size() - 1], (w + 2.0) * 0.5, Color(0, 0, 0, 0.55))
+		draw_polyline(pts, col, w, true)
+		draw_circle(pts[0], w * 0.5, col)
+		draw_circle(pts[pts.size() - 1], w * 0.5, col)
+
+
+## {body place: Burn} (BodyTrack.body_place keys: left/right shoulder and arm, core, legs). A part that went up a band
+## pulses once.
+func set_track(burns: Dictionary) -> void:
+	for k in burns:
+		if BodyTrack.pulse(float(_track.get(k, 0.0)), float(burns[k])):
+			_pulse[k] = 1.0
+		_track[k] = float(burns[k])
+	queue_redraw()
+
+
+## e.g. "Jab shoulder: hot" for the part under the mouse ("" off the track).
+func track_tip(local_pos: Vector2, southpaw: bool) -> String:
+	var strokes: Dictionary = _anchors.get("track", {})
+	if _track.is_empty() or strokes.is_empty():
+		return ""
+	var r := _portrait_rect()
+	for place in strokes:
+		var key := "legs" if str(place).begins_with("legs") else str(place)
+		var st: Dictionary = strokes[place]
+		var w: float = maxf(6.0, float(st["w"]) * r.size.x)
+		var pts: Array = st["pts"]
+		for i in pts.size() - 1:
+			var a := r.position + Vector2(float(pts[i][0]) * r.size.x, float(pts[i][1]) * r.size.y)
+			var b := r.position + Vector2(float(pts[i + 1][0]) * r.size.x, float(pts[i + 1][1]) * r.size.y)
+			if Geometry2D.get_closest_point_to_segment(local_pos, a, b).distance_to(local_pos) <= w * 0.5:
+				for part in BodyTrack.PARTS:
+					if BodyTrack.body_place(part, southpaw) == key:
+						return BodyTrack.label(part, float(_track.get(key, 0.0)))
+	return ""
 
 
 func _ellipse_pts(c: Vector2, rx: float, ry: float) -> PackedVector2Array:
@@ -291,6 +361,10 @@ func _place_geom(place: String) -> Dictionary:
 
 func _process(delta: float) -> void:
 	var any := false
+	for k in _pulse:
+		if float(_pulse[k]) > 0.0:
+			_pulse[k] = maxf(0.0, float(_pulse[k]) - delta / PULSE_S)
+			any = true
 	for p in BM.PLACES:
 		var fa: float = _flash.get(p, 0.0)
 		if fa > 0.0:

@@ -36,6 +36,10 @@ func _initialize() -> void:
 	var last_sign := 0.0
 	var spells: Array = []   # [start_t, end_t, min_perp]
 	var in_spell := false
+	var on_screen := 0   # S323: his head between their two heads on the game camera's screen (in watch mode)
+	var watch := 0
+	var os_walk := 0      # of the on-screen frames: walking (still on his way to the spot)
+	var os_narrow := 0    # of the on-screen frames: their heads under 200 px apart (the camera along their line)
 	while bool(view.playing) and float(view.t) <= secs:
 		await process_frame
 		var st: Node = view.stage
@@ -60,6 +64,18 @@ func _initialize() -> void:
 			crossings += 1
 		if sgn != 0.0:
 			last_sign = sgn
+		var cam: Camera3D = st.get("camera")
+		if cam != null and str(ref.get("_mode")) == "watch":
+			watch += 1
+			var h0 := cam.unproject_position(a + Vector3.UP * 1.65).x
+			var h1 := cam.unproject_position(b + Vector3.UP * 1.65).x
+			var sx := cam.unproject_position(p + Vector3.UP * 1.65).x
+			if sx > minf(h0, h1) and sx < maxf(h0, h1):
+				on_screen += 1
+				if str((ref.get("ap") as AnimationPlayer).current_animation) == "af_walk":
+					os_walk += 1
+				if absf(h1 - h0) < 200.0:
+					os_narrow += 1
 		var is_between := u > 0.15 and u < 0.85 and absf(perp) < BETWEEN_M
 		if is_between:
 			between += 1
@@ -70,6 +86,8 @@ func _initialize() -> void:
 		in_spell = is_between
 	print("REF frames %d | between the boxers %d (%.1f %%) in %d spells | side flips %d | walks across their line %d" % [
 		frames, between, 100.0 * between / maxf(1.0, frames), spells.size(), flips, crossings])
+	print("REF on screen: his head between their heads %d of %d watch frames (%.1f %%) | of those walking %d, heads < 200 px apart %d" % [
+		on_screen, watch, 100.0 * on_screen / maxf(1.0, watch), os_walk, os_narrow])
 	for s in spells.slice(0, 15):
 		print("REF between: %.1f-%.1f s, closest %.2f m off their line, mode %s, pelvis gap %.2f m" % [s[0], s[1], s[2], s[3], s[4]])
 	quit(0)

@@ -1,3 +1,25 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 26 (2026-10-31): THE BODY IS THE TRACK, PART 2 - SEE IT, DRIVE IT
+====================================================================================================
+
+NEW IN UPDATE 26 (board: "Test: fight night WITH film study" - watch the side panels; skip to round 3, last minute at 1x)
+ 1. TIRED NOW SHOWS (your "Too little / can't see it" on update 25). A tired boxer's jab hand now sinks to her belly
+    (twice as far as update 25: ~0.23 m under her face late in round 3), the rear glove to her chest when her tank is
+    low, her trunk folds forward, her head hangs and her shoulders heave with each breath. The energy number on the
+    scorebug drives it too: a boxer on ENERGY 22 looks spent even if she has thrown little.
+ 2. THE BODY VIEW. The two side panels now paint each boxer's own body part by part, like tyre temperatures: blue
+    fresh, green warm, yellow hot, red burning - each shoulder, each arm, her body and her legs. A part that goes up
+    a colour pulses once. A hurt head or ribs ring in orange/red over it. A southpaw's jab side is her right.
+ 3. PACE AND AIM ON THE SHOUT BAR (your body-as-the-track plan). Under the shouts: PACE Push / Steady / Save and AIM
+    Her own game / Head / Body (+ "The hurt head" when her opponent is hurt). Push wins more exchanges and throws more
+    but empties the tank faster and burns her body faster; Save gives exchanges away and she gets some breath back.
+    The choice stays until you change it, round to round.
+ 4. THE ROUND AND RESULT PAGES (your "Layout looks cheap / like a spreadsheet"): now a TV broadcast graphic - both
+    fighters big in their corner's colour, the numbers in very large type with a thin bar, the leader's number bright,
+    the coach as a quote; the verdict reads like the ring announcer: the winner's name and the three cards huge.
+ 5. THE REFEREE keeps out of the gap between their two heads on screen: measured on the game camera he stood there
+    43 % of the time in update 25, now 13 %: he keeps to his end of their line and hurries out of the gap (what is
+    left is mostly him walking past behind them).
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 25 (2026-10-31): THE BODY IS THE TRACK, PART 1 - TIRED BOXERS LOOK TIRED
 =========================================================================================================
 

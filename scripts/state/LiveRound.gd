@@ -9,6 +9,7 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const HabitFix := preload("res://scripts/rules/HabitFix.gd")
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
+const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -48,7 +49,9 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	var sj: Dictionary = jobs.get("setup", {})
 	if not sj.is_empty() and float((f.get("combos", {}) as Dictionary).get(str(sj.get("combo", "")), 0.0)) >= Combos.LEARN_AT:
 		setup = {"combo": str(sj["combo"]), "gap": str(sj["gap"]), "mastery": float(f["combos"][str(sj["combo"])]), "used": ""}
-	m["live"] = {"n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
+	# S323 Pace and Aim (the body is the track: the driver mode) carry from round to round until changed.
+	var was: Dictionary = m.get("live", {})
+	m["live"] = {"pace": str(was.get("pace", "steady")), "aim": str(was.get("aim", "")), "n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
 		"talk": talk, "talk_kind": str(jobs.get("talk", "")), "setup": setup,
 		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS)),
 		"body": f["bout"]["body"]}
@@ -107,7 +110,8 @@ static func preview(f: Dictionary, m: Dictionary) -> Dictionary:
 		grades[k] = Exchanges.grade(str(k), vals)["word"]
 	return {"sit": sit, "clue": Exchanges.clue(sit, names, i + int(lv["n"]) * 3), "offers": Exchanges.offers(sit),
 		"coach": coach, "mark": mark, "grades": grades, "at": i * Exchanges.EX_SECONDS, "i": i,
-		"shouts": int(lv["shouts"]), "names": names, "now": now_offer(lv, sit)}
+		"shouts": int(lv["shouts"]), "names": names, "now": now_offer(lv, sit),
+		"pace": str(lv.get("pace", "steady")), "aim": str(lv.get("aim", "")), "aims": PaceAim.offers({"head": bool(lv["opp_hurt"])})}
 
 
 ## S310 the set-up's NOW button: {combo, gap, line} when the corner SEES the gap it waits for (seen = with film study her
@@ -136,6 +140,17 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var opp: Dictionary = f["bout"]["opp"]
 	var vals := values(f)
 	var sit := Exchanges.situation(str(lv["mode"]), her_energy(lv, i), bool(lv["her_hurt"]))
+	# S323 "<call>|pace=<push|steady|save>|aim=<PaceAim.AIMS>" from the shout bar: the driver mode for this exchange on.
+	for opt in shout.split("|").slice(1):
+		var kv := str(opt).split("=")
+		if kv.size() == 2 and kv[0] == "pace" and PaceAim.PACES.has(kv[1]):
+			lv["pace"] = kv[1]
+		elif kv.size() == 2 and kv[0] == "aim" and PaceAim.AIMS.has(kv[1]):
+			lv["aim"] = kv[1]
+	shout = shout.get_slice("|", 0)
+	var pace := str(lv.get("pace", "steady"))
+	var aim := str(lv.get("aim", ""))
+	var opp_hurt := {"head": bool(lv["opp_hurt"])}
 	var fire := shout == "now" and not (lv.get("setup", {}) as Dictionary).is_empty() and str(lv["setup"].get("used", "")) == ""
 	if shout == "now":
 		shout = ""
@@ -157,12 +172,16 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var fits := fire and CornerJobs.fits(str(su.get("gap", "")), sit)
 	if fire:
 		d += CornerJobs.setup_edge(fits, float(su["mastery"]), her_energy(lv, i))
+	d += PaceAim.edge(pace, aim, opp_hurt, {})
 	var rng := _rng(c, f, n, i + 1)
 	var s := Exchanges.settle(d, rng.randf(), rng.randf())
+	# S323 Push throws more (and so lands more), Save less.
+	s["landed"][0] = maxi(0, int(round(float(s["landed"][0]) * PaceAim.output(pace))))
 	var names := [str(f["first"]), str(opp["first"])]
 	# S310 body shots: hers to the body more on "Go to the body", the opponent's more if body punching is her threat.
 	var share_b := Exchanges.BODY_THREAT_SHARE if str(opp.get("threat", "")).to_lower().contains("body") else Exchanges.BODY_SHARE
-	var body := [Exchanges.body_shots(int(s["landed"][0]), Exchanges.BODY_CALL_SHARE if call == "body" else Exchanges.BODY_SHARE, rng.randf()),
+	var share_a := PaceAim.body_share(aim) if aim != "" else (Exchanges.BODY_CALL_SHARE if call == "body" else Exchanges.BODY_SHARE)
+	var body := [Exchanges.body_shots(int(s["landed"][0]), share_a, rng.randf()),
 		Exchanges.body_shots(int(s["landed"][1]), share_b, rng.randf())]
 	var bt: Dictionary = lv.get("body", {"a": 0, "b": 0})
 	bt["b"] = int(bt.get("b", 0)) + int(body[0])
@@ -175,11 +194,15 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 			dmg["b"] = float(dmg.get("b", 0.0)) + CornerJobs.SETUP_DAMAGE
 			m["damage"] = dmg
 	var rec := {"i": i, "mode": str(lv["mode"]), "body": body, "setup": str(su.get("used", "")) if fire else "", "setup_combo": str(su.get("combo", "")) if fire else "", "sit": sit, "call": call, "shout": shouted, "fit": Exchanges.fit(call, sit),
-		"won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
+		"pace": pace, "aim": aim, "won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix) if habit != "" else ""}
 	exs.append(rec)
 	if call != "":
 		lv["cost"] = float(lv["cost"]) + float(Exchanges.CALLS[call]["cost"])
+	# S323 the pace's price: Push spends the round's own drop faster, Save slower and she breathes back a little.
+	var e0: Dictionary = lv["e"]
+	var drop := maxf(0.0, float(e0.get("a", 100.0)) - float(e0.get("a_end", 100.0))) / Exchanges.EXCHANGES
+	lv["cost"] = float(lv["cost"]) + drop * (PaceAim.spend(pace) - 1.0) - PaceAim.recover(pace)
 	lv["cost"] = float(lv["cost"]) + float((lv.get("talk", {}) as Dictionary).get("cost", 0.0)) 		+ (Combos.combo_cost((Combos.row(str(su.get("combo", ""))).get("moves", []) as Array).size()) if fire else 0.0)
 	# A big exchange can leave the loser hurt for the next one.
 	var rating := float(opp.get("rating", 60.0))

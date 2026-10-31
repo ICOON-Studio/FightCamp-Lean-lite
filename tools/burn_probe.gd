@@ -46,6 +46,9 @@ func _initialize() -> void:
 				view._toggle_speed()
 				view._toggle_speed()
 			low[n] = await _guard_low(view, 2.0 if n == 1 else 120.0, 12.0 if n == 1 else 150.0)
+			if n == 1:
+				await RenderingServer.frame_post_draw
+				root.get_texture().get_image().save_png(out_dir.path_join("burn_round1.png"))
 			if n == 3:
 				await RenderingServer.frame_post_draw
 				var path := out_dir.path_join("burn_round3.png")
@@ -92,8 +95,12 @@ func _guard_low(view: Node, t0: float, t1: float) -> Array:
 			sums[i] += (st.target_point(i, false) as Vector3).y - (st.glove_front(i, lead) as Vector3).y
 			counts[i] += 1
 	var tk: Dictionary = view.stage.boxers[0]["tuck"].tired
-	print("BURN at %.0f s: red glove drop lead %.2f rear %.2f, legs %.2f | %d / %d guard frames" % [float(view.t), float(tk["lead"]), float(tk["rear"]),
-		float(view.stage.boxers[0].get("legs", 1.0)), counts[0], counts[1]])
+	var sags := []
+	for i in 2:
+		var sg: Node = view.stage.boxers[i].get("sag")
+		sags.append(float(sg.tired) if sg != null else -1.0)
+	print("BURN at %.0f s: red glove drop lead %.2f rear %.2f, legs %.2f, sag red %.2f blue %.2f | %d / %d guard frames" % [float(view.t),
+		float(tk["lead"]), float(tk["rear"]), float(view.stage.boxers[0].get("legs", 1.0)), sags[0], sags[1], counts[0], counts[1]])
 	return [sums[0] / maxf(1.0, counts[0]), sums[1] / maxf(1.0, counts[1])]
 
 
