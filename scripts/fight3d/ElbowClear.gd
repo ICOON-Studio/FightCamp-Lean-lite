@@ -10,6 +10,10 @@ const ARMS := [["LeftUpperArm", "LeftLowerArm", "LeftHand", 1.0], ["RightUpperAr
 
 var _ids: Array = []
 var _chest := -1
+## S321: her own PunchReach. Around a landed punch's contact the striking arm is left as the reach solved it (this
+## modifier's share falls to 0 as the reach weight rises): moving that elbow turned the forearm, and the taped-wrist glove
+## follows the forearm (Gloves.WRIST_STRAIGHT) - inside punches landed 0.13-0.28 m off the face (hit_gap_probe).
+var reach: Node = null
 
 
 func setup(skel: Skeleton3D) -> bool:
@@ -32,10 +36,14 @@ func _process_modification() -> void:
 	var lateral := (l_sh - r_sh)
 	lateral = lateral.normalized() if lateral.length() > 0.001 else chest.basis.x.normalized()
 	for ids in _ids:
-		_clear(skel, ids, chest.origin, lateral)
+		var share := 1.0
+		if reach != null and not OS.get_cmdline_user_args().has("elbowsalways") 				and str(reach.get("_hand")) == skel.get_bone_name(int(ids[2])):
+			share = 1.0 - clampf(float(reach.get("last_weight")), 0.0, 1.0)
+		if share > 0.0:
+			_clear(skel, ids, chest.origin, lateral, share)
 
 
-func _clear(skel: Skeleton3D, ids: Array, centre: Vector3, lateral: Vector3) -> void:
+func _clear(skel: Skeleton3D, ids: Array, centre: Vector3, lateral: Vector3, share := 1.0) -> void:
 	var ua: int = ids[0]
 	var la: int = ids[1]
 	var hd: int = ids[2]
@@ -83,6 +91,8 @@ func _clear(skel: Skeleton3D, ids: Array, centre: Vector3, lateral: Vector3) -> 
 			best = dir
 	if best_y == INF:
 		best = widest
+	if share < 1.0:
+		best = cur.slerp(best, share).normalized()
 	var e2 := c + best * r
 	# Upper arm: rotate so shoulder->elbow points at the new elbow.
 	var rot_ua := Quaternion((e - s).normalized(), (e2 - s).normalized())

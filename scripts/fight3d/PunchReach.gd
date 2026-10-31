@@ -18,6 +18,11 @@ const LEAN_MAX := 0.30
 ## When the next clip cuts in (a combo, a hit), the reach and the carry let go over this long instead of at once (S302
 ## joins report: an instant release jolted the hook hand 12 m/s in one frame; JoinSmoother runs before this modifier).
 const FADE_S := 0.12
+## The glove's long axis leans this share from the hand onto the forearm (Gloves.WRIST_STRAIGHT; `-- bentwrist` = 0 there).
+const Gloves := preload("res://scripts/fight3d/Gloves.gd")
+## Solves per frame for the full-weight wrist (the glove axis moves with the forearm); `-- onepass` = the S302 single step.
+static var SOLVE_PASSES: int = 1 if OS.get_cmdline_user_args().has("onepass") else 4
+static var STRAIGHT: float = 0.0 if OS.get_cmdline_user_args().has("bentwrist") else Gloves.WRIST_STRAIGHT
 
 var ap: AnimationPlayer
 var _arms := {}          # "LeftHand" -> [upper, lower, hand]
@@ -116,12 +121,21 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	var target: Vector3 = skel.global_transform.affine_inverse() * (target_fn.call() as Vector3)
 	var ids: Array = _arms[hand]
 	var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
-	var front := g_hd.origin + _along(skel, ids) * glove_front
-	# Where the wrist must go for the glove front to sit on the target, eased in by the weight.
-	var want: Vector3 = g_hd.origin + (target - front) * w
 	var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 	var l1 := s.distance_to(skel.get_bone_global_pose(int(ids[1])).origin)
 	var l2 := skel.get_bone_global_pose(int(ids[1])).origin.distance_to(g_hd.origin)
+	# Where the wrist must go for the glove front to sit on the target. S321: the glove's axis follows the forearm, and
+	# moving the wrist turns the forearm, so one step left the front 0.13-0.28 m off (hit_gap_probe, inside punches): the
+	# full-weight wrist is found by re-solving from the moved arm, then the pose is put back and eased in by the weight.
+	var keep := [skel.get_bone_global_pose(int(ids[0])), skel.get_bone_global_pose(int(ids[1])), g_hd]
+	var full := g_hd.origin
+	for k in SOLVE_PASSES:
+		var hd_now: Vector3 = skel.get_bone_global_pose(int(ids[2])).origin
+		full = hd_now + (target - (hd_now + _along(skel, ids) * glove_front))
+		solve(skel, ids, s, full, l1, l2, g_hd.basis)
+	for k in 3:
+		skel.set_bone_global_pose(int(ids[k]), keep[k])
+	var want: Vector3 = g_hd.origin + (full - g_hd.origin) * w
 	var reach := l1 + l2 - 0.004
 	if _chest >= 0 and s.distance_to(want) > reach:
 		_lean(skel, s, want, reach, w)
@@ -129,11 +143,19 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	solve(skel, ids, s, want, l1, l2, g_hd.basis)
 
 
-## The wrist-to-knuckle direction of the hand (the glove's long axis, as Gloves.gd mounts it).
+## The glove's long axis, as Gloves.gd mounts it: the wrist-to-knuckle direction turned WRIST_STRAIGHT of the way onto the
+## forearm (S316 taped wrist). S321: this aimed along the bare hand alone, so wherever a clip bends the wrist (hooks, short
+## inside punches) the glove's real striking face landed 0.13-0.28 m short and to the side of the face (hit_gap_probe).
 func _along(skel: Skeleton3D, ids: Array) -> Vector3:
 	var wrist: Vector3 = skel.get_bone_global_pose(int(ids[2])).origin
 	var a: Vector3 = skel.get_bone_global_pose(int(ids[3])).origin - wrist
-	return a.normalized() if a.length() > 1e-5 else Vector3.FORWARD
+	if a.length() < 1e-5:
+		return Vector3.FORWARD
+	a = a.normalized()
+	var arm: Vector3 = wrist - skel.get_bone_global_pose(int(ids[1])).origin
+	if STRAIGHT > 0.0 and arm.length() > 1e-5 and a.angle_to(arm) > 1e-3:
+		a = a.slerp(arm.normalized(), STRAIGHT).normalized()
+	return a
 
 
 ## Turns the chest about the root of the spine so the shoulder comes toward `want` by the part the arm cannot reach.

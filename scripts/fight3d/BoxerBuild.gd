@@ -81,6 +81,8 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	else:
 		pr.free()
 		pr = null
+	if pr != null and is_instance_valid(ec) and ec.is_inside_tree():
+		ec.reach = pr   # S321: the landing arm keeps the reach's elbow (and so the glove's aim)
 	var hs := HitSnap.new()
 	hs.name = "HitSnap"
 	if not OS.get_cmdline_user_args().has("nosnap") and hs.setup(skel):
