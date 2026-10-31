@@ -24,10 +24,10 @@ static func who(main: Node, id: String) -> Dictionary:
 static func act(main: Node, name: String, arg: String) -> bool:
 	var c: Career = main.career
 	match name:
-		"focus", "diet", "learn", "combo":
+		"focus", "diet", "learn", "combo", "trainload":
 			var parts := arg.split("|")
 			var f := who(main, parts[0])
-			f[{"focus": "focus", "diet": "diet", "learn": "learning", "combo": "combo_learning"}[name]] = parts[1] if parts.size() > 1 else parts[0]
+			f[{"focus": "focus", "diet": "diet", "learn": "learning", "combo": "combo_learning", "trainload": "load_setting"}[name]] = parts[1] if parts.size() > 1 else parts[0]
 			main.render()
 		"openBout":
 			main.nav({"area": "fights", "tab": 0, "bout": arg})

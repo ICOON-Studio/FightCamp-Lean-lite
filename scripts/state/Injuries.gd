@@ -2,7 +2,7 @@ extends RefCounted
 ## S325 update 28 injuries and suspensions (make-it-a-game plan decision 2; the rules are InjuryRoll, Qwen INJURYROLL1).
 ## A bout rolls from its settled damage (the fight model's head damage - the 3D view never decides); a stoppage loss is
 ## England Boxing's suspension (30 days, longer for repeats); each week rolls a training injury from her load
-## (TrainingLoad: until update 29 lets the player choose, a week is "normal" and a hard camp's week "hard").
+## (TrainingLoad: the setting the player picks each week, S326 update 29).
 ## While she is out: no offers, a quarter of the training gains, and an injury that runs past a booked bout pulls her
 ## out (the club pays for the empty slot). Bouts._finish, Sim.step_day and Sim.end_week call in here.
 ## Fighter keys: "injury" {type, days_out, until_day} ({} = fit), "ko_history" [days], "load" [last 4 weeks' hours].
@@ -11,8 +11,6 @@ const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 
-## A hard camp (protocol 3) trains "hard"; anything else "normal" (update 29 hands the choice to the player).
-const HARD_PROTOCOL := 3
 ## The fight model's head damage is one number for the whole bout; InjuryRoll reads the WORST of the body's places. A bout
 ## between equals carries ~22 damage (each loses ~1.5 rounds: 8-18 a lost round, 2 a won one); x2.2 puts its worst place
 ## at ~50, where InjuryRoll gives the real ~6 % a bout (Alevras 2022).
@@ -37,10 +35,18 @@ static func gain_mult(c: Career, f: Dictionary) -> float:
 	return TrainingLoad.gain("rest") if out(c, f) else 1.0
 
 
-## This week's training setting for her.
+## This week's training setting for her: the player's pick on the Training page (S326 update 29), else Normal (Hard in
+## camp). An injured fighter rests whatever the pick.
 static func setting(f: Dictionary) -> String:
-	var camp: Dictionary = f.get("camp", {})
-	return "hard" if not camp.is_empty() and int(camp.get("protocol", 0)) >= HARD_PROTOCOL else "normal"
+	var s := str(f.get("load_setting", ""))
+	if TrainingLoad.SETTINGS.has(s):
+		return s
+	return TrainingLoad.default_for(not (f.get("camp", {}) as Dictionary).is_empty())
+
+
+## Her load this week against her last four weeks (TrainingLoad.ratio): 1.0 = her usual.
+static func ratio(f: Dictionary) -> float:
+	return TrainingLoad.ratio(setting(f), f.get("load", TrainingLoad.fresh_history()))
 
 
 ## After the scorecards: the bout's roll. The result page reads m["injury"].

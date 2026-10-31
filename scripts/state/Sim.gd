@@ -17,6 +17,7 @@ const Roster := preload("res://scripts/state/Roster.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -47,7 +48,7 @@ static func daily_gain(career: Career, f: Dictionary) -> Dictionary:
 	var week: Dictionary = TrainingPreview.plan_gain(f["stats"], int(f["pot"]), focus_of(career, f), coach_rating(career))
 	var out: Dictionary = {}
 	for key in week.keys():
-		out[key] = float(week[key]) / 7.0 * BoutRules.camp_gain_mult(f.get("camp", {}), str(key))
+		out[key] = float(week[key]) / 7.0 * BoutRules.camp_gain_mult(f.get("camp", {}), str(key)) * TrainingLoad.gain(Injuries.setting(f))
 	return out
 
 

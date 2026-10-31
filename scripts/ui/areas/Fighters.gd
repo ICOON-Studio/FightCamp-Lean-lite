@@ -13,6 +13,7 @@ const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
 
 
@@ -136,6 +137,20 @@ func _training(main: Node, c: Career, f: Dictionary) -> void:
 		combo_box.tooltip_text = "Coach: \"%s\"" % ComboWords.line(drilling, "coach_learning", str(f["first"]), c.day / 7)
 	if ids.is_empty():
 		combo_box.add_item("none yet")
+	# S326 update 29: how hard she trains this week - harder gains more and risks more (the gauge: this week vs her usual).
+	var load := OptionButton.new()
+	load.name = "Load_" + fid
+	for i in TrainingLoad.ORDER.size():
+		var k: String = TrainingLoad.ORDER[i]
+		load.add_item("%s (%d h, gains x%.2f)" % [TrainingLoad.SETTINGS[k]["label"], int(TrainingLoad.hours(k)), TrainingLoad.gain(k)], i)
+	load.select(TrainingLoad.ORDER.find(Injuries.setting(f)))
+	load.item_selected.connect(func(i): main.act("trainload", "%s|%s" % [fid, TrainingLoad.ORDER[i]]))
+	load.custom_minimum_size = Vector2(240, 0)
+	load.disabled = Injuries.out(c, f)
+	var r := Injuries.ratio(f)
+	var gauge_col: Color = {"safe": UI.GREEN, "high": UI.AMBER, "spike": UI.RED}[TrainingLoad.band(r)]
+	var gauge := UI.label(Injuries.line(c, f) + ": resting" if Injuries.out(c, f) else TrainingLoad.gauge_line(r), UI.BODY, gauge_col, "bold")
+	gauge.name = "LoadGauge_" + fid
 	if in_camp:
 		card[1].add_child(UI.muted("In camp: the camp sets her focus (%s) and cuts her weight." % Data.LABEL[camp["focus"]], UI.BODY, true))
 	var coach_right: Array = []
@@ -143,6 +158,7 @@ func _training(main: Node, c: Career, f: Dictionary) -> void:
 		coach_right.append(UI.button("Hire one", "Btn", main.act.bind("go", "gym:1")))
 	var cards: Array = f["cards"]
 	UI.add_rows(card[1], [
+		UI.row("Load", "how hard she trains: harder = faster gains, more injury risk; a jump over her usual is what hurts", Color(0, 0, 0, 0), [gauge, load]),
 		UI.row("Focus", "the stat this week trains most; its partner trains a little", Color(0, 0, 0, 0), [focus]),
 		UI.row("Weight", "%.1f kg, limit %.1f kg" % [f["weight"], f["limit"]], Color(0, 0, 0, 0), [diet]),
 		UI.row("Learning", "pad time on one new move a week: a weapon in 2-3 weeks", Color(0, 0, 0, 0), [learn]),

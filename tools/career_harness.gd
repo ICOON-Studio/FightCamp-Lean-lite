@@ -2,8 +2,10 @@ extends SceneTree
 ## S324 update 27 balance-check (make-it-a-game plan "How each is checked"): plays 26-week careers through the real game
 ## (Main.act, the same path as golden_path_test) for two players and reports how often the gym closes.
 ##   careless - each of four careless habits on with chance CARELESS_P per career (seeded): hires the full-time head coach,
-##              takes unsafe offers too, hard camps, signs no sponsor (a population of careless players, not one player)
-##   sensible - hires the sessional coach, takes only safe offers, standard camps with film, signs every sponsor on offer
+##              takes unsafe offers too, hard camps, signs no sponsor, trains Hard every week (S326) - a population of
+##              careless players, not one player
+##   sensible - hires the sessional coach, takes only safe offers, standard camps with film, signs every sponsor on offer,
+##              trains Normal, rests the week after a bout and comes back through a Light week (S326)
 ## Population: Lucy (quick start) with each stat jittered +-4 and the gym's reputation 10 +-3, seed = career index; the
 ## same seeds for both players. Plan bounds: careless closes in 15-40 % of careers by week 26, sensible under 5 %.
 ##   <godot.exe> --headless --audio-driver Dummy --path . --script res://tools/career_harness.gd -- n=20 weeks=26
@@ -14,7 +16,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 
 const CARELESS_P := 0.5
-const HABITS := ["head_coach", "unsafe_bouts", "hard_camps", "no_sponsors"]
+const HABITS := ["head_coach", "unsafe_bouts", "hard_camps", "no_sponsors", "hard_weeks"]
 
 var main: Node
 var args := {}
@@ -101,6 +103,15 @@ func _decide(policy: String, c: Career) -> void:
 		main.act("prooffer", str(c.pro_offer["fid"]))
 		main.act("declinepro")
 	for f in c.fighters:
+		# S326 update 29 the weekly load: careless with hard_weeks trains Hard every week; the sensible player trains Normal
+		# (camp included) and rests the week after a bout.
+		var want := "hard" if habits["hard_weeks"] else "normal"
+		if policy == "sensible":
+			var mine: Array = c.results.filter(func(r): return str(r.get("fid", "")) == str(f["id"]))
+			var since := c.day - int(mine[0]["d"]) if not mine.is_empty() else 99
+			want = "rest" if since < 7 else ("light" if since < 14 else "normal")   # back up through Light, never a jump
+		if str(f.get("load_setting", "")) != want:
+			main.act("trainload", "%s|%s" % [f["id"], want])
 		for o in f["offers"]:
 			if bool(o["answered"]) or not (f["bout"] as Dictionary).is_empty():
 				continue
