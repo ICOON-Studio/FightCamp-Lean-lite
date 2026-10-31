@@ -1,3 +1,16 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 22 (2026-10-31): SHORT PUNCHES UP CLOSE
+=============================================================================================
+
+NEW IN UPDATE 22 (board: "Test: fight night WITH film study" - watch round 1 at 1x, the spells when they are chest to chest)
+ 1. SHORT PUNCHES UP CLOSE (John's coaching research: inside punches travel 15-30 cm, elbow bent). Chest to chest, a
+    hook, uppercut or body shot is now the end of the swing only: the glove travels about 20 cm (it swung 85 cm, the
+    whole long-range wind-up, before). At range nothing changes.
+ 2. WHAT IT COSTS. Our smoothness meter counts a little more jerk up close (+12 %): a short punch starts fast. Tell me
+    if the inside looks punchier or jumpier.
+ 3. MOTION BLUR IS IN YOUR BUILD NOW. Updates 20 and 21 had it only on my side: the .exe you play could not load the
+    blur's shaders, so fast punches never smeared. Fixed; the punches should look faster at 1x.
+ 4. Under the hood: the fight screen's code split in two (it had reached our size limit); nothing you see changes.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 21 (2026-10-30): THE BODY MAP, THE NUMBERS BEHIND EACH CALL, A CLEAN CLINCH
 =============================================================================================
 

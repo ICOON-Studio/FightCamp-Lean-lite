@@ -22,6 +22,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const FightCast := preload("res://scripts/fight3d/FightCast.gd")
 const FightHud := preload("res://scripts/fight3d/FightHud.gd")
 const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
+const BeatFire := preload("res://scripts/fight3d/BeatFire.gd")
 
 ## The player's choice lasts the session.
 static var fast := false
@@ -40,10 +41,7 @@ var plan: Dictionary = {}
 var beats: Array = []
 var round_n := 0
 var _stop := ""   # "KO" / "RSC" when this round ends the bout
-var _stepped := [false, false]   # her next punch steps in (a Pro _ft take)
-var _tired := [false, false]     # she has tired this round: her punches are the _hurt takes
-var _last_contact := [-9.0, -9.0]  # view time her last punch lands (S302 combos)
-var _last_hand := ["", ""]
+var _beat := BeatFire.new()   # S319: the beat switch (BeatFire.gd) and its per-round state
 var _profiles: Dictionary = {}
 var _ctx: Dictionary = {}
 var _ex_done := 0      # exchanges queued into beats this round
@@ -193,10 +191,7 @@ func play_round(m: Dictionary, n: int) -> void:
 		"names": _names, "day": c.day,
 		"won_last": n >= 2 and rounds.size() >= n - 1 and bool((rounds[n - 2] as Dictionary).get("won", false))}
 	_stop = ""
-	_stepped = [false, false]
-	_tired = [false, false]
-	_last_contact = [-9.0, -9.0]
-	_last_hand = ["", ""]
+	_beat.reset()
 	beats = []
 	_round_beats = []
 	_ex_done = 0
@@ -317,84 +312,10 @@ func _process(delta: float) -> void:
 
 
 func _fire(b: Dictionary) -> void:
-	var who := 0 if str(b["who"]) == "a" else 1
-	var other := 1 - who
-	var move := str(b["move"])
 	if str(b["caption"]) != "":
 		_say(str(b["caption"]))
 	_quiet = 0.0
-	match move:
-		"say", "inside":
-			pass   # S314: an inside spell only moves the range (RangeBreath)
-		"step_in", "step_out":
-			# S311: one boxer lunges into the pocket or steps out of range; the other holds (RangeBreath).
-			if b.has("ref"):
-				stage.clinch.release()   # S313: the referee's break - he parts them, both step out
-			stage.step(who, 1 if move == "step_in" else -1)
-			_stepped[who] = move == "step_in"
-		"clinch":
-			stage.clinch.start(who, float(b.get("dur", 3.0)))
-		"slip":
-			stage.play(who, "slip")
-		"tired":
-			stage.play(who, BeatClips.pick(BeatClips.TIRED, stage.has_move, _amb_rng.randf()))
-			_tired[who] = true
-		"count":
-			# The sim's standing count (Knockdowns); a KO stays down and the winner celebrates.
-			stage.play(who, BeatClips.pick(BeatClips.OUT if _stop == "KO" else BeatClips.DOWN, stage.has_move, _amb_rng.randf()))
-			if _stop != "":
-				get_tree().create_timer(1.2).timeout.connect(stage.play.bind(other, BeatClips.pick(BeatClips.WIN, stage.has_move, _amb_rng.randf())))
-		_:
-			# Fight model step 4: the beat's punch, its hit reaction and its defence come from BeatClips (Punch Pro first).
-			var land := str(b["result"])
-			# S301: stepping (_ft) and wide-miss takes back on; the ones tools/take_check.gd measured off stay out (BeatClips.OFF_TAKES).
-			var ctx := {"big": bool(b.get("big", false)), "miss": land == "misses" and str(b.get("def", "")) == "",
-				"tired": _tired[who], "step": _stepped[who], "roll": _amb_rng.randf()}
-			_stepped[who] = false
-			var clip := BeatClips.punch(move, ctx, stage.has_move)
-			var sp := BeatClips.speed(clip, move)
-			var contact := BeatClips.contact(clip, float(Stage.CONTACT.get(move, Stage.CONTACT_S)))
-			var hand := str(BeatClips.contact_row(clip).get("hand", ""))
-			var same_hand := hand != "" and hand == str(_last_hand[who])
-			var gap := -1.0
-			if str(b.get("combo_id", "")) != "":
-				# Her drilled combo lands at its own rhythm: quicker the better she has it, slower when she is tired.
-				var p: Dictionary = _profiles.get(str(b["who"]), {})
-				gap = Combos.interval(float((p.get("combos", {}) as Dictionary).get(str(b["combo_id"]), 0.0)), same_hand,
-					RoundScript.energy_at(p, fmod(float(b["t"]), Exchanges.EX_SECONDS) / Exchanges.EX_SECONDS))
-			var skip := BeatClips.combo_skip(contact, sp, float(_last_contact[who]), t, same_hand, gap)
-			_last_hand[who] = hand
-			stage.play(who, clip, sp, skip)
-			_last_contact[who] = t + (contact - skip) / sp
-			var at := (contact - skip) / sp
-			body.land(b, at)
-			if land == "lands":
-				# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
-				stage.land(who, clip, move == "body_hook" or clip.contains("kidney"))
-				var hit := BeatClips.react(move, bool(b.get("knockback", false)), stage.has_move, _amb_rng.randf(), bool(b.get("big", false)))
-				get_tree().create_timer(at).timeout.connect(stage.hit.bind(other, hit, BeatClips.speed(hit, ""), who, move, bool(b.get("big", false))))
-				if bool(b.get("big", false)):
-					# The round's big shot: cut close as it is thrown and run it at half speed through the contact.
-					stage.close_up(other)
-					Engine.time_scale = 0.5 * pace()
-					_close_left = at + 0.7
-			elif str(b.get("def", "")) != "":
-				# Her defence (RoundStyle): a block meets the glove at contact; a slip, weave or step back starts early.
-				var d := str(b["def"])
-				var when := at * (0.8 if d == "block" else 0.35)
-				# S305: the side comes from the hand that throws it (her left arrives on the other's right).
-				var lead := move in ["jab", "lead_hook", "lead_uppercut"]
-				var from_left: bool = stage.hand_of(who, hand if hand != "" else ("LeftHand" if lead else "RightHand")) == "LeftHand"
-				if d == "block" and move == "body_hook":
-					# S305: a body shot is blocked with the elbow - gloves stay up, the elbow drops onto the ribs (HitSnap.brace).
-					var snap: Node = stage.boxers[other].get("snap")
-					if snap != null:
-						get_tree().create_timer(at).timeout.connect(snap.brace.bind(not from_left))
-				else:
-					var dclip := BeatClips.defence(d, move, from_left, bool(stage.boxers[other].get("south", false)), stage.has_move)
-					get_tree().create_timer(when).timeout.connect(stage.play.bind(other, dclip, BeatClips.speed(dclip, "")))
-			elif land == "misses" and not b.has("def"):
-				get_tree().create_timer(at * 0.35).timeout.connect(stage.play.bind(other, "slip" if randf() < 0.6 else "pull"))
+	_beat.fire(self, b)
 
 
 ## Between beats the two keep working: a short circle or a feel-out step when the next beat is more than a second away.

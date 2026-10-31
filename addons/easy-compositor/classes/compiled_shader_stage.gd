@@ -93,7 +93,12 @@ func try_compile() -> bool:
 		return false
 	
 	var file: FileAccess = FileAccess.open(shader_stage.resource_path, FileAccess.READ)
-	
+
+	# FightCamp S319: an export packs only the imported .glsl, not its source; tools/export.sh ships the sources beside
+	# the exe under the same relative path (as scripts/fight3d/RawAsset.gd does for the boxers).
+	if !file:
+		file = FileAccess.open(OS.get_executable_path().get_base_dir().path_join(shader_stage.resource_path.trim_prefix("res://")), FileAccess.READ)
+
 	if !file:
 		push_error("could not open file %s for shader stage generation" % [shader_stage.resource_path])
 		return false

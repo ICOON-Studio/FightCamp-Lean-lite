@@ -1,21 +1,20 @@
-# S319 - next session (written S318, 2026-10-30)
+# S320 - next session (written S319, 2026-10-31)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 21 exported (Lean 6b51aa5, 36/36 tests): the body map live in the scorebug (BodyLive +
-BodyFigure), the corner card's figure + cutman job + the number behind each call + SEEN line (CallEvidence), skipped
-rounds still mark the body, a clean clinch (Clinch.gd overhook + free-elbow grip, stance-aware), punch tail hold 0.3 s.
-Digest: Game Godot/research/S318_DIGEST.md.
+Where it stands: update 22 exported (Lean 7d98932, 37/37 tests): short punches up close (SHOVEL1: BeatFire + ShortPunch +
+clip_travel.json, glove travel p50 ~0.2 m vs 0.86 m), motion blur really in the exe (glsl sources beside it), FightView
+split (BeatFire.gd). Digest: Game Godot/research/S319_DIGEST.md (the control-arm table is there).
 
-1. Board: Q-S294-32 (update 21), Q-S294-31 (update 20).
-2. Smoothness: smooth_probe now reads ours 444/min, 160 clip changes/min; steps (advance/retreat ~100 starts per
-   1.8 min) lead the changes, and 559 of 815 of our kinks are INSIDE clips - run the control arms
-   (`-- noguard`, `noreach`, `nosnap`, `noglove`, `nojoin`, `nofeet`) to find the layer, fix, measure. A step starting
-   inside the step grace was tried and READ WORSE (212 changes/min) - do not retry it.
-3. FightView.gd is at 500 lines (the cap): move _fire (the beat switch) into its own file before adding anything there.
-4. SHOVEL1 short hooks/uppercuts up close; recheck the Begin-fight stall in the exe.
-5. Qwen is free: give it the next pure piece the moment one appears (worktree E:\FightCamp\wt\LEAN_BODYMAP1).
+1. Board: Q-S294-33 (update 22 short punches), Q-S294-32 (update 21 body map), Q-S294-31 (update 20 TV look). If the
+   short punches look jumpy to him, turn them off (`noshort` path) and keep the rest.
+2. Smoothness frame by frame: our kinks are 445/min (502 with short punches). Top clips of OURS: pro_left_hook_v2 (~100),
+   retreat (~75). Extend tools/smooth_probe.gd to print the frames around each kink of those clips with the live modifier
+   state (PunchReach.last_weight, GloveClear.pushes delta, HitSnap active, join active) and fix the one cause. Measured and
+   NOT helping (do not retry): a soft GloveClear zone, a longer/smootherstep PunchReach ramp, a longer join for short
+   punches, a step starting inside the step grace.
+3. Give Qwen the next pure piece the moment one appears (worktree E:\FightCamp\wt\LEAN_BODYMAP1, branch per task).
 
-Traps: parse-check Lean files with `godot --headless --path . --check-only --script <file>` (the Game repo's
-check_scripts.py resolves res:// against the Game project); hidden_desktop.py prints the game's output only with
-`--log=<file>`; a pure module tuned on one RoundScript is 6x off the live game (a 3:00 round = six exchanges).
+Traps: parse-check Lean files with `godot --headless --path . --check-only --script <file>` and gate every probe batch
+on it (S319 lost two runs to an untyped `:=`); run a probe on the exe with `Builds/FightCamp.exe --script
+E:/FightCamp/Lean/tools/<probe>.gd` (tools/ is not packed); a pure module tuned on one RoundScript is 6x off the live game.

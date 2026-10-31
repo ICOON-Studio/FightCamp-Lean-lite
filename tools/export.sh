@@ -16,6 +16,9 @@ cp "$ROOT"/assets/models/metahuman/mh_*.glb "$ROOT"/assets/models/metahuman/mh_*
 cp "$ROOT"/assets/anim/metahuman/*.glb "$ROOT/Builds/assets/anim/metahuman/"
 # S312: MHRig.dress reads the skin micro-normal raw too (MICRO_NORMAL); every build before shipped skin without it.
 cp "$ROOT"/assets/models/metahuman/mh_skin_micro_normal.png "$ROOT/Builds/assets/models/metahuman/"
+# S319: the motion blur compiles its shaders from their .glsl source at run time (addons/easy-compositor); an export
+# packs only the imported copies, so the sources ship beside the exe too (every build since update 20 had no blur).
+( cd "$ROOT" && find addons -name "*.glsl" | while read -r g; do mkdir -p "$ROOT/Builds/$(dirname "$g")"; cp "$g" "$ROOT/Builds/$g"; done )
 # S310: the ops board's "Test: ..." buttons open these shortcuts (Explorer drops plain arguments).
 powershell -NoProfile -ExecutionPolicy Bypass -File "$(cygpath -w "$ROOT/tools/make_shortcuts.ps1" 2>/dev/null || echo "$ROOT/tools/make_shortcuts.ps1")"
 echo "built $ROOT/Builds/FightCamp.exe"

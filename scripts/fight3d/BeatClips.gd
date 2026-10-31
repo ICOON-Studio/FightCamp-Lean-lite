@@ -241,3 +241,14 @@ static func contact(clip: String, fallback: float) -> float:
 	var t: float = float((row as Dictionary).get("contact_s", fallback)) if row is Dictionary else fallback
 	# A measured contact in the first 0.15 s is the guard, not the punch (pro_left_uppercut reads 0.0): keep the fallback.
 	return t if t >= 0.15 else fallback
+
+
+## S319 SHOVEL1: the glove's path to contact, [[t_s, cum_m], ..] relative to the hips (clip_travel.json); [] when not measured.
+const TRAVEL_PATH := "res://assets/data/clip_travel.json"
+static var _travel: Dictionary = {}
+static func travel_path(clip: String) -> Array:
+	if _travel.is_empty() and FileAccess.file_exists(TRAVEL_PATH):
+		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(TRAVEL_PATH))
+		_travel = parsed if parsed is Dictionary else {"_": {}}
+	var row: Variant = _travel.get(clip, null)
+	return (row as Dictionary).get("path", []) if row is Dictionary else []
