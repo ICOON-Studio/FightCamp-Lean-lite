@@ -7,12 +7,15 @@ extends Control
 ## (both cues on hover), the arrow's words in a pill on the line. Over the whole game until Close.
 ## S344 (operator C162 on the flow: "maybe some special visual effects and animations ?"): as it opens the cards rise in
 ## row by row and the arrows draw themselves in; then a dot keeps running along each arrow the way the fight flows.
+## S346 (operator C189/C190: "make it look more game-like"): the fight broadcast's dark look (TV.gd) under a spotlight,
+## place names in the display face with a step badge, glowing arrows with a comet running along them, cards that lift
+## under the mouse, the START card's gold edge breathing.
 ##   var v := FlowView.new(); v.setup(flow, opts); main.add_child(v)
 ##   opts = {title, sub, place_name: Callable(id) -> String, move_name: Callable(id) -> String, lit: bool}
 
-const UI := preload("res://scripts/ui/UI.gd")
+const UI := preload("res://scripts/ui/TV.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
-const CARD := Vector2(480, 118)
+const CARD := Vector2(480, 126)
 const PIC := Vector2(150, 100)
 const GAP := Vector2(80, 130)
 const LOOP_H := 22.0
@@ -32,6 +35,28 @@ var _lines: Array = []      # each arrow's curve: {pts, col, dashed}
 var _reveal := 1.0          # how much of each arrow is drawn (0..1) while the flow opens
 var _shown := false
 var _clock := 0.0
+var _row_no := {}           # depth -> the row's number on screen (1, 2, 3...: depths can skip one)
+
+
+## A soft light from above on the dark (the ring at night), drawn once.
+static func _spotlight() -> TextureRect:
+	var g := Gradient.new()
+	g.set_color(0, Color(0.42, 0.30, 0.20, 0.55))
+	g.set_color(1, Color(0, 0, 0, 0))
+	var tex := GradientTexture2D.new()
+	tex.gradient = g
+	tex.fill = GradientTexture2D.FILL_RADIAL
+	tex.fill_from = Vector2(0.5, 0.0)
+	tex.fill_to = Vector2(0.5, 0.95)
+	tex.width = 256
+	tex.height = 256
+	var r := TextureRect.new()
+	r.texture = tex
+	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	r.stretch_mode = TextureRect.STRETCH_SCALE
+	r.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return r
 
 
 func setup(f: Dictionary, o: Dictionary) -> void:
@@ -44,17 +69,18 @@ func _ready() -> void:
 	theme = UI.theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var bg := ColorRect.new()
-	bg.color = UI.BG
+	bg.color = Color("#120e0c")
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
+	add_child(_spotlight())
 	var rows := UI.vbox(0)
 	rows.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(rows)
 	var bar := PanelContainer.new()
-	bar.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 0, 1, 18, 10))
+	bar.add_theme_stylebox_override("panel", UI.box(Color(UI.PANEL, 0.92), UI.LINE, 0, 1, 18, 8))
 	var h := UI.hbox(10)
 	bar.add_child(h)
-	h.add_child(UI.label(str(opts.get("title", "THE FLOW")), 22, UI.FG, "bold"))
+	h.add_child(UI.label(str(opts.get("title", "THE FLOW")), 30, UI.GOLD, "display"))
 	h.add_child(UI.muted("  " + str(opts.get("sub", "")), UI.SMALL))
 	h.add_child(UI.spacer())
 	if bool(opts.get("lit", false)):
@@ -111,7 +137,9 @@ func _layout() -> void:
 	for n in flow.get("nodes", []):
 		var hgt := _height(str(n["id"]))
 		tallest[int(n["depth"])] = maxf(float(tallest.get(int(n["depth"]), 0.0)), hgt)
+	_row_no.clear()
 	for d in depths:
+		_row_no[d] = _row_no.size() + 1
 		y_of[d] = y
 		y += float(tallest[d]) + GAP.y
 	_rects.clear()
@@ -216,16 +244,21 @@ func _draw_lines() -> void:
 			for j in range(0, pts.size() - 1, 2):
 				_canvas.draw_line(pts[j], pts[j + 1], col, 3.0, true)
 		else:
-			_canvas.draw_polyline(pts, col, 3.0, true)
+			# S346 glow: a wide faint stroke under the line.
+			_canvas.draw_polyline(pts, Color(col, 0.16), 12.0, true)
+			_canvas.draw_polyline(pts, col, 4.0, true)
 		var p1 := pts[pts.size() - 1]
 		var dir := (p1 - pts[pts.size() - 3]).normalized()
 		var side := Vector2(-dir.y, dir.x)
-		_canvas.draw_colored_polygon(PackedVector2Array([p1, p1 - dir * 13 + side * 7, p1 - dir * 13 - side * 7]), col)
-		# The running dot (not on an arrow that never came up).
+		_canvas.draw_colored_polygon(PackedVector2Array([p1, p1 - dir * 16 + side * 9, p1 - dir * 16 - side * 9]), col)
+		# The running comet (not on an arrow that never came up): a bright head and a fading tail.
 		if _reveal >= 1.0 and not bool(l["dashed"]):
-			var at := all[int(_clock / DOT_PERIOD_S * float(all.size() - 1))]
-			_canvas.draw_circle(at, 7.0, Color(col, 0.25))
-			_canvas.draw_circle(at, 4.0, col)
+			var u := _clock / DOT_PERIOD_S * float(all.size() - 1)
+			for k in 5:
+				var at := all[clampi(int(u) - k, 0, all.size() - 1)].lerp(all[clampi(int(u) - k + 1, 0, all.size() - 1)], fmod(u, 1.0))
+				_canvas.draw_circle(at, 7.0 - k, Color(1.0, 0.95, 0.8, 0.9 - 0.18 * k) if k == 0 else Color(col, 0.55 - 0.1 * k))
+			var head := all[clampi(int(u), 0, all.size() - 1)]
+			_canvas.draw_circle(head, 12.0, Color(col, 0.18))
 
 
 ## Not down to the next row with nothing between, not along one row: the arrow goes round the right of the cards.
@@ -332,8 +365,8 @@ func _pill(p: Dictionary, i: int) -> PanelContainer:
 	var pill := PanelContainer.new()
 	pill.name = "Edge%d" % i
 	pill.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	pill.add_theme_stylebox_override("panel", UI.box(UI.PANEL, p["col"], 12, 2, 10, 2))
-	pill.add_child(UI.label(str(p["text"]), UI.TINY, UI.FG, "bold"))
+	pill.add_theme_stylebox_override("panel", UI.box(Color(UI.PANEL2, 0.96), p["col"], 14, 2, 12, 3))
+	pill.add_child(UI.label(str(p["text"]), UI.SMALL, UI.FG, "bold"))
 	var sz := pill.get_combined_minimum_size()
 	var at: Vector2 = p["at"]
 	pill.position = at - sz * 0.5
@@ -347,10 +380,22 @@ func _card(id: String, r: Rect2, start: bool) -> PanelContainer:
 	var card := PanelContainer.new()
 	card.name = "Card_" + id
 	card.mouse_filter = Control.MOUSE_FILTER_PASS
-	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.GOLD if start else UI.LINE, 10, 3 if start else 1, 8, 8))
+	var sb: StyleBoxFlat = UI.box(Color(UI.PANEL, 0.95), UI.GOLD if start else UI.LINE, 12, 3 if start else 2, 8, 8)
+	sb.shadow_color = Color(0, 0, 0, 0.55)
+	sb.shadow_size = 10
+	sb.shadow_offset = Vector2(0, 4)
+	card.add_theme_stylebox_override("panel", sb)
 	card.position = r.position
 	card.custom_minimum_size = r.size
 	card.size = r.size
+	card.pivot_offset = r.size * 0.5
+	# S346 game feel: the card lifts under the mouse; the START card's gold edge breathes.
+	card.mouse_entered.connect(func(): card.create_tween().tween_property(card, "scale", Vector2(1.04, 1.04), 0.12))
+	card.mouse_exited.connect(func(): card.create_tween().tween_property(card, "scale", Vector2.ONE, 0.15))
+	if start:
+		var tw := card.create_tween().set_loops()
+		tw.tween_property(sb, "border_color", UI.GOLD.darkened(0.45), 0.9)
+		tw.tween_property(sb, "border_color", UI.GOLD, 0.9)
 	var ideas: Array = FightFlow.IDEAS.get(id, [])
 	var tip: Array = ideas.map(func(s): return "- " + str(s))
 	var h := UI.hbox(12)
@@ -369,8 +414,9 @@ func _card(id: String, r: Rect2, start: bool) -> PanelContainer:
 	var words := UI.vbox(2)
 	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	h.add_child(words)
-	var top := UI.hbox(6)
-	top.add_child(UI.label(str((opts["place_name"] as Callable).call(id)), UI.BODY, UI.FG, "bold"))
+	var top := UI.hbox(8)
+	top.add_child(_badge(int(_row_no.get(_depth(id), _depth(id) + 1))))
+	top.add_child(UI.label(str((opts["place_name"] as Callable).call(id)).to_upper(), 28, UI.FG, "display"))
 	if start:
 		top.add_child(UI.chip("START", "gold"))
 	words.add_child(top)
@@ -386,6 +432,18 @@ func _card(id: String, r: Rect2, start: bool) -> PanelContainer:
 		tip.append(str(lines[0]) + ("" if lines.size() == 1 else " " + str(lines[1]).strip_edges()))
 	card.tooltip_text = "\n".join(tip)
 	return card
+
+
+## The step number of a place (its row in the flow): a gold disc.
+static func _badge(n: int) -> PanelContainer:
+	var b := PanelContainer.new()
+	b.add_theme_stylebox_override("panel", UI.box(UI.GOLD, UI.GOLD, 13, 0, 8, 1))
+	b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	b.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var l := UI.label(str(n), UI.SMALL, UI.GOLD_INK, "bold")
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	b.add_child(l)
+	return b
 
 
 ## A line that never widens its card: cut with "..." at the edge (the whole of it is on hover).

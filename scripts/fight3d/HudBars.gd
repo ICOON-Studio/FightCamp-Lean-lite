@@ -6,6 +6,9 @@ extends Node
 ## moments). What beats theirs: the opponent's guard and heart show "?" until scouting found them (her file), every bar
 ## eases and pulses on a band change (operator: animated meters), a body shot flashes her body and stamina bars together
 ## (the grey end of the tank grows), and when her scouted guard sinks the corner says so.
+## S346 (operator C186/C187 on the bars: "bad, try 2 circles inside one another divided by 3 parts each?"): the six bars
+## are two rings, one inside the other, each cut in three - the inner ring her body (head on top, body, legs), the outer
+## her engine (stamina on top, guard, heart); an icon at each arc, "HURT" in the middle, the numbers on hover.
 ##   attach(view) -> HudBars   edge (the centre meter, FightHud places it)   paint(snap, scored, round start)
 
 const FightMeters := preload("res://scripts/rules/FightMeters.gd")
@@ -16,7 +19,7 @@ const UI := preload("res://scripts/ui/TV.gd")
 
 const EDGE := 28.0
 const TOP := 24.0
-const BAR_SIZE := Vector2(260, 12)
+const RINGS_PX := 200.0
 const ICON_PX := 16
 const SIDE_COLOUR := [Color(0.95, 0.4, 0.35), Color(0.5, 0.65, 1.0)]
 const ICON := {"head": "user", "body": "shirt", "legs": "footprints", "stamina": "zap", "guard": "shield", "heart": "heart"}
@@ -78,20 +81,16 @@ func _build() -> void:
 			top.add_child(c)
 		col.add_child(top)
 		_hurt.append(hurt)
+		var rings := Rings.new()
+		rings.name = "Rings"
+		rings.custom_minimum_size = Vector2(RINGS_PX, RINGS_PX)
+		rings.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN if side == 0 else Control.SIZE_SHRINK_END
+		rings.mirror = side == 1
+		col.add_child(rings)
 		for key in FightMeters.ORDER:
-			var row := UI.hbox(8)
-			row.alignment = BoxContainer.ALIGNMENT_BEGIN if side == 0 else BoxContainer.ALIGNMENT_END
-			var m := Meter.new()
-			m.name = "Meter_" + key
-			m.custom_minimum_size = BAR_SIZE
-			m.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			m.mirror = side == 1
+			var m := Arc.new()
 			m.kind = key
-			var ic := Icons.icon(ICON[key], ICON_PX, UI.FG)
-			for c in ([ic, m] if side == 0 else [m, ic]):
-				row.add_child(c)
-			row.mouse_filter = Control.MOUSE_FILTER_PASS
-			col.add_child(row)
+			rings.arcs[key] = m
 			meters[side][key] = m
 		view.add_child(panel)
 		if side == 0:
@@ -128,14 +127,17 @@ func _process(delta: float) -> void:
 	for side in 2:
 		var bars := FightMeters.bars(_source(side))
 		for key in FightMeters.ORDER:
-			var m: Meter = meters[side][key]
+			var m: Arc = meters[side][key]
 			m.set_bar(bars[key])
 			m.tooltip_text = _tip(side, key, bars[key])
 		(_hurt[side] as Label).visible = bool((_snap.get("hurt", [false, false]) as Array)[side])
+		var ring := (blocks[side] as Control).find_child("Rings", true, false) as Rings
+		if ring != null:
+			ring.hurt = (_hurt[side] as Label).visible
 		var taken := int((_snap.get("body", [0, 0]) as Array)[side])
 		if _body_seen[side] >= 0 and taken > int(_body_seen[side]):
-			(meters[side]["body"] as Meter).flash()
-			(meters[side]["stamina"] as Meter).flash()
+			(meters[side]["body"] as Arc).flash()
+			(meters[side]["stamina"] as Arc).flash()
 		_body_seen[side] = taken
 		if side == 1:
 			_guard_call(bars["guard"])
@@ -212,34 +214,18 @@ func _guard_call(bar: Dictionary) -> void:
 	view._say("Corner: \"Her hands are coming down - over the top!\"")
 
 
-## One bar: fill eases to its target, the grey end past `keep` is gone for the fight, unknown = a dashed "?" box.
-class Meter extends Control:
+## One of the six: fill eases to its target, the end past `keep` is gone for the fight, unknown = a dashed "?" arc.
+class Arc extends RefCounted:
 	const EASE_S := 0.35
 	var kind := ""
-	var mirror := false
 	var fill := -1.0
 	var keep := 1.0
 	var known := true
+	var tooltip_text := ""
 	var _want := 1.0
 	var _want_keep := 1.0
 	var _flash := 0.0
 	var _band := -1
-	var _q: Label
-
-	func _ready() -> void:
-		mouse_filter = Control.MOUSE_FILTER_PASS
-		_q = Label.new()
-		_q.text = "?"
-		_q.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_q.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		_q.add_theme_font_size_override("font_size", 16)
-		_q.add_theme_color_override("font_color", Color("#e9b84a"))   # gold: homework still to do
-		_q.add_theme_constant_override("outline_size", 4)
-		_q.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
-		_q.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		_q.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		_q.visible = false
-		add_child(_q)
 
 	func set_bar(b: Dictionary) -> void:
 		known = bool(b["known"])
@@ -248,24 +234,21 @@ class Meter extends Control:
 		if fill < 0.0:
 			fill = _want
 			keep = _want_keep
-		var band := _band_of(_want)
+		var band := band_of(_want)
 		if _band >= 0 and band != _band:
 			_flash = maxf(_flash, 0.7)
 		_band = band
-		if _q != null:
-			_q.visible = not known
 
 	func flash() -> void:
 		_flash = 1.0
 
-	func _process(delta: float) -> void:
+	func tick(delta: float) -> void:
 		var k := 1.0 - exp(-delta / EASE_S)
 		fill = lerpf(fill, _want, k)
 		keep = lerpf(keep, _want_keep, k)
 		_flash = maxf(0.0, _flash - delta * 2.0)
-		queue_redraw()
 
-	func _band_of(v: float) -> int:
+	static func band_of(v: float) -> int:
 		return 0 if v >= 0.6 else (1 if v >= 0.35 else 2)
 
 	func colour() -> Color:
@@ -277,36 +260,112 @@ class Meter extends Control:
 				return Color("#e9e6f2") if v >= 0.5 else Color("#f0a020")
 			"heart":
 				return Color("#a37bff") if v >= 0.3 else Color("#e0503c")
-		return [Color("#6cc27a"), Color("#f0a020"), Color("#e0503c")][_band_of(v)]
+		return [Color("#6cc27a"), Color("#f0a020"), Color("#e0503c")][band_of(v)]
 
-	func _seg(a: float, b: float, c: Color) -> void:
-		if b <= a:
-			return
-		var w := size.x
-		var x0 := w * (1.0 - b) if mirror else w * a
-		draw_rect(Rect2(x0, 0, w * (b - a), size.y), c)
+
+## Two rings, one inside the other, three arcs each (C186): the inner her body, the outer her engine. Each arc fills from
+## its start (from its end on the blue corner's mirrored block), its icon beside it; hover an arc for its words and
+## numbers; "HURT" sits in the middle.
+class Rings extends Control:
+	const R_IN := 52.0
+	const R_OUT := 73.0
+	const WIDTH := 15.0
+	const SPAN := 108.0           # degrees of each arc (the rest of its third is the gap)
+	const INNER := ["head", "body", "legs"]
+	const OUTER := ["stamina", "guard", "heart"]
+	const ICONS := {"head": "user", "body": "shirt", "legs": "footprints", "stamina": "zap", "guard": "shield", "heart": "heart"}
+	var arcs := {}
+	var mirror := false
+	var hurt := false
+	var _tex := {}
+
+	func _ready() -> void:
+		mouse_filter = Control.MOUSE_FILTER_PASS
+		for k in ICONS:
+			_tex[k] = Icons.texture(str(ICONS[k]), 16)
+
+	func _process(delta: float) -> void:
+		for a in arcs.values():
+			(a as Arc).tick(delta)
+		queue_redraw()
+
+	## The middle of slot i in degrees: on top, then lower right, lower left (swapped on the mirrored block).
+	func mid_deg(i: int) -> float:
+		var mids: Array = [-90.0, 30.0, 150.0] if not mirror else [-90.0, 150.0, 30.0]
+		return float(mids[i])
+
+	func _centre() -> Vector2:
+		return size * 0.5
 
 	func _draw() -> void:
-		draw_rect(Rect2(Vector2.ZERO, size), Color(1, 1, 1, 0.10))
-		if not known:
-			var dash := Color(1, 1, 1, 0.35)
-			for x in range(0, int(size.x), 8):
-				draw_line(Vector2(x, 0), Vector2(minf(x + 4, size.x), 0), dash)
-				draw_line(Vector2(x, size.y), Vector2(minf(x + 4, size.x), size.y), dash)
+		var c := _centre()
+		for i in 3:
+			_arc(c, R_IN, mid_deg(i), arcs.get(INNER[i]) as Arc, str(INNER[i]), false)
+			_arc(c, R_OUT, mid_deg(i), arcs.get(OUTER[i]) as Arc, str(OUTER[i]), true)
+		if hurt:
+			var f := ThemeDB.fallback_font
+			var w := f.get_string_size("HURT", HORIZONTAL_ALIGNMENT_LEFT, -1, 15).x
+			draw_string(f, c + Vector2(-w * 0.5, 6), "HURT", HORIZONTAL_ALIGNMENT_LEFT, -1, 15, Color("#e0503c"))
+
+	## One arc: its dark track, the spent part (comes back at the bell), the fill, the grey end gone for the fight.
+	func _arc(c: Vector2, r: float, mid: float, a: Arc, key: String, outer: bool) -> void:
+		var a0 := deg_to_rad(mid - SPAN * 0.5)
+		var a1 := deg_to_rad(mid + SPAN * 0.5)
+		draw_arc(c, r, a0, a1, 32, Color(1, 1, 1, 0.10), WIDTH, true)
+		var icon_r := r + WIDTH * 0.5 + 12.0 if outer else r - WIDTH * 0.5 - 12.0
+		var ic: Texture2D = _tex.get(key)
+		var at := c + Vector2.from_angle(deg_to_rad(mid)) * icon_r
+		if ic != null:
+			draw_texture_rect(ic, Rect2(at - Vector2(8, 8), Vector2(16, 16)), false, Color("#f3ece2"))
+		if a == null:
 			return
-		var f := clampf(fill, 0.0, 1.0)
-		var kp := clampf(maxf(keep, f), 0.0, 1.0)
-		var c := colour()
-		_seg(f, kp, Color(c.r, c.g, c.b, 0.22))   # spent, can come back at the bell
-		_seg(0.0, f, c)
-		_seg(kp, 1.0, Color(0.42, 0.42, 0.44, 0.75))   # gone for the fight
-		if kp < 0.999:
-			var x0 := 0.0 if mirror else size.x * kp
-			var x1 := size.x * (1.0 - kp) if mirror else size.x
-			for x in range(int(x0), int(x1), 5):
-				draw_line(Vector2(x, size.y), Vector2(minf(x + size.y, x1), 0), Color(0.2, 0.2, 0.22, 0.8))
-		if _flash > 0.0:
-			draw_rect(Rect2(Vector2.ZERO, size), Color(1, 1, 1, 0.55 * _flash))
+		if not a.known:
+			for k in range(0, 9, 2):
+				draw_arc(c, r, lerpf(a0, a1, float(k) / 9.0), lerpf(a0, a1, float(k + 1) / 9.0), 4, Color(1, 1, 1, 0.38), 2.0, true)
+			var f := ThemeDB.fallback_font
+			var qs := f.get_string_size("?", HORIZONTAL_ALIGNMENT_LEFT, -1, 30)
+			var q := c + Vector2.from_angle(deg_to_rad(mid)) * r + Vector2(-qs.x * 0.5, qs.y * 0.32)
+			draw_string_outline(f, q, "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, 6, Color(0, 0, 0, 0.9))
+			draw_string(f, q, "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, Color("#e9b84a"))   # gold: homework still to do
+			return
+		var fl := clampf(a.fill, 0.0, 1.0)
+		var kp := clampf(maxf(a.keep, fl), 0.0, 1.0)
+		var col := a.colour()
+		_part(c, r, a0, a1, fl, kp, Color(col.r, col.g, col.b, 0.22))   # spent, can come back at the bell
+		_part(c, r, a0, a1, 0.0, fl, col)
+		_part(c, r, a0, a1, kp, 1.0, Color(0.42, 0.42, 0.44, 0.85))   # gone for the fight
+		if a._flash > 0.0:
+			draw_arc(c, r, a0, a1, 32, Color(1, 1, 1, 0.55 * a._flash), WIDTH, true)
+
+	## The share [u0, u1] of an arc, filling from its start (from its end on the mirrored block).
+	func _part(c: Vector2, r: float, a0: float, a1: float, u0: float, u1: float, col: Color) -> void:
+		if u1 - u0 <= 0.002:
+			return
+		var s0 := lerpf(a0, a1, u0) if not mirror else lerpf(a1, a0, u1)
+		var s1 := lerpf(a0, a1, u1) if not mirror else lerpf(a1, a0, u0)
+		draw_arc(c, r, s0, s1, maxi(3, int(32.0 * (u1 - u0))), col, WIDTH, true)
+
+	## Hover: the arc (or its icon) under the mouse says its words and numbers.
+	func _get_tooltip(at_position: Vector2) -> String:
+		var d := at_position - _centre()
+		var r := d.length()
+		var keys: Array = []
+		if r >= R_IN - WIDTH * 0.5 - 22.0 and r <= R_IN + WIDTH * 0.5 + 2.0:
+			keys = INNER
+		elif r > R_IN + WIDTH * 0.5 + 2.0 and r <= R_OUT + WIDTH * 0.5 + 22.0:
+			keys = OUTER
+		else:
+			return ""
+		var ang := rad_to_deg(d.angle())
+		var best := 0
+		var best_d := 999.0
+		for i in 3:
+			var dd := absf(wrapf(ang - mid_deg(i), -180.0, 180.0))
+			if dd < best_d:
+				best_d = dd
+				best = i
+		var a: Arc = arcs.get(keys[best])
+		return a.tooltip_text if a != null else ""
 
 
 ## Who has the round: from the centre toward red's side (left) or blue's (right), ticks at each third.

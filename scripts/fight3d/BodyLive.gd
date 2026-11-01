@@ -16,7 +16,7 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 ## of the screen - hers (red) on the left under the scorebug, the opponent's (blue) on the right - drawn on her own body
 ## (C146: "we have real andropoid,use it"; BodyFigure.portrait_for).
 const FIG_SIZE := Vector2(340, 420)   # S334 C153 "still needs to be bigger" (S324: 210 x 294, before 150 x 210)
-const TOP := 200.0   # S345 just under her six bars (HudBars), so the panel clears the shout bar
+const TOP := 262.0   # S346 just under her two rings (HudBars), so the panel clears the shout bar
 const EDGE := 28.0
 const CORNER := ["red", "blue"]
 
