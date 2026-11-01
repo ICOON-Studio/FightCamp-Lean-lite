@@ -1,26 +1,23 @@
-# S336 - next session (written S335, 2026-11-01)
+# S337 - next session (written S336, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
-S335 shipped update 37: the ground-move prototype (operator Q-S294-58 "Build the prototype now"). GrappleMap (public
-domain, assets/grapplemap/) on two of our MetaHuman women: scripts/grapple/ GrappleMapDB (decode), GrapplePose (joints
--> bones, aim + roll per bone, then two-bone IK on wrists/ankles), GrapplePlayer (keyframes, 0.5 s a segment),
-GrappleGraph (moves in/out per position from graph.json, built by tools/grapplemap_graph.py; align() lays the next move
-on the pose on screen), GrappleBrowser (`-- jump=grapple`, `walk=N` films it). Digest: Game\Godot\research\S335_DIGEST.md.
-Operator on the film: "the video looks amazing, can still be improved".
+S336 shipped update 38: ground moves grip (scripts/grapple/GrappleGrip.gd) and keep their own pace (GrappleTiming.gd, merged
+from the side session), MMA trim, no links in move names; the boxing move map rules (scripts/rules/StrikeMap.gd, Qwen); tests run
+4 at a time (`sh tools/run_tests.sh`, JOBS=2 beside agents). Digest: Game\Godot\research\S336_DIGEST.md.
+Operator on the film: "video looks good".
 
-0. SPLIT (operator S335 "Yes, split it", after Claude proposed Cursor + a second Claude session over paying for a new
-   agent): in the first minutes launch Cursor on Game/Godot/research/TASK_GROUND2A.md (body push-out, numeric gate;
-   Tools/agent_window.ps1 + cursor_task.cmd, a Lean worktree under E:\FightCamp\wt) and start a second Claude session
-   (start_session, own worktree) on TASK_GROUND2B.md (a speed per move). Land 2B first (both touch GrapplePlayer.gd).
-   This session keeps (c) gripping hands and (d) MMA kit, and films and judges both branches before merging.
-1. GROUND2, polish: (a) bodies sink into each other in mount / side control / back: push them out along the contact
-   normal (capsule per bone, top body moves, joints keep their targets via the IK); (b) a speed per move instead of a
-   flat SEGMENT_S, from keyframe distances (fast through small changes, Sekai clip lengths for reference);
-   (c) curl the hands into grips (finger bones, MHRig.UE5_FINGERS) when a wrist is near the other body; (d) MMA kit:
-   no boxing vest (it tears white under a raised arm), a rash guard or sports top in the corner colour. Re-film
-   (`--fixed-fps 30 --write-movie ... -- walk=10`, ffmpeg to mp4), open a contact sheet, send + review_add.
-2. Board: Q-S294-61 (boxing move map + whiteboard plan game + corner shouts on right/wrong moves + own combos,
-   Game\Godot\research\STRIKEMAP_S335.md), Q-S294-59 (Dojo Legacy ideas), Q-S294-60 (younger faces), Q-S294-53 marks.
-3. Judo/kickboxing (he asked): judo throws/takedowns are in GrappleMap (throw 16, single leg 42, double leg 27,
-   standing 125). Kickboxing has no such data; it needs our own clips.
-4. ANIMCLOUD1 (fight-stills CI) belongs to session local_c7e7549f: do not duplicate.
+1. FACES3 first (operator S336, on the S334 young-faces lineup: "why the fuck you have 4 blacks ???? add more whites", then
+   "no keep them all dont rebuild"): keep every current face. Build THREE NEW white women (18-21, long full hair - no braids,
+   cornrows or undercut - hair LOD 0, attractive: Celeste/Jelena-based face_blend or an unused preset after a render check;
+   a preset name is not a sex) with Game Tools/metahuman (mh4_plan rows -> mh4_run.py, MH4_TARGET_DIR = Lean assets) as
+   mh_boxer_21-23. Render a lineup beside the current five (S334_stills/young_faces_lineup.png style), board question with the
+   lineup attached, and only after his yes add them to Faces.CM / CAST (new named prospects or opponents) + the 4 bakes
+   (portraits, masks, turn, headshots, `stems=`). Unreal is heavy: run it when no PC agent runs Godot.
+2. Collect GROUND2A (Cursor, E:\FightCamp\wt\LEAN_GROUND2A, branch cursor/ground2a): GrappleContact.gd + its test; its
+   GrapplePlayer change is the one line `out = GrappleContact.separate(out)` at the end of joints_at - apply it by hand on
+   main's new (GrappleTiming) GrapplePlayer. Run grapple_contact_test + the grapple regressions, film `walk=10`, contact sheet,
+   SendUserFile + review_add.
+3. Collect NEXTSTEP1 (Qwen, branch qwen/nextstep1): NextStep.road(). Then launch Cursor on TASK_GREYWHY1 (Game research), then
+   a brief for the NEXT STEP card on her page (FighterPage) reading NextStep.road.
+4. Q-S294-61 step 2: the boxing browser - StrikeMap's cards with moves in/out, the GrappleBrowser layout.
+5. Board: Q-S294-62 (wrestling plan, WRESTLE_S336.md) - act on his answer. C154's "wire the in and outs" idea = the plan board.

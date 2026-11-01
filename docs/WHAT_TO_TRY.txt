@@ -1,3 +1,16 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 38 (2026-11-01): GROUND MOVES GRIP AND KEEP THEIR OWN PACE
+====================================================================================
+
+YOUR NOTE ON THE FILM "the video looks amazing, can still be improved"
+ 1. Shortcut "Test ground moves" (or FightCamp.exe -- jump=grapple). Watch the hands: when a hand is on the other woman
+    (her wrist, collar, neck, leg) the fingers close round it; a hand away from her opens again.
+ 2. Each move now runs at its own pace: a big roll or a sweep takes longer, a small hand shift is quick (it was the same
+    half second for everything).
+ 3. MMA kit: each woman is one corner colour head to toe, the waistband a dark shade of it (the white band between top
+    and shorts is gone).
+ 4. Move names no longer show web links ("Escape https://www.youtube..." is now "Escape Dean Lister").
+ Still to come: the bodies sink into each other in some holds (mount, back) - Cursor is on the push-out now.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 37 (2026-11-01): THE GROUND-MOVE PROTOTYPE (GRAPPLEMAP)
 ====================================================================================
 

@@ -1,6 +1,6 @@
 extends SceneTree
 ## S335 GrappleGraph: mount has moves in and out, a move's far end is a position, families are filled, editors' notes are
-## cut from titles, and chaining works: a move's last keyframe laid onto by the next move's first (align) leaves less than
+## cut from titles (S336: links too), and chaining works: a move's last keyframe laid onto by the next move's first (align) leaves less than
 ## 4 cm per joint on most links, while a move aligned onto an unrelated position stays far (the instrument can read worse).
 
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
@@ -23,6 +23,13 @@ func _initialize() -> void:
 			print("  empty family ", f[0])
 	_check(empty == 0, "every family tab has positions")
 	_check(Graph.clean("top gets underhook todo: wip") == "Top Gets Underhook", "editors' notes cut: '%s'" % Graph.clean("top gets underhook todo: wip"))
+	var linked := "escape https://www.youtube.com/watch?v=jyRkYmoYb0 dean lister"
+	_check(not Graph.clean(linked).to_lower().contains("http") and not Graph.clean(linked).contains("watch"), "links cut from titles: '%s'" % Graph.clean(linked))
+	var titled := 0
+	for seq in db:
+		if Graph.clean(str(seq["title"])).to_lower().contains("http") or Graph.clean(str(seq["title"])).to_lower().contains("www"):
+			titled += 1
+	_check(titled == 0, "no title a player reads holds a link (%d)" % titled)
 	# Chaining: for moves into mount, lay each move OUT of mount on the move-in's last keyframe.
 	var good := 0
 	var links := 0

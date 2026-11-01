@@ -10,12 +10,16 @@ const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
 const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
+const Grip := preload("res://scripts/grapple/GrappleGrip.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
 ## S335 operator: "use different colours on the clothes for each" - one colour head to toe per woman (top a shade lighter).
 const TOPS := [Color("#ff6a5c"), Color("#5b93ff")]
 const BODIES := ["res://assets/models/metahuman/mh_boxer_11.glb", "res://assets/models/metahuman/mh_boxer_10.glb"]
 const TRUNKS := [Color("#e2483d"), Color("#2f6fdb")]
+## S336 MMA kit: the boxing trunks' white waistband and piping (MH_Trim) showed as a white tear between top and shorts on
+## the ground; MMA shorts and a sports top are one corner colour, the trim a dark shade of it.
+const TRIM_DARKEN := 0.45
 const START := "mount"
 const ORBIT_DEG_S := 6.0
 const PANEL_W := 470
@@ -113,12 +117,15 @@ func _viewport() -> Control:
 func _cast(world: Node3D) -> void:
 	var poses: Array = []
 	var legs: Array = []
+	var skels: Array = []
 	for i in 2:
 		var b := MH.load_fighter(BODIES[i])
 		world.add_child(b)
 		MH.colour_trunks(b, TRUNKS[i])
 		Kit.colour_vest(b, TOPS[i], 0.8)
+		_mma_trim(b, TRUNKS[i].darkened(TRIM_DARKEN))
 		var skel := b.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+		skels.append(skel)
 		poses.append(Pose.attach(skel))
 		var sw := skel.global_transform
 		legs.append((sw * skel.get_bone_global_rest(skel.find_bone("LeftUpperLeg")).origin).distance_to(
@@ -127,6 +134,21 @@ func _cast(world: Node3D) -> void:
 	world.add_child(player)
 	player.men = poses
 	player.scale = Player.pair_scale(legs)
+	for i in 2:
+		Grip.attach(skels[i], poses[i], poses[1 - i])
+
+
+## The MMA kit's trim (waistband, piping) in the corner's dark shade instead of the boxing white.
+static func _mma_trim(body: Node3D, colour: Color) -> void:
+	for m in body.find_children("*", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		for s in mi.mesh.get_surface_count():
+			var src := mi.mesh.surface_get_material(s)
+			if src != null and src.resource_name.begins_with("MH_Trim"):
+				var trim := StandardMaterial3D.new()
+				trim.albedo_color = colour
+				trim.roughness = 0.8
+				mi.set_surface_override_material(s, trim)
 
 
 func _room(world: Node3D) -> void:

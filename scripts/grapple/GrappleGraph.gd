@@ -76,9 +76,10 @@ func search(words: String) -> Array:
 	return positions.filter(func(p): return clean(str(p["title"])).to_lower().contains(w))
 
 
-## The title a player reads: GrappleMap's editors' notes ("todo: ...", "wip") cut off.
+## The title a player reads: GrappleMap's editors' notes ("todo: ...", "wip") and links (S336: "Escape Https://www.youtube.co
+## watch?v=..." showed in the film) cut off.
 static func clean(title: String) -> String:
-	var t := title
+	var t := RegEx.create_from_string("(https?://|www\\.)\\S*").sub(title, "", true)
 	for cut in [" todo:", "todo:", " wip"]:
 		var i := t.to_lower().find(cut)
 		if i >= 0:

@@ -41,7 +41,8 @@ Claude decides design and integrates; the operator approves (D49: Ludo makes ass
 ## PC rules (his machine)
 - Nothing opens on his monitors: run Godot headless (`%LOCALAPPDATA%\Programs\Godot\Godot_v4.7.2-stable_win64.exe --headless`),
   never the `_console.exe` (it opens a terminal window). Open images with the file tool, never with an app.
-- CPU must stay under 84 C: one Godot job at a time.
+- CPU must stay under 84 C: tests run 4 at a time on a GREEN PC (`sh tools/run_tests.sh`, JOBS=4; JOBS=2 beside agents; S336
+  operator "the heat fixed"); a film or windowed render alone.
 - No audio in tests (`--audio-driver Dummy`).
 - To see real screens, render on the never-shown desktop: `python tools/hidden_desktop.py run --timeout=180 <godot.exe>
   --path . --windowed --resolution 1920x1080 --script res://tools/layout_snapshot.gd -- <out_dir>` writes `*_real.png`.
