@@ -158,7 +158,8 @@ static func _clinches(beats: Array, x: Dictionary, ctx: Dictionary, seed: int) -
 	var pr: Dictionary = ctx["profiles"]
 	ClinchBeats.apply(beats, {"n": int(ctx["n"]), "sit": str(x["sit"]),
 		"energy": {"a": float((pr["a"] as Dictionary).get("energy", 100.0)), "b": float((pr["b"] as Dictionary).get("energy", 100.0))},
-		"habits": {"a": (ctx["f"] as Dictionary).get("habits", []), "b": RoundStyle.opponent_habits(ctx["opp"])}}, rng)
+		"habits": {"a": (ctx["f"] as Dictionary).get("habits", []), "b": RoundStyle.opponent_habits(ctx["opp"])},
+		"tie": x.get("clinch", {})}, rng)
 
 
 ## Her single punches (not part of a combination) become one of `moves`, share `odds`.

@@ -71,7 +71,7 @@ const CALLS := {
 		"when": "Use when {her} is tired", "expect": "{her} gets energy back; gives a little now",
 		"tell": "Breathe and pick your shots: get your legs back."},
 	"tie": {"label": "Tie her up", "shout": "Hold! Tie her up!", "needs": ["heart"], "cost": -2.0,
-		"when": "Use when {her} is hurt", "expect": "{her} holds and gets through the 30 seconds",
+		"when": "Use when {her} is hurt", "expect": "{her} gets her breath back; {opp} may dig to the ribs in there",
 		"tell": "Tie her up, clear your head, get through it."},
 	"finish": {"label": "Go get her", "shout": "She's hurt! Go get her!", "needs": ["power", "heart"], "cost": 3.0,
 		"when": "Use when {opp} is hurt", "expect": "A knockdown chance; {her} is open if she is tired",

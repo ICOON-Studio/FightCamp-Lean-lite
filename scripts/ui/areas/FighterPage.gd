@@ -12,6 +12,7 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const NextStep := preload("res://scripts/rules/NextStep.gd")
+const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 
 const TABS := ["Overview", "Attributes and moves", "Body", "Record", "Camp", "Contract and goals"]
 
@@ -42,8 +43,7 @@ func build(main: Node, f: Dictionary) -> void:
 		0:
 			_overview(main, c, f, g)
 		1:
-			var card := _card("ATTRIBUTES")
-			_stats(card, f)
+			add_child(AttrBoard.build(f))
 			var mv_card := _card("MOVES: BAR = MASTERY, A WEAPON FROM USABLE (30)")
 			var moves: Dictionary = f["moves"]
 			for mv in Data.MOVES:
@@ -141,17 +141,12 @@ func _card(title: String, parent: Container = null) -> VBoxContainer:
 	return c[1]
 
 
-func _stats(card: VBoxContainer, f: Dictionary) -> void:
-	for key in Data.STATS:
-		card.add_child(UI.stat_row(Data.LABEL[key], float(f["stats"][key])))
-
-
 func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	_next_step_card(c, f)
+	# S340 C157: the attributes board runs the page's width (radar + every value the bout reads); body and goal below it.
+	add_child(AttrBoard.build(f))
 	var grid := UI.hbox(16)
 	add_child(grid)
-	var attrs := _card("ATTRIBUTES, BAR = WAY TO THE NEXT POINT", grid)
-	_stats(attrs, f)
 	var body := _card("BODY", grid)
 	UI.add_rows(body, [UI.kv("Weight", "%.1f of %.1f kg" % [f["weight"], f["limit"]], UI.FG, "mono"),
 		UI.kv("Condition", "Fresh" if int(f["fatigue"]) < 30 else "Tired"), _injury_row(main.career, f)])

@@ -12,6 +12,7 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const TheRead := preload("res://scripts/rules/TheRead.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const ClinchRest := preload("res://scripts/rules/ClinchRest.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -222,6 +223,14 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var plan_edge := PlanFight.edge(pick, sit, PlanFight.rate(arrow, f.get("combos", {})),
 		PlanFight.card_mean(at, sit, f.get("moves", {}), f.get("combos", {})))
 	d += plan_edge
+	# S340 the clinch's price (operator "a small stamina refill but risk of getting hit"): its own dice, so an exchange
+	# without a tie-up plays exactly as before.
+	var cl := {}
+	if ClinchRest.tied(call, arrow, at):
+		var crng := _rng(c, f, n, i + 61)
+		cl = ClinchRest.roll(ClinchRest.chance(str(opp.get("style", "")), float(opp.get("rating", 60.0)), float(vals.get("technique", 55.0))),
+			crng.randf(), crng.randf(), crng.randf())
+		d -= float(cl["edge"])
 	var rng := _rng(c, f, n, i + 1)
 	var s := Exchanges.settle(d, rng.randf(), rng.randf())
 	# S323 Push throws more (and so lands more), Save less.
@@ -235,6 +244,15 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var bt: Dictionary = lv.get("body", {"a": 0, "b": 0})
 	bt["b"] = int(bt.get("b", 0)) + int(body[0])
 	bt["a"] = int(bt.get("a", 0)) + int(body[1])
+	if bool(cl.get("hit", false)):
+		var ribs := int(cl["shots"]) - (1 if bool(cl["head"]) else 0)
+		s["landed"][1] = int(s["landed"][1]) + int(cl["shots"])
+		body[1] = int(body[1]) + ribs
+		bt["a"] = int(bt.get("a", 0)) + ribs
+		if float(cl["damage"]) > 0.0:
+			var cdmg: Dictionary = m.get("damage", {"a": 0.0, "b": 0.0})
+			cdmg["a"] = float(cdmg.get("a", 0.0)) + float(cl["damage"])
+			m["damage"] = cdmg
 	if fire:
 		su["used"] = "landed" if fits and bool(s["won"]) else "missed"
 		if su["used"] == "landed":
@@ -257,10 +275,14 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["planned"] = bool(pick["planned"])
 	rec["arrow_fit"] = PlanFight.fit(arrow, sit)
 	rec["plan_edge"] = plan_edge
+	rec["clinch"] = cl
+	rec["clinch_line"] = ClinchRest.line(cl, names)
 	lv["at"] = PlanFight.where_next(arrow, bool(s["won"]), sit)
 	exs.append(rec)
 	if call != "":
 		lv["cost"] = float(lv["cost"]) + float(Exchanges.CALLS[call]["cost"])
+	if not cl.is_empty():
+		lv["cost"] = float(lv["cost"]) - ClinchRest.refill(call)
 	# S323 the pace's price: Push spends the round's own drop faster, Save slower and she breathes back a little.
 	var e0: Dictionary = lv["e"]
 	var drop := maxf(0.0, float(e0.get("a", 100.0)) - float(e0.get("a_end", 100.0))) / Exchanges.EXCHANGES

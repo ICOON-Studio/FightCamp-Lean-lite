@@ -23,7 +23,7 @@ const ANSWERS: Array = [
 	{"tie": "underhook", "reaction": "drops her head", "technique": "Front headlock", "finish": "Front headlock", "points": 0, "link": "front_headlock", "clip": ["front headlock"]},
 	{"tie": "underhook", "reaction": "stays heavy", "technique": "Russian tie", "finish": "Russian tie", "points": 0, "link": "russian_tie", "clip": ["2-on-1", "russian"]},
 	{"tie": "wrist_control", "reaction": "pulls her wrist back", "technique": "Snatch single", "finish": "Single leg", "points": 2, "link": "", "clip": ["single_leg_takedown"]},
-	{"tie": "wrist_control", "reaction": "posts a hand on the mat", "technique": "Go-behind", "finish": "Go-behind", "points": 2, "link": "", "clip": []},
+	{"tie": "wrist_control", "reaction": "posts a hand on the mat", "technique": "Go-behind", "finish": "Go-behind", "points": 2, "link": "", "clip": ["#946"]},
 	{"tie": "wrist_control", "reaction": "straightens her arm", "technique": "Elbow pass", "finish": "Double leg", "points": 2, "link": "", "clip": ["double_leg_takedown", "double leg"]},
 	{"tie": "wrist_control", "reaction": "gives the arm", "technique": "Two on one", "finish": "2-on-1", "points": 0, "link": "two_on_one", "clip": ["2-on-1"]},
 	{"tie": "two_on_one", "reaction": "pulls her arm free", "technique": "Duck under", "finish": "Go-behind", "points": 2, "link": "", "clip": ["duck under"]},
@@ -36,9 +36,9 @@ const ANSWERS: Array = [
 	{"tie": "russian_tie", "reaction": "squares up", "technique": "Attack the far leg", "finish": "High crotch", "points": 2, "link": "", "clip": ["single_leg_takedown"]},
 	{"tie": "russian_tie", "reaction": "stands tall", "technique": "Keyhole lock", "finish": "Throw", "points": 2, "link": "", "clip": ["throw"]},
 	{"tie": "russian_tie", "reaction": "drops her head", "technique": "Snapdown", "finish": "Front headlock", "points": 0, "link": "front_headlock", "clip": ["snapdown"]},
-	{"tie": "front_headlock", "reaction": "stays flat on the mat", "technique": "Go-behind", "finish": "Go-behind", "points": 2, "link": "", "clip": []},
+	{"tie": "front_headlock", "reaction": "stays flat on the mat", "technique": "Go-behind", "finish": "Go-behind", "points": 2, "link": "", "clip": ["#1385"]},
 	{"tie": "front_headlock", "reaction": "rolls", "technique": "Gator roll", "finish": "Near fall", "points": 2, "link": "", "clip": ["gator"]},
-	{"tie": "front_headlock", "reaction": "digs for a leg", "technique": "Shuck", "finish": "Go-behind", "points": 2, "link": "", "clip": []},
+	{"tie": "front_headlock", "reaction": "digs for a leg", "technique": "Shuck", "finish": "Go-behind", "points": 2, "link": "", "clip": ["#1353"]},
 	{"tie": "front_headlock", "reaction": "turtles", "technique": "Cement job", "finish": "Near side cradle", "points": 2, "link": "", "clip": ["cement", "cradle"]},
 	{"tie": "front_headlock", "reaction": "lifts her head", "technique": "Guillotine", "finish": "Front headlock", "points": 0, "link": "", "clip": ["guillotine"]},
 	{"tie": "front_headlock", "reaction": "sprawls back", "technique": "Snapdown again", "finish": "Go-behind", "points": 2, "link": "", "clip": ["snapdown"]},
@@ -85,8 +85,16 @@ static func clip_for(row: Dictionary, transitions: Array) -> Array:
 		var title_lower: String = str(t["title"]).to_lower()
 		var tags: Array = t["tags"] if t.has("tags") else []
 		for kw in keywords:
-			var kw_lower: String = str(kw).to_lower()
-			if title_lower.contains(kw_lower) or tags.has(kw_lower):
-				out.append(t)
-				break
+			var kw_str: String = str(kw)
+			if kw_str.begins_with("#"):
+				var id_str: String = str(int(t["id"]))
+				var target: String = kw_str.substr(1)
+				if id_str == target:
+					out.append(t)
+					break
+			else:
+				var kw_lower: String = kw_str.to_lower()
+				if title_lower.contains(kw_lower) or tags.has(kw_lower):
+					out.append(t)
+					break
 	return out

@@ -104,6 +104,8 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	var arrow_line := PlanFight.arrow_line(last, names)   # S339 the coach's arrow she used (or none on that card)
 	if arrow_line != "":
 		v.add_child(UI.label(arrow_line, 18, UI.GREEN if bool(last.get("planned", false)) and bool(last["won"]) else UI.MUTED, "body", true))
+	if str(last.get("clinch_line", "")) != "":   # S340 the clinch: a breather, and what it cost her
+		v.add_child(UI.label(str(last["clinch_line"]), 18, UI.AMBER if bool((last.get("clinch", {}) as Dictionary).get("hit", false)) else UI.MUTED, "body", true))
 	if str(last.get("habit_line", "")) != "":
 		v.add_child(UI.label(str(last["habit_line"]), 18, UI.AMBER, "body", true))
 	v.add_child(UI.caps("WHAT YOU SEE"))

@@ -22,6 +22,10 @@ static func apply(beats: Array, ctx: Dictionary, rng: RandomNumberGenerator) -> 
 	var mult: float = float(SIT_MULT.get(sit, 1.0))
 	var base: float = float(PER_ROUND[rn - 1]) / 6.0 * mult
 	var count: int = mini(_pick_count(base, rng), 2)
+	# S340 she tied up this exchange (ClinchRest record): at least one clinch, hers, carrying the opponent's digs in it.
+	var tie: Dictionary = ctx.get("tie", {})
+	if not tie.is_empty():
+		count = maxi(count, 1)
 	if count <= 0:
 		return []
 	var energy: Dictionary = ctx.get("energy", {"a": 100.0, "b": 100.0})
@@ -30,7 +34,8 @@ static func apply(beats: Array, ctx: Dictionary, rng: RandomNumberGenerator) -> 
 	var pt: Array = _punch_times(beats)
 	var taken: Array = []
 	for i in count:
-		var who: String = _who_clinches(beats, sit, energy, habits, rng)
+		var forced := i == 0 and not tie.is_empty()
+		var who: String = "a" if forced else _who_clinches(beats, sit, energy, habits, rng)
 		var desired_dur: float = clampf(_normal(DUR_MEAN_S, DUR_SD_S, rng), DUR_MIN_S, DUR_MAX_S)
 		var gap: Dictionary = _pick_gap(pt, taken, desired_dur, rng)
 		if gap.is_empty():
@@ -50,7 +55,11 @@ static func apply(beats: Array, ctx: Dictionary, rng: RandomNumberGenerator) -> 
 		pt.append({"t": break_t + BREAK_S, "result": "none"})
 		pt.sort_custom(_sort_t)
 		taken.append([t, break_t + BREAK_S])
-		new_beats.append({"t": t, "who": who, "move": "clinch", "result": "none", "caption": "", "dur": dur, "break_t": break_t})
+		var cb := {"t": t, "who": who, "move": "clinch", "result": "none", "caption": "", "dur": dur, "break_t": break_t}
+		if forced and int(tie.get("shots", 0)) > 0:
+			cb["digs"] = int(tie["shots"])   # Clinch.gd (CLINCH2) plays the opponent's free hand digging
+			cb["digger"] = "b"
+		new_beats.append(cb)
 		new_beats.append({"t": break_t, "who": "a", "move": "step_out", "result": "none", "caption": "", "ref": true})
 		new_beats.append({"t": break_t, "who": "b", "move": "step_out", "result": "none", "caption": "", "ref": true})
 	beats.append_array(new_beats)
