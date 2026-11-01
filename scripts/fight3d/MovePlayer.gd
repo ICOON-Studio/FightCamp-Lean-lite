@@ -25,6 +25,11 @@ const FRAME_MARGIN := 0.04
 
 signal looped
 
+## S348 the Playbook (Q-S294-71): her own body and the opponent's (Faces.pair), set before the player enters the tree; and
+## the play speed (Slow motion = 0.35): clips, contacts, the hold and the ghost's reaction all run on it.
+var bodies := [BODY_PATH, BODY_PATH]
+var speed := 1.0
+
 var _vp: SubViewport
 var _world: Node3D
 var _stage: Node3D  # FightStage
@@ -68,8 +73,8 @@ func _build_stage() -> void:
 	_stage = FightStage.new()
 	_world.add_child(_stage)
 	# Set up two boxers
-	var spec_a := {"glb": BODY_PATH, "corner": "red", "stance": "orthodox", "scale": 1.0}
-	var spec_b := {"glb": BODY_PATH, "corner": "blue", "stance": "orthodox", "scale": 1.0}
+	var spec_a := {"glb": str(bodies[0]), "corner": "red", "stance": "orthodox", "scale": 1.0}
+	var spec_b := {"glb": str(bodies[1]), "corner": "blue", "stance": "orthodox", "scale": 1.0}
 	_stage.setup(spec_a, spec_b)
 	# Hide the ring (ropes, posts, crowd) but keep the floor
 	_hide_ring()
@@ -238,7 +243,7 @@ func _process(delta: float) -> void:
 		return
 	if _first_gap < 0.0:
 		_first_gap = _measure_gap()
-	_clip_start_t += delta
+	_clip_start_t += delta * speed
 	# Track min gap (pelvis to pelvis on the bodies)
 	var gap_now := _measure_gap()
 	if gap_now < _min_gap:
@@ -264,7 +269,7 @@ func _process(delta: float) -> void:
 			if _clip_start_t >= contact_s:
 				_reach_at_contact = _measure_reach()
 	if _looping:
-		_hold_t += delta
+		_hold_t += delta * speed
 		if _hold_t >= GUARD_HOLD_S:
 			emit_signal("looped")
 			_clip_idx = 0
@@ -293,15 +298,15 @@ func _play_next_clip() -> void:
 		return
 	# Play the clip using stage.play() like BeatFire
 	var contact_s := BeatClips.contact(clip, 8.0/30.0)
-	_stage.play(who, clip, 1.0, 0.0)
+	_stage.play(who, clip, speed, 0.0)
 	_started_idx = maxi(_started_idx, _clip_idx + 1)   # the clips started at least once (a loop does not reset it)
 	_clip_start_t = 0.0
 	# For punches, land them using stage.land() like BeatFire._punch
 	if _is_punch_clip(clip) and not _is_forced:
 		var is_body := clip.contains("body")
-		_stage.land(who, clip, is_body, 0.0, contact_s)
+		_stage.land(who, clip, is_body, 0.0, contact_s / speed)
 		# Schedule ghost reaction at contact
-		_schedule_ghost_react(contact_s, clip)
+		_schedule_ghost_react(contact_s / speed, clip)
 	else:
 		# Ghost stays in guard for non-punch clips
 		_stage.guard(1)
@@ -324,7 +329,7 @@ func _schedule_ghost_react(contact_s: float, clip: String) -> void:
 	var id := _clip_idx
 	get_tree().create_timer(contact_s).timeout.connect(func():
 		if _playing and _clip_idx == id:
-			_stage.play(1, react, 1.0, 0.0))
+			_stage.play(1, react, speed, 0.0))
 
 func played_clips() -> Array:
 	return _clips.slice(0, _started_idx)

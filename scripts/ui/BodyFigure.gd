@@ -6,6 +6,7 @@ extends Control
 
 const BM := preload("res://scripts/rules/BodyMap.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
+const BodyTip := preload("res://scripts/ui/BodyTip.gd")
 
 const DESIGN_W := 90.0
 const DESIGN_H := 150.0
@@ -433,14 +434,20 @@ func place_at(local_pos: Vector2) -> String:
 ## S347 (operator: "lighten the ui/hud"): off a place, the figure's own words (the fight HUD puts the colour key and her
 ## punch stats here instead of on screen).
 var extra_tip := ""
+## S348 (C199): on a place, the caller's words for it (BodyLive: what that place has taken this bout, BodyTip.text).
+var tip_fn := Callable()
 
 
 func _get_tooltip(at_position: Vector2) -> String:
 	var p: String = place_at(at_position)
 	if p == "":
 		return extra_tip
-	tooltip_text = tip_of(p)
+	tooltip_text = str(tip_fn.call(p)) if tip_fn.is_valid() else tip_of(p)
 	return tooltip_text
+
+
+func _make_custom_tooltip(for_text: String) -> Object:
+	return BodyTip.panel(for_text) if tip_fn.is_valid() else null
 
 
 ## Exposed for tests: design-space centre of a place, mapped to local pixels.

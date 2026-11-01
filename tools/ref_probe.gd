@@ -6,16 +6,20 @@ extends SceneTree
 ## Run windowed on the never-shown desktop (the camera needs a picture):
 ##   python tools/hidden_desktop.py run --timeout=600 --log=<f> <godot.exe> --path . --windowed --resolution 1280x720 \
 ##       --audio-driver Dummy --fixed-fps 30 --script res://tools/ref_probe.gd [-- secs=150]
-## Prints REF lines.
+## Prints REF lines. S348 (C200): also how often he stands within Referee.LENS_KEEP_M of the camera on the canvas (inside the
+## ropes since S347 he filled a quarter of the screen); `-- nolens` = the control arm without the lens keep.
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const BETWEEN_M := 0.5
+const Referee := preload("res://scripts/fight3d/Referee.gd")
 
 var main: Node
 
 
 func _initialize() -> void:
 	var secs := 150.0
+	if OS.get_cmdline_user_args().has("nolens"):
+		Referee.lens_keep = false
 	for a in OS.get_cmdline_user_args():
 		if str(a).begins_with("secs="):
 			secs = float(str(a).trim_prefix("secs="))
@@ -40,6 +44,11 @@ func _initialize() -> void:
 	var watch := 0
 	var os_walk := 0      # of the on-screen frames: walking (still on his way to the spot)
 	var os_narrow := 0    # of the on-screen frames: their heads under 200 px apart (the camera along their line)
+	var near_lens := 0    # S348: frames he stands within LENS_KEEP_M of the camera on the canvas, and the closest
+	var lens_min := INF
+	var cuts := 0         # S348: the director's shot changes (the referee/clinch cuts must not become a cut storm)
+	var last_shot := -2
+	var t0 := float(view.t)
 	while bool(view.playing) and float(view.t) <= secs:
 		await process_frame
 		var st: Node = view.stage
@@ -65,6 +74,15 @@ func _initialize() -> void:
 		if sgn != 0.0:
 			last_sign = sgn
 		var cam: Camera3D = st.get("camera")
+		if cam != null and int(cam.get("_shot")) != last_shot:
+			if last_shot != -2:
+				cuts += 1
+			last_shot = int(cam.get("_shot"))
+		if cam != null:
+			var dl := Vector2(p.x - cam.global_position.x, p.z - cam.global_position.z).length()
+			lens_min = minf(lens_min, dl)
+			if dl < Referee.LENS_KEEP_M - 0.05:
+				near_lens += 1
 		if cam != null and str(ref.get("_mode")) == "watch":
 			watch += 1
 			var h0 := cam.unproject_position(a + Vector3.UP * 1.65).x
@@ -88,6 +106,10 @@ func _initialize() -> void:
 		frames, between, 100.0 * between / maxf(1.0, frames), spells.size(), flips, crossings])
 	print("REF on screen: his head between their heads %d of %d watch frames (%.1f %%) | of those walking %d, heads < 200 px apart %d" % [
 		on_screen, watch, 100.0 * on_screen / maxf(1.0, watch), os_walk, os_narrow])
+	print("REF lens: within %.1f m of the camera %d of %d frames (%.1f %%), closest %.2f m (lens keep %s)" % [
+		Referee.LENS_KEEP_M, near_lens, frames, 100.0 * near_lens / maxf(1.0, frames), lens_min, Referee.lens_keep])
+	print("REF camera cuts: %d in %.0f s of round time (%.1f a minute; the director's own pace is one every 4-7.5 s)" % [
+		cuts, float(view.t) - t0, 60.0 * cuts / maxf(1.0, float(view.t) - t0)])
 	for s in spells.slice(0, 15):
 		print("REF between: %.1f-%.1f s, closest %.2f m off their line, mode %s, pelvis gap %.2f m" % [s[0], s[1], s[2], s[3], s[4]])
 	quit(0)

@@ -1,4 +1,4 @@
-﻿extends Node
+extends Node
 ## S318 the body map live (operator S316: "a body visual ... real time interactive on where the hits are being taken and
 ## changing colour on that area"; plan Q-S294-29 "Yes, build it", Game Godot/research/S316_BODY_MAP_PLAN.md step 2).
 ## Keeps the bout's BodyMap (six places a boxer, over all its rounds) and a BodyFigure per boxer in the scorebug panel:
@@ -11,6 +11,8 @@ const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const BodyTurn := preload("res://scripts/ui/BodyTurn.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const BodyTip := preload("res://scripts/ui/BodyTip.gd")
+const BodyCallouts := preload("res://scripts/ui/BodyCallouts.gd")
 
 ## S320 (operator C145: "each of these needs to be on each fighters side"): each boxer's figure stands at her own edge
 ## of the screen - hers (red) on the left under the scorebug, the opponent's (blue) on the right - drawn on her own body
@@ -29,6 +31,8 @@ var panels: Array = []   # S320 the two side panels (FightView.hide_hud hides th
 var stats := [{"thrown": 0, "landed": 0, "jab_t": 0, "jab_l": 0, "pow_t": 0, "pow_l": 0, "body": 0},
 	{"thrown": 0, "landed": 0, "jab_t": 0, "jab_l": 0, "pow_t": 0, "pow_l": 0, "body": 0}]
 var _stat_labels: Array = []
+## S348 (C199): what each place took, per boxer ({place: BodyTip.log_hit entry}); her tooltip on a place reads it.
+var taken := [{}, {}]
 
 
 static func attach(v: Control) -> Node:
@@ -61,6 +65,10 @@ func _build() -> void:
 		if not BodyTurn.attach(fig, glb, CORNER[side]):   # S334 C153: she turns slowly; the still portrait when never baked
 			fig.set_portrait(BodyFigure.portrait_for(glb, CORNER[side]))
 		col.add_child(fig)
+		fig.tip_fn = _place_tip.bind(side)
+		BodyTip.attach(fig)
+		# S348 the operator's anatomy-chart pictures: close-ups of her head, liver and ribs in the strip at the screen edge.
+		BodyCallouts.attach(fig, BodyFigure.portrait_for(glb, CORNER[side]), -1.0 if side == 0 else 1.0, _place_tip.bind(side))
 		_stat_labels.append(fig)
 		view.add_child(panel)
 		if side == 0:
@@ -77,9 +85,9 @@ func _build() -> void:
 	_paint_stats()
 
 
-## S323 playtest ("blue = fresh is not obvious") gave the figure a key; S347 moved it into her tooltip (her body is clay now,
-## so fresh is plain clay).
-const KEY_WORDS := "Clay = fresh. Green = warm, yellow = hot, red = burning: how hard that part has worked.\nA ring on her face or ribs = hurt there."
+## S323 playtest ("blue = fresh is not obvious") gave the figure a key; S347 moved it into her tooltip. S348 (C200 "the
+## right holo has nothing to do with the actual fighter"): she is drawn in her own skin again, only her kit is neutral.
+const KEY_WORDS := "Her own colours = fresh. Green = warm, yellow = hot, red = burning: how hard that part has worked.\nRed skin on her face or ribs = hurt there. Point at her head, face or ribs for what landed."
 
 
 ## A beat FightView fires; a landed punch reaches the other boxer `at_s` from now (its contact).
@@ -117,7 +125,17 @@ func _apply(b: Dictionary) -> void:
 		vals[p] = BodyMap.value(map, def, p)
 		if float(vals[p]) < float(before[p]):
 			fig.hit(p, str(b["move"]).replace("_", " "))
+			BodyTip.log_hit(taken[0 if def == "a" else 1], p, str(b["move"]), bool(b.get("big", false)), int(view.get("round_n")))
 	fig.set_values(vals)
+
+
+## Her tooltip on `place`: what landed there this bout, how hurt it is, a cut (C199).
+func _place_tip(place: String, side: int) -> String:
+	var who := "a" if side == 0 else "b"
+	var m: Dictionary = map[who]
+	return BodyTip.text(place, BodyMap.value(map, who, place), (taken[side] as Dictionary).get(place, {}),
+		BodyMap.value(map, who, "head"), bool((m.get("cuts", {}) as Dictionary).get(place, false)),
+		bool((m.get("closed", {}) as Dictionary).get(place, false)))
 
 
 ## The two stat blocks: landed/thrown and accuracy, jabs, power punches, to the body.

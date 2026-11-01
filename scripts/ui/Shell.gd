@@ -9,6 +9,7 @@ const Needs := preload("res://scripts/state/Needs.gd")
 const AREA_SCENES := {
 	"home": preload("res://scenes/areas/Home.tscn"),
 	"fighters": preload("res://scenes/areas/Fighters.tscn"),
+	"playbook": preload("res://scenes/areas/Playbook.tscn"),
 	"fights": preload("res://scenes/areas/Fights.tscn"),
 	"gym": preload("res://scenes/areas/Gym.tscn"),
 	"money": preload("res://scenes/areas/Money.tscn"),

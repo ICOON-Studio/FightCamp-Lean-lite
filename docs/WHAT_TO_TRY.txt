@@ -1,3 +1,20 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 49 (2026-11-01): THE PLAYBOOK, HER OWN HOLO, HOVER HER LIVER
+=============================================================================================
+
+ 1. PLAYBOOK (new in the menu, your Q-S294-71 "Yes, build it"): her move map on the left, the move player on the right.
+    Click any move in the list - it plays on HER own body (the partner is a ghost). Replay, Slow motion.
+    Tabs: Moves (walk her map), Plans (her plan board, Save plan, See the flow). Combos and Escapes say what comes next.
+ 2. Watch a fight: the body view (the holo) beside each boxer is now HER - her own skin, hair and face (C200 "the right
+    holo has nothing to do with the actual fighter"); only her kit is plain, so a red vest never reads "burning".
+ 3. Beside each holo: three round close-ups - HEAD (her face), LIVER (her right ribs), RIBS - each with its number and
+    a line to the spot. They flash when a punch lands there and turn amber/red as it gets hurt (your anatomy pictures).
+ 4. Point the mouse at her head, face, liver or ribs (on the holo or a close-up): what landed there this bout - "Took 9:
+    5 jabs, 3 crosses, 1 lead hook", the big shots, the last punch and its round, a cut (C199).
+ 5. The referee no longer walks into the camera, and the camera cuts away when he comes close or when the over-the-
+    shoulder shot would only show a back (round-1 still, C200).
+ 6. THE FLOW (Fighters > a fighter > plan > See the flow) now has the menus' whiteboard colours (C191/C192).
+ (Update 48, S347: every camera inside the ropes, the lighter HUD in our colours, her tells on her body.)
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 47 (2026-11-01): THE FIGHT HUD THAT BEATS UFC 6
 =================================================================================
 

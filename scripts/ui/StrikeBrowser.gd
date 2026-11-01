@@ -33,6 +33,12 @@ const SPOT := {"outside": Vector2(0.10, 0.28), "long": Vector2(0.30, 0.28), "mid
 	"clinch": Vector2(0.90, 0.28), "own_ropes": Vector2(0.22, 0.74), "opp_ropes": Vector2(0.55, 0.74), "corner": Vector2(0.86, 0.74)}
 const CARD := Vector2(236, 92)
 
+## S348 the Playbook (Q-S294-71) holds this map as a part of its page: a picked move plays on its player; no Back (the page
+## has the menu); `start_plan` false = the Moves tab (walk the map), true = the Plans tab (her board).
+signal move_picked(move_id: String)
+var embedded := false
+var start_plan := true
+
 var current := "outside"
 var route: Array = []      # [card, move name, card, ...] as walked
 var plan: Array = []       # [{"move": row id, "when": situation (optional)}, ...]
@@ -81,7 +87,7 @@ func _ready() -> void:
 		if s.begins_with("coach="):
 			coach_skill = clampf(float(s.get_slice("=", 1)), 0.0, 100.0)
 	go(current)
-	if OS.get_cmdline_user_args().has("plan=1") or not fighter.is_empty():
+	if OS.get_cmdline_user_args().has("plan=1") or (not fighter.is_empty() and start_plan):
 		_set_plan_mode(true)
 
 
@@ -110,7 +116,8 @@ func _top_bar() -> Control:
 		h.add_child(_plan_toggle)
 		h.add_child(UI.button("Start again", "BtnQuiet", func(): route.clear(); plan.clear(); go("outside")))
 		return bar
-	h.add_child(UI.label("THE PLAN: %s" % str(fighter["name"]).to_upper(), 22, UI.FG, "bold"))
+	var title := ("HER MOVES" if not start_plan else "HER PLAN") if embedded else "THE PLAN: %s" % str(fighter["name"]).to_upper()
+	h.add_child(UI.label(title, 22, UI.FG, "bold"))
 	var punches := PackedStringArray()
 	for mv in Data.MOVES:
 		punches.append("%s %d" % [mv, int(float(mastery.get(mv, 0.0)))])
@@ -119,8 +126,10 @@ func _top_bar() -> Control:
 	h.add_child(UI.button("Real fight plans", "Btn", func(): templates = not templates; go(current)))
 	h.add_child(UI.button("See the flow", "Btn", show_flow))
 	h.add_child(UI.button("Clear", "BtnQuiet", func(): plan.clear(); go(current)))
-	h.add_child(UI.button("Back", "Btn", _close))
-	h.add_child(UI.button("Save plan", "BtnSolid", _save))
+	if not embedded:
+		h.add_child(UI.button("Back", "Btn", _close))
+	if start_plan or not embedded:
+		h.add_child(UI.button("Save plan", "BtnSolid", _save))
 	return bar
 
 
@@ -146,7 +155,8 @@ func _save() -> void:
 
 
 func _close() -> void:
-	queue_free()
+	if not embedded:
+		queue_free()
 	if main != null:
 		main.render()
 
@@ -160,7 +170,7 @@ func _set_plan_mode(on: bool) -> void:
 
 func _panel() -> Control:
 	var p := PanelContainer.new()
-	p.custom_minimum_size = Vector2(PANEL_W, 0)
+	p.custom_minimum_size = Vector2(_pw(), 0)
 	p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 0, 1, 18, 14))
 	var scroll := ScrollContainer.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -272,7 +282,7 @@ func _moves(title: String, rows: Array, out: bool) -> void:
 			why = full_reason
 		var small := ("to " if out else "from ") + str(Map.card(other)["name"]) + ("" if str(m["kind"]) == "combo" else "  (" + str(m["kind"]) + ")")
 		var disabled := why != ""
-		var b := UI.button2(str(m["name"]), small, "Choice", func(): _take(m, out), Vector2(PANEL_W - 50, 58), UI.FG, UI.MUTED,
+		var b := UI.button2(str(m["name"]), small, "Choice", func(): _take(m, out), Vector2(_pw() - 50, 58), UI.FG, UI.MUTED,
 			disabled, UI.SMALL, UI.TINY, why)
 		# S338: button2 already writes the reason under the name (GREYWHY1); a second label repeated it.
 		_side.add_child(b)
@@ -281,6 +291,7 @@ func _moves(title: String, rows: Array, out: bool) -> void:
 ## A move out walks to where it lands (the route grows); a move in jumps back to where it starts.
 ## In plan mode a move out adds a plan arrow and walks without growing the route.
 func _take(m: Dictionary, out: bool) -> void:
+	move_picked.emit(str(m["id"]))
 	if out and plan_mode:
 		# S338 still: the same move went on the plan twice; a planned move just walks.
 		var planned := plan.any(func(a): return _same(a, str(m["id"])))
@@ -338,16 +349,27 @@ func _same(a: Dictionary, move_id: String) -> bool:
 
 ## ---------- the map ----------
 
+## S348 a card never wider than its slot (five range cards share a row): the Playbook's map is narrower than the full screen.
+## The ring places' row holds three cards, so they may be wider (arrows reach them from above: the height sets the edge).
+func _card(id := "") -> Vector2:
+	var share := 0.28 if id in ["own_ropes", "opp_ropes", "corner"] else 0.18
+	return Vector2(minf(CARD.x, _map.size.x * share), CARD.y) if _map != null else CARD
+
+
+func _pw() -> int:
+	return 360 if embedded else PANEL_W
+
+
 func _layout() -> void:
 	if _map == null:
 		return
 	UI.clear(_map)
 	for c in Map.CARDS:
 		var id := str(c["id"])
-		var at: Vector2 = SPOT[id] * _map.size - CARD * 0.5
+		var at: Vector2 = SPOT[id] * _map.size - _card(id) * 0.5
 		var lit := id == current
 		var b := UI.button2(str(c["name"]), "%d out  %d in" % [Map.outs(id).size(), Map.ins(id).size()], "ChoiceOn" if lit else "Choice",
-			func(): route.clear(); go(id), CARD, UI.FG, UI.MUTED, false, UI.BODY, UI.TINY)
+			func(): route.clear(); go(id), _card(id), UI.FG, UI.MUTED, false, UI.BODY, UI.TINY)
 		b.position = at
 		b.tooltip_text = "%d moves start here, %d end here" % [Map.outs(id).size(), Map.ins(id).size()]
 		_map.add_child(b)
@@ -371,14 +393,14 @@ func _draw_plan_arrow(from_id: String, to_id: String, branch := false) -> void:
 	var col := Color(UI.GREEN, 0.55) if branch else UI.GREEN
 	var w := 3.0 if branch else 5.0
 	if a == b:
-		var c := a - Vector2(0, CARD.y * 0.5 + 16.0)
+		var c := a - Vector2(0, _card().y * 0.5 + 16.0)
 		_map.draw_arc(c, 14.0, PI * 0.15, PI * 1.85, 24, col, 4.0, true)
 		var tip := c + Vector2(cos(PI * 0.15), sin(PI * 0.15)) * 14.0
 		_map.draw_colored_polygon(PackedVector2Array([tip + Vector2(0, 7), tip + Vector2(-8, -3), tip + Vector2(8, -3)]), col)
 		return
 	var dir := (b - a).normalized()
 	var side := Vector2(-dir.y, dir.x) * (18.0 if branch else 10.0)
-	var edge := minf(CARD.x * 0.5 / maxf(absf(dir.x), 1e-3), CARD.y * 0.5 / maxf(absf(dir.y), 1e-3)) + 4.0
+	var edge := minf(_card().x * 0.5 / maxf(absf(dir.x), 1e-3), _card().y * 0.5 / maxf(absf(dir.y), 1e-3)) + 4.0
 	var p0 := a + dir * edge + side
 	var p1 := b - dir * edge + side
 	_map.draw_line(p0, p1, col, w, true)
@@ -399,7 +421,7 @@ func _draw_arrows() -> void:
 		var dir := (b - a).normalized()
 		# Start and end just outside the card edges, nudged sideways so a pair of opposite moves do not overlap.
 		var side := Vector2(-dir.y, dir.x) * 6.0
-		var edge := minf(CARD.x * 0.5 / maxf(absf(dir.x), 1e-3), CARD.y * 0.5 / maxf(absf(dir.y), 1e-3)) + 4.0
+		var edge := minf(_card().x * 0.5 / maxf(absf(dir.x), 1e-3), _card().y * 0.5 / maxf(absf(dir.y), 1e-3)) + 4.0
 		var p0 := a + dir * edge + side
 		var p1 := b - dir * edge + side
 		_map.draw_line(p0, p1, col, 3.0 if out else 1.5, true)

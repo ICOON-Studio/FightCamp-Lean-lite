@@ -48,6 +48,15 @@ const TURNS := [0.0, 25.0, -25.0, 50.0, -50.0, 80.0, -80.0, 115.0, -115.0, 150.0
 const MOTION_BLUR := "res://addons/godot-motion-blur/guertin/guertin_motion_blur.gd"
 const BLUR := 1.0
 const JUMP_M := 0.4
+## S348 (S348 round-1 still: "Step back" walked her into the over-the-shoulder lens, her back hid the other woman's face):
+## the shoulder lens stands further to the side, and a boxer this close to the lens (flat) cuts to the next shot.
+const SHOULDER_SIDE_M := 1.25
+const TOO_CLOSE_M := 1.3
+## S348 (round-2 still: the referee stepping in to part a clinch filled a quarter of the frame; the shoulder lens in a clinch
+## saw only her back): the referee closer than this cuts the shot, and no shoulder shot while their hips are this close.
+const REF_CLOSE_M := 2.0
+const CLINCH_GAP_M := 0.75
+var avoid := Vector3.INF      # the referee (FightStage sets it every frame); INF = nobody to keep off
 
 var close := false            # the big-shot close-up holds until broadcast() runs again
 var _shot := -1
@@ -93,6 +102,12 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 	_clock += delta
 	_shot_t += delta
 	var cut := snap or _shot < 0 or _shot_t >= _shot_hold
+	if not cut and _shot >= 0 and _shot_t > 0.6:   # a shot holds 0.6 s at least: never a cut every frame
+		for p in [a, b]:
+			if Vector2(p.x - position.x, p.z - position.z).length() < TOO_CLOSE_M:
+				cut = true
+		if avoid != Vector3.INF and Vector2(avoid.x - position.x, avoid.z - position.z).length() < REF_CLOSE_M:
+			cut = true
 	if cut:
 		if _shot < 0:
 			_rng.seed = 317
@@ -104,19 +119,21 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 	var sh: Dictionary = SHOTS[_shot]
 	var mid := (a + b) * 0.5
 	var side := _side_of(a, b)
+	if cut and avoid != Vector3.INF and side.dot(Vector3(avoid.x - mid.x, 0.0, avoid.z - mid.z)) > 0.0:
+		side = -side   # S348: a new shot opens on the side away from the referee (never a cut straight back into him)
 	_side = side
 	_lens(false)
 	var want_pos: Vector3
 	var want_look: Vector3
 	fov = float(sh["fov"])
 	var over_spot := Vector3.INF
-	if str(sh["name"]) == "shoulder":
+	if str(sh["name"]) == "shoulder" and Vector2(a.x - b.x, a.z - b.z).length() >= CLINCH_GAP_M:
 		# Behind one boxer's shoulder, a little to the camera's side, onto the other's face (not with her back to the
 		# ropes: that spot is outside them - the side shot instead).
 		var near: Vector3 = a if _over == 0 else b
 		var far: Vector3 = b if _over == 0 else a
 		var axis := (far - near).normalized()
-		var at := near - axis * float(sh["dist"]) + side * 0.95
+		var at := near - axis * float(sh["dist"]) + side * SHOULDER_SIDE_M
 		if inside(at):
 			over_spot = at
 			want_pos = at + Vector3(0, float(sh["h"]), 0)

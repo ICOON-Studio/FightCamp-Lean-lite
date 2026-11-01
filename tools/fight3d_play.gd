@@ -130,6 +130,39 @@ func _initialize() -> void:
 	_check(bool(view.playing) and int(view.round_n) == 2 and str(LiveRound.live(main.modal).get("plan", "")) == "lead",
 		"round 2 plays on the corner's plan")
 	await _shot("p06_round2_mid", 12.0)
+	# S348 (C199 "mouse over head or liver to show stats like damage taken"): the real mouse route through the fight HUD -
+	# a motion onto the opponent's liver reaches her figure, rings it, and the tooltip shows what landed there.
+	var bl: Node = view.find_child("BodyLive", true, false)
+	if bl != null and (bl.figures as Array).size() == 2:
+		var fig: Control = bl.figures[1]
+		var at: Vector2 = fig.get_global_transform_with_canvas() * fig.centre_of("right_ribs")
+		var mm := InputEventMouseMotion.new()
+		mm.position = at
+		mm.global_position = at
+		root.push_input(mm, true)   # viewport coords (the hidden desktop maximises the window: window coords are scaled)
+		await _wait(2)
+		_check(root.gui_get_hovered_control() == fig, "C199 the mouse on her liver reaches her body view (%s)" % root.gui_get_hovered_control())
+		_check(str(fig.find_child("BodyTip", false, false).hover) == "right_ribs", "C199 her liver is ringed under the mouse")
+		await _shot("p06b_hover_liver", 0.6)
+		var head: Vector2 = fig.get_global_transform_with_canvas() * fig.centre_of("head")
+		mm = InputEventMouseMotion.new()
+		mm.position = head + Vector2(0, -8)
+		mm.global_position = mm.position
+		root.push_input(mm, true)   # viewport coords (the hidden desktop maximises the window: window coords are scaled)
+		await _wait(2)
+		print("HEAD TIP \"%s\"" % str(fig._get_tooltip(head + Vector2(0, -8) - fig.get_global_transform_with_canvas().origin)).replace("\n", " | "))
+		await _shot("p06c_hover_head", 0.6)
+		# S348 the close-ups (the operator's anatomy-chart pictures): pointing at HEAD gives the head's tooltip.
+		var co: Node = fig.find_child("BodyCallouts", false, false)
+		_check(co != null, "S348 her body view has the HEAD / LIVER / RIBS close-ups")
+		if co != null:
+			mm = InputEventMouseMotion.new()
+			mm.position = fig.get_global_transform_with_canvas() * (co.centre(0) as Vector2)
+			mm.global_position = mm.position
+			root.push_input(mm, true)
+			await _wait(2)
+			_check(str(root.gui_get_hovered_control().get_class()) == "Control" and root.gui_get_hovered_control().get_parent() == co, "S348 the mouse on HEAD reaches the close-up")
+			await _shot("p06d_hover_callout", 0.6)
 	view.skip_bout()
 	await _wait(6)
 	_check(str(main.modal.get("step", "")) == "result", "SKIP BOUT reaches the result")

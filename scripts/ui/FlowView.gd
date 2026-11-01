@@ -13,7 +13,9 @@ extends Control
 ##   var v := FlowView.new(); v.setup(flow, opts); main.add_child(v)
 ##   opts = {title, sub, place_name: Callable(id) -> String, move_name: Callable(id) -> String, lit: bool}
 
-const UI := preload("res://scripts/ui/TV.gd")
+## S348 (operator C191/C192 "not in par with other menu colours"): the menus' whiteboard look (UI.gd: the gym-wall page,
+## white cards, marker-blue titles), not the fight broadcast's dark TV.gd.
+const UI := preload("res://scripts/ui/UI.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
 const CARD := Vector2(480, 126)
 const PIC := Vector2(150, 100)
@@ -38,10 +40,10 @@ var _clock := 0.0
 var _row_no := {}           # depth -> the row's number on screen (1, 2, 3...: depths can skip one)
 
 
-## A soft light from above on the dark (the ring at night), drawn once.
+## A soft light from above on the board (S348: white on the gym wall, was a warm spot on the dark), drawn once.
 static func _spotlight() -> TextureRect:
 	var g := Gradient.new()
-	g.set_color(0, Color(0.42, 0.30, 0.20, 0.55))
+	g.set_color(0, Color(1, 1, 1, 0.55))
 	g.set_color(1, Color(0, 0, 0, 0))
 	var tex := GradientTexture2D.new()
 	tex.gradient = g
@@ -69,7 +71,7 @@ func _ready() -> void:
 	theme = UI.theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var bg := ColorRect.new()
-	bg.color = Color("#120e0c")
+	bg.color = UI.BG
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
 	add_child(_spotlight())
@@ -256,7 +258,7 @@ func _draw_lines() -> void:
 			var u := _clock / DOT_PERIOD_S * float(all.size() - 1)
 			for k in 5:
 				var at := all[clampi(int(u) - k, 0, all.size() - 1)].lerp(all[clampi(int(u) - k + 1, 0, all.size() - 1)], fmod(u, 1.0))
-				_canvas.draw_circle(at, 7.0 - k, Color(1.0, 0.95, 0.8, 0.9 - 0.18 * k) if k == 0 else Color(col, 0.55 - 0.1 * k))
+				_canvas.draw_circle(at, 7.0 - k, Color(col.darkened(0.25), 0.95) if k == 0 else Color(col, 0.55 - 0.1 * k))
 			var head := all[clampi(int(u), 0, all.size() - 1)]
 			_canvas.draw_circle(head, 12.0, Color(col, 0.18))
 
@@ -381,7 +383,7 @@ func _card(id: String, r: Rect2, start: bool) -> PanelContainer:
 	card.name = "Card_" + id
 	card.mouse_filter = Control.MOUSE_FILTER_PASS
 	var sb: StyleBoxFlat = UI.box(Color(UI.PANEL, 0.95), UI.GOLD if start else UI.LINE, 12, 3 if start else 2, 8, 8)
-	sb.shadow_color = Color(0, 0, 0, 0.55)
+	sb.shadow_color = Color(0.13, 0.15, 0.18, 0.16)
 	sb.shadow_size = 10
 	sb.shadow_offset = Vector2(0, 4)
 	card.add_theme_stylebox_override("panel", sb)

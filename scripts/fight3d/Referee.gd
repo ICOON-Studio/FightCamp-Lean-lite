@@ -46,6 +46,11 @@ const SWITCH_COST := 60.0
 ## Screen pixels each side of the two heads that count as "between them"; his head height (metres).
 const SCREEN_GAP_PX := 70.0
 const HEAD_Y_M := 1.65
+## S348 (operator C200 on the round-1 still: the referee stood a metre from the lens and filled a quarter of the screen,
+## the body view drawn over him): since S347 the camera stands inside the ropes, so he keeps this far from it on the canvas
+## and his spot is picked away from it.
+const LENS_KEEP_M := 2.2
+static var lens_keep := true   # tools/ref_probe.gd `-- nolens` = the control arm (S347 behaviour)
 
 var stage: Node3D
 var body: Node3D
@@ -97,9 +102,12 @@ func _process(delta: float) -> void:
 		return
 	if bool(stage.get("scene")):
 		_walk_to(_neutral(), WALK_MS, delta)
+		_keep_off_lens()
 		return
 	_move(delta)
 	_keep_clear(KEEP_PUSH_M if _mode == "part" else KEEP_M)
+	if _mode == "watch":
+		_keep_off_lens()
 
 
 func _move(delta: float) -> void:
@@ -167,6 +175,8 @@ func _pick_along(cam: Camera3D, off: Vector3, dir: Vector3, half: float) -> floa
 			score += SWITCH_COST
 		if sx > lo and sx < hi and not cam.is_position_behind(spot):
 			score += 100.0
+		if lens_keep and Vector2(spot.x - cam.global_position.x, spot.z - cam.global_position.z).length() < LENS_KEEP_M:
+			score += 80.0
 		if score < best_score:
 			best_score = score
 			best = float(t)
@@ -198,6 +208,22 @@ func _keep_clear(keep: float) -> void:
 		var d := Vector3(body.position.x - bp.x, 0, body.position.z - bp.z)
 		if d.length() < keep:
 			body.position = Vector3(bp.x, 0, bp.z) + (d.normalized() if d.length() > 0.01 else Vector3.RIGHT) * keep
+
+
+## Never within LENS_KEEP_M of the camera on the canvas (inside the ropes it would film his shirt): pushed out from the
+## lens, kept inside the ropes.
+func _keep_off_lens() -> void:
+	var cam: Camera3D = stage.get("camera")
+	if cam == null or not lens_keep:
+		return
+	var cp := Vector3(cam.global_position.x, 0, cam.global_position.z)
+	var d := Vector3(body.position.x - cp.x, 0, body.position.z - cp.z)
+	if d.length() >= LENS_KEEP_M:
+		return
+	var away := d.normalized() if d.length() > 0.01 else Vector3(-cp.x, 0, -cp.z).normalized()
+	var p := cp + away * LENS_KEEP_M
+	var edge: float = float(stage.RING_M) * 0.5 - EDGE_IN_M
+	body.position = Vector3(clampf(p.x, -edge, edge), 0.0, clampf(p.z, -edge, edge))
 
 
 ## The neutral corner farther from the camera.
