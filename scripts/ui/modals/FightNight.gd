@@ -15,6 +15,7 @@ const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const ReadPanel := preload("res://scripts/ui/ReadPanel.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
 const CornerJobsRow := preload("res://scripts/ui/CornerJobsRow.gd")
+const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
 
 
@@ -100,6 +101,9 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 			int(st["body"][side]), ", HURT" if bool(st["hurt"][side]) else ""], UI.SMALL, UI.FG if float(st["a" if side == 0 else "b"]) >= 35.0 else UI.AMBER))
 	var last: Dictionary = exs[-1]
 	v.add_child(UI.label(str(last["verdict"]), 20, UI.GREEN if bool(last["won"]) else UI.RED, "body", true))
+	var arrow_line := PlanFight.arrow_line(last, names)   # S339 the coach's arrow she used (or none on that card)
+	if arrow_line != "":
+		v.add_child(UI.label(arrow_line, 18, UI.GREEN if bool(last.get("planned", false)) and bool(last["won"]) else UI.MUTED, "body", true))
 	if str(last.get("habit_line", "")) != "":
 		v.add_child(UI.label(str(last["habit_line"]), 18, UI.AMBER, "body", true))
 	v.add_child(UI.caps("WHAT YOU SEE"))

@@ -194,8 +194,10 @@ func _initialize() -> void:
 		draws += int(str(m["outcome"]) == "draw")
 		paid += int(n.cash - before >= BoutRules.TICKET_CUT)
 		var won := bool(m["win"])
+		var fought := int(nf["champ"]["stage"])
 		Bouts.after_fight(n, nf)
-		var r: Dictionary = (nf["champ"]["rounds"] as Array)[-1]
+		# The round she boxed in (S339: a win that leaves her hurt can add the next round's withdrawal after it).
+		var r: Dictionary = (nf["champ"]["rounds"] as Array).filter(func(x): return int(x["stage"]) == fought)[0]
 		if not ((r["winners"] as Array).has("lucy") == won):
 			failures += 1
 			print("  FAIL: night %d: her round result does not match the fight" % i)

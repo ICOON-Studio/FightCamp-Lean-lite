@@ -34,6 +34,13 @@ static func from_dict(d: Dictionary) -> Career:
 	# A save from before the fight model (S300): every fighter gets her profile and morale; existing ones stay as saved.
 	for f in c.fighters:
 		FighterProfile.ensure(f)
+	# A save from before a rival joined the region (S339 Holly, Ellie, Jade): she arrives with her starting record.
+	var names := {}
+	for r in c.rivals:
+		names[str(r["name"])] = true
+	for r in Data.RIVALS:
+		if not names.has(str(r["name"])):
+			c.rivals.append((r as Dictionary).merged({"div": "wlw"}))
 	return c
 
 

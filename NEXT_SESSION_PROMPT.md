@@ -1,19 +1,23 @@
-# S339 - next session (written S338, 2026-11-01)
+# S340 - next session (written S339, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
-S338 shipped update 40: the hair fix (card groups lost in the GLB join - braids, fringes, Holly's crown back), Holly/Ellie/Jade
-built (board Q-S294-63 with the lineup), the Tie-ups tab and the coach's plan board on the boxing map.
-Digest: Game\Godot\research\S338_DIGEST.md.
+S339 shipped update 41: the coach's plan in the fight (scripts/rules/PlanFight.gd; LiveRound/BoutNight wiring), the plan
+board on her page ("Fight plan", saved as f["arrows"]), the corner's PLAN row (one arrow a round), the arrow named in the
+ring and the words view; Holly Price / Ellie Ward / Jade Cooper in the region; the body view stands relaxed (C155).
+Digest: Game\Godot\research\S339_DIGEST.md.
 
-OPERATOR RULE S338: "keep all agents working on animations and you work on the mechanics and ui". Agent seats get ONLY
-animation work; Claude writes the mechanics and the screens himself.
+OPERATOR RULE S338: "keep all agents working on animations and you work on the mechanics and ui".
 
-1. Nothing in flight: PLANSCREEN2 (plan board on the tie-ups) and MOVECLIPS1 (StrikeMap move -> clips, scripts/fight3d/
-   MoveClips.gd) were merged in S338; update 40 exported 71/71.
-2. Q-S294-63: if yes, Holly (21) / Ellie (22) / Jade (23) into Faces.CM (heights from Game Tools/metahuman configs) + CAST.
-3. MECHANICS (Claude): the plan in the bout - she follows the coach's arrows (PlanBoard.pick per card; the opponent's
-   reaction picks the branch; undrilled moves at 0.8), the corner changes one arrow between rounds (change_one), the 3D
-   fight shows the planned move's clips (MoveClips); then the plan saved on Career and opened from her page.
-4. AGENTS ON ANIMATION (all seats busy): Cursor -> pad work on the Training page (coach with mitts + boxer combos,
-   Q-S294-61 step 3 - ask the fight-stills session, owner of ANIMCLOUD1, first); Qwen/Grok -> clips for the 3 tie-up answers
-   with none (Go-behind x2, Shuck); never brief a clip the fight-stills session's Goose runs (SMOOTH2, TAKEFIX1) own.
+1. AGENTS FIRST (animation only, every seat busy, never two seats on one clip):
+   - Cursor -> FIGHTCARD1: the 3D ring stages the plan's card. LiveRound records rec["at"] per exchange (outside / long /
+     mid / inside / clinch / own_ropes / opp_ropes / corner). On own_ropes her back goes to the ropes, on opp_ropes/corner
+     the opponent's; the gap follows the card's range_m (StrikeMap.CARDS). RingPlace.gd / RangeBreath / ExchangeBeats.
+     Red test first: a beat plan for an own_ropes exchange leaves her pelvis within ROPE_LEAN_M of the ropes. Still:
+     tools/fight3d_play.gd (p03b showed "Plan: Pivot off the ropes" with both women mid-ring).
+   - Qwen/Grok -> TIECLIPS1: clips for the 3 tie-up answers without one (Go-behind x2, Shuck).
+   - Goose/cloud -> PADWORK1: pad work on the Training page (coach with mitts + boxer combos; MoveClips is the table) -
+     ask the fight-stills session (ANIMCLOUD1 owner) first.
+2. CLAUDE MECHANICS: OPPPLAN1 - the opponent's corner plans too (a rival's plan by her style; a good plan is then an answer,
+   not a free edge). Measure with tests/plan_bout_test.gd before and after (good 0.541 / none 0.499 / bad 0.495 today).
+   Then PLANPADS1 - camp weeks drill a few plan arrows (the "untrained 80%" combinations reach full rate).
+3. The operator plays update 41 (Lucy's page > Fight plan > Save > fight > the corner's PLAN row).

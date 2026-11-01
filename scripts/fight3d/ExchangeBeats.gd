@@ -14,6 +14,8 @@ const ClinchBeats := preload("res://scripts/rules/ClinchBeats.gd")
 const BurstShape := preload("res://scripts/rules/BurstShape.gd")
 const InsideBeats := preload("res://scripts/rules/InsideBeats.gd")
 const InsideExits := preload("res://scripts/rules/InsideExits.gd")
+const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 ## RoundScript.margin reads |mine - theirs| on the round's scale: these land each band in RoundScript's own band.
 const BAND_MINE := {"close": 3.0, "clear": 10.0, "dominant": 20.0}
@@ -38,6 +40,7 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	var f: Dictionary = ctx["f"]
 	ComboWords.caption(plan["beats"], {"a": f.get("combos", {}), "b": (ctx["profiles"]["b"] as Dictionary).get("combos", {})}, ctx["names"], int(ctx["day"]) + k * 17)
 	_setup(plan["beats"], str(x.get("setup", "")), str(x.get("setup_combo", "")))
+	_arrow(plan["beats"], x)
 	_body(plan["beats"], x.get("body", []))
 	# S313 real-fight gap 6: bursts of 2-5 punches and quiet spells at range (who lands what is unchanged; only when).
 	# Before the game's extras and the clinches, which go into the quiet spells it opens.
@@ -75,6 +78,10 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	_read(out, x.get("read", {}), at, ctx["names"])
 	if bool(x.get("shout", false)):
 		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": "Corner: \"%s\"" % Exchanges.CALLS[str(x["call"])]["shout"]})
+	# S339 the coach's arrow she throws in this 30 s, named (the broadcast's "which arrow she just used").
+	if bool(x.get("planned", false)):
+		out.append({"t": at + 1.6, "who": "a", "move": "say", "result": "none",
+			"caption": "Plan: %s" % str(StrikeMap.move(str(x["arrow"])).get("name", x["arrow"]))})
 	# S309: a habit punished (or the corner's fix holding) gets its own caption before the verdict.
 	if str(x.get("habit_line", "")) != "":
 		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["habit_line"])})
@@ -165,6 +172,36 @@ static func _swap(beats: Array, who: String, moves: Array, odds: float, rng: Ran
 
 ## S310 the set-up fired this exchange: her first punches become the combination - landed ones when it landed (the last
 ## is the big shot: close-up, big reaction), missed or blocked ones when it did not. Who landed how many is unchanged.
+## S339 the plan's arrow in the ring: a combination arrow - her first punches of the exchange are that combination (unless
+## the corner's set-up already took them); a step or a defence - the exchange opens with it (PlanFight.STEP_BEAT).
+static func _arrow(beats: Array, x: Dictionary) -> void:
+	if not bool(x.get("planned", false)):
+		return
+	var row := StrikeMap.move(str(x["arrow"]))
+	if str(row.get("kind", "")) == "combo":
+		if beats.any(func(b): return str(b.get("combo_id", "")) != ""):
+			return
+		var moves: Array = Combos.row(str(row["combo"])).get("beats", [])
+		var j := 0
+		for b in beats:
+			if j >= moves.size():
+				break
+			if str(b["who"]) == "a" and RoundScript.PUNCHES.has(str(b["move"])):
+				b["move"] = str(moves[j])
+				b["combo"] = true
+				b["combo_id"] = str(row["combo"])
+				j += 1
+		return
+	var step := str(PlanFight.STEP_BEAT.get(PlanFight.base_id(str(x["arrow"])), ""))
+	if step != "":
+		var t0 := 0.6
+		for b in beats:
+			t0 = minf(t0, float(b["t"]))
+		var sb := RoundScript._beat("a", step, "none")   # every beat carries the keys FightView reads (caption, ...)
+		sb["t"] = maxf(0.0, t0 - 0.1)
+		beats.push_front(sb)
+
+
 static func _setup(beats: Array, how: String, combo: String) -> void:
 	if how == "" or combo == "":
 		return

@@ -81,6 +81,12 @@ const RIVALS: Array[Dictionary] = [
 		"style": "Volume puncher", "w": 8, "l": 4, "rating": 64.0, "threat": "Three-punch flurries", "weak": "Loses her legs late"},
 	{"name": "Megan Hughes", "first": "Megan", "club": "All Stars ABC", "age": 21, "stance": "orthodox",
 		"style": "Pressure fighter", "w": 2, "l": 2, "rating": 58.5, "threat": "Body hooks in close", "weak": "Walks in straight"},
+	{"name": "Holly Price", "first": "Holly", "club": "Lynn AC", "age": 19, "stance": "orthodox",
+		"style": "Out-boxer", "w": 2, "l": 1, "rating": 59.0, "threat": "Long jab, keeps you on the end of it", "weak": "Backs straight onto the ropes"},
+	{"name": "Ellie Ward", "first": "Ellie", "club": "Earlsfield ABC", "age": 20, "stance": "southpaw",
+		"style": "Pressure fighter", "w": 4, "l": 2, "rating": 61.0, "threat": "Right hook to the body off the jab", "weak": "Drops her right after the hook"},
+	{"name": "Jade Cooper", "first": "Jade", "club": "Islington Boxing Club", "age": 19, "stance": "orthodox",
+		"style": "Slugger", "w": 1, "l": 1, "rating": 57.0, "threat": "One big overhand right", "weak": "Slow feet, moves in straight lines"},
 ]
 
 ## Club shows on the calendar: every other Saturday from day 12, names in turn. Rivals fight at each.

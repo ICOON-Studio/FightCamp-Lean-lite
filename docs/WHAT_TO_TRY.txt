@@ -1,3 +1,22 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 41 (2026-11-01): THE COACH'S PLAN IN THE FIGHT, THREE NEW BOXERS, RELAXED BODY VIEW
+=====================================================================================================
+
+ 1. Her fight plan: open Lucy's page (FIGHTERS > Lucy, Overview) and press "Fight plan". The board opens on the coach's
+    starter plan with HER punches (top line) and your coach's limit (Luke Reid: 6 arrows, Marcus Hale: 8). Click a card, then
+    a move out: it becomes that card's arrow (a new move from the same card replaces the old one - one arrow a card).
+    "untrained (80%)" = a combination she has not drilled on the pads yet. "Save plan" puts it on her; "Back" leaves it.
+ 2. In the fight she follows it: each 30 seconds is fought on a card (a presser pushes the fight to mid range and walks
+    her onto the ropes when she loses one). On that card she throws your arrow; a caption names it ("Plan: Step back") and
+    the words view says whether it worked. An arrow that answers how the opponent is fighting wins her more exchanges
+    (tested: 54% vs 50% with no plan against Maria Ortega); a wrong one costs her. No plan = she fights her own way.
+ 3. The corner minute has a PLAN row: how many arrows worked this round (and each arrow's count), and ONE change for the
+    next round from the drop-down ("Mid range: Step back -> ..."). It changes this fight only, not her saved plan.
+ 4. Holly Price, Ellie Ward and Jade Cooper are in the region now (WORLD > Rankings, club shows, the nationals draw), each
+    with her own face and body.
+ 5. The body view in the fight (and its turning figure) stands relaxed - arms down, hands loose - not in the stiff
+    T/A-pose (your comment "loosen the hands, act like human not robot").
+ Known: when the plan says she is on the ropes, the 3D ring does not walk her there yet (next update).
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 40 (2026-11-01): HAIR FIXED, TIE-UPS, THE COACH'S PLAN BOARD
 ====================================================================================
 

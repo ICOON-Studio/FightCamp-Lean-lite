@@ -36,6 +36,8 @@ func _initialize() -> void:
 	main.act("hire", "reid")
 	var c: Career = main.career
 	var f: Dictionary = c.fighter()
+	# S339 her coach's plan, as the plan board saves it (jab and move, step back, tie up, turn off the ropes).
+	f["arrows"] = [{"move": "1-1"}, {"move": "step_back"}, {"move": "tie_up"}, {"move": "pivot_out"}]
 	for i in 60:
 		if not (f["offers"] as Array).is_empty():
 			break
@@ -93,6 +95,12 @@ func _initialize() -> void:
 	await _shot("p03_after_shout", 0.5)
 	print("CAPTION \"%s\"" % view._caption.text)
 	_check(str(view._caption.text).begins_with("Corner:"), "the shout is heard: the corner's line captions the next 30 seconds")
+	# S339 the arrow she throws in this 30 s is named after the corner's line, when she has one on her card.
+	var ex1: Dictionary = (LiveRound.live(main.modal).get("ex", []) as Array)[-1]
+	await _until(func(): return str(view._caption.text).begins_with("Plan:"), 3.0)
+	await _shot("p03b_plan_caption", 0.1)
+	print("PLAN CAPTION \"%s\" (arrow %s on %s, planned %s)" % [view._caption.text, ex1.get("arrow", ""), ex1.get("at", ""), ex1.get("planned", false)])
+	_check(str(view._caption.text).begins_with("Plan:") == bool(ex1.get("planned", false)), "the arrow she throws is named in the ring (only when it is planned)")
 	await _until(func(): return float(view.t) > 58.2, 40.0)
 	await _shot("p04_verdict", 0.1)
 	print("VERDICT \"%s\"" % view._caption.text)
@@ -112,6 +120,7 @@ func _initialize() -> void:
 		await _until(func(): return cm.ui != null and cm.ui._card.visible, 40.0)
 		await _shot("p05_corner_card", 0.6)
 		_check(cm.ui.find_children("Corner_*", "", true, false).size() == 8, "the corner card offers all eight calls")
+		_check(cm.ui.find_child("PlanChange", true, false) != null, "S339 the corner card has the PLAN row (change one arrow)")
 		cm._pick("lead")
 		cm.finish()
 	await _wait(2)

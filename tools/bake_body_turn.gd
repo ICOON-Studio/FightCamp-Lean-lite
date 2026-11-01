@@ -55,6 +55,7 @@ func _initialize() -> void:
 			Kit.colour_vest(body, Stage.VESTS[corner], Stage.CLOTH_ROUGHNESS)
 			Kit.cloth_normals(body)
 			Kit.dress(body, "res://assets/models/metahuman/%s.glb" % stem, "boxing")
+			relax(body)
 			var g := _geometry(body)
 			for deg in degs:
 				_aim(g, float(deg))

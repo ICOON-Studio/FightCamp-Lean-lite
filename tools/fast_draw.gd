@@ -4,7 +4,7 @@ extends RefCounted
 ## `-- fastdraw` stops drawing while the fight plays (clips, bones, modifiers and hits still run every frame); on llvmpipe
 ##   Vulkan the fight then sat at exactly 1 frame a second (a wait, not work), so the stills use the other way:
 ## `-- fastshrink` keeps drawing but renders every SubViewportContainer (the fight's 3D) at 1/SHRINK size without MSAA
-##   between saves, full size for the saved frames.
+##   between saves, full size for the saved frames. Both switch V-Sync off (Xvfb has no vblank: 1 present a second).
 ## At a save the tree pauses, three frames draw (motion blur and TAA settle on a still pose), the image is taken, play goes on.
 ## Without either flag nothing changes.
 
@@ -26,6 +26,9 @@ static func on() -> bool:
 
 
 static func begin() -> void:
+	# A virtual display (Xvfb) has no vblank: with V-Sync on every present waited ~1 s (the cloud fight at exactly 1 fps).
+	if on():
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	if mode() == "off":
 		RenderingServer.render_loop_enabled = false
 	elif mode() == "shrink":

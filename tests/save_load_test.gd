@@ -2,7 +2,7 @@ extends SceneTree
 ## Save and load, and the region. A career saved mid-camp loads back field for field (types too), and the loaded copy and
 ## the original, run on for 30 more days, end identical (the game is deterministic, so a load is a true resume).
 ## The region: club shows every other Saturday move the rivals' records; rankings put her in from 4 wins.
-## Population: Lucy Jackson (Data.lucy, 3-1) and the eight rivals of Data (OPPONENTS + MISMATCH + RIVALS).
+## Population: Lucy Jackson (Data.lucy, 3-1) and the eleven rivals of Data (OPPONENTS + MISMATCH + RIVALS).
 
 const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
@@ -108,8 +108,8 @@ func _test_region() -> void:
 	_check(Region.next_shows(12, 2) == [26, 40], "after day 12 the next shows are 26 and 40")
 	var c := Career.quick_start()
 	var lw := func(): return c.rivals.filter(func(r): return r["div"] == "wlw")
-	_check(lw.call().size() == 8 and c.rivals.size() == 8 + Data.DIVISION_RIVALS.size(),
-		"eight lightweight rivals, %d in all four divisions" % c.rivals.size())
+	_check(lw.call().size() == 11 and c.rivals.size() == 11 + Data.DIVISION_RIVALS.size(),
+		"eleven lightweight rivals, %d in all four divisions" % c.rivals.size())
 	Sim.sign(c, ["Jab and move", "Pad rounds", "Hill sprints"])
 	var before := 0
 	for r in lw.call():
@@ -123,7 +123,7 @@ func _test_region() -> void:
 	_check(c.news.any(func(x): return str(x["t"]).contains("show") or str(x["t"]).contains("beat") or str(x["t"]).contains("stopped")),
 		"the shows in her division made the news")
 	var rows := Region.rankings(c, "wlw")
-	_check(rows.size() == 8 and not rows.any(func(x): return bool(x["ours"])), "3-1: eight ranked lightweights, Lucy not yet")
+	_check(rows.size() == 11 and not rows.any(func(x): return bool(x["ours"])), "3-1: eleven ranked lightweights, Lucy not yet")
 	_check(Region.rankings(c, "wfw").size() == 5, "the featherweights have their own table")
 	var f := c.fighter()
 	_check(Region.our_rank(c, f) == 0, "3-1: Lucy is not ranked yet")
@@ -156,5 +156,11 @@ func _test_v1_migration() -> void:
 	var lf := l.fighter()
 	_check(not (lf["bout"] as Dictionary).is_empty() and not (lf["camp"] as Dictionary).is_empty(), "v1 save: her bout and camp moved onto her")
 	_check((lf["moves"] as Dictionary).size() == Data.MOVES.size() and str(lf["div"]) == "wlw", "v1 save: she gets moves and her division")
-	_check(l.rivals.size() == 8 + Data.DIVISION_RIVALS.size() and l.prospects.size() == Data.PROSPECTS.size(), "v1 save: the new divisions and prospects arrive")
+	_check(l.rivals.size() == 11 + Data.DIVISION_RIVALS.size() and l.prospects.size() == Data.PROSPECTS.size(), "v1 save: the new divisions and prospects arrive")
 	_check(int(lf["bout"]["day"]) == int(c.fighter()["bout"]["day"]), "v1 save: the bout is on the same day")
+	var d2 := SaveGame.to_dict(c)
+	d2["props"]["rivals"] = (d2["props"]["rivals"] as Array).filter(func(r): return str(r["name"]) != "Holly Price")
+	var l2 := SaveGame.from_dict(d2)
+	var holly: Array = l2.rivals.filter(func(r): return str(r["name"]) == "Holly Price")
+	_check(holly.size() == 1 and str(holly[0]["div"]) == "wlw" and l2.rivals.size() == c.rivals.size(),
+		"a save from before a rival joined the region gets her, once")

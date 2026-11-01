@@ -25,6 +25,8 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const BoutBurn := preload("res://scripts/rules/BoutBurn.gd")
 const BodyReport := preload("res://scripts/rules/BodyReport.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
+const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -53,7 +55,8 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		_open(c, f, m, "")
 	elif a.begins_with("corner:") and not stopped(m) and LiveRound.live(m).is_empty():
 		# S309: "corner:<call>|<habit>" also fixes one habit for the round. S310 the other corner jobs ride as labelled
-		# parts: "|fix=<habit>|setup=<combo>@<gap>|talk=<calm|fire|truth>|rec=water:2,ice:1,head:0".
+		# parts: "|fix=<habit>|setup=<combo>@<gap>|talk=<calm|fire|truth>|rec=water:2,ice:1,head:0". S339 "|arrow=<i>:<move>"
+		# changes ONE arrow of the coach's plan (i == the plan's size adds one).
 		var parts := a.trim_prefix("corner:").split("|")
 		var jobs := corner_jobs(parts)
 		_open(c, f, m, parts[0], str(jobs.get("fix", "")), jobs)
@@ -82,6 +85,10 @@ static func corner_jobs(parts: PackedStringArray) -> Dictionary:
 		match kv[0]:
 			"fix", "talk":
 				jobs[kv[0]] = kv[1]
+			"arrow":
+				var am := kv[1].split(":", true, 1)
+				if am.size() == 2 and am[0].is_valid_int():
+					jobs["arrow"] = {"i": int(am[0]), "move": am[1]}
 			"setup":
 				var sg := kv[1].split("@")
 				if sg.size() == 2:
@@ -113,7 +120,20 @@ static func _open(c: Career, f: Dictionary, m: Dictionary, plan: String, fix: St
 		jobs["did"] = rec
 	LiveRound.open(c, f, m, n, plan, e, fix, jobs)
 	LiveRound.live(m)["did"] = jobs.get("did", {})
+	# S339 the corner's one arrow (after open: round 1 copies her plan onto the bout, with the coach's limit).
+	if n == 1:
+		f["bout"]["arrow_limit"] = arrow_limit(c)
+	var ja: Dictionary = jobs.get("arrow", {})
+	if n > 1 and not ja.is_empty():
+		var before: Array = f["bout"]["arrows"]
+		f["bout"]["arrows"] = PlanFight.corner_change(before, int(ja["i"]), str(ja["move"]), int(f["bout"].get("arrow_limit", arrow_limit(c))))
+		LiveRound.live(m)["arrow_change"] = {"i": int(ja["i"]), "move": str(ja["move"]), "ok": f["bout"]["arrows"] != before}
 	_shout(c, f, m, "")
+
+
+## How many arrows the gym's coach can hold in a plan (PlanBoard: a new coach 4 .. a top coach 9; no coach = 4).
+static func arrow_limit(c: Career) -> int:
+	return PlanBoard.arrow_limit(float(c.coach.get("rating", 0.0)))
 
 
 ## One exchange; the sixth closes the round into m["rounds"] with its lines and counts.

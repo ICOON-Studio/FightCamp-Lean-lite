@@ -187,6 +187,8 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	goal.add_child(UI.muted("vs %s, %s" % [nb["opp"]["name"], Clock.fmt(int(nb["day"]))] if not nb.is_empty() else "None booked.", UI.BODY))
 	var buttons := UI.hbox(8)
 	buttons.add_child(UI.button("Plan her week", "BtnSolid", main.act.bind("go", "fighters:1")))
+	buttons.add_child(UI.button("Fight plan (%d arrows)" % (f.get("arrows", []) as Array).size() if not (f.get("arrows", []) as Array).is_empty()
+		else "Fight plan", "Btn", main.act.bind("plan", f["id"])))
 	buttons.add_child(UI.button("Find a bout", "Btn", main.act.bind("go", "fights:0")))
 	goal.add_child(buttons)
 	for child in grid.get_children():

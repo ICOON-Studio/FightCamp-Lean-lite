@@ -11,6 +11,7 @@ const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const TheRead := preload("res://scripts/rules/TheRead.gd")
+const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -45,6 +46,10 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	# S310: body shots taken all fight ({a: by her, b: by the opponent}), kept on the bout so they carry round to round.
 	if n == 1 or not f["bout"].has("body"):
 		f["bout"]["body"] = {"a": 0, "b": 0}
+	# S339 the coach's plan she walks out with (her saved board; none = she fights her own way); the corner changes it on
+	# the bout only.
+	if n == 1 or not f["bout"].has("arrows"):
+		f["bout"]["arrows"] = (f.get("arrows", []) as Array).duplicate(true)
 	var talk := CornerJobs.talk(str(jobs.get("talk", "")), f.get("personality", {}))
 	var setup := {}
 	var sj: Dictionary = jobs.get("setup", {})
@@ -208,6 +213,15 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	if fire and fits and TheRead.fires(TheRead.read(st, game), TheRead.trigger(f)):
 		d += TheRead.EDGE_LANDED
 	d += float(rd.get("edge", 0.0))
+	# S339 the plan: the card this 30 s is fought on (her own trouble puts her where it does) and the arrow she throws there.
+	if str(lv.get("at", "")) == "" or sit.begins_with("she_"):
+		lv["at"] = str(PlanFight.GAME_CARD.get(sit, "long"))
+	var at := str(lv["at"])
+	var pick := PlanFight.choose(f["bout"].get("arrows", []), at, f.get("moves", {}))
+	var arrow := str(pick["move"])
+	var plan_edge := PlanFight.edge(pick, sit, PlanFight.rate(arrow, f.get("combos", {})),
+		PlanFight.card_mean(at, sit, f.get("moves", {}), f.get("combos", {})))
+	d += plan_edge
 	var rng := _rng(c, f, n, i + 1)
 	var s := Exchanges.settle(d, rng.randf(), rng.randf())
 	# S323 Push throws more (and so lands more), Save less.
@@ -238,6 +252,12 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var rec := {"i": i, "mode": str(lv["mode"]), "read": rd, "body": body, "setup": str(su.get("used", "")) if fire else "", "setup_combo": str(su.get("combo", "")) if fire else "", "sit": sit, "call": call, "shout": shouted, "fit": Exchanges.fit(call, sit),
 		"pace": pace, "aim": aim, "won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix) if habit != "" else ""}
+	rec["at"] = at
+	rec["arrow"] = arrow
+	rec["planned"] = bool(pick["planned"])
+	rec["arrow_fit"] = PlanFight.fit(arrow, sit)
+	rec["plan_edge"] = plan_edge
+	lv["at"] = PlanFight.where_next(arrow, bool(s["won"]), sit)
 	exs.append(rec)
 	if call != "":
 		lv["cost"] = float(lv["cost"]) + float(Exchanges.CALLS[call]["cost"])
@@ -343,6 +363,7 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 		"fix": str(lv.get("fix", "")), "habits_paid": paid, "fix_came": fix_came,
 		"fix_hold": Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0), "start": lv.get("start", {}),
 		"talk": str(lv.get("talk_kind", "")), "setup": (lv.get("setup", {}) as Dictionary).duplicate(),
+		"arrows": PlanFight.tally(exs), "plan": (fb.get("arrows", []) as Array).duplicate(true),
 		"hurt_at_bell": bool(exs[-1].get("after", {}).get("hurt", [false, false])[0]) if not exs.is_empty() else false}
 
 

@@ -3,13 +3,18 @@ extends RefCounted
 ##   RECOVER  3 points: water / ice on the ribs / clear her head (when hurt) - "+" and "-" per job, points left shown
 ##   SET-UP   one of her combinations x a gap the corner waits for; no combinations = a line pointing at the pads
 ##   TALK     calm her / fire her up / the truth
-## sel = {rec: {water, ice, head}, setup: {combo, gap}, talk} is the caller's dict; every change calls on_change().
+##   PLAN     S339: how her arrows did this round, and ONE change to the coach's plan for the next (PlanFight)
+## sel = {rec: {water, ice, head}, setup: {combo, gap}, talk, arrow: {i, move}} is the caller's dict; every change calls
+## on_change().
 ##   menu(f, r) -> {...}   defaults(menu) -> sel   build(menu, sel, names, on_change) -> VBoxContainer   suffix(sel) -> String
 
 const UI := preload("res://scripts/ui/UI.gd")
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
+const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 
 
 ## What the corner can do after round r (the closed round): her state at the bell and her combinations.
@@ -20,7 +25,11 @@ static func menu(f: Dictionary, r: Dictionary) -> Dictionary:
 	var body := int((f.get("bout", {}).get("body", {}) as Dictionary).get("a", 0))
 	var hurt := bool(r.get("hurt_at_bell", false))
 	var opp: Dictionary = f.get("bout", {}).get("opp", {})
+	var arrows: Array = (f.get("bout", {}).get("arrows", []) as Array).duplicate(true)
+	var limit := int(f.get("bout", {}).get("arrow_limit", PlanBoard.NEW_COACH))
 	return {"recover": CornerJobs.recover_options(energy, body, hurt), "energy": energy, "body": body, "hurt": hurt,
+		"arrows": arrows, "tally": r.get("arrows", {}), "limit": limit,
+		"changes": PlanFight.corner_options(arrows, f.get("moves", {}), limit, PlanFight.fought_cards(exs)),
 		"setups": CornerJobs.setups(f.get("combos", {}), Combos.LEARN_AT), "combos": f.get("combos", {}),
 		"gaps": CornerJobs.gaps(Exchanges.STYLE_MODES.get(str(opp.get("style", "")), Exchanges.STYLE_MODES["Boxer-puncher"]))}
 
@@ -36,7 +45,7 @@ static func defaults(mn: Dictionary) -> Dictionary:
 		rec["ice"] = 1
 		left -= 1
 	rec["water"] = left
-	return {"rec": rec, "setup": {}, "talk": ""}
+	return {"rec": rec, "setup": {}, "talk": "", "arrow": {}}
 
 
 static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Callable) -> VBoxContainer:
@@ -104,7 +113,55 @@ static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Call
 		tb.name = "Talk_" + str(k)
 		t_row.add_child(tb)
 	v.add_child(t_row)
+	v.add_child(_plan_row(mn, sel, names, on_change))
 	return v
+
+
+## S339 PLAN: the round's arrows that worked, and one change for the next round (or "Keep the plan").
+static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: Callable) -> VBoxContainer:
+	var box := UI.vbox(2)
+	var p_row := UI.hbox(6)
+	p_row.add_child(_tag("PLAN", UI.GREEN))
+	var t: Dictionary = mn.get("tally", {})
+	var arrows: Array = mn.get("arrows", [])
+	if arrows.is_empty():
+		p_row.add_child(UI.muted("No plan: %s fights her own way. Add one arrow:" % names[0], UI.SMALL))
+	else:
+		p_row.add_child(UI.muted("%d of %d arrows worked. Change one:" % [int(t.get("worked", 0)), int(t.get("used", 0))], UI.SMALL))
+	var changes: Array = mn.get("changes", [])
+	var ob := OptionButton.new()
+	ob.name = "PlanChange"
+	ob.add_item("Keep the plan" if not arrows.is_empty() else "No arrow")
+	var pick := 0
+	var cur: Dictionary = sel.get("arrow", {})
+	for k in changes.size():
+		var o: Dictionary = changes[k]
+		ob.add_item(change_words(o))
+		if not cur.is_empty() and int(cur["i"]) == int(o["i"]) and str(cur["move"]) == str(o["move"]):
+			pick = k + 1
+	ob.select(pick)
+	ob.disabled = changes.is_empty()
+	ob.item_selected.connect(func(k):
+		sel["arrow"] = {} if k == 0 else {"i": int(changes[k - 1]["i"]), "move": str(changes[k - 1]["move"])}
+		on_change.call())
+	p_row.add_child(ob)
+	box.add_child(p_row)
+	var per := PackedStringArray()
+	for id in (t.get("moves", {}) as Dictionary).keys():
+		var wu: Array = t["moves"][id]
+		per.append("%s %d/%d" % [str(StrikeMap.move(str(id)).get("name", id)), int(wu[0]), int(wu[1])])
+	if not per.is_empty():
+		box.add_child(UI.muted("    " + ",  ".join(per), UI.TINY))
+	return box
+
+
+## "Mid range: Step back -> Slip, cross, check hook" / "Inside: + Tie up".
+static func change_words(o: Dictionary) -> String:
+	var card := str(StrikeMap.card(str(o["from"])).get("name", o["from"]))
+	var to := str(StrikeMap.move(str(o["move"])).get("name", o["move"]))
+	if str(o.get("was", "")) == "":
+		return "%s: + %s" % [card, to]
+	return "%s: %s -> %s" % [card, str(StrikeMap.move(str(o["was"])).get("name", o["was"])), to]
 
 
 ## The corner action's job parts for Bouts.corner_jobs.
@@ -115,6 +172,9 @@ static func suffix(sel: Dictionary) -> String:
 		out += "|setup=%s@%s" % [su["combo"], su["gap"]]
 	if str(sel.get("talk", "")) != "":
 		out += "|talk=" + str(sel["talk"])
+	var ar: Dictionary = sel.get("arrow", {})
+	if not ar.is_empty():
+		out += "|arrow=%d:%s" % [int(ar["i"]), str(ar["move"])]
 	var rec: Dictionary = sel.get("rec", {})
 	var parts: Array = []
 	for k in ["water", "ice", "head"]:

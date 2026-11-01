@@ -4,11 +4,19 @@ extends RefCounted
 
 const Roster := preload("res://scripts/state/Roster.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const STRIKE := preload("res://scenes/dev/StrikeBrowser.tscn")
 
 
 static func act(main: Node, name: String, arg: String) -> bool:
 	var c: Career = main.career
 	match name:
+		"plan":
+			# S339 the coach's plan board for one fighter, over the whole game until Save plan / Back.
+			for f in c.fighters:
+				if str(f["id"]) == arg:
+					var board := STRIKE.instantiate()
+					board.for_fighter(main, f)
+					main.add_child(board)
 		"invite":
 			if Roster.invite(c, arg):
 				var p := Roster.prospect(c, arg)

@@ -4,11 +4,16 @@ extends Control
 ## and MOVES IN show beside it, a move she cannot use yet greyed with its reason. Clicking a move walks to its card and adds it
 ## to the route along the bottom - the start of the coach's whiteboard plan (step 4). Open with `FightCamp.exe -- jump=strikemap`.
 ## Plan mode (step 4): Build plan adds arrows on the map; `-- jump=strikemap plan=1` opens in plan mode.
+## S339 her plan: for_fighter() opens it over the game for one fighter - her punches, her pad time, the gym coach's arrow
+## limit, her saved plan (or the coach's starter); one arrow per card (a new move from a card replaces its arrow); Save
+## plan writes it on her (f["arrows"], PlanFight in the bout), Back leaves it as it was.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Map := preload("res://scripts/rules/StrikeMap.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const PlanPanel := preload("res://scripts/ui/PlanPanel.gd")
+const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const Data := preload("res://scripts/state/Data.gd")
 const PANEL_W := 470
 ## Her punches for the prototype (mastery 0-100; a combo opens when each of its punches reaches Combos.LEARN_AT, 30).
 const DEMO_MASTERY := {"Jab": 60.0, "Cross": 55.0, "Lead hook": 45.0, "Body hook": 25.0, "Uppercut": 10.0, "Check hook": 0.0}
@@ -24,6 +29,10 @@ var route: Array = []      # [card, move name, card, ...] as walked
 var plan: Array = []       # [{"move": row id}, ...]
 var plan_mode := false
 var coach_skill := DEMO_COACH
+var mastery: Dictionary = DEMO_MASTERY
+var combos: Dictionary = {}
+var fighter: Dictionary = {}
+var main: Node = null
 var _map: Control
 var _side: VBoxContainer
 var _route_label: Label
@@ -61,8 +70,20 @@ func _ready() -> void:
 		if s.begins_with("coach="):
 			coach_skill = clampf(float(s.get_slice("=", 1)), 0.0, 100.0)
 	go(current)
-	if OS.get_cmdline_user_args().has("plan=1"):
+	if OS.get_cmdline_user_args().has("plan=1") or not fighter.is_empty():
 		_set_plan_mode(true)
+
+
+## Opens the board on one fighter's plan (call before adding it to the tree). m = Main.
+func for_fighter(m: Node, f: Dictionary) -> void:
+	main = m
+	fighter = f
+	mastery = f.get("moves", {})
+	combos = f.get("combos", {})
+	coach_skill = float((m.career as Career).coach.get("rating", 0.0))
+	var saved: Array = f.get("arrows", [])
+	plan = (saved if not saved.is_empty() else PlanFight.starter()).duplicate(true)
+	current = "long"
 
 
 func _top_bar() -> Control:
@@ -70,13 +91,42 @@ func _top_bar() -> Control:
 	bar.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 0, 1, 18, 10))
 	var h := UI.hbox(6)
 	bar.add_child(h)
-	h.add_child(UI.label("BOXING MOVE MAP", 22, UI.FG, "bold"))
-	h.add_child(UI.muted("  prototype - her punches: Jab 60, Cross 55, Lead hook 45, Body hook 25, Uppercut 10  "))
+	if fighter.is_empty():
+		h.add_child(UI.label("BOXING MOVE MAP", 22, UI.FG, "bold"))
+		h.add_child(UI.muted("  prototype - her punches: Jab 60, Cross 55, Lead hook 45, Body hook 25, Uppercut 10  "))
+		h.add_child(UI.spacer())
+		_plan_toggle = UI.button("Build plan", "Btn", func(): _set_plan_mode(not plan_mode))
+		h.add_child(_plan_toggle)
+		h.add_child(UI.button("Start again", "BtnQuiet", func(): route.clear(); plan.clear(); go("outside")))
+		return bar
+	h.add_child(UI.label("THE PLAN: %s" % str(fighter["name"]).to_upper(), 22, UI.FG, "bold"))
+	var punches := PackedStringArray()
+	for mv in Data.MOVES:
+		punches.append("%s %d" % [mv, int(float(mastery.get(mv, 0.0)))])
+	h.add_child(UI.muted("  her punches: " + ", ".join(punches) + "  "))
 	h.add_child(UI.spacer())
-	_plan_toggle = UI.button("Build plan", "Btn", func(): _set_plan_mode(not plan_mode))
-	h.add_child(_plan_toggle)
-	h.add_child(UI.button("Start again", "BtnQuiet", func(): route.clear(); plan.clear(); go("outside")))
+	h.add_child(UI.button("Clear", "BtnQuiet", func(): plan.clear(); go(current)))
+	h.add_child(UI.button("Back", "Btn", _close))
+	h.add_child(UI.button("Save plan", "BtnSolid", _save))
 	return bar
+
+
+## Writes the plan on her when it is legal (else says why); she fights to it from her next bout.
+func _save() -> void:
+	var v := PlanBoard.validate(plan, Map.MOVES, _arrow_limit())
+	if not v["ok"]:
+		main.toast(str(v["problems"][0]))
+		return
+	fighter["arrows"] = plan.duplicate(true)
+	_close()
+	main.toast("%s's plan saved: %d arrows. She fights to it from her next bout; the corner can change one a round." % [
+		fighter["first"], plan.size()])
+
+
+func _close() -> void:
+	queue_free()
+	if main != null:
+		main.render()
 
 
 func _set_plan_mode(on: bool) -> void:
@@ -106,9 +156,19 @@ func _arrow_limit() -> int:
 func _drilled() -> Array:
 	var ids: Array = []
 	for m in Map.MOVES:
-		if Map.grey_reason(m, DEMO_MASTERY) == "":
-			ids.append(str(m["id"]))
+		var id := str(m["id"])
+		# Her board: a combination counts as drilled with its pad time (Combos.LEARN_AT); the prototype: every move she can throw.
+		if (PlanFight.rate(id, combos) >= 1.0 and Map.grey_reason(m, mastery) == "") if not fighter.is_empty() else Map.grey_reason(m, mastery) == "":
+			ids.append(id)
 	return ids
+
+
+## The plan's arrow from this card (one per place), or -1.
+func _arrow_at(card_id: String) -> int:
+	for i in plan.size():
+		if str(PlanBoard.row(Map.MOVES, str(plan[i]["move"])).get("from", "")) == card_id:
+			return i
+	return -1
 
 
 func _place_name(id: String) -> String:
@@ -151,9 +211,10 @@ func _moves(title: String, rows: Array, out: bool) -> void:
 	for row in rows:
 		var m: Dictionary = row
 		var other: String = str(m["to"]) if out else str(m["from"])
-		var mastery_why := Map.grey_reason(m, DEMO_MASTERY) if out else ""
+		var mastery_why := Map.grey_reason(m, mastery) if out else ""
 		var why := mastery_why
-		if out and plan_mode and why == "" and plan.size() >= limit and not plan.any(func(a): return str(a["move"]) == str(m["id"])):
+		if out and plan_mode and why == "" and plan.size() >= limit and not plan.any(func(a): return str(a["move"]) == str(m["id"])) \
+				and (fighter.is_empty() or _arrow_at(str(m["from"])) < 0):
 			why = full_reason
 		var small := ("to " if out else "from ") + str(Map.card(other)["name"]) + ("" if str(m["kind"]) == "combo" else "  (" + str(m["kind"]) + ")")
 		var disabled := why != ""
@@ -169,9 +230,12 @@ func _take(m: Dictionary, out: bool) -> void:
 	if out and plan_mode:
 		# S338 still: the same move went on the plan twice; a planned move just walks.
 		var planned := plan.any(func(a): return str(a["move"]) == str(m["id"]))
-		if not planned and plan.size() >= _arrow_limit():
+		var here := _arrow_at(str(m["from"])) if not fighter.is_empty() else -1
+		if not planned and here >= 0:
+			plan = PlanBoard.change_one(plan, here, str(m["id"]))   # S339 her board: one arrow per card
+		elif not planned and plan.size() >= _arrow_limit():
 			return
-		if not planned:
+		elif not planned:
 			plan.append({"move": str(m["id"])})
 		go(str(m["to"]))
 		return

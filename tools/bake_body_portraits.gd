@@ -55,6 +55,7 @@ func _initialize() -> void:
 			Kit.colour_vest(body, Stage.VESTS[corner], Stage.CLOTH_ROUGHNESS)
 			Kit.cloth_normals(body)
 			Kit.dress(body, "res://assets/models/metahuman/%s.glb" % stem, "boxing")
+			relax(body)
 			var g := _geometry(body)
 			var fwd: float = g["fwd"]
 			cam.position = Vector3(0, g["mid_y"], 6.0 * fwd)
@@ -81,6 +82,82 @@ func _initialize() -> void:
 			body.queue_free()
 			await process_frame
 	quit(0)
+
+
+## S339 (operator C155 on the turning body view: "loosen the hands, act like human not robot"): she stands the way a
+## person waits, not in the rig's A-pose - upper arms hanging RELAX_OUT_DEG off her sides, elbows soft, fingers loosely
+## curled toward the palm. Bones are set in skeleton space, so the track strokes (read from the bones) follow the arms.
+const RELAX_OUT_DEG := 9.0
+const RELAX_ELBOW_DEG := 14.0
+const RELAX_CURL_DEG := {"Proximal": 24.0, "Intermediate": 34.0, "Distal": 22.0}
+const RELAX_THUMB_DEG := {"Proximal": 12.0, "Distal": 18.0}
+const FINGERS := ["Index", "Middle", "Ring", "Little"]
+
+
+func relax(body: Node3D) -> void:
+	var skel := body.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+	var to_skel := skel.global_transform.basis.inverse()
+	var o := func(bone: String) -> Vector3: return skel.get_bone_global_pose(skel.find_bone(bone)).origin
+	var up := (to_skel * Vector3.UP).normalized()
+	if (o.call("Head") - o.call("Hips")).dot(up) < 0.0:
+		up = -up
+	var front := (to_skel * Vector3(0, 0, 1)).normalized()
+	if _front_sign(skel, front) < 0.0:
+		front = -front
+	# Fingers first, in the rest pose: the A-pose palms face the floor, so every joint bends toward "down".
+	for side in ["Left", "Right"]:
+		var little: Vector3 = o.call(side + "LittleProximal")
+		for fn in FINGERS:
+			for seg in ["Proximal", "Intermediate", "Distal"]:
+				_bend(skel, side + fn + seg, -up, float(RELAX_CURL_DEG[seg]))
+		var across: Vector3 = (-up + (little - o.call(side + "ThumbProximal")).normalized() * 0.6).normalized()
+		for seg in ["Proximal", "Distal"]:
+			_bend(skel, side + "Thumb" + seg, across, float(RELAX_THUMB_DEG[seg]))
+	# Then the arms hang: a little off her sides, a little in front of the hips, elbows soft.
+	for side in ["Left", "Right"]:
+		var out: Vector3 = o.call(side + "UpperArm") - o.call("Hips")
+		out = out - up * out.dot(up)
+		out = (out - front * out.dot(front)).normalized()
+		var upper_dir := (-up * cos(deg_to_rad(RELAX_OUT_DEG)) + out * sin(deg_to_rad(RELAX_OUT_DEG)) + front * 0.06).normalized()
+		_point(skel, side + "UpperArm", side + "LowerArm", upper_dir)
+		var lower_dir := (upper_dir + front * tan(deg_to_rad(RELAX_ELBOW_DEG))).normalized()
+		_point(skel, side + "LowerArm", side + "Hand", lower_dir)
+
+
+func _front_sign(skel: Skeleton3D, fwd: Vector3) -> float:
+	var eyes := skel.find_bone("LeftEye")
+	if eyes < 0:
+		return 1.0
+	return signf((skel.get_bone_global_pose(eyes).origin - skel.get_bone_global_pose(skel.find_bone("Head")).origin).dot(fwd))
+
+
+## Turns `bone` (in skeleton space) so its child sits along `dir`.
+func _point(skel: Skeleton3D, bone: String, child: String, dir: Vector3) -> void:
+	var b := skel.find_bone(bone)
+	var c := skel.find_bone(child)
+	if b < 0 or c < 0:
+		return
+	var gp := skel.get_bone_global_pose(b)
+	var cur := (skel.get_bone_global_pose(c).origin - gp.origin).normalized()
+	if cur.is_zero_approx() or cur.is_equal_approx(dir):
+		return
+	gp.basis = Basis(Quaternion(cur, dir)) * gp.basis
+	skel.set_bone_global_pose(b, gp)
+
+
+## Bends a finger bone `deg` toward `toward`: about (its direction x toward), so the joint folds in one plane.
+func _bend(skel: Skeleton3D, bone: String, toward: Vector3, deg: float) -> void:
+	var b := skel.find_bone(bone)
+	if b < 0:
+		return
+	var gp := skel.get_bone_global_pose(b)
+	var kids := skel.get_bone_children(b)
+	var d: Vector3 = gp.origin - skel.get_bone_global_pose(skel.get_bone_parent(b)).origin if kids.is_empty() 		else skel.get_bone_global_pose(kids[0]).origin - gp.origin
+	var axis := d.normalized().cross(toward.normalized())
+	if axis.length() < 0.01:
+		return
+	gp.basis = Basis(axis.normalized(), deg_to_rad(deg)) * gp.basis
+	skel.set_bone_global_pose(b, gp)
 
 
 ## Fighter-space points of her head, eyes, nose and ribs (rest pose, the meshes' own vertices).
