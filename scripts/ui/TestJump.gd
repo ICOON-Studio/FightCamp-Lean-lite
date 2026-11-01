@@ -22,7 +22,7 @@ const Champs := preload("res://scripts/state/Champs.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 
@@ -105,6 +105,11 @@ static func run(main: Node, jump: String) -> bool:
 		# S327 (Q-S294-46): the injury runs past her bout, so the player decides - the jump lands on that choice.
 		main.act("injurychoice", str(f["id"]))
 		return Injuries.pending(f) and str(main.modal.get("title", "")).contains("hurt before her bout")
+	if jump == "taperoom":
+		# S343: her camp with film study opens the tape room on her opponent (Q-S294-68).
+		main.act("fighter", str(f["id"]))
+		main.act("taperoom", str(f["id"]))
+		return main.get_node_or_null("TapeRoom") != null
 	for i in 60:
 		if Bouts.weigh_in_today(c, f):
 			break

@@ -38,7 +38,7 @@ func build(main: Node, m: Dictionary) -> void:
 		proto_row.add_child(b)
 	v.add_child(proto_row)
 	var film := UI.button2("Film study on %s: %s" % [opp["name"], "yes, %s" % UI.money(BoutRules.FILM_COST) if bool(m["film"]) else "no"],
-		"her threat and her weakness, depth 3 of 3 (click to switch)",
+		"her past bouts on film: watch them in the tape room, answer her in the plan (click to switch)",
 		"ChoiceOn" if bool(m["film"]) else "Choice", main.act.bind("cfilm", ""), Vector2(0, 64), UI.FG, UI.MUTED)
 	film.name = "Film"
 	v.add_child(film)

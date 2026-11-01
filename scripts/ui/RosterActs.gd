@@ -5,6 +5,7 @@ extends RefCounted
 const Roster := preload("res://scripts/state/Roster.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const STRIKE := preload("res://scenes/dev/StrikeBrowser.tscn")
+const TAPE := preload("res://scripts/ui/TapeRoom.gd")
 
 
 static func act(main: Node, name: String, arg: String) -> bool:
@@ -17,6 +18,13 @@ static func act(main: Node, name: String, arg: String) -> bool:
 					var board := STRIKE.instantiate()
 					board.for_fighter(main, f)
 					main.add_child(board)
+		"taperoom":
+			# S343 the tape room (Q-S294-68): her opponent's films, her flow, the answers into her plan.
+			for f in c.fighters:
+				if str(f["id"]) == arg and not (f.get("bout", {}) as Dictionary).is_empty():
+					var room := TAPE.new()
+					room.for_fighter(main, f)
+					main.add_child(room)
 		"invite":
 			if Roster.invite(c, arg):
 				var p := Roster.prospect(c, arg)

@@ -86,6 +86,12 @@ func build(main: Node, f: Dictionary) -> void:
 				# S341 her file (OppFile): what tape study has found so far, and its answers; the rest is hidden.
 				var opp: Dictionary = fb.get("opp", {})
 				card.add_child(UI.caps("SCOUTING %s" % str(opp.get("name", "her")).to_upper()))
+				if bool(camp.get("film", false)):
+					# S343 the tape room (Q-S294-68): watch her films, read her flow, answer her in the plan.
+					var tape := UI.button("Watch her tape", "BtnSolid", main.act.bind("taperoom", f["id"]))
+					tape.name = "TapeRoom"
+					tape.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+					card.add_child(tape)
 				card.add_child(OppFileCard.build(opp, bool(camp.get("film", false)), OppFileCard.OppFile.history(c.results, str(opp.get("name", "")))))
 				if not bool(camp.get("film", false)):
 					card.add_child(UI.muted("No tape study in this camp: what is hidden shows on the night.", UI.SMALL, true))

@@ -113,6 +113,14 @@ static func tape(opp: Dictionary) -> String:
 	if left.is_empty():
 		return ""
 	var id := str(left[0])
+	open(opp, id)
+	return id
+
+
+## S343 opens one tell (the tape room: watching her film finds what it shows). False when it was already known.
+static func open(opp: Dictionary, id: String) -> bool:
+	if known(opp, id):
+		return false
 	if not opp.has("file_found"):
 		opp["file_found"] = []
 	(opp["file_found"] as Array).append(id)
@@ -121,7 +129,7 @@ static func tape(opp: Dictionary) -> String:
 			opp["notes_seen"] = []
 		if not (opp["notes_seen"] as Array).has(id):
 			(opp["notes_seen"] as Array).append(id)
-	return id
+	return true
 
 
 ## Writes what is found of her (her file and the coach's notes on her habits) into `record` (the career's rival entry):

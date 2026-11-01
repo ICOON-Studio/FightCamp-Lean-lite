@@ -48,6 +48,14 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump == "taperoom":
+			# S343 (Q-S294-68): in her camp with film study, the tape room opens on her opponent's films.
+			var room: Node = main.get_node_or_null("TapeRoom")
+			_check(ok and room != null and (room.clips as Array).size() >= 2 and bool(f["camp"].get("film", false)),
+				"taperoom: her camp has film study and the tape room shows %d films" % ((room.clips as Array).size() if room != null else 0))
+			main.queue_free()
+			await process_frame
+			continue
 		var film := int((f.get("bout", {}) as Dictionary).get("film", 0))
 		_check(ok and str(main.modal.get("type", "")) == "fight", "%s: fight night is open" % jump)
 		_check(film == (BoutRules.FILM_DEPTH_DEFAULT if jump == "fight_nofilm" else BoutRules.FILM_DEPTH_WITH_STUDY), "%s: film depth %d" % [jump, film])
