@@ -1,28 +1,41 @@
-﻿# S332 - next session (written S331, 2026-11-01)
+# S333 - next session (written S332, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
 
-Where it stands: update 34 is exported (Builds/, WHAT_TO_TRY.txt).
-- Update 33 (S331), his Q-S294-48 "Too long to reach": the nationals' 3 months count from her England Boxing
-  registration (Roster.registered_day), entries close week 10 (SeasonPath.ENTRY_CLOSE_DAY 70), NATIONALS_GAP 21.
-  Lucy enters week 5 (was 14), national final week 18 (was 29).
-- Update 34 (S331, INSIDEMISS1): PunchReach.settle() re-lands the glove after GloveClear's head lean (control
-  `-- nosettle`); hit_gap_probe far misses 2/26 -> 0/26.
-- His answers in S331: Q-S294-49 "Yes, both right" (debut costs stay); Q-S294-50 "Change the look first".
-  -> three HOME looks as HTML mockups (Game Godot/research/S331_looks: a_fightbill, b_whiteboard, c_broadcast; source
-  .html beside the .png, rendered with headless Edge, own --user-data-dir) on the board as Q-S294-52.
-Digest: Game Godot/research/S331_DIGEST.md (parts 1 and 2).
+His S332 answers: Q-S294-52 "B Gym whiteboard" (build it), Q-S294-51 "Yes, soon enough", Q-S294-47 "Right",
+Q-S294-53 "Still off - I'll mark it" (one mark, C151: the white hit ring on Maria's face, "wtf is that" - fixed S332:
+a hurt/just-hit face reddens her own skin, BodyFigure SPOTS). In chat: "remake sophie turner", "remake erin doyle and
+dana whitfield make them all hotter", "how fast a fighter can read opponent pattern needs to be a factor".
 
-1. Board: Q-S294-52 (which HOME look), 51 (nationals soon enough), 53 (inside punches land), 47 (update 29).
-2. On a look pick: build it in Godot on HOME first - one Theme + the shell (top bar, nav) + HOME - before/after stills
-   with tools/pages_now_still.gd, board question; then GYM, MONEY, FIGHTS, her page one per commit (500-line rule).
-   All three looks show faces: FightCast._class_body(limit) picks the body by weight class, only 3 bodies exist (two
-   lightweights share a face) - give each fighter her own body/look before pages show faces (portrait crops from
-   assets/ui/body/mh_boxer_*_red.png, top 42 % width x 1.15).
-   "None - mark what is wrong": read his markup (Feedback/<date>/README.md) and redo.
-3. If Q-S294-51 says still too long / too easy: SeasonPath.ENTRY_CLOSE_DAY / NATIONALS_GAP.
-4. Not on the plan yet: CORNERCUT1 (corner card cut to the pit stop, S323 plan) - check what S310/S318 already built.
+Done S332 (Lean fc4713a): Faces.gd - each lightweight her own MetaHuman (13 Maria/Celeste, 14 Priya/Sunita, 15 Erin/
+Jelena, 16 Dana/Tuya, 17 Chloe/Aera; Lucy 11, Aisha 10, Megan 12). Sophie has none yet (18 = "Bo", a man's face; dropped).
+Portrait baker has 8x MSAA (hair no longer dots).
 
-Traps: Career.seed is randi() per career - dice tests fix c.seed; PowerShell Set-Content utf8 writes a BOM;
-roadmap.json is json indent=1; champs_test's days follow SeasonPath (close 70, semi 84, final 91, nationals 112);
-headless Edge screenshot: an escaped `\$f` in a bash path writes a literal file - use cygpath -w on the full path.
+1. Fonts DONE (his "downalod yes"): assets/fonts PermanentMarker-Regular.ttf, Kalam-Regular/Bold.ttf (Lean 2967c35).
+   Open item: approve THE READ design (item 4) - put it on the board with --attach.
+2. FACES "hotter" (his words). MH4 tool: E:\FightCamp\Game\Tools\metahuman (mh4_run.py build|finish <name>, specs
+   <name>_mh4.json, MH4_TARGET_DIR=E:/FightCamp/Lean/assets/models/metahuman; sidecar json: python Tools/metahuman/mh4_sidecar.py <names>, run from Tools/metahuman). Only Ada (cutman face), Vivian, Lani (older) are unused women's
+   presets, so BLEND faces: the subsystem has get_face_model_coefficients / set_face_model_coefficients / commit_face_state
+   (probe S332). Add to mh2_build.py: optional cfg "face_blend": [[preset, weight], ...] -> load each preset's coefficients,
+   weighted sum, set, commit_face_state, before body constraints. Make Erin, Dana, Sophie (new 18) from blends of the best
+   faces (Celeste, Aera, Jelena, Asha); then a lineup still to him on the board before they ship.
+   Also: hair_lod 0 in the spec (fuller cards; `finish` only, no UE). TRAPS: a UE run can hang on "Waiting for groom
+   bindings" (17 and 18 did; kill by PID after ~15 min quiet log, retry); delete .mh4/project/Content/MH/MH4_<name>.uasset
+   before changing a preset (the tool reuses the old character); a singlet woman is built bare - audit with sex M.
+   After: import (Start-Process -Wait, the GUI exe does not block), bake_body_portraits stems=..., bake_body_masks, tests
+   faces_test + body_figure_test.
+3. Build look B (Gym whiteboard) - mockup Game Godot/research/S331_looks/b_whiteboard.html/.png: UI.gd palette to the
+   whiteboard (wall #CFE0EA, board white, frame #AEB8C0, blue #2F6FDB primary, red #E2483D, yellow #FFD54A, green #2FA36B,
+   marker ink #22262E), font kinds "marker"/"hand" (fallback when the files are absent), Shell top bar + nav, then HOME:
+   board with her polaroid (Faces portrait crop: top 42 % width x 1.15) + marker notes + next 4 weeks, sticky notes for
+   Needs, cash tin. Before/after stills (tools/pages_now_still.gd), board question. Then GYM, MONEY, FIGHTS, her page.
+   UI.gd 394 lines, BodyFigure.gd 497 (500-line rule - split before adding).
+4. PATTERN READ (his ask): Exchanges.gd already has IQ_FINDS (a clever fighter finds the answer when the same game carries
+   on) - make it a SPEED: repeats of an opponent's habit before she reads it, from fight_iq (+ film study), shown on the
+   corner card. Real-world basis first (John/research), then a pure module + test.
+   MERGED with his S332 ask "every fighter needs a different trigger/threshold for the perfect move execution, how can
+   this become a mechanism a player can enjoy": proposal THE READ (in chat S332, needs his OK before building) - per
+   opponent habit a read meter; read speed (fight_iq + film study + scouting pre-fill), trigger threshold (temperament:
+   patient/gambler, per fighter), execution (MoveMastery of the counter); corner calls "Wait for it" / "Take it now"
+   shift the trigger; opponents drop a habit after being punished; payoff = the counter in the 3D fight + "READ IT" replay.
+5. Q-S294-53 "Still off": after the face fix, send him a fresh close-exchange still and ask again.

@@ -5,6 +5,7 @@ extends SceneTree
 ##   python tools/hidden_desktop.py run --timeout=300 <godot.exe> --path . --windowed --resolution 720x1200 \
 ##       --script res://tools/bake_body_portraits.gd
 ## Writes assets/ui/body/<stem>_<corner>.png and <stem>.json {place: [x, y, rx, ry]} (fractions of the picture).
+## Every body in Faces.CM, or only -- stems=mh_boxer_13,mh_boxer_14 (S332).
 
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
@@ -13,7 +14,7 @@ const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const W := 720
 const H := 1200
 const OUT := "res://assets/ui/body"
-const BODIES := ["mh_boxer_10", "mh_boxer_11", "mh_boxer_12"]
+const Faces := preload("res://scripts/rules/Faces.gd")
 const PAD := 8
 
 var _cam: Camera3D
@@ -23,6 +24,7 @@ var _img_size := Vector2(W, H)
 func _initialize() -> void:
 	root.size = Vector2i(W, H)
 	root.transparent_bg = true
+	root.msaa_3d = Viewport.MSAA_8X   # S332: the hair cards' alpha-to-coverage needs MSAA (without it her hair baked as dots)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT))
 	var env := WorldEnvironment.new()
 	env.environment = Environment.new()
@@ -41,7 +43,11 @@ func _initialize() -> void:
 	root.add_child(cam)
 	_cam = cam
 	await process_frame
-	for stem in BODIES:
+	var stems: Array = Faces.CM.keys()
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("stems="):
+			stems = Array(a.trim_prefix("stems=").split(","))
+	for stem in stems:
 		for corner in ["red", "blue"]:
 			var body := MH.load_fighter("res://assets/models/metahuman/%s.glb" % stem)
 			root.add_child(body)

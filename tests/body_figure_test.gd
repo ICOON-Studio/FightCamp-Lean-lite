@@ -7,8 +7,11 @@ extends SceneTree
 ## 5. Scale: centres double at 2x size (within 1 px).
 ## 6. Portrait (S320 C146): every fight body has a baked picture in both corners; on it each place is found at its own
 ##    centre, the boxer's left eye/ribs sit on the viewer's right, the eyes above the nose above the ribs, all inside it.
+## 7. Hurt spots (S332 C151 'wtf is that' on a ring over her face): a fine face is her own skin; a hurt face reddens; a hit
+##    on a fine nose warms the face for FLASH_S, then clears; a hurt rib side reddens only that side.
 
 const BF_SCRIPT := preload("res://scripts/ui/BodyFigure.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
 
 var failures := 0
 
@@ -20,6 +23,7 @@ func _initialize() -> void:
 	_test4()
 	_test5()
 	_test6()
+	_test7()
 	print("BODY_FIGURE failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -138,7 +142,7 @@ func _test5() -> void:
 
 func _test6() -> void:
 	var ok := true
-	for stem in ["mh_boxer_10", "mh_boxer_11", "mh_boxer_12"]:
+	for stem in Faces.CM.keys():
 		for corner in ["red", "blue"]:
 			var p: Dictionary = BF_SCRIPT.portrait_for("res://assets/models/metahuman/%s.glb" % stem, corner)
 			if p.is_empty() or p["tex"] == null:
@@ -173,3 +177,23 @@ func _check(cond: bool, label: String) -> void:
 	else:
 		failures += 1
 		print("FAIL ", label)
+
+
+## 7. Hurt spots on her own skin.
+func _test7() -> void:
+	var face: Array = BF_SCRIPT.SPOTS[0]
+	var bf := _make_bf()
+	bf.set_values({})
+	var clear: bool = bf.spot_colour(face).a == 0.0
+	bf.set_values({"left_eye": 40.0})
+	var hurt: Color = bf.spot_colour(face)
+	bf.set_values({})
+	bf.hit("nose", "jab")
+	var hit: Color = bf.spot_colour(face)
+	bf._process(BF_SCRIPT.FLASH_S + 0.01)
+	var after: bool = bf.spot_colour(face).a == 0.0
+	bf.set_values({"left_ribs": 40.0})
+	var sides: bool = bf.spot_colour(BF_SCRIPT.SPOTS[1]).a > 0.0 and bf.spot_colour(BF_SCRIPT.SPOTS[2]).a == 0.0
+	bf.queue_free()
+	_check(clear and hurt.a > 0.0 and hit.a > 0.0 and hit.r > hit.g and after and sides,
+		"test 7: hurt spots (clear %s, hurt a=%.2f, hit %s, cleared %s, one rib side %s)" % [clear, hurt.a, str(hit), after, sides])

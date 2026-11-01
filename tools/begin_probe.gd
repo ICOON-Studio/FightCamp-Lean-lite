@@ -47,8 +47,8 @@ func _initialize() -> void:
 	root.add_child(vp)
 	var stage: Node3D = (load("res://scripts/fight3d/FightStage.gd") as GDScript).new()
 	vp.add_child(stage)
-	var picks := FightCast.bodies_for(float(f.get("limit", 61.2)))
-	var sc := FightCast.body_scales(float(f.get("limit", 61.2)), float(f.get("height", 0.0)), float(opp.get("height", 0.0)))
+	var picks := FightCast.bodies_for(f, opp)
+	var sc := FightCast.body_scales(f, opp)
 	t = Time.get_ticks_usec()
 	stage.setup({"glb": picks[0], "corner": "red", "scale": sc[0], "stance": str(f.get("stance", "orthodox"))},
 		{"glb": picks[1], "corner": "blue", "scale": sc[1], "stance": str(opp.get("stance", "orthodox"))})

@@ -50,6 +50,10 @@ const TRACK_ALPHA := 0.82
 ## fallback for a portrait without a mask. Index i in the mask (value i * 32) = MASK_KEYS[i - 1].
 const MASK_KEYS := ["core", "left_shoulder", "right_shoulder", "left_arm", "right_arm", "legs"]
 const TINT_ALPHA := 0.86
+## S332 the places that redden her own skin when hurt (the first place is where the spot sits): her face, each rib side.
+const SPOTS := [["head", "left_eye", "right_eye", "nose"], ["left_ribs"], ["right_ribs"]]
+const SPOT_ALPHA := {"fine": 0.0, "hurt": 0.45, "critical": 0.6, "doctor": 0.7}
+const SPOT_GROW := 1.1
 const FRESH_START := 12.5   # Burn up to this = untinted ...
 const FRESH_END := 30.0     # ... fully coloured from here (warm)
 const SKIN_SHADER := """
@@ -57,14 +61,23 @@ shader_type canvas_item;
 uniform sampler2D mask : filter_nearest;
 uniform vec4 part_col[7];
 uniform vec4 body_tint : source_color = vec4(0.7, 0.7, 0.74, 1.0);
+uniform vec4 spot_box[3];
+uniform vec4 spot_col[3];
 void fragment() {
 	vec4 c = texture(TEXTURE, UV);
 	int i = int(round(texture(mask, UV).r * 255.0 / 32.0));
 	vec3 rgb = c.rgb * body_tint.rgb;
+	float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
 	if (i > 0 && i < 7) {
-		float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
 		vec4 pc = part_col[i];
 		rgb = mix(rgb, pc.rgb * clamp(0.62 + 0.85 * lum, 0.6, 1.25), pc.a);
+	}
+	for (int k = 0; k < 3; k++) {
+		vec4 b = spot_box[k];
+		if (spot_col[k].a > 0.0 && b.z > 0.0) {
+			float w = smoothstep(1.0, 0.35, length((UV - b.xy) / b.zw)) * spot_col[k].a;
+			rgb = mix(rgb, spot_col[k].rgb * clamp(0.62 + 0.85 * lum, 0.6, 1.25), w);
+		}
 	}
 	COLOR = vec4(rgb, c.a);
 }
@@ -100,7 +113,7 @@ func set_portrait(p: Dictionary) -> void:
 	queue_redraw()
 
 
-## Her body as a child drawn BEHIND this control's own drawing (the hurt rings stay on top), coloured by the mask shader.
+## Her body as a child drawn BEHIND this control's own drawing, coloured by the mask shader (parts + hurt SPOTS).
 func _build_skin() -> void:
 	if _skin == null:
 		_skin = TextureRect.new()
@@ -137,6 +150,34 @@ func _paint_skin() -> void:
 		col.a = TINT_ALPHA * clampf((burn - FRESH_START) / (FRESH_END - FRESH_START), 0.0, 1.0)
 		cols.append(col)
 	(_skin.material as ShaderMaterial).set_shader_parameter("part_col", cols)
+	# S332 (operator C151 on the hit ring over her face: "wtf is that"): a hurt or just-hit face or rib side reddens her
+	# own skin, soft-edged, instead of a ring drawn over her.
+	var boxes: Array[Vector4] = []
+	var spots: Array[Color] = []
+	for group in SPOTS:
+		var a: Array = _anchors.get(group[0], [])
+		boxes.append(Vector4(float(a[0]), float(a[1]), float(a[2]) * SPOT_GROW, float(a[3]) * SPOT_GROW) if a.size() >= 4 else Vector4.ZERO)
+		spots.append(spot_colour(group))
+	(_skin.material as ShaderMaterial).set_shader_parameter("spot_box", boxes)
+	(_skin.material as ShaderMaterial).set_shader_parameter("spot_col", spots)
+
+
+## The worst band among the group's places in its colour, clear when fine; a fresh hit warms it red for FLASH_S.
+func spot_colour(group: Array) -> Color:
+	var worst := 100.0
+	var fl := 0.0
+	for p in group:
+		worst = minf(worst, float(_values.get(p, 100.0)))
+		fl = maxf(fl, float(_flash.get(p, 0.0)))
+	var b: String = BM.band(worst)
+	var col: Color = BAND_COLOURS[b]
+	col.a = float(SPOT_ALPHA[b])
+	var hit := Color(BAND_COLOURS["critical"], float(SPOT_ALPHA["critical"]))
+	if col.a <= 0.0:
+		col = Color(hit, hit.a * fl)
+	elif fl > 0.0:
+		col = col.lerp(hit, fl)
+	return col
 
 
 func _portrait_rect() -> Rect2:
@@ -223,6 +264,8 @@ func _draw_portrait() -> void:
 		var col := colour_of(p)
 		var c: Vector2 = g["c"]
 		if tracked:
+			if _skin != null:
+				continue   # S332: hurt places redden her skin in the shader (SPOTS), no rings over her
 			if BM.band(float(_values.get(p, 100.0))) != "fine" or float(_flash.get(p, 0.0)) > 0.0:
 				draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), col, maxf(2.0, size.y * 0.014), true)
 			continue
@@ -353,6 +396,7 @@ func _flash_colour(base: Color, alpha: float) -> Color:
 func set_values(values: Dictionary) -> void:
 	for p in BM.PLACES:
 		_values[p] = float(values.get(p, 100.0))
+	_paint_skin()
 	queue_redraw()
 
 

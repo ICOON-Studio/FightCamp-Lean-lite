@@ -1,7 +1,7 @@
 extends RefCounted
 ## Who appears in the 3D ring (split from FightView.gd S307, 500-line rule): the two boxers' bodies and sizes, the corner
 ## teams (CornerCrew), and the corner minute between rounds (CornerMinute, docs/FIGHT_NIGHT_SCRIPT.md v2).
-##   bodies_for(limit)  body_scales(limit, her_cm, opp_cm)  crew(stage, pro)  intro(view) -> bool  corner(view) -> bool
+##   bodies_for(f, opp)  body_scales(f, opp)  crew(stage, pro)  intro(view) -> bool  corner(view) -> bool
 
 const HabitFix := preload("res://scripts/rules/HabitFix.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
@@ -17,31 +17,25 @@ const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const CallEvidence := preload("res://scripts/rules/CallEvidence.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
-const BODIES := ["res://assets/models/metahuman/mh_boxer_10.glb", "res://assets/models/metahuman/mh_boxer_11.glb",
-	"res://assets/models/metahuman/mh_boxer_12.glb"]
-## Standing height of each body above (mh_boxer_10/11/12.json height_cm).
-const BODY_CM := [162.0, 169.0, 178.0]
+const Faces := preload("res://scripts/rules/Faces.gd")
 
 
-## Our fighter's body by her weight class; the opponent gets another (so the two faces differ).
-static func bodies_for(limit: float) -> Array:
-	var ours := _class_body(limit)
-	return [BODIES[ours], BODIES[(ours + 1) % BODIES.size()]]
-
-
-static func _class_body(limit: float) -> int:
-	return 0 if limit <= 57.5 else (1 if limit <= 63.0 else 2)
+## S332: each boxer's own body (Faces; was one of 3 by weight class, so every opponent wore one face).
+static func bodies_for(f: Dictionary, opp: Dictionary) -> Array:
+	var p := Faces.pair(f, opp)
+	return [Faces.glb(p[0]), Faces.glb(p[1])]
 
 
 ## S300 (operator: "the one fighter look enormous" - a lightweight drawn on the 178 cm middleweight body): each body is
-## scaled to her height (her own, else her class body's), so both are the class's size; a uniform scale also scales the
-## build (178 cm / 70 kg at 165 cm reads ~57 kg). Kept within 0.88-1.12 so no body is stretched past believable.
-static func body_scales(limit: float, her_cm: float, opp_cm: float) -> Array:
-	var ours := _class_body(limit)
-	var theirs := (ours + 1) % BODIES.size()
-	var her := her_cm if her_cm > 0.0 else float(BODY_CM[ours])
-	var opp := opp_cm if opp_cm > 0.0 else float(BODY_CM[ours])
-	return [clampf(her / float(BODY_CM[ours]), 0.88, 1.12), clampf(opp / float(BODY_CM[theirs]), 0.88, 1.12)]
+## scaled to her height (her own, else her body's), a uniform scale also scales the build (178 cm / 70 kg at 165 cm
+## reads ~57 kg). Kept within 0.88-1.12 so no body is stretched past believable.
+static func body_scales(f: Dictionary, opp: Dictionary) -> Array:
+	var p := Faces.pair(f, opp)
+	var out := []
+	for i in 2:
+		var cm := float(([f, opp][i] as Dictionary).get("height", 0.0))
+		out.append(clampf((cm if cm > 0.0 else Faces.cm(p[i])) / Faces.cm(p[i]), 0.88, 1.12))
+	return out
 
 
 ## The corner teams, hidden until the first bell (built with the fight, so the bell never waits on loading).
@@ -124,7 +118,7 @@ static func intro(view: Node) -> bool:
 	view.add_child(fi)
 	fi.done.connect(_intro_over.bind(view))
 	# S310 the tale of the tape: her height is the body the ring draws her with until she has her own.
-	var tape := TaleOfTape.rows(f, opp, c.gym_name, float(BODY_CM[_class_body(float(f.get("limit", 61.2)))]))
+	var tape := TaleOfTape.rows(f, opp, c.gym_name, Faces.cm(Faces.stem(f)))
 	fi.run(view, view.stage, view.crew, {"intros": intros, "tape": tape, "names": [str(f["name"]), str(opp["name"])]})
 	return true
 

@@ -2,7 +2,7 @@ extends RefCounted
 ## S310 (operator: "add the tale of the tape when the fighters stand on their starting corners for a while"). The
 ## broadcast card before round 1: the two boxers side by side, row by row. Pure static; zero preloads.
 ##   rows(f, opp, gym, her_cm) -> [[label, red, blue], ...]
-## Our fighter has no measured height: her_cm is the body the 3D draws her with (FightCast.BODY_CM by class), and her
+## Our fighter has no measured height: her_cm is the body the 3D draws her with (Faces.cm of her own body), and her
 ## reach is taken as her height (arm span ~ height, the human average) until she has her own.
 
 

@@ -143,9 +143,9 @@ func setup(m_main: Node, m: Dictionary) -> void:
 	holder.add_child(_vp)
 	stage = Stage.new()
 	_vp.add_child(stage)
-	var picks := FightCast.bodies_for(float(f.get("limit", 61.2)))
+	var picks := FightCast.bodies_for(f, opp)
 	bodies = picks.duplicate()
-	var sc := FightCast.body_scales(float(f.get("limit", 61.2)), float(f.get("height", 0.0)), float(opp.get("height", 0.0)))
+	var sc := FightCast.body_scales(f, opp)
 	stage.setup({"glb": picks[0], "corner": "red", "scale": sc[0], "stance": str(f.get("stance", "orthodox"))},
 		{"glb": picks[1], "corner": "blue", "scale": sc[1], "stance": str(opp.get("stance", "orthodox"))})
 	crew = FightCast.crew(stage, bool(m.get("pro", false)) or total > 3)
