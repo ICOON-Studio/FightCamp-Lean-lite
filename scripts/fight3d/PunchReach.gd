@@ -60,7 +60,7 @@ func arm(clip: String, hand_bone: String, contact_s: float, target: Callable, gl
 
 func disarm() -> void:
 	if _clip != "" and _w_now > 0.0:
-		_fades[_hand] = {"w": _w_now, "target": _target, "front": _front, "lunge": lunge_m}
+		_fades[_hand] = {"w": _w_now, "w0": _w_now, "t": 0.0, "target": _target, "front": _front, "lunge": lunge_m}
 	_clip = ""
 	_w_now = 0.0
 	lunge_m = 0.0
@@ -102,7 +102,10 @@ func _process_modification() -> void:
 	var dt := get_process_delta_time()
 	for hand in _fades.keys():
 		var f: Dictionary = _fades[hand]
-		f["w"] = maxf(0.0, float(f["w"]) - dt / FADE_S)
+		# S350 (SMOOTH3): eased to zero (smoothstep's complement, flat at both ends), not a straight line.
+		f["t"] = float(f["t"]) + dt
+		var u := clampf(float(f["t"]) / FADE_S, 0.0, 1.0)
+		f["w"] = float(f["w0"]) * (1.0 - u * u * (3.0 - 2.0 * u))
 		if float(f["w"]) <= 0.0 or (_clip != "" and hand == _hand):
 			_fades.erase(hand)
 		else:

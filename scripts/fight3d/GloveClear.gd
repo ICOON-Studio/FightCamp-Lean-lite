@@ -15,6 +15,9 @@ const PunchReach := preload("res://scripts/fight3d/PunchReach.gd")
 ## Head ~0.09 m + glove ~0.06 m radius: they touch at ~0.15 m. Kept at the touch: the other head is read before her own sway
 ## and snap move it (up to ~5 cm), so 0.13 left 12 of 571 inside frames deep in a head (36 without this modifier).
 const CLEAR_M := 0.15
+## S350 (SMOOTH3): the push starts with a soft knee SOFT_M wide round the touch (C1), so a glove sliding past a head is
+## eased out instead of kinked; from CLEAR_M - SOFT_M / 2 inward it is the full CLEAR_M - d as before.
+const SOFT_M := 0.04
 const GLOVE_FWD_M := 0.08
 const HEAD_UP_M := 0.08
 
@@ -84,13 +87,15 @@ func _process_modification() -> void:
 		var gc := g_hd.origin + (g_hd.origin - g_la.origin).normalized() * GLOVE_FWD_M / k
 		var away := gc - hc
 		var d := away.length() * k
-		if d >= CLEAR_M:
+		var p := CLEAR_M + SOFT_M * 0.5 - d
+		if p <= 0.0:
 			continue
+		var push := (p * p / (2.0 * SOFT_M) if p < SOFT_M else p - SOFT_M * 0.5)
 		var dir := away.normalized() if away.length() > 1e-5 else Vector3.UP
 		var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 		var l1 := s.distance_to(g_la.origin)
 		var l2 := g_la.origin.distance_to(g_hd.origin)
-		PunchReach.solve(skel, ids, s, g_hd.origin + dir * (CLEAR_M - d) / k, l1, l2, g_hd.basis)
+		PunchReach.solve(skel, ids, s, g_hd.origin + dir * push / k, l1, l2, g_hd.basis)
 		pushes += 1
 
 

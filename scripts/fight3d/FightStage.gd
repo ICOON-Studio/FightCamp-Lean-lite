@@ -175,13 +175,16 @@ func _start(who: int, clip: String, speed: float, fade: float = BLEND_S) -> void
 			(bx["js"] as Node).join(GUARD_HALF_LIFE_S, GUARD_JOIN_S)
 		else:
 			(bx["js"] as Node).join()
+		# SMOOTH3 Fix 2: tell the join smoother which clip to wait for before capturing
+		(bx["js"] as Node).set_target(ap, clip)
 		ap.play(clip, 0.0, speed)
 	else:
 		ap.play(clip, fade, speed)
 
 
 func _process(delta: float) -> void:
-	_ropes.tick(delta, boxers.map(func(bx): return bx["skel"]))
+	if _ropes != null:   # S350: a stage built without a ring (probes) threw here every frame and skipped the rest
+		_ropes.tick(delta, boxers.map(func(bx): return bx["skel"]))
 	if scene:
 		camera.nudge(delta)
 		return

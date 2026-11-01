@@ -114,7 +114,10 @@ func _camera() -> void:
 	var p: Vector3 = (f["pos"] as Vector3) + (_frame["drift"] as Vector3) * u
 	if bool(_frame.get("track", false)) and name == "behind":
 		p = cam.position.lerp(p, clampf(get_process_delta_time() * 3.0, 0.0, 1.0))
-	cam.film(p, f["look"], float(f["fov"]), float(f["focus"]))
+	var look: Vector3 = f["look"]
+	if ui != null and ui.card_up():   # S350 C197: she stays in view beside the card
+		look = CornerShots.frame_at(p, look, float(f["fov"]), ui.subject_x())
+	cam.film(p, look, float(f["fov"]), float(f["focus"]))
 
 
 func _cut(k: int, name: String) -> void:

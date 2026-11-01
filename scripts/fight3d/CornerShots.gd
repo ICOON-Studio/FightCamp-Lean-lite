@@ -89,6 +89,17 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 	return {}
 
 
+## S350 C197: the look point that puts `look` at screen x (0 = left edge, 0.5 = centre) on a 16:9 frame, `fov` vertical -
+## the corner card covers the right of the frame, so the shot pans until her face sits in the open part on the left.
+static func frame_at(pos: Vector3, look: Vector3, fov: float, x: float) -> Vector3:
+	var d := look - pos
+	var right := d.cross(Vector3.UP)
+	if right.length() < 1e-4:
+		return look
+	var half_w := tan(deg_to_rad(fov) * 0.5) * 16.0 / 9.0
+	return look + right.normalized() * d.length() * half_w * (1.0 - 2.0 * x)
+
+
 ## A bone's world position on an actor ({skel}). The head as shown when the actor's CornerIK has turned it (S309: a look
 ## moves the head, and an outside read gets the clip's pose).
 static func bone(a: Dictionary, name: String) -> Vector3:

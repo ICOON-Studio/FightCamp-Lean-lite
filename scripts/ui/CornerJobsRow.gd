@@ -9,6 +9,11 @@ extends RefCounted
 ##   menu(f, r) -> {...}   defaults(menu) -> sel   build(menu, sel, names, on_change) -> VBoxContainer   suffix(sel) -> String
 
 const UI := preload("res://scripts/ui/UI.gd")
+const TV := preload("res://scripts/ui/TV.gd")
+## S350 C197: the text colours of the screen it sits on - the 3D corner card is the dark TV look, where UI.gd's ink
+## (#22262e) read as dark on dark ("Water and breathing" vanished). build(..., tv = true) picks the TV palette.
+static var _ink := UI.FG
+static var _mute := UI.MUTED
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -48,7 +53,9 @@ static func defaults(mn: Dictionary) -> Dictionary:
 	return {"rec": rec, "setup": {}, "talk": "", "arrow": {}}
 
 
-static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Callable) -> VBoxContainer:
+static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Callable, tv: bool = false) -> VBoxContainer:
+	_ink = TV.FG if tv else UI.FG
+	_mute = TV.MUTED if tv else UI.MUTED
 	var v := UI.vbox(4)
 	# RECOVER
 	var rec: Dictionary = sel["rec"]
@@ -64,7 +71,10 @@ static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Call
 			on_change.call(), n == 0)
 		minus.name = "Rec_minus_" + id
 		chip.add_child(minus)
-		chip.add_child(UI.label("%s %d" % [str(o["label"]), n], UI.SMALL, UI.FG if n > 0 else UI.MUTED))
+		# S350 C197: the job in full colour, its points as dots (a grey "Water and breathing 2" read as switched off).
+		chip.add_child(UI.label(" %s " % str(o["label"]), UI.SMALL + 1, _ink))
+		chip.add_child(UI.label("●".repeat(n) + "○".repeat(maxi(0, int(o["max"]) - n)) + " ", UI.SMALL + 1,
+			UI.GREEN if n > 0 else _mute))
 		var plus := UI.button("+", "BtnQuiet", func():
 			rec[id] = int(rec.get(id, 0)) + 1
 			on_change.call(), used >= CornerJobs.RECOVER_POINTS or n >= int(o["max"]))
@@ -78,7 +88,7 @@ static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Call
 	s_row.add_child(_tag("SET-UP", UI.AMBER))
 	var setups: Array = mn["setups"]
 	if setups.is_empty():
-		s_row.add_child(UI.muted("%s has no combination yet - drill one on the pads in the gym to set it up here." % names[0], UI.SMALL))
+		s_row.add_child(_m("%s has no combination yet - drill one on the pads in the gym to set it up here." % names[0], UI.SMALL))
 	else:
 		var su: Dictionary = sel["setup"]
 		for k in setups.slice(0, 3):
@@ -93,7 +103,7 @@ static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Call
 			b.tooltip_text = "Mastery %d" % int(float(mn["combos"].get(k, 0.0)))
 			s_row.add_child(b)
 		if not su.is_empty():
-			s_row.add_child(UI.muted("for", UI.SMALL))
+			s_row.add_child(_m("for", UI.SMALL))
 			for g in mn["gaps"]:
 				var gon := str(su.get("gap", "")) == str(g)
 				var gb := UI.button(str(CornerJobs.GAP_WORDS.get(g, g)).replace("she", names[1]), "ChoiceOn" if gon else "Choice", func():
@@ -125,9 +135,9 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 	var t: Dictionary = mn.get("tally", {})
 	var arrows: Array = mn.get("arrows", [])
 	if arrows.is_empty():
-		p_row.add_child(UI.muted("No plan: %s fights her own way. Add one arrow:" % names[0], UI.SMALL))
+		p_row.add_child(_m("No plan: %s fights her own way. Add one arrow:" % names[0], UI.SMALL))
 	else:
-		p_row.add_child(UI.muted("%d of %d arrows worked. Change one:" % [int(t.get("worked", 0)), int(t.get("used", 0))], UI.SMALL))
+		p_row.add_child(_m("%d of %d arrows worked. Change one:" % [int(t.get("worked", 0)), int(t.get("used", 0))], UI.SMALL))
 	var changes: Array = mn.get("changes", [])
 	var ob := OptionButton.new()
 	ob.name = "PlanChange"
@@ -151,7 +161,7 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 		var wu: Array = t["moves"][id]
 		per.append("%s %d/%d" % [str(StrikeMap.move(str(id)).get("name", id)), int(wu[0]), int(wu[1])])
 	if not per.is_empty():
-		box.add_child(UI.muted("    " + ",  ".join(per), UI.TINY))
+		box.add_child(_m("    " + ",  ".join(per), UI.TINY))
 	return box
 
 
@@ -194,3 +204,7 @@ static func _tag(text: String, color: Color) -> Label:
 	t.custom_minimum_size = Vector2(120, 0)
 	t.add_theme_color_override("font_color", color)
 	return t
+
+
+static func _m(text: String, size: int) -> Label:
+	return UI.label(text, size, _mute)

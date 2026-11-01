@@ -80,19 +80,26 @@ static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable) 
 
 ## The corner minute: all eight calls, four to a row. pick(call). S318: `evidence` (CallEvidence.lines) puts the round's
 ## number for each call between its "when" line and its grade.
-static func corner_grid(grades: Dictionary, coach: String, names: Array, pick: Callable, evidence: Dictionary = {}) -> GridContainer:
+## S350 C197 ("doesnt look good, needs a lot of refining"): `compact` = the 3D corner card's tiles - the call, when to use
+## it and her grade, bigger; the round's numbers (evidence) and what to expect move to the hover.
+static func corner_grid(grades: Dictionary, coach: String, names: Array, pick: Callable, evidence: Dictionary = {},
+		columns: int = 4, compact: bool = false) -> GridContainer:
 	var grid := GridContainer.new()
-	grid.columns = 4
+	grid.columns = columns
 	grid.add_theme_constant_override("h_separation", 8)
-	grid.add_theme_constant_override("v_separation", 8)
+	grid.add_theme_constant_override("v_separation", 5 if compact else 8)
 	for k in Exchanges.CALLS.keys():
 		var c: Dictionary = Exchanges.CALLS[k]
 		var big := "%s%s" % [c["label"], PICK if str(k) == coach else ""]
-		var when := str(c["when"]) if not evidence.has(k) else "%s\n%s" % [c["when"], evidence[k]]
+		var when := str(c["when"]) if compact or not evidence.has(k) else "%s\n%s" % [c["when"], evidence[k]]
+		var tall := 62 if compact else (66 if evidence.is_empty() else 84)
 		var b := UI.button2(big, _small(str(k), grades, when, names), "Choice", pick.bind(str(k)),
-			Vector2(240, 66 if evidence.is_empty() else 84), UI.FG, GRADE_COLOR.get(str(grades.get(k, "OK")), UI.MUTED), false, UI.SMALL + 1, UI.TINY)
+			Vector2(240, tall), UI.FG, GRADE_COLOR.get(str(grades.get(k, "OK")), UI.MUTED), false,
+			UI.SMALL + (3 if compact else 1), UI.TINY + (1 if compact else 0))
 		b.name = "Corner_" + str(k)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.tooltip_text = Exchanges.named(str(c["expect"]), names)
+		if compact and evidence.has(k):
+			b.tooltip_text = "%s\n%s" % [Exchanges.named(str(evidence[k]), names), b.tooltip_text]
 		grid.add_child(b)
 	return grid
