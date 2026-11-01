@@ -70,13 +70,13 @@ func build(card: Dictionary, names: Array) -> void:
 	# S350 C197 ("doesnt look good, needs a lot of refining"): the card takes the right part of the frame between the bars,
 	# full height, so the corner itself (her on the stool, the coach) stays in view on the left; the round first, then the
 	# choices as numbered steps, the plan last (picking it sends her out).
-	_pin(_card, Vector4(CARD_LEFT, BAR, 1, 1.0 - BAR), Vector4(0, 12, -24, -12))
+	_pin(_card, Vector4(CARD_LEFT, BAR, 1, BAR), Vector4(0, 12, -24, 12))   # as tall as what it holds
 	var hb := UI.hbox(18)
 	_card.add_child(hb)
 	_map = card.get("body_map", {})
 	_track = card.get("body_track", {})
 	if not _map.is_empty():
-		_pin(_card, Vector4(CARD_LEFT_BODY, BAR, 1, 1.0 - BAR), Vector4(0, 12, -24, -12))
+		_pin(_card, Vector4(CARD_LEFT_BODY, BAR, 1, BAR), Vector4(0, 12, -24, 12))
 		hb.add_child(_body_column(str(names[0]), str(card.get("body_glb", ""))))
 	var v := UI.vbox(5)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -85,8 +85,6 @@ func build(card: Dictionary, names: Array) -> void:
 	v.add_child(head)
 	var evidence: Dictionary = card.get("evidence", {})
 	var rows := [["WORKED", card["worked"], UI.GREEN], ["HURT", card["hurt"], UI.RED], ["COACH", "%s" % card["why"], UI.AMBER]]
-	if str(evidence.get("open", "")) != "":
-		rows.insert(2, ["SEEN", evidence["open"], UI.FG])   # S318 what the opponent left open this round
 	if str(card.get("fixed", "")) != "":
 		rows.insert(1, ["FIXED", card["fixed"], UI.GREEN])   # S320 what last round's habit fix did
 	for row in rows:
@@ -105,7 +103,7 @@ func build(card: Dictionary, names: Array) -> void:
 	var n := 1
 	if not _menu.is_empty():
 		jobs = CornerJobsRow.defaults(_menu)
-		v.add_child(_step(n, "THE MINUTE: RECOVER, OPEN WITH, WHAT YOU SAY"))
+		v.add_child(_step(n, "THE MINUTE"))
 		n += 1
 		_jobs_box = UI.vbox(0)
 		v.add_child(_jobs_box)
@@ -117,9 +115,10 @@ func build(card: Dictionary, names: Array) -> void:
 		_fix_step = n
 		n += 1
 	_draw_fixes()
-	v.add_child(_step(n, "THE PLAN FOR NEXT ROUND - YOUR PICK SENDS HER OUT"))
+	v.add_child(_step(n, "PICK THE PLAN - IT SENDS HER OUT"))
+	# S350 "corner card has too much text": one line a call, four across (when / grade / numbers on the hover).
 	_calls = CallButtons.corner_grid(card.get("grades", {}), str(card["call"]), names, func(k: String): chose.emit(k), evidence,
-		2, true)
+		4, true)
 	v.add_child(_calls)
 	_said = UI.muted("", UI.SMALL)
 	_said.visible = false

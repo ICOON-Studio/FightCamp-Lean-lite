@@ -90,16 +90,31 @@ static func corner_grid(grades: Dictionary, coach: String, names: Array, pick: C
 	grid.add_theme_constant_override("v_separation", 5 if compact else 8)
 	for k in Exchanges.CALLS.keys():
 		var c: Dictionary = Exchanges.CALLS[k]
+		if compact:
+			# S350 operator on the refined card: "corner card has too much text" - one line a call: its name, coloured by her
+			# grade, a star on the coach's pick; when to use it, the grade and the round's numbers are the hover.
+			var g := str(grades.get(k, "OK"))
+			var tile := UI.button(("★  " if str(k) == coach else "") + str(c["label"]), "Choice", pick.bind(str(k)))
+			tile.custom_minimum_size = Vector2(200, 46)
+			tile.add_theme_font_size_override("font_size", UI.SMALL + 3)
+			for s in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+				tile.add_theme_color_override(s, GRADE_COLOR.get(g, UI.FG))
+			tile.name = "Corner_" + str(k)
+			tile.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			var hover := [_small(str(k), grades, str(c["when"]), names)]
+			if evidence.has(k):
+				hover.append(Exchanges.named(str(evidence[k]), names))
+			hover.append(Exchanges.named(str(c["expect"]), names))
+			tile.tooltip_text = "\n".join(hover)
+			grid.add_child(tile)
+			continue
 		var big := "%s%s" % [c["label"], PICK if str(k) == coach else ""]
-		var when := str(c["when"]) if compact or not evidence.has(k) else "%s\n%s" % [c["when"], evidence[k]]
-		var tall := 62 if compact else (66 if evidence.is_empty() else 84)
+		var when := str(c["when"]) if not evidence.has(k) else "%s\n%s" % [c["when"], evidence[k]]
 		var b := UI.button2(big, _small(str(k), grades, when, names), "Choice", pick.bind(str(k)),
-			Vector2(240, tall), UI.FG, GRADE_COLOR.get(str(grades.get(k, "OK")), UI.MUTED), false,
-			UI.SMALL + (3 if compact else 1), UI.TINY + (1 if compact else 0))
+			Vector2(240, 66 if evidence.is_empty() else 84), UI.FG, GRADE_COLOR.get(str(grades.get(k, "OK")), UI.MUTED), false,
+			UI.SMALL + 1, UI.TINY)
 		b.name = "Corner_" + str(k)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.tooltip_text = Exchanges.named(str(c["expect"]), names)
-		if compact and evidence.has(k):
-			b.tooltip_text = "%s\n%s" % [Exchanges.named(str(evidence[k]), names), b.tooltip_text]
 		grid.add_child(b)
 	return grid

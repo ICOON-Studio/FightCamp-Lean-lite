@@ -1,3 +1,18 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 51 (2026-11-01): THE CORNER CARD REDONE, SMOOTHER JOINS
+=========================================================================================
+
+ 1. THE CORNER MINUTE (C197 "doesnt look good, needs a lot of refining"): play a fight to the end of round 1. The card now
+    sits on the right and SHE stays in view on the left (the camera turns so her face is beside the card). The round
+    first (worked / hurt / seen / the coach), then three numbered steps: 1 the minute - recover (water, ice: the points
+    as dots), open with a combination, what you say; 2 fix one habit (optional); 3 the plan for the next round - your
+    pick sends her out. The eight plans are two wide columns; hover one for the round's numbers.
+ 2. THE FIGHT: the joins between moves are smoother (fewer jolts when a punch starts or she goes back to her guard).
+    Watch a round at normal speed - the hands should not snap at the start of a punch.
+ 3. Not in this build yet, still with the animators: the training pictures on her week's cards (round 3), the clinch
+    (round 4), pad work with the coach holding the mitts (made, not on a screen yet).
+
+
+EARLIER (update 50)
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 50 (2026-11-01): HER WEEK ROUND HER BODY, BUILD YOUR OWN COMBOS
 ==============================================================================================
 

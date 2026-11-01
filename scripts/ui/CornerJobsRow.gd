@@ -14,6 +14,7 @@ const TV := preload("res://scripts/ui/TV.gd")
 ## (#22262e) read as dark on dark ("Water and breathing" vanished). build(..., tv = true) picks the TV palette.
 static var _ink := UI.FG
 static var _mute := UI.MUTED
+static var _tv := false
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -56,6 +57,7 @@ static func defaults(mn: Dictionary) -> Dictionary:
 static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Callable, tv: bool = false) -> VBoxContainer:
 	_ink = TV.FG if tv else UI.FG
 	_mute = TV.MUTED if tv else UI.MUTED
+	_tv = tv
 	var v := UI.vbox(4)
 	# RECOVER
 	var rec: Dictionary = sel["rec"]
@@ -134,7 +136,9 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 	p_row.add_child(_tag("PLAN", UI.GREEN))
 	var t: Dictionary = mn.get("tally", {})
 	var arrows: Array = mn.get("arrows", [])
-	if arrows.is_empty():
+	if _tv:
+		pass   # S350 "too much text": on the 3D card the dropdown alone; the tally is its hover
+	elif arrows.is_empty():
 		p_row.add_child(_m("No plan: %s fights her own way. Add one arrow:" % names[0], UI.SMALL))
 	else:
 		p_row.add_child(_m("%d of %d arrows worked. Change one:" % [int(t.get("worked", 0)), int(t.get("used", 0))], UI.SMALL))
@@ -160,7 +164,10 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 	for id in (t.get("moves", {}) as Dictionary).keys():
 		var wu: Array = t["moves"][id]
 		per.append("%s %d/%d" % [str(StrikeMap.move(str(id)).get("name", id)), int(wu[0]), int(wu[1])])
-	if not per.is_empty():
+	if _tv:
+		ob.tooltip_text = "%d of %d arrows worked%s" % [int(t.get("worked", 0)), int(t.get("used", 0)),
+			(": " + ",  ".join(per)) if not per.is_empty() else ""]
+	elif not per.is_empty():
 		box.add_child(_m("    " + ",  ".join(per), UI.TINY))
 	return box
 
