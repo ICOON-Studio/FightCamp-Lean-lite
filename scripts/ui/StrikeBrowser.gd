@@ -138,8 +138,16 @@ func show_flow() -> void:
 	var v := FlowView.new()
 	v.setup(FightFlow.build(plan, Map.MOVES, "long"), {"title": "THE FLOW: %s" % (str(fighter["name"]).to_upper() if not fighter.is_empty() else "THE PLAN"),
 		"sub": "%d arrows, read top to bottom" % plan.size(), "place_name": _place_name,
-		"move_name": func(id: String) -> String: return str(Map.move(id).get("name", id))})
+		"move_name": func(id: String) -> String: return str(Map.move(id).get("name", id)),
+		"try": _try_combos})
 	add_child(v)
+
+
+## S349 C201: the flow's Try combos opens the Playbook's Combos tab (a full-screen plan board closes first).
+func _try_combos() -> void:
+	if not embedded:
+		_close()
+	main.act("go", "playbook:2")
 
 
 ## Writes the plan on her when it is legal (else says why); she fights to it from her next bout.

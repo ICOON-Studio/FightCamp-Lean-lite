@@ -1,21 +1,20 @@
-# S349 - next session (written S348, 2026-11-01)
+# S350 - next session (written S349, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
-S348 shipped update 49: the PLAYBOOK menu page (her move map + the move player on her own body, Replay, Slow motion; Moves and
-Plans tabs), the holo is HER (own skin/hair/face, kit neutral) with HEAD / LIVER / RIBS close-ups and hover tooltips (what
-landed where), the referee and the lens keep off each other, the flow view in the menu colours. Digest:
-Game\Godot\research\S348_DIGEST.md. OPERATOR RULE S338: agents do animations, Claude does mechanics + UI.
-Hidden desktop: Godot `--log-file <path>`; push scripted mouse with `root.push_input(ev, true)` (viewport coords).
+S349 shipped update 50: FIGHTERS > Training is his MMA home-training picture - her week as 8 real gym sessions round her
+own body (scripts/ui/TrainingBoard.gd + rules/TrainingWeek.gd), each line on the part it trains; PLAYBOOK > Combos
+(scripts/ui/ComboBuilder.gd): moves to try, her book's combos, the chain rated by ComboFlow (rule 6: move the head after
+punching), her body throws it, Save / Drill it; the plan flow has Try combos. Digest: Game\Godot\research\S349_DIGEST.md.
+OPERATOR RULE S338: agents do animations, Claude does mechanics + UI. Hidden desktop: Godot `--log-file <path>`.
 
-1. Board: Q-S294-72 (training screen mockup, docs/playtest/S348/training/training_mockup.png) + comments on the S348 stills.
-2. Collect in flight: GROUND3 (Qwen, wt LEAN_GROUND3 - files written, not committed at S348's end; the reconcile marked it
-   stale while it ran), SMOOTH3 (Goose, Lean issue 18 - the join audit's three fixes; quote its smooth_probe lines),
-   PADWORK1 r3 (Goose #13 5633c78) + CLINCH2 (Goose #14 31ccc38) on the GPU with the visual gate.
-3. Combos tab on ComboFlow (collected S348, scripts/rules/ComboFlow.gd): his "Build a smart combination" layout - numbered
-   rows (move, one-line cue, a still of her throwing it, the target on the ghost), the key-lesson strip from ComboFlow
-   notes, Save to her book, the player plays the chain. ComboFlow round 2: "move your head after punching" (a chain ending
-   on a defence or step scores).
-4. On his yes to Q-S294-72: the training screen (8 numbered cards round her, leader lines to the parts they train, muscle
-   chips per card in BodyTrack colours, "Pad rounds" opens a round-by-round plan: each round a named combo with numbered
-   move pictures + three focus points).
-5. C197 corner card refine under the new lens; the Playbook map in the martial-arts-tree look (glowing paths, picture cards).
+1. Board: Q-S294-73 (the training board: keep it / change it, stills docs/playtest/S349/training) + comments on the S349
+   stills (training, combos).
+2. Collect, each on OUR GPU with the visual gate (S349 found two agent greens that measured themselves):
+   - GROUND3 r2 (Qwen, wt E:\FightCamp\wt\LEAN_GROUND3): G144 skill-gap table in chance(); ground ~20 %, sub finishes 8-25 %.
+   - TRAINCLIPS1 (Cursor, wt E:\FightCamp\wt\LEAN_TRAINCLIPS1): 8 session pictures on the training cards - open each one.
+   - SMOOTH3 (Goose, Lean issue 18): quote smooth_probe lines.
+   - PADWORK1 r4 (Goose #13): probe gaps must DIFFER per punch (0.035 constant = mitt follows the glove = FAIL); stills.
+   - CLINCH2 r3 (Goose #14): `tools/clinch_check.gd` must read CLINCH OK 6/6 on main's tree, windowed on the hidden desktop.
+3. On his yes to Q-S294-73: the Pad rounds plan off the pads card (each round a named combo from her book, numbered moves,
+   three focus points from ComboBuilder's cues); then C197 corner card under the new lens; the Playbook map in the
+   martial-arts-tree look (glowing paths, picture cards).

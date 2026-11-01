@@ -1,5 +1,5 @@
 extends VBoxContainer
-## FIGHTERS: Roster, Training (a plan per fighter: focus, weight, the move she is learning), Fight camps, Scouting
+## FIGHTERS: Roster, Training (her week on TrainingBoard: eight sessions round her body), Fight camps, Scouting
 ## (prospects: a scouted range, invite to a trial). A fighter's name opens her page.
 
 const UI := preload("res://scripts/ui/UI.gd")
@@ -7,15 +7,10 @@ const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
-const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
-const Combos := preload("res://scripts/rules/Combos.gd")
-const ComboWords := preload("res://scripts/rules/ComboWords.gd")
-const Injuries := preload("res://scripts/state/Injuries.gd")
-const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
-const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const FighterTile := preload("res://scripts/ui/FighterTile.gd")
+const TrainingBoard := preload("res://scripts/ui/TrainingBoard.gd")
 const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
 
 
@@ -35,8 +30,9 @@ func build(main: Node) -> void:
 		1:
 			if c.fighters.is_empty():
 				AreaHead.placeholder(self, "TRAINING", "Sign a fighter first.")
+			# S349 (Q-S294-72): her week as his home-training picture - eight sessions round her body (TrainingBoard).
 			for f in c.fighters:
-				_training(main, c, f)
+				add_child(TrainingBoard.make(main, c, f))
 		2:
 			_camps(main, c)
 		3:
@@ -65,109 +61,6 @@ func _roster(main: Node, c: Career) -> void:
 	var scouting := UI.button("Find another fighter: Scouting", "Btn", main.act.bind("tab", "3"))
 	scouting.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	card[1].add_child(scouting)
-
-
-func _training(main: Node, c: Career, f: Dictionary) -> void:
-	var fid := str(f["id"])
-	var card := UI.card("THIS WEEK'S PLAN: %s" % str(f["name"]).to_upper())
-	add_child(card[0])
-	var camp: Dictionary = f["camp"]
-	var in_camp := not camp.is_empty()
-	var focus := OptionButton.new()
-	focus.name = "Focus_" + fid
-	for i in Data.STATS.size():
-		focus.add_item(Data.LABEL[Data.STATS[i]], i)
-	focus.select(Data.STATS.find(Sim.focus_of(c, f)))
-	focus.item_selected.connect(func(i): main.act("focus", "%s|%s" % [fid, Data.STATS[i]]))
-	focus.custom_minimum_size = Vector2(240, 0)
-	var camp_why := "In fight camp - the plan is set until fight night"
-	focus.disabled = in_camp
-	focus.tooltip_text = camp_why if in_camp else ""
-	var diet := OptionButton.new()
-	diet.add_item("Hold weight", 0)
-	diet.add_item("Cut toward the limit", 1)
-	diet.select(1 if str(f["diet"]) == "cut" or in_camp else 0)
-	diet.item_selected.connect(func(i): main.act("diet", "%s|%s" % [fid, "cut" if i == 1 else "hold"]))
-	diet.custom_minimum_size = Vector2(240, 0)
-	diet.disabled = in_camp
-	diet.tooltip_text = camp_why if in_camp else ""
-	var learn := OptionButton.new()
-	learn.name = "Learn_" + fid
-	var moves: Dictionary = f["moves"]
-	var options: Array = []
-	for mv in Data.MOVES:
-		options.append(mv)
-		learn.add_item("%s (%s)" % [mv, MoveMastery.tier(float(moves[mv])).to_lower()], options.size() - 1)
-	learn.select(maxi(0, options.find(str(f.get("learning", "")))))
-	learn.item_selected.connect(func(i): main.act("learn", "%s|%s" % [fid, options[i]]))
-	learn.custom_minimum_size = Vector2(240, 0)
-	# S302 combos: the combo she drills on the pads (only those whose every punch is a weapon).
-	var combo_box := OptionButton.new()
-	combo_box.name = "Combo_" + fid
-	var ids: Array = Combos.unlocked(moves)
-	var drilling := str(f.get("combo_learning", ""))
-	if drilling == "" and not ids.is_empty():
-		drilling = Combos.next_to_learn(moves, f.get("combos", {}))
-	for id in ids:
-		combo_box.add_item("%s (%s)" % [id, MoveMastery.tier(float((f.get("combos", {}) as Dictionary).get(id, 0.0))).to_lower()])
-	combo_box.select(maxi(0, ids.find(drilling)))
-	combo_box.item_selected.connect(func(i): main.act("combo", "%s|%s" % [fid, ids[i]]))
-	combo_box.custom_minimum_size = Vector2(240, 0)
-	var combo_why := "No combos yet - a combo opens when each of its punches reaches 30 on the Training page"
-	combo_box.disabled = ids.is_empty()
-	if ids.is_empty():
-		combo_box.tooltip_text = combo_why
-		combo_box.add_item("none yet")
-	elif drilling != "":
-		combo_box.tooltip_text = "Coach: \"%s\"" % ComboWords.line(drilling, "coach_learning", str(f["first"]), c.day / 7)
-	# S326 update 29: how hard she trains this week - harder gains more and risks more (the gauge: this week vs her usual).
-	var load := OptionButton.new()
-	load.name = "Load_" + fid
-	for i in TrainingLoad.ORDER.size():
-		var k: String = TrainingLoad.ORDER[i]
-		load.add_item("%s (%d h, gains x%.2f)" % [TrainingLoad.SETTINGS[k]["label"], int(TrainingLoad.hours(k)), TrainingLoad.gain(k)], i)
-	load.select(TrainingLoad.ORDER.find(Injuries.setting(f)))
-	load.item_selected.connect(func(i): main.act("trainload", "%s|%s" % [fid, TrainingLoad.ORDER[i]]))
-	load.custom_minimum_size = Vector2(240, 0)
-	var injured := Injuries.out(c, f)
-	load.disabled = injured
-	if injured:
-		var inj: Dictionary = f["injury"]
-		var w := InjuryRoll.weeks_out(int(inj["until_day"]) - c.day)
-		load.tooltip_text = "Injured - back in %s" % ("1 week" if w == 1 else "%d weeks" % w)
-	else:
-		load.tooltip_text = ""
-	var r := Injuries.ratio(f)
-	var gauge_col: Color = {"safe": UI.GREEN, "high": UI.AMBER, "spike": UI.RED}[TrainingLoad.band(r)]
-	var gauge := UI.label(Injuries.line(c, f) + ": resting" if Injuries.out(c, f) else TrainingLoad.gauge_line(r), UI.BODY, gauge_col, "bold")
-	gauge.name = "LoadGauge_" + fid
-	if in_camp:
-		card[1].add_child(UI.muted("In camp: the camp sets her focus (%s) and cuts her weight." % Data.LABEL[camp["focus"]], UI.BODY, true))
-	var coach_right: Array = []
-	if c.coach.is_empty():
-		coach_right.append(UI.button("Hire one", "Btn", main.act.bind("go", "gym:1")))
-	var cards: Array = f["cards"]
-	UI.add_rows(card[1], [
-		UI.row("Load", "how hard she trains: harder = faster gains, more injury risk; a jump over her usual is what hurts", Color(0, 0, 0, 0), [gauge, load]),
-		UI.row("Focus", "the stat this week trains most; its partner trains a little", Color(0, 0, 0, 0), [focus]),
-		UI.row("Weight", "%.1f kg, limit %.1f kg" % [f["weight"], f["limit"]], Color(0, 0, 0, 0), [diet]),
-		UI.row("Learning", "pad time on one new move a week: a weapon in 2-3 weeks", Color(0, 0, 0, 0), [learn]),
-		UI.row("Combo", "pad time on one combination: she can learn it once every punch in it is a weapon" if not ids.is_empty()
-			else "she needs two weapons (a jab and a cross) for her first combination", Color(0, 0, 0, 0), [combo_box]),
-		UI.row("Coach", ("%s, %s" % [c.coach["name"], str(c.coach["spec"]).to_lower()]) if not c.coach.is_empty()
-			else "none: training runs at 60%", Color(0, 0, 0, 0), coach_right),
-		UI.row("Her week cards", ", ".join(cards) if not cards.is_empty() else "none picked"),
-	])
-	card[1].add_child(UI.caps("EXPECTED THIS WEEK"))
-	var gain := Sim.daily_gain(c, f)
-	var grid := GridContainer.new()
-	grid.columns = 2
-	grid.add_theme_constant_override("h_separation", 28)
-	for key in Data.STATS:
-		var row := UI.stat_row(Data.LABEL[key], float(f["stats"][key]), key == Sim.focus_of(c, f), UI.FG, UI.gain_text(float(gain[key]) * 7.0))
-		row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		grid.add_child(row)
-	card[1].add_child(grid)
 
 
 func _camps(main: Node, c: Career) -> void:

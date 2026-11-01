@@ -4,7 +4,7 @@ extends VBoxContainer
 ## Godot/research/PLAYBOOK_S347.md). The coach's whiteboard for one fighter at a time: her move map on the left (StrikeMap's
 ## cards, lit = she can use it, grey = pad time first), the move player on the right (her own body, the opponent a ghost):
 ## click a move and it plays, Replay, Slow motion. Tabs: Moves (walk her map), Plans (her plan board, Save plan, See the
-## flow), Combos and Escapes next (build steps 3 and 5).
+## flow), Combos (S349 ComboBuilder: build a chain from her moves, ComboFlow rates it, her body throws it), Escapes next.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
@@ -12,6 +12,7 @@ const StrikeBrowser := preload("res://scripts/ui/StrikeBrowser.gd")
 const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
+const ComboBuilder := preload("res://scripts/ui/ComboBuilder.gd")
 
 const PLAYER := Vector2(560, 600)
 const MAP_H := 760.0
@@ -44,7 +45,7 @@ func build(main: Node) -> void:
 		0, 1:
 			add_child(_board(main, f, int(main.route["tab"]) == 1))
 		2:
-			AreaHead.placeholder(self, "BUILD YOUR OWN COMBOS", "Next: chain her single moves (jab, cross, hook, body hook, uppercut, slip, pivot, step in) and watch the chain play. A chain that flows the way real boxers throw it rates better. Save it to her book, drill it on the pads.")
+			add_child(ComboBuilder.make(main, f))   # S349 build step 3: her moves to try, the chain, its verdict, her body plays it
 		3:
 			AreaHead.placeholder(self, "ESCAPES", "Next: off the ropes, out of the corner, tie-ups - each one plays, and Drill this puts it in her training week.")
 

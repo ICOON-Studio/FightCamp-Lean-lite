@@ -88,6 +88,11 @@ func _ready() -> void:
 	if bool(opts.get("lit", false)):
 		for k in ["worked", "failed", "unused"]:
 			h.add_child(UI.label({"worked": "worked", "failed": "didn't work", "unused": "never came up"}[k], UI.SMALL, LIT_COLOUR[k], "bold"))
+	if opts.get("try") is Callable:
+		# S349 C201 ("give the players a list with optional moves etc to try things like combos"): the Playbook's Combos tab.
+		var tryb := UI.button("Try combos", "Btn", func(): (opts["try"] as Callable).call(); queue_free())
+		tryb.name = "TryCombos"
+		h.add_child(tryb)
 	var close := UI.button("Close", "BtnSolid", queue_free)
 	close.name = "CloseFlow"
 	h.add_child(close)

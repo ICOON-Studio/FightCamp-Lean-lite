@@ -208,6 +208,28 @@ func show_move(move_id: String) -> void:
 	if _clips.size() > 0:
 		_play_next_clip()
 
+## S349 the Playbook's Combos tab: play a chain the player built (clip names in order) from the pair's jab gap, on a loop.
+func show_chain(clips: Array) -> void:
+	_move_id = ""
+	_is_forced = false
+	_gap_m = _jab_gap_m
+	_place_boxers()
+	_clips = clips.duplicate()
+	_clip_idx = 0
+	_started_idx = 0
+	_playing = not _clips.is_empty()
+	_hold_t = 0.0
+	_looping = false
+	_min_gap = 999.0
+	_reach_at_contact = -1.0
+	_first_gap = -1.0
+	_remove_rope_line()
+	_stage.guard(0)
+	_stage.guard(1)
+	if _playing:
+		_play_next_clip()
+
+
 func _add_rope_line() -> void:
 	_rope_line = Node3D.new()
 	var cyl := CylinderMesh.new()

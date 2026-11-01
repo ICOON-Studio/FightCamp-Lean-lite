@@ -42,6 +42,8 @@ const BONUS_COMBO_LENGTH := 8
 ## Rule 6: open on the rear power hand alone.
 const PENALTY_REAR_POWER_OPENER := 22
 const NOTE_CROSS_OPENER := 0
+## Rule 6 (S349): she moves her head or feet after the last punch.
+const BONUS_EXIT := 10
 const FLOWS_AT := 70
 const WORKABLE_AT := 45
 
@@ -98,6 +100,15 @@ static func rate(chain: Array) -> Dictionary:
 		prev_id = id
 		prev_kind = kind
 		prev_load = str(m.get("loads", ""))
+	# S349 rule 6 (operator S348, his "Build a smart combination" sheet: "move your head after punching"): a chain that
+	# ends on a slip, roll or step after its punches scores; one that ends on a punch says so (no penalty: the book's
+	# combinations are taught as punches and the corner adds the exit).
+	var last_kind := str((MOVES.get(str(chain[chain.size() - 1]), {}) as Dictionary).get("kind", ""))
+	if punch_count > 0 and (last_kind == "defence" or last_kind == "step"):
+		score += float(BONUS_EXIT)
+		notes.append("Moves her head after punching - she is not there for the return.")
+	elif punch_count >= 2 and last_kind == "punch":
+		notes.append("Ends on a punch: add a slip, roll or step - move the head after punching.")
 	if punch_count >= 2 and punch_count <= 4:
 		score += float(BONUS_COMBO_LENGTH)
 		notes.append("Combination length sits in the sweet spot (2–4 punches).")

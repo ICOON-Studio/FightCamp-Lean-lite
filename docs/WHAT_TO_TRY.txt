@@ -1,3 +1,22 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 50 (2026-11-01): HER WEEK ROUND HER BODY, BUILD YOUR OWN COMBOS
+==============================================================================================
+
+ 1. FIGHTERS > Training is now your MMA home-training picture (Q-S294-72, "everything is wrong in the boxes"): her own
+    body in the middle, her week's eight real gym sessions round her - sparring, neck work, shadow boxing, heavy bag,
+    speed bag, pads with the coach, slip rope, roadwork. Each line ends on the part that session trains (head, neck,
+    jab shoulder, power shoulder, jab arm, the hand of the move she is learning, waist, legs). Each card: its hours this
+    week, the stat it builds and by how much, the coach's one line on why, her week cards as "her drill" chips.
+    Click "Make it her main" on any card: that session becomes MAIN (most hours, the big gain), its partner SUPPORT.
+    Load and weight sit at the top (they are settings, not sessions); the pads card holds the new move and the combo.
+ 2. PLAYBOOK > Combos (C201 "give the players a list with optional moves etc to try things like combos"): MOVES TO TRY
+    on the left (punches, defence, feet; a punch she has not learned is dimmed and says why), her book's combinations as
+    one-click starts. Your chain shows as numbered rows with the coach's cue, the verdict (FLOWS / WORKABLE / CLUMSY and a
+    score), KEY LESSONS, and her body throws it on a loop. Save to her book; a book combination offers Drill it on the pads.
+    Try 1-2 then a slip: moving the head after punching now scores (the coach says so when a chain ends on a punch).
+ 3. THE FLOW of her plan (Playbook > Plans > See the flow): a Try combos button opens the Combos tab.
+
+
+EARLIER (update 49)
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 49 (2026-11-01): THE PLAYBOOK, HER OWN HOLO, HOVER HER LIVER
 =============================================================================================
 

@@ -14,6 +14,7 @@ func _initialize() -> void:
 	_test_rule_pairs()
 	_test_notes()
 	_test_energy()
+	_test_exit()
 	print("COMBO_FLOW failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -103,3 +104,18 @@ func _test_energy() -> void:
 	_check(e4 > e3, "energy: longer chain costs more (%.4f > %.4f)" % [e4, e3])
 	var expected := C.combo_cost(3) * C.POWER_MIX
 	_check(_approx(e3, expected), "energy: 3 punches = combo_cost(3)*POWER_MIX (%.4f ~ %.4f)" % [e3, expected])
+
+
+## S349 rule 6: moving the head after punching scores; ending on a punch gets the coach's note, never a penalty.
+func _test_exit() -> void:
+	var plain := CF.rate(["jab", "cross"])
+	var out := CF.rate(["jab", "cross", "slip"])
+	var step := CF.rate(["jab", "cross", "step_back"])
+	_check(int(out["score"]) > int(plain["score"]) and int(step["score"]) > int(plain["score"]),
+		"1-2 then slip / step back beats a bare 1-2 (%d, %d > %d)" % [int(out["score"]), int(step["score"]), int(plain["score"])])
+	var said := false
+	for n in plain["notes"]:
+		said = said or str(n).contains("move the head after punching")
+	_check(said, "a bare 1-2 gets the move-your-head note")
+	_check(int(CF.rate(["slip"])["score"]) == int(CF.rate(["slip"])["score"]) and not str(CF.rate(["slip"])["notes"]).contains("not there for the return"),
+		"a lone slip (no punch) earns no exit bonus")
