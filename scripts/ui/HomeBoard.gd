@@ -257,7 +257,7 @@ static func cash_tin(c: Career) -> PanelContainer:
 	var cost: Dictionary = Sim.weekly_costs(c)
 	UI.add_rows(v, [
 		UI.kv("In this week", UI.signed(int(inc["total"])), UI.GREEN, "bold"),
-		UI.kv("Costs this week", UI.signed(-int(cost["total"])), UI.FG, "bold"),
+		UI.kv("Running costs this week", UI.signed(-int(cost["total"])), UI.FG, "bold"),
 		UI.kv("Owed, billed %s" % Clock.fmt(GameMoney.next_bill_day(c.day)), UI.money(c.accrued), UI.FG, "bold"),
 	])
 	return p

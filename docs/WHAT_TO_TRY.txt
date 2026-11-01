@@ -1,3 +1,19 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 53 (2026-11-02): FIXES FROM THE BOARD REVIEW, HER CORNER FIGURE
+=================================================================================================
+
+ 1. FIGHT NIGHT corner card (between rounds) and the result page: both boxers wear their own kit now, red and blue
+    (you said "a pale mannequin"). And the hurt spots finally show: a bug kept every spot green whatever the damage.
+    A hurt rib or eye is a solid amber or red spot with a white rim, so it reads even on her red vest.
+ 2. Lucy walks in 3-1, so her signing goal is now "Next bout inside a month" (it said "Debut inside a month").
+    A boxer with no bouts still signs with the debut goal.
+ 3. Money that week: Home says "Running costs this week -$1,123" (they go on the month-end bill). The week review shows
+    the same running costs AND "Paid out this week -$1,000", with what was paid under it (Signing fee: Luke Reid).
+ 4. A pop-up message clears when you move to another page (it used to sit over the next screens for a few seconds).
+ 5. Still with the animators: the drawn training pictures (now with Ziva, who can see them), smoother punches (Goose),
+    the clinch (next for Ziva).
+
+
+EARLIER (update 52)
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 51 (2026-11-01): THE CORNER CARD REDONE, SMOOTHER JOINS
 =========================================================================================
 

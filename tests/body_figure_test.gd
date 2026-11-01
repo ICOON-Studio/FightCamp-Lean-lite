@@ -24,6 +24,7 @@ func _initialize() -> void:
 	_test5()
 	_test6()
 	_test7()
+	await _test8()
 	print("BODY_FIGURE failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -197,3 +198,18 @@ func _test7() -> void:
 	bf.queue_free()
 	_check(clear and hurt.a > 0.0 and hit.a > 0.0 and hit.r > hit.g and after and sides,
 		"test 7: hurt spots (clear %s, hurt a=%.2f, hit %s, cleared %s, one rib side %s)" % [clear, hurt.a, str(hit), after, sides])
+
+
+## 8. S352: values set BEFORE the figure enters the tree (RoundGraphics.body, the corner card) survive its _ready.
+func _test8() -> void:
+	var bf: Control = BF_SCRIPT.new()
+	bf.set_values({"right_ribs": 22.0, "left_eye": 48.0})
+	get_root().add_child(bf)
+	for i in 3:
+		await process_frame
+	var ribs: Color = bf.colour_of("right_ribs")
+	var eye: Color = bf.colour_of("left_eye")
+	var head: Color = bf.colour_of("head")
+	_check(ribs.is_equal_approx(bf.BAND_COLOURS["critical"]) and eye.is_equal_approx(bf.BAND_COLOURS["hurt"])
+		and head.is_equal_approx(bf.BAND_COLOURS["fine"]), "test 8: values set before the tree survive _ready (ribs %s)" % ribs)
+	bf.queue_free()

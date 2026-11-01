@@ -65,10 +65,16 @@ func build(main: Node, m: Dictionary) -> void:
 	var money := UI.card("MONEY")
 	UI.add_rows(money[1], [
 		UI.kv("In this week", UI.signed(int(r["money"]["in"])), UI.GREEN, "mono"),
-		UI.kv("Paid this week", UI.money(-int(r["money"]["out"])), UI.FG, "mono"),
+		UI.kv("Running costs (on the bill)", UI.signed(-int(r["money"].get("costs", 0))), UI.FG, "mono"),
+		UI.kv("Paid out this week", UI.signed(-int(r["money"]["out"])), UI.FG, "mono"),
 		UI.kv("Cash now", UI.money(c.cash), UI.FG, "mono"),
 		UI.kv("Members", "%d (%+d)" % [int(r.get("members", c.members)), int(r.get("members_delta", 0))], UI.FG, "mono"),
 	])
+	var paid: Array = r["money"].get("paid", [])
+	if not paid.is_empty():
+		var what := UI.label("(" + "; ".join(paid) + ")", UI.SMALL, UI.MUTED, "body", true)
+		what.name = "PaidOut"
+		money[1].add_child(what)
 	grid.add_child(money[0])
 	var coach := UI.card("THE COACH")
 	coach[1].add_child(UI.label(r["coach"], UI.BODY, UI.FG, "italic", true))

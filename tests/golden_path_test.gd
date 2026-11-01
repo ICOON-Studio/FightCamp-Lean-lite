@@ -60,7 +60,8 @@ func _play() -> void:
 	_press(_modal_button("Sign"), "three cards picked: the Sign button is live")
 	_check(c.fighters.size() == 1 and c.applicant.is_empty(), "Lucy signed")
 	_check(main.modal.is_empty(), "the interview closed")
-	_check(str(c.fighter()["goal"].get("id", "")) == "debut_inside_a_month", "her signing goal is the debut inside a month")
+	# S352: Lucy walks in 3-1, so her signing goal is her next bout, never a 'debut'.
+	_check(str(c.fighter()["goal"].get("id", "")) == "next_bout_inside_a_month", "her signing goal is her next bout inside a month")
 	_check(Needs.go_state(c, false)["t"] == "CONTINUE", "with nobody waiting, the button reads CONTINUE")
 
 	main.act("go", "gym:1")
@@ -143,6 +144,10 @@ func _week_two(c: Career) -> void:
 	var review: Node = main.modal_node()
 	_check(review != null and main.modal.get("type", "") == "review", "week 1: the review opened (%d stats crossed a point)" % (
 		0 if review == null else int(review.crossed)))
+	# S352: the review shows the week's running costs (Home's figure) beside the cash paid out, and names what was paid.
+	var money: Dictionary = c.last_report["money"]
+	_check(int(money.get("costs", 0)) > 0 and (money.get("paid", []) as Array).has("Signing fee: Luke Reid"),
+		"week 1 review: running costs %d beside paid out %d (%s)" % [int(money.get("costs", 0)), int(money["out"]), money.get("paid", [])])
 	main.act("close")
 
 	# Offers: Tuesday of week 2.

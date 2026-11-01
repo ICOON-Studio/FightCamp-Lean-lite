@@ -49,6 +49,7 @@ var _toast_layer: Control
 var _shell: Node = null
 var _timer: Timer
 var _toast_timer: Timer
+var _toast_frame := -1
 var _shown_screen := ""
 
 
@@ -169,11 +170,19 @@ func toast(text: String) -> void:
 	p.offset_bottom = -24
 	_toast_layer.add_child(p)
 	_toast_timer.start(2.6)
+	_toast_frame = Engine.get_process_frames()
 
 
 func clear_toast() -> void:
 	_toast_timer.stop()
 	UI.clear(_toast_layer)
+
+
+## S352 (board review: "toasts stay up across several screens and cover content"): a new screen or moment clears the
+## toast of an EARLIER action; one raised by the same action (same frame, e.g. "signed" then the page) stays up.
+func _drop_old_toast() -> void:
+	if Engine.get_process_frames() != _toast_frame:
+		clear_toast()
 
 
 ## ---------- time ----------
@@ -230,6 +239,7 @@ func nav(r: Dictionary) -> void:
 	ahead.clear()
 	route = {"area": r.get("area", "home"), "tab": int(r.get("tab", 0)), "fighter": str(r.get("fighter", "")),
 		"ftab": int(r.get("ftab", 0)), "bout": str(r.get("bout", ""))}
+	_drop_old_toast()
 	render()
 	if _shell != null:
 		_shell.scroll_top()
@@ -239,6 +249,7 @@ func open_modal(m: Dictionary) -> void:
 	if running:
 		pause()
 	modal = m
+	_drop_old_toast()
 	_render_modal()
 
 
@@ -306,11 +317,13 @@ func act(name: String, arg: String = "") -> void:
 			if not past.is_empty():
 				ahead.append(route)
 				route = past.pop_back()
+				_drop_old_toast()
 				render()
 		"fwd":
 			if not ahead.is_empty():
 				past.append(route)
 				route = ahead.pop_back()
+				_drop_old_toast()
 				render()
 		"settings":
 			open_modal({"type": "info", "title": "Settings", "body": "Audio, display, text size, and \"stop every day\" for players who want day-by-day control. Not built yet."})

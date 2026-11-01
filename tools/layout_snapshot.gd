@@ -44,6 +44,7 @@ func _initialize() -> void:
 	main.act("go", "gym:1")
 	await _shot("05_gym_staff")
 	main.act("hire", "reid")
+	await process_frame   # S352 a player's next click is a later frame: the hire toast clears on the next page
 	main.act("go", "fighters:1")
 	await _shot("06_training")
 	main.run_to_stop()
@@ -82,10 +83,13 @@ func _initialize() -> void:
 	await _shot("18_tape")
 	main.act("fightstep", "start")
 	await _shot("19_round1")
-	# S303: the corner screens between rounds (energy at the bell + Kalli's corner line).
+	# S303: the corner screens between rounds (energy at the bell + Kalli's corner line). S352 (board review: both corner
+	# shots and round 3 showed round 1's modal): a live round ignores the corner call - box each one out to the bell first.
+	main.act("fightstep", "round_out")
 	main.act("fightwatched", "1")
 	await _shot("19b_corner1")
 	main.act("fightstep", "corner:body")
+	main.act("fightstep", "round_out")
 	main.act("fightwatched", "2")
 	await _shot("19c_corner2")
 	main.act("fightstep", "corner:long")

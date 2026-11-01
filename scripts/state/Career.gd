@@ -104,6 +104,7 @@ func pay(amount: int, what: String) -> void:
 		week_money["in"] = int(week_money["in"]) + amount
 	else:
 		week_money["out"] = int(week_money["out"]) - amount
+		(week_money.get_or_add("items", []) as Array).append(what)   # S352 the week review names what was paid
 
 
 func rival(name: String) -> Dictionary:

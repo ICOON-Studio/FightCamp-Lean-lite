@@ -46,8 +46,8 @@ func _call_checked(method_name: String, args: Array) -> Dictionary:
 
 
 func _test_archetypes() -> void:
-	var expected_days := {"debut_inside_a_month": 28, "southpaw_answer": 21, "five_round_engine": 28}
-	_check(FighterGoal.ARCHETYPES.size() == 3, "ARCHETYPES has the three lean goals")
+	var expected_days := {"debut_inside_a_month": 28, "next_bout_inside_a_month": 28, "southpaw_answer": 21, "five_round_engine": 28}
+	_check(FighterGoal.ARCHETYPES.size() == 4, "ARCHETYPES has the four lean goals")
 	for row in FighterGoal.ARCHETYPES:
 		var goal_id := str(row.get("id", ""))
 		_check(expected_days.has(goal_id), "known archetype id " + goal_id)

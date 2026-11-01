@@ -203,6 +203,7 @@ static func end_week(career: Career) -> void:
 	career.week_money["out"] = int(career.week_money["out"]) + int(money["billed"])
 	if int(money["billed"]) > 0:
 		career.ledger.push_front({"d": career.day, "t": "Month-end bill: wages and upkeep", "amount": -int(money["billed"])})
+		(career.week_money.get_or_add("items", []) as Array).append("Month-end bill: wages and upkeep")
 		career.add_news("Month-end bill paid: %s for wages and upkeep." % GameMoney.text(int(money["billed"])))
 	if int(roll["delta"]) > 0:
 		career.add_news("%d new members joined this week. %d on the books." % [int(roll["delta"]), career.members])
@@ -232,8 +233,10 @@ static func end_week(career: Career) -> void:
 		f["week_start"] = (f["stats"] as Dictionary).duplicate()
 	career.last_report = {
 		"week": week, "fighters": reports, "members": career.members, "members_delta": int(roll["delta"]),
-		"money": {"in": int(career.week_money["in"]), "out": int(career.week_money["out"]),
-			"line": GymBills.line(career.cash, net, career.weeks_below), "status": status},
+		# S352 (board review: "Paid this week -$1,000" vs Home's "Costs this week -$1,123"): the week's running costs go on the
+		# month-end bill; "out" is the cash that left - the review shows both, and names what was paid.
+		"money": {"in": int(career.week_money["in"]), "out": int(career.week_money["out"]), "costs": int(costs["total"]),
+			"paid": (career.week_money.get("items", []) as Array).duplicate(), "line": GymBills.line(career.cash, net, career.weeks_below), "status": status},
 		"coach": coach_line(career, career.fighter()),
 	}
 	career.review_pending = true

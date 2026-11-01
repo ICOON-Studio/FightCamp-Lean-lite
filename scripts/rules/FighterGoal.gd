@@ -38,6 +38,15 @@ const ARCHETYPES: Array[Dictionary] = [
 		"targets": {"booked_fight": true, "conditioning": DEBUT_CONDITIONING_DELTA},
 		"persona_line": "Get me a fight and get my engine up.",
 	},
+	## S352 (board review: "Lucy is already 3-1, yet her goal reads 'debut inside a month'"): a boxer with bouts on her card
+	## signs with the same month, worded as her next bout.
+	{
+		"id": "next_bout_inside_a_month",
+		"title": "Next bout inside a month",
+		"days": DEBUT_DAYS,
+		"targets": {"booked_fight": true, "conditioning": DEBUT_CONDITIONING_DELTA},
+		"persona_line": "Get me back in the ring and get my engine up.",
+	},
 	{
 		"id": "southpaw_answer",
 		"title": "Southpaw answer",

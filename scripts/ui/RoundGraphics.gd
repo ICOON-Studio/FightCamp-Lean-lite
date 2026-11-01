@@ -210,6 +210,7 @@ static func body(map: Dictionary, side: String, glb: String, corner: String, tra
 		return null
 	var fig: Control = BodyFigure.new()
 	fig.custom_minimum_size = Vector2(168, 235)   # S324 C149 bigger (was 120 x 168)
+	fig.clay = 0.0   # S352 CORNERFIG1 (operator: "a pale mannequin"): her own kit on the corner card and the result page
 	fig.set_portrait(BodyFigure.portrait_for(glb, corner))
 	var vals := {}
 	for p in BodyMap.PLACES:

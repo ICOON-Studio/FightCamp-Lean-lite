@@ -175,10 +175,15 @@ func _ready() -> void:
 	if custom_minimum_size == Vector2.ZERO:
 		custom_minimum_size = Vector2(DESIGN_W, DESIGN_H)
 	mouse_filter = MOUSE_FILTER_PASS
+	# S352: only places nobody set yet - RoundGraphics.body sets the bout's values BEFORE the figure enters the tree, and
+	# this reset them all to 100, so the corner card and result figures always read "fine" whatever the damage.
 	for p in BM.PLACES:
-		_values[p] = 100.0
-		_flash[p] = 0.0
-		_punches[p] = []
+		if not _values.has(p):
+			_values[p] = 100.0
+		if not _flash.has(p):
+			_flash[p] = 0.0
+		if not _punches.has(p):
+			_punches[p] = []
 
 
 ## Recompute the design -> screen transform from current size.
@@ -257,6 +262,10 @@ func _draw_portrait() -> void:
 		if p == "head":
 			_ellipse(c, g["rx"], g["ry"], Color(col.r, col.g, col.b, 0.22))
 			draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), col, maxf(2.0, size.y * 0.012), true)
+		elif BM.band(float(_values.get(p, 100.0))) != "fine":
+			# S352 CORNERFIG1: her own red kit under a red hurt spot - solid fill and a light rim so it reads on any vest.
+			_ellipse(c, g["rx"], g["ry"], Color(col.r, col.g, col.b, 0.95))
+			draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), Color(1, 1, 1, 0.9), maxf(2.0, size.y * 0.01), true)
 		else:
 			_ellipse(c, g["rx"], g["ry"], Color(col.r, col.g, col.b, 0.62 if p.ends_with("ribs") else 0.92))
 			draw_polyline(_ellipse_pts(c, g["rx"], g["ry"]), edge, 1.0, true)

@@ -16,8 +16,10 @@ const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 
-## The goal a new signing brings: a booked bout and her engine up inside a month.
+## The goal a new signing brings: a booked bout and her engine up inside a month - her debut, or her next bout when she
+## already has bouts on her card (S352).
 const SIGNING_GOAL := "debut_inside_a_month"
+const SIGNING_GOAL_CARDED := "next_bout_inside_a_month"
 
 ## The offer comes at 7 amateur wins and a top-3 regional ranking, or at 9 wins whatever the ranking.
 const PRO_WINS := 7
@@ -126,7 +128,8 @@ static func sign_fighter(c: Career, raw: Dictionary, picks: Array) -> Dictionary
 	f["cards"] = picks.duplicate()
 	f["joined"] = c.day
 	f["registered"] = registered_day(f, c.day)   # S331 the nationals need 3 months REGISTERED (England Boxing), not with us
-	f["goal"] = FighterGoal.goal_for(f, SIGNING_GOAL, c.day)
+	var bouts: int = int(f.get("w", 0)) + int(f.get("l", 0)) + int(f.get("d", 0))
+	f["goal"] = FighterGoal.goal_for(f, SIGNING_GOAL if bouts == 0 else SIGNING_GOAL_CARDED, c.day)
 	c.fighters.append(f)
 	c.add_news("%s signs for %s on the club stipend." % [f["name"], c.gym_name])
 	return f
