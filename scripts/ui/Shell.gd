@@ -79,7 +79,7 @@ func _build_top(main: Node) -> void:
 	_top.add_child(h)
 	h.add_child(UI.button("Back", "Ghost", main.act.bind("back", ""), main.past.is_empty()))
 	h.add_child(UI.button("Fwd", "Ghost", main.act.bind("fwd", ""), main.ahead.is_empty()))
-	var gym := UI.display(c.gym_name.to_upper(), 30)
+	var gym := UI.label(c.gym_name, 32, UI.GOLD, "marker")   # S333 look B: the gym name in blue marker
 	gym.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(gym)
 	for f in Needs.flags(c):
@@ -91,7 +91,7 @@ func _build_top(main: Node) -> void:
 	var date := VBoxContainer.new()
 	date.add_theme_constant_override("separation", 0)
 	date.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var d1 := UI.mono(Clock.fmt_long(c.day), UI.BODY)
+	var d1 := UI.label(Clock.fmt_long(c.day), UI.BODY + 1, UI.FG, "bold")
 	d1.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	date.add_child(d1)
 	var d2 := UI.label("Week %d" % Clock.week_of(c.day), UI.TINY, UI.MUTED)
@@ -119,7 +119,7 @@ func _build_top(main: Node) -> void:
 	go.tooltip_text = "%s: %s" % [g["t"], g["s"]]
 	h.add_child(go)
 	var ms := Needs.money_status(c)   # S324: coloured by GymBills (runway under 8 weeks amber, below $0 red)
-	var cash := UI.mono(UI.money(c.cash), 21, UI.RED if ms == "red" or ms == "closed" else (UI.AMBER if ms == "warn" else UI.FG))
+	var cash := UI.label(UI.money(c.cash), 28, UI.RED if ms == "red" or ms == "closed" else (UI.AMBER if ms == "warn" else UI.GREEN), "bold")
 	cash.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(cash)
 	var mail := UI.button("Mail", "Ghost", main.act.bind("mail", ""))
@@ -168,6 +168,6 @@ func _build_rail(main: Node) -> void:
 	for a in Data.AREAS:
 		var on: bool = main.route["area"] == a["id"]
 		# S331 (operator on the menu: "remove these texts"): the name alone, no job line under it.
-		var b := UI.button2(a["name"], "", "RailOn" if on else "Rail", main.act.bind("area", a["id"]), Vector2(0, 52),
-			UI.GOLD if on else UI.MUTED, UI.MUTED, false, 17, UI.TINY)
+		var b := UI.button2(str(a["name"]).capitalize(), "", "RailOn" if on else "Rail", main.act.bind("area", a["id"]), Vector2(0, 52),
+			UI.FG, UI.MUTED, false, 19, UI.TINY)
 		_rail.add_child(b)

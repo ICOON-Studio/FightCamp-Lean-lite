@@ -9,7 +9,7 @@ var fill: Color = Color("#6cc27a"):
 	set(value):
 		fill = value
 		queue_redraw()
-var track: Color = Color("#3a2e26")
+var track: Color = Color("#dfe6eb")   # S333 look B: a light track on the white boards
 
 
 func _init() -> void:

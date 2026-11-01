@@ -8,7 +8,7 @@
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
-const UI := preload("res://scripts/ui/UI.gd")
+const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 ## S320 (operator C145: "each of these needs to be on each fighters side"): each boxer's figure stands at her own edge

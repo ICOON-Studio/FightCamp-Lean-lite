@@ -4,7 +4,8 @@ extends PanelContainer
 ## with film study (LiveRound.preview "mark", S310).
 ##   setup(preview, round_n)   signal picked(call)   ("" = say nothing)
 
-const UI := preload("res://scripts/ui/UI.gd")
+const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
+const ReadPanel := preload("res://scripts/ui/ReadPanel.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
 const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 
@@ -39,7 +40,7 @@ func setup(pv: Dictionary, round_n: int) -> void:
 	anchor_bottom = 1.0
 	offset_left = 28
 	offset_right = -28
-	offset_top = -248
+	offset_top = -330
 	offset_bottom = -16
 	var v := UI.vbox(8)
 	add_child(v)
@@ -57,6 +58,9 @@ func setup(pv: Dictionary, round_n: int) -> void:
 	var clue := UI.label("You see: " + str(pv.get("clue", "")), 24, UI.AMBER, "bold", true)
 	clue.name = "Clue"
 	v.add_child(clue)
+	# S333 THE READ: the meter on the habit the corner sees, WAIT FOR IT / TAKE IT NOW.
+	if not (pv.get("read", {}) as Dictionary).is_empty():
+		v.add_child(ReadPanel.build(pv["read"], str(pv.get("read_call", "")), names, _pick))
 	var row := CallButtons.shout_row(pv.get("offers", []), pv.get("grades", {}), str(pv.get("mark", "")), names, _pick)
 	# S310 the set-up's NOW, first in the row, when the corner sees the gap.
 	var now := CallButtons.now_button(pv.get("now", {}), names, _pick)

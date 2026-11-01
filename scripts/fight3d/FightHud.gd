@@ -2,7 +2,7 @@ extends RefCounted
 ## The fight view's scorebug, caption box, banner and button row (moved out of FightView, S308, to keep it under 500
 ## lines). build(view) creates them on the view and sets its _bug_box / _bug / _clock / _buttons / _cap_box / _caption / _banner.
 
-const UI := preload("res://scripts/ui/UI.gd")
+const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const ExchangeBeats := preload("res://scripts/fight3d/ExchangeBeats.gd")

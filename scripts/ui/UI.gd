@@ -1,23 +1,32 @@
 extends RefCounted
-## The look: the prototype's warm brown and gold as one Theme, plus small builders every screen uses.
-## Fonts: Bebas Neue for display, Barlow for body, IBM Plex Mono for numbers (assets/fonts/SOURCE.md).
+## The look: B GYM WHITEBOARD (operator S332 Q-S294-52 "B Gym whiteboard") - a light blue gym wall, white boards with a
+## grey frame, marker blue/red/green ink, yellow sticky notes - as one Theme, plus small builders every screen uses.
+## Mockup: E:/FightCamp/Game/Godot/research/S331_looks/b_whiteboard.png. The fight's graphics keep the dark look (TV.gd).
+## Fonts: Permanent Marker for headings ("marker"), Kalam for handwritten notes ("hand"), Barlow for body, IBM Plex Mono
+## for numbers (assets/fonts/SOURCE.md). The names below keep their old jobs: GOLD = the primary accent (now marker blue).
 
 const Bar := preload("res://scripts/ui/Bar.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 
-const BG := Color("#1d1714")
-const PANEL := Color("#2a211c")
-const PANEL2 := Color("#342922")
-const LINE := Color("#4a3a30")
-const ROWLINE := Color("#3a2e26")
-const RAIL := Color("#241c18")
-const FG := Color("#f3ece2")
-const MUTED := Color("#b5a595")
-const GOLD := Color("#e9b84a")
-const GOLD_INK := Color("#231b16")
-const RED := Color("#e0503c")
-const GREEN := Color("#6cc27a")
-const AMBER := Color("#f0a020")
+const BG := Color("#cfe0ea")       # the gym wall
+const PANEL := Color("#fdfefe")    # a board / card
+const PANEL2 := Color("#e9eef2")   # a pressed or raised card
+const LINE := Color("#c9d1d8")     # card borders, rules
+const ROWLINE := Color("#d3dce3")  # the dotted lines between rows
+const RAIL := Color("#cfe0ea")
+const FRAME := Color("#aeb8c0")    # the board's aluminium frame
+const FG := Color("#22262e")       # marker ink
+const MUTED := Color("#5e6773")
+const GOLD := Color("#2f6fdb")     # marker blue (primary)
+const GOLD_INK := Color("#ffffff")
+const RED := Color("#e2483d")
+const GREEN := Color("#23935d")
+const AMBER := Color("#d97a00")
+const YELLOW := Color("#ffd54a")   # sticky notes
+const YELLOW_EDGE := Color("#d9b235")
+const MINT := Color("#9fe0c0")
+const SKY := Color("#bfd8ff")
+const PURPLE := Color("#8a5cf0")
 
 const BODY := 19
 const SMALL := 16
@@ -34,14 +43,21 @@ static func font(kind: String) -> Font:
 		var bold: FontFile = load("res://assets/fonts/Barlow-Bold.ttf")
 		var bebas: FontFile = load("res://assets/fonts/BebasNeue-Regular.ttf")
 		var mono: FontFile = load("res://assets/fonts/IBMPlexMono-Medium.ttf")
+		_fonts["marker"] = _load_or("res://assets/fonts/PermanentMarker-Regular.ttf", bebas)
+		_fonts["hand"] = _load_or("res://assets/fonts/Kalam-Regular.ttf", regular)
+		_fonts["handbold"] = _load_or("res://assets/fonts/Kalam-Bold.ttf", bold)
 		_fonts["body"] = regular
 		_fonts["semi"] = semi
 		_fonts["bold"] = bold
 		_fonts["caps"] = _spaced(bold, 2)
 		_fonts["italic"] = _italic(regular)
-		_fonts["display"] = _spaced(bebas, 1)
+		_fonts["display"] = _fonts["marker"]
 		_fonts["mono"] = mono
 	return _fonts.get(kind, _fonts["body"])
+
+
+static func _load_or(path: String, fallback: Font) -> Font:
+	return load(path) if ResourceLoader.exists(path) else fallback
 
 
 static func _spaced(base: FontFile, spacing: int) -> FontVariation:
@@ -94,8 +110,8 @@ static func theme() -> Theme:
 	_button(t, "TabOn", PANEL, clear, GOLD, clear, 8, 16, 10, "bold", 17)
 	_button(t, "Choice", PANEL, LINE, FG, MUTED, 10, 14, 12, "semi", BODY)
 	_button(t, "ChoiceOn", PANEL2, GOLD, FG, GOLD, 10, 14, 12, "semi", BODY)
-	_button(t, "Flag", clear, GOLD, GOLD, GOLD, 999, 12, 6, "caps", TINY, Color(GOLD, 0.12))
-	_button(t, "FlagRed", clear, RED, RED, RED, 999, 12, 6, "caps", TINY, Color(RED, 0.12))
+	_button(t, "Flag", YELLOW, YELLOW, FG, YELLOW_EDGE, 999, 14, 6, "bold", SMALL)
+	_button(t, "FlagRed", RED, RED, Color.WHITE, Color("#b8332a"), 999, 14, 6, "bold", SMALL)
 	_button(t, "Go", GOLD, GOLD, GOLD_INK, GOLD, 10, 16, 8, "bold", BODY)
 	_button(t, "GoBlock", RED, RED, Color.WHITE, RED, 10, 16, 8, "bold", BODY)
 	_button(t, "GoFight", FG, FG, BG, FG, 10, 16, 8, "bold", BODY)
@@ -108,6 +124,39 @@ static func theme() -> Theme:
 			if sb != null:
 				sb.corner_radius_bottom_left = 0
 				sb.corner_radius_bottom_right = 0
+	# S333 look B: the rail is white tabs with a frame-grey left edge (red when on); the board, polaroid and sticky notes.
+	for rail in [["Rail", FRAME], ["RailOn", RED]]:
+		for state in ["normal", "hover", "pressed", "disabled"]:
+			var rb := box(PANEL, rail[1], 10, 0, 16, 10)
+			rb.border_width_left = 8
+			if state == "hover":
+				rb.bg_color = PANEL2
+			t.set_stylebox(state, rail[0], rb)
+		t.set_color("font_color", rail[0], FG)
+		t.set_color("font_hover_color", rail[0], FG)
+	_button(t, "Ink", FG, FG, Color.WHITE, FG, 999, 16, 7, "bold", SMALL)
+	for go in ["Go", "GoBlock"]:
+		for state in ["normal", "hover", "pressed", "disabled"]:
+			(t.get_stylebox(state, go) as StyleBoxFlat).set_corner_radius_all(30)
+	var board := box(PANEL, FRAME, 4, 14, 34, 26)
+	board.shadow_color = Color(0, 0, 0, 0.12)
+	board.shadow_size = 6
+	_panel(t, "Board", board)
+	var pol := box(Color.WHITE, Color("#e3e7ea"), 2, 1, 14, 14)
+	pol.content_margin_bottom = 8
+	pol.shadow_color = Color(0, 0, 0, 0.22)
+	pol.shadow_size = 8
+	pol.shadow_offset = Vector2(2, 4)
+	_panel(t, "Polaroid", pol)
+	for sticky in [["Sticky", YELLOW, YELLOW_EDGE], ["StickyRed", Color("#ffc7bf"), Color("#e2958a")],
+			["StickyGreen", MINT, Color("#6fbf97")], ["StickyBlue", SKY, Color("#8fb0e0")]]:
+		var sb := box(sticky[1], sticky[2], 2, 0, 22, 16)
+		sb.border_width_bottom = 6
+		_panel(t, sticky[0], sb)
+	var tin := box(PANEL, LINE, 16, 1, 26, 22)
+	tin.shadow_color = Color(0, 0, 0, 0.10)
+	tin.shadow_size = 5
+	_panel(t, "Tin", tin)
 	_panel(t, "Card", box(PANEL, LINE, 12, 1, 18, 16))
 	_panel(t, "TopBar", _edge(PANEL, 0, 0, 0, 1, 18, 12))
 	_panel(t, "RailPanel", _edge(RAIL, 0, 0, 1, 0, 10, 14))

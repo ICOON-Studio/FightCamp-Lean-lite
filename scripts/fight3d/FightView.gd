@@ -18,7 +18,7 @@ const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
-const UI := preload("res://scripts/ui/UI.gd")
+const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const FightCast := preload("res://scripts/fight3d/FightCast.gd")
 const FightHud := preload("res://scripts/fight3d/FightHud.gd")
 const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
@@ -84,6 +84,7 @@ static func sync(m_main: Node, layer: Control) -> bool:
 		return false
 	if view == null:
 		view = new()
+		view.theme = UI.theme()   # S333: the dark TV theme under the fight; the menus around it are the whiteboard
 		view.fid = str(m["fid"])
 		view.visible = false
 		layer.add_child(view)

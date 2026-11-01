@@ -3,7 +3,7 @@ extends RefCounted
 ## corners - red values left, the label in the middle, blue values right, names on top. Fades in and out.
 ##   build(rows, names) -> Control     show(card, on)
 
-const UI := preload("res://scripts/ui/UI.gd")
+const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 
 const RED := Color(0.95, 0.4, 0.35)
 const BLUE := Color(0.5, 0.65, 1.0)

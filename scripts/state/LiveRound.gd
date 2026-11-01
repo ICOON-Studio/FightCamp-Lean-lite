@@ -10,6 +10,7 @@ const HabitFix := preload("res://scripts/rules/HabitFix.gd")
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const PaceAim := preload("res://scripts/rules/PaceAim.gd")
+const TheRead := preload("res://scripts/rules/TheRead.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -124,7 +125,8 @@ static func preview(f: Dictionary, m: Dictionary) -> Dictionary:
 		grades[k] = Exchanges.grade(str(k), vals)["word"]
 	return {"sit": sit, "clue": Exchanges.clue(sit, names, i + int(lv["n"]) * 3), "offers": Exchanges.offers(sit),
 		"coach": coach, "mark": mark, "grades": grades, "at": i * Exchanges.EX_SECONDS, "i": i,
-		"shouts": int(lv["shouts"]), "names": names, "now": now_offer(lv, sit),
+		"shouts": int(lv["shouts"]), "names": names, "now": now_offer(lv, sit), "read": read_view(f, seen),
+		"read_call": str(lv.get("read_call", "")),
 		"pace": str(lv.get("pace", "steady")), "aim": str(lv.get("aim", "")), "aims": PaceAim.offers({"head": bool(lv["opp_hurt"])})}
 
 
@@ -162,6 +164,14 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		elif kv.size() == 2 and kv[0] == "aim" and PaceAim.AIMS.has(kv[1]):
 			lv["aim"] = kv[1]
 	shout = shout.get_slice("|", 0)
+	# S333 THE READ's corner calls: "wait" (Wait for it) holds her trigger up for the rest of the round, "take" (Take it now)
+	# fires the counter this exchange on whatever she has read.
+	var read_call := ""
+	if shout in ["wait", "take"]:
+		read_call = shout
+		if shout == "wait":
+			lv["read_call"] = "wait"
+		shout = ""
 	var pace := str(lv.get("pace", "steady"))
 	var aim := str(lv.get("aim", ""))
 	var opp_hurt := {"head": bool(lv["opp_hurt"])}
@@ -187,6 +197,17 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	if fire:
 		d += CornerJobs.setup_edge(fits, float(su["mastery"]), her_energy(lv, i))
 	d += PaceAim.edge(pace, aim, opp_hurt, {}) - push_gassed(pace, her_energy(lv, i))
+	var st := read_state(f)
+	var game := str(lv["mode"])
+	# A habit of hers the opponent is punishing right now (and the corner has not fixed) takes the counter away: she is
+	# the one being read in that exchange.
+	# One gap weapon: with a set-up armed for this gap she waits for the corner's NOW instead of going herself.
+	var armed := not su.is_empty() and str(su.get("used", "")) == "" and CornerJobs.fits(str(su.get("gap", "")), sit)
+	var rd := {} if fire or armed or (habit != "" and habit != fix) else read_fire(c, f, lv, st, game, read_call, n, i)
+	# The corner's NOW on a habit she has already read past her trigger: the combination comes in on the read too.
+	if fire and fits and TheRead.fires(TheRead.read(st, game), TheRead.trigger(f)):
+		d += TheRead.EDGE_LANDED
+	d += float(rd.get("edge", 0.0))
 	var rng := _rng(c, f, n, i + 1)
 	var s := Exchanges.settle(d, rng.randf(), rng.randf())
 	# S323 Push throws more (and so lands more), Save less.
@@ -207,7 +228,14 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 			var dmg: Dictionary = m.get("damage", {"a": 0.0, "b": 0.0})
 			dmg["b"] = float(dmg.get("b", 0.0)) + CornerJobs.SETUP_DAMAGE
 			m["damage"] = dmg
-	var rec := {"i": i, "mode": str(lv["mode"]), "body": body, "setup": str(su.get("used", "")) if fire else "", "setup_combo": str(su.get("combo", "")) if fire else "", "sit": sit, "call": call, "shout": shouted, "fit": Exchanges.fit(call, sit),
+	if str(rd.get("result", "")) == "landed":
+		TheRead.punish(st, game)
+		var rdmg: Dictionary = m.get("damage", {"a": 0.0, "b": 0.0})
+		rdmg["b"] = float(rdmg.get("b", 0.0)) + TheRead.DAMAGE
+		m["damage"] = rdmg
+	if TheRead.COUNTER.has(game):
+		TheRead.watch(st, game, float(vals.get("fight_iq", 55.0)), int(f["bout"]["film"]) >= BoutRules.FILM_DEPTH_WITH_STUDY)
+	var rec := {"i": i, "mode": str(lv["mode"]), "read": rd, "body": body, "setup": str(su.get("used", "")) if fire else "", "setup_combo": str(su.get("combo", "")) if fire else "", "sit": sit, "call": call, "shout": shouted, "fit": Exchanges.fit(call, sit),
 		"pace": pace, "aim": aim, "won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix) if habit != "" else ""}
 	exs.append(rec)
@@ -221,7 +249,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	# A big exchange can leave the loser hurt for the next one.
 	var rating := float(opp.get("rating", 60.0))
 	lv["opp_hurt"] = (float(s["margin"]) > Exchanges.HURT_AT and rng.randf() < clampf(0.3 + (float(vals.get("power", 55.0)) - 55.0) / 100.0, 0.1, 0.6)) 		or str(rec["setup"]) == "landed"
-	lv["her_hurt"] = float(s["margin"]) < -Exchanges.HURT_AT and rng.randf() < clampf((0.3 + (rating - float(vals.get("chin", 55.0))) / 100.0) 		* float((lv.get("talk", {}) as Dictionary).get("hurt", 1.0)) * (1.6 if str(rec["setup"]) == "missed" else 1.0), 0.1, 0.8)
+	lv["her_hurt"] = float(s["margin"]) < -Exchanges.HURT_AT and rng.randf() < clampf((0.3 + (rating - float(vals.get("chin", 55.0))) / 100.0) 		* float((lv.get("talk", {}) as Dictionary).get("hurt", 1.0)) * (1.6 if str(rec["setup"]) == "missed" or str(rd.get("result", "")) == "missed" else 1.0), 0.1, 0.8)
 	rec["after"] = state(lv, i + 1)
 	var run := 0
 	for j in range(exs.size() - 1, -1, -1):
@@ -230,9 +258,53 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		run += 1
 	lv["mode"] = Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, i + 1, str(lv["mode"]),
 		opp_energy(lv, i + 1), bool(lv["opp_hurt"]), rng, run)
+	if TheRead.dropped(st, str(lv["mode"])):   # S333: a habit punished twice is gone; she fights another way
+		lv["mode"] = TheRead.swap(st, str(lv["mode"]), n + i)
 	if exs.size() < Exchanges.EXCHANGES:
 		return {}
 	return close(f, m)
+
+
+## S333 THE READ for this bout, kept on the bout so it carries round to round. With film study her main game starts part-read.
+static func read_state(f: Dictionary) -> Dictionary:
+	var fb: Dictionary = f["bout"]
+	if not fb.has("read"):
+		var film := int(fb.get("film", 0)) >= BoutRules.FILM_DEPTH_WITH_STUDY
+		fb["read"] = TheRead.start({}, Exchanges.favourite(str((fb["opp"] as Dictionary).get("style", ""))) if film else "")
+	return fb["read"]
+
+
+## Whether she throws the read counter this exchange: {} when not, else {game, read, trig, move, result, edge}.
+static func read_fire(c: Career, f: Dictionary, lv: Dictionary, st: Dictionary, game: String, read_call: String, n: int,
+		i: int) -> Dictionary:
+	# Once a round per habit: the opponent sees the first one coming and is careful with that game for a while.
+	if not TheRead.COUNTER.has(game) or bool(lv["her_hurt"]) or (lv.get("read_fired", []) as Array).has(game):
+		return {}
+	var now_read := TheRead.read(st, game)
+	var call := "now" if read_call == "take" else str(lv.get("read_call", ""))
+	var trig := TheRead.called(TheRead.trigger(f), call, now_read)
+	if not TheRead.fires(now_read, trig):
+		return {}
+	var move := str(TheRead.COUNTER[game])
+	var mastery := float((f.get("moves", {}) as Dictionary).get(move, 0.0))
+	var landed := _rng(c, f, n, i + 51).randf() < TheRead.land_chance(now_read, mastery)
+	if not lv.has("read_fired"):
+		lv["read_fired"] = []
+	(lv["read_fired"] as Array).append(game)
+	return {"game": game, "read": snappedf(now_read, 0.01), "trig": snappedf(trig, 0.01), "move": move,
+		"result": "landed" if landed else "missed", "edge": TheRead.EDGE_LANDED if landed else TheRead.EDGE_MISSED}
+
+
+## What the corner card shows of THE READ on the game it sees: {game, label, read, trig, temper, line, counter}.
+static func read_view(f: Dictionary, seen: String) -> Dictionary:
+	if not TheRead.COUNTER.has(seen):
+		return {}
+	var st := read_state(f)
+	var trig := TheRead.trigger(f)
+	var label := str(Exchanges.MODES[seen]["label"])
+	return {"game": seen, "label": label, "read": TheRead.read(st, seen), "trig": trig, "temper": TheRead.temperament(f),
+		"line": TheRead.line(TheRead.read(st, seen), trig, label.to_lower()), "counter": str(TheRead.COUNTER[seen]),
+		"dropped": TheRead.dropped(st, seen)}
 
 
 static func close(f: Dictionary, m: Dictionary) -> Dictionary:

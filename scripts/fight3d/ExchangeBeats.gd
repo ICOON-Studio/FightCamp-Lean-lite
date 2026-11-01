@@ -72,6 +72,7 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 		var opp_name := str(ctx["names"][1])
 		var how := "%s walks into the set-up!" % opp_name if str(x["setup"]) == "landed" else "%s saw it coming" % opp_name
 		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": "Corner: \"NOW!\" - " + how})
+	_read(out, x.get("read", {}), at, ctx["names"])
 	if bool(x.get("shout", false)):
 		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": "Corner: \"%s\"" % Exchanges.CALLS[str(x["call"])]["shout"]})
 	# S309: a habit punished (or the corner's fix holding) gets its own caption before the verdict.
@@ -80,6 +81,25 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	out.append({"t": at + Exchanges.EX_SECONDS - VERDICT_LEAD_S, "who": "a", "move": "say", "result": "none", "caption": str(x["verdict"])})
 	out.sort_custom(func(a, b): return float(a["t"]) < float(b["t"]))
 	return out
+
+
+## S333 THE READ fired: halfway through the exchange the opponent shows her habit once more and our fighter is already
+## throwing the counter - landed, a big shot with the close-up and "READ IT!"; missed, she guessed early and is open.
+const READ_LEAD := {"press": "step_in", "range": "jab", "counter": "cross", "loadup": "cross"}
+const READ_MOVE := {"Lead hook": "lead_hook", "Cross": "cross", "Check hook": "lead_hook"}
+
+
+static func _read(out: Array, rd: Dictionary, at: float, names: Array) -> void:
+	if rd.is_empty():
+		return
+	var t := at + Exchanges.EX_SECONDS * 0.5
+	var landed := str(rd["result"]) == "landed"
+	var lead := str(READ_LEAD.get(str(rd["game"]), "jab"))
+	out.append({"t": t, "who": "b", "move": lead, "result": "misses" if lead != "step_in" else "none", "caption": "",
+		"big": false, "knockback": false, "def": ""})
+	var cap := "READ IT! %s saw it coming - %s" % [names[0], str(rd["move"]).to_lower()] if landed 		else "%s went early - %s makes her pay" % [names[0], names[1]]
+	out.append({"t": t + 0.35, "who": "a", "move": str(READ_MOVE.get(str(rd["move"]), "cross")),
+		"result": "lands" if landed else "misses", "caption": cap, "big": landed, "knockback": landed, "def": "", "read": true})
 
 
 ## The clue has to be what the ring shows: the game this exchange is fought in reshapes the beats (who lands how many is

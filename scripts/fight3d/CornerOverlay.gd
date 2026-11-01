@@ -4,7 +4,7 @@
 ## the three calls to pick while the minute runs, and SKIP TO THE BELL.
 ##   build(card, names)  build_intro()  clock(left_s)  say(text)  show_card(on)  picked(call)   signals: chose(call), fixed(habit), skip
 
-const UI := preload("res://scripts/ui/UI.gd")
+const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
 

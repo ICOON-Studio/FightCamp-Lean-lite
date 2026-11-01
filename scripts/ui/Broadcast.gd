@@ -7,7 +7,7 @@ extends RefCounted
 ##   frame(panel) -> VBoxContainer   corner(fig, name, colour, right)   compubox(rows)   tank(a, b)   timeline(exchanges)
 ##   quote(text, who)   verdict_card(card, won_rounds, colour)   reasons(lines)   ribbon(items)
 
-const UI := preload("res://scripts/ui/UI.gd")
+const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 
 const HERS := Color(0.86, 0.26, 0.22)
 const THEIRS := Color(0.26, 0.47, 0.88)
@@ -118,6 +118,9 @@ static func timeline(exchanges: Array) -> VBoxContainer:
 		elif str(x.get("setup", "")) != "":
 			said = "SET-UP"
 			said_c = UI.GOLD
+		elif not (x.get("read", {}) as Dictionary).is_empty():   # S333 THE READ
+			said = "READ IT" if str(x["read"]["result"]) == "landed" else "WENT EARLY"
+			said_c = UI.GOLD if said == "READ IT" else UI.RED
 		var m := UI.label(said if said != "" else " ", 12, said_c, "caps")
 		m.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		m.size_flags_horizontal = Control.SIZE_EXPAND_FILL

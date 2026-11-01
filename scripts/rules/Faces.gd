@@ -9,11 +9,12 @@ extends RefCounted
 const DIR := "res://assets/models/metahuman/"
 ## Standing height of each body (mh_boxer_NN.json height_cm).
 const CM := {"mh_boxer_10": 162.0, "mh_boxer_11": 169.0, "mh_boxer_12": 178.0, "mh_boxer_13": 165.0,
-	"mh_boxer_14": 170.0, "mh_boxer_15": 167.0, "mh_boxer_16": 169.0, "mh_boxer_17": 166.0}
-## The region's women's lightweights (Data.lucy, OPPONENTS, MISMATCH, RIVALS), one body each. Sophie Turner waits for her own body (S332: mh_boxer_18 came out with a man's face) and takes one by her name meanwhile.
+	"mh_boxer_14": 170.0, "mh_boxer_15": 167.0, "mh_boxer_16": 169.0, "mh_boxer_17": 166.0, "mh_boxer_18": 168.0}
+## The region's women's lightweights (Data.lucy, OPPONENTS, MISMATCH, RIVALS), one body each. S333: Erin, Dana and Sophie
+## (a new 18) are blends of the best faces (Tools/metahuman face_blend; operator "make them all hotter").
 const CAST := {"Lucy Jackson": "mh_boxer_11", "Maria Ortega": "mh_boxer_13", "Priya Nair": "mh_boxer_14",
 	"Erin Doyle": "mh_boxer_15", "Dana Whitfield": "mh_boxer_16", "Chloe Bennett": "mh_boxer_17",
-	"Aisha Rahman": "mh_boxer_10", "Megan Hughes": "mh_boxer_12"}
+	"Aisha Rahman": "mh_boxer_10", "Megan Hughes": "mh_boxer_12", "Sophie Turner": "mh_boxer_18"}
 
 
 static func stem(f: Dictionary) -> String:

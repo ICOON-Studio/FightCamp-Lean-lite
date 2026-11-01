@@ -5,7 +5,7 @@ extends RefCounted
 ## S309 (operator on update 9: "fix the wording"): two women in the ring, so every line names who it means
 ## (names = [hers, the opponent's]); the grade reads as a sentence, coloured by how well she does it.
 
-const UI := preload("res://scripts/ui/UI.gd")
+const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 const GRADE_COLOR := {"Good": Color("#6cc27a"), "OK": Color("#f0a020"), "Poor": Color("#e06060")}

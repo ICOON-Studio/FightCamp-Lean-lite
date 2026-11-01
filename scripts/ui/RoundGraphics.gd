@@ -6,7 +6,7 @@
 ##   strip(exchanges)  versus(rows, names)  energy(a, b)  rounds(rounds)  judges(rounds, cards)  decided(lines)
 ##   tile(title, value, colour)  totals(exchanges)
 
-const UI := preload("res://scripts/ui/UI.gd")
+const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
 
@@ -38,6 +38,8 @@ static func strip(exchanges: Array) -> HBoxContainer:
 			said_c = Color("#d9ffd9") if worked else Color("#ffd2cc")
 		elif str(x.get("setup", "")) != "":
 			said = "SET-UP"
+		elif not (x.get("read", {}) as Dictionary).is_empty():   # S333 THE READ
+			said = "READ IT" if str(x["read"]["result"]) == "landed" else "WENT EARLY"
 		var s := UI.label(said if said != "" else " ", UI.TINY, said_c, "bold")
 		s.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(s)
