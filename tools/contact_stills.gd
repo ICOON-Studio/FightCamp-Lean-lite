@@ -7,6 +7,7 @@ extends SceneTree
 ##       --audio-driver Dummy --fixed-fps 30 --script res://tools/contact_stills.gd -- <out_dir> [<prefix>] [<arms>]
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
+const FastDraw := preload("res://tools/fast_draw.gd")
 const MAX := 4
 const SECS := 150.0
 
@@ -18,6 +19,7 @@ func _initialize() -> void:
 	var out_dir: String = args[0] if args.size() > 0 else "user://contact"
 	var prefix: String = args[1] if args.size() > 1 else "contact"
 	DirAccess.make_dir_recursive_absolute(out_dir)
+	FastDraw.begin()
 	root.size = Vector2i(1920, 1080)
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)
@@ -37,9 +39,9 @@ func _initialize() -> void:
 			seen += 1
 			if str(r["phase"]) != "inside" or float(r.get("w", 0.0)) <= 0.0 or saved >= MAX:
 				continue
-			await RenderingServer.frame_post_draw
+			var img: Image = await FastDraw.shot(self)
 			var path := out_dir.path_join("%s_%d_%s_miss%02dcm.png" % [prefix, saved, str(r["move"]), int(float(r["miss"]) * 100.0)])
-			root.get_texture().get_image().save_png(path)
+			img.save_png(path)
 			print("CONTACT wrote ", path, " t=%.1f" % float(view.t))
 			saved += 1
 	quit(0)

@@ -11,6 +11,7 @@ const H := 1080
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
+const FastDraw := preload("res://tools/fast_draw.gd")
 
 var main: Node
 var out_dir := "user://fight3d_play"
@@ -22,6 +23,7 @@ func _initialize() -> void:
 	if not args.is_empty():
 		out_dir = args[0]
 	DirAccess.make_dir_recursive_absolute(out_dir)
+	FastDraw.begin()
 	root.size = Vector2i(W, H)
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)
@@ -156,9 +158,9 @@ func _until(cond: Callable, max_s: float) -> void:
 
 func _shot(name: String, after_s: float) -> void:
 	await create_timer(after_s).timeout
-	await RenderingServer.frame_post_draw
+	var img: Image = await FastDraw.shot(self)
 	var path := out_dir.path_join(name + ".png")
-	root.get_texture().get_image().save_png(path)
+	img.save_png(path)
 	print("wrote ", path)
 
 

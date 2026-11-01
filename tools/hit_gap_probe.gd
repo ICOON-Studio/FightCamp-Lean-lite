@@ -8,6 +8,7 @@ extends SceneTree
 ## Prints HIT_GAP lines.
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
+const FastDraw := preload("res://tools/fast_draw.gd")
 const MISS_M := 0.15
 
 var main: Node
@@ -18,6 +19,7 @@ func _initialize() -> void:
 	for a in OS.get_cmdline_user_args():
 		if str(a).begins_with("secs="):
 			secs = float(str(a).trim_prefix("secs="))
+	FastDraw.begin()
 	root.size = Vector2i(1280, 720)
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)

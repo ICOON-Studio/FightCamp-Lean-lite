@@ -8,6 +8,7 @@ extends SceneTree
 ##       --audio-driver Dummy --fixed-fps 30 --script res://tools/inside_guard_probe.gd [-- noinguard]
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
+const FastDraw := preload("res://tools/fast_draw.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const STOP_S := 90.0
 const BONES := ["Head", "Chest", "Hips", "LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm", "LeftHand", "RightHand", "LeftMiddleProximal", "RightMiddleProximal"]
@@ -25,6 +26,7 @@ const HEADS_M := 0.16
 
 
 func _initialize() -> void:
+	FastDraw.begin()
 	root.size = Vector2i(1280, 720)
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)

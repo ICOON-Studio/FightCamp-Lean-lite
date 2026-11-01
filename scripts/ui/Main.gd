@@ -75,6 +75,10 @@ func _ready() -> void:
 	add_child(_toast_timer)
 	render()
 	# S310: the ops board's Play buttons start the build at the part to test (TestJump: `-- jump=fight`).
+	# S335: the ground-move browser (GrappleMap prototype, outside the boxing game) opens on its own: `-- jump=grapple`.
+	if OS.get_cmdline_user_args().has("jump=grapple"):
+		get_tree().change_scene_to_file.call_deferred("res://scenes/dev/GrappleBrowser.tscn")
+		return
 	var jump := jump_override if TestJump.JUMPS.has(jump_override) else TestJump.wanted(OS.get_cmdline_user_args())
 	if jump != "":
 		(func():
