@@ -31,6 +31,16 @@ const SHOTS := [
 	{"name": "shoulder", "dist": 1.75, "h": 1.78, "look_h": 1.25, "fov": 40.0, "yaw": 0.0, "orbit": 0.0},
 ]
 const HOLD_S := Vector2(4.0, 7.5)
+## S347 (operator: "this transparent rope on all your stills start to become annoying, why you do not change angle?"):
+## the lens stands INSIDE the ropes, IN_M in from them, so no rope is ever between it and the pair - the ropes are only
+## behind them (the tape room's rule, TapeFilm). A shot whose spot is outside turns toward the open ring, smallest turn
+## first (TURNS, deg); with no room at its distance anywhere it comes closer (down to MIN_DIST_M) and widens so the
+## frame keeps HALF_H_M above and below the pair's middle (the side shot's own framing: 3.0 m at fov 36).
+const RING_HALF_M := 2.75     # FightStage.RING_M * 0.5
+const IN_M := 0.4
+const MIN_DIST_M := 1.9
+const HALF_H_M := 1.0
+const TURNS := [0.0, 25.0, -25.0, 50.0, -50.0, 80.0, -80.0, 115.0, -115.0, 150.0, -150.0, 180.0]
 ## S317 motion blur (operator: "go ahead" on the download): sphynx-owner's Godot Motion Blur Addon v1.1.1 (MIT, per-object
 ## velocity blur as a compositor effect; needs his Easy Compositor Addon v1.0.4, MIT) - res://addons. The reference's fast
 ## punches smear; ours stepped frame to frame. Camera rotation counts little (an orbit should not smear the ring); a cut
@@ -97,20 +107,27 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 	_lens(false)
 	var want_pos: Vector3
 	var want_look: Vector3
+	fov = float(sh["fov"])
+	var over_spot := Vector3.INF
 	if str(sh["name"]) == "shoulder":
-		# Behind one boxer's shoulder, a little to the camera's side, onto the other's face.
+		# Behind one boxer's shoulder, a little to the camera's side, onto the other's face (not with her back to the
+		# ropes: that spot is outside them - the side shot instead).
 		var near: Vector3 = a if _over == 0 else b
 		var far: Vector3 = b if _over == 0 else a
 		var axis := (far - near).normalized()
-		want_pos = near - axis * float(sh["dist"]) + side * 0.95 + Vector3(0, float(sh["h"]), 0)
-		want_look = far + Vector3(0, float(sh["look_h"]), 0)
-	else:
-		var yaw := deg_to_rad(float(sh["yaw"]) + float(sh["orbit"]) * _shot_t)
-		var dir := Basis(Vector3.UP, yaw) * side
-		want_pos = mid + dir * float(sh["dist"]) + Vector3(0, float(sh["h"]), 0)
-		want_look = mid + Vector3(0, float(sh["look_h"]), 0)
+		var at := near - axis * float(sh["dist"]) + side * 0.95
+		if inside(at):
+			over_spot = at
+			want_pos = at + Vector3(0, float(sh["h"]), 0)
+			want_look = far + Vector3(0, float(sh["look_h"]), 0)
+	if over_spot == Vector3.INF:
+		var lens_sh: Dictionary = sh if str(sh["name"]) != "shoulder" else SHOTS[0]
+		var yaw := deg_to_rad(float(lens_sh["yaw"]) + float(lens_sh["orbit"]) * _shot_t)
+		var sp := spot_inside(mid, Basis(Vector3.UP, yaw) * side, float(lens_sh["dist"]))
+		want_pos = (sp[0] as Vector3) + Vector3(0, float(lens_sh["h"]), 0)
+		want_look = mid + Vector3(0, float(lens_sh["look_h"]), 0)
+		fov = maxf(float(lens_sh["fov"]), rad_to_deg(2.0 * atan(HALF_H_M / maxf(float(sp[1]), 0.5))))
 	(attributes as CameraAttributesPractical).dof_blur_far_distance = want_pos.distance_to(want_look) + 1.6
-	fov = float(sh["fov"])
 	if cut:
 		_place_lens(want_pos, want_look)
 		return
@@ -128,7 +145,39 @@ func close_up(a: Vector3, b: Vector3, head_y: float, hit: int) -> void:
 	fov = 32.0
 	(attributes as CameraAttributesPractical).dof_blur_far_distance = 2.5 + 1.2
 	var hitter := axis if hit == 1 else -axis
-	_place_lens(mid + side * 2.5 - hitter * 0.15 + Vector3(0, 0.08, 0), mid)
+	var flat := Vector3(mid.x, 0.0, mid.z) - hitter * 0.15
+	var sp := spot_inside(flat, side, 2.5)
+	fov = maxf(32.0, rad_to_deg(2.0 * atan(0.7 / maxf(float(sp[1]), 0.5))))
+	_place_lens((sp[0] as Vector3) + Vector3(0, mid.y + 0.08, 0), mid)
+
+
+## S347: a lens spot (flat, y 0) inside the ropes.
+static func inside(p: Vector3) -> bool:
+	var half := RING_HALF_M - IN_M
+	return absf(p.x) <= half and absf(p.z) <= half
+
+
+## The lens spot for a shot at `dist` from `mid` along `dir` (flat): the smallest turn that stands it inside the ropes;
+## else the turn with the most room, as far out as it fits; else (no room even at MIN_DIST_M) the line to the ring's
+## middle. Returns [spot (flat), distance].
+static func spot_inside(mid: Vector3, dir: Vector3, dist: float) -> Array:
+	var c := Vector3(mid.x, 0.0, mid.z)
+	var best_room := -1.0
+	var best_dir := dir
+	for t in TURNS:
+		var d: Vector3 = Basis(Vector3.UP, deg_to_rad(float(t))) * dir
+		if inside(c + d * dist):
+			return [c + d * dist, dist]
+		var room := dist - 0.1
+		while room > MIN_DIST_M and not inside(c + d * room):
+			room -= 0.1
+		if room > best_room and inside(c + d * room):
+			best_room = room
+			best_dir = d
+	if best_room < 0.0:
+		best_room = MIN_DIST_M
+		best_dir = -c.normalized() if c.length() > 0.1 else dir
+	return [c + best_dir * best_room, best_room]
 
 
 func _side_of(a: Vector3, b: Vector3) -> Vector3:

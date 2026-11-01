@@ -9,6 +9,7 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const ShortPunch := preload("res://scripts/rules/ShortPunch.gd")
+const TellPose := preload("res://scripts/fight3d/TellPose.gd")
 ## A short punch's join: half-life, length (s). Between the strike's (0.06, 0.3) and the guard return's (0.1, 0.45).
 const SHORT_JOIN := Vector2(0.09, 0.35)
 
@@ -32,6 +33,9 @@ func fire(v: Node, b: Dictionary) -> void:
 	var who := 0 if str(b["who"]) == "a" else 1
 	var other := 1 - who
 	var move := str(b["move"])
+	if b.has("tell"):
+		var contact: float = BeatClips.contact(move, float(Stage.CONTACT.get(move, Stage.CONTACT_S))) if move in Stage.CONTACT else 0.0
+		TellPose.apply(stage, who, str(b["tell"]), contact)
 	match move:
 		"say", "inside":
 			pass   # S314: an inside spell only moves the range (RangeBreath)
