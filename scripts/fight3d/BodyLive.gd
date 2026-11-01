@@ -48,7 +48,9 @@ func _build() -> void:
 	for side in 2:
 		var panel := PanelContainer.new()
 		panel.name = "BodyPanel%d" % side
-		panel.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.72), UI.LINE, 6, 1, 8, 6))
+		# S347 (operator: "use your skills to lighten the ui/hud"): a faint glass panel, no frame; the key and her name under
+		# the figure are gone - the key and her punch stats are the figure's tooltip (off a place; on a place, the place).
+		panel.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.28), Color(0, 0, 0, 0), 10, 0, 8, 6))
 		var col := VBoxContainer.new()
 		col.add_theme_constant_override("separation", 2)
 		panel.add_child(col)
@@ -59,13 +61,7 @@ func _build() -> void:
 		if not BodyTurn.attach(fig, glb, CORNER[side]):   # S334 C153: she turns slowly; the still portrait when never baked
 			fig.set_portrait(BodyFigure.portrait_for(glb, CORNER[side]))
 		col.add_child(fig)
-		col.add_child(_track_key())
-		# S345 FIGHTHUD2 "no numbers on screen": the punch stats are the tooltip of her name under the figure.
-		var who := UI.label(str(view._names[side]).get_slice(" ", 0).to_upper(), UI.TINY, Color(0.95, 0.4, 0.35) if side == 0 else Color(0.5, 0.65, 1.0), "bold")
-		who.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		who.mouse_filter = Control.MOUSE_FILTER_PASS
-		col.add_child(who)
-		_stat_labels.append(who)
+		_stat_labels.append(fig)
 		view.add_child(panel)
 		if side == 0:
 			panel.position = Vector2(EDGE, TOP)
@@ -81,16 +77,9 @@ func _build() -> void:
 	_paint_stats()
 
 
-## S323 playtest ("blue = fresh is not obvious"): the body view's key under each figure, in its own colours.
-func _track_key() -> HBoxContainer:
-	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", 5)
-	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	for pair in [["FRESH", 12.0], ["WARM", 37.5], ["HOT", 62.5], ["BURNING", 87.5]]:
-		# S324: a fresh part shows her own skin (BodyFigure.FRESH_END), so FRESH reads in plain grey.
-		var c: Color = Color(0.78, 0.78, 0.8) if str(pair[0]) == "FRESH" else BodyTrack.colour(float(pair[1]))
-		row.add_child(UI.label(str(pair[0]), 12, c, "bold"))
-	return row
+## S323 playtest ("blue = fresh is not obvious") gave the figure a key; S347 moved it into her tooltip (her body is clay now,
+## so fresh is plain clay).
+const KEY_WORDS := "Clay = fresh. Green = warm, yellow = hot, red = burning: how hard that part has worked.\nA ring on her face or ribs = hurt there."
 
 
 ## A beat FightView fires; a landed punch reaches the other boxer `at_s` from now (its contact).
@@ -136,11 +125,9 @@ func _paint_stats() -> void:
 	for side in mini(2, _stat_labels.size()):
 		var st: Dictionary = stats[side]
 		var acc := 0 if int(st["thrown"]) == 0 else int(round(100.0 * int(st["landed"]) / int(st["thrown"])))
-		(_stat_labels[side] as Label).tooltip_text = "LANDED %d/%d %d%%
-JABS   %d/%d
-POWER  %d/%d
-BODY   %d" % [st["landed"], st["thrown"], acc,
-			st["jab_l"], st["jab_t"], st["pow_l"], st["pow_t"], st["body"]]
+		_stat_labels[side].set("extra_tip", "%s\nLANDED %d/%d %d%%\nJABS   %d/%d\nPOWER  %d/%d\nBODY   %d\n\n%s" % [
+			str(view._names[side]).to_upper(), st["landed"], st["thrown"], acc,
+			st["jab_l"], st["jab_t"], st["pow_l"], st["pow_t"], st["body"], KEY_WORDS])
 
 
 ## SKIP ROUND: the round is settled (Bouts "round_out"); its unwatched exchanges are built into the view's beats and

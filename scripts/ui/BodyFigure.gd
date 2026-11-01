@@ -430,10 +430,15 @@ func place_at(local_pos: Vector2) -> String:
 	return best
 
 
+## S347 (operator: "lighten the ui/hud"): off a place, the figure's own words (the fight HUD puts the colour key and her
+## punch stats here instead of on screen).
+var extra_tip := ""
+
+
 func _get_tooltip(at_position: Vector2) -> String:
 	var p: String = place_at(at_position)
 	if p == "":
-		return ""
+		return extra_tip
 	tooltip_text = tip_of(p)
 	return tooltip_text
 

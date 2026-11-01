@@ -1,20 +1,20 @@
-# S346 - next session (written S345, 2026-11-01)
+# S348 - next session (written S347, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
-S345 shipped FIGHTHUD2 (six bars a boxer + round edge + '?' until scouted) and verified the MOVEPLAYER1 merge on the GPU
-(probe 5/5, contact stills). Digest: Game\Godot\research\S345_DIGEST.md. OPERATOR RULE S338: agents do animations, Claude
-does mechanics + UI. hidden_desktop.py drops stdout: pass Godot `--log-file <path>` and grep that.
+S347 shipped update 48: every fight camera inside the ropes (no see-through rope), a lighter HUD in our colours (rings in
+her corner colour, ivory body ring, clay body view, key + stats in tooltips), TELLS1 (her tells on her body). Digest:
+Game\Godot\research\S347_DIGEST.md. OPERATOR S347: BJJ in parallel with boxing, AND training mechanics, menus, fighter
+profile. OPERATOR RULE S338: agents do animations, Claude does mechanics + UI. hidden_desktop drops stdout: Godot
+`--log-file <path>`. A SceneTree still tool must set `stage.camera.close = true` or the ring's director moves the lens.
 
-1. Board review: the operator's comments on the S345 stills (HUD scouted/unscouted, move player contacts) - act on each.
-2. COLLECT with the visual gate ON THE REAL GPU, re-measuring every agent probe yourself (read the probe code first):
-   - FIGHTCARD1 r5 (Cursor, wt E:\FightCamp\wt\LEAN_FIGHTCARD1, out E:\FightCamp\tmp\FIGHTCARD1_r5_out.txt; it was alive
-     rendering card=own_ropes at 13:35 - the reconcile's "dead" was a wrong worktree name): render tools/fight3d_play.gd
-     card=own_ropes / card=corner; the referee never in the lens, both women head to feet.
-   - TELLS1 r2 (Goose #17, run 41301350509): tools/tell_probe.gd windowed TELL OK 4/4 (check it AWAITS its measurements),
-     then tools/taperoom_still.gd opp=0,2,megan.
-   - PADWORK1 r3 (Goose #13, 5633c78) and CLINCH2 (Goose #14, 31ccc38): stills on the GPU before any merge.
-3. MOVEPLAYER1 wiring: put the player (scripts/fight3d/MovePlayer.gd, verified S345) in the move map's bottom-left -
-   bottom card row SPOT y 0.74 -> 0.64, the key behind a "?", a click on a move or a plan row's TV icon plays it;
-   DisplayServer headless = no player. Then close Goose #16.
-4. TAPEFIGHT1 once TELLS1 is in; then the scout trip + OPPPLAN1.
-5. Tie-up flow cards have no stills yet (words only) - bake them when wrestling returns.
+1. Board: answers to Q-S294-71 (Playbook) and comments on the S347 stills (camera, HUD, tells). Act on each.
+2. Flow view (scripts/ui/FlowView.gd) in the whiteboard menu colours: C191/C192 "not in par with other menu colours"
+   (paper background, white cards, marker-blue titles, the menus' UI.gd palette, not TV.gd).
+3. Collect on the GPU with the visual gate: PADWORK1 r3 (Goose #13, 5633c78) and CLINCH2 (Goose #14, 31ccc38). Probes
+   read the pose AS SHOWN (skeleton_updated), never get_bone_global_pose from outside the modifiers.
+4. Delegate (first hour): GROUND3 - the BJJ paper rules (positions, moves, odds from research/topics/ground.md + G75) to
+   Qwen or Arena; SMOOTH3 - which fight layer kinks the motion (tools/smooth_probe.gd control arms; SMOOTH2 measured 344
+   kinks/min, 168 at clip changes) - code audit of the clip-change joins first (two red rounds).
+5. Training mechanics, menus, fighter profile; the Playbook page once Q-S294-71 is yes (PLAYBOOK_S347.md build order).
+6. Corner cards under the new lens: FIGHTCARD1's CARD probe (branch cursor/fightcard1, tools/fight3d_play.gd card=corner)
+   on main's camera.

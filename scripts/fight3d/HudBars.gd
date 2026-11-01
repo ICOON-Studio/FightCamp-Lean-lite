@@ -22,6 +22,7 @@ const TOP := 24.0
 const RINGS_PX := 200.0
 const ICON_PX := 16
 const SIDE_COLOUR := [Color(0.95, 0.4, 0.35), Color(0.5, 0.65, 1.0)]
+const IVORY := Color("#efe8dc")
 const ICON := {"head": "user", "body": "shirt", "legs": "footprints", "stamina": "zap", "guard": "shield", "heart": "heart"}
 const WORDS := {
 	"head": "Head: the worst of her head, eyes and nose. The grey never comes back this fight (cuts, swelling).",
@@ -69,7 +70,8 @@ func _build() -> void:
 	for side in 2:
 		var panel := PanelContainer.new()
 		panel.name = "Bars%d" % side
-		panel.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.82), UI.LINE, 6, 1, 14, 10))
+		# S347 (operator: "lighten the ui/hud"): a faint glass panel, no frame.
+		panel.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.38), Color(0, 0, 0, 0), 10, 0, 14, 10))
 		var col := UI.vbox(5)
 		panel.add_child(col)
 		var top := UI.hbox(8)
@@ -90,6 +92,7 @@ func _build() -> void:
 		for key in FightMeters.ORDER:
 			var m := Arc.new()
 			m.kind = key
+			m.side = side
 			rings.arcs[key] = m
 			meters[side][key] = m
 		view.add_child(panel)
@@ -218,6 +221,7 @@ func _guard_call(bar: Dictionary) -> void:
 class Arc extends RefCounted:
 	const EASE_S := 0.35
 	var kind := ""
+	var side := 0
 	var fill := -1.0
 	var keep := 1.0
 	var known := true
@@ -253,14 +257,12 @@ class Arc extends RefCounted:
 
 	func colour() -> Color:
 		var v := maxf(fill, 0.0)
-		match kind:
-			"stamina":
-				return Color("#f2c94c") if v >= 0.3 else Color("#f0a020")
-			"guard":
-				return Color("#e9e6f2") if v >= 0.5 else Color("#f0a020")
-			"heart":
-				return Color("#a37bff") if v >= 0.3 else Color("#e0503c")
-		return [Color("#6cc27a"), Color("#f0a020"), Color("#e0503c")][band_of(v)]
+		# S347 (operator C193: "it reminds ufc6 too much"): no rainbow of yellow / white / purple / green. Her engine
+		# (stamina, guard, heart) in her corner's colour, her body (head, body, legs) ivory while fine - amber, then red,
+		# only when it matters, so the eye goes where something happened.
+		if kind in ["stamina", "guard", "heart"]:
+			return SIDE_COLOUR[side] if v >= 0.3 else Color("#f0a020")
+		return [IVORY, Color("#f0a020"), Color("#e0503c")][band_of(v)]
 
 
 ## Two rings, one inside the other, three arcs each (C186): the inner her body, the outer her engine. Each arc fills from

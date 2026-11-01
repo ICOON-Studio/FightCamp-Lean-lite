@@ -60,6 +60,7 @@ var _side := Vector3.LEFT     # the side of the pair the camera is on (it never 
 var _clock := 0.0
 var _shake := 0.0             # metres, decaying
 var _shake_t := 0.0
+var _turn := 0.0              # S347: the turn (deg) the inside-the-ropes lens holds
 
 
 func _init() -> void:
@@ -123,7 +124,8 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 	if over_spot == Vector3.INF:
 		var lens_sh: Dictionary = sh if str(sh["name"]) != "shoulder" else SHOTS[0]
 		var yaw := deg_to_rad(float(lens_sh["yaw"]) + float(lens_sh["orbit"]) * _shot_t)
-		var sp := spot_inside(mid, Basis(Vector3.UP, yaw) * side, float(lens_sh["dist"]))
+		var sp := spot_inside(mid, Basis(Vector3.UP, yaw) * side, float(lens_sh["dist"]), 0.0 if cut else _turn)
+		_turn = float(sp[2])
 		want_pos = (sp[0] as Vector3) + Vector3(0, float(lens_sh["h"]), 0)
 		want_look = mid + Vector3(0, float(lens_sh["look_h"]), 0)
 		fov = maxf(float(lens_sh["fov"]), rad_to_deg(2.0 * atan(HALF_H_M / maxf(float(sp[1]), 0.5))))
@@ -160,14 +162,16 @@ static func inside(p: Vector3) -> bool:
 ## The lens spot for a shot at `dist` from `mid` along `dir` (flat): the smallest turn that stands it inside the ropes;
 ## else the turn with the most room, as far out as it fits; else (no room even at MIN_DIST_M) the line to the ring's
 ## middle. Returns [spot (flat), distance].
-static func spot_inside(mid: Vector3, dir: Vector3, dist: float) -> Array:
+static func spot_inside(mid: Vector3, dir: Vector3, dist: float, keep_turn: float = 0.0) -> Array:
 	var c := Vector3(mid.x, 0.0, mid.z)
 	var best_room := -1.0
 	var best_dir := dir
-	for t in TURNS:
+	# S347 (operator: the fight must look smooth): the turn the lens already holds is tried first, so near the ropes it never
+	# flips between two turns that both fit.
+	for t in [keep_turn] + TURNS:
 		var d: Vector3 = Basis(Vector3.UP, deg_to_rad(float(t))) * dir
 		if inside(c + d * dist):
-			return [c + d * dist, dist]
+			return [c + d * dist, dist, float(t)]
 		var room := dist - 0.1
 		while room > MIN_DIST_M and not inside(c + d * room):
 			room -= 0.1
@@ -177,7 +181,7 @@ static func spot_inside(mid: Vector3, dir: Vector3, dist: float) -> Array:
 	if best_room < 0.0:
 		best_room = MIN_DIST_M
 		best_dir = -c.normalized() if c.length() > 0.1 else dir
-	return [c + best_dir * best_room, best_room]
+	return [c + best_dir * best_room, best_room, keep_turn]
 
 
 func _side_of(a: Vector3, b: Vector3) -> Vector3:
