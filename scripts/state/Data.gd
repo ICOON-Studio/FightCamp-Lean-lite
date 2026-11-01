@@ -139,12 +139,14 @@ const DIVISION_RIVALS: Array[Dictionary] = [
 ]
 
 ## The prospects scouting can bring in for a trial. Before a trial only a range is known (stat +/- SCOUT_SPREAD).
+## S334 (operator Q-S294-55 "make some younger too 16-18 yo"): Kira and Samira are 18, with their own young faces
+## (Faces.CAST); under 19 they cannot enter the Elite Nationals yet (SeasonPath.AGE_MIN) - a girl to bring up.
 const SCOUT_SPREAD := 5
 const PROSPECTS: Array[Dictionary] = [
-	{"id": "kira", "name": "Kira Mensah", "first": "Kira", "age": 20, "wc": "Featherweight", "div": "wfw", "weight": 58.3,
+	{"id": "kira", "name": "Kira Mensah", "first": "Kira", "age": 18, "wc": "Featherweight", "div": "wfw", "weight": 58.3,
 		"stance": "orthodox", "style": "Out-boxer", "w": 1, "l": 0, "pot": 86, "note": "fast hands, thin chin",
 		"stats": {"power": 54.0, "speed": 66.5, "technique": 59.0, "defense": 57.5, "conditioning": 58.0, "fight_iq": 57.0, "chin": 52.0}},
-	{"id": "samira", "name": "Samira Okafor", "first": "Samira", "age": 19, "wc": "Welterweight", "div": "www", "weight": 67.4,
+	{"id": "samira", "name": "Samira Khan", "first": "Samira", "age": 18, "wc": "Welterweight", "div": "www", "weight": 67.4,
 		"stance": "orthodox", "style": "Slugger", "w": 2, "l": 1, "pot": 82, "note": "raw power, no defence",
 		"stats": {"power": 66.0, "speed": 57.0, "technique": 54.5, "defense": 50.5, "conditioning": 60.0, "fight_iq": 54.0, "chin": 63.0}},
 	{"id": "tess", "name": "Tess Reilly", "first": "Tess", "age": 23, "wc": "Middleweight", "div": "wmw", "weight": 76.1,
