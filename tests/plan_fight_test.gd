@@ -110,6 +110,31 @@ func _initialize() -> void:
 	_check(not PlanFight.corner_options(plan, MASTERY, 3, ["outside"]).any(func(o): return str(o["was"]) == ""), "at the coach's limit: no new arrows, changes only")
 	_check(PlanFight.fought_cards([{"at": "long"}, {"at": "mid"}, {"at": "mid"}]) == ["mid", "long"], "fought cards, most first")
 
+	# S342 real fight plans (operator Q-S294-67 "Yes, apply all 5", REALPLANS_S341.md s3).
+	_check(PlanFight.fit("push_off", "press") == "ok", "vs a presser: meet her and push her back works (Holyfield-Tyson)")
+	_check(PlanFight.fit("1-1", "range") == "ok" and PlanFight.fit("1-2", "range") == "best",
+		"vs a range boxer the jab rides the walk-down (Fury-Wilder II): 1-1 ok, 1-2 best")
+	_check(PlanFight.fit("step_in", "loadup") == "ok" and PlanFight.fit("tie_up", "loadup") == "best",
+		"vs a loader, closing works (Fury, Holyfield): step in ok, tie up best")
+	_check(PlanFight.fit("1-2-3b", "counter") == "ok", "vs a waiter, body combinations work (Lopez)")
+	_check(PlanFight.refine("hurt", ["loads_up_when_hurt"], 2, 6) == "hurt_danger" and PlanFight.refine("hurt", ["fades_late"], 2, 6) == "hurt",
+		"a hurt opponent who still hits back is its own situation")
+	_check(PlanFight.fit("1-2-3-2", "hurt_danger") == "wrong" and PlanFight.fit("2-3", "hurt_danger") == "wrong"
+		and PlanFight.fit("1-2", "hurt_danger") == "best" and PlanFight.fit("1-2-3-2", "hurt") == "best",
+		"hurt but dangerous: no wide flurries, straight punches first (Joshua-Ruiz I); plain hurt still finishes")
+	_check(PlanFight.refine("counter", [], 5, 6) == "counter_late" and PlanFight.refine("counter", [], 4, 6) == "counter"
+		and PlanFight.fit("1-2-3-2", "counter_late") == "ok" and PlanFight.fit("1-2-3-2", "counter") == "wrong",
+		"vs a waiter the flurry is right only in the round's last exchange (Taylor-Ochigava)")
+	var known_ids := {}
+	for m in StrikeMap.MOVES:
+		known_ids[str(m["id"]).get_slice("@", 0)] = true
+	var extra_ok := true
+	for sit in ["hurt_danger", "counter_late"]:
+		for k in ["best", "ok", "wrong"]:
+			for id in PlanFight.ANSWERS[sit][k]:
+				extra_ok = extra_ok and known_ids.has(str(id))
+	_check(extra_ok, "the two refined rows use only moves on the map")
+
 	print("PLAN_FIGHT failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

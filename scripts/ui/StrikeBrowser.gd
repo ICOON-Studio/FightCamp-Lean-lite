@@ -21,6 +21,8 @@ const FlowView := preload("res://scripts/ui/FlowView.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const PlanTemplates := preload("res://scripts/rules/PlanTemplates.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
+const Icons := preload("res://scripts/ui/Icons.gd")
+const MapLegend := preload("res://scripts/ui/MapLegend.gd")
 const PANEL_W := 470
 ## Her punches for the prototype (mastery 0-100; a combo opens when each of its punches reaches Combos.LEARN_AT, 30).
 const DEMO_MASTERY := {"Jab": 60.0, "Cross": 55.0, "Lead hook": 45.0, "Body hook": 25.0, "Uppercut": 10.0, "Check hook": 0.0}
@@ -194,17 +196,19 @@ func _arrow_at(card_id: String) -> int:
 ## S341 the WHEN picker: which of the opponent's games the next arrow answers.
 func _when_picker() -> Control:
 	var box := UI.vbox(6)
-	box.add_child(UI.caps("WHEN"))
-	box.add_child(UI.muted("The next move you pick is her answer to this.", UI.TINY, true))
+	var head := UI.hbox(6)
+	head.add_child(UI.caps("WHEN"))
+	head.add_child(Icons.icon("info", 16, UI.MUTED, "The next move you pick is her answer to this.\nAny time: she throws it whatever the opponent does."))
+	box.add_child(head)
 	var flow := HFlowContainer.new()
-	flow.add_theme_constant_override("h_separation", 6)
-	flow.add_theme_constant_override("v_separation", 6)
+	flow.add_theme_constant_override("h_separation", 4)
+	flow.add_theme_constant_override("v_separation", 4)
 	box.add_child(flow)
 	var ids: Array = [""] + FightFlow.WHEN_WORDS.keys()
 	for id in ids:
 		var key := str(id)
-		var words := "Any time" if key == "" else "If " + str(FightFlow.WHEN_WORDS[key])
-		flow.add_child(UI.button(words, "ChoiceOn" if key == when else "Choice", func(): when = key; go(current)))
+		var words := "Any time" if key == "" else str(FightFlow.WHEN_WORDS[key])
+		flow.add_child(UI.button(words, "PillOn" if key == when else "Pill", func(): when = key; go(current)))
 	return box
 
 
@@ -305,18 +309,19 @@ func _template_list() -> Control:
 	var rows: Array = PlanTemplates.BOXING.duplicate()
 	rows.sort_custom(func(a, b): return mine.has(a["id"]) and not mine.has(b["id"]))
 	for t in rows:
-		var card := UI.vbox(3)
-		card.add_child(UI.label(("FOR HER NEXT FIGHT: " if mine.has(t["id"]) else "") + str(t["name"]), UI.SMALL, UI.GOLD if mine.has(t["id"]) else UI.FG, "bold", true))
-		card.add_child(UI.muted("From " + str(t["from"]), UI.TINY, true))
-		card.add_child(UI.label(str(t["idea"]), UI.TINY, UI.FG, "italic", true))
 		var tt: Dictionary = t
-		var load := UI.button("Load (%d arrows)" % mini((t["arrows"] as Array).size(), _arrow_limit()), "BtnQuiet", func():
+		var n := mini((t["arrows"] as Array).size(), _arrow_limit())
+		var row := UI.hbox(6)
+		var is_mine: bool = mine.has(t["id"])
+		row.add_child(Icons.icon("target" if is_mine else "play", 16, UI.GOLD if is_mine else UI.LINE, "Made for her next opponent's game." if is_mine else ""))
+		var name := UI.label(str(t["name"]), UI.SMALL, UI.GOLD if is_mine else UI.FG, "semi", true)
+		name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(Icons.tip(name, "From %s\n%s" % [t["from"], t["idea"]]))
+		row.add_child(Icons.button("load", "Load it: %d arrows onto her board" % n, func():
 			plan = PlanTemplates.load(tt, _arrow_limit(), plan, Map.MOVES)
 			templates = false
-			go(current))
-		load.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		card.add_child(load)
-		box.add_child(card)
+			go(current)))
+		box.add_child(row)
 	return box
 
 
@@ -338,7 +343,16 @@ func _layout() -> void:
 		var b := UI.button2(str(c["name"]), "%d out  %d in" % [Map.outs(id).size(), Map.ins(id).size()], "ChoiceOn" if lit else "Choice",
 			func(): route.clear(); go(id), CARD, UI.FG, UI.MUTED, false, UI.BODY, UI.TINY)
 		b.position = at
+		b.tooltip_text = "%d moves start here, %d end here" % [Map.outs(id).size(), Map.ins(id).size()]
 		_map.add_child(b)
+	# S342 the key (operator C161 "can we have more explaining on this"), in the map's empty bottom-left.
+	var key := MapLegend.build(plan_mode)
+	_map.add_child(key)
+	key.anchor_top = 1.0
+	key.anchor_bottom = 1.0
+	key.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	key.offset_left = 16.0
+	key.offset_bottom = -16.0
 	_map.queue_redraw()
 
 

@@ -110,6 +110,9 @@ static func theme() -> Theme:
 	_button(t, "TabOn", PANEL, clear, GOLD, clear, 8, 16, 10, "bold", 17)
 	_button(t, "Choice", PANEL, LINE, FG, MUTED, 10, 14, 12, "semi", BODY)
 	_button(t, "ChoiceOn", PANEL2, GOLD, FG, GOLD, 10, 14, 12, "semi", BODY)
+	# S342 small pill choices (the WHEN row): one line of chips instead of a wall of big buttons.
+	_button(t, "Pill", PANEL, LINE, MUTED, MUTED, 12, 9, 3, "semi", TINY)
+	_button(t, "PillOn", GOLD, GOLD, GOLD_INK, GOLD, 12, 9, 3, "semi", TINY)
 	_button(t, "Flag", YELLOW, YELLOW, FG, YELLOW_EDGE, 999, 14, 6, "bold", SMALL)
 	_button(t, "FlagRed", RED, RED, Color.WHITE, Color("#b8332a"), 999, 14, 6, "bold", SMALL)
 	_button(t, "Go", GOLD, GOLD, GOLD_INK, GOLD, 10, 16, 8, "bold", BODY)

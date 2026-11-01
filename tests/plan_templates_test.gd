@@ -36,15 +36,20 @@ func _initialize() -> void:
 	var maria: Dictionary = Data.OPPONENTS[0]
 	var priya: Dictionary = Data.OPPONENTS[1]
 	var ranger: Dictionary = Data.RIVALS.filter(func(r): return str(r["style"]) == "Out-boxer")[0]
-	# [template, opponent, our answer table agrees with the real plan]
-	for row in [["t_turn", maria, true], ["t_outwork", priya, true], ["t_walk", ranger, true], ["t_ground", maria, false]]:
+	# [template, opponent, gate]: "beats" = more edge and as many exchanges as the starter; "matches" = as many exchanges
+	# won and a positive edge (S342: after Q-S294-67 the starter's opening 1-2 IS the walk-down's jab - REALPLANS edit 2 -
+	# so vs a range boxer the template can only match it; the S341 t_walk read 0.535 vs 0.549 here and fails this);
+	# "report" = a real plan our table disagrees with.
+	for row in [["t_turn", maria, "beats"], ["t_outwork", priya, "beats"], ["t_walk", ranger, "matches"], ["t_ground", maria, "report"]]:
 		var t := PlanTemplates.boxing(str(row[0]))
 		var tp := _share(PlanTemplates.load(t, PlanBoard.TOP_COACH), row[1])
 		var st := _share(PlanFight.starter(), row[1])
 		print("  %s vs %s (%s): won %.3f (edge %+.2f) vs the starter plan %.3f (edge %+.2f)" % [t["name"], row[1]["first"], row[1]["style"],
 			tp[0], tp[1], st[0], st[1]])
-		if bool(row[2]):
+		if str(row[2]) == "beats":
 			_check(float(tp[1]) > float(st[1]) and float(tp[0]) >= float(st[0]) - 0.005, "%s answers %s better than the starter plan" % [t["id"], row[1]["first"]])
+		elif str(row[2]) == "matches":
+			_check(float(tp[1]) > 0.0 and float(tp[0]) >= float(st[0]) - 0.005, "%s wins as many exchanges vs %s as the starter plan, with a plan edge" % [t["id"], row[1]["first"]])
 		else:
 			print("  (real plan our answer table disagrees with - REALPLANS_S341.md section 3; reported, not gated)")
 	var merged := PlanTemplates.load(PlanTemplates.boxing("t_exits"), 6, PlanFight.starter(), StrikeMap.MOVES)

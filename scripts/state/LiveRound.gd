@@ -13,6 +13,7 @@ const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const TheRead := preload("res://scripts/rules/TheRead.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const ClinchRest := preload("res://scripts/rules/ClinchRest.gd")
+const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -220,8 +221,10 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var at := str(lv["at"])
 	var pick := PlanFight.choose(f["bout"].get("arrows", []), at, f.get("moves", {}), sit)
 	var arrow := str(pick["move"])
-	var plan_edge := PlanFight.edge(pick, sit, PlanFight.rate(arrow, f.get("combos", {})),
-		PlanFight.card_mean(at, sit, f.get("moves", {}), f.get("combos", {})))
+	# S342 real plans (Q-S294-67): a hurt opponent who still hits back, a waiter in the round's last exchange.
+	var psit := PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES)
+	var plan_edge := PlanFight.edge(pick, psit, PlanFight.rate(arrow, f.get("combos", {})),
+		PlanFight.card_mean(at, psit, f.get("moves", {}), f.get("combos", {})))
 	d += plan_edge
 	# S340 the clinch's price (operator "a small stamina refill but risk of getting hit"): its own dice, so an exchange
 	# without a tie-up plays exactly as before.
@@ -273,7 +276,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["at"] = at
 	rec["arrow"] = arrow
 	rec["planned"] = bool(pick["planned"])
-	rec["arrow_fit"] = PlanFight.fit(arrow, sit)
+	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
 	rec["plan_edge"] = plan_edge
 	rec["clinch"] = cl
 	rec["clinch_line"] = ClinchRest.line(cl, names)

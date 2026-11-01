@@ -15,6 +15,8 @@ const GROW_S := 0.45
 
 var values: Array = []
 var pot := 0.0
+## S342: off on the attributes board, where the bars beside it carry the numbers.
+var numbers := true
 var grow := 1.0:
 	set(v):
 		grow = v
@@ -72,7 +74,7 @@ func _draw() -> void:
 	draw_polyline(shape, UI.GOLD, 3.0, true)
 	for i in n:
 		draw_circle(shape[i], 4.0, UI.GOLD)
-		var text := "%s %d" % [values[i]["name"], int(floorf(float(values[i]["value"])))]
+		var text := "%s %d" % [values[i]["name"], int(floorf(float(values[i]["value"])))] if numbers else str(values[i]["name"])
 		var ts := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY)
 		var at := _point(i, r + LABEL_GAP)
 		var dir := at - size * 0.5

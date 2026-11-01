@@ -62,7 +62,7 @@ func _initialize() -> void:
 	await process_frame
 
 	_check(browser.plan.size() == 2, "plan holds 2 arrows (got %d)" % browser.plan.size())
-	_check(_arrows_label_text() == "Arrows 2 / %d" % limit, "panel reads Arrows 2 / %d" % limit)
+	_check(_arrows_label_text().begins_with("2 / %d arrows" % limit), "panel reads Arrows 2 / %d" % limit)
 	_check(not _validate_problem_shown(), "no validate problem line after two different reactions")
 
 	first = _answer_button_named("Double leg")
@@ -84,14 +84,14 @@ func _initialize() -> void:
 	_check(browser.plan.size() == limit, "plan filled to limit %d (got %d)" % [limit, browser.plan.size()])
 	_check(_all_answers_full_or_planned(limit), "full plan greys unplanned answers, planned stay enabled")
 
-	var remove := _find_button(browser._side, "Remove")
+	var remove := _find_button(browser._side, "Remove this arrow")
 	_check(remove != null, "Remove button on an arrow row")
 	if remove != null:
 		remove.pressed.emit()
 		await process_frame
 		await process_frame
 		_check(browser.plan.size() == limit - 1, "remove drops count to %d" % (limit - 1))
-		_check(_arrows_label_text() == "Arrows %d / %d" % [limit - 1, limit], "count drops on panel")
+		_check(_arrows_label_text().begins_with("%d / %d arrows" % [limit - 1, limit]), "count drops on panel")
 
 	# Plan mode off -> clip answer sets moving (TIEUPS1).
 	var done := _find_button(browser._side, "Done")
@@ -206,7 +206,7 @@ func _shows_reason(b: Button, reason: String) -> bool:
 func _validate_problem_shown() -> bool:
 	for l in browser._side.find_children("*", "Label", true, false):
 		var t := str(l.text)
-		if t.begins_with("Arrows ") or t.begins_with("Covers "):
+		if t.contains(" arrows  ·  covers "):
 			continue
 		if t == "THE PLAN" or t.begins_with("if she "):
 			continue
@@ -221,7 +221,7 @@ func _validate_problem_shown() -> bool:
 func _arrows_label_text() -> String:
 	for l in browser._side.find_children("*", "Label", true, false):
 		var t := str(l.text)
-		if t.begins_with("Arrows "):
+		if t.contains(" arrows  ·  covers "):
 			return t
 	return ""
 
@@ -229,7 +229,7 @@ func _arrows_label_text() -> String:
 func _find_button(from: Node, big: String) -> Button:
 	for b in from.find_children("*", "Button", true, false):
 		var btn: Button = b
-		if btn.text == big or _button_big_line(btn) == big:
+		if btn.text == big or btn.tooltip_text == big or _button_big_line(btn) == big:
 			return btn
 	return null
 

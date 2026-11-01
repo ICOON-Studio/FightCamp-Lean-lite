@@ -242,7 +242,7 @@ func _draw_control(img: Image, c: Control) -> void:
 	var a := c.modulate.a
 	if c is ColorRect:
 		_fill(img, r, (c as ColorRect).color, a)
-	elif c.get_script() != null and c.get("frac") != null:
+	elif c.get_script() != null and c.get("frac") is float and c.get("track") != null:   # S342: AttrRadar has a static frac()
 		_fill(img, r, c.get("track"), a)
 		_fill(img, Rect2i(r.position, Vector2i(int(r.size.x * float(c.get("frac"))), r.size.y)), c.get("fill"), a)
 	elif c is PanelContainer:

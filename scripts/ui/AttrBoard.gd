@@ -10,6 +10,8 @@ extends RefCounted
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const AttrRadar := preload("res://scripts/ui/AttrRadar.gd")
+const Icons := preload("res://scripts/ui/Icons.gd")
+const StatBar := preload("res://scripts/ui/StatBar.gd")
 
 const GROUPS := [
 	{"title": "FIGHTING", "keys": ["power", "speed", "technique", "defense", "footwork"]},
@@ -38,10 +40,13 @@ const WHY := {
 }
 ## Tile bands (amateur women's lightweights sit 55-65): the value is under the limit -> that band.
 const BANDS := [[45.0, "weak"], [55.0, "fair"], [65.0, "solid"], [75.0, "strong"], [1000.0, "elite"]]
-const BAND_COLOUR := {"weak": UI.RED, "fair": UI.AMBER, "solid": UI.MUTED, "strong": UI.GREEN, "elite": UI.GOLD}
-const TILE_W := 52
-## A group column: name, this week's change, tile - kept narrow so the tile sits beside its name.
-const COL_W := 330
+## S342 C158: the bands as colours that read at a glance (grey "solid" read as dead) - purple the elite end, as in games.
+const BAND_COLOUR := {"weak": UI.RED, "fair": UI.AMBER, "solid": UI.GOLD, "strong": UI.GREEN, "elite": UI.PURPLE}
+## One icon an attribute (Icons.gd, every one with the row's tooltip).
+const ICON := {"power": "biceps-flexed", "speed": "zap", "technique": "target", "defense": "shield", "footwork": "footprints",
+	"conditioning": "heart-pulse", "chin": "shield-alert", "fight_iq": "brain", "heart": "heart", "discipline": "clipboard-pen",
+	"confidence": "trending-up", "coachability": "user-check", "temper": "flame"}
+const NAME_W := 128
 
 
 static func value(f: Dictionary, key: String) -> float:
@@ -79,33 +84,56 @@ static func rows(f: Dictionary) -> Array:
 	return out
 
 
+## S342 C158: radar + the coach's note on the left, then every value as a bar against her potential (FIGHTING and BODY,
+## then MIND); temper as a patient <-> trader scale. Hover a row: the number and what it does in a fight.
 static func build(f: Dictionary) -> PanelContainer:
 	var c := UI.card()
 	var head := UI.hbox(10)
 	head.add_child(UI.caps("ATTRIBUTES"))
 	head.add_child(UI.spacer())
 	var pot := float(f.get("pot", 0.0))
+	var key := UI.hbox(6)
+	key.add_child(_key_swatch())
+	key.add_child(UI.muted("her value", UI.TINY))
 	if pot > 0.0:
-		head.add_child(UI.muted("dashed line = her potential, %d" % int(pot), UI.TINY))
+		var tick := ColorRect.new()
+		tick.color = UI.FG
+		tick.custom_minimum_size = Vector2(3, 14)
+		tick.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		key.add_child(tick)
+		key.add_child(UI.muted("her potential, %d    hover a row for what it does" % int(pot), UI.TINY))
+	head.add_child(key)
 	c[1].add_child(head)
-	var body := UI.hbox(28)
+	var body := UI.hbox(32)
+	var left := UI.vbox(12)
 	var radar: Control = AttrRadar.new()
 	radar.values = RADAR.map(func(k): return {"name": label_of(str(k)), "value": value(f, str(k))})
 	radar.pot = pot
-	body.add_child(radar)
-	var groups := rows(f)
-	var left := UI.vbox(10)
-	left.custom_minimum_size = Vector2(COL_W, 0)
-	_group(left, groups[0])
-	_group(left, groups[1])
+	radar.numbers = false
+	left.add_child(radar)
 	body.add_child(left)
-	var right := UI.vbox(10)
-	right.custom_minimum_size = Vector2(COL_W, 0)
-	_group(right, groups[2])
+	var groups := rows(f)
+	var mid := UI.vbox(8)
+	mid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_group(mid, groups[0], pot)
+	_group(mid, groups[1], pot)
+	body.add_child(mid)
+	var right := UI.vbox(8)
+	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_group(right, groups[2], pot)
+	right.add_child(UI.spacer())
+	right.add_child(_glance(glance(f)))
 	body.add_child(right)
-	body.add_child(_glance(glance(f)))
 	c[1].add_child(body)
 	return c[0]
+
+
+static func _key_swatch() -> ColorRect:
+	var r := ColorRect.new()
+	r.color = UI.GOLD
+	r.custom_minimum_size = Vector2(26, 10)
+	r.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	return r
 
 
 ## The coach's read of the board: her two best values, the two to work on, a hot temper, how far she is from her potential.
@@ -143,35 +171,43 @@ static func _glance(g: Dictionary) -> PanelContainer:
 	return p
 
 
-static func _group(parent: VBoxContainer, g: Dictionary) -> void:
+static func _group(parent: VBoxContainer, g: Dictionary, pot := 0.0) -> void:
 	parent.add_child(UI.label(str(g["title"]), UI.SMALL, UI.FG, "handbold"))
 	for r in g["rows"]:
-		parent.add_child(_row(r))
+		parent.add_child(_row(r, pot))
 
 
-static func _row(r: Dictionary) -> Control:
+## Icon, name, the bar (her value, the potential tick), the number, this week's change.
+static func _row(r: Dictionary, pot := 0.0) -> Control:
+	var key := str(r["key"])
+	var v := float(r["value"])
 	var h := UI.hbox(10)
-	h.tooltip_text = "%s %.1f\n%s" % [r["name"], float(r["value"]), r["why"]]
+	h.tooltip_text = "%s %.1f\n%s" % [r["name"], v, r["why"]]
 	h.mouse_filter = Control.MOUSE_FILTER_PASS
+	var col: Color = BAND_COLOUR[r["band"]]
+	h.add_child(Icons.icon(str(ICON.get(key, "info")), 18, UI.MUTED))
 	var lab := UI.label(str(r["name"]), UI.BODY)
-	lab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	lab.custom_minimum_size.x = NAME_W
 	h.add_child(lab)
+	var bar: Control = StatBar.new()
+	bar.value = v
+	bar.colour = col
+	if key == "temper":
+		bar.scale_mode = true
+	elif not PERSONALITY.has(key):
+		bar.pot = pot
+	h.add_child(bar)
+	var shown := str(int(floorf(v)))
+	if key == "temper":
+		shown = "Trader" if v >= 60.0 else ("Patient" if v <= 40.0 else "Even")
+	var n := UI.label(shown, UI.BODY, col, "bold")
+	n.custom_minimum_size.x = 64 if key == "temper" else 34
+	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	h.add_child(n)
 	var d := float(r["delta"])
 	var change := UI.mono("" if absf(d) < 0.05 else ("+%.1f" % d if d > 0.0 else "%.1f" % d), UI.TINY, UI.GREEN if d > 0.0 else UI.RED)
-	change.custom_minimum_size = Vector2(44, 0)
+	change.custom_minimum_size = Vector2(40, 0)
 	change.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	change.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(change)
-	h.add_child(_tile(float(r["value"]), BAND_COLOUR[r["band"]]))
 	return h
-
-
-static func _tile(v: float, colour: Color) -> PanelContainer:
-	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(colour, Color(0, 0, 0, 0), 6, 0, 6, 2))
-	p.custom_minimum_size = Vector2(TILE_W, 0)
-	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var n := UI.mono(str(int(floorf(v))), UI.BODY, Color.WHITE)
-	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	p.add_child(n)
-	return p
