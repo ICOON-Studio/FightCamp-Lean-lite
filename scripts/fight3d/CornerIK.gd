@@ -81,11 +81,12 @@ func reach(side: String, target: Variant) -> void:
 		r["target"] = target
 
 
-## Tips the trunk back `deg` from the lower spine (0 lets the clip's back return).
+## Tips the trunk back `deg` from the lower spine (0 lets the clip's back return). S341: a negative `deg` leans it
+## forward (the clinch's A-frame: chests in, hips back) - set after the clip, so the animation cannot undo it.
 func upright(deg: float) -> void:
-	if deg > 0.0:
+	if deg != 0.0:
 		_upright["deg"] = deg
-	_upright["on"] = deg > 0.0
+	_upright["on"] = deg != 0.0
 
 
 func look(target: Variant) -> void:

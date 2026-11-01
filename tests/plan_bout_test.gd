@@ -20,6 +20,10 @@ const ExchangeBeats := preload("res://scripts/fight3d/ExchangeBeats.gd")
 const GOOD := [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up"}]
 ## Walks into her: cut the ring at long range, stand and trade at mid, chase her to the corner, trade inside.
 const BAD := [{"move": "cut_off"}, {"move": "3b-3"}, {"move": "herd"}, {"move": "3b-3@inside"}]
+## S341 the same plan with branches by her game (fight flows step 2): when she tires, dig inside instead of tying up and
+## let the hands go at long range; when she is hurt, walk her into the corner.
+const BRANCHED := [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up"},
+	{"move": "3b-3@inside", "when": "tiring"}, {"move": "1-2-3-2", "when": "tiring"}, {"move": "herd", "when": "hurt"}]
 const BOUTS := 80
 
 var failures := 0
@@ -101,6 +105,15 @@ func _initialize() -> void:
 	_check(bad <= float(o[0]) + 0.01, "the bad plan does no better than no plan")
 	_check(good - bad <= 0.20, "by a bounded margin - the plan is one edge among the corner's (%.3f)" % (good - bad))
 
+	# 4. S341 branches by her game: the same 80 bouts, the good plan with and without its WHEN arrows.
+	var br := _share(BRANCHED)
+	print("  exchanges won: branched plan %.3f (edge %+.2f) vs the same plan without branches %.3f (edge %+.2f); branch arrows thrown %d" % [
+		br[0], br[1], good, g[1], int(br[2])])
+	_check(int(br[2]) >= 20, "the branch arrows are thrown in the bouts (%d times over %d bouts)" % [int(br[2]), BOUTS])
+	_check(float(br[1]) > float(g[1]) and float(br[0]) >= good, "branches answer her game better: edge %+.2f > %+.2f, won %.3f >= %.3f" % [
+		br[1], g[1], br[0], good])
+	_check(float(br[0]) - good <= 0.10, "by a bounded margin (%.3f)" % (float(br[0]) - good))
+
 	print("PLAN_BOUT failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -120,11 +133,14 @@ func _book(c: Career, f: Dictionary) -> Dictionary:
 	return {"fid": f["id"], "step": "tape", "total": 3}
 
 
-## [share of exchanges she won, mean plan edge an exchange] over BOUTS simulated bouts (days 40..) with this saved plan.
+## [share of exchanges she won, mean plan edge an exchange, branch (when) arrows thrown] over BOUTS simulated bouts (days 40..)
+## with this saved plan.
 func _share(arrows: Array) -> Array:
 	var won := 0
 	var all := 0
 	var edge := 0.0
+	var branch := 0
+	var branch_ids := arrows.filter(func(a): return str(a.get("when", "")) != "").map(func(a): return str(a["move"]))
 	for i in BOUTS:
 		var c := _career(40 + i)
 		var f: Dictionary = c.fighter()
@@ -136,7 +152,8 @@ func _share(arrows: Array) -> Array:
 				all += 1
 				won += int(bool(x["won"]))
 				edge += float(x.get("plan_edge", 0.0))
-	return [float(won) / maxf(1.0, float(all)), edge / maxf(1.0, float(all))]
+				branch += int(bool(x.get("planned", false)) and branch_ids.has(str(x.get("arrow", ""))))
+	return [float(won) / maxf(1.0, float(all)), edge / maxf(1.0, float(all)), branch]
 
 
 func _check(cond: bool, label: String) -> void:

@@ -7,6 +7,8 @@ const Contact := preload("res://scripts/grapple/GrappleContact.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
 
 const SCALE := 0.97
+const REF_BUDGET := 8.0
+const REF_REPEATS := 25
 const TAGS := ["mount", "side_control", "back", "full_guard"]
 
 var failures := 0
@@ -22,6 +24,7 @@ func _initialize() -> void:
 	var grip_moves: Array = []
 	var motion_means: Array = []
 	var spent_us := 0
+	var ref_us := 0
 	for seq in seqs:
 		var frames: Array = seq["frames"]
 		var f0: Array = frames[0]
@@ -35,13 +38,20 @@ func _initialize() -> void:
 			var t0 := Time.get_ticks_usec()
 			var sep := Contact.separate(raw)
 			spent_us += Time.get_ticks_usec() - t0
+			# S341: the same fixed workload, timed beside it, so a busy cloud runner slows both.
+			var t1 := Time.get_ticks_usec()
+			_reference_work(raw)
+			ref_us += Time.get_ticks_usec() - t1
 			fixed_depths.append(float(Contact.penetration(sep)["depth"]))
 			grip_moves.append_array(_grip_motion(raw, sep))
 			motion_means.append(_mean_motion(raw, sep))
 	var control_share := float(control_deep) / maxf(1.0, control_n)
 	# S337: it runs every frame of the browser, so it must be cheap.
 	var per_ms := spent_us / 1000.0 / maxf(1.0, control_n)
-	_check(per_ms < 3.0, "push-out costs %.2f ms a frame (< 3)" % per_ms)
+	# S341: CI runners read 3.8-9.6 ms where this PC reads 1.5, so the bound is in units of the reference workload.
+	var cost := float(spent_us) / maxf(1.0, ref_us)
+	print("  push-out %.2f ms a frame = %.2f x the reference workload" % [per_ms, cost])
+	_check(cost < REF_BUDGET, "push-out costs %.2f x the reference (< %.1f)" % [cost, REF_BUDGET])
 	print("  control share deeper than 2 cm: %.1f%% (%d / %d)" % [control_share * 100.0, control_deep, control_n])
 	_check(control_share > 0.20, "control instrument reads overlap: %.1f%% > 20%%" % (control_share * 100.0))
 	fixed_depths.sort()
@@ -114,6 +124,18 @@ func _mean_motion(before: Array, after: Array) -> float:
 			sum += before[m][j].distance_to(after[m][j])
 			n += 1
 	return sum / maxf(1, n)
+
+
+## Every joint pair of the two bodies, distance only: what a naive full overlap pass would cost.
+func _reference_work(frame: Array) -> float:
+	var a: PackedVector3Array = frame[0]
+	var b: PackedVector3Array = frame[1]
+	var s := 0.0
+	for _r in REF_REPEATS:
+		for i in a.size():
+			for j in b.size():
+				s += a[i].distance_squared_to(b[j])
+	return s
 
 
 func _median(sorted: Array) -> float:

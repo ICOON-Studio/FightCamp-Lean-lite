@@ -16,6 +16,9 @@ const ReadPanel := preload("res://scripts/ui/ReadPanel.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
 const CornerJobsRow := preload("res://scripts/ui/CornerJobsRow.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const FightFlow := preload("res://scripts/rules/FightFlow.gd")
+const FlowView := preload("res://scripts/ui/FlowView.gd")
+const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
 
 
@@ -330,8 +333,41 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		take.append([str(m["injury"]).to_upper(), "INJURY REPORT", UI.RED])
 	foot.add_child(Broadcast.ribbon(take))
 	foot.add_child(UI.spacer())
+	var lit := lit_flow(m)
+	if not lit.is_empty():   # S340 her plan as a flow, lit with what fired and what worked (Q-S294-64)
+		var see := UI.button("Her plan, lit up", "Btn", _open_lit.bind(main, lit, "THE FLOW: %s vs %s" % [str(f["first"]).to_upper(), str(opp["first"]).to_upper()]))
+		see.name = "PlanLit"
+		see.size_flags_vertical = Control.SIZE_SHRINK_END
+		foot.add_child(see)
 	var home := UI.button("Back home", "BtnSolid", main.act.bind("afterfight", ""))
 	home.name = "BackHome"
 	home.size_flags_vertical = Control.SIZE_SHRINK_END
 	foot.add_child(home)
 	v.add_child(foot)
+
+
+func _open_lit(main: Node, lit: Dictionary, title: String) -> void:
+	var fv := FlowView.new()
+	fv.setup(lit, {"title": title, "lit": true, "sub": "each arrow: won / tried",
+		"place_name": func(id: String) -> String: return str(StrikeMap.card(id).get("name", id)),
+		"move_name": func(id: String) -> String: return str(StrikeMap.move(id).get("name", id))})
+	main.add_child(fv)
+
+
+## The bout's plan as a lit flow: every arrow she walked out with or the corner added, from the card the bout opened on,
+## each with its won / tried over the bout ({} when she had no plan).
+static func lit_flow(m: Dictionary) -> Dictionary:
+	var plan: Array = []
+	var seen := {}
+	for r in m.get("rounds", []):
+		for a in (r as Dictionary).get("plan", []):
+			if not seen.has(str(a["move"])):
+				seen[str(a["move"])] = true
+				plan.append(a)
+	if plan.is_empty():
+		return {}
+	var exs: Array = ((m["rounds"] as Array)[0] as Dictionary).get("exchanges", [])
+	var start := str((exs[0] as Dictionary).get("at", "long")) if not exs.is_empty() else "long"
+	var flow := FightFlow.build(plan, StrikeMap.MOVES, start)
+	flow["edges"] = FightFlow.lit(flow["edges"], FightFlow.bout_moves(m["rounds"]))
+	return flow

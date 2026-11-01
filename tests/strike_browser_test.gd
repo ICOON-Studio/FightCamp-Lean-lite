@@ -23,6 +23,26 @@ func _initialize() -> void:
 	print("  greyed at Mid range: ", reasons)
 	_check(not greyed.is_empty() and reasons.all(func(r): return str(r).begins_with("Learn the")), "a combo she cannot throw yet says why")
 	_check(reasons.any(func(r): return str(r).contains("Uppercut")), "Jab-uppercut-hook waits for the Uppercut (10 < 30)")
+	# S341 the WHEN picker (fight flows step 2): her board holds one arrow per card and situation plus one any time.
+	s.fighter = {"name": "Lucy Jackson", "first": "Lucy"}
+	s.plan = []
+	s._set_plan_mode(true)
+	s.go("long")
+	var picker: Array = s._side.find_children("*", "Button", true, false).filter(func(b): return str((b as Button).text).begins_with("If ") or (b as Button).text == "Any time")
+	_check(picker.size() == 9, "the WHEN picker: Any time + 8 of her games (%d)" % picker.size())
+	s._take(Map.move("1-1"), true)
+	s.go("long")
+	s._take(Map.move("1-2"), true)
+	_check(s.plan == [{"move": "1-2"}], "any time: a second move from long replaces the first (%s)" % str(s.plan))
+	s.when = "tiring"
+	s.go("long")
+	s._take(Map.move("1-2-3"), true)
+	s.go("long")
+	s._take(Map.move("1-2-3-2"), true)
+	_check(s.plan == [{"move": "1-2"}, {"move": "1-2-3-2", "when": "tiring"}], "if she tires: a branch beside it, replaced by the next tiring move (%s)" % str(s.plan))
+	s.go("long")
+	var rows: Array = s._side.find_children("*", "Label", true, false).filter(func(l): return str((l as Label).text).begins_with("If she tires: "))
+	_check(rows.size() == 1, "the plan list reads 'If she tires: One-two-hook-cross ...'")
 	print("FAIL %d" % failures if failures else "PASS strike_browser_test")
 	quit(1 if failures else 0)
 

@@ -73,13 +73,14 @@ static func can_do(row: Dictionary, mastery: Dictionary) -> bool:
 
 ## {move, planned, instinct}: the plan's arrow on this card if she can throw it, else her instinct - the first move out of
 ## the card she can do (the map lists the textbook move first; "" when she has none). mastery = her punches (Data.MOVES).
-static func choose(plan: Array, at: String, mastery: Dictionary) -> Dictionary:
+## S341: `sit` = the opponent's game this exchange - an arrow planned for it beats the card's any-time arrow.
+static func choose(plan: Array, at: String, mastery: Dictionary, sit := "") -> Dictionary:
 	var instinct := ""
 	for m in StrikeMap.outs(at):
 		if can_do(m, mastery):
 			instinct = str(m["id"])
 			break
-	var id := PlanBoard.pick(plan, StrikeMap.MOVES, at)
+	var id := PlanBoard.pick(plan, StrikeMap.MOVES, at, "", sit)
 	if id != "" and can_do(StrikeMap.move(id), mastery):
 		return {"move": id, "planned": true, "instinct": instinct}
 	return {"move": instinct, "planned": false, "instinct": instinct}

@@ -12,6 +12,8 @@ const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
 const Grip := preload("res://scripts/grapple/GrappleGrip.gd")
 const TieUpPanel := preload("res://scripts/grapple/TieUpPanel.gd")
+const FightFlow := preload("res://scripts/rules/FightFlow.gd")
+const FlowView := preload("res://scripts/ui/FlowView.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
 ## S335 operator: "use different colours on the clothes for each" - one colour head to toe per woman (top a shade lighter).
@@ -38,6 +40,7 @@ var _list: VBoxContainer
 var _list_hdr: Label
 var _search: LineEdit
 var _tie_open := ""
+var _flow_btn: Button
 var plan: Array = []
 var plan_mode := false
 var coach_skill := TieUpPanel.DEMO_COACH
@@ -281,6 +284,9 @@ func _top_bar() -> Control:
 	_start_again = UI.button("Start again", "BtnQuiet", func(): plan.clear(); _refresh())
 	_start_again.visible = false
 	h.add_child(_start_again)
+	_flow_btn = UI.button("See the flow", "Btn", show_flow)   # S340 the tie-up plan as a flow on the whiteboard
+	_flow_btn.visible = false
+	h.add_child(_flow_btn)
 	h.add_child(UI.spacer())
 	_search = LineEdit.new()
 	_search.placeholder_text = "find a position"
@@ -312,6 +318,19 @@ func _panel() -> Control:
 	return p
 
 
+## S340 the wrestling plan as a flow (FightFlow): from the tie-up the first arrow leaves, each answer labelled with the
+## reaction it answers ("if she leans in on the tie: Snapdown").
+func show_flow() -> void:
+	var map := TieUpPanel.plan_map()
+	var first: Array = map.filter(func(r): return not plan.is_empty() and str(r["id"]) == str(plan[0]["move"]))
+	var start := str(first[0]["from"]) if not first.is_empty() else _tie_open
+	var v := FlowView.new()
+	v.setup(FightFlow.build(plan, map, start), {"title": "THE FLOW: TIE-UPS", "sub": "%d answers, read top to bottom" % plan.size(),
+		"place_name": TieUpPanel._place_name,
+		"move_name": func(id: String) -> String: return str(FightFlow.PlanBoard.row(map, id).get("name", id))})
+	add_child(v)
+
+
 func _set_plan_mode(on: bool) -> void:
 	plan_mode = on
 	_refresh()
@@ -330,6 +349,7 @@ func _sync_plan_bar() -> void:
 	var show := _tie_open != "" and moving.is_empty()
 	_plan_toggle.visible = show
 	_start_again.visible = show and plan_mode
+	_flow_btn.visible = show and plan_mode and not plan.is_empty()
 	if show:
 		_plan_toggle.text = "Done" if plan_mode else "Build plan"
 

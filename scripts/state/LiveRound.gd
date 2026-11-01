@@ -218,7 +218,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	if str(lv.get("at", "")) == "" or sit.begins_with("she_"):
 		lv["at"] = str(PlanFight.GAME_CARD.get(sit, "long"))
 	var at := str(lv["at"])
-	var pick := PlanFight.choose(f["bout"].get("arrows", []), at, f.get("moves", {}))
+	var pick := PlanFight.choose(f["bout"].get("arrows", []), at, f.get("moves", {}), sit)
 	var arrow := str(pick["move"])
 	var plan_edge := PlanFight.edge(pick, sit, PlanFight.rate(arrow, f.get("combos", {})),
 		PlanFight.card_mean(at, sit, f.get("moves", {}), f.get("combos", {})))

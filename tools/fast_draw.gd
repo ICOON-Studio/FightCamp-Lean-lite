@@ -4,7 +4,9 @@ extends RefCounted
 ## `-- fastdraw` stops drawing while the fight plays (clips, bones, modifiers and hits still run every frame); on llvmpipe
 ##   Vulkan the fight then sat at exactly 1 frame a second (a wait, not work), so the stills use the other way:
 ## `-- fastshrink` keeps drawing but renders every SubViewportContainer (the fight's 3D) at 1/SHRINK size without MSAA
-##   between saves, full size for the saved frames. Both switch V-Sync off (Xvfb has no vblank: 1 present a second).
+##   and with no light casting shadows (shadow maps keep their size and redraw every body per light: on a software GPU the
+##   geometry, not the pixels, is the cost) between saves, full size and the game's shadows for the saved frames.
+## Both switch V-Sync off (Xvfb has no vblank).
 ## At a save the tree pauses, three frames draw (motion blur and TAA settle on a still pose), the image is taken, play goes on.
 ## Without either flag nothing changes.
 
@@ -12,6 +14,7 @@ const SHRINK := 8
 
 static var _small := true
 static var _msaa := {}   # SubViewport instance id -> its own MSAA, put back for a save
+static var _shadows := {}   # Light3D instance id -> casting shadows, put back for a save
 
 
 static func mode() -> String:
@@ -26,7 +29,7 @@ static func on() -> bool:
 
 
 static func begin() -> void:
-	# A virtual display (Xvfb) has no vblank: with V-Sync on every present waited ~1 s (the cloud fight at exactly 1 fps).
+	# A virtual display (Xvfb) has no vblank to wait for.
 	if on():
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	if mode() == "off":
@@ -49,6 +52,13 @@ static func _size(tree: SceneTree, small: bool) -> void:
 					(v as SubViewport).msaa_3d = Viewport.MSAA_DISABLED
 				elif not small and _msaa.has(id):
 					(v as SubViewport).msaa_3d = _msaa[id]
+	for l in tree.root.find_children("*", "Light3D", true, false):
+		var lid: int = l.get_instance_id()
+		if small and (l as Light3D).shadow_enabled:
+			_shadows[lid] = true
+			(l as Light3D).shadow_enabled = false
+		elif not small and _shadows.has(lid):
+			(l as Light3D).shadow_enabled = true
 
 
 ## The frame as drawn now (await it).

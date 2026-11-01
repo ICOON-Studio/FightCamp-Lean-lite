@@ -7,12 +7,17 @@ extends Control
 ## S339 her plan: for_fighter() opens it over the game for one fighter - her punches, her pad time, the gym coach's arrow
 ## limit, her saved plan (or the coach's starter); one arrow per card (a new move from a card replaces its arrow); Save
 ## plan writes it on her (f["arrows"], PlanFight in the bout), Back leaves it as it was.
+## S341 branches (fight flows step 2): the WHEN picker sets the opponent's game the next arrow answers ("Any time" or "If
+## she presses", "If she tires"...); a card holds one arrow per situation plus one any-time arrow, PlanFight throws the
+## situation's.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Map := preload("res://scripts/rules/StrikeMap.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const PlanPanel := preload("res://scripts/ui/PlanPanel.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const FightFlow := preload("res://scripts/rules/FightFlow.gd")
+const FlowView := preload("res://scripts/ui/FlowView.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const PANEL_W := 470
 ## Her punches for the prototype (mastery 0-100; a combo opens when each of its punches reaches Combos.LEARN_AT, 30).
@@ -26,7 +31,8 @@ const CARD := Vector2(236, 92)
 
 var current := "outside"
 var route: Array = []      # [card, move name, card, ...] as walked
-var plan: Array = []       # [{"move": row id}, ...]
+var plan: Array = []       # [{"move": row id, "when": situation (optional)}, ...]
+var when := ""             # S341 the situation the next arrow answers ("" = any time)
 var plan_mode := false
 var coach_skill := DEMO_COACH
 var mastery: Dictionary = DEMO_MASTERY
@@ -105,15 +111,25 @@ func _top_bar() -> Control:
 		punches.append("%s %d" % [mv, int(float(mastery.get(mv, 0.0)))])
 	h.add_child(UI.muted("  her punches: " + ", ".join(punches) + "  "))
 	h.add_child(UI.spacer())
+	h.add_child(UI.button("See the flow", "Btn", show_flow))
 	h.add_child(UI.button("Clear", "BtnQuiet", func(): plan.clear(); go(current)))
 	h.add_child(UI.button("Back", "Btn", _close))
 	h.add_child(UI.button("Save plan", "BtnSolid", _save))
 	return bar
 
 
+## S340 the plan as a flow on the whiteboard (FightFlow): from long range, where a bout opens, in the order she gets there.
+func show_flow() -> void:
+	var v := FlowView.new()
+	v.setup(FightFlow.build(plan, Map.MOVES, "long"), {"title": "THE FLOW: %s" % (str(fighter["name"]).to_upper() if not fighter.is_empty() else "THE PLAN"),
+		"sub": "%d arrows, read top to bottom" % plan.size(), "place_name": _place_name,
+		"move_name": func(id: String) -> String: return str(Map.move(id).get("name", id))})
+	add_child(v)
+
+
 ## Writes the plan on her when it is legal (else says why); she fights to it from her next bout.
 func _save() -> void:
-	var v := PlanBoard.validate(plan, Map.MOVES, _arrow_limit())
+	var v := PlanBoard.validate(plan, Map.MOVES, _arrow_limit(), FightFlow.WHEN_WORDS)
 	if not v["ok"]:
 		main.toast(str(v["problems"][0]))
 		return
@@ -163,12 +179,29 @@ func _drilled() -> Array:
 	return ids
 
 
-## The plan's arrow from this card (one per place), or -1.
+## The plan's arrow from this card for the picked situation (one per card and when), or -1.
 func _arrow_at(card_id: String) -> int:
 	for i in plan.size():
-		if str(PlanBoard.row(Map.MOVES, str(plan[i]["move"])).get("from", "")) == card_id:
+		if str(PlanBoard.row(Map.MOVES, str(plan[i]["move"])).get("from", "")) == card_id and str(plan[i].get("when", "")) == when:
 			return i
 	return -1
+
+
+## S341 the WHEN picker: which of the opponent's games the next arrow answers.
+func _when_picker() -> Control:
+	var box := UI.vbox(6)
+	box.add_child(UI.caps("WHEN"))
+	box.add_child(UI.muted("The next move you pick is her answer to this.", UI.TINY, true))
+	var flow := HFlowContainer.new()
+	flow.add_theme_constant_override("h_separation", 6)
+	flow.add_theme_constant_override("v_separation", 6)
+	box.add_child(flow)
+	var ids: Array = [""] + FightFlow.WHEN_WORDS.keys()
+	for id in ids:
+		var key := str(id)
+		var words := "Any time" if key == "" else "If " + str(FightFlow.WHEN_WORDS[key])
+		flow.add_child(UI.button(words, "ChoiceOn" if key == when else "Choice", func(): when = key; go(current)))
+	return box
 
 
 func _place_name(id: String) -> String:
@@ -196,7 +229,9 @@ func go(card_id: String) -> void:
 	_side.add_child(UI.muted(str(c["what"]) + ("" if r.is_empty() else "  (%.2f - %.2f m apart)" % [r[0], r[1]]), UI.TINY, true))
 	if plan_mode:
 		_side.add_child(UI.sep())
-		_side.add_child(PlanPanel.build(Map.MOVES, plan, _arrow_limit(), _drilled(), _place_name, _remove_arrow))
+		_side.add_child(_when_picker())
+		_side.add_child(UI.sep())
+		_side.add_child(PlanPanel.build(Map.MOVES, plan, _arrow_limit(), _drilled(), _place_name, _remove_arrow, FightFlow.WHEN_WORDS))
 		_side.add_child(UI.sep())
 	_moves("MOVES OUT", Map.outs(card_id), true)
 	_moves("MOVES IN", Map.ins(card_id), false)
@@ -213,7 +248,7 @@ func _moves(title: String, rows: Array, out: bool) -> void:
 		var other: String = str(m["to"]) if out else str(m["from"])
 		var mastery_why := Map.grey_reason(m, mastery) if out else ""
 		var why := mastery_why
-		if out and plan_mode and why == "" and plan.size() >= limit and not plan.any(func(a): return str(a["move"]) == str(m["id"])) \
+		if out and plan_mode and why == "" and plan.size() >= limit and not plan.any(func(a): return _same(a, str(m["id"]))) \
 				and (fighter.is_empty() or _arrow_at(str(m["from"])) < 0):
 			why = full_reason
 		var small := ("to " if out else "from ") + str(Map.card(other)["name"]) + ("" if str(m["kind"]) == "combo" else "  (" + str(m["kind"]) + ")")
@@ -229,14 +264,14 @@ func _moves(title: String, rows: Array, out: bool) -> void:
 func _take(m: Dictionary, out: bool) -> void:
 	if out and plan_mode:
 		# S338 still: the same move went on the plan twice; a planned move just walks.
-		var planned := plan.any(func(a): return str(a["move"]) == str(m["id"]))
+		var planned := plan.any(func(a): return _same(a, str(m["id"])))
 		var here := _arrow_at(str(m["from"])) if not fighter.is_empty() else -1
 		if not planned and here >= 0:
 			plan = PlanBoard.change_one(plan, here, str(m["id"]))   # S339 her board: one arrow per card
 		elif not planned and plan.size() >= _arrow_limit():
 			return
 		elif not planned:
-			plan.append({"move": str(m["id"])})
+			plan.append({"move": str(m["id"]), "when": when} if when != "" else {"move": str(m["id"])})
 		go(str(m["to"]))
 		return
 	if out:
@@ -246,6 +281,11 @@ func _take(m: Dictionary, out: bool) -> void:
 	else:
 		route.clear()
 		go(str(m["from"]))
+
+
+## This arrow is the move for the picked situation.
+func _same(a: Dictionary, move_id: String) -> bool:
+	return str(a["move"]) == move_id and str(a.get("when", "")) == when
 
 
 ## ---------- the map ----------
@@ -265,12 +305,14 @@ func _layout() -> void:
 	_map.queue_redraw()
 
 
-func _draw_plan_arrow(from_id: String, to_id: String) -> void:
+func _draw_plan_arrow(from_id: String, to_id: String, branch := false) -> void:
 	var a: Vector2 = SPOT[from_id] * _map.size
 	var b: Vector2 = SPOT[to_id] * _map.size
 	# S338: the plan in the coach's marker green, apart from the lit card's blue moves; a move that stays on its card
 	# (8 of 30: feints, combos that end where they start) is a loop over the card, else it never shows on the map.
-	var col := UI.GREEN
+	# S341: a branch (an arrow for one of her games) is a lighter, thinner line beside the any-time arrow.
+	var col := Color(UI.GREEN, 0.55) if branch else UI.GREEN
+	var w := 3.0 if branch else 5.0
 	if a == b:
 		var c := a - Vector2(0, CARD.y * 0.5 + 16.0)
 		_map.draw_arc(c, 14.0, PI * 0.15, PI * 1.85, 24, col, 4.0, true)
@@ -278,11 +320,11 @@ func _draw_plan_arrow(from_id: String, to_id: String) -> void:
 		_map.draw_colored_polygon(PackedVector2Array([tip + Vector2(0, 7), tip + Vector2(-8, -3), tip + Vector2(8, -3)]), col)
 		return
 	var dir := (b - a).normalized()
-	var side := Vector2(-dir.y, dir.x) * 10.0
+	var side := Vector2(-dir.y, dir.x) * (18.0 if branch else 10.0)
 	var edge := minf(CARD.x * 0.5 / maxf(absf(dir.x), 1e-3), CARD.y * 0.5 / maxf(absf(dir.y), 1e-3)) + 4.0
 	var p0 := a + dir * edge + side
 	var p1 := b - dir * edge + side
-	_map.draw_line(p0, p1, col, 5.0, true)
+	_map.draw_line(p0, p1, col, w, true)
 	_map.draw_colored_polygon(PackedVector2Array([p1, p1 - dir * 16.0 + Vector2(-dir.y, dir.x) * 8.0,
 		p1 - dir * 16.0 - Vector2(-dir.y, dir.x) * 8.0]), col)
 
@@ -310,4 +352,4 @@ func _draw_arrows() -> void:
 		var row := PlanBoard.row(Map.MOVES, str(arrow["move"]))
 		if row.is_empty():
 			continue
-		_draw_plan_arrow(str(row["from"]), str(row["to"]))
+		_draw_plan_arrow(str(row["from"]), str(row["to"]), str(arrow.get("when", "")) != "")

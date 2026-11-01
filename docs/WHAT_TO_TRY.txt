@@ -1,3 +1,24 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 42 (2026-11-01): HER ATTRIBUTES BOARD, THE CLINCH'S PRICE, FIGHT FLOWS
+=====================================================================================================
+
+ 1. Her attributes (your C157): FIGHTERS > Lucy, Overview. The board runs the page's width: a radar of her eight fight
+    attributes against her potential (dashed), and every value the fight reads in three groups - FIGHTING, BODY and MIND.
+    Footwork, Heart, Discipline, Confidence, Coachability and Temper were used by the fight all along but never shown.
+    Tiles are coloured red (weak) to blue (elite); a hot Temper reads red. The small number beside a tile is this week's
+    change. Hover a row: what it does in a fight. The yellow note sums her up (best, work on, room to grow).
+ 2. The clinch (your call: "a small stamina refill but risk of getting hit"): when she ties up - the corner's "Tie her up",
+    a tie-up arrow in her plan, or an exchange fought in the clinch - she gets a little energy back, but the other woman
+    can dig short ones to the ribs, or catch her on the break. A presser does it about 4 tie-ups in 10, an out-boxer less;
+    Lucy's technique keeps the free hand quiet. Fight night's words view says what happened ("... but Maria digs two short
+    ones to the ribs."). The "Tie her up" button now warns about it.
+ 3. Fight flows (Q-S294-64): Lucy's page > Fight plan > "See the flow" - her plan as sticky notes top to bottom, the coach's
+    key ideas on each place, an arrow for every move. After a bout with a plan, the result page has "Her plan, lit up":
+    green worked, red didn't, grey never came up, with won / tried. Wrestling too: Test jump "grapple" > Tie-ups > Build plan
+    > pick answers > "See the flow" ("if she leans in on the tie: Snapdown").
+ 4. Tie-ups: the two Go-behinds and the Shuck now play their GrappleMap clip (they said "No clip of this yet").
+ Still being built by the agents: the ring walking her onto the ropes when the plan says so, a better-looking clinch, and
+ pad work with the coach on mitts.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 41 (2026-11-01): THE COACH'S PLAN IN THE FIGHT, THREE NEW BOXERS, RELAXED BODY VIEW
 =====================================================================================================
 

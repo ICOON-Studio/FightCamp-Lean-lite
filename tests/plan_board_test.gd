@@ -16,6 +16,7 @@ func _initialize() -> void:
 	_test_4_wrestling()
 	_test_5_coverage()
 	_test_6_change_one_and_rate()
+	_test_7_when_branches()
 	if failures == 0:
 		print("PASS plan_board_test")
 	else:
@@ -207,3 +208,21 @@ func _test_6_change_one_and_rate() -> void:
 	_check(rate1 == 1.0, "rate drilled == 1.0")
 	var rate2 := PlanBoard.rate("1-2-3", [])
 	_check(rate2 == 0.8, "rate undrilled == 0.8")
+
+
+## S341 fight flows step 2: an arrow may carry `when` (the opponent's game); a card holds one per situation + one any time.
+func _test_7_when_branches() -> void:
+	var map: Array = StrikeMap.MOVES
+	var plan := [{"move": "1-1"}, {"move": "1-2-3-2", "when": "tiring"}, {"move": "step_in", "when": "range"}]
+	_check(PlanBoard.validate(plan, map, 4)["ok"], "two arrows from long range with different whens are legal")
+	_check(PlanBoard.pick(plan, map, "long", "", "tiring") == "1-2-3-2", "she tires: the tiring arrow")
+	_check(PlanBoard.pick(plan, map, "long", "", "press") == "1-1", "she presses: no press arrow, the any-time one")
+	_check(PlanBoard.pick(plan, map, "long") == "1-1", "no situation given: the any-time arrow")
+	_check(PlanBoard.pick([{"move": "1-2-3-2", "when": "tiring"}], map, "long", "", "press") == "", "only a tiring arrow: nothing when she presses")
+	var twice := plan + [{"move": "1-2", "when": "tiring"}]
+	var v := PlanBoard.validate(twice, map, 6, {"tiring": "she tires"})
+	_check(not v["ok"] and str(v["problems"][0]) == "Two arrows from long when she tires - pick one", "two tiring arrows from long: %s" % str(v["problems"]))
+	var ch := PlanBoard.change_one(plan, 1, "1-2-3")
+	_check(str(ch[1]["move"]) == "1-2-3" and str(ch[1]["when"]) == "tiring", "a changed arrow keeps the situation it answers")
+	_check(PlanBoard.chains(plan, map, "long", 3) == ["1-1"], "the any-time walk ignores branches")
+	_check(PlanBoard.coverage(plan, map) == PlanBoard.coverage([{"move": "1-1"}, {"move": "step_in"}], map), "a branch on a planned card is no new place covered")
