@@ -56,34 +56,10 @@ const SPOT_ALPHA := {"fine": 0.0, "hurt": 0.45, "critical": 0.6, "doctor": 0.7}
 const SPOT_GROW := 1.1
 const FRESH_START := 12.5   # Burn up to this = untinted ...
 const FRESH_END := 30.0     # ... fully coloured from here (warm)
-const SKIN_SHADER := """
-shader_type canvas_item;
-uniform sampler2D mask : filter_nearest;
-uniform vec4 part_col[7];
-uniform vec4 body_tint : source_color = vec4(0.7, 0.7, 0.74, 1.0);
-uniform vec4 spot_box[3];
-uniform vec4 spot_col[3];
-void fragment() {
-	vec4 c = texture(TEXTURE, UV);
-	int i = int(round(texture(mask, UV).r * 255.0 / 32.0));
-	vec3 rgb = c.rgb * body_tint.rgb;
-	float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
-	if (i > 0 && i < 7) {
-		vec4 pc = part_col[i];
-		rgb = mix(rgb, pc.rgb * clamp(0.62 + 0.85 * lum, 0.6, 1.25), pc.a);
-	}
-	for (int k = 0; k < 3; k++) {
-		vec4 b = spot_box[k];
-		if (spot_col[k].a > 0.0 && b.z > 0.0) {
-			float w = smoothstep(1.0, 0.35, length((UV - b.xy) / b.zw)) * spot_col[k].a;
-			rgb = mix(rgb, spot_col[k].rgb * clamp(0.62 + 0.85 * lum, 0.6, 1.25), w);
-		}
-	}
-	COLOR = vec4(rgb, c.a);
-}
-"""
+const SKIN_SHADER := preload("res://scripts/ui/body_skin.gdshader")   # her body coloured by part mask + hurt spots
 var _mask: Texture2D = null
 var _skin: TextureRect = null
+var layers_for_paint: Array = []   # S334 BodyTurn: [{skin, uv, anchors}] while she turns
 
 
 ## {"tex", "anchors"} for a boxer's body (her glb path) in her corner's colours; {} when it was never baked.
@@ -124,8 +100,7 @@ func _build_skin() -> void:
 		_skin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		_skin.set_anchors_and_offsets_preset(PRESET_FULL_RECT)
 		var mat := ShaderMaterial.new()
-		mat.shader = Shader.new()
-		mat.shader.code = SKIN_SHADER
+		mat.shader = SKIN_SHADER
 		_skin.material = mat
 		add_child(_skin)
 	_skin.texture = _tex
@@ -149,17 +124,24 @@ func _paint_skin() -> void:
 		var col := BodyTrack.colour(maxf(burn, FRESH_END + 5.0)).lerp(Color.WHITE, 0.5 * pu)
 		col.a = TINT_ALPHA * clampf((burn - FRESH_START) / (FRESH_END - FRESH_START), 0.0, 1.0)
 		cols.append(col)
-	(_skin.material as ShaderMaterial).set_shader_parameter("part_col", cols)
 	# S332 (operator C151 on the hit ring over her face: "wtf is that"): a hurt or just-hit face or rib side reddens her
 	# own skin, soft-edged, instead of a ring drawn over her.
-	var boxes: Array[Vector4] = []
 	var spots: Array[Color] = []
 	for group in SPOTS:
-		var a: Array = _anchors.get(group[0], [])
-		boxes.append(Vector4(float(a[0]), float(a[1]), float(a[2]) * SPOT_GROW, float(a[3]) * SPOT_GROW) if a.size() >= 4 else Vector4.ZERO)
 		spots.append(spot_colour(group))
-	(_skin.material as ShaderMaterial).set_shader_parameter("spot_box", boxes)
-	(_skin.material as ShaderMaterial).set_shader_parameter("spot_col", spots)
+	# S334 a turning body (BodyTurn) has two skins, each on its own frame of the strip: uv = that frame's part of it.
+	var layers: Array = layers_for_paint if not layers_for_paint.is_empty() else [{"skin": _skin, "uv": Rect2(0, 0, 1, 1), "anchors": _anchors}]
+	for l in layers:
+		var uv: Rect2 = l["uv"]
+		var boxes: Array[Vector4] = []
+		for group in SPOTS:
+			var a: Array = (l["anchors"] as Dictionary).get(group[0], [])
+			boxes.append(Vector4(uv.position.x + float(a[0]) * uv.size.x, uv.position.y + float(a[1]) * uv.size.y,
+				float(a[2]) * SPOT_GROW * uv.size.x, float(a[3]) * SPOT_GROW * uv.size.y) if a.size() >= 4 else Vector4.ZERO)
+		var mat := (l["skin"] as TextureRect).material as ShaderMaterial
+		mat.set_shader_parameter("part_col", cols)
+		mat.set_shader_parameter("spot_box", boxes)
+		mat.set_shader_parameter("spot_col", spots)
 
 
 ## The worst band among the group's places in its colour, clear when fine; a fresh hit warms it red for FLASH_S.

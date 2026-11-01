@@ -8,14 +8,15 @@
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
+const BodyTurn := preload("res://scripts/ui/BodyTurn.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 ## S320 (operator C145: "each of these needs to be on each fighters side"): each boxer's figure stands at her own edge
 ## of the screen - hers (red) on the left under the scorebug, the opponent's (blue) on the right - drawn on her own body
 ## (C146: "we have real andropoid,use it"; BodyFigure.portrait_for).
-const FIG_SIZE := Vector2(210, 294)   # S324 C149 "needs to be bigger" (was 150 x 210)
-const TOP := 214.0
+const FIG_SIZE := Vector2(340, 420)   # S334 C153 "still needs to be bigger" (S324: 210 x 294, before 150 x 210)
+const TOP := 150.0   # just under the scorebug, so the bigger panel clears the shout bar
 const EDGE := 28.0
 const CORNER := ["red", "blue"]
 
@@ -54,7 +55,9 @@ func _build() -> void:
 		var fig: Control = BodyFigure.new()
 		fig.custom_minimum_size = FIG_SIZE
 		fig.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		fig.set_portrait(BodyFigure.portrait_for(str(view.get("bodies")[side]) if view.get("bodies") != null else "", CORNER[side]))
+		var glb := str(view.get("bodies")[side]) if view.get("bodies") != null else ""
+		if not BodyTurn.attach(fig, glb, CORNER[side]):   # S334 C153: she turns slowly; the still portrait when never baked
+			fig.set_portrait(BodyFigure.portrait_for(glb, CORNER[side]))
 		col.add_child(fig)
 		col.add_child(_track_key())
 		var who := UI.label(str(view._names[side]).get_slice(" ", 0).to_upper(), UI.TINY, Color(0.95, 0.4, 0.35) if side == 0 else Color(0.5, 0.65, 1.0), "bold")

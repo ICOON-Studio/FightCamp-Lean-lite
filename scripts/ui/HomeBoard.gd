@@ -12,9 +12,11 @@ const Faces := preload("res://scripts/rules/Faces.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
 const FighterTile := preload("res://scripts/ui/FighterTile.gd")
 
-## The polaroid shows her head and shoulders: this part of the baked body portrait (fractions of its size).
+## S334 (operator C152 on the A-pose bust: "looks kind silly"): the polaroid is her ring photo (tools/bake_headshots.gd,
+## one glove raised after a win); the old crop of the baked body portrait is only the fallback for a face never shot.
+const FACES := "res://assets/ui/face"
 const CROP := Rect2(0.25, 0.0, 0.5, 0.42)
-const POLAROID := Vector2(330, 430)
+const POLAROID := Vector2(330, 460)
 
 
 ## The fighter the board is about: the one with the soonest bout, else the first.
@@ -125,7 +127,7 @@ static func headline(c: Career, f: Dictionary) -> String:
 	return "%s - %d day%s to %s" % [f["first"], days, "" if days == 1 else "s", fb["opp"]["name"]]
 
 
-## Her picture pinned to the board: the baked body portrait cropped to head and shoulders, tilted, with tape on top.
+## Her picture pinned to the board: her ring photo (portrait), tilted, with tape on top.
 static func polaroid(main: Node, f: Dictionary) -> Control:
 	var holder := Control.new()
 	holder.custom_minimum_size = POLAROID + Vector2(20, 20)
@@ -174,6 +176,9 @@ static func polaroid(main: Node, f: Dictionary) -> Control:
 
 
 static func portrait(f: Dictionary) -> Texture2D:
+	var shot := FACES.path_join(Faces.stem(f) + ".jpg")
+	if ResourceLoader.exists(shot):
+		return load(shot)
 	var p := BodyFigure.portrait_for(Faces.glb(Faces.stem(f)), "red")
 	var tex := p.get("tex") as Texture2D
 	if tex == null:

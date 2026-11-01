@@ -34,6 +34,11 @@ func _initialize() -> void:
 
 
 func _mask(img: Image, track: Dictionary) -> Image:
+	return mask_of(img, track)
+
+
+## Static so tools/bake_body_turn.gd masks each turn frame the same way.
+static func mask_of(img: Image, track: Dictionary) -> Image:
 	var w := img.get_width()
 	var h := img.get_height()
 	var segs := []   # [a, b, half width, index] in pixels
