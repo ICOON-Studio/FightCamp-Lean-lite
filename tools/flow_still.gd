@@ -44,7 +44,9 @@ func _shot(flow: Dictionary, opts: Dictionary, path: String) -> void:
 	var v := FlowView.new()
 	v.setup(flow, opts)
 	root.add_child(v)
-	for i in 6:
+	# S344: past the opening (cards rise row by row, the arrows draw in).
+	await create_timer(2.2).timeout
+	for i in 3:
 		await process_frame
 	root.get_viewport().get_texture().get_image().save_png(path)
 	print("FLOW_STILL " + path)

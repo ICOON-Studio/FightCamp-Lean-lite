@@ -1,26 +1,21 @@
-# S344 - next session (written S343, 2026-11-01)
+# S345 - next session (written S344, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
-S343 shipped update 45: THE TAPE ROOM (operator Q-S294-68 + "wanna try also your idea ?") - her films on our ring, her
-flow builds GrappleFlows-style beside the film, SPOT her tell, three answers into her plan. Digest:
-Game\Godot\research\S343_DIGEST.md. Play it: `FightCamp.exe -- jump=taperoom`.
+S344 shipped the flow in the tape room's look (Lean 9257b55) and acted on the operator's still comments. Digest:
+Game\Godot\research\S344_DIGEST.md. OPERATOR RULE S338: agents do animations, Claude does mechanics + UI.
 
-OPERATOR RULE S338: "keep all agents working on animations and you work on the mechanics and ui".
-
-1. COLLECT with the visual gate (render on the hidden desktop, open every still yourself; a probe alone closes nothing):
-   - TELLS1 (Goose #17, branch goose/tells1 or goose/issue-17): tools/tell_probe.gd TELL OK 4/4 measured on her bones,
-     then YOUR render `tools/taperoom_still.gd -- <dir> opp=0,2,megan`: in each *_tell.png the tell plain to see (Erin's
-     rear glove at her chest after the jab, Maria's guard at her chest, Megan over her front knee). Apply the DIFF
-     (TellPose.gd, the tools, the ONE BeatFire line), never .uid leftovers.
-   - MOVEPLAYER1 r2 (Goose #16): FightStage bodies, gloves + boots, head to feet, reach <= 0.12, min_gap >= 0.45. Then
-     put it in the move map's bottom-left (StrikeBrowser), the key behind a "?", a click on a move or plan row plays it;
-     in the tape room a counter's hover plays it.
-   - PADWORK1 r3 (Goose #13), CLINCH2 (Goose #14, scripted clinch beats), FIGHTCARD1 r4 (Cursor, wt
-     E:\FightCamp\wt\LEAN_FIGHTCARD1, out E:\FightCamp\tmp\FIGHTCARD1_r4_out.txt).
-   - SMOOTH2 stopped (344/168 vs 310/150 after two rounds): a code audit of the clip-change joins before any third round.
-2. TAPEFLOW1: the plan board's "See the flow" (FlowView.gd) in the tape room's GrappleFlows style - white cards with a
-   still of the position, a short title, one line, pill edges; the card stills baked from CardStage once FIGHTCARD1
-   lands (the Whimsical step is dropped: the tape room is the reference look).
-3. TAPEFIGHT1: once TELLS1 is in, HabitBeats marks the same `tell` keys so the real fight shows her tells on her body.
-4. Scouting step 3 - the scout trip (Godot/research/SCOUTING_S340.md), then OPPPLAN1, the sparring partner test.
-5. The operator plays update 45 (WHAT_TO_TRY.txt top).
+1. Q-S294-69 (board): his answer on FIGHTHUD2 - the fight HUD that beats UFC 6 (Godot/research/FIGHTHUD_S344.md: six bars a
+   boxer - head, body, legs, stamina, guard, heart - icons, no numbers, a round-edge meter top centre, her guard and heart
+   "?" until scouted). On a yes, build it in scripts/fight3d/FightHud.gd (data: BodyMap head/ribs, energy, BodyTrack legs,
+   TELLS guard, Heart attribute) and send stills.
+2. COLLECT with the visual gate ON THE REAL GPU (hidden desktop), re-measuring every agent probe yourself:
+   - FIGHTCARD1 r5 (Cursor, wt E:\FightCamp\wt\LEAN_FIGHTCARD1, out E:\FightCamp\tmp\FIGHTCARD1_r5_out.txt): render
+     tools/fight3d_play.gd card=own_ropes / card=corner; the referee never in the lens, both women head to feet.
+   - TELLS1 r2 (Goose #17): tools/tell_probe.gd windowed TELL OK 4/4 (check it AWAITS its measurements), then
+     tools/taperoom_still.gd opp=0,2,megan.
+   - PADWORK1 r3 (Goose #13, 5633c78) and CLINCH2 (Goose #14, 31ccc38): stills on the GPU before any merge.
+3. MOVEPLAYER1: verify the hand merge (E:\FightCamp\tmp\MovePlayer_merged_s344.gd + moveplayer_probe_r2_s344.patch) -
+   probe + moveplayer_still on the GPU; then wire it in the move map's bottom-left (bottom card row SPOT y 0.74 -> 0.64,
+   key behind a "?", a click on a move or a plan row's TV icon plays it; DisplayServer headless = no player).
+4. TAPEFIGHT1 once TELLS1 is in; then the scout trip + OPPPLAN1.
+5. Tie-up flow cards have no stills yet (words only) - bake them when wrestling returns.

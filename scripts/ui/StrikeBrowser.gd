@@ -209,6 +209,12 @@ func _when_picker() -> Control:
 		var key := str(id)
 		var words := "Any time" if key == "" else str(FightFlow.WHEN_WORDS[key])
 		flow.add_child(UI.button(words, "PillOn" if key == when else "Pill", func(): when = key; go(current)))
+	# S344 (operator C174 on the WHEN pills: "make it clear to the player what it does"): what the pick does, said live.
+	var said := "Your next move: she throws it any time here." if when == "" else \
+		"Your next move: she throws it only when %s - her answer to that." % str(FightFlow.WHEN_WORDS.get(when, when))
+	var line := UI.label(said, UI.SMALL, UI.GOLD, "semi", true)
+	line.name = "WhenSays"
+	box.add_child(line)
 	return box
 
 

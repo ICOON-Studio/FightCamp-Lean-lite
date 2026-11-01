@@ -49,6 +49,9 @@ func _initialize() -> void:
 			var side: Vector3 = body.global_transform.basis.x
 			stage.camera.fov = 40.0
 			stage.camera.look_at_from_position(c + side * 3.4 + Vector3(0, 0.25, 0), c, Vector3.UP)
+			# S344 (operator C177-C182 "why the rope is not transparent"): the stage's frame is off here, so its camera never
+			# faded the ropes in the way as the game does (S311) - fade them at once for this lens.
+			stage.camera.clear_view(stage._ring_side, body.global_position, body.global_position, 0.0)
 			await _shot("%s_%d_%.2fs" % [name, i, t])
 		print("SHEET %s %.2fs" % [name, length])
 	print("SHEET DONE %d clips" % names.size())

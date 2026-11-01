@@ -75,6 +75,26 @@ func _initialize() -> void:
 		root.add_child(v)
 		await process_frame
 		_check(v.find_child("CloseFlow", true, false) != null, "the flow view opens with a Close button")
+		# S344 TAPEFLOW1: a card per place (the coach's cues on hover), a pill per arrow between two places, and a boxing
+		# place shows the still of the position.
+		var fl: Dictionary = pair[0]
+		var cards := 0
+		var tipped := 0
+		for n in fl["nodes"]:
+			var card := v.find_child("Card_" + str(n["id"]), true, false) as Control
+			if card != null:
+				cards += 1
+				tipped += 1 if card.tooltip_text != "" else 0
+		_check(cards == (fl["nodes"] as Array).size() and tipped == cards, "a card with its cues for every place (%d/%d, %d tipped)" % [cards, (fl["nodes"] as Array).size(), tipped])
+		var arrows := (fl["edges"] as Array).filter(func(e): return str(e["from"]) != str(e["to"])).size()
+		var pills := 0
+		while v.find_child("Edge%d" % pills, true, false) != null:
+			pills += 1
+		_check(pills == arrows, "a pill on every arrow (%d/%d)" % [pills, arrows])
+		if is_same(fl, flow):
+			var long_card := v.find_child("Card_long", true, false)
+			_check(FlowView.still("long") != null and long_card != null and long_card.find_child("Still", true, false) != null,
+				"the long-range card shows its still")
 		v.queue_free()
 	print("PASS fight_flow_test" if failures == 0 else "FAIL %d" % failures)
 	quit(1 if failures > 0 else 0)
