@@ -88,6 +88,10 @@ func _ready() -> void:
 			coach_skill = clampf(float(str(a).get_slice("=", 1)), 0.0, 100.0)
 		elif str(a) == "plan=1":
 			plan_mode = true
+		elif str(a) == "film=1":
+			# S342 the GrappleFlows recognition test (operator "ok"): the mat alone, no panels, for a clean video.
+			rows.get_child(0).visible = false
+			body.get_child(1).visible = false
 	if jump_tie != "":
 		_open_ties()
 		TieUpPanel.pick(self, jump_tie)
@@ -115,7 +119,11 @@ func _walk_step(delta: float) -> void:
 		var hubs: Array = graph.family(str(Graph.FAMILIES[_rng.randi() % Graph.FAMILIES.size()][1])).slice(0, 5)
 		go_position(int(hubs[_rng.randi() % hubs.size()]["id"]))
 		return
-	play_out(outs[_rng.randi() % outs.size()])
+	var pick: Dictionary = outs[_rng.randi() % outs.size()]
+	# S342 the walk names its moves (a film's narration reads them): from, the move, where it lands.
+	print("WALK %s | %s | %s" % [Graph.clean(str(db[current]["title"])), Graph.clean(str(pick["t"]["title"])),
+		Graph.clean(str(db[int(Graph.lands(pick))]["title"]))])
+	play_out(pick)
 
 
 ## ---------- the 3D view ----------

@@ -1,3 +1,30 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 44 (2026-11-01): TEXT WALLS TRIMMED, RULES FROM REAL FIGHT PLANS
+==================================================================================================
+
+ 1. Her file without the text wall (your S341 note "trim the text walls, use modals/tooltips ... (icons)"): FIGHTS > an
+    offer, or WORLD > Rankings > any name. One icon row per fact. A green check = the answer is found: HOVER it for the
+    answer. A lock = still hidden: hover it for how to find it. The dots beside HER FILE = found / total. HER RECORD is
+    a row of W / L chips, newest left (blue = a bout against us): hover a chip for the bout. WITH US is one line.
+ 2. Her plan board (Lucy's page > Fight plan): the WHEN choices are small pills; each arrow is one line (green arrow =
+    any time, orange branch = only in its situation; the x removes it; an orange (i) = not drilled yet). "Real fight
+    plans": one line each - hover the name for the fights and the idea, the download icon loads it.
+ 3. Your C161 "more explaining": the map now has a key at the bottom-left (HOW TO READ IT): what each line colour means,
+    the loop, "3 out 2 in", and the three steps that build a plan. Hover any card for its moves in and out.
+ 4. Your C158 attributes board (Lucy's Overview): every value is a bar against her potential (the black tick), coloured
+    weak / fair / solid / strong / elite (red, amber, blue, green, purple), an icon each; hover a row for what it does in
+    a fight. Temper reads Patient / Even / Trader. The radar keeps the names; AT A GLANCE sits beside MIND.
+ 5. Your Q-S294-67 "Yes, apply all 5": the fight now follows the real plans - vs a presser holding and pushing her back
+    works (Holyfield); vs a range boxer the jab and the 1-2 are right (Fury); vs a loader closing in and tying up works;
+    vs a waiter body combinations work, and a flurry is right in the round's last 30 seconds; a hurt opponent who still
+    hits back (her file says "when she is hurt") must not be chased with wide flurries (Joshua-Ruiz I).
+ 6. Your Q-S294-66 "Yes, put them back": six more punch takes play again (stepping and wide-miss versions - no foot
+    kicking up, no glove flung behind her).
+ Try: book Maria, hover her file's checks and record chips; open Lucy's plan board and read the key; look at Lucy's
+ Overview bars.
+ Still being built: the ring walking them onto the ropes / into a corner for the plan's card (Cursor, round 4 - the
+    camera and referee), a move player on the plan map (pick a move, see it played, the opponent as a ghost - Goose),
+    the clinch and pad work (Goose).
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 43 (2026-11-01): SCOUTING IN STAGES, REAL FIGHT PLANS, PLAN BRANCHES
 =====================================================================================================
 
