@@ -3,12 +3,17 @@ extends Control
 ## arrow for every move between them; pick a card and its MOVES OUT (what she can throw or do from here, and where it lands)
 ## and MOVES IN show beside it, a move she cannot use yet greyed with its reason. Clicking a move walks to its card and adds it
 ## to the route along the bottom - the start of the coach's whiteboard plan (step 4). Open with `FightCamp.exe -- jump=strikemap`.
+## Plan mode (step 4): Build plan adds arrows on the map; `-- jump=strikemap plan=1` opens in plan mode.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Map := preload("res://scripts/rules/StrikeMap.gd")
+const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
+const PlanPanel := preload("res://scripts/ui/PlanPanel.gd")
 const PANEL_W := 470
 ## Her punches for the prototype (mastery 0-100; a combo opens when each of its punches reaches Combos.LEARN_AT, 30).
 const DEMO_MASTERY := {"Jab": 60.0, "Cross": 55.0, "Lead hook": 45.0, "Body hook": 25.0, "Uppercut": 10.0, "Check hook": 0.0}
+## Prototype coach skill for arrow limit (`-- coach=<0-100>` overrides).
+const DEMO_COACH := 55.0
 ## Where each card sits on the map (0..1 of the map's size): the ranges left to right, the ring places below.
 const SPOT := {"outside": Vector2(0.10, 0.28), "long": Vector2(0.30, 0.28), "mid": Vector2(0.50, 0.28), "inside": Vector2(0.70, 0.28),
 	"clinch": Vector2(0.90, 0.28), "own_ropes": Vector2(0.22, 0.74), "opp_ropes": Vector2(0.55, 0.74), "corner": Vector2(0.86, 0.74)}
@@ -16,9 +21,13 @@ const CARD := Vector2(236, 92)
 
 var current := "outside"
 var route: Array = []      # [card, move name, card, ...] as walked
+var plan: Array = []       # [{"move": row id}, ...]
+var plan_mode := false
+var coach_skill := DEMO_COACH
 var _map: Control
 var _side: VBoxContainer
 var _route_label: Label
+var _plan_toggle: Button
 
 
 func _ready() -> void:
@@ -47,7 +56,13 @@ func _ready() -> void:
 	_route_label = UI.label("", UI.SMALL, UI.FG, "body", true)
 	foot.add_child(_route_label)
 	rows.add_child(foot)
+	for arg in OS.get_cmdline_user_args():
+		var s := str(arg)
+		if s.begins_with("coach="):
+			coach_skill = clampf(float(s.get_slice("=", 1)), 0.0, 100.0)
 	go(current)
+	if OS.get_cmdline_user_args().has("plan=1"):
+		_set_plan_mode(true)
 
 
 func _top_bar() -> Control:
@@ -58,8 +73,17 @@ func _top_bar() -> Control:
 	h.add_child(UI.label("BOXING MOVE MAP", 22, UI.FG, "bold"))
 	h.add_child(UI.muted("  prototype - her punches: Jab 60, Cross 55, Lead hook 45, Body hook 25, Uppercut 10  "))
 	h.add_child(UI.spacer())
-	h.add_child(UI.button("Start again", "BtnQuiet", func(): route.clear(); go("outside")))
+	_plan_toggle = UI.button("Build plan", "Btn", func(): _set_plan_mode(not plan_mode))
+	h.add_child(_plan_toggle)
+	h.add_child(UI.button("Start again", "BtnQuiet", func(): route.clear(); plan.clear(); go("outside")))
 	return bar
+
+
+func _set_plan_mode(on: bool) -> void:
+	plan_mode = on
+	if _plan_toggle:
+		_plan_toggle.text = "Done" if plan_mode else "Build plan"
+	go(current)
 
 
 func _panel() -> Control:
@@ -75,6 +99,29 @@ func _panel() -> Control:
 	return p
 
 
+func _arrow_limit() -> int:
+	return PlanBoard.arrow_limit(coach_skill)
+
+
+func _drilled() -> Array:
+	var ids: Array = []
+	for m in Map.MOVES:
+		if Map.grey_reason(m, DEMO_MASTERY) == "":
+			ids.append(str(m["id"]))
+	return ids
+
+
+func _place_name(id: String) -> String:
+	return str(Map.card(id).get("name", id))
+
+
+func _remove_arrow(index: int) -> void:
+	if index < 0 or index >= plan.size():
+		return
+	plan.remove_at(index)
+	go(current)
+
+
 ## Show a card: the map lit on it, its moves out and in on the right.
 func go(card_id: String) -> void:
 	current = card_id
@@ -87,6 +134,10 @@ func go(card_id: String) -> void:
 	_side.add_child(UI.label(str(c["name"]), 28, UI.FG, "bold", true))
 	var r: Array = c["range_m"]
 	_side.add_child(UI.muted(str(c["what"]) + ("" if r.is_empty() else "  (%.2f - %.2f m apart)" % [r[0], r[1]]), UI.TINY, true))
+	if plan_mode:
+		_side.add_child(UI.sep())
+		_side.add_child(PlanPanel.build(Map.MOVES, plan, _arrow_limit(), _drilled(), _place_name, _remove_arrow))
+		_side.add_child(UI.sep())
 	_moves("MOVES OUT", Map.outs(card_id), true)
 	_moves("MOVES IN", Map.ins(card_id), false)
 	_route_label.text = "YOUR ROUTE:  " + "  >  ".join(route)
@@ -95,23 +146,36 @@ func go(card_id: String) -> void:
 func _moves(title: String, rows: Array, out: bool) -> void:
 	_side.add_child(UI.sep())
 	_side.add_child(UI.caps("%s  (%d)" % [title, rows.size()]))
+	var limit := _arrow_limit()
+	var full_reason := "The plan is full (%d arrows for this coach)" % limit
 	for row in rows:
 		var m: Dictionary = row
 		var other: String = str(m["to"]) if out else str(m["from"])
-		var why := Map.grey_reason(m, DEMO_MASTERY) if out else ""
+		var mastery_why := Map.grey_reason(m, DEMO_MASTERY) if out else ""
+		var why := mastery_why
+		if out and plan_mode and why == "" and plan.size() >= limit:
+			why = full_reason
 		var small := ("to " if out else "from ") + str(Map.card(other)["name"]) + ("" if str(m["kind"]) == "combo" else "  (" + str(m["kind"]) + ")")
+		var disabled := why != ""
 		var b := UI.button2(str(m["name"]), small, "Choice", func(): _take(m, out), Vector2(PANEL_W - 50, 58), UI.FG, UI.MUTED,
-			why != "", UI.SMALL, UI.TINY)
-		if why != "":
-			b.tooltip_text = why
+			disabled, UI.SMALL, UI.TINY, why)
+		if mastery_why != "":
+			b.tooltip_text = mastery_why
 			_side.add_child(b)
-			_side.add_child(UI.label("    " + why, UI.TINY, UI.GOLD, "body", true))
+			_side.add_child(UI.label("    " + mastery_why, UI.TINY, UI.GOLD, "body", true))
 		else:
 			_side.add_child(b)
 
 
 ## A move out walks to where it lands (the route grows); a move in jumps back to where it starts.
+## In plan mode a move out adds a plan arrow and walks without growing the route.
 func _take(m: Dictionary, out: bool) -> void:
+	if out and plan_mode:
+		if plan.size() >= _arrow_limit():
+			return
+		plan.append({"move": str(m["id"])})
+		go(str(m["to"]))
+		return
 	if out:
 		route.append(str(m["name"]))
 		route.append(str(Map.card(str(m["to"]))["name"]))
@@ -138,7 +202,23 @@ func _layout() -> void:
 	_map.queue_redraw()
 
 
-## An arrow for every move between two cards; the lit card's moves out drawn in gold.
+func _draw_plan_arrow(from_id: String, to_id: String) -> void:
+	var a: Vector2 = SPOT[from_id] * _map.size
+	var b: Vector2 = SPOT[to_id] * _map.size
+	if a == b:
+		return
+	var col := UI.GOLD
+	var dir := (b - a).normalized()
+	var side := Vector2(-dir.y, dir.x) * 10.0
+	var edge := minf(CARD.x * 0.5 / maxf(absf(dir.x), 1e-3), CARD.y * 0.5 / maxf(absf(dir.y), 1e-3)) + 4.0
+	var p0 := a + dir * edge + side
+	var p1 := b - dir * edge + side
+	_map.draw_line(p0, p1, col, 5.0, true)
+	_map.draw_colored_polygon(PackedVector2Array([p1, p1 - dir * 16.0 + Vector2(-dir.y, dir.x) * 8.0,
+		p1 - dir * 16.0 - Vector2(-dir.y, dir.x) * 8.0]), col)
+
+
+## An arrow for every move between two cards; the lit card's moves out drawn in gold; plan arrows drawn thick on top.
 func _draw_arrows() -> void:
 	for m in Map.MOVES:
 		var a: Vector2 = SPOT[str(m["from"])] * _map.size
@@ -157,3 +237,8 @@ func _draw_arrows() -> void:
 		_map.draw_line(p0, p1, col, 3.0 if out else 1.5, true)
 		_map.draw_colored_polygon(PackedVector2Array([p1, p1 - dir * 14.0 + Vector2(-dir.y, dir.x) * 7.0,
 			p1 - dir * 14.0 - Vector2(-dir.y, dir.x) * 7.0]), col)
+	for arrow in plan:
+		var row := PlanBoard.row(Map.MOVES, str(arrow["move"]))
+		if row.is_empty():
+			continue
+		_draw_plan_arrow(str(row["from"]), str(row["to"]))

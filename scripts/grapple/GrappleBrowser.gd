@@ -11,6 +11,7 @@ const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
 const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
 const Grip := preload("res://scripts/grapple/GrappleGrip.gd")
+const TieUpPanel := preload("res://scripts/grapple/TieUpPanel.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
 ## S335 operator: "use different colours on the clothes for each" - one colour head to toe per woman (top a shade lighter).
@@ -34,7 +35,9 @@ var _yaw := 35.0
 var _look := Vector3(0, 0.4, 0)
 var _side: VBoxContainer
 var _list: VBoxContainer
+var _list_hdr: Label
 var _search: LineEdit
+var _tie_open := ""
 ## `-- walk=N`: the browser walks the graph by itself (N moves, a pause on each position, then quits) - the film tool.
 var _walk := 0
 var _hold := 0.0
@@ -65,11 +68,17 @@ func _ready() -> void:
 	_cast(view.get_child(0).get_child(0))
 	_family("mount")
 	go_position(db.find(DB.find(db, START)))
+	var jump_tie := ""
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("walk="):
 			_walk = int(a.substr(5))
 			_walking = true
 			_rng.seed = 335
+		elif a.begins_with("tie="):
+			jump_tie = a.substr(4)
+	if jump_tie != "":
+		_open_ties()
+		TieUpPanel.pick(self, jump_tie)
 
 
 ## The walk's next move: one out of here that lands on a position with moves of its own, a new place first; at a dead
@@ -256,6 +265,7 @@ func _top_bar() -> Control:
 	for f in Graph.FAMILIES:
 		var tag := str(f[1])
 		h.add_child(UI.button(str(f[0]), "Tab", func(): _family(tag)))
+	h.add_child(UI.button("Tie-ups", "Tab", func(): _open_ties()))
 	h.add_child(UI.spacer())
 	_search = LineEdit.new()
 	_search.placeholder_text = "find a position"
@@ -279,7 +289,8 @@ func _panel() -> Control:
 	_side.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.add_child(_side)
 	v.add_child(UI.sep())
-	v.add_child(UI.caps("POSITIONS"))
+	_list_hdr = UI.caps("POSITIONS")
+	v.add_child(_list_hdr)
 	_list = UI.vbox(4)
 	_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.add_child(_list)
@@ -292,6 +303,9 @@ func _refresh() -> void:
 		_side.add_child(UI.caps("NOW PLAYING"))
 		_side.add_child(UI.label(Graph.clean(str(moving["t"]["title"])), 26, UI.GOLD, "bold", true))
 		_side.add_child(UI.button("Skip to the end", "BtnQuiet", func(): player.seek(player.length_s())))
+		return
+	if _tie_open != "":
+		TieUpPanel.show_tie(self, _tie_open)
 		return
 	var pos: Dictionary = db[current]
 	_side.add_child(UI.caps("POSITION"))
@@ -316,11 +330,22 @@ func _moves(title: String, moves: Array, out: bool) -> void:
 
 
 func _family(tag: String) -> void:
+	_tie_open = ""
+	_list_hdr.text = "POSITIONS"
 	_fill(graph.family(tag).slice(0, 40))
+
+
+func _open_ties() -> void:
+	_tie_open = ""
+	_list_hdr.text = "TIE-UPS"
+	TieUpPanel.fill_list(self)
+	_refresh()
 
 
 func _find(words: String) -> void:
 	if words.strip_edges().length() >= 2:
+		_tie_open = ""
+		_list_hdr.text = "POSITIONS"
 		_fill(graph.search(words).slice(0, 40))
 
 

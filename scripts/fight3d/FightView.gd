@@ -118,9 +118,12 @@ func reveal() -> void:
 		_vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS   # what SubViewportContainer sets when shown
 
 
-## The 3D view plays wherever there is a picture to draw; `no3d` on the command line turns it off.
+## The 3D view plays wherever there is a picture to draw; `no3d` on the command line turns it off. S334: `show3d` plays it
+## headless too - the cloud probes (.github/workflows/fight-stills.yml) read bones, not pixels, and a software GPU ran the
+## windowed fight at 1 frame a second.
 static func enabled() -> bool:
-	return DisplayServer.get_name() != "headless" and not OS.get_cmdline_user_args().has("no3d")
+	var args := OS.get_cmdline_user_args()
+	return (DisplayServer.get_name() != "headless" or args.has("show3d")) and not args.has("no3d")
 
 
 func setup(m_main: Node, m: Dictionary) -> void:
