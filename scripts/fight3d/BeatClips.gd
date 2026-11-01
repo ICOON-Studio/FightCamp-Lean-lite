@@ -37,11 +37,9 @@ const PUNCH := {
 	"rear_uppercut": ["right_uppercut", [""], "rear_uppercut"],
 	"body_hook": ["body_shot", [""], "body_hook"],
 }
-## S301 tools/take_check.gd (S300 film: "_ft takes kick the back leg up", "_miss takes fling the rear arm back"): these six
-## lift a foot or fling the rear glove well past their plain take (right_cross_miss flings it 0.60 m behind her hips); the
-## other 18 stepping / wide-miss takes measured clean and play.
-const OFF_TAKES := ["pro_left_hook_hurt_ft", "pro_left_hook_miss", "pro_right_cross_miss", "pro_right_hook_hard_ft",
-	"pro_right_hook_miss", "pro_right_uppercut_hurt_ft"]
+## S334 TAKEFIX1: all six stepping / wide-miss takes now measure clean (tools/take_fix.gd blended the offending windows
+## toward the plain take), so they play and give every exchange more variety.
+const OFF_TAKES := []
 ## A landed punch on the other boxer: by the punch that hit her, then "hurt" for the round's knockback.
 ## S310 (operator: "why don't you map all 165 clips we purchased?"): every Punch Pro hit reaction that comes back to guard
 ## within ~1 s (clip_recovery.json back_s) is in its punch's pool and the beat's roll picks one (react() took the first

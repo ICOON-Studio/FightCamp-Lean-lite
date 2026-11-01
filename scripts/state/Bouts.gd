@@ -18,6 +18,7 @@ const Knockdowns := preload("res://scripts/rules/Knockdowns.gd")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 const CoachNotes := preload("res://scripts/rules/CoachNotes.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
+const OppFile := preload("res://scripts/rules/OppFile.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -103,6 +104,7 @@ static func weighing_today(c: Career) -> Dictionary:
 ## After each day: per fighter, a pair of offers arrives when nothing is booked or pending; unanswered offers expire.
 static func day_events(c: Career) -> void:
 	for f in c.fighters:
+		tape_days(c, f)
 		if bool(f.get("pro", false)) or Champs.active(f):
 			continue   # S328 no other offers while she is in the championships
 		if (f["bout"] as Dictionary).is_empty() and c.day >= int(f["next_offer_day"]) and offers_settled(f):
@@ -141,7 +143,8 @@ static func accept(c: Career, id: String) -> bool:
 	for x in f["offers"]:
 		x["answered"] = true
 	o["accepted"] = true
-	f["bout"] = {"opp": o["opp"], "day": int(o["day"]), "weighed": false, "made": false, "done": false,
+	# S341: her own copy - tape study writes her file into it (OppFile), never into the answered offer.
+	f["bout"] = {"opp": (o["opp"] as Dictionary).duplicate(true), "day": int(o["day"]), "weighed": false, "made": false, "done": false,
 		"film": BoutRules.FILM_DEPTH_DEFAULT}
 	f["booked_fight"] = true
 	FighterProfile.apply_morale(f, "booked", "A fight booked: %s" % o["opp"]["name"])
@@ -171,22 +174,31 @@ static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, f
 	# the Hard camp is the player's "more risk" pick and trains Hard.
 	f["load_setting"] = "hard" if protocol == 3 else TrainingLoad.camp_default(Injuries.chronic(f))
 	if film:
-		f["bout"]["film"] = BoutRules.FILM_DEPTH_WITH_STUDY
-		film_notes(c, f)
+		tape_days(c, f)
 	return cost
 
 
-## S302: film study shows the coach the opponent's habits (the ones the ring plays, from the scout's words); each is a
-## news line and fills the FILM ON HER card in the fighter's Camp tab. Tape never shows character.
-static func film_notes(c: Career, f: Dictionary) -> void:
-	var opp: Dictionary = f["bout"]["opp"]
-	opp["habits"] = RoundStyle.opponent_habits(opp)
-	var rng := RandomNumberGenerator.new()
-	for i in (opp["habits"] as Array).size():
-		var got := CoachNotes.reveal(opp, "film", rng)
-		for row in CoachNotes.card(opp, notes_bank()):
-			if got.has(row["id"]):
-				c.add_news("Film on %s: \"%s\"" % [opp["first"], row["line"]])
+## S341 tape study (OppFile): the camp's sessions so far open her file one tell each (weapon first, weakness last); each
+## is a news line, and the fight's film depth follows what is found.
+static func tape_days(c: Career, f: Dictionary) -> void:
+	var camp: Dictionary = f["camp"]
+	var b: Dictionary = f["bout"]
+	if camp.is_empty() or b.is_empty() or not bool(camp.get("film", false)):
+		return
+	var opp: Dictionary = b["opp"]
+	if not opp.has("habits"):
+		opp["habits"] = RoundStyle.opponent_habits(opp)
+	while int(camp.get("tapes", 0)) < OppFile.sessions_due(int(camp["start"]), c.day):
+		camp["tapes"] = int(camp.get("tapes", 0)) + 1
+		var id := OppFile.tape(opp)
+		if id == "":
+			break
+		for t in OppFile.tells(opp):
+			if str(t["id"]) == id:
+				# Her best weapon is mail; the later finds are news only (they are on her file card): 1 mail a camp.
+				c.add_news("Tape on %s: %s - %s. %s." % [opp["first"], str(t["what"]).to_lower(), str(t["value"]).to_lower(), t["counter"]], id == "weapon")
+	b["film"] = OppFile.film_depth(opp)
+	OppFile.remember(c.rival(str(opp["name"])), opp)
 
 
 ## Steps her on the scale. Missed weight calls the bout off and the club pays for the empty slot. Returns made.

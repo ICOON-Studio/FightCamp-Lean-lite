@@ -12,6 +12,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const OppFile := preload("res://scripts/rules/OppFile.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
@@ -169,15 +170,18 @@ func _week_two(c: Career) -> void:
 	_check(main.modal.get("type", "") == "camp", "SET CAMP opens the camp")
 	_press(_modal_button("StartCamp"), "Start the camp is live")
 	_check(not c.fighter()["camp"].is_empty() and c.cash == cash_before - 450, "standard camp + film: $450 paid")
-	var opp_seen: Array = c.fighter()["bout"]["opp"].get("notes_seen", [])
-	_check(opp_seen.size() == (c.fighter()["bout"]["opp"].get("habits", []) as Array).size() and opp_seen.all(func(x): return str(x).begins_with("habit:")),
-		"S302: film study shows the coach her opponent's habits (%d), never her character" % opp_seen.size())
-	_check(int(c.fighter()["bout"]["film"]) == 3, "film study: depth 3 of 3")
+	# S341 scouting in stages: the camp's first tape session opens her best weapon; the rest come a session at a time.
+	var opp_file: Dictionary = c.fighter()["bout"]["opp"]
+	_check(OppFile.found(opp_file) == ["weapon"] and int(c.fighter()["bout"]["film"]) == 2,
+		"tape study day 1: her best weapon found, film depth %d of 3" % int(c.fighter()["bout"]["film"]))
 	_draw_everything()
 
 	# To the weigh-in.
 	if not _run_until(func(): return Bouts.weigh_in_today(c, c.fighter()), "CONTINUE reaches the weigh-in"):
 		return
+	var opp_seen: Array = opp_file.get("notes_seen", [])
+	_check(OppFile.hidden(opp_file).is_empty() and int(c.fighter()["bout"]["film"]) == 3 and opp_seen.all(func(x): return str(x).begins_with("habit:")),
+		"by the weigh-in the tape has opened her whole file (film depth 3); the coach's notes hold her habits (%d), never her character" % opp_seen.size())
 	_check(c.day == int(c.fighter()["bout"]["day"]) - 1, "the weigh-in is the day before")
 	_check(str(Needs.go_state(c, false)["t"]).begins_with("NEEDS YOU"), "the weigh-in blocks time")
 	main.act("go_btn")

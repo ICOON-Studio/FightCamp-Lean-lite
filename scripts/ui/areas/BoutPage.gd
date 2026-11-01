@@ -7,6 +7,7 @@ const Tape := preload("res://scripts/ui/Tape.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
+const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 
 
 func build(main: Node, offer_id: String) -> void:
@@ -33,10 +34,9 @@ func build(main: Node, offer_id: String) -> void:
 	]))
 	var grid := UI.hbox(16)
 	add_child(grid)
-	var report := UI.card("OPPONENT REPORT")
-	UI.add_rows(report[1], [UI.kv("Biggest threat", opp["threat"]), UI.kv("Weakness", opp["weak"]),
-		UI.kv("Film on her", "2 bouts, depth %d of 3" % BoutRules.FILM_DEPTH_DEFAULT)])
-	report[1].add_child(UI.muted("A camp with film study raises the depth to 3.", UI.SMALL, true))
+	# S341 scouting in stages: her threat and weakness are no longer handed over - they are in her file, found on tape.
+	var report := UI.card("SCOUTING")
+	report[1].add_child(OppFileCard.build(opp, false, OppFileCard.OppFile.history(c.results, str(opp["name"]))))
 	grid.add_child(report[0])
 	var weeks := int((int(o["day"]) - c.day) / 7.0)
 	var terms := UI.card("TERMS")

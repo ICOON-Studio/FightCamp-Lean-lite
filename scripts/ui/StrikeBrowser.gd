@@ -19,6 +19,8 @@ const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
 const FlowView := preload("res://scripts/ui/FlowView.gd")
 const Data := preload("res://scripts/state/Data.gd")
+const PlanTemplates := preload("res://scripts/rules/PlanTemplates.gd")
+const OppFile := preload("res://scripts/rules/OppFile.gd")
 const PANEL_W := 470
 ## Her punches for the prototype (mastery 0-100; a combo opens when each of its punches reaches Combos.LEARN_AT, 30).
 const DEMO_MASTERY := {"Jab": 60.0, "Cross": 55.0, "Lead hook": 45.0, "Body hook": 25.0, "Uppercut": 10.0, "Check hook": 0.0}
@@ -33,6 +35,7 @@ var current := "outside"
 var route: Array = []      # [card, move name, card, ...] as walked
 var plan: Array = []       # [{"move": row id, "when": situation (optional)}, ...]
 var when := ""             # S341 the situation the next arrow answers ("" = any time)
+var templates := false     # S341 the side panel lists the real fight plans (PlanTemplates) instead of the card's moves
 var plan_mode := false
 var coach_skill := DEMO_COACH
 var mastery: Dictionary = DEMO_MASTERY
@@ -111,6 +114,7 @@ func _top_bar() -> Control:
 		punches.append("%s %d" % [mv, int(float(mastery.get(mv, 0.0)))])
 	h.add_child(UI.muted("  her punches: " + ", ".join(punches) + "  "))
 	h.add_child(UI.spacer())
+	h.add_child(UI.button("Real fight plans", "Btn", func(): templates = not templates; go(current)))
 	h.add_child(UI.button("See the flow", "Btn", show_flow))
 	h.add_child(UI.button("Clear", "BtnQuiet", func(): plan.clear(); go(current)))
 	h.add_child(UI.button("Back", "Btn", _close))
@@ -227,6 +231,11 @@ func go(card_id: String) -> void:
 	_side.add_child(UI.label(str(c["name"]), 28, UI.FG, "bold", true))
 	var r: Array = c["range_m"]
 	_side.add_child(UI.muted(str(c["what"]) + ("" if r.is_empty() else "  (%.2f - %.2f m apart)" % [r[0], r[1]]), UI.TINY, true))
+	if plan_mode and templates:
+		_side.add_child(UI.sep())
+		_side.add_child(_template_list())
+		_route_label.text = "YOUR ROUTE:  " + "  >  ".join(route)
+		return
 	if plan_mode:
 		_side.add_child(UI.sep())
 		_side.add_child(_when_picker())
@@ -281,6 +290,34 @@ func _take(m: Dictionary, out: bool) -> void:
 	else:
 		route.clear()
 		go(str(m["from"]))
+
+
+## S341 the real fight plans (PlanTemplates, REALPLANS_S341.md): name, the fights it comes from, the coach's idea, Load.
+## The ones made for her next opponent's game (her file's free "Her game" tell) come first, marked.
+func _template_list() -> Control:
+	var box := UI.vbox(10)
+	box.add_child(UI.caps("REAL FIGHT PLANS"))
+	var opp: Dictionary = (fighter.get("bout", {}) as Dictionary).get("opp", {})
+	var game := OppFile.main_game(opp) if not opp.is_empty() else ""
+	var mine: Array = PlanTemplates.for_game(game)
+	if game != "":
+		box.add_child(UI.muted("Her next opponent, %s: %s." % [opp.get("first", "?"), str(OppFile.GAME_WORDS.get(game, game))], UI.SMALL, true))
+	var rows: Array = PlanTemplates.BOXING.duplicate()
+	rows.sort_custom(func(a, b): return mine.has(a["id"]) and not mine.has(b["id"]))
+	for t in rows:
+		var card := UI.vbox(3)
+		card.add_child(UI.label(("FOR HER NEXT FIGHT: " if mine.has(t["id"]) else "") + str(t["name"]), UI.SMALL, UI.GOLD if mine.has(t["id"]) else UI.FG, "bold", true))
+		card.add_child(UI.muted("From " + str(t["from"]), UI.TINY, true))
+		card.add_child(UI.label(str(t["idea"]), UI.TINY, UI.FG, "italic", true))
+		var tt: Dictionary = t
+		var load := UI.button("Load (%d arrows)" % mini((t["arrows"] as Array).size(), _arrow_limit()), "BtnQuiet", func():
+			plan = PlanTemplates.load(tt, _arrow_limit(), plan, Map.MOVES)
+			templates = false
+			go(current))
+		load.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		card.add_child(load)
+		box.add_child(card)
+	return box
 
 
 ## This arrow is the move for the picked situation.

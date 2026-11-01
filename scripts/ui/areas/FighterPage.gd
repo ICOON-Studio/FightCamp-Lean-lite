@@ -13,6 +13,7 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const NextStep := preload("res://scripts/rules/NextStep.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
+const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 
 const TABS := ["Overview", "Attributes and moves", "Body", "Record", "Camp", "Contract and goals"]
 
@@ -82,14 +83,12 @@ func build(main: Node, f: Dictionary) -> void:
 			if not camp.is_empty():
 				card.add_child(UI.label("%s focus, %s protocol, film depth %d of 3" % [Data.LABEL[camp["focus"]],
 					str(BoutRules.PROTOCOLS[int(camp["protocol"])]["name"]).to_lower(), int(fb["film"])], UI.BODY, UI.FG, "body", true))
-				# S302: what film study showed of the opponent (Bouts.film_notes).
+				# S341 her file (OppFile): what tape study has found so far, and its answers; the rest is hidden.
 				var opp: Dictionary = fb.get("opp", {})
-				card.add_child(UI.caps("FILM ON %s" % str(opp.get("name", "her")).to_upper()))
-				var seen := CoachNotes.card(opp, Bouts.notes_bank())
-				if seen.is_empty():
-					card.add_child(UI.muted("No film study in this camp: her habits show on the night.", UI.SMALL, true))
-				for row in seen:
-					card.add_child(UI.label("\"%s\"" % row["line"], UI.SMALL, UI.FG, "italic", true))
+				card.add_child(UI.caps("SCOUTING %s" % str(opp.get("name", "her")).to_upper()))
+				card.add_child(OppFileCard.build(opp, bool(camp.get("film", false)), OppFileCard.OppFile.history(c.results, str(opp.get("name", "")))))
+				if not bool(camp.get("film", false)):
+					card.add_child(UI.muted("No tape study in this camp: what is hidden shows on the night.", UI.SMALL, true))
 			elif not fb.is_empty():
 				var days_to_bout := int(fb["day"]) - c.day
 				var camp_locked := days_to_bout < BoutRules.CAMP_MIN_DAYS
@@ -97,6 +96,7 @@ func build(main: Node, f: Dictionary) -> void:
 				var b := UI.button("Set her camp", "BtnSolid", main.act.bind("camp", f["id"]), camp_locked, camp_why)
 				b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 				card.add_child(b)
+				card.add_child(OppFileCard.build(fb.get("opp", {}), false, OppFileCard.OppFile.history(c.results, str(fb.get("opp", {}).get("name", "")))))
 			else:
 				card.add_child(UI.muted("No bout booked.", UI.BODY))
 		5:

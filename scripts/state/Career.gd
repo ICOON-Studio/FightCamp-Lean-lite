@@ -6,6 +6,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
+const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 
 @export var gym_name: String = "Anvil Street Gym"
 @export var city: String = "London"
@@ -54,6 +55,10 @@ static func quick_start(name: String = "Anvil Street Gym", town: String = "Londo
 		c.rivals.append((r as Dictionary).merged({"div": "wlw"}))
 	for r in Data.DIVISION_RIVALS:
 		c.rivals.append((r as Dictionary).duplicate(true))
+	# S341 every rival's record bout by bout: an invented past that matches her W-L (RivalPast).
+	for r in c.rivals:
+		var others: Array = c.rivals.filter(func(o): return str(o.get("div", "")) == str(r.get("div", ""))).map(func(o): return [o["name"], o["club"]])
+		r["bouts"] = RivalPast.seed(r, others, c.seed, c.day)
 	for p in Data.PROSPECTS:
 		c.prospects.append((p as Dictionary).merged({"state": "scout", "trial_day": -1}, false).duplicate(true))
 	for d in Data.DEALS:

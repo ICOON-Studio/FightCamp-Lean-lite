@@ -1,21 +1,27 @@
-# S341 - next session (written S340, 2026-11-01)
+# S342 - next session (written S341, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
-S340 shipped update 42: the attributes board (C157: radar vs potential + footwork and her mind traits, AT A GLANCE), the
-clinch's price (ClinchRest: +1.5 energy, the opponent digs in ~44 % of a presser's tie-ups), fight flows for boxing and
-wrestling (See the flow / Her plan, lit up), TIECLIPS1 merged. Digest: Game\Godot\research\S340_DIGEST.md.
+S341 shipped update 43: scouting in stages (her file, tape study opens one tell every 2 camp days), every opponent's record
+kept bout by bout (RivalPast + WORLD > Rankings opens any rival's file), plan branches (WHEN picker), real fight plans as
+templates (REALPLANS_S341.md). Digest: Game\Godot\research\S341_DIGEST.md.
 
 OPERATOR RULE S338: "keep all agents working on animations and you work on the mechanics and ui".
 
-1. COLLECT FIRST (visual gate before any merge - render on the hidden desktop and open the stills yourself):
-   - FIGHTCARD1 round 2 (Cursor, wt E:\FightCamp\wt\LEAN_FIGHTCARD1, branch cursor/fightcard1): needs `CARD STAGED` >= 80 %
-     for own_ropes and corner AND fight3d_play stills with her back on the ropes / the opponent in a corner.
-   - CLINCH2 (Goose issue #14, branch goose/issue-14): clinch_check CLINCH OK 6/6 + tools/clinch_still.gd stills.
-   - PADWORK1 round 2 (Goose issue #13, branch goose/issue-13): PADSTILL bodies 2 in frame + real-glove gaps that differ.
-   Goose cannot open PRs on FightCamp-Lean: fetch the branch, review the diff, merge it yourself.
-   Then wire PadWork into the Training page (a "Watch the pad work" button by the combo picker) - UI is Claude's.
-2. CLAUDE MECHANICS: fight flows step 2 - branches by the opponent's game (arrow `when`; PlanFight.choose prefers the arrow
-   whose when == the situation; PlanBoard.validate places = from + when; a WHEN picker on the plan board; measure with
-   plan_bout_test). Then OPPPLAN1 (the opponent's corner plans by her style), PLANPADS1 (camp weeks drill plan arrows).
-3. Q-S294-65 scouting in stages (SCOUTING_S340.md): build in its order once he answers.
-4. The operator plays update 42 (Lucy's page Overview; a bout with a tie-up plan - read the clinch line; result > Her plan, lit up).
+0. UI DEFECT FIRST (operator S341: "you need to trim the text walls, use modals/tooltips and smarter use of space (icons)
+   and refer to research on what UIs player like"): rework S341's screens - scripts/ui/OppFileCard.gd (tells: one icon row
+   each, the answer in a tooltip; HER RECORD as W/L chips, the bout in a tooltip; WITH US one line), the Real fight plans
+   list and WHEN picker in scripts/ui/StrikeBrowser.gd, PlanPanel rows. Read first: Godot/research/topics/ui_screens.md,
+   J52_TOOLTIPS_AND_TUTORIAL.md, K_HUD2_KALLI.md, M_HUD2_MARIA.md; memory "HUD = top bar + modals (S268)". Stills before and
+   after (tools/layout_snapshot.gd 12_bout + 30b_rival_file, tools/plan_still.gd branch), opened by you, sent to him.
+   Operator S341: "maybe this can help to improve visuals : https://whimsical.com/" - WIREFRAME FIRST: draw the compact cards
+   (and the flow view's look) in Whimsical if he connected its connector (Whimsical MCP: create / generate_diagram), else in
+   Figma (connected), put the wireframe on the board for his OK, then build. Whimsical's clean flowchart style (rounded nodes,
+   short labels, colour not words) is also the reference for FlowView.
+1. COLLECT with the visual gate (render on the hidden desktop, open the stills, check the probe's numbers VARY):
+   CLINCH2 round 2 (Goose #14; brief TASK_CLINCH2 "ROUND 2"), PADWORK1 round 2 (Goose #13), FIGHTCARD1 round 2 (Cursor
+   1f48154, wt E:\FightCamp\wt\LEAN_FIGHTCARD1); SMOOTH2 + TAKEFIX1 (older Goose) on the board. Goose cannot open PRs here:
+   fetch the branch, review, merge. Then wire PadWork into the Training page.
+2. Board answers: Q-S294-67 (5 fight-rule edits from real plans). The GrappleFlows video test needs his OK first.
+3. Scouting step 3 (scout trip: a habit + trigger, how her corner talks), OPPPLAN1 (her corner's plan by her style and
+   file), step 5 (a sparring partner of her style), PLANPADS1.
+4. The operator plays update 43 (WHAT_TO_TRY.txt top).

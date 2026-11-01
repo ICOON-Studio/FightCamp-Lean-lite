@@ -43,6 +43,15 @@ func _initialize() -> void:
 	s.go("long")
 	var rows: Array = s._side.find_children("*", "Label", true, false).filter(func(l): return str((l as Label).text).begins_with("If she tires: "))
 	_check(rows.size() == 1, "the plan list reads 'If she tires: One-two-hook-cross ...'")
+	# S341 the real fight plans: listed, the one for her opponent's game first; Load merges it into her plan.
+	s.fighter["bout"] = {"opp": {"first": "Maria", "style": "Pressure fighter"}}
+	s.templates = true
+	s.go("long")
+	var loads: Array = s._side.find_children("*", "Button", true, false).filter(func(b): return str((b as Button).text).begins_with("Load ("))
+	var first_label: Array = s._side.find_children("*", "Label", true, false).filter(func(l): return str((l as Label).text).begins_with("FOR HER NEXT FIGHT: "))
+	_check(loads.size() == 8 and first_label.size() >= 1, "8 real fight plans listed; %d marked for Maria's game" % first_label.size())
+	(loads[0] as Button).pressed.emit()
+	_check(not s.templates and s.plan.size() == s._arrow_limit() and str(s.plan[0]["move"]) == "1-1", "Load: Leonard's plan first on her board (%s)" % str(s.plan))
 	print("FAIL %d" % failures if failures else "PASS strike_browser_test")
 	quit(1 if failures else 0)
 

@@ -26,6 +26,13 @@ static func who(main: Node, id: String) -> Dictionary:
 static func act(main: Node, name: String, arg: String) -> bool:
 	var c: Career = main.career
 	match name:
+		"rivalfile":
+			# S341 any rival's file, any time (WORLD > Rankings).
+			var r := c.rival(arg)
+			if r.is_empty():
+				return true
+			main.open_modal({"type": "info", "title": str(r["name"]), "body": "%s, %s. %s." % [r["club"], str(r.get("stance", "")),
+				r["style"]], "rival": arg})
 		"focus", "diet", "learn", "combo", "trainload":
 			var parts := arg.split("|")
 			var f := who(main, parts[0])

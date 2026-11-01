@@ -12,6 +12,8 @@ const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FightWords := preload("res://scripts/state/FightWords.gd")
 const Region := preload("res://scripts/state/Region.gd")
+const OppFile := preload("res://scripts/rules/OppFile.gd")
+const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Knockdowns := preload("res://scripts/rules/Knockdowns.gd")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
@@ -64,6 +66,10 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		_shout(c, f, m, a.trim_prefix("shout:"))
 	elif a == "round_out":
 		_shout_out(c, f, m)
+	# S341: "end" before the last bell boxes out what is left first - a result with 0 rounds (a 0-0 draw) cannot be booked
+	# (layout_snapshot never shouted, so its fight ended on empty cards and the draw went on her record).
+	if a == "end" and not stopped(m) and (int(m.get("round", 0)) < rounds_of(f) or not LiveRound.live(m).is_empty()):
+		a = "rest"
 	if a == "sim" or a == "rest":
 		_shout_out(c, f, m)
 		while int(m["round"]) < rounds_of(f) and not stopped(m):
@@ -290,6 +296,9 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 		var r := c.rival(str(opp["name"]))
 		if not r.is_empty() and outcome != "draw":
 			Region.record(r, not win)
+		# S341 her record keeps the bout against us (RivalPast), as her own result - a draw too.
+		RivalPast.add(r, c.day, str(f["name"]), c.gym_name, not win and outcome != "draw",
+			"a draw" if outcome == "draw" else ("on points" if stop == "" else "%s in round %d" % [stop, rounds.size()]), true)
 	if win:
 		for d in c.deals:
 			if str(d["state"]) == "locked":
@@ -298,6 +307,9 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var card_text := ", ".join(cards) if stop == "" else "%s round %d" % [stop, rounds.size()]
 	c.results.push_front({"d": c.day, "fid": f["id"], "who": f["first"], "opp": opp["name"], "win": win, "outcome": outcome, "pro": pro, "cards": card_text,
 		"why": why[0] if not why.is_empty() else ""})
+	# S341 three rounds show everything: her whole file opens, and the career's record of her keeps it.
+	OppFile.open_all(opp)
+	OppFile.remember(c.rival(str(opp["name"])), opp)
 	var lead := "Pro: " if pro else ""
 	var how := "on points" if stop == "" else "inside the distance"
 	if win:

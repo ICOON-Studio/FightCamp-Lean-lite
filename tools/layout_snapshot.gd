@@ -124,6 +124,10 @@ func _initialize() -> void:
 	await _shot("29_news")
 	main.act("go", "world:1")
 	await _shot("30_rankings")
+	# S341 a rival's file from the rankings (the opponent Lucy fought: her file open, the bout under WITH US).
+	main.act("rivalfile", str(c.results[0]["opp"]) if not c.results.is_empty() else "Maria Ortega")
+	await _shot("30b_rival_file")
+	main.act("close")
 	main.act("go", "world:2")
 	await _shot("31_events")
 	main.act("go", "world:3")

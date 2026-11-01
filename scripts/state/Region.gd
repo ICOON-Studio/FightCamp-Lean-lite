@@ -6,6 +6,7 @@ extends RefCounted
 const Data := preload("res://scripts/state/Data.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 const FightWords := preload("res://scripts/state/FightWords.gd")
+const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 
 const NEWS_PATH := "res://assets/data/world_news.json"
 ## Bouts between rivals at each club show.
@@ -140,6 +141,10 @@ static func _rival_bout(c: Career, a: Dictionary, b: Dictionary, show: String, r
 	record(winner, true)
 	record(loser, false)
 	var stop := absf(sa - sb) > STOPPAGE_GAP and rng.randf() < STOPPAGE_ROLL
+	# S341 both records keep the bout (RivalPast): who, where, how.
+	var how := "stopped in round %d" % (1 + int(absf(sa - sb)) % 3) if stop else "on points at the %s" % show
+	RivalPast.add(winner, c.day, str(loser["name"]), str(loser["club"]), true, how)
+	RivalPast.add(loser, c.day, str(winner["name"]), str(winner["club"]), false, how)
 	if not told:
 		return
 	c.add_news(line("rival_stop" if stop else "rival_win", subs_for(c, {"winner": winner["name"], "loser": loser["name"],

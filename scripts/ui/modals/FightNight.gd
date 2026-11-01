@@ -8,6 +8,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Tape := preload("res://scripts/ui/Tape.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const OppFile := preload("res://scripts/rules/OppFile.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -58,8 +59,10 @@ func _tape(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		["Record", "%d-%d" % [f["w"], f["l"]]], ["Weight", "%.1f kg" % f["weight"]], ["Camp", camp],
 		["Film on her", "depth %d of 3" % int(f["bout"]["film"])],
 	], opp["name"], "blue corner, %s" % opp["club"], [
-		["Record", "%d-%d" % [opp["w"], opp["l"]]], ["Style", opp["style"]], ["Threat", opp["threat"]],
-		["Weakness", opp["weak"] if int(f["bout"]["film"]) >= BoutRules.FILM_DEPTH_WITH_STUDY else "unknown: no film study"],
+		["Record", "%d-%d" % [opp["w"], opp["l"]]], ["Style", opp["style"]],
+		# S341 her file: what tape study found, else unknown until the fight shows it.
+		["Threat", opp["threat"] if OppFile.known(opp, "weapon") else "unknown: not on tape"],
+		["Weakness", opp["weak"] if OppFile.known(opp, "weakness") else "unknown: not on tape"],
 	]))
 	var total := int(m.get("total", BoutRules.ROUNDS))
 	v.add_child(UI.note("%s rounds of three minutes%s. Every 30 seconds you can shout a call; read the clue, pick what fits, watch it work. In the corner between rounds you set her plan." % [

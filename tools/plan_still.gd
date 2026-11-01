@@ -52,6 +52,12 @@ func _branch(s: Control) -> void:
 	await _save(out)
 	s.show_flow()
 	await _save(out.get_basename() + "_flow.png")
+	# S341 the real fight plans list, her next opponent a presser.
+	s.get_child(s.get_child_count() - 1).queue_free()
+	s.fighter = {"name": "Lucy Jackson", "first": "Lucy", "bout": {"opp": {"first": "Maria", "style": "Pressure fighter"}}}
+	s.templates = true
+	s.go("long")
+	await _save(out.get_basename() + "_templates.png")
 
 
 func _save(path: String) -> void:

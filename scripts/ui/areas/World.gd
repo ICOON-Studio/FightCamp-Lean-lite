@@ -14,7 +14,11 @@ var _hits: VBoxContainer
 var _career: Career
 
 
+var _main: Node
+
+
 func build(main: Node) -> void:
+	_main = main
 	add_theme_constant_override("separation", 14)
 	var c: Career = main.career
 	_career = c
@@ -64,7 +68,14 @@ func _ranking_table(c: Career, div: String) -> void:
 		var r: Dictionary = rows[i]
 		var col := UI.GOLD if bool(r["ours"]) else UI.FG
 		grid.add_child(UI.mono(str(i + 1), UI.BODY, col))
-		grid.add_child(UI.label(r["name"], UI.BODY, col, "bold" if bool(r["ours"]) else "body"))
+		if bool(r["ours"]):
+			grid.add_child(UI.label(r["name"], UI.BODY, col, "bold"))
+		else:
+			# S341 her name opens her file: what the gym has found of her and every bout with us.
+			var b := UI.button(str(r["name"]), "BtnQuiet", _main.act.bind("rivalfile", str(r["name"])))
+			b.name = "File_" + str(r["name"]).replace(" ", "_")
+			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			grid.add_child(b)
 		grid.add_child(UI.label(r["club"], UI.BODY, col))
 		grid.add_child(UI.mono("%d-%d" % [r["w"], r["l"]], UI.BODY, col))
 	card[1].add_child(grid)
