@@ -5,6 +5,8 @@
 
 const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
 const FastDraw := preload("res://tools/fast_draw.gd")
+const MoveClips := preload("res://scripts/fight3d/MoveClips.gd")
+const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 
 const W := 840
 const H := 600
@@ -28,39 +30,38 @@ func _initialize() -> void:
 	for i in 10:
 		await process_frame
 	# Stills of 1-2-3 at each punch's contact
-	await _still_move("1-2-3", "1-2-3_contact")
+	await _still_move("1-2-3", "1-2-3")
 	# Stills of pivot_out mid-move
 	await _still_move("pivot_out", "pivot_out_mid")
 	print("MOVESTILL done")
 	quit(0)
 
 
+## S345: a still at each punch's contact (BeatClips.contact - the frame the fight lands it); a move with no punch is
+## shot mid-move. The S342 version shot after every clip had played, so "contact" showed her back in guard.
 func _still_move(move_id: String, name: String) -> void:
 	player.show_move(move_id)
-	# Wait for clips to play
-	await _wait_for_clips(move_id)
-	# Check if bodies are in frame
-	var in_frame: bool = player.bodies_in_frame()
-	if in_frame:
-		print("MOVESTILL bodies 2 in frame")
-	else:
-		print("MOVESTILL FAIL")
-	# Save the still
-	for i in 3:
-		await RenderingServer.frame_post_draw
+	var clips: Array = MoveClips.clips(move_id)
+	var wait_s: float = clips.size() * 1.5 + 1.0
+	var seen := {}
+	var shots := 0
+	var elapsed := 0.0
+	while elapsed < wait_s:
+		await process_frame
+		elapsed += 1.0 / 30.0
+		var idx := int(player.get("_clip_idx"))
+		if idx < clips.size() and not seen.has(idx) and player._is_punch_clip(str(clips[idx])) 				and float(player.get("_clip_start_t")) >= BeatClips.contact(str(clips[idx]), 8.0 / 30.0):
+			seen[idx] = true
+			shots += 1
+			await _save("%s_c%d_%s" % [name, shots, str(clips[idx])])
+		elif shots == 0 and seen.is_empty() and elapsed >= wait_s * 0.4 and not clips.any(func(c): return player._is_punch_clip(str(c))):
+			seen[-1] = true
+			await _save(name)
+
+
+func _save(name: String) -> void:
+	print("MOVESTILL %s %s" % [name, "bodies 2 in frame" if player.bodies_in_frame() else "FAIL framing"])
 	var img := await FastDraw.shot(self)
 	var path := out_dir.path_join(name + ".png")
 	img.save_png(path)
 	print("wrote ", path)
-
-
-func _wait_for_clips(move_id: String) -> void:
-	const MoveClips := preload("res://scripts/fight3d/MoveClips.gd")
-	var clips: Array = MoveClips.clips(move_id)
-	# Wait enough time for all clips to play (estimate 1.5s per clip)
-	var wait_s: float = clips.size() * 1.5 + 1.0
-	var elapsed := 0.0
-	var frame_t := 1.0 / 30.0  # assume 30 fps for windowed run
-	while elapsed < wait_s:
-		await process_frame
-		elapsed += frame_t

@@ -16,7 +16,7 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 ## of the screen - hers (red) on the left under the scorebug, the opponent's (blue) on the right - drawn on her own body
 ## (C146: "we have real andropoid,use it"; BodyFigure.portrait_for).
 const FIG_SIZE := Vector2(340, 420)   # S334 C153 "still needs to be bigger" (S324: 210 x 294, before 150 x 210)
-const TOP := 150.0   # just under the scorebug, so the bigger panel clears the shout bar
+const TOP := 200.0   # S345 just under her six bars (HudBars), so the panel clears the shout bar
 const EDGE := 28.0
 const CORNER := ["red", "blue"]
 
@@ -60,13 +60,12 @@ func _build() -> void:
 			fig.set_portrait(BodyFigure.portrait_for(glb, CORNER[side]))
 		col.add_child(fig)
 		col.add_child(_track_key())
+		# S345 FIGHTHUD2 "no numbers on screen": the punch stats are the tooltip of her name under the figure.
 		var who := UI.label(str(view._names[side]).get_slice(" ", 0).to_upper(), UI.TINY, Color(0.95, 0.4, 0.35) if side == 0 else Color(0.5, 0.65, 1.0), "bold")
 		who.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		who.mouse_filter = Control.MOUSE_FILTER_PASS
 		col.add_child(who)
-		var st := UI.mono("", UI.TINY, UI.FG)
-		st.add_theme_constant_override("line_spacing", -2)
-		col.add_child(st)
-		_stat_labels.append(st)
+		_stat_labels.append(who)
 		view.add_child(panel)
 		if side == 0:
 			panel.position = Vector2(EDGE, TOP)
@@ -137,7 +136,7 @@ func _paint_stats() -> void:
 	for side in mini(2, _stat_labels.size()):
 		var st: Dictionary = stats[side]
 		var acc := 0 if int(st["thrown"]) == 0 else int(round(100.0 * int(st["landed"]) / int(st["thrown"])))
-		(_stat_labels[side] as Label).text = "LANDED %d/%d %d%%
+		(_stat_labels[side] as Label).tooltip_text = "LANDED %d/%d %d%%
 JABS   %d/%d
 POWER  %d/%d
 BODY   %d" % [st["landed"], st["thrown"], acc,

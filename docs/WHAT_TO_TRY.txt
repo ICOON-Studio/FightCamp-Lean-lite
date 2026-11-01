@@ -1,3 +1,19 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 47 (2026-11-01): THE FIGHT HUD THAT BEATS UFC 6
+=================================================================================
+
+ 1. Your Q-S294-69 "Yes, build it": watch any fight. Top left Lucy, top right the opponent - six bars each, an icon a
+    row, no numbers: HEAD (person), BODY (shirt), LEGS (footprints), STAMINA (lightning), GUARD (shield), HEART (heart).
+    The grey striped end of a bar is gone for the fight (head damage stays; every body shot greys the end of her
+    stamina). The dark end comes back at the bell. Hover any bar for what it is and its number.
+ 2. Watch a body shot land: her BODY and STAMINA bars flash together - body work drains the tank for good.
+ 3. Her GUARD and HEART read "?" (gold) until you scouted her: her guard shows once tape found one of her habits (the
+    tape room's SPOT, or tape study in camp), her heart once tape reached her weakness. Play a fight with a short camp
+    to see the "?", a full camp to see them open. When her scouted guard sinks, the corner calls "over the top!".
+ 4. Middle top: ROUND 2 OF 3, the clock, and the round edge - a tug of war, red half left, blue half right; it leans
+    to whoever is winning the round's exchanges (hover it for the count). The speed/skip buttons sit under it.
+ 5. The punch stats (LANDED/JABS/POWER/BODY) left the screen: hover the boxer's name under her body figure.
+ (Updates 45-46, S343-S344, had no notes here: the tape room - Test tape room - and her flow in its look.)
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 44 (2026-11-01): TEXT WALLS TRIMMED, RULES FROM REAL FIGHT PLANS
 ==================================================================================================
 

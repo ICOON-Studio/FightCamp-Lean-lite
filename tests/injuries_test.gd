@@ -137,7 +137,9 @@ func _initialize() -> void:
 	lf["camp"] = {}
 	for d in 7:
 		Sim.step_day(l)
-	var want := TrainingLoad.next_chronic(10.0, TrainingLoad.hours("rest" if Injuries.out(l, lf) else "normal"))
+	# S345 (CI red on a random seed: the week-end training roll injured her, so "out" read rest after the fact): she was
+	# fit all week, and end_week books the hours BEFORE its injury roll - her usual takes the normal week either way.
+	var want := TrainingLoad.next_chronic(10.0, TrainingLoad.hours("normal"))
 	_check(lf.has("chronic") and not lf.has("load") and is_equal_approx(float(lf["chronic"]), want), "the week's hours go into her usual: %s" % str(lf.get("chronic")))
 	# S327 the load model: a rest week brings the risk DOWN - back at Normal it reads safe (the 4-week average read 1.21x).
 	var u := TrainingLoad.next_chronic(10.0, TrainingLoad.hours("rest"))

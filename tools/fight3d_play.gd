@@ -58,6 +58,9 @@ func _initialize() -> void:
 	main.act("weighin", str(f["id"]))
 	main.act("doWeigh")
 	main.run_to_stop()
+	# S345 FIGHTHUD2: `noscout` leaves her file unread (no tape found anything), so her guard and heart show "?".
+	if OS.get_cmdline_user_args().has("noscout"):
+		f["bout"]["opp"]["file_found"] = []
 	main.act("fightnight")
 	await _wait(4)
 	main.act("fightstep", "start")

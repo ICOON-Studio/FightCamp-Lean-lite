@@ -68,6 +68,7 @@ var _names := ["", ""]
 var bodies := ["", ""]   # S320 each boxer's glb (BodyLive / the corner card draw her own body)
 var body: Node   # S318 BodyLive: the bout's body map + the scorebug figures (FightHud.build)
 var burn: Node   # S322 BodyBurn: per-part Burn, shown as guard height, steps, punch snap
+var bars: Node   # S345 HudBars: six bars a boxer + the round edge (FightHud.build)
 
 
 ## Called on every modal draw. True while a round is playing (the modal stays hidden then).
@@ -363,12 +364,11 @@ func _bell() -> void:
 
 
 func _hud() -> void:
-	_bug.text = "%s  vs  %s" % [_names[0], _names[1]]
+	_bug.text = "ROUND %d OF %d" % [round_n, total]
 	var left := maxf(0.0, length - t)
 	var seen := _exchanges().slice(0, int(t / Exchanges.EX_SECONDS))
-	var sc := FightHud.score(_exchanges(), t)
-	_clock.text = "ROUND %d OF %d   %d:%02d   EXCHANGES WON %d-%d" % [round_n, total, int(left) / 60, int(left) % 60, sc[0], sc[1]]
-	FightHud.paint(self, (seen[-1] as Dictionary).get("after", {}) if not seen.is_empty() else FightHud.round_start(self), _names)
+	_clock.text = "%d:%02d" % [int(left) / 60, int(left) % 60]
+	FightHud.paint(self, (seen[-1] as Dictionary).get("after", {}) if not seen.is_empty() else FightHud.round_start(self), FightHud.scored(_exchanges(), t))
 
 
 ## This round's exchanges fought so far (live, or the closed round's).
