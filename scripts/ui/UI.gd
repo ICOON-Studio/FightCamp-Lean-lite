@@ -260,11 +260,15 @@ static func caps(text: String) -> Label:
 	return label(text, TINY + 1, MUTED, "caps")
 
 
-static func button(text: String, variation: String, on_press: Callable, disabled: bool = false) -> Button:
+static func button(text: String, variation: String, on_press: Callable, disabled: bool = false, why: String = "") -> Button:
 	var b := Button.new()
 	b.text = text
 	b.theme_type_variation = variation
 	b.disabled = disabled
+	if disabled and why != "":
+		b.tooltip_text = why
+	elif not disabled:
+		b.tooltip_text = ""
 	b.focus_mode = Control.FOCUS_NONE
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	b.pressed.connect(on_press)
@@ -273,8 +277,9 @@ static func button(text: String, variation: String, on_press: Callable, disabled
 
 ## A button with a big line and a small line under it (title buttons, rail, CONTINUE).
 static func button2(big: String, small: String, variation: String, on_press: Callable, min_size: Vector2,
-		big_color: Color, small_color: Color, disabled: bool = false, big_size: int = BODY, small_size: int = TINY) -> Button:
-	var b := button("", variation, on_press, disabled)
+		big_color: Color, small_color: Color, disabled: bool = false, big_size: int = BODY, small_size: int = TINY,
+		why: String = "") -> Button:
+	var b := button("", variation, on_press, disabled, why)
 	b.custom_minimum_size = min_size
 	var m := MarginContainer.new()
 	m.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -288,8 +293,10 @@ static func button2(big: String, small: String, variation: String, on_press: Cal
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var bl := label(big, big_size, big_color, "bold")
 	v.add_child(bl)
-	if small != "":
-		v.add_child(label(small, small_size, small_color, "body"))
+	var small_line := why if disabled and why != "" else small
+	var small_col := GOLD if disabled and why != "" else small_color
+	if small_line != "":
+		v.add_child(label(small_line, small_size, small_col, "body"))
 	m.add_child(v)
 	b.add_child(m)
 	if disabled:

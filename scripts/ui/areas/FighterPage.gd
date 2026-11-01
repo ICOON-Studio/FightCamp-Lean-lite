@@ -10,6 +10,8 @@ const CoachNotes := preload("res://scripts/rules/CoachNotes.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const Champs := preload("res://scripts/state/Champs.gd")
+const NextStep := preload("res://scripts/rules/NextStep.gd")
 
 const TABS := ["Overview", "Attributes and moves", "Body", "Record", "Camp", "Contract and goals"]
 
@@ -89,7 +91,10 @@ func build(main: Node, f: Dictionary) -> void:
 				for row in seen:
 					card.add_child(UI.label("\"%s\"" % row["line"], UI.SMALL, UI.FG, "italic", true))
 			elif not fb.is_empty():
-				var b := UI.button("Set her camp", "BtnSolid", main.act.bind("camp", f["id"]), int(fb["day"]) - c.day < BoutRules.CAMP_MIN_DAYS)
+				var days_to_bout := int(fb["day"]) - c.day
+				var camp_locked := days_to_bout < BoutRules.CAMP_MIN_DAYS
+				var camp_why := "Bout in %d days - a camp needs at least %d days before fight night" % [days_to_bout, BoutRules.CAMP_MIN_DAYS]
+				var b := UI.button("Set her camp", "BtnSolid", main.act.bind("camp", f["id"]), camp_locked, camp_why)
 				b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 				card.add_child(b)
 			else:
@@ -142,6 +147,7 @@ func _stats(card: VBoxContainer, f: Dictionary) -> void:
 
 
 func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
+	_next_step_card(c, f)
 	var grid := UI.hbox(16)
 	add_child(grid)
 	var attrs := _card("ATTRIBUTES, BAR = WAY TO THE NEXT POINT", grid)
@@ -185,3 +191,41 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	goal.add_child(buttons)
 	for child in grid.get_children():
 		(child as Control).size_flags_vertical = Control.SIZE_FILL
+
+
+## Input for NextStep.road from her career state (one source for the card and tests).
+static func _road_input(c: Career, f: Dictionary) -> Dictionary:
+	var nationals := ""
+	if Champs.active(f):
+		nationals = "entered"
+	else:
+		var ch: Dictionary = f.get("champ", {})
+		if not ch.is_empty() and bool(ch.get("done", false)):
+			nationals = str(ch.get("result", ""))
+	var pro_bouts := 0
+	for r in c.results:
+		if str(r.get("fid", "")) == str(f["id"]) and bool(r.get("pro", false)):
+			pro_bouts += 1
+	return {"bouts": Champs.bouts(f), "w": int(f["w"]), "reg_days": Champs.club_days(c, f), "age": int(f["age"]),
+		"injured": Injuries.out(c, f), "rank": int(f.get("rank", 0)), "pro_declines": int(f.get("pro_declines", 0)),
+		"nat_final": bool(f.get("nat_final", false)), "nationals": nationals, "pro": bool(f.get("pro", false)),
+		"pro_bouts": pro_bouts}
+
+
+func _next_step_card(c: Career, f: Dictionary) -> void:
+	var card := _card("NEXT STEP")
+	var road: Dictionary = NextStep.road(_road_input(c, f), c.day)
+	if int(road["lit"]) < 0:
+		card.add_child(UI.label("Pro - every step done", UI.BODY, UI.FG, "body", true))
+		return
+	var row := UI.hbox(6)
+	for s in road["steps"]:
+		var name: String = str(s["name"])
+		if bool(s["done"]):
+			row.add_child(UI.chip("✓ " + name, ""))
+		elif bool(s["lit"]):
+			row.add_child(UI.chip(name, "gold"))
+		else:
+			row.add_child(UI.chip(name, ""))
+	card.add_child(row)
+	card.add_child(UI.label(str(road["need"]), UI.BODY, UI.FG, "body", true))

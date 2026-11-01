@@ -42,7 +42,8 @@ func build(main: Node) -> void:
 		v.add_child(_choices(main, CITIES[s["country"]], "city", str(s["city"])))
 		nav.add_child(UI.button("Back", "BtnQuiet", main.act.bind("cstep", "0")))
 		nav.add_child(UI.spacer())
-		nav.add_child(UI.button("Next", "BtnSolid", main.act.bind("cstep", "2"), str(s["city"]) == ""))
+		nav.add_child(UI.button("Next", "BtnSolid", main.act.bind("cstep", "2"), str(s["city"]) == "",
+			"Pick a city from the list first"))
 	else:
 		v.add_child(UI.display("3. YOUR GYM", 50))
 		v.add_child(UI.label("Gym name"))

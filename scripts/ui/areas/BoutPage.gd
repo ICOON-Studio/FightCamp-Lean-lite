@@ -53,10 +53,18 @@ func build(main: Node, offer_id: String) -> void:
 		(child as Control).size_flags_vertical = Control.SIZE_FILL
 	var foot := UI.hbox(10)
 	var open := not bool(o["answered"])
-	var accept := UI.button("Accept the bout", "BtnSolid", main.act.bind("accept", offer_id), bool(o["mismatch"]) or not open)
+	var accept_off := bool(o["mismatch"]) or not open
+	var accept_why := ""
+	if bool(o["mismatch"]):
+		accept_why = "The federation would not sanction it: a novice (%d bouts) may not meet an open fighter (%d bouts)." % [
+			int(o["own_bouts"]), int(o["their_bouts"])]
+	elif not open:
+		accept_why = "You already answered this offer - pick another from Fights"
+	var accept := UI.button("Accept the bout", "BtnSolid", main.act.bind("accept", offer_id), accept_off, accept_why)
 	accept.name = "Accept"
 	foot.add_child(accept)
-	var decline := UI.button("Decline", "BtnQuiet", main.act.bind("declineOffer", offer_id), not open)
+	var decline_why := "You already answered this offer - pick another from Fights" if not open else ""
+	var decline := UI.button("Decline", "BtnQuiet", main.act.bind("declineOffer", offer_id), not open, decline_why)
 	decline.name = "Decline"
 	foot.add_child(decline)
 	if bool(o["mismatch"]):

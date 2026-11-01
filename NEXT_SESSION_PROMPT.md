@@ -1,23 +1,21 @@
-# S337 - next session (written S336, 2026-11-01)
+# S338 - next session (written S337, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
-S336 shipped update 38: ground moves grip (scripts/grapple/GrappleGrip.gd) and keep their own pace (GrappleTiming.gd, merged
-from the side session), MMA trim, no links in move names; the boxing move map rules (scripts/rules/StrikeMap.gd, Qwen); tests run
-4 at a time (`sh tools/run_tests.sh`, JOBS=2 beside agents). Digest: Game\Godot\research\S336_DIGEST.md.
-Operator on the film: "video looks good".
+S337 shipped update 39 (68/68): NEXT STEP card on her page, a reason on every greyed button, the boxing move map
+(`-- jump=strikemap`), the ground push-out; rules for wrestling chains (WrestleChains) and the shared plan board (PlanBoard).
+Digest: Game\Godot\research\S337_DIGEST.md.
 
-1. FACES3 first (operator S336, on the S334 young-faces lineup: "why the fuck you have 4 blacks ???? add more whites", then
-   "no keep them all dont rebuild"): keep every current face. Build THREE NEW white women (18-21, long full hair - no braids,
-   cornrows or undercut - hair LOD 0, attractive: Celeste/Jelena-based face_blend or an unused preset after a render check;
-   a preset name is not a sex) with Game Tools/metahuman (mh4_plan rows -> mh4_run.py, MH4_TARGET_DIR = Lean assets) as
-   mh_boxer_21-23. Render a lineup beside the current five (S334_stills/young_faces_lineup.png style), board question with the
-   lineup attached, and only after his yes add them to Faces.CM / CAST (new named prospects or opponents) + the 4 bakes
-   (portraits, masks, turn, headshots, `stems=`). Unreal is heavy: run it when no PC agent runs Godot.
-2. Collect GROUND2A (Cursor, E:\FightCamp\wt\LEAN_GROUND2A, branch cursor/ground2a): GrappleContact.gd + its test; its
-   GrapplePlayer change is the one line `out = GrappleContact.separate(out)` at the end of joints_at - apply it by hand on
-   main's new (GrappleTiming) GrapplePlayer. Run grapple_contact_test + the grapple regressions, film `walk=10`, contact sheet,
-   SendUserFile + review_add.
-3. Collect NEXTSTEP1 (Qwen, branch qwen/nextstep1): NextStep.road(). Then launch Cursor on TASK_GREYWHY1 (Game research), then
-   a brief for the NEXT STEP card on her page (FighterPage) reading NextStep.road.
-4. Q-S294-61 step 2: the boxing browser - StrikeMap's cards with moves in/out, the GrappleBrowser layout.
-5. Board: Q-S294-62 (wrestling plan, WRESTLE_S336.md) - act on his answer. C154's "wire the in and outs" idea = the plan board.
+1. HAIRFIX first. New-format MetaHuman hair grooms (they ship `<hair>_RooUVSeedCoverage.dds`, ColorXYDepthGroupID, TangentCoordU:
+   Hair_L_Straight, TwistedBraids, UpdoBraids, UpdoBuns) render 9-11% of their card faces: bald crowns, the "shaved" heads he
+   complained about. `Tools/metahuman/mh2_textures.py` cards() reads coverage from the CardsAtlas_Attribute RED channel (right
+   for older grooms, 43-50%); green gave 94% solid ribbons. Find the real coverage (UE groom card docs / the MetaHuman hair
+   material graph name the channels), fix cards(), then `MH4_TARGET_DIR=E:/FightCamp/Lean/assets/models/metahuman python
+   mh4_run.py finish mh_boxer_21`, Godot `--import` in Lean, bake `tools/bake_headshots.gd -- stems=mh_boxer_21` on the hidden
+   desktop, open the jpg: the crown must read as hair. Measure first: S337 scratch method (Blender exports each card face's UV
+   centre, Python samples the atlas) - visible share of card faces should reach ~40-50% like the pixie.
+2. FACES3 (operator: "add more whites", "no keep them all dont rebuild"): build Ellie (mh_boxer_22) and Jade (23) - configs exist -
+   lineup of Holly/Ellie/Jade beside the current five, board question with the lineup attached BEFORE adding them to Faces.CM /
+   CAST and the 4 bakes. Then a board question: re-texture only the hair of Samira, Megan, Priya, Chloe (faces unchanged)?
+3. Q-S294-61 step 3: combo clips on the Training page (coach with pads + boxer) - check ANIMCLOUD1's owner session first.
+4. Q-S294-62: the Standing tab in the ground browser (WrestleChains + clip_for on graph.json), then the plan board screen
+   (PlanBoard) for boxing and wrestling - a Cursor brief.

@@ -16,7 +16,8 @@ func build(main: Node) -> void:
 	v.add_child(tag)
 	v.add_child(_gap(14))
 	var saved := SaveGame.summary(main.save_path)
-	var resume := _tbtn("Resume career", saved if saved != "" else "no save yet", "TBtn", main.act.bind("load", ""), saved == "")
+	var resume := _tbtn("Resume career", saved if saved != "" else "no save yet", "TBtn", main.act.bind("load", ""), saved == "",
+		"No save file yet - save from the Gear menu during a career")
 	resume.name = "Resume"
 	v.add_child(resume)
 	v.add_child(_tbtn("New career", "country, city, gym name", "TBtn", main.act.bind("newcareer", "")))
@@ -35,8 +36,8 @@ func _gap(h: int) -> Control:
 
 
 ## Big words on the left, a small note on the right.
-func _tbtn(big: String, small: String, variation: String, cb: Callable, disabled: bool = false) -> Button:
-	var b := UI.button("", variation, cb if cb.is_valid() else func(): pass, disabled)
+func _tbtn(big: String, small: String, variation: String, cb: Callable, disabled: bool = false, why: String = "") -> Button:
+	var b := UI.button("", variation, cb if cb.is_valid() else func(): pass, disabled, why)
 	b.custom_minimum_size = Vector2(0, 62)
 	var ink := UI.GOLD_INK if variation == "TBtnPrimary" else UI.FG
 	var m := MarginContainer.new()

@@ -79,6 +79,10 @@ func _ready() -> void:
 	if OS.get_cmdline_user_args().has("jump=grapple"):
 		get_tree().change_scene_to_file.call_deferred("res://scenes/dev/GrappleBrowser.tscn")
 		return
+	# S337: the boxing move map (StrikeMap's position cards, Q-S294-61 step 2): `-- jump=strikemap`.
+	if OS.get_cmdline_user_args().has("jump=strikemap"):
+		get_tree().change_scene_to_file.call_deferred("res://scenes/dev/StrikeBrowser.tscn")
+		return
 	var jump := jump_override if TestJump.JUMPS.has(jump_override) else TestJump.wanted(OS.get_cmdline_user_args())
 	if jump != "":
 		(func():

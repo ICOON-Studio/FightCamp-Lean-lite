@@ -1,3 +1,19 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 39 (2026-11-01): NEXT STEP, REASONS ON GREY BUTTONS, THE BOXING MOVE MAP
+====================================================================================
+
+YOUR ANSWERS Q-S294-59 "Yes, those two first", Q-S294-61 "Yes, in that order", Q-S294-62 "Yes, in that order"
+ 1. Her page (Fighters > her name) opens on NEXT STEP: her road - First bout, Nationals ready, The nationals, Pro offer, Pro
+    debut - the step she is on lit, and one line on what it needs and when.
+ 2. Every greyed button says why: hover it (Set camp, Find a bout, Meet the walk-in, her plan in camp, Resume...). Two-line
+    buttons show the reason in place of their small line.
+ 3. The boxing move map: FightCamp.exe -- jump=strikemap. Eight position cards (Outside, Long range, Mid range, Inside,
+    Clinch, On the ropes, She has her on the ropes, Corner trap), an arrow for every move. Pick a card: its moves out and in
+    on the right; a combo she cannot throw yet is greyed with the punch to learn. Click moves to walk; your route builds
+    along the bottom - the start of the coach's plan.
+ 4. Ground moves (Test ground moves / -- jump=grapple): the two women no longer sink into each other.
+ Behind the scenes (no screen yet): the wrestling tie-up chains (six tie-ups, the opponent's reaction picks the answer) and
+ the plan board rules shared by boxing and wrestling (arrows, a limit by coach, one change at the corner).
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 38 (2026-11-01): GROUND MOVES GRIP AND KEEP THEIR OWN PACE
 ====================================================================================
 

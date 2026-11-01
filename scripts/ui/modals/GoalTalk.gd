@@ -36,7 +36,8 @@ func build(main: Node, m: Dictionary) -> void:
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	foot.add_child(UI.button("Later", "BtnQuiet", main.act.bind("close", "")))
-	var set_b := UI.button("Set goal", "BtnSolid", main.act.bind("setgoal", ""), str(m["pick"]) == "")
+	var set_b := UI.button("Set goal", "BtnSolid", main.act.bind("setgoal", ""), str(m["pick"]) == "",
+		"Pick one of her goal options above, then set it")
 	set_b.name = "SetGoal"
 	foot.add_child(set_b)
 	v.add_child(foot)

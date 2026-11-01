@@ -13,6 +13,7 @@ const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const FighterTile := preload("res://scripts/ui/FighterTile.gd")
 const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
@@ -48,7 +49,8 @@ func _roster(main: Node, c: Career) -> void:
 	if c.fighters.is_empty():
 		var h := UI.hbox(12)
 		h.add_child(UI.muted("Nobody signed yet.", UI.BODY))
-		h.add_child(UI.button("Meet the walk-in", "Btn", main.act.bind("interview", ""), c.applicant.is_empty()))
+		h.add_child(UI.button("Meet the walk-in", "Btn", main.act.bind("interview", ""), c.applicant.is_empty(),
+			"No walk-in at reception - press CONTINUE and someone may show up"))
 		card[1].add_child(h)
 		return
 	# S330 (MENULOOK1): a tile per fighter - rings for weight, condition, goal and her next bout - two to a row.
@@ -78,7 +80,9 @@ func _training(main: Node, c: Career, f: Dictionary) -> void:
 	focus.select(Data.STATS.find(Sim.focus_of(c, f)))
 	focus.item_selected.connect(func(i): main.act("focus", "%s|%s" % [fid, Data.STATS[i]]))
 	focus.custom_minimum_size = Vector2(240, 0)
+	var camp_why := "In fight camp - the plan is set until fight night"
 	focus.disabled = in_camp
+	focus.tooltip_text = camp_why if in_camp else ""
 	var diet := OptionButton.new()
 	diet.add_item("Hold weight", 0)
 	diet.add_item("Cut toward the limit", 1)
@@ -86,6 +90,7 @@ func _training(main: Node, c: Career, f: Dictionary) -> void:
 	diet.item_selected.connect(func(i): main.act("diet", "%s|%s" % [fid, "cut" if i == 1 else "hold"]))
 	diet.custom_minimum_size = Vector2(240, 0)
 	diet.disabled = in_camp
+	diet.tooltip_text = camp_why if in_camp else ""
 	var learn := OptionButton.new()
 	learn.name = "Learn_" + fid
 	var moves: Dictionary = f["moves"]
@@ -108,11 +113,13 @@ func _training(main: Node, c: Career, f: Dictionary) -> void:
 	combo_box.select(maxi(0, ids.find(drilling)))
 	combo_box.item_selected.connect(func(i): main.act("combo", "%s|%s" % [fid, ids[i]]))
 	combo_box.custom_minimum_size = Vector2(240, 0)
+	var combo_why := "No combos yet - a combo opens when each of its punches reaches 30 on the Training page"
 	combo_box.disabled = ids.is_empty()
-	if drilling != "":
-		combo_box.tooltip_text = "Coach: \"%s\"" % ComboWords.line(drilling, "coach_learning", str(f["first"]), c.day / 7)
 	if ids.is_empty():
+		combo_box.tooltip_text = combo_why
 		combo_box.add_item("none yet")
+	elif drilling != "":
+		combo_box.tooltip_text = "Coach: \"%s\"" % ComboWords.line(drilling, "coach_learning", str(f["first"]), c.day / 7)
 	# S326 update 29: how hard she trains this week - harder gains more and risks more (the gauge: this week vs her usual).
 	var load := OptionButton.new()
 	load.name = "Load_" + fid
@@ -122,7 +129,14 @@ func _training(main: Node, c: Career, f: Dictionary) -> void:
 	load.select(TrainingLoad.ORDER.find(Injuries.setting(f)))
 	load.item_selected.connect(func(i): main.act("trainload", "%s|%s" % [fid, TrainingLoad.ORDER[i]]))
 	load.custom_minimum_size = Vector2(240, 0)
-	load.disabled = Injuries.out(c, f)
+	var injured := Injuries.out(c, f)
+	load.disabled = injured
+	if injured:
+		var inj: Dictionary = f["injury"]
+		var w := InjuryRoll.weeks_out(int(inj["until_day"]) - c.day)
+		load.tooltip_text = "Injured - back in %s" % ("1 week" if w == 1 else "%d weeks" % w)
+	else:
+		load.tooltip_text = ""
 	var r := Injuries.ratio(f)
 	var gauge_col: Color = {"safe": UI.GREEN, "high": UI.AMBER, "spike": UI.RED}[TrainingLoad.band(r)]
 	var gauge := UI.label(Injuries.line(c, f) + ": resting" if Injuries.out(c, f) else TrainingLoad.gauge_line(r), UI.BODY, gauge_col, "bold")
@@ -167,8 +181,11 @@ func _camps(main: Node, c: Career) -> void:
 			rows.append(UI.row("%s: %s focus, %s protocol" % [f["name"], Data.LABEL[camp["focus"]], str(BoutRules.PROTOCOLS[int(camp["protocol"])]["name"]).to_lower()],
 				"vs %s, %s; film depth %d of 3; %.1f of %.1f kg" % [fb["opp"]["name"], Clock.fmt(int(fb["day"])), int(fb["film"]), f["weight"], f["limit"]], UI.GREEN))
 		elif not fb.is_empty():
+			var days_to_bout := int(fb["day"]) - c.day
+			var camp_locked := days_to_bout < BoutRules.CAMP_MIN_DAYS
+			var camp_why := "Bout in %d days - a camp needs at least %d days before fight night" % [days_to_bout, BoutRules.CAMP_MIN_DAYS]
 			rows.append(UI.row("No camp yet for %s" % f["name"], "bout on %s" % Clock.fmt(int(fb["day"])), UI.AMBER,
-				[UI.button("Set camp", "BtnSolid", main.act.bind("camp", f["id"]), int(fb["day"]) - c.day < BoutRules.CAMP_MIN_DAYS)]))
+				[UI.button("Set camp", "BtnSolid", main.act.bind("camp", f["id"]), camp_locked, camp_why)]))
 		else:
 			rows.append(UI.row(f["name"], "no bout booked: camps open once one is"))
 	if rows.is_empty():

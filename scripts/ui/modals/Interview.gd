@@ -44,8 +44,9 @@ func build(main: Node, m: Dictionary) -> void:
 	foot.add_child(UI.spacer())
 	foot.add_child(UI.button("Not now", "BtnQuiet", main.act.bind("decline", "")))
 	var ready := picks.size() == 3
+	var sign_why := "Pick %d more week cards before you can sign her" % (3 - picks.size())
 	var sign := UI.button("Sign " + str(a["first"]) if ready else "Sign: pick %d more" % (3 - picks.size()), "BtnSolid",
-		main.act.bind("sign", ""), not ready)
+		main.act.bind("sign", ""), not ready, sign_why if not ready else "")
 	sign.name = "Sign"
 	foot.add_child(sign)
 	v.add_child(foot)

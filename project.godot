@@ -21,6 +21,7 @@ window/stretch/aspect="expand"
 [gui]
 
 common/snap_controls_to_pixels=true
+timers/tooltip_delay_sec=0.25
 
 [rendering]
 

@@ -77,8 +77,10 @@ func _build_top(main: Node) -> void:
 	var c: Career = main.career
 	var h := UI.hbox(12)
 	_top.add_child(h)
-	h.add_child(UI.button("Back", "Ghost", main.act.bind("back", ""), main.past.is_empty()))
-	h.add_child(UI.button("Fwd", "Ghost", main.act.bind("fwd", ""), main.ahead.is_empty()))
+	h.add_child(UI.button("Back", "Ghost", main.act.bind("back", ""), main.past.is_empty(),
+		"Nothing to go back to - you have not left this screen yet"))
+	h.add_child(UI.button("Fwd", "Ghost", main.act.bind("fwd", ""), main.ahead.is_empty(),
+		"Nothing forward - use Back first, then Fwd"))
 	var gym := UI.label(c.gym_name, 32, UI.GOLD, "marker")   # S333 look B: the gym name in blue marker
 	gym.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(gym)
