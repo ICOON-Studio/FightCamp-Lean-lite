@@ -12,7 +12,10 @@ Jelena, 16 Dana/Tuya, 17 Chloe/Aera; Lucy 11, Aisha 10, Megan 12). Sophie has no
 Portrait baker has 8x MSAA (hair no longer dots).
 
 1. Fonts DONE (his "downalod yes"): assets/fonts PermanentMarker-Regular.ttf, Kalam-Regular/Bold.ttf (Lean 2967c35).
-   Open item: approve THE READ design (item 4) - put it on the board with --attach.
+   THE READ (item 4) APPROVED - operator S332: "Yes, build it", then "and make it look as good and how UFC would make
+   it": the read on screen in TV fight-broadcast graphic style (study real UFC/ESPN broadcast overlays first - strike
+   stats, the corner-colour bars, bold condensed type, animated fills; their style, never their logos or branding).
+   Build it on the fight's existing Broadcast.gd / RoundGraphics.gd look; menus stay whiteboard. Stills to him before done.
 2. FACES "hotter" (his words). MH4 tool: E:\FightCamp\Game\Tools\metahuman (mh4_run.py build|finish <name>, specs
    <name>_mh4.json, MH4_TARGET_DIR=E:/FightCamp/Lean/assets/models/metahuman; sidecar json: python Tools/metahuman/mh4_sidecar.py <names>, run from Tools/metahuman). Only Ada (cutman face), Vivian, Lani (older) are unused women's
    presets, so BLEND faces: the subsystem has get_face_model_coefficients / set_face_model_coefficients / commit_face_state
@@ -34,7 +37,7 @@ Portrait baker has 8x MSAA (hair no longer dots).
    on) - make it a SPEED: repeats of an opponent's habit before she reads it, from fight_iq (+ film study), shown on the
    corner card. Real-world basis first (John/research), then a pure module + test.
    MERGED with his S332 ask "every fighter needs a different trigger/threshold for the perfect move execution, how can
-   this become a mechanism a player can enjoy": proposal THE READ (in chat S332, needs his OK before building) - per
+   this become a mechanism a player can enjoy": THE READ - APPROVED (S332 "Yes, build it") - per
    opponent habit a read meter; read speed (fight_iq + film study + scouting pre-fill), trigger threshold (temperament:
    patient/gambler, per fighter), execution (MoveMastery of the counter); corner calls "Wait for it" / "Take it now"
    shift the trigger; opponents drop a habit after being punished; payoff = the counter in the 3D fight + "READ IT" replay.
