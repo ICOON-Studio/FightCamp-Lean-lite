@@ -66,6 +66,17 @@ static func plan_gain(stats: Dictionary, potential: int, focus: String, coach_ra
 	return out
 
 
+## S351 the week from her plan: {stat_key: gain} with each stat at its fraction of a focused week (TrainingPlan.fractions);
+## a stat no session builds gains nothing.
+static func fractions_gain(stats: Dictionary, potential: int, fractions: Dictionary, coach_rating: float) -> Dictionary:
+	var out: Dictionary = {}
+	for key in stats.keys():
+		var share := float(fractions.get(key, 0.0))
+		var one: Dictionary = preview_gain(stats, potential, {"training_modifiers": [key]}, coach_rating, 1.0, share)
+		out[key] = float(one.get(key, 0.0))
+	return out
+
+
 ## How far a stat is toward its next whole point, in [0, 1).
 static func progress_to_next(value: float) -> float:
 	return value - floorf(value)

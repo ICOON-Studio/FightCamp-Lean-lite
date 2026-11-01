@@ -21,12 +21,16 @@ const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
+const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const SCRIPT_PATH := "res://scripts/ui/TrainingBoard.gd"
 
-const CARD_W := 400.0
+const CARD_W := 440.0
 const BOARD_H := 640.0
 const CAMP_WHY := "In fight camp - the plan is set until fight night"
 const DARK := Color("#22262e")
+const PIC := 112.0
+const PIC_BG := Color("#1b1714")   # the baked pictures' charcoal tile
+const PICS := "res://assets/ui/training"
 
 var _fig: Control = null
 var _lines: Control = null
@@ -81,6 +85,12 @@ func _header(main: Node, c: Career, f: Dictionary, in_camp: bool) -> Control:
 	var gauge := UI.label(Injuries.line(c, f) + ": resting" if injured else TrainingLoad.gauge_line(r), UI.SMALL, gauge_col, "bold")
 	gauge.name = "LoadGauge_" + fid
 	h.add_child(_setting("LOAD", [load, gauge]))
+	var focus := Sim.focus_of(c, f)
+	if not in_camp and Sim.plan_of(c, f) != TrainingPlan.default_plan(focus, str(TrainingPreview.PARTNER.get(focus, ""))):
+		var reset := UI.button("Coach's week", "Btn", main.act.bind("focus", "%s|%s" % [fid, focus]))
+		reset.name = "CoachWeek_" + fid
+		reset.tooltip_text = "Back to the coach's week for her main session"
+		h.add_child(_setting("PLAN", [reset]))
 	var diet := OptionButton.new()
 	diet.name = "Diet_" + fid
 	diet.add_item("Hold weight", 0)
@@ -131,13 +141,14 @@ func _board(main: Node, c: Career, f: Dictionary, in_camp: bool) -> Control:
 	row.add_child(left)
 	row.add_child(fig)
 	row.add_child(right)
+	fig.clay = 0.0   # S351 her own kit, not the fight holo's clay
 	fig.set_portrait(_portrait)
 	fig.set_track({"core": 0.0, "left_shoulder": 0.0, "right_shoulder": 0.0, "left_arm": 0.0, "right_arm": 0.0, "legs": 0.0})
 	fig.mouse_filter = Control.MOUSE_FILTER_IGNORE   # (a track keeps the fight's hurt rings off her; all fresh = her own colours)
 	_fig = fig
-	var focus := Sim.focus_of(c, f)
-	var partner := str(TrainingPreview.PARTNER.get(focus, ""))
-	var hours: Dictionary = TW.hours(TrainingLoad.hours(Injuries.setting(f)), focus, partner)
+	var plan := Sim.plan_of(c, f)
+	var main_id := TrainingPlan.main_of(plan)
+	var hours: Dictionary = TrainingPlan.hours(plan, TrainingLoad.hours(Injuries.setting(f)))
 	var gain := Sim.daily_gain(c, f)
 	var southpaw := str(f.get("stance", "orthodox")) == "southpaw"
 	# Each session to the side its point is on (the middle ones balance the columns), top to bottom by height.
@@ -163,8 +174,8 @@ func _board(main: Node, c: Career, f: Dictionary, in_camp: bool) -> Control:
 		for item in items:
 			n += 1
 			var s: Dictionary = item["s"]
-			var role := TW.role(str(s["id"]), focus, partner)
-			var card := _session_card(main, c, f, s, n, role, float(hours[s["id"]]), gain, in_camp)
+			var role := "pads" if s["id"] == "pads" else ("main" if s["id"] == main_id else "")
+			var card := _session_card(main, c, f, s, n, role, plan, float(hours[s["id"]]), gain, in_camp)
 			(left if side == -1 else right).add_child(card)
 			_cards.append({"card": card, "point": item["point"], "side": side, "role": role})
 	_lines = Control.new()
@@ -177,50 +188,107 @@ func _board(main: Node, c: Career, f: Dictionary, in_camp: bool) -> Control:
 	return board
 
 
-## One session: number, icon, name, its role; hours and what it builds this week; the coach's why; her drills; make main.
-func _session_card(main: Node, c: Career, f: Dictionary, s: Dictionary, n: int, role: String, h: float, gain: Dictionary,
-		in_camp: bool) -> Control:
+## One session as his poster's exercise card (S351): her picture doing it on the left; number and name, the week's amount
+## in real units with the - / + blocks that set it, what it builds this week, the coach's why and her drills.
+func _session_card(main: Node, c: Career, f: Dictionary, s: Dictionary, n: int, role: String, plan: Dictionary, h: float,
+		gain: Dictionary, in_camp: bool) -> Control:
 	var fid := str(f["id"])
+	var id := str(s["id"])
 	var p := PanelContainer.new()
-	p.name = "Session_%s_%s" % [s["id"], fid]
-	var border: Color = {"main": UI.GOLD, "support": UI.SKY, "pads": UI.PURPLE}.get(role, UI.LINE)
-	p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, border, 10, 3 if role == "main" else 2, 14, 10))
-	var v := UI.vbox(4)
-	p.add_child(v)
-	var top := UI.hbox(10)
+	p.name = "Session_%s_%s" % [id, fid]
+	var border: Color = {"main": UI.GOLD, "pads": UI.PURPLE}.get(role, UI.LINE)
+	p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, border, 10, 3 if role == "main" else 2, 10, 8))
+	var row := UI.hbox(10)
+	p.add_child(row)
+	row.add_child(_picture(f, s, int(plan.get(id, 0)) == 0))
+	var v := UI.vbox(3)
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(v)
+	var top := UI.hbox(8)
 	top.add_child(_number(n, {"main": UI.GOLD, "pads": UI.PURPLE}.get(role, UI.FG)))
-	top.add_child(Icons.icon(str(s["icon"]), 24, UI.FG, str(s["name"])))
-	top.add_child(UI.label(str(s["name"]).to_upper(), UI.BODY + 3, UI.FG, "bold"))
+	top.add_child(UI.label(str(s["name"]).to_upper(), UI.BODY + 1, UI.FG, "bold"))
 	top.add_child(UI.spacer())
-	var tag: String = {"main": "MAIN", "support": "SUPPORT"}.get(role, "")
-	if tag != "":
-		top.add_child(UI.chip(tag, "gold" if role == "main" else ""))
-	top.add_child(UI.mono(TW.hours_text(h), UI.SMALL, UI.MUTED))
+	if role == "main":
+		top.add_child(UI.chip("MAIN", "gold"))
 	v.add_child(top)
+	var amount := UI.hbox(6)
+	var amt := TrainingPlan.amount_text(id, h)
+	var al := UI.label(amt.to_upper(), UI.BODY, UI.GOLD if amt != "off" else UI.MUTED, "bold")
+	al.name = "Amount_%s_%s" % [id, fid]
+	amount.add_child(al)
+	if str(TrainingPlan.UNIT[id]) != "min" and amt != "off":
+		amount.add_child(UI.muted(TW.hours_text(h), UI.TINY))
+	amount.add_child(UI.spacer())
+	amount.add_child(_stepper(main, fid, id, plan, in_camp))
+	v.add_child(amount)
 	if role == "pads":
 		_pads_rows(main, c, f, v)
 	else:
 		var stat := str(s["stat"])
 		var g := float(gain.get(stat, 0.0)) * 7.0
 		var builds := UI.hbox(6)
-		builds.add_child(UI.label(str(Data.LABEL[stat]), UI.BODY, UI.FG, "bold"))
-		builds.add_child(UI.mono("%d" % int(floorf(float(f["stats"][stat]))), UI.BODY, UI.FG))
-		builds.add_child(UI.mono(UI.gain_text(g).strip_edges() if g >= 0.005 else "+0", UI.SMALL, UI.GREEN))
-		builds.add_child(UI.muted("this week"))
-		builds.add_child(UI.spacer())
-		if role != "main":
-			var b := UI.button("Make it her main", "Btn", main.act.bind("focus", "%s|%s" % [fid, stat]), in_camp, CAMP_WHY)
-			b.name = "Main_%s_%s" % [s["id"], fid]
-			builds.add_child(b)
+		builds.add_child(UI.label(str(Data.LABEL[stat]), UI.SMALL, UI.FG, "bold"))
+		builds.add_child(UI.mono("%d" % int(floorf(float(f["stats"][stat]))), UI.SMALL, UI.FG))
+		builds.add_child(UI.mono(UI.gain_text(g).strip_edges() if g >= 0.005 else "+0", UI.SMALL, UI.GREEN if g >= 0.005 else UI.MUTED))
+		builds.add_child(UI.muted("this week", UI.TINY))
 		v.add_child(builds)
-	v.add_child(UI.muted(str(s["why"]), UI.TINY + 1, true))
-	var drills := TW.drills(str(s["id"]), f["cards"])
+		v.add_child(UI.muted(str(s["why"]), UI.TINY, true))
+	var drills := TW.drills(id, f["cards"])
 	if not drills.is_empty():
 		var foot := UI.hbox(8)
 		for d in drills:
 			foot.add_child(Icons.tip(UI.chip("her drill: %s" % d, "green"), "One of her three week cards: this session drills it"))
 		v.add_child(foot)
 	return p
+
+
+## Her picture doing the session (TRAINCLIPS1's baked card, a dark photo tile); until it is baked, the session's icon on
+## the same tile. A session she skips this week is dimmed.
+func _picture(f: Dictionary, s: Dictionary, off: bool) -> Control:
+	var tile := PanelContainer.new()
+	tile.name = "Pic_%s" % s["id"]
+	tile.custom_minimum_size = Vector2(PIC, PIC)
+	tile.add_theme_stylebox_override("panel", UI.box(PIC_BG, Color(0, 0, 0, 0), 8, 0, 0, 0))
+	var path := PICS.path_join("%s_%s.png" % [Faces.stem(f), s["id"]])
+	if ResourceLoader.exists(path):
+		var t := TextureRect.new()
+		t.texture = load(path)
+		t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		tile.add_child(t)
+	else:
+		var ic := Icons.icon(str(s["icon"]), 44, UI.YELLOW, str(s["name"]))
+		ic.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		tile.add_child(ic)
+	if off:
+		tile.modulate = Color(1, 1, 1, 0.35)
+	return tile
+
+
+## - [blocks] +: one block is a sixteenth of her usual week; her main follows the biggest session.
+func _stepper(main: Node, fid: String, id: String, plan: Dictionary, in_camp: bool) -> Control:
+	var h := UI.hbox(3)
+	h.name = "Blocks_%s_%s" % [id, fid]
+	var minus := UI.button("-", "Btn", main.act.bind("weekplan", "%s|%s|-1" % [fid, id]),
+		in_camp or not TrainingPlan.can_step(plan, id, -1), CAMP_WHY if in_camp else "Less time on this session")
+	minus.name = "Less_%s_%s" % [id, fid]
+	var plus := UI.button("+", "Btn", main.act.bind("weekplan", "%s|%s|1" % [fid, id]),
+		in_camp or not TrainingPlan.can_step(plan, id, 1), CAMP_WHY if in_camp else "More time on this session")
+	plus.name = "More_%s_%s" % [id, fid]
+	for b in [minus, plus]:
+		(b as Button).custom_minimum_size = Vector2(30, 30)
+	h.add_child(minus)
+	var k := int(plan.get(id, 0))
+	for i in TrainingPlan.MAX_BLOCKS:
+		var pip := ColorRect.new()
+		pip.custom_minimum_size = Vector2(9, 16)
+		pip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		pip.color = UI.GOLD if i < k else UI.LINE
+		pip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		h.add_child(pip)
+	h.add_child(plus)
+	return h
 
 
 ## The pads: the move she is learning and the combination she is drilling (the same two choices as before).
@@ -250,10 +318,10 @@ func _pads_rows(main: Node, c: Career, f: Dictionary, v: VBoxContainer) -> void:
 		combo.tooltip_text = "No combos yet - a combo opens when each of its punches reaches 30 on the pads"
 	elif drilling != "":
 		combo.tooltip_text = "Coach: \"%s\"" % ComboWords.line(drilling, "coach_learning", str(f["first"]), c.day / 7)
-	for pair in [["New move", learn], ["Combo", combo]]:
+	for pair in [["Move", learn], ["Combo", combo]]:
 		var r := UI.hbox(8)
 		var l := UI.label(pair[0], UI.SMALL, UI.FG, "bold")
-		l.custom_minimum_size = Vector2(86, 0)
+		l.custom_minimum_size = Vector2(58, 0)
 		r.add_child(l)
 		(pair[1] as Control).size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		r.add_child(pair[1])

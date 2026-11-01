@@ -9,6 +9,7 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
+const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 
 
 ## The fighter an action means: by id, else the open moment's, else the first.
@@ -37,10 +38,21 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var parts := arg.split("|")
 			var f := who(main, parts[0])
 			f[{"focus": "focus", "diet": "diet", "learn": "learning", "combo": "combo_learning", "trainload": "load_setting"}[name]] = parts[1] if parts.size() > 1 else parts[0]
+			if name == "focus":
+				f.erase("week_plan")   # S351 a new main = the coach's week for it
+			main.render()
+		"weekplan":
+			# S351 one block more or less on a session: "fid|session|+1"; her main follows the biggest session.
+			var parts := arg.split("|")
+			var f := who(main, parts[0])
+			var plan := TrainingPlan.step(Sim.plan_of(c, f), parts[1], int(parts[2]))
+			f["week_plan"] = plan
+			f["focus"] = TrainingPlan.main_stat(plan)
 			main.render()
 		"bodyfocus":
 			var parts := arg.split("|")
 			who(main, parts[0])["focus"] = parts[1]
+			who(main, parts[0]).erase("week_plan")
 			main.open_modal(main.modal)   # S327 the result page redraws: the button reads "Training ... next week"
 		"injurychoice":
 			main.open_modal(Injuries.choice_modal(c, who(main, arg)))

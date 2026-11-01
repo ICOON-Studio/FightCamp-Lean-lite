@@ -1,20 +1,15 @@
-# S351 - next session (written S350, 2026-11-01)
+# S352 - next session (written S351, 2026-11-02)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
-S350 shipped update 51: the corner card redone (C197; then cut to one-line plan tiles, operator 'too much text') - she stays in view beside the card (CornerShots.frame_at), the round
-then numbered steps, plans in two columns, recover readable (CornerJobsRow takes the TV palette on the dark card). Collected
-GroundRules (Qwen + Claude realism fixes), PadWork (Goose; PAD CONTACT 3/3), SMOOTH3 r1 + Claude's capture fix (386 -> 312
-kinks/min). Digest: Game\Godot\research\S350_DIGEST.md. OPERATOR RULE S338: agents do animations, Claude mechanics + UI.
-EVERY PROBE AT `--fixed-fps 30` (frame-counting probes read the wrong moment at 60 fps).
+S351 shipped update 52: training you plan (TrainingPlan: - / + blocks per session set her gains; the default week = the old
+numbers; real units; her own kit on the figure). The Miro loop board of every real screen:
+https://miro.com/app/board/uXjVETf7la4=/ . Digest: Game\Godot\research\S351_DIGEST.md.
+OPERATOR RULE S338: agents do animations, Claude mechanics + UI. EVERY PROBE AT `--fixed-fps 30`.
 
-1. Board: Q-S294-73 (training board keep/change) + his comments on the S350 stills (corner card, pad work). His S350 note
-   "training pictures are not so great" is on the session pictures (TRAINCLIPS1, round 3 out).
-2. Collect, each on OUR GPU with the visual gate, confirming a red on the main checkout before blaming the branch:
-   - TRAINCLIPS1 r4 (Cursor, wt E:\FightCamp\wt\LEAN_TRAINCLIPS1): his MMA home-training sheet's look ("try the pictures i
-     showed to you" - refs in E:\FightCamp\refs\S348, never shipped): her body ink-drawn on a dark tile, start -> finish +
-     gold arrow; checks measured on the picture. r3 failed (json reach not from the rendered pose). If r4 fails, Ziva.
-   - SMOOTH3 r2 (Goose issue 18): OURS <= 250/min AND <= 110 at a clip change (main 312/121); hit_gap > 0.15 m: 0;
-     inside_guard <= 4.
-   - CLINCH2 r4 (Goose #14): `tools/clinch_check.gd` CLINCH OK 6/6 windowed on the hidden desktop, zero script errors.
-3. On his yes to Q-S294-73: the Pad rounds plan off the pads card (PadWork as its picture). Then the Playbook map in the
-   martial-arts-tree look; the corner card's body figure in her own kit.
+1. Board: Q-S294-75 (his Fighter Training Blueprint as the training game - Godot/research/TRAINPLAN2_DESIGN.md) and
+   Q-S294-74 (what "not that good for training" meant). On "Yes, build it": TRAINPLAN2 step 1 - the week as days
+   (HARD / SKILL / ENGINE / REST, high-low rule, red on two hard days) feeding TrainingPlan's rounds.
+2. Collect on our GPU, red on main first: SMOOTH3 r2 (Goose issue 18), CLINCH2 r4 (Goose #14).
+3. TRAINCLIPS1 -> Ziva (Cursor r4 15c4ace failed the visual gate; not merged): Ziva editor on wt/ZIVA_LEAN; render big
+   and downscale, a real outline pass, head to feet, the start ghost visible.
+4. Pad rounds plan; Playbook map tree look; corner card figure in her kit (BodyFigure.clay; hurt spots on a red vest).

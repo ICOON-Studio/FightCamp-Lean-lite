@@ -18,6 +18,7 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
+const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
@@ -44,9 +45,20 @@ static func focus_of(_career: Career, f: Dictionary) -> String:
 	return str(camp["focus"]) if not camp.is_empty() else str(f["focus"])
 
 
+## S351 her week's plan (TrainingPlan: blocks per session): the one she has set, else the coach's week for her focus. In
+## camp the camp writes the week (its focus as the main session).
+static func plan_of(career: Career, f: Dictionary) -> Dictionary:
+	var focus := focus_of(career, f)
+	var partner := str(TrainingPreview.PARTNER.get(focus, ""))
+	if not (f.get("camp", {}) as Dictionary).is_empty():
+		return TrainingPlan.default_plan(focus, partner)
+	return TrainingPlan.plan_of(f.get("week_plan"), focus, partner)
+
+
 ## {stat: points a day} for her plan this week; a camp multiplies its focus by the protocol.
 static func daily_gain(career: Career, f: Dictionary) -> Dictionary:
-	var week: Dictionary = TrainingPreview.plan_gain(f["stats"], int(f["pot"]), focus_of(career, f), coach_rating(career))
+	var week: Dictionary = TrainingPreview.fractions_gain(f["stats"], int(f["pot"]),
+		TrainingPlan.fractions(plan_of(career, f)), coach_rating(career))
 	var out: Dictionary = {}
 	for key in week.keys():
 		out[key] = float(week[key]) / 7.0 * BoutRules.camp_gain_mult(f.get("camp", {}), str(key)) * TrainingLoad.gain(Injuries.setting(f))
@@ -111,13 +123,14 @@ static func drill_week(career: Career, f: Dictionary) -> Dictionary:
 		if Data.CARD_MOVES.has(card):
 			carded.append(Data.CARD_MOVES[card])
 	var learning := str(f.get("learning", ""))
+	var pads := TrainingPlan.pads_factor(plan_of(career, f))   # S351 her pad rounds set the new move's pace
 	var rows: Array = []
 	var new_weapon := ""
 	for m in Data.MOVES:
 		var before := float(moves.get(m, 0.0))
 		var after := before
-		if m == learning:
-			after = MoveMastery.gain(before, LEARN_STATION, LEARN_MINUTES, skill, STATION_TIER, 1.0, cap)
+		if m == learning and pads > 0.0:
+			after = MoveMastery.gain(before, LEARN_STATION, LEARN_MINUTES * pads, skill, STATION_TIER, 1.0, cap)
 		elif carded.has(m):
 			after = MoveMastery.gain(before, CARD_STATION, CARD_MINUTES, skill, STATION_TIER, 1.0, cap)
 		else:
@@ -158,12 +171,13 @@ static func drill_combos(career: Career, f: Dictionary, skill: float) -> String:
 	if drilling != "" and not ids.has(drilling):
 		ids.append(drilling)
 	var new_combo := ""
+	var pads := TrainingPlan.pads_factor(plan_of(career, f))
 	for id in ids:
 		var before := float(combos.get(id, 0.0))
 		var after := Combos.fade(before, false)
-		if id == drilling:
+		if id == drilling and pads > 0.0:
 			var cap := Combos.cap(id, moves, float(f["stats"]["technique"]), float(f["stats"]["fight_iq"]))
-			after = Combos.drill(before, id, COMBO_MINUTES, skill, STATION_TIER, cap)
+			after = Combos.drill(before, id, COMBO_MINUTES * pads, skill, STATION_TIER, cap)
 		combos[id] = after
 		# S303 Kalli K-COMBOWORDS1: the coach's words when it turns usable and when it becomes her signature.
 		if before < Combos.LEARN_AT and after >= Combos.LEARN_AT:

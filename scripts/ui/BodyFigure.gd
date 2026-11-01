@@ -61,6 +61,7 @@ const SKIN_SHADER := preload("res://scripts/ui/body_skin.gdshader")   # her body
 var _mask: Texture2D = null
 var _skin: TextureRect = null
 var layers_for_paint: Array = []   # S334 BodyTurn: [{skin, uv, anchors}] while she turns
+var clay := 1.0   # S351 1 = her kit clay (the fight's holo), 0 = her own kit colours (the training board)
 
 
 ## {"tex", "anchors"} for a boxer's body (her glb path) in her corner's colours; {} when it was never baked.
@@ -106,6 +107,7 @@ func _build_skin() -> void:
 		add_child(_skin)
 	_skin.texture = _tex
 	(_skin.material as ShaderMaterial).set_shader_parameter("mask", _mask)
+	(_skin.material as ShaderMaterial).set_shader_parameter("clay", clay)
 	_paint_skin()
 
 

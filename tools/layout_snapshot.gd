@@ -106,6 +106,27 @@ func _initialize() -> void:
 	await _shot("23c_combos")
 	main.act("go", "fighters:1")
 	await _shot("23d_training_combo")
+	# S351 the Miro loop board (operator: "menus/submenus/modals/tooltips"): two tooltips on the training board, the
+	# Playbook's four tabs, the top bar's Mail and Gear menu.
+	if await _hover("Load_lucy"):
+		await _shot("23e_tip_load")
+	if await _hover("More_heavy_bag_lucy"):
+		await _shot("23f_tip_more_time")
+	for i in 4:
+		main.act("go", "playbook:%d" % i)
+		await _shot("23%s_playbook_%s" % [["g", "h", "i", "j"][i], ["moves", "plans", "combos", "escapes"][i]])
+	main.act("mail", "")
+	await _shot("23k_mail")
+	main.act("close")
+	var gear := main.find_child("Gear", true, false) as Button
+	if gear != null:
+		gear.pressed.emit()
+		await _shot("23l_gear_menu")
+		var esc := InputEventKey.new()
+		esc.keycode = KEY_ESCAPE
+		esc.pressed = true
+		root.push_input(esc)
+		await _settle()
 	# Week 3: MONEY, GYM, WORLD live; save and the title's Resume.
 	main.act("go", "money:3")
 	main.act("deal", "ironclad")
@@ -203,6 +224,21 @@ func _run_until(until: Callable, close_reviews: bool = true) -> void:
 			main.act("review")
 			main.act("close")
 		main.run_to_stop()
+
+
+## The mouse rests on a control long enough for its tooltip (a real window only; false when it is missing or headless).
+func _hover(name: String) -> bool:
+	var n := main.find_child(name, true, false) as Control
+	if n == null or DisplayServer.get_name() == "headless":
+		print("HOVER skipped ", name)
+		return false
+	var ev := InputEventMouseMotion.new()
+	ev.position = n.get_global_rect().get_center()
+	ev.global_position = ev.position
+	root.push_input(ev, true)   # viewport coords (the hidden desktop maximises the window: window coords are scaled)
+	await _settle(60)
+	print("HOVER %s -> %s" % [name, root.gui_get_hovered_control()])
+	return true
 
 
 func _settle(frames: int = 4) -> void:
