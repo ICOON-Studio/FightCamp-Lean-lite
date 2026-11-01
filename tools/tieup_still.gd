@@ -31,6 +31,12 @@ func _initialize() -> void:
 	await _shot("t03_landed")
 	TieUpPanel.pick(b, "front_headlock")
 	await _shot("t04_front_headlock")
+	# S338 PLANSCREEN2: plan mode on the Russian tie, two answers for two reactions.
+	b.plan_mode = true
+	TieUpPanel.pick(b, "russian_tie")
+	for row in WC.answers("russian_tie").slice(0, 2):
+		TieUpPanel._take_answer(b, row)
+	await _shot("t05_plan_russian_tie")
 	quit(0)
 
 

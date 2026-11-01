@@ -153,27 +153,26 @@ func _moves(title: String, rows: Array, out: bool) -> void:
 		var other: String = str(m["to"]) if out else str(m["from"])
 		var mastery_why := Map.grey_reason(m, DEMO_MASTERY) if out else ""
 		var why := mastery_why
-		if out and plan_mode and why == "" and plan.size() >= limit:
+		if out and plan_mode and why == "" and plan.size() >= limit and not plan.any(func(a): return str(a["move"]) == str(m["id"])):
 			why = full_reason
 		var small := ("to " if out else "from ") + str(Map.card(other)["name"]) + ("" if str(m["kind"]) == "combo" else "  (" + str(m["kind"]) + ")")
 		var disabled := why != ""
 		var b := UI.button2(str(m["name"]), small, "Choice", func(): _take(m, out), Vector2(PANEL_W - 50, 58), UI.FG, UI.MUTED,
 			disabled, UI.SMALL, UI.TINY, why)
-		if mastery_why != "":
-			b.tooltip_text = mastery_why
-			_side.add_child(b)
-			_side.add_child(UI.label("    " + mastery_why, UI.TINY, UI.GOLD, "body", true))
-		else:
-			_side.add_child(b)
+		# S338: button2 already writes the reason under the name (GREYWHY1); a second label repeated it.
+		_side.add_child(b)
 
 
 ## A move out walks to where it lands (the route grows); a move in jumps back to where it starts.
 ## In plan mode a move out adds a plan arrow and walks without growing the route.
 func _take(m: Dictionary, out: bool) -> void:
 	if out and plan_mode:
-		if plan.size() >= _arrow_limit():
+		# S338 still: the same move went on the plan twice; a planned move just walks.
+		var planned := plan.any(func(a): return str(a["move"]) == str(m["id"]))
+		if not planned and plan.size() >= _arrow_limit():
 			return
-		plan.append({"move": str(m["id"])})
+		if not planned:
+			plan.append({"move": str(m["id"])})
 		go(str(m["to"]))
 		return
 	if out:
@@ -205,9 +204,15 @@ func _layout() -> void:
 func _draw_plan_arrow(from_id: String, to_id: String) -> void:
 	var a: Vector2 = SPOT[from_id] * _map.size
 	var b: Vector2 = SPOT[to_id] * _map.size
+	# S338: the plan in the coach's marker green, apart from the lit card's blue moves; a move that stays on its card
+	# (8 of 30: feints, combos that end where they start) is a loop over the card, else it never shows on the map.
+	var col := UI.GREEN
 	if a == b:
+		var c := a - Vector2(0, CARD.y * 0.5 + 16.0)
+		_map.draw_arc(c, 14.0, PI * 0.15, PI * 1.85, 24, col, 4.0, true)
+		var tip := c + Vector2(cos(PI * 0.15), sin(PI * 0.15)) * 14.0
+		_map.draw_colored_polygon(PackedVector2Array([tip + Vector2(0, 7), tip + Vector2(-8, -3), tip + Vector2(8, -3)]), col)
 		return
-	var col := UI.GOLD
 	var dir := (b - a).normalized()
 	var side := Vector2(-dir.y, dir.x) * 10.0
 	var edge := minf(CARD.x * 0.5 / maxf(absf(dir.x), 1e-3), CARD.y * 0.5 / maxf(absf(dir.y), 1e-3)) + 4.0

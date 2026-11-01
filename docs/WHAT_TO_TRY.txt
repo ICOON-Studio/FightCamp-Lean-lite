@@ -1,3 +1,17 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 40 (2026-11-01): HAIR FIXED, TIE-UPS, THE COACH'S PLAN BOARD
+====================================================================================
+
+ 1. Hair: Samira and Megan have their braids again, Priya and Dana their fringes - they looked shaved because half of their
+    hair was never loaded. Faces unchanged. Look at them on HOME's roster or in any fight.
+ 2. The coach's plan board: FightCamp.exe -- jump=strikemap, press "Build plan". Each move out you click becomes an arrow
+    (green on the map; a move that stays on its card is a little loop). Your coach allows 6 arrows (a better coach more);
+    the panel shows how much of her map the plan covers, marks untrained moves, and says when two arrows clash. "Remove"
+    takes one off. "Done" goes back to walking the map.
+ 3. Wrestling tie-ups: Test ground moves (-- jump=grapple), tab "Tie-ups": pick a tie-up (collar tie, underhook, ...) - the
+    women stand in it; each answer reads "if she leans in -> Snapdown"; click it to watch it; a "->" button follows the chain
+    to the next tie-up. "Build plan" there too: one answer per reaction you expect - the same 6 arrows as boxing.
+ 4. Three new boxers are built (Holly, Ellie, Jade) but NOT in the game until you answer the board question with the picture.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 39 (2026-11-01): NEXT STEP, REASONS ON GREY BUTTONS, THE BOXING MOVE MAP
 ====================================================================================
 

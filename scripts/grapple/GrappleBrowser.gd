@@ -38,12 +38,17 @@ var _list: VBoxContainer
 var _list_hdr: Label
 var _search: LineEdit
 var _tie_open := ""
+var plan: Array = []
+var plan_mode := false
+var coach_skill := TieUpPanel.DEMO_COACH
 ## `-- walk=N`: the browser walks the graph by itself (N moves, a pause on each position, then quits) - the film tool.
 var _walk := 0
 var _hold := 0.0
 var _rng := RandomNumberGenerator.new()
 var _walking := false
 var _seen := {}
+var _plan_toggle: Button
+var _start_again: Button
 
 
 func _ready() -> void:
@@ -76,6 +81,10 @@ func _ready() -> void:
 			_rng.seed = 335
 		elif a.begins_with("tie="):
 			jump_tie = a.substr(4)
+		elif str(a).begins_with("coach="):
+			coach_skill = clampf(float(str(a).get_slice("=", 1)), 0.0, 100.0)
+		elif str(a) == "plan=1":
+			plan_mode = true
 	if jump_tie != "":
 		_open_ties()
 		TieUpPanel.pick(self, jump_tie)
@@ -266,6 +275,12 @@ func _top_bar() -> Control:
 		var tag := str(f[1])
 		h.add_child(UI.button(str(f[0]), "Tab", func(): _family(tag)))
 	h.add_child(UI.button("Tie-ups", "Tab", func(): _open_ties()))
+	_plan_toggle = UI.button("Build plan", "Btn", func(): _set_plan_mode(not plan_mode))
+	_plan_toggle.visible = false
+	h.add_child(_plan_toggle)
+	_start_again = UI.button("Start again", "BtnQuiet", func(): plan.clear(); _refresh())
+	_start_again.visible = false
+	h.add_child(_start_again)
 	h.add_child(UI.spacer())
 	_search = LineEdit.new()
 	_search.placeholder_text = "find a position"
@@ -297,15 +312,39 @@ func _panel() -> Control:
 	return p
 
 
+func _set_plan_mode(on: bool) -> void:
+	plan_mode = on
+	_refresh()
+
+
+func _remove_plan_arrow(index: int) -> void:
+	if index < 0 or index >= plan.size():
+		return
+	plan.remove_at(index)
+	_refresh()
+
+
+func _sync_plan_bar() -> void:
+	if _plan_toggle == null:
+		return
+	var show := _tie_open != "" and moving.is_empty()
+	_plan_toggle.visible = show
+	_start_again.visible = show and plan_mode
+	if show:
+		_plan_toggle.text = "Done" if plan_mode else "Build plan"
+
+
 func _refresh() -> void:
 	UI.clear(_side)
 	if not moving.is_empty():
 		_side.add_child(UI.caps("NOW PLAYING"))
 		_side.add_child(UI.label(Graph.clean(str(moving["t"]["title"])), 26, UI.GOLD, "bold", true))
 		_side.add_child(UI.button("Skip to the end", "BtnQuiet", func(): player.seek(player.length_s())))
+		_sync_plan_bar()
 		return
 	if _tie_open != "":
 		TieUpPanel.show_tie(self, _tie_open)
+		_sync_plan_bar()
 		return
 	var pos: Dictionary = db[current]
 	_side.add_child(UI.caps("POSITION"))
@@ -313,6 +352,7 @@ func _refresh() -> void:
 	_side.add_child(UI.muted(", ".join(Array(pos["tags"]).map(func(t): return str(t).replace("_", " "))), UI.TINY, true))
 	_moves("MOVES OUT", graph.outs(current), true)
 	_moves("MOVES IN", graph.ins(current), false)
+	_sync_plan_bar()
 
 
 func _moves(title: String, moves: Array, out: bool) -> void:

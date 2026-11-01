@@ -40,7 +40,7 @@ func _initialize() -> void:
 		await process_frame
 
 	_check(s.plan.size() == limit, "plan holds %d arrows (got %d)" % [limit, s.plan.size()])
-	s.go("clinch")
+	s.go("long")   # S338: a card with moves not on the plan (clinch's one move out is planned)
 	await process_frame
 	_check(_arrows_label_text(s) == "Arrows %d / %d" % [limit, limit], "panel reads Arrows %d / %d" % [limit, limit])
 	_check(_all_move_outs_full(s), "every move-out disabled with plan-full reason")
@@ -53,7 +53,7 @@ func _initialize() -> void:
 
 	_check(s.plan.size() == limit - 1, "remove one drops count to %d" % (limit - 1))
 	_check(_arrows_label_text(s) == "Arrows %d / %d" % [limit - 1, limit], "count drops by one on panel")
-	s.go("clinch")
+	s.go("long")
 	await process_frame
 	_check(_any_move_out_enabled(s), "move-out buttons enable again after remove")
 
@@ -115,12 +115,27 @@ func _all_move_outs_full(s: Control) -> bool:
 	var outs := _move_out_buttons(s._side)
 	if outs.is_empty():
 		return false
+	# S338: a move already on the plan stays usable (it only walks); every other move out is greyed with the reason.
+	var planned := {}
+	for a in s.plan:
+		planned[str(PlanBoard.row(s.Map.MOVES, str(a["move"]))["name"])] = true
+	# A move she has not learned keeps its own reason (StrikeMap.grey_reason); the full-plan reason covers the rest.
+	var full := 0
 	for b in outs:
+		if planned.keys().any(func(n): return _label_exists(b, n)):
+			if (b as Button).disabled:
+				print("  planned move greyed: ", b.tooltip_text)
+				return false
+			continue
 		if not (b as Button).disabled:
+			print("  unplanned move enabled on a full plan")
 			return false
-		if not _out_shows_reason(b as Button, reason):
+		if _out_shows_reason(b as Button, reason):
+			full += 1
+		elif b.tooltip_text == "" or b.tooltip_text == reason:
+			print("  greyed without a reason")
 			return false
-	return true
+	return full > 0
 
 
 func _out_shows_reason(b: Button, reason: String) -> bool:
