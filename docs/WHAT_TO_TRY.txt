@@ -1,3 +1,18 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 37 (2026-11-01): THE GROUND-MOVE PROTOTYPE (GRAPPLEMAP)
+====================================================================================
+
+YOUR ANSWER Q-S294-58 "Build the prototype now"
+ 1. Shortcut "Test ground moves" (or FightCamp.exe -- jump=grapple): a screen of its own, outside the boxing game (MMA
+    update). Two of our women on a grey mat, red and blue head to toe, the camera turning slowly round them.
+ 2. The right panel is the move map like the GrappleMap website: the position on screen, its MOVES OUT (what she can do
+    from here, and where it lands) and MOVES IN (what gets her here, and from where). Click a move: it plays and
+    lands on the next position, whose moves then show. Keep clicking to walk the map move by move.
+ 3. The tabs across the top (Standing, Guard, Half guard, Side control, Mount, Back, Turtle, Takedowns, Submissions)
+    list each family's positions, the best linked first; the box on the right finds a position by name.
+ 4. 601 positions and 1,485 moves, all public domain. Hands and feet land where the data puts them (grips, posts).
+    Known: the bodies still sink into each other in tight holds, each move runs at one even speed, the hands stay
+    open, and they wear the boxing vest (it tears white under a raised arm).
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 36 (2026-11-01): HER RING PHOTO, THE TURNING BODY VIEW, TWO 18-YEAR-OLD PROSPECTS
 ================================================================================================================
 

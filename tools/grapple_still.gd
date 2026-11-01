@@ -82,7 +82,7 @@ func _room(world: Node3D) -> void:
 	plane.size = Vector2(8, 8)
 	mat.mesh = plane
 	var m := StandardMaterial3D.new()
-	m.albedo_color = Color(0.2, 0.35, 0.6)
+	m.albedo_color = Color("#9da3a8")
 	m.roughness = 0.9
 	mat.material_override = m
 	world.add_child(mat)

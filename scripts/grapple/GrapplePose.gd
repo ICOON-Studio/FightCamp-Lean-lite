@@ -13,6 +13,8 @@ const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const SIDES := ["Left", "Right"]
 
 var joints := PackedVector3Array()
+## Two-bone IK on the wrists and ankles after the aim solve (off = the aim solve alone, the control arm)
+var ik := true
 var _id := {}
 var _rest := {}          # bone -> global rest (skeleton space)
 var _rest_local := {}    # bone -> local rest
@@ -158,7 +160,46 @@ func pose_globals(skel: Skeleton3D, j: PackedVector3Array) -> Dictionary:
 	var glob := {}
 	for i in skel.get_bone_count():
 		_global(skel, i, by_id, hips_pos, glob)
+	if not ik:
+		return glob
+	# Two-bone IK: our arms and legs are not the data's, so the wrists and ankles go where the data puts them (a grip,
+	# a post, a foot on the mat), the elbow and knee kept on the side the data bends them.
+	for s in SIDES:
+		for limb in [["UpperArm", "LowerArm", "Hand", "Wrist"], ["UpperLeg", "LowerLeg", "Foot", "Ankle"]]:
+			var up: String = s + limb[0]
+			var lo: String = s + limb[1]
+			var rest_up := _p(lo) - _p(up)
+			var rest_lo := _p(s + limb[2]) - _p(lo)
+			var roll := rest_up.cross(_fwd) if limb[0] == "UpperArm" else _fwd.cross(rest_up)
+			var bend := _reach(glob[_id[up]].origin, glob[_id[lo]].origin, j[DB.joint(s + limb[3])], rest_up.length(), rest_lo.length())
+			if bend.is_empty():
+				continue
+			var n: Vector3 = (bend[0] as Vector3).cross(bend[1])
+			if n.length() < 1e-4:
+				continue
+			by_id[_id[up]] = turn(rest_up, roll, bend[0], n)
+			by_id[_id[lo]] = turn(rest_lo, roll, bend[1], n)
+	glob = {}
+	for i in skel.get_bone_count():
+		_global(skel, i, by_id, hips_pos, glob)
 	return glob
+
+
+## The upper and lower limb directions that put the end at `target` from `root` (lengths a, b; the reach clamped), the
+## middle joint on the side `mid` is now. [] when the target is on the root.
+static func _reach(root: Vector3, mid: Vector3, target: Vector3, a: float, b: float) -> Array:
+	var to := target - root
+	if to.length() < 1e-4:
+		return []
+	var dir := to.normalized()
+	var d := clampf(to.length(), absf(a - b) + 1e-3, a + b - 1e-3)
+	var pole := (mid - root) - dir * dir.dot(mid - root)
+	if pole.length() < 1e-4:
+		pole = dir.cross(Vector3.UP if absf(dir.y) < 0.9 else Vector3.RIGHT)
+	pole = pole.normalized()
+	var c := clampf((a * a + d * d - b * b) / (2.0 * a * d), -1.0, 1.0)
+	var elbow := root + dir * (a * c) + pole * (a * sqrt(1.0 - c * c))
+	return [elbow - root, root + dir * d - elbow]
 
 
 ## A bone's pose in skeleton space: a solved bone turns its rest by its rotation; the rest follow their parent. Every

@@ -35,6 +35,8 @@ var _search: LineEdit
 var _walk := 0
 var _hold := 0.0
 var _rng := RandomNumberGenerator.new()
+var _walking := false
+var _seen := {}
 
 
 func _ready() -> void:
@@ -62,10 +64,12 @@ func _ready() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("walk="):
 			_walk = int(a.substr(5))
+			_walking = true
 			_rng.seed = 335
 
 
-## The walk's next move: one out of here that lands on a position with moves of its own.
+## The walk's next move: one out of here that lands on a position with moves of its own, a new place first; at a dead
+## end it jumps to a well-linked position of the current family.
 func _walk_step(delta: float) -> void:
 	if not moving.is_empty():
 		return
@@ -76,11 +80,16 @@ func _walk_step(delta: float) -> void:
 	if _walk <= 0:
 		get_tree().quit()
 		return
+	_seen[current] = true
 	var outs: Array = graph.outs(current).filter(func(m): return Graph.lands(m) != null and not graph.outs(int(Graph.lands(m))).is_empty())
-	if outs.is_empty():
-		_walk = 0
-		return
+	var fresh := outs.filter(func(m): return not _seen.has(int(Graph.lands(m))))
+	if not fresh.is_empty():
+		outs = fresh
 	_walk -= 1
+	if outs.is_empty():
+		var hubs: Array = graph.family(str(Graph.FAMILIES[_rng.randi() % Graph.FAMILIES.size()][1])).slice(0, 5)
+		go_position(int(hubs[_rng.randi() % hubs.size()]["id"]))
+		return
 	play_out(outs[_rng.randi() % outs.size()])
 
 
@@ -141,7 +150,7 @@ func _room(world: Node3D) -> void:
 	plane.size = Vector2(10, 10)
 	mat.mesh = plane
 	var m := StandardMaterial3D.new()
-	m.albedo_color = Color("#3d6fb0")
+	m.albedo_color = Color("#9da3a8")  # neutral grey: red, blue and skin all read on it (operator S335: blue fighter on a blue mat)
 	m.roughness = 0.9
 	mat.material_override = m
 	world.add_child(mat)
@@ -154,7 +163,7 @@ func _room(world: Node3D) -> void:
 func _process(delta: float) -> void:
 	if player == null or player.seq.is_empty():
 		return
-	if _walk > 0 or _hold > 0.0:
+	if _walking:
 		_walk_step(delta)
 	_yaw += ORBIT_DEG_S * delta
 	var js: Array = player.joints_at(player.t())

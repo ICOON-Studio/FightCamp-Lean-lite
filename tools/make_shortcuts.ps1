@@ -4,7 +4,7 @@
 $builds = Join-Path (Split-Path -Parent $PSScriptRoot) "Builds"
 $exe = Join-Path $builds "FightCamp.exe"
 $shell = New-Object -ComObject WScript.Shell
-foreach ($j in @(@("Test fight with film", "jump=fight"), @("Test fight without film", "jump=fight_nofilm"), @("Test corner minute", "jump=corner"), @("Test injury", "jump=injury"), @("Test nationals", "jump=nationals"))) {
+foreach ($j in @(@("Test fight with film", "jump=fight"), @("Test fight without film", "jump=fight_nofilm"), @("Test corner minute", "jump=corner"), @("Test injury", "jump=injury"), @("Test nationals", "jump=nationals"), @("Test ground moves", "jump=grapple"))) {
     $lnk = $shell.CreateShortcut((Join-Path $builds ($j[0] + ".lnk")))
     $lnk.TargetPath = $exe
     $lnk.Arguments = "-- " + $j[1]

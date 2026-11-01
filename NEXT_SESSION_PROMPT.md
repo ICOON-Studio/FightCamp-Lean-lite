@@ -1,20 +1,26 @@
-# S335 - next session (written S334, 2026-11-01)
+# S336 - next session (written S335, 2026-11-01)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
-S334 shipped update 36 (Lean 8ddc745): HOME polaroid = her ring photo (tools/bake_headshots.gd), the fight body view bigger
-and slowly turning (tools/bake_body_turn.gd + scripts/ui/BodyTurn.gd), Kira and Samira Khan as 18-year-old prospects with
-new faces. Digest: E:\FightCamp\Game\Godot\research\S334_DIGEST.md.
+S335 shipped update 37: the ground-move prototype (operator Q-S294-58 "Build the prototype now"). GrappleMap (public
+domain, assets/grapplemap/) on two of our MetaHuman women: scripts/grapple/ GrappleMapDB (decode), GrapplePose (joints
+-> bones, aim + roll per bone, then two-bone IK on wrists/ankles), GrapplePlayer (keyframes, 0.5 s a segment),
+GrappleGraph (moves in/out per position from graph.json, built by tools/grapplemap_graph.py; align() lays the next move
+on the pose on screen), GrappleBrowser (`-- jump=grapple`, `walk=N` films it). Digest: Game\Godot\research\S335_DIGEST.md.
+Operator on the film: "the video looks amazing, can still be improved".
 
-1. Board answers: Q-S294-58 (GrappleMap ground prototype now / park for MMA - BJJ_SOURCES_S334.md), Q-S294-59 (Dojo
-   Legacy ideas: next-step card + reasons on greyed buttons first - DOJO_LEGACY_IDEAS_S334.md), Q-S294-60 (shape the
-   18-year-olds younger by hand / keep). Faces: preset blends cannot look younger; hand-shaping means editing face-model
-   coefficients in Tools/metahuman/mh2_build.py beyond face_blend (research first). A new face = mh4_run.py build, then a
-   sidecar copied from her base preset's boxer (mh4_audit needs age 19-34 + garment fields), --import, bake_body_portraits,
-   bake_body_masks, bake_body_turn, bake_headshots (all `stems=`), faces/body_figure/body_turn tests, a lineup.
-2. The cloud fight-animation pipeline (another S334 session, local_c7e7549f): .github/workflows/fight-stills.yml on
-   ICOON-Studio/FightCamp-Lean. Runs 41267920481 and 41267894530 were still "in progress" ~50 min after dispatch - check
-   whether they hung (gh run view), fix, then send measurable animation briefs to Goose/Arena as planned.
-3. Q-S294-53 inside punches: wait for his marks, then a fresh close-exchange still.
-4. Look B polish: GYM, MONEY, FIGHTS, WORLD stills (tools/pages_now_still.gd), fix what reads dark-theme.
-5. Defect seen: the vest tears open at the armpit when an arm is raised high (mc_win past ~0.9 s) - kit mesh/skin weights.
-6. THE READ: film a READ IT beat on camera (fight3d_play with a high Ring IQ fighter) and check the close-up.
+0. SPLIT (operator S335 "Yes, split it", after Claude proposed Cursor + a second Claude session over paying for a new
+   agent): in the first minutes launch Cursor on Game/Godot/research/TASK_GROUND2A.md (body push-out, numeric gate;
+   Tools/agent_window.ps1 + cursor_task.cmd, a Lean worktree under E:\FightCamp\wt) and start a second Claude session
+   (start_session, own worktree) on TASK_GROUND2B.md (a speed per move). Land 2B first (both touch GrapplePlayer.gd).
+   This session keeps (c) gripping hands and (d) MMA kit, and films and judges both branches before merging.
+1. GROUND2, polish: (a) bodies sink into each other in mount / side control / back: push them out along the contact
+   normal (capsule per bone, top body moves, joints keep their targets via the IK); (b) a speed per move instead of a
+   flat SEGMENT_S, from keyframe distances (fast through small changes, Sekai clip lengths for reference);
+   (c) curl the hands into grips (finger bones, MHRig.UE5_FINGERS) when a wrist is near the other body; (d) MMA kit:
+   no boxing vest (it tears white under a raised arm), a rash guard or sports top in the corner colour. Re-film
+   (`--fixed-fps 30 --write-movie ... -- walk=10`, ffmpeg to mp4), open a contact sheet, send + review_add.
+2. Board: Q-S294-61 (boxing move map + whiteboard plan game + corner shouts on right/wrong moves + own combos,
+   Game\Godot\research\STRIKEMAP_S335.md), Q-S294-59 (Dojo Legacy ideas), Q-S294-60 (younger faces), Q-S294-53 marks.
+3. Judo/kickboxing (he asked): judo throws/takedowns are in GrappleMap (throw 16, single leg 42, double leg 27,
+   standing 125). Kickboxing has no such data; it needs our own clips.
+4. ANIMCLOUD1 (fight-stills CI) belongs to session local_c7e7549f: do not duplicate.

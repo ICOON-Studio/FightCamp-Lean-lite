@@ -1,7 +1,8 @@
 extends SceneTree
 ## S335 GrapplePose on a real MetaHuman: across many GrappleMap keyframes (positions and transitions, both men) every
 ## limb bone points where the data's limb points, the elbows and knees bend the data's way (not inverted), the feet stay
-## at the data's height, and the hands land near the data's hands (our arms are not the data's: bounded, printed).
+## at the data's height, and the IK puts the wrists on the data's wrists (S335: 8.4 cm median without IK, the aim solve
+## alone; limb directions then bend a little to reach, so their bar is loose).
 
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const Pose := preload("res://scripts/grapple/GrapplePose.gd")
@@ -68,9 +69,9 @@ func _initialize() -> void:
 	var p95 := func(a: Array) -> float: return float(a[int(a.size() * 0.95)])
 	var med := func(a: Array) -> float: return float(a[a.size() / 2])
 	_check(n >= 500, "%d men posed from %d sequences" % [n, n / 2])
-	_check(med.call(angles) < 1.0 and p95.call(angles) < 3.0, "limb bones along the data's limbs: median %.2f deg, 95%% %.2f deg" % [med.call(angles), p95.call(angles)])
+	_check(med.call(angles) < 8.0 and p95.call(angles) < 25.0, "limb bones along the data's limbs: median %.2f deg, 95%% %.2f deg" % [med.call(angles), p95.call(angles)])
 	_check(bends > 0 and float(bend_ok) / bends > 0.97, "elbows and knees bend the data's way: %d of %d" % [bend_ok, bends])
-	_check(p95.call(hand_err) < 0.12, "wrist vs the data's wrist: median %.3f m, 95%% %.3f m" % [med.call(hand_err), p95.call(hand_err)])
+	_check(p95.call(hand_err) < 0.03, "wrist (IK) vs the data's wrist: median %.3f m, 95%% %.3f m" % [med.call(hand_err), p95.call(hand_err)])
 	_check(p95.call(foot_err) < 0.08, "ankle height vs the data's: median %.3f m, 95%% %.3f m" % [med.call(foot_err), p95.call(foot_err)])
 	print("FAIL %d" % failures if failures else "PASS grapple_pose_test")
 	quit(1 if failures else 0)
