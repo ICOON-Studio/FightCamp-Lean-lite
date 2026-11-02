@@ -48,3 +48,6 @@ Lean-layout gate) - collect from its own branch/files.
 Main 51bc60b. Export: full suite 116/116 PASS, Builds/FightCamp.exe rebuilt. The first export attempt failed on
 grey_reason_test (exit 9: a SCRIPT ERROR line in its output under JOBS=2 although the test printed PASS); alone 4/4 clean,
 the rerun suite clean - a parallel-run flake to watch (two tests sharing a user:// file is the guess, unproven).
+
+## Ziva down at session end
+Ziva's editor (wt/ZIVA_LEAN, godot_hidden.ps1 -e) ran ~09:00-21:00, then exited; three relaunches each exit with code 1 (one opened port 7012 for ~5 s first). Its log shows only the stale tools/begin_probe.gd parse error (FightCast.BODIES no longer exists - present in the morning too, not the cause). No zivacode sidecar left running. S369: open the Ziva chat page while it is briefly up (preview_start http://127.0.0.1:7012/) for a login/plan message; fix or delete tools/begin_probe.gd.
