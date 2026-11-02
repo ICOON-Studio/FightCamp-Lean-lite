@@ -3,19 +3,16 @@
  "updated": "2026-11-02",
  "author": "claude S294",
  "now": {
-  "id": "S364",
+  "id": "S367",
   "owner": "claude",
   "updated": "2026-11-02",
-  "summary": "S364 (Lean 2767c1c..9fbc103, update 66): Kalli K-BELTROAD1 parts 2-3 - what the classes drill (coach's pick / for the next open / her favourite to a signature at 50) and each open decided on one syllabus group (+-0.25 on her odds, signature +0.05, her chance as a word). Kalli's 'gap' measured as a trap (lost in its own open at +-0.06 and +-0.15), so 'for the next open', finishing a move first, at +-0.25: 5 weeks beat the coach's pick there 0.723 vs 0.709 and cost belt time 0.64 vs 0.72. Guard: a bout with no opponent (grey_reason_test crashed once; writer not found, warning names it). Weigh-in not built (no weight model). Digest research/S364_DIGEST.md.",
-  "next_action": "S365, in order: (1) Kalli K-BELTROAD1 part 4 - Ana's no-gi side as gym business: BJJ members on their own dues, a medal at an open brings 1-2 members, a blue belt can teach the beginners' class (saves a coach's class); research real UK BJJ club dues first (John) - the numbers decide; (2) if a 'bout has no opponent' warning appears in any test log, find its writer; (3) act on his /review comments on updates 64-66 and on Q-S294-89 (SMOOTH3 film) when he answers.",
-  "last_working_commit": "Lean 9fbc103",
-  "verified_playable": "update 66 exported: 115/115 Lean tests (export.sh), the exported build drew the drill plans and the opens' lean on the hidden desktop (docs/playtest/S364/exe); stills on /review S364",
-  "incomplete_blocked": "Operator: Q-S294-89 (SMOOTH3 film). No runs in flight.",
-  "next_acceptance": "He plays update 66: Ana's Record tab - pick For the next open, see the drilled move change and each open's 'decided on' line with her chance; play to an open and enter it.",
-  "awaiting_operator": [
-   "Q-S294-89 SMOOTH3 A/B film (sent as a file)",
-   "Updates 65-66 to play (the stripe call, Ana in the review, what she drills, the opens' lean) - his look, no question"
-  ]
+  "summary": "S367 (Lean 499d6ae..f8dbfc3, no game update beyond the title line): playtest + critic review (6.5/10, research/S367_CRITIC_REVIEW.md); Gemini as the video judge (Flash pilot found 3 in-game clip defects; Gemini 4 Argon via Tools/gemini_judge.py judged a live round 2/10 - clinches merge, the referee's break passes through a boxer, phantom hits, ~60-70% speed; checked on frames); Gemini spend meter on the board. Digest research/S367_DIGEST.md.",
+  "next_action": "S368, in order: (1) open in E:\\FightCamp\\Lean, remove the empty E:\\FightCamp\\Game folder (a hook stub); (2) s365-bjj-side is UNTESTED - parse, bjj_side/stripe_call/no_gi/drill_pick/golden_path tests, merge into main, export; (3) REFBREAK first: brief TASK_REFBREAK1.md for ONE animation seat in its own worktree (Antigravity on Gemini 3.8 Flash High is free; Argon is not in Antigravity), record the same fight film before/after (fight3d_film.gd, 1280x720) and let Tools/gemini_judge.py (Argon) judge both - merge only on a better after-film + his visual OK; (4) then CLINCHMERGE, FIGHTSPEED, PHANTOMHIT, CAMORBIT the same way; (5) replacements for the rear hook / knockback / jab clips screened by Gemini first.",
+  "next_acceptance": "REFBREAK: on the same fight film the referee never overlaps a boxer at the break (Gemini names no clipping there, checked on frames); s365-bjj-side on main with every Lean test passing and an export.",
+  "last_working_commit": "Lean f8dbfc3 (s365-bjj-side) / 889088f (main)",
+  "verified_playable": "update 66 + the title line; the playtest drove the real game through a first fight on the hidden desktop",
+  "awaiting_operator": "His Windows setting: no pagefile on E: (32 GB). His comments on /review S367 (playtest, Gemini verdict) and /animations. A Gemini monthly cap if he wants one.",
+  "incomplete_blocked": "none"
  },
  "next": "Collect SMOOTH3 r4 (Ziva); playtest a camp on the whiteboard; Short-notice swap twist; Kalli review of the whiteboard.",
  "assessment": {
@@ -1496,6 +1493,16 @@
    "id": "S364",
    "date": "2026-11-02",
    "summary": "S364 (Lean 2767c1c..9fbc103, update 66): what Ana drills + each open decided on one group (Kalli parts 2-3); the gap measured as a trap -> 'for the next open' at +-0.25; bout-without-opponent guard. Digest research/S364_DIGEST.md."
+  },
+  {
+   "id": "S366",
+   "date": "2026-11-02",
+   "summary": "S366: one repo - the workflow moved into Lean/ops, the old repo deleted (E: 19 -> 58 GB), watchdog gates E: space and write latency, board /animations orbit previews of all 153 clips. Digest research/S366_DIGEST.md."
+  },
+  {
+   "id": "S367",
+   "date": "2026-11-02",
+   "summary": "S367: playtest + critic review 6.5/10; Gemini judges video (Flash pilot, Argon on a live round 2/10, claims checked on frames); Gemini spend meter on the board; fight defects queued. Digest research/S367_DIGEST.md."
   }
  ],
  "blocked_on_operator": [],
@@ -4547,6 +4554,31 @@
     "id": "BJJBIZ",
     "who": "claude",
     "title": "Ana's no-gi side as gym business: BJJ members, medals bring members (Kalli part 4)"
+   },
+   {
+    "id": "FIGHTSPEED",
+    "who": "claude",
+    "title": "Fight clips at their real captured speed, played whole (45 s film to compare)"
+   },
+   {
+    "id": "REFBREAK",
+    "who": "claude",
+    "title": "The referee's clinch break passes through a boxer (Gemini 0:21) - fix, Gemini judges before/after"
+   },
+   {
+    "id": "CLINCHMERGE",
+    "who": "claude",
+    "title": "Clinches merge the two bodies (Gemini 0:18, 0:24) - fix, Gemini judges before/after"
+   },
+   {
+    "id": "PHANTOMHIT",
+    "who": "claude",
+    "title": "Hits react without contact / contact without reaction (Gemini 0:08, 0:24)"
+   },
+   {
+    "id": "CAMORBIT",
+    "who": "claude",
+    "title": "The broadcast camera orbits 180 degrees mid-exchange (Gemini 0:05, 0:10)"
    }
   ],
   "waiting_seat": [
@@ -4776,6 +4808,36 @@
   },
   "done_recently": [
    {
+    "id": "PLAYTEST",
+    "who": "claude",
+    "title": "A critic's playtest of the first hour: 6.5/10, what works and what holds it back"
+   },
+   {
+    "id": "GEMJUDGE",
+    "who": "claude",
+    "title": "Gemini watches the fight film and the clips and names the motion faults"
+   },
+   {
+    "id": "GEMMETER",
+    "who": "claude",
+    "title": "The board shows what Gemini costs this month"
+   },
+   {
+    "id": "ONEREPO",
+    "who": "claude",
+    "title": "One repo: the ops board, agent tools and research now live inside the game repo (ops/)"
+   },
+   {
+    "id": "DISKGATE",
+    "who": "claude",
+    "title": "The PC watchdog stops heavy work when E: is nearly full or stalling"
+   },
+   {
+    "id": "ANIMPREV",
+    "who": "claude",
+    "title": "Every boxer clip in the game has a turning preview on the Animations page"
+   },
+   {
     "id": "BELTDRILL",
     "who": "claude",
     "title": "What Ana drills: coach's pick, for the next open, her favourite (update 66)"
@@ -4802,36 +4864,6 @@
    },
    {
     "title": "BJJ belt road: Ana Ribeiro, stripes, promotion, opens (update 64)",
-    "who": "claude",
-    "when": "2026-11-02"
-   },
-   {
-    "title": "Index cards on the money, date and gym + sticky notes for game words",
-    "who": "claude",
-    "when": "2026-11-02"
-   },
-   {
-    "title": "Playbook footwork blends (Ziva): worst jerk 95 -> 45 degrees",
-    "who": "ziva",
-    "when": "2026-11-02"
-   },
-   {
-    "title": "Week review as a reveal: rows land one by one, the week's surprise last on a sticky note (update 63)",
-    "who": "claude",
-    "when": "2026-11-02"
-   },
-   {
-    "title": "She pushes back: her own asks as the week's card; her way lifts morale, the plan lowers it; morale is trust in the corner on fight night (update 63)",
-    "who": "claude",
-    "when": "2026-11-02"
-   },
-   {
-    "title": "A fight poster for every bout, pinned on Home (update 63)",
-    "who": "claude",
-    "when": "2026-11-02"
-   },
-   {
-    "title": "Playbook: Moves as a move book with tiers; Game plan as lines rated against the opponent, saves itself, edge bar, coach-locked lines (update 62)",
     "who": "claude",
     "when": "2026-11-02"
    }

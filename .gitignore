@@ -24,3 +24,5 @@ ops/AgentComms/last_suite.json
 ops/AgentComms/retire_state.json
 ops/AgentComms/lite_relay.json
 ops/AgentComms/lite_relay_lean.json
+ops/AgentComms/.opsboard_snapshot.json
+ops/AgentComms/start_cache.json

@@ -8,6 +8,7 @@ const GymBills := preload("res://scripts/rules/GymBills.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
+const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 
 @export var gym_name: String = "Anvil Street Gym"
 @export var city: String = "London"
@@ -18,6 +19,7 @@ const NoGi := preload("res://scripts/rules/NoGi.gd")
 @export var coach: Dictionary = {}
 @export var fighters: Array = []
 @export var grapplers: Array = []   # S362 the no-gi athletes (NoGi, the belt road)
+@export var bjj_side: Dictionary = {}   # S365 the no-gi classes as a business (BjjSide: members, churn); {} = its start
 @export var applicant: Dictionary = {}
 @export var news: Array = []
 @export var unread: int = 0
@@ -53,6 +55,7 @@ static func quick_start(name: String = "Anvil Street Gym", town: String = "Londo
 	c.cash = start_cash()
 	c.applicant = Data.lucy()
 	c.grapplers = [NoGi.athlete()]
+	c.bjj_side = BjjSide.start()
 	c.cash_history = [{"w": 1, "c": c.cash}]
 	for r in Data.OPPONENTS + [Data.MISMATCH] + Data.RIVALS:
 		c.rivals.append((r as Dictionary).merged({"div": "wlw"}))
@@ -90,6 +93,15 @@ func grappler_by_id(id: String) -> Dictionary:
 		if str(f["id"]) == id:
 			return f
 	return {}
+
+
+## The BJJ classes run while the gym has a no-gi athlete; true when one of them teaches the beginners' class.
+func bjj_on() -> bool:
+	return not grapplers.is_empty()
+
+
+func bjj_teaches() -> bool:
+	return grapplers.any(func(f): return bool(f.get("teaches", false)))
 
 
 func fighter_by_id(id: String) -> Dictionary:

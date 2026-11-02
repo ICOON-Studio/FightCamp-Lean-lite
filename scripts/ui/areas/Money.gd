@@ -10,6 +10,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CashChart := preload("res://scripts/ui/CashChart.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
+const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 
 ## One-offs shown on Income / Bills: the last this many days.
 const LEDGER_DAYS := 56
@@ -67,7 +68,7 @@ func _overview(c: Career) -> void:
 
 ## Members needed for dues alone to cover this week's costs less the other income.
 func _break_even(c: Career, inc: Dictionary, cost: Dictionary) -> int:
-	var need := int(cost["total"]) - int(inc["classes"]) - int(inc["sponsors"])
+	var need := int(cost["total"]) - int(inc["classes"]) - int(inc["sponsors"]) - int(inc.get("bjj", 0))
 	return int(ceil(float(maxi(0, need)) / (float(GymBills.FEE_MONTH) / GymBills.WEEKS_A_MONTH)))
 
 
@@ -77,6 +78,7 @@ func _income(c: Career) -> void:
 	UI.add_rows(card[1], [
 		UI.kv("Members' dues (%d x %s a month)" % [c.members, UI.money(Membership.weekly_rate())], UI.money(int(inc["dues"])), UI.FG, "mono"),
 		UI.kv("Evening classes" + ("" if not c.coach.is_empty() else " (need a coach)"), UI.money(int(inc["classes"])), UI.FG, "mono"),
+		UI.kv("BJJ classes' dues (%d x %s a month)" % [int(c.bjj_side.get("members", 0)), UI.money(BjjSide.FEE_MONTH)], UI.money(int(inc.get("bjj", 0))), UI.FG, "mono"),
 		UI.kv("Sponsors", UI.money(int(inc["sponsors"])), UI.FG, "mono"),
 		UI.kv("Total a week", UI.money(int(inc["total"])), UI.GREEN, "mono"),
 	])
@@ -92,6 +94,7 @@ func _bills(c: Career) -> void:
 		UI.kv("England Boxing fees (yearly, by the week)", UI.money(int(cost.get("fees", 0))), UI.FG, "mono"),
 		UI.kv("Coach" if not c.coach.is_empty() else "Coach (none yet)", UI.money(int(cost["staff"])), UI.FG, "mono"),
 		UI.kv("Fighter stipends (%d)" % c.fighters.size(), UI.money(int(cost["fighters"])), UI.FG, "mono"),
+		UI.kv("BJJ coach (%s a class)" % UI.money(BjjSide.COACH_CLASS), UI.money(int(cost.get("bjj", 0))), UI.FG, "mono"),
 		UI.kv("Total a week", UI.money(int(cost["total"])), UI.FG, "mono"),
 		UI.kv("Owed so far, billed %s" % Clock.fmt(GameMoney.next_bill_day(c.day)), UI.money(c.accrued), UI.AMBER, "mono"),
 	])

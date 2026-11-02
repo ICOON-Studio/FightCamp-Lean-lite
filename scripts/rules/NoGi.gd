@@ -14,6 +14,8 @@
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 
 const CLASSES_PER_WEEK := 3
+## S365 teaching the beginners' class takes one of her evenings (mirrors BjjSide.TEACH_CLASSES; NoGi preloads no BjjSide).
+const TEACH_CLASSES := 1
 const DRILL_GAIN := 3.2
 const OPEN_FIRST := 33   # Sat 7 Feb 2026 (day 0 = Mon 5 Jan)
 const OPEN_EVERY := 35
@@ -168,13 +170,23 @@ static func chance_word(p: float) -> String:
 
 ## A week on the mat: the classes count, the drilled move gains. Returns the move drilled.
 static func week(f: Dictionary, day: int = 0) -> String:
-	f["mat_classes"] = int(f.get("mat_classes", 0)) + CLASSES_PER_WEEK
+	f["mat_classes"] = int(f.get("mat_classes", 0)) + classes_of(f)
 	var m := drilling(f, day)
 	f["drill_on"] = m
 	if m != "":
 		var bjj: Dictionary = f.get_or_add("bjj", {})
-		bjj[m] = minf(100.0, float(bjj.get(m, 0.0)) + DRILL_GAIN * (HUNGRY if int(f.get("held", 0)) > 0 else 1.0))
+		bjj[m] = minf(100.0, float(bjj.get(m, 0.0)) + gain_of(f) * (HUNGRY if int(f.get("held", 0)) > 0 else 1.0))
 	return m
+
+
+## S365 her own classes a week: one fewer while she teaches the beginners' class (BjjSide.TEACH_CLASSES).
+static func classes_of(f: Dictionary) -> int:
+	return CLASSES_PER_WEEK - (TEACH_CLASSES if bool(f.get("teaches", false)) else 0)
+
+
+## The drilled move's gain a week, in proportion to her own classes.
+static func gain_of(f: Dictionary) -> float:
+	return DRILL_GAIN * float(classes_of(f)) / CLASSES_PER_WEEK
 
 
 ## Stripes due now that the professor has not given yet (0 at black or at 4).
@@ -187,10 +199,10 @@ static func stripes_due(f: Dictionary, today: int) -> int:
 ## Weeks to ready at this plan: the slower of the mat time and the syllabus (each move drilled in turn to OWNED_AT).
 static func weeks_to_ready(f: Dictionary, today: int) -> int:
 	var r := BeltRoad.readiness(f, f.get("bjj", {}), today)
-	var cls_weeks := ceili(float(int(r["mat"][1]) - int(r["mat"][0])) / CLASSES_PER_WEEK)
+	var cls_weeks := ceili(float(int(r["mat"][1]) - int(r["mat"][0])) / classes_of(f))
 	var move_weeks := 0
 	for m in BeltRoad.moves_for(str(f.get("belt", "white"))):
-		move_weeks += ceili(maxf(0.0, BeltRoad.OWNED_AT - float((f.get("bjj", {}) as Dictionary).get(m, 0.0))) / DRILL_GAIN)
+		move_weeks += ceili(maxf(0.0, BeltRoad.OWNED_AT - float((f.get("bjj", {}) as Dictionary).get(m, 0.0))) / gain_of(f))
 	return maxi(maxi(cls_weeks, move_weeks), ceili(int(r["days_left"]) / 7.0))
 
 

@@ -18,11 +18,15 @@ static func money(c: Career) -> Dictionary:
 		rows.append(["Evening classes", "+" + GameMoney.text(int(inc["classes"])), "", ""])
 	if int(inc["sponsors"]) > 0:
 		rows.append(["Sponsors", "+" + GameMoney.text(int(inc["sponsors"])), "", ""])
+	if int(inc.get("bjj", 0)) > 0:
+		rows.append(["BJJ dues", "+" + GameMoney.text(int(inc["bjj"])), "", ""])
 	rows.append(["Rent and fees", "-" + GameMoney.text(int(out["upkeep"])), "", ""])
 	if int(out["staff"]) > 0:
 		rows.append(["Coach", "-" + GameMoney.text(int(out["staff"])), "", ""])
 	if int(out["fighters"]) > 0:
 		rows.append(["Stipends", "-" + GameMoney.text(int(out["fighters"])), "", ""])
+	if int(out.get("bjj", 0)) > 0:
+		rows.append(["BJJ coach", "-" + GameMoney.text(int(out["bjj"])), "", ""])
 	var net := int(inc["total"]) - int(out["total"])
 	rows.append(["Net a week", ("+" if net >= 0 else "-") + GameMoney.text(absi(net)), "▲" if net >= 0 else "▼", "good" if net >= 0 else "bad"])
 	var means := "the cash grows by %s a week." % GameMoney.text(net) if net >= 0 else \

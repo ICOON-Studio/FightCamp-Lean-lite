@@ -80,11 +80,10 @@ def roadmap_defects(plan=None):
         if f not in now or (f != "awaiting_operator" and not str(now.get(f, "")).strip()):
             out.append("now.%s missing (control 4: precise resume point)" % f)
     commit = str(now.get("last_working_commit", "")).strip()
-    # S295: since the lean restart the game's commits live in E:\FightCamp\Lean, written "Lean <sha>".
+    # S295: the game's commits are written "Lean <sha>". S366: ops/ lives inside the Lean repo, so ROOT is that repo.
     repo = ROOT
     if commit.startswith("Lean "):
-        repo = ROOT.parent / "Lean"
-        commit = commit[len("Lean "):].strip()
+        commit = commit[len("Lean "):].split()[0].strip()
     if commit and subprocess.run(["git", "cat-file", "-e", commit + "^{commit}"], cwd=repo, capture_output=True).returncode != 0:
         out.append("now.last_working_commit %s is not a commit in %s" % (commit, repo.name))
     return out

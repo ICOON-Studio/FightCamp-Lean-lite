@@ -2063,7 +2063,7 @@ def ship(args):
     print("  session. That is deliberate: a NEW stage is a NEW session.")
     print()
     print("  Hand the operator the block and stop:")
-    print("    git pull && python Tools/agent_comms.py start")
+    print("    git pull && python ops/Tools/agent_comms.py start")
     print()
     print("  Work genuinely part of the SHIPPED stage - a red test you caused, a")
     print("  review reply - proceeds with FIGHTCAMP_STAGE_GATE=off, said out loud.")
@@ -2352,8 +2352,10 @@ def start(args: argparse.Namespace) -> int:
             socket.create_connection(("127.0.0.1", 7012), timeout=1.0).close()
             print("ZIVA UP 127.0.0.1:7012 (shell bridge: python Tools/ziva_mcp.py run_scene '<json>' --out <dir>)")
         except OSError:
-            print("ZIVA DOWN - FIX IT NOW (watchdog not RED, no other Godot job): git -C E:/FightCamp/wt/ZIVA merge --ff-only origin/main; "
-                  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools\\godot_hidden.ps1 -e --path E:/FightCamp/wt/ZIVA/Godot "
+            ## S368: the Lean worktree is wt/ZIVA_LEAN, project.godot at its root (wt/ZIVA and its Godot/ went with the old repo).
+            print("ZIVA DOWN - FIX IT NOW (watchdog not RED, no other Godot job): git -C E:/FightCamp/wt/ZIVA_LEAN fetch; put it on "
+                  "origin/main (commit any dirty state to a local wip branch first); "
+                  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools\\godot_hidden.ps1 -e --path E:/FightCamp/wt/ZIVA_LEAN "
                   "--log-file E:/FightCamp/tmp/ziva_editor.log  (run in background; 7012 listens in ~1 min)")
 
     head = subprocess.run(["git", "log", "-1", "--format=%h %s"], cwd=ROOT,
@@ -2639,7 +2641,7 @@ def start(args: argparse.Namespace) -> int:
     if not full:
         _rule("END OF SESSION")
         print("  A stage ships whole (digest, roadmap now, queue, memory, `ship`); the last message is the queue, then ONE")
-        print("  bash block: `git pull && python Tools/agent_comms.py start`. Full duties: `start --full`, CLAUDE.md s3.")
+        print("  bash block: `git pull && python ops/Tools/agent_comms.py start`. Full duties: `start --full`, CLAUDE.md s3.")
         return 0
     _rule("NEXT ACTIONS")
     print("  1. Everything above came from disk. You do NOT need to ask the")

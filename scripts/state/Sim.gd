@@ -29,6 +29,7 @@ const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const PushBack := preload("res://scripts/rules/PushBack.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
+const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -194,7 +195,16 @@ static func weekly_costs(career: Career) -> Dictionary:
 	var out := GameMoney.weekly_costs(staff, career.fighters, int(bills["rent"]) + int(bills["fees"]))
 	out["rent"] = int(bills["rent"])
 	out["fees"] = int(bills["fees"])
+	out["bjj"] = int(bjj_money(career)["coach"])
+	out["total"] = int(out["total"]) + int(out["bjj"])
 	return out
+
+
+## S365 the BJJ classes' week (BjjSide.money): {dues, coach, net, members}; all 0 without a no-gi athlete.
+static func bjj_money(career: Career) -> Dictionary:
+	if not career.bjj_on():
+		return {"dues": 0, "coach": 0, "net": 0, "members": 0}
+	return BjjSide.money(career.bjj_side, career.bjj_teaches())
 
 
 static func bills_setup(career: Career) -> Dictionary:
@@ -212,7 +222,13 @@ static func sponsors(career: Career) -> int:
 
 
 static func weekly_income(career: Career) -> Dictionary:
-	return GameMoney.weekly_income(Membership.weekly_dues(career.members), not career.coach.is_empty(), sponsors(career))
+	return _with_bjj(career, GameMoney.weekly_income(Membership.weekly_dues(career.members), not career.coach.is_empty(), sponsors(career)))
+
+
+static func _with_bjj(career: Career, income: Dictionary) -> Dictionary:
+	income["bjj"] = int(bjj_money(career)["dues"])
+	income["total"] = int(income["total"]) + int(income["bjj"])
+	return income
 
 
 ## One week of move drilling for one fighter. Returns {rows: [{name, before, after}], new_weapon: "" or the move}.
@@ -305,8 +321,13 @@ static func end_week(career: Career) -> void:
 			career.add_news("%s opens a perk on the road: %s." % [f["first"], perk])
 	var roll: Dictionary = Membership.settle_week(career.members, career.reputation)
 	career.members = int(roll["members"])
-	var income: Dictionary = GameMoney.weekly_income(int(roll["dues"]), not career.coach.is_empty(), sponsors(career))
+	var income: Dictionary = _with_bjj(career, GameMoney.weekly_income(int(roll["dues"]), not career.coach.is_empty(), sponsors(career)))
 	var costs: Dictionary = weekly_costs(career)
+	var bjj_left := 0
+	if career.bjj_on():
+		bjj_left = int(BjjSide.week(career.bjj_side, career.bjj_teaches())["left"])
+		if bjj_left > 0:
+			career.add_news("%d left the BJJ classes this week. %d on the mat." % [bjj_left, int(career.bjj_side["members"])], false)
 	var money: Dictionary = GameMoney.settle_week(career.cash, career.accrued, int(income["total"]), int(costs["total"]), career.day)
 	career.cash = int(money["cash"])
 	career.accrued = int(money["accrued"])

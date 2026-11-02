@@ -70,16 +70,16 @@ func _calls() -> void:
 	_check(str(r["news"]).contains("another club"), "under 50 loyalty a hold sends her to look at another club")
 	var c := Career.quick_start()
 	var e := c.grappler_by_id("ana")
-	var mem := c.members
+	var mem := int(c.bjj_side["members"])   # S365 the BJJ members see the grading standard
 	var r1 := Grapplers.stripe(c, "ana", "early")
-	_check(bool(r1["ok"]) and int(e["stripes"]) == 3 and int(e["morale"]) == 70 and c.members == mem, "the 1st early stripe: morale 70, members kept")
+	_check(bool(r1["ok"]) and int(e["stripes"]) == 3 and int(e["morale"]) == 70 and int(c.bjj_side["members"]) == mem, "the 1st early stripe: morale 70, members kept")
 	for i in 30:
 		if StripeCall.options(e, c.day)["early"] == "":
 			break
 		NoGi.week(e)
 	var p0 := NoGi.win_chance(e, c.day)
 	var r2 := Grapplers.stripe(c, "ana", "early")
-	_check(bool(r2["ok"]) and c.members == mem - 2 and bool(e.get("tough_next", false)), "the 2nd early stripe: members -2, a tough next bracket")
+	_check(bool(r2["ok"]) and int(c.bjj_side["members"]) == mem - 2 and bool(e.get("tough_next", false)), "the 2nd early stripe: BJJ members -2, a tough next bracket")
 	_check(is_equal_approx(NoGi.win_chance(e, c.day), p0 + StripeCall.EARLY_MORALE / NoGi.MORALE_SPAN - NoGi.TOUGH),
 		"morale +10 (+0.025) and the tough bracket (-0.05): %.3f -> %.3f" % [p0, NoGi.win_chance(e, c.day)])
 	_check(str((e["belt_log"] as Array).back()["note"]) == "given early", "the belt log says given early")

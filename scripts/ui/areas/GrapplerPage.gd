@@ -12,6 +12,7 @@ const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const StripeCall := preload("res://scripts/rules/StripeCall.gd")
+const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 
 const BELT_COLOR := {"white": Color("#f4f5f6"), "blue": Color("#2f5fd0"), "purple": Color("#7b3fc4"),
 	"brown": Color("#7a4a25"), "black": Color("#151515")}
@@ -44,6 +45,9 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var gf := c.grappler_by_id(kv[0])
 			if not gf.is_empty() and NoGi.DRILLS.has(kv[1]):
 				gf["drill"] = kv[1]
+		"gteach":   # "id|1" / "id|0" (S365, the beginners' class)
+			var kv := arg.split("|")
+			why = Grapplers.teach(c, kv[0], kv.size() > 1 and kv[1] == "1")
 		"gpromote":
 			why = Grapplers.promote(c, arg)
 		"genter":
@@ -83,7 +87,10 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	if nxt != "":
 		row.add_child(_syllabus(main, f, nxt, r))
 	row.add_child(_call(main, c, f, nxt, r))
-	row.add_child(_record(f))
+	var side := UI.vbox(16)
+	side.add_child(_classes(main, c, f))
+	side.add_child(_record(f))
+	row.add_child(side)
 
 
 ## THE ROAD TO BLACK BELT: a bar per belt, hers outlined, her stripes on its tip.
@@ -250,7 +257,7 @@ func _call(main: Node, c: Career, f: Dictionary, nxt: String, r: Dictionary) -> 
 		v.add_child(UI.label(head, UI.BODY, UI.FG, "body", true))
 		var wk := NoGi.weeks_to_ready(f, c.day)
 		v.add_child(UI.label("%s belt in about %s at this week's plan (%d classes a week)." % [nxt.capitalize(),
-			("%d weeks" % wk) if wk < 9 else ("%d months" % int(round(wk / 4.35))), NoGi.CLASSES_PER_WEEK], UI.BODY, UI.FG, "body", true))
+			("%d weeks" % wk) if wk < 9 else ("%d months" % int(round(wk / 4.35))), NoGi.classes_of(f)], UI.BODY, UI.FG, "body", true))
 		v.add_child(UI.label("Morale %d   Loyalty %d%s" % [int(f.get("morale", NoGi.MORALE_START)), int(f.get("loyalty", NoGi.MORALE_START)),
 			("   (stripe %d held back: drilling hungry)" % int(f["held"])) if int(f.get("held", 0)) > 0 else ""], UI.SMALL, UI.MUTED, "mono"))
 		v.add_child(stripe_buttons(main, f, c.day, func(call): main.act("gstripe", "%s|%s" % [fid, call])))
@@ -317,6 +324,42 @@ static func stripe_buttons(main: Node, f: Dictionary, today: int, on_call: Calla
 static func best_words(f: Dictionary) -> String:
 	var g := NoGi.best_group(f).to_lower()
 	return g.get_slice(" and survival", 0) if g.begins_with("escapes") else g
+
+
+## S365 THE BJJ CLASSES (Kalli K-BELTROAD1 part 4): the gym's no-gi side as a business - members on their own dues, the hired
+## coach's classes, what her medals and belt bring in, and (from blue) the beginners' class as her call: money against her
+## own mat time, both shown in numbers.
+func _classes(main: Node, c: Career, f: Dictionary) -> Control:
+	var card := UI.card("THE BJJ CLASSES - THE GYM'S NO-GI SIDE")
+	card[0].name = "BjjClasses"
+	card[0].custom_minimum_size = Vector2(380, 0)
+	var v: VBoxContainer = card[1]
+	var teaches := bool(f.get("teaches", false))
+	var m := BjjSide.money(c.bjj_side, c.bjj_teaches())
+	UI.add_rows(v, [
+		UI.kv("Members (%s a month each)" % UI.money(BjjSide.FEE_MONTH), str(int(m["members"])), UI.FG, "mono"),
+		UI.kv("Dues a week", UI.money(int(m["dues"])), UI.GREEN, "mono"),
+		UI.kv("Hired coach (%d classes x %s)" % [int(m["coach"]) / BjjSide.COACH_CLASS, UI.money(BjjSide.COACH_CLASS)], UI.signed(-int(m["coach"])), UI.FG, "mono"),
+		UI.kv("The classes make a week", UI.signed(int(m["net"])), UI.GREEN if int(m["net"]) >= 0 else UI.RED, "mono")])
+	v.add_child(UI.muted("A gold medal brings %d members, silver %d; a blue belt brings %d. About a third leave in a year." % [
+		int(BjjSide.MEDAL_MEMBERS["gold"]), int(BjjSide.MEDAL_MEMBERS["silver"]), BjjSide.BLUE_MEMBERS], UI.TINY, true))
+	v.add_child(UI.caps("THE BEGINNERS' CLASS"))
+	var fid := str(f["id"])
+	var why := BjjSide.can_teach(f)
+	var cost := "Saves %s a week; she trains %d classes a week instead of %d." % [UI.money(BjjSide.teach_saves()),
+		NoGi.CLASSES_PER_WEEK - NoGi.TEACH_CLASSES, NoGi.CLASSES_PER_WEEK]
+	v.add_child(UI.label(("%s teaches it. " % f["first"] if teaches else "The hired coach teaches it. ") + cost, UI.SMALL, UI.FG, "body", true))
+	var btns := UI.hbox(10)
+	var hire := UI.button("Hired coach", "BtnSolid" if not teaches else "Btn", main.act.bind("gteach", "%s|0" % fid), false,
+		"The coach takes all %d classes; %s trains in %d." % [BjjSide.ADULT_CLASSES + BjjSide.BEGINNER_CLASSES, f["first"], NoGi.CLASSES_PER_WEEK])
+	hire.name = "TeachHire"
+	btns.add_child(hire)
+	var mine := UI.button("%s teaches" % f["first"], "BtnSolid" if teaches else "Btn", main.act.bind("gteach", "%s|1" % fid), why != "",
+		why if why != "" else cost)
+	mine.name = "TeachHer"
+	btns.add_child(mine)
+	v.add_child(btns)
+	return card[0]
 
 
 ## RECORD: her opens, newest first, then the belts and stripes so far.

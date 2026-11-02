@@ -30,7 +30,7 @@ const TIPS := {
 	"now": "Stripe now: morale +%d, loyalty +%d." % [NOW_MORALE, NOW_LOYAL],
 	"hold": "No stripe yet: she drills %d%% harder until it comes, morale -%d, loyalty -%d. Under %d loyalty she looks at other clubs." % [
 		int(round((NoGi.HUNGRY - 1.0) * 100)), HOLD_MORALE, HOLD_LOYAL, ASKS_UNDER],
-	"early": "Stripe before it is due: morale +%d. From the %dnd early stripe the members see it (-%d) and her next open is a tougher bracket." % [
+	"early": "Stripe before it is due: morale +%d. From the %dnd early stripe the BJJ members see it (-%d) and her next open is a tougher bracket." % [
 		EARLY_MORALE, EARLY_FROM, EARLY_MEMBERS],
 }
 

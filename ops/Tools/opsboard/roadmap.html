@@ -83,7 +83,7 @@ table.waitt td{border-left:4px solid var(--wait)}
 <main>
 <div class="top">
   <div><h1>FightCamp roadmap</h1><p class="goal" id="goal">Loading…</p></div>
-  <div><div class="pc" id="pc">Reading the PC…</div><div class="pc" id="gh" style="margin-top:4px">Reading GitHub Actions…</div></div>
+  <div><div class="pc" id="pc">Reading the PC…</div><div class="pc" id="gh" style="margin-top:4px">Reading GitHub Actions…</div><div class="pc" id="gem" style="margin-top:4px">Reading Gemini…</div></div>
 </div>
 
 <!-- S310 operator: "add a link on the board to launch the latest version, or the part i need to test only" - the game's
@@ -341,6 +341,21 @@ async function ghMeter(){
 }
 ghMeter();
 setInterval(() => { if (document.visibilityState === "visible") ghMeter(); }, 15000);
+// S367 (operator: "can you add the api meter on the board"): Gemini runs in AI Studio in his browser on his paid key - no usage
+// feed exists, so Tools/gemini_meter.py logs every judging run and prices it at the model picker's rates (/api/gemini).
+async function gemMeter(){
+  const d = await get("/api/gemini"), box = $("gem");
+  if (!d || !d.ok) { box.textContent = "Gemini: " + ((d && d.why) || "unreadable"); return; }
+  const frac = d.budget_usd ? d.usd / d.budget_usd : 0;
+  const state = frac >= 0.85 ? "RED" : frac >= 0.6 ? "AMBER" : "GREEN";
+  const models = Object.entries(d.by_model || {}).map(([m, v]) => `${esc(m)} ${v.runs} ($${v.usd.toFixed(2)})`).join(", ");
+  const last = d.last ? `last: ${esc(d.last.what)} (${esc(d.last.model)}, $${Number(d.last.usd).toFixed(3)}${d.last.free ? ", free tier" : ""})` : "no runs yet";
+  box.innerHTML = `<span class="pill ${state}">Gemini</span> ${esc(d.month)} spend <b>$${d.usd.toFixed(2)}</b>${d.budget_usd ? ` of $${d.budget_usd.toFixed(0)} cap` : ' <span class="muted" title="python Tools/gemini_meter.py budget &lt;usd&gt;">(no cap set)</span>'}`
+    + ` · runs <b>${d.runs}</b>${models ? ` (${models})` : ""} · tokens ${Math.round(d.in_tokens / 1000)}k in / ${Math.round(d.out_tokens / 1000)}k out`
+    + ` · <span class="muted" title="${esc(d.source)}">${last}</span>`;
+}
+gemMeter();
+setInterval(() => { if (document.visibilityState === "visible") gemMeter(); }, 30000);
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") ghMeter(); });
 async function loadQuestions(){
   const box=$("questions"); const d=await get("/api/questions"); const qs=(d&&(d.questions||(d.data&&d.data.questions)))||[];

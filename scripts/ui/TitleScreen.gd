@@ -26,7 +26,8 @@ func build(main: Node) -> void:
 	v.add_child(_tbtn("Settings", "", "TBtn", main.act.bind("settings", "")))
 	v.add_child(_tbtn("Quit", "", "TBtn", main.act.bind("quit", "")))
 	v.add_child(_gap(10))
-	v.add_child(UI.muted("Week 3 build: the money, the gym and the boxing world are live; save from the Gear menu.", UI.SMALL, true))
+	## S367 playtest: the line said "Week 3 build" at update 66 - it names no build now, so it cannot go stale.
+	v.add_child(UI.muted("Early access build: the gym, the boxers, fight night and the no-gi mat are live; save from the Gear menu.", UI.SMALL, true))
 
 
 func _gap(h: int) -> Control:

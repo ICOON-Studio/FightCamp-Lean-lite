@@ -469,6 +469,10 @@ details.more .more-body { white-space: pre-wrap; overflow-wrap: anywhere; }
        the enterprise's 50,000 included minutes = GitHub's billed hours + the live jobs not billed yet (/api/github, every 15 s
        while this tab is visible). The org budget is a hard stop: at the cap CI and every cloud agent stop until the 1st. -->
   <section class="pc" id="ghMeters"><div class="pc-note">Reading GitHub Actions…</div></section>
+  <!-- GEMINI METER (S367, operator: "can you add the api meter on the board"): Gemini runs in AI Studio in his browser on his
+       paid key, which gives no usage feed - every judging run is logged by Tools/gemini_meter.py and priced at the model
+       picker's rates (/api/gemini, every 30 s while this tab is visible). -->
+  <section class="pc" id="gemMeters"><div class="pc-note">Reading Gemini…</div></section>
 
   <!-- OPERATOR, 2026-09-15: "I want a button at the top the current opsboard
        when I trigger it the Claude app opens on my pc". FIRST thing under the
@@ -1439,8 +1443,29 @@ details.more .more-body { white-space: pre-wrap; overflow-wrap: anywhere; }
       " · live " + esc(d.at) + " (" + (d.age_s || 0) + " s ago) · billed read " + esc(d.billed_at) + "</div>";
     box.innerHTML = h;
   }
+  async function gem() {
+    const box = document.getElementById("gemMeters");
+    let d;
+    try { d = await (await fetch("/api/gemini", { cache: "no-store" })).json(); }
+    catch (e) { box.innerHTML = '<div class="pc-note red">Gemini meter: board unreachable</div>'; return; }
+    if (!d.ok) { box.innerHTML = '<div class="pc-note red">Gemini meter: ' + esc(d.why) + "</div>"; return; }
+    const tile = (k, v, frac, band, title) => '<div class="m ' + band + '" title="' + esc(title) + '"><div class="k">' + esc(k) +
+      '</div><div class="v">' + esc(v) + '</div><div class="bar"><i style="width:' + Math.max(2, Math.min(100, 100 * frac)) + '%"></i></div></div>';
+    const cap = d.budget_usd;
+    const frac = cap ? d.usd / cap : Math.min(1, d.usd / 10);
+    let h = tile("Gemini spend · " + d.month, "$" + d.usd.toFixed(2) + (cap ? " / $" + cap.toFixed(0) : ""), frac,
+      cap && frac >= 0.85 ? "red" : cap && frac >= 0.6 ? "amber" : "",
+      cap ? "amber 60%, red 85% of the monthly cap" : "no cap set: python Tools/gemini_meter.py budget <usd>");
+    h += tile("Runs this month", String(d.runs), Math.min(1, d.runs / 50), "", Object.entries(d.by_model || {}).map(([m, v]) => m + " " + v.runs + " ($" + v.usd.toFixed(2) + ")").join(" · ") || "none yet");
+    h += tile("Tokens in / out", (d.in_tokens / 1000).toFixed(0) + "k / " + (d.out_tokens / 1000).toFixed(0) + "k", Math.min(1, d.in_tokens / 2e6), "", "video at 24 fps is about 1,700 tokens a second");
+    const last = d.last ? "last: " + esc(d.last.what) + " (" + esc(d.last.model) + ", $" + Number(d.last.usd).toFixed(3) + (d.last.free ? ", free tier" : "") + ", " + esc(d.last.at) + ")" : "no runs logged yet";
+    h += '<div class="pc-note">Gemini (AI Studio, his paid key) · ' + last + " · " + esc(d.source) + "</div>";
+    box.innerHTML = h;
+  }
   pc();
   gh();
+  gem();
+  setInterval(() => { if (document.visibilityState === "visible") gem(); }, 30000);
   setInterval(pc, 10000);
   setInterval(live, 2000);
   setInterval(() => { if (document.visibilityState === "visible") gh(); }, 15000);

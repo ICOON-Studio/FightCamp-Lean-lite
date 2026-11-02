@@ -2286,6 +2286,15 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/pc/cores":
             self._json(200, pc_cores())
             return
+        if path == "/api/gemini":  # S367: what our Gemini runs cost this month (Tools/gemini_meter.py logs each run)
+            try:
+                if str(ROOT / "Tools") not in sys.path:
+                    sys.path.insert(0, str(ROOT / "Tools"))
+                import gemini_meter  # type: ignore
+                self._json(200, gemini_meter.summary())
+            except Exception as exc:
+                self._json(500, {"ok": False, "why": str(exc)})
+            return
         if path == "/api/pc":
             try:
                 self._json(200, pc_health())

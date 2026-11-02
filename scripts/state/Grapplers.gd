@@ -7,6 +7,7 @@
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const StripeCall := preload("res://scripts/rules/StripeCall.gd")
+const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 
 
 ## Returns true when an open ran today (the clock stops on it).
@@ -47,6 +48,10 @@ static func _open(c: Career, f: Dictionary, o: Dictionary) -> void:
 	f["open_week"] = {"name": str(o["name"]), "medal": medal, "matches": rows.duplicate(true), "morale": mood}
 	c.add_news("%s at the %s: %s (%d-%d)." % [f["first"], o["name"], ("%s medal" % medal) if medal != "" else "out in the first round",
 		int(res["wins"]), rows.size() - int(res["wins"])])
+	var joined := BjjSide.medal(c.bjj_side, medal)
+	f["open_week"]["joined"] = joined
+	if joined > 0:
+		c.add_news("%d joined the BJJ classes after %s's %s medal. %d on the mat." % [joined, f["first"], medal, int(c.bjj_side["members"])])
 
 
 static func enter(c: Career, id: String, d: int) -> String:
@@ -71,8 +76,21 @@ static func stripe(c: Career, id: String, call: String = "now") -> Dictionary:
 	if bool(r["ok"]):
 		if str(r["news"]) != "":
 			c.add_news(str(r["news"]))
-		c.members = maxi(0, c.members + int(r["members"]))
+		BjjSide.join(c.bjj_side, int(r["members"]))   # S365 the grading standard is the BJJ members' trust
 	return r
+
+
+## S365 Kalli part 4: from blue belt she may take the beginners' class (BjjSide: the hired coach's class saved, one of
+## her own classes gone). Returns "" or why not.
+static func teach(c: Career, id: String, on: bool) -> String:
+	var f := c.grappler_by_id(id)
+	if f.is_empty():
+		return "Nobody to teach."
+	var why := BjjSide.can_teach(f) if on else ""
+	if why != "":
+		return why
+	f["teaches"] = on
+	return ""
 
 
 ## The week on the mat for the review, one row per athlete: {id, name, first, belt, stripes, classes, mat [have, need],
@@ -86,7 +104,7 @@ static func week_report(c: Career) -> Array:
 		var before := float(mw.get("before", 0.0))
 		var after := float(mw.get("after", 0.0))
 		out.append({"id": f["id"], "name": f["name"], "first": f["first"], "belt": f["belt"], "stripes": int(f.get("stripes", 0)),
-			"classes": NoGi.CLASSES_PER_WEEK if not mw.is_empty() else 0, "mat": r["mat"], "next": BeltRoad.next_belt(str(f["belt"])),
+			"classes": NoGi.classes_of(f) if not mw.is_empty() else 0, "mat": r["mat"], "next": BeltRoad.next_belt(str(f["belt"])),
 			"move": str(mw.get("move", "")), "before": before, "after": after,
 			"owned": before < BeltRoad.OWNED_AT and after >= BeltRoad.OWNED_AT, "open": f.get("open_week", {}),
 			"due": NoGi.stripes_due(f, c.day), "morale": int(f.get("morale", NoGi.MORALE_START)),
@@ -111,4 +129,7 @@ static func promote(c: Career, id: String) -> String:
 	(f.get_or_add("belt_log", []) as Array).append({"d": c.day, "t": "%s belt" % str(f["belt"]).capitalize(),
 		"note": "promoted early" if bool(r["early"]) else ""})
 	c.add_news("%s is a %s belt." % [f["name"], f["belt"]])
+	var joined := BjjSide.promoted(c.bjj_side, str(f["belt"]))
+	if joined > 0:
+		c.add_news("%d joined the BJJ classes to train with a %s belt. %d on the mat." % [joined, f["belt"], int(c.bjj_side["members"])])
 	return ""

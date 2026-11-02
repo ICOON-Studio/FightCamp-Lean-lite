@@ -14,14 +14,19 @@ param(
     [string]$Source = ""
 )
 # PS 5.1 leaves $PSScriptRoot empty inside param defaults - resolve the main checkout here.
-if (-not $Source) { $Source = Join-Path (Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)) "Godot\.godot" }
-$dest = Join-Path $Worktree "Godot\.godot"
-if (-not (Test-Path (Join-Path $Worktree "Godot\project.godot"))) { Write-Output "SEED FAIL: no Godot project in $Worktree"; exit 2 }
+# S368: Lean keeps project.godot at the repo root (script in ops\Tools, so the main checkout is two folders up); the old
+# repo's Godot\ subfolder is still accepted for any worktree that has one.
+$main = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path))
+$sub = if (Test-Path (Join-Path $Worktree "project.godot")) { "" } elseif (Test-Path (Join-Path $Worktree "Godot\project.godot")) { "Godot" } else { $null }
+if ($null -eq $sub) { Write-Output "SEED FAIL: no Godot project in $Worktree"; exit 2 }
+$proj = if ($sub) { Join-Path $Worktree $sub } else { $Worktree }
+if (-not $Source) { $Source = Join-Path $main ".godot" }
+$dest = Join-Path $proj ".godot"
 if (-not (Test-Path $Source)) { Write-Output "SEED FAIL: no cache at $Source"; exit 2 }
 $t0 = Get-Date
 # S264 operator: "i do not want to hear the sounds from playtesting" - a game the agent's editor starts (playtest, run_scene)
 # is a new process that ignores the editor's --audio-driver Dummy. override.cfg (never committed) forces Dummy for every run here.
-$ovr = Join-Path $Worktree "Godot\override.cfg"
+$ovr = Join-Path $proj "override.cfg"
 if (-not (Test-Path $ovr)) {
     [IO.File]::WriteAllText($ovr, "; S264 operator: no playtest sounds - every run from this worktree uses the Dummy audio driver. Never commit.`n[audio]`n`ndriver/driver=`"Dummy`"`n")
 }
