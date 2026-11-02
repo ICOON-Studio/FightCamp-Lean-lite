@@ -90,5 +90,5 @@ static func result(name: String, came: int, hold: float, her: String) -> String:
 	var what := name.substr(0, 1).to_lower() + name.substr(1)
 	if came <= 0:
 		return "Last round's fix (%s): it never came up." % what
-	return "Last round's fix (%s): it came up %d time%s - %s caught herself, it cost her %d %% less." % [
+	return "Last round's fix (%s): it came up %d time%s - %s caught it, it cost %d %% less." % [
 		what, came, "" if came == 1 else "s", her, int(round(clampf(hold, 0.0, 1.0) * 100.0))]

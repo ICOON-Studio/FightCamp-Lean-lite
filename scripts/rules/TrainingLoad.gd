@@ -81,7 +81,7 @@ static func gauge_line(r: float) -> String:
 		msg = "injury risk up"
 	else:
 		msg = "injury risk 3x"
-	return "Load %.1fx her usual - %s" % [r, msg]
+	return "Load %.1fx the usual - %s" % [r, msg]
 
 
 static func default_for(in_camp: bool) -> String:

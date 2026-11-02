@@ -52,30 +52,30 @@ const MAX_RUN := 3
 ## needs: the values she does it with (stats, footwork, personality). cost: energy per exchange on top of the round's.
 ## when / expect: the buttons' lines ({her} ours, {opp} the opponent; S309). tell: the coach saying it to her between rounds.
 const CALLS := {
-	"long": {"label": "Jab and move", "shout": "Turn her! Jab and move!", "needs": ["footwork", "technique"], "cost": -0.5,
+	"long": {"label": "Jab and move", "shout": "Turn! Jab and move!", "needs": ["footwork", "technique"], "cost": -0.5,
 		"when": "Use when {opp} presses", "expect": "{her} wins it from range and saves energy",
 		"tell": "Jab and move: win it from range and save your legs."},
 	"body": {"label": "Go to the body", "shout": "Downstairs! Go to the body!", "needs": ["power"], "cost": 1.5,
 		"when": "Use when {opp} boxes at range", "expect": "{opp} slows down later; {her} takes shots getting in",
-		"tell": "Get inside and go to the body: it slows her down for later."},
-	"lead": {"label": "Make her lead", "shout": "Feint! Make her lead!", "needs": ["fight_iq"], "cost": -0.5,
+		"tell": "Get inside and go to the body: it slows {opp} down for later."},
+	"lead": {"label": "Draw the lead", "shout": "Feint! Draw the lead!", "needs": ["fight_iq"], "cost": -0.5,
 		"when": "Use when {opp} waits to counter", "expect": "{opp}'s counters dry up; a quiet 30 seconds",
-		"tell": "Feint and make her lead: take her counters away."},
+		"tell": "Feint and draw the lead: take the counters away."},
 	"hands": {"label": "Hands up, move your head", "shout": "Hands up! Move your head!", "needs": ["defense"], "cost": 0.0,
 		"when": "Use when {opp} loads up", "expect": "{opp}'s big shots miss; {her} throws less",
 		"tell": "Hands up and move your head: make the big shots miss."},
 	"let_go": {"label": "Let your hands go", "shout": "Let your hands go!", "needs": ["conditioning", "speed"], "cost": 3.0,
-		"when": "Use when {opp} tires", "expect": "{her}'s busiest 30 seconds; it costs her energy",
+		"when": "Use when {opp} tires", "expect": "{her}'s busiest 30 seconds; it costs energy",
 		"tell": "Let your hands go: she can't keep up with you."},
 	"calm": {"label": "Breathe, pick your shots", "shout": "Breathe! Pick your shots!", "needs": ["discipline"], "cost": -3.0,
 		"when": "Use when {her} is tired", "expect": "{her} gets energy back; gives a little now",
 		"tell": "Breathe and pick your shots: get your legs back."},
-	"tie": {"label": "Tie her up", "shout": "Hold! Tie her up!", "needs": ["heart"], "cost": -2.0,
-		"when": "Use when {her} is hurt", "expect": "{her} gets her breath back; {opp} may dig to the ribs in there",
-		"tell": "Tie her up, clear your head, get through it."},
-	"finish": {"label": "Go get her", "shout": "She's hurt! Go get her!", "needs": ["power", "heart"], "cost": 3.0,
-		"when": "Use when {opp} is hurt", "expect": "A knockdown chance; {her} is open if she is tired",
-		"tell": "She's hurt: go get her, but keep your chin down."},
+	"tie": {"label": "Tie up", "shout": "Hold! Tie up!", "needs": ["heart"], "cost": -2.0,
+		"when": "Use when {her} is hurt", "expect": "{her} gets a breather; {opp} may dig to the ribs in there",
+		"tell": "Tie up, clear your head, get through it."},
+	"finish": {"label": "Go for the finish", "shout": "Finish it! Go now!", "needs": ["power", "heart"], "cost": 3.0,
+		"when": "Use when {opp} is hurt", "expect": "A knockdown chance; {her} is open if tired",
+		"tell": "{opp} is hurt: go for the finish, chin down."},
 }
 ## How well she can do a call: grade word -> the line the buttons show ({her} her name).
 const GRADE_LINE := {"Good": "{her} is good at this", "OK": "{her} can do this", "Poor": "{her} is weak at this"}
@@ -102,19 +102,19 @@ const MODES := {
 const CLUES := {
 	"press": ["{opp} walks through the jab and backs {her} to the ropes.", "{opp} keeps coming forward, chin down.",
 		"{her} is on the back foot; {opp} cuts off the ring."],
-	"range": ["{opp}'s jab lands and she steps back out before {her} can answer.", "{opp} stays on the end of her jab.",
-		"{her} can't reach {opp}: she pokes and moves."],
-	"counter": ["{opp} won't lead. Every time {her} misses, she answers.", "{opp} waits, hands high, for {her} to throw.",
+	"range": ["{opp}'s jab lands and {opp} steps back out before {her} can answer.", "{opp} stays on the end of the jab.",
+		"{her} can't reach {opp}, who pokes and moves."],
+	"counter": ["{opp} won't lead. Every time {her} misses, {opp} answers.", "{opp} waits, hands high, for {her} to throw.",
 		"{her} leads and eats a counter over the top."],
 	"loadup": ["{opp} throws one big right at a time and winds it up.", "{opp} is sitting down on every punch.",
-		"{opp} drops her shoulder before the big one."],
-	"tiring": ["{opp}'s mouth is open; her hands come back slow.", "{opp} holds after she punches.",
+		"{opp} drops a shoulder before the big one."],
+	"tiring": ["{opp}'s mouth is open; the hands come back slow.", "{opp} holds after every punch.",
 		"{opp} has stopped throwing combinations."],
-	"hurt": ["{opp}'s legs dipped. She grabs and covers up.", "{opp} is holding on: that one hurt her.",
+	"hurt": ["{opp}'s legs dipped. {opp} grabs and covers up.", "{opp} is holding on: that one hurt.",
 		"{opp} wobbles back to the ropes."],
-	"she_tired": ["{her}'s hands are dropping; no more combinations.", "{her} is breathing through her mouth.",
+	"she_tired": ["{her}'s hands are dropping; no more combinations.", "{her} is breathing through the mouth.",
 		"{her} is a step slow now."],
-	"she_hurt": ["{her}'s legs dipped after that shot.", "{her} is holding on: she's hurt.", "{her} wobbles back to the ropes."],
+	"she_hurt": ["{her}'s legs dipped after that shot.", "{her} is holding on: hurt.", "{her} wobbles back to the ropes."],
 }
 
 ## Games a style plays by weight (opponent style words as Data has them).
@@ -286,7 +286,7 @@ static func verdict(call: String, sit: String, won: bool, names: Array) -> Strin
 	var her := str(names[0])
 	var opp := str(names[1])
 	if call == "":
-		return "No shout: %s %s those 30 seconds on her own." % [her, "won" if won else "lost"]
+		return "No shout: %s %s those 30 seconds alone." % [her, "won" if won else "lost"]
 	var label := str(CALLS[call]["label"])
 	if won and (k == "best" or k == "ok"):
 		return "It worked: \"%s\" won %s those 30 seconds." % [label, her]

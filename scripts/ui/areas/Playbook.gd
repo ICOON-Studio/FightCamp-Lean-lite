@@ -33,7 +33,7 @@ func build(main: Node) -> void:
 	var c: Career = main.career
 	AreaHead.add(self, main, "playbook")
 	if c.fighters.is_empty():
-		AreaHead.placeholder(self, "NO FIGHTERS YET", "Sign a fighter and her moves, plans and escapes live here.")
+		AreaHead.placeholder(self, "NO FIGHTERS YET", "Sign a fighter: moves, plans and escapes live here.")
 		return
 	var f: Dictionary = c.fighters[0]
 	for x in c.fighters:
@@ -47,7 +47,7 @@ func build(main: Node) -> void:
 		2:
 			add_child(ComboBuilder.make(main, f))   # S349 build step 3: her moves to try, the chain, its verdict, her body plays it
 		3:
-			AreaHead.placeholder(self, "ESCAPES", "Next: off the ropes, out of the corner, tie-ups - each one plays, and Drill this puts it in her training week.")
+			AreaHead.placeholder(self, "ESCAPES", "Next: off the ropes, out of the corner, tie-ups - each one plays, and Drill this puts it in the training week.")
 
 
 ## Her name chips: the page is one fighter's whiteboard.
@@ -85,14 +85,14 @@ func _board(main: Node, f: Dictionary, plans: bool) -> Control:
 	player.custom_minimum_size = PLAYER
 	card.add_child(player)
 	col.add_child(card)
-	_name = UI.label("Click a move on her map and it plays here.", UI.BODY, UI.FG, "bold", true)
+	_name = UI.label("Click a move on the map and it plays here.", UI.BODY, UI.FG, "bold", true)
 	col.add_child(_name)
 	var btns := UI.hbox(8)
 	btns.add_child(UI.button("Replay", "Btn", func(): _play(_move)))
 	_slow = UI.button("Slow motion", "Btn", _toggle_slow)
 	btns.add_child(_slow)
 	col.add_child(btns)
-	col.add_child(UI.muted("Her body, the partner a ghost. Lit moves she can use in a fight; grey ones need pad time first.", UI.SMALL, true))
+	col.add_child(UI.muted("Your fighter's body, the partner a ghost. Lit moves work in a fight; grey ones need pad time first.", UI.SMALL, true))
 	h.add_child(col)
 	return h
 

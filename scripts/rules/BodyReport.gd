@@ -80,11 +80,11 @@ static func change_line(last: Dictionary, now: Dictionary) -> String:
 	var name: String = NAMES[last_part]
 	var pro: String = "they" if last_part == "legs" else "it"
 	if now_part == "":
-		return "Her %s held up this time (%s went in round %d last fight)" % [name, pro, int(last_round)]
+		return "The %s held up this time (%s went in round %d last fight)" % [name, pro, int(last_round)]
 	if now_part != last_part:
 		return ""
 	if now_round > last_round:
-		return "Her %s held until round %d this time (round %d last fight)" % [name, int(now_round), int(last_round)]
+		return "The %s held until round %d this time (round %d last fight)" % [name, int(now_round), int(last_round)]
 	if now_round == last_round:
-		return "Her %s went in round %d again" % [name, int(now_round)]
-	return "Her %s went sooner: round %d (round %d last fight)" % [name, int(now_round), int(last_round)]
+		return "The %s went in round %d again" % [name, int(now_round)]
+	return "The %s went sooner: round %d (round %d last fight)" % [name, int(now_round), int(last_round)]

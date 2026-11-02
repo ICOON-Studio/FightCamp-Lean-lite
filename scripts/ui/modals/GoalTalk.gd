@@ -16,10 +16,10 @@ func build(main: Node, m: Dictionary) -> void:
 	v.add_child(UI.caps("IN YOUR OFFICE"))
 	v.add_child(UI.display("%s'S NEXT GOAL" % str(f["first"]).to_upper(), 48))
 	var history: Array = f.get("history", [])
-	var said := "Her last bout is done. She wants a target."
+	var said := "The last bout is done. Time for a new target."
 	if not history.is_empty():
 		var last: Dictionary = history[history.size() - 1]
-		said = "Her last goal, %s: %s. Now she wants a new target." % [str(last["title"]).to_lower(),
+		said = "Last goal, %s: %s. Time for a new target." % [str(last["title"]).to_lower(),
 			"met" if bool(last["met"]) else "not met"]
 	v.add_child(UI.muted(said, UI.BODY, true))
 	for g in Bouts.goal_choices(c, f):
@@ -37,7 +37,7 @@ func build(main: Node, m: Dictionary) -> void:
 	foot.add_child(UI.spacer())
 	foot.add_child(UI.button("Later", "BtnQuiet", main.act.bind("close", "")))
 	var set_b := UI.button("Set goal", "BtnSolid", main.act.bind("setgoal", ""), str(m["pick"]) == "",
-		"Pick one of her goal options above, then set it")
+		"Pick one of the goal options above, then set it")
 	set_b.name = "SetGoal"
 	foot.add_child(set_b)
 	v.add_child(foot)

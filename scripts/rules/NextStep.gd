@@ -80,11 +80,11 @@ static func _need_for(lit: int, f: Dictionary, day: int, elig: Dictionary) -> St
 
 	match lit:
 		0:
-			return "Book her first amateur bout"
+			return "Book the first amateur bout"
 		1:
 			var n: int = SeasonPath.entry_close(day) - day
 			if elig["ok"]:
-				return "Ready - enter her"
+				return "Ready - enter now"
 			return elig["reason"] + " - entries close in %d days" % n
 		2:
 			var n: int = SeasonPath.entry_close(day) - day
@@ -92,7 +92,7 @@ static func _need_for(lit: int, f: Dictionary, day: int, elig: Dictionary) -> St
 				return "She is in the draw"
 			if injured:
 				return "Injured - she cannot enter"
-			return "Enter her before entries close in %d days" % n
+			return "Enter before entries close in %d days" % n
 		3:
 			if pro_declines >= 3:
 				return "No more offers - she stays amateur"
@@ -112,6 +112,6 @@ static func _need_for(lit: int, f: Dictionary, day: int, elig: Dictionary) -> St
 				return "%d more wins and a top-3 ranking, or %d more wins" % [more_ranked, more_any]
 		4:
 			if pro:
-				return "Her debut is booked %d weeks after she signs" % Roster.PRO_DEBUT_WEEKS
+				return "The debut is booked %d weeks after signing" % Roster.PRO_DEBUT_WEEKS
 			return "Sign the offer"
 	return ""

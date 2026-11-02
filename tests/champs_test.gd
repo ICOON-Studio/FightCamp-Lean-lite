@@ -77,7 +77,7 @@ func _initialize() -> void:
 	_check(Champs.cannot_enter(c, f) == "Injured or suspended", "hurt: cannot enter")
 	f["injury"] = {}
 	f["bout"] = {"opp": Data.OPPONENTS[0].duplicate(true), "day": 83, "weighed": false, "made": false, "done": false, "film": 1}
-	_check(Champs.cannot_enter(c, f).begins_with("Her bout on"), "a booked bout past the regional clashes: %s" % Champs.cannot_enter(c, f))
+	_check(Champs.cannot_enter(c, f).begins_with("The bout on"), "a booked bout past the regional clashes: %s" % Champs.cannot_enter(c, f))
 	f["bout"] = {}
 
 	# --- entering: the regional draw, her first round booked, offers stop ---
@@ -176,7 +176,7 @@ func _initialize() -> void:
 	kf["bout"] = {}
 	kf["injury"] = {"type": "ko", "days_out": 90, "until_day": 190, "choice": ""}
 	Champs.book_next(k, kf)
-	_check(not Champs.active(kf) and k.news.any(func(x): return str(x["t"]).contains("no doctor will clear her")), "suspended past the day: no doctor clears her, she is out")
+	_check(not Champs.active(kf) and k.news.any(func(x): return str(x["t"]).contains("no doctor will clear the fight")), "suspended past the day: no doctor clears her, she is out")
 
 	# --- a real championship night: never a draw, no ticket cut; a club night still pays it ---
 	var draws := 0

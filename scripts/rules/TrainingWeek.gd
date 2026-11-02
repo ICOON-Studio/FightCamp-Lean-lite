@@ -16,7 +16,7 @@ const SESSIONS: Array[Dictionary] = [
 	{"id": "neck", "name": "Neck work", "stat": "chin", "point": "neck", "icon": "user-check",
 		"why": "a strong neck stops the head snapping back"},
 	{"id": "shadow", "name": "Shadow boxing", "stat": "technique", "point": "lead_shoulder", "icon": "user",
-		"why": "her form in the mirror, chin behind the lead shoulder"},
+		"why": "form in the mirror, chin behind the lead shoulder"},
 	{"id": "heavy_bag", "name": "Heavy bag", "stat": "power", "point": "rear_shoulder", "icon": "hand-fist",
 		"why": "power from the back foot, through the hips and shoulder"},
 	{"id": "speed_bag", "name": "Speed bag", "stat": "speed", "point": "lead_arm", "icon": "zap",

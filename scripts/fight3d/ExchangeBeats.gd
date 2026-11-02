@@ -104,7 +104,7 @@ static func _read(out: Array, rd: Dictionary, at: float, names: Array) -> void:
 	var lead := str(READ_LEAD.get(str(rd["game"]), "jab"))
 	out.append({"t": t, "who": "b", "move": lead, "result": "misses" if lead != "step_in" else "none", "caption": "",
 		"big": false, "knockback": false, "def": ""})
-	var cap := "READ IT! %s saw it coming - %s" % [names[0], str(rd["move"]).to_lower()] if landed 		else "%s went early - %s makes her pay" % [names[0], names[1]]
+	var cap := "READ IT! %s saw it coming - %s" % [names[0], str(rd["move"]).to_lower()] if landed 		else "%s went early - %s makes %s pay" % [names[0], names[1], names[0]]
 	out.append({"t": t + 0.35, "who": "a", "move": str(READ_MOVE.get(str(rd["move"]), "cross")),
 		"result": "lands" if landed else "misses", "caption": cap, "big": landed, "knockback": landed, "def": "", "read": true})
 

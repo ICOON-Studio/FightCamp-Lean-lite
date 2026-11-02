@@ -42,17 +42,17 @@ func build(main: Node, m: Dictionary) -> void:
 		legend.add_child(item)
 	debut[1].add_child(legend)
 	UI.add_rows(debut[1], [
-		UI.kv("Her half of the %d past %d" % [int(night["above"]), ProDebut.BREAK_EVEN], UI.money(int(night["share"])),
+		UI.kv("Fighter's half of the %d past %d" % [int(night["above"]), ProDebut.BREAK_EVEN], UI.money(int(night["share"])),
 			UI.GREEN if int(night["share"]) > 0 else UI.AMBER),
 		UI.kv("The gym's %d%% of it (manager + trainer)" % int(Roster.GYM_SHARE * 100), UI.money(int(night["gym"])), UI.GREEN),
 	])
 	if int(night["above"]) == 0:
-		debut[1].add_child(UI.muted("Under %d sold she boxes her debut for nothing. More members, more wins and titles sell more tickets." % ProDebut.BREAK_EVEN, UI.SMALL, true))
+		debut[1].add_child(UI.muted("Under %d sold, the debut pays nothing. More members, more wins and titles sell more tickets." % ProDebut.BREAK_EVEN, UI.SMALL, true))
 	var grid := UI.hbox(16)
 	v.add_child(grid)
 	var now := UI.card("THE GYM PAYS NOW")
 	now[0].name = "PaysNow"
-	var rows: Array = [UI.kv("Her BBBofC licence", UI.money(ProDebut.LICENCE))]
+	var rows: Array = [UI.kv("BBBofC licence", UI.money(ProDebut.LICENCE))]
 	if not bool(f.get("licensed", false)):
 		rows.append(UI.kv("Brain scans, medical, bloods", UI.money(ProDebut.MEDICALS)))
 	if not Roster.trainer_licensed(c):
@@ -86,7 +86,7 @@ static func ticket_parts(c: Career, f: Dictionary) -> Array:
 	var raw := [
 		{"t": "Family and friends", "n": ProDebut.FAMILY, "col": UI.MUTED},
 		{"t": "Gym members", "n": int(floor(maxi(0, c.members) * ProDebut.PER_MEMBER)), "col": UI.GOLD},
-		{"t": "Her %d wins" % int(f["w"]), "n": ProDebut.PER_WIN * maxi(0, int(f["w"])), "col": Color("#7fb3e6")},
+		{"t": "%d wins" % int(f["w"]), "n": ProDebut.PER_WIN * maxi(0, int(f["w"])), "col": Color("#7fb3e6")},
 		{"t": "Titles", "n": ProDebut.PER_TITLE * Roster.titles(f), "col": UI.GREEN},
 	]
 	var left := ProDebut.TICKETS

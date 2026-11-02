@@ -43,7 +43,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var f := Roster.sign_prospect(c, str(main.modal["pid"]), main.modal["picks"])
 			main.close_modal()
 			if not f.is_empty():
-				main.toast("%s signed on the club stipend. Her goal: %s." % [f["first"], str(f["goal"]["title"]).to_lower()])
+				main.toast("%s signed on the club stipend. Goal: %s." % [f["first"], str(f["goal"]["title"]).to_lower()])
 		"passprospect":
 			Roster.pass_on(c, str(main.modal["pid"]))
 			main.close_modal()
@@ -54,7 +54,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"turnpro":
 			var f := Roster.turn_pro(c)
 			main.close_modal()
-			main.toast("%s is a pro. Her debut is on %s." % [f["first"], Clock.fmt(int(f["bout"]["day"]))])
+			main.toast("%s is a pro. Debut on %s." % [f["first"], Clock.fmt(int(f["bout"]["day"]))])
 		"declinepro":
 			Roster.decline_pro(c)
 			main.close_modal()

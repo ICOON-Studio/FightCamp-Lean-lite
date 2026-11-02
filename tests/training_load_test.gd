@@ -114,11 +114,11 @@ func _test5() -> void:
 ## 6. gauge_line.
 func _test6() -> void:
 	var ok := true
-	if TL.gauge_line(1.0) != "Load 1.0x her usual - safe":
+	if TL.gauge_line(1.0) != "Load 1.0x the usual - safe":
 		ok = false
-	if TL.gauge_line(1.4) != "Load 1.4x her usual - injury risk up":
+	if TL.gauge_line(1.4) != "Load 1.4x the usual - injury risk up":
 		ok = false
-	if TL.gauge_line(1.5) != "Load 1.5x her usual - injury risk 3x":
+	if TL.gauge_line(1.5) != "Load 1.5x the usual - injury risk 3x":
 		ok = false
 	_check(ok, "test 6: gauge_line messages")
 

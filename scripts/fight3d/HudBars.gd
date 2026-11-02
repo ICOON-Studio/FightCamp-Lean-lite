@@ -25,16 +25,16 @@ const SIDE_COLOUR := [Color(0.95, 0.4, 0.35), Color(0.5, 0.65, 1.0)]
 const IVORY := Color("#efe8dc")
 const ICON := {"head": "user", "body": "shirt", "legs": "footprints", "stamina": "zap", "guard": "shield", "heart": "heart"}
 const WORDS := {
-	"head": "Head: the worst of her head, eyes and nose. The grey never comes back this fight (cuts, swelling).",
-	"body": "Body: her ribs. Every body shot also greys the end of her stamina.",
+	"head": "Head: the worst of head, eyes and nose. The grey never comes back this fight (cuts, swelling).",
+	"body": "Body: the ribs. Every body shot also greys the end of the stamina bar.",
 	"legs": "Legs: tired legs take shorter, slower steps - she cannot cut the ring off.",
-	"stamina": "Stamina: her tank. The minute's rest gives some back; the grey end is gone for the fight.",
-	"guard": "Guard: how high her hands stay. It sinks as her shoulders tire.",
+	"stamina": "Stamina: the tank. The minute's rest gives some back; the grey end is gone for the fight.",
+	"guard": "Guard: how high the hands stay. It sinks as the shoulders tire.",
 	"heart": "Heart: how far she is from quitting. Standing counts and hurt moments wear it down.",
 }
 const UNKNOWN := {
-	"guard": "Guard: not scouted. Find one of her habits on tape (the tape room or tape study in camp).",
-	"heart": "Heart: not scouted. Her file shows it once tape study reaches her weakness.",
+	"guard": "Guard: not scouted. Find one of the opponent's habits on tape (the tape room or tape study in camp).",
+	"heart": "Heart: not scouted. The file shows it once tape study reaches the weakness.",
 }
 ## Her scouted guard under this and the corner tells her to go over the top (once a round).
 const GUARD_LOW := 0.55
@@ -214,7 +214,7 @@ func _guard_call(bar: Dictionary) -> void:
 	if float(view.get("_caption_left")) > 0.0:
 		return
 	_low_said = n
-	view._say("Corner: \"Her hands are coming down - over the top!\"")
+	view._say("Corner: \"The hands are coming down - over the top!\"")
 
 
 ## One of the six: fill eases to its target, the end past `keep` is gone for the fight, unknown = a dashed "?" arc.

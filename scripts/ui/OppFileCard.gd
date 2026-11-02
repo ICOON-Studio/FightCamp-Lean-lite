@@ -92,7 +92,7 @@ static func _with_us(history: Array) -> HBoxContainer:
 	cap.custom_minimum_size.x = 156
 	row.add_child(cap)
 	for r in history:
-		var res := "drew" if str(r.get("outcome", "")) == "draw" else ("beat her" if bool(r["win"]) else "lost to her")
+		var res := "drew" if str(r.get("outcome", "")) == "draw" else ("won" if bool(r["win"]) else "lost")
 		var l := UI.label("%s %s" % [r["who"], res], UI.SMALL, UI.GREEN if bool(r["win"]) else UI.FG, "bold")
 		row.add_child(Icons.tip(l, "%s  %s" % [Clock.fmt(int(r["d"])), r.get("cards", "")]))
 	return row
@@ -103,4 +103,4 @@ static func hint(opp: Dictionary) -> String:
 	var left := OppFile.hidden(opp).size()
 	if left == 0:
 		return ""
-	return "%d still hidden. Tape study in her camp opens one every %d days; the fight shows the rest." % [left, OppFile.TAPE_EVERY]
+	return "%d still hidden. Tape study in camp opens one every %d days; the fight shows the rest." % [left, OppFile.TAPE_EVERY]

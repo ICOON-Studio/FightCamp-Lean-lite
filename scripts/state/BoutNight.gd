@@ -279,7 +279,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	if not tickets.is_empty():
 		m["tickets"] = tickets
 		m["gym_cut"] = int(tickets["gym"])
-		c.pay(int(tickets["gym"]), "Debut tickets: %d sold, the gym's %d%% of her share - %s vs %s" % [int(tickets["sold"]),
+		c.pay(int(tickets["gym"]), "Debut tickets: %d sold, the gym's %d%% of the fighter's share - %s vs %s" % [int(tickets["sold"]),
 			int(Roster.GYM_SHARE * 100), f["first"], opp["name"]])
 		c.add_news(Roster.debut_words(f, tickets))
 	elif pro:

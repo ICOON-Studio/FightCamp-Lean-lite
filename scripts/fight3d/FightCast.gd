@@ -70,11 +70,18 @@ static func corner(view: Node) -> bool:
 	card["fixed"] = HabitFix.result(LiveRound.habit_name(str(r["fix"])) if str(r.get("fix", "")) != "" else "",
 		int(r.get("fix_came", 0)), float(r.get("fix_hold", 0.0)), names[0])   # S320: what last round's fix did
 	card["jobs_menu"] = CornerJobsRow.menu(f, r)   # S310: recover, set-up, talk
+	# S354 C205 ("player needs to see some stats to take decisions"): the round in numbers at the top of the card.
+	var done: Array = (m["rounds"] as Array).slice(0, int(view.round_n))
+	var won_a := done.filter(func(x): return bool((x as Dictionary).get("won", false))).size()
+	card["stats"] = {"round": int(view.round_n), "won": bool(r.get("won", false)), "score": [won_a, done.size() - won_a],
+		"counts": int(r.get("counts", 0)), "tally": BodyMap.tally(view._round_beats),
+		"energy": {"a": float(en.get("a_end", 100.0)), "b": float(en.get("b_end", 100.0))}}
 	# S318 the body map on the card (plan Q-S294-29): her figure + the cutman's job, and the number behind each call.
 	var bl: Node = view.get("body")
 	if bl != null:
 		card["body_map"] = bl.map
 		card["body_glb"] = str(view.bodies[0])   # S320 her own body on the card (C146)
+		card["stats"]["map"] = bl.map
 		# S323 playtest: the pit stop shows the tyres - her body track on the card.
 		if view.get("burn") != null:
 			card["body_track"] = view.burn.track(0)

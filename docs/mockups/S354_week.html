@@ -1,0 +1,129 @@
+<!doctype html>
+<!-- S353 mockup for the operator's OK (not game code): GYM > TRAINING WEEK - every fighter Mon-Sun, mornings = body
+     sessions, evenings = the move she learns with its progress bar; boxing and no-gi BJJ side by side (operator S353). -->
+<html><head><meta charset="utf-8"><title>Training week mockup</title>
+<style>
+@font-face{font-family:Marker;src:url(../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;src:url(../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Mono;src:url(../../assets/fonts/IBMPlexMono-Medium.ttf)}
+:root{--bg:#cfe0ea;--panel:#fdfefe;--panel2:#e9eef2;--line:#c9d1d8;--fg:#22262e;--muted:#5e6773;--blue:#2f6fdb;--red:#e2483d;
+--green:#23935d;--amber:#d97a00;--yellow:#ffd54a;--purple:#8a5cf0;--mint:#9fe0c0}
+*{box-sizing:border-box}body{margin:0;width:1920px;height:1080px;background:var(--bg);font-family:Barlow;color:var(--fg);overflow:hidden}
+.top{height:76px;background:#fff;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--line)}
+.btn{border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-weight:600;color:var(--muted);background:#fff}
+.gym{font-family:Marker;color:var(--blue);font-size:30px;margin-left:6px}
+.date{margin-left:auto;text-align:right;font-weight:700;font-size:19px;line-height:1}.date small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.cont{background:var(--blue);color:#fff;border-radius:22px;padding:8px 18px;width:270px;font-weight:700;font-size:17px;line-height:1.1}
+.cont small{display:block;font-weight:400;font-size:12px;opacity:.85}.cash{font-family:Barlow;font-weight:700;color:var(--green);font-size:28px}
+.rail{position:absolute;left:10px;top:90px;width:180px}.rail div{background:#fff;border-radius:6px;margin-bottom:10px;padding:13px 14px;font-weight:700;font-size:17px;border-left:4px solid transparent}
+.rail .on{border-left-color:var(--red)}
+.main{position:absolute;left:226px;top:96px;right:34px}
+h1{font-family:Marker;font-size:46px;margin:0 0 6px;font-weight:400}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:12px}.tabs div{padding:8px 16px;font-weight:600;color:var(--muted)}
+.tabs .on{background:#fff;color:var(--blue);border-radius:6px 6px 0 0}
+.board{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.grid{display:grid;grid-template-columns:220px repeat(7,1fr) 210px;gap:6px}
+.hd{font-size:12px;letter-spacing:2px;font-weight:700;color:var(--muted);text-align:center;padding-bottom:2px}
+.type{height:6px;border-radius:3px;margin-bottom:3px}.HARD{background:var(--red)}.SKILL{background:var(--blue)}.ENGINE{background:var(--green)}.REST{background:#b9c2ca}
+.who{display:flex;gap:10px;align-items:center;padding:6px 4px;border-top:1px dotted var(--line)}
+.who img,.who .face,.mf{width:44px;height:44px;border-radius:50%;background:#333 no-repeat;background-size:230%;background-position:59% 33%;flex:none}
+.who b{display:block;font-size:16px}.who span{font-size:12px;color:var(--muted)}
+.belt{display:inline-flex;align-items:center;height:12px;width:58px;border-radius:2px;margin-top:3px;position:relative;vertical-align:middle}
+.belt i{position:absolute;right:4px;top:0;bottom:0;width:16px;background:#111;display:flex;gap:2px;padding:0 2px;align-items:center}
+.belt i em{width:2px;height:10px;background:#fff;display:block}
+.day{border-top:1px dotted var(--line);padding:5px 0 4px}
+.am{border-radius:5px;padding:4px 6px;font-size:12px;font-weight:700;color:#fff;margin-bottom:4px;display:flex;justify-content:space-between}
+.am small{font-weight:400;opacity:.9}
+.POW{background:#d9692b}.CON{background:var(--green)}.FOOT{background:#3a86c8}.SPD{background:#c9a200}.STR{background:var(--purple)}.MOB{background:#1fa39a}.RST{background:#aab3bb}
+.pm{border:1px solid var(--line);border-radius:5px;padding:4px 6px;font-size:12px;font-weight:600;background:var(--panel2)}
+.pm .bar{height:6px;background:#d3dce3;border-radius:3px;margin-top:3px;overflow:hidden;position:relative}
+.pm .bar b{display:block;height:100%;background:var(--blue)}.pm .bar.bjj b{background:#1fa39a}
+.pm .bar u{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);left:30%}
+.pm.live{background:#fff3e8;border-color:#f0c49a}.pm.rest{background:transparent;border-style:dashed;color:var(--muted)}
+.sum{border-top:1px dotted var(--line);padding:6px 4px;font-size:12px}
+.sum .mv{display:flex;justify-content:flex-start;gap:10px;font-weight:600}.sum .g{color:var(--green);font-family:Mono}
+.red{outline:2px solid var(--red);outline-offset:-2px}
+.key{display:flex;gap:16px;align-items:center;font-size:12px;color:var(--muted);margin-top:10px;flex-wrap:wrap}
+.key span{display:inline-flex;gap:5px;align-items:center}.key i{width:14px;height:10px;border-radius:2px;display:inline-block}
+.note{position:absolute;left:236px;bottom:16px;width:760px;background:var(--yellow);border:1px solid #d9b235;padding:10px 14px;font-family:Kalam,Barlow;font-size:15px;transform:rotate(-.6deg)}
+.card{border:1px solid var(--line);border-radius:8px;background:var(--panel2);padding:8px 10px}
+.card .pic{height:74px;border-radius:6px;background:#1c222b;color:#9fb3c8;display:flex;align-items:center;justify-content:center;font-size:11px;margin-bottom:6px}
+.card b{font-size:15px}.card .tag{font-size:10px;letter-spacing:1.5px;font-weight:700;color:var(--muted)}
+.card .row{display:flex;gap:8px;align-items:center;margin-top:6px;font-size:12px}.card .row .mf{width:26px;height:26px}
+.card .bar{flex:1;height:8px;background:#d3dce3;border-radius:4px;overflow:hidden;position:relative}.card .bar b{display:block;height:100%;background:var(--blue)}
+.card .bar u{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);left:30%}.card .n{font-family:Mono;font-size:11px;color:var(--green)}
+.dots{font-size:11px;color:var(--muted);margin-top:4px}
+.disc{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);padding:8px 4px 2px;grid-column:1/-1}
+</style></head><body>
+<div class="top"><span class="btn">Back</span><span class="btn">Fwd</span><span class="gym">Anvil Street Gym</span>
+<div class="date">Mon 12 Jan 2026<small>Week 2</small></div><span class="btn">II</span><span class="btn">&gt;</span><span class="btn">&gt;&gt;</span>
+<div class="cont">CONTINUE<small>to Tue 13 Jan</small></div><span class="cash">$14,241</span><span class="btn">Mail</span><span class="btn">Gear</span></div>
+<div class="rail"><div>Home</div><div>Fighters</div><div>Playbook</div><div>Fights</div><div class="on">Gym</div><div>Money</div><div>World</div></div>
+<div class="main">
+<h1>GYM</h1>
+<div class="tabs"><div>Floor</div><div class="on">Training week</div><div>Staff</div><div>Members</div><div>Build</div></div>
+<div class="board">
+<div class="grid" id="g"></div>
+<div class="key">
+<span><i class="POW"></i>Power</span><span><i class="CON"></i>Conditioning</span><span><i class="FOOT"></i>Footwork</span><span><i class="SPD"></i>Speed</span>
+<span><i class="STR"></i>Strength</span><span><i class="MOB"></i>Mobility</span><span><i class="RST"></i>Rest</span>
+<span style="margin-left:18px">Day: <i class="HARD"></i>hard <i class="SKILL"></i>skill <i class="ENGINE"></i>engine <i class="REST"></i>rest</span>
+<span>Evening bar = the move's progress; the black tick = a weapon in a fight (mastery 30)</span>
+<span style="color:#b35a00;font-weight:700">Orange evening = sparring (boxing) or rolling (BJJ): real rounds against a partner who fights back. It tests her, tires her, and can hurt her</span>
+<span style="color:var(--red);font-weight:700">Red day = two hard days in a row</span></div>
+</div>
+<div class="board" style="margin-top:14px"><div class="hd" style="text-align:left;margin-bottom:8px">EVENINGS - THE MOVES THIS WEEK</div>
+<div id="mv" style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px"></div></div></div>
+<div class="note">Mornings: drag a body session onto a day (or copy a whole row to another fighter). Evenings: the move she learns that
+night - click it to pick from her Playbook. Click a fighter for her own page: her own week (eight sessions round her body) is the Training tab on her page.</div>
+<script>
+const D=["MON","TUE","WED","THU","FRI","SAT","SUN"];
+const T=["HARD","SKILL","ENGINE","HARD","SKILL","ENGINE","REST"];
+const rows=[
+ {disc:"BOXING"},
+ {n:"Lucy Jackson",s:"Lightweight, amateur 3-1",f:"mh_boxer_10",t:["HARD","SKILL","ENGINE","HARD","SKILL","ENGINE","REST"],
+  am:[["POW","Heavy bag"],["FOOT","Ladder"],["CON","Roadwork 8k"],["POW","Bag rounds"],["SPD","Speed bag"],["CON","Intervals"],["RST","Rest"]],
+  pm:[["Sparring",0,1],["Uppercut",18],["Jab and move",62],["Sparring",0,1],["Uppercut",21],["1-2-hook",9],["",0,2]],
+  sum:[["Uppercut","18 > 24"],["1-2-hook","9 > 12"],["Power","+0.12"]]},
+ {n:"Erin Walsh",s:"Lightweight, amateur 1-0",f:"mh_boxer_11",t:["SKILL","HARD","HARD","ENGINE","SKILL","REST","REST"],red:2,
+  am:[["FOOT","Skipping"],["POW","Heavy bag"],["POW","Bag rounds"],["CON","Roadwork 6k"],["SPD","Speed bag"],["RST","Rest"],["RST","Rest"]],
+  pm:[["Slip and counter",34],["Sparring",0,1],["Sparring",0,1],["Body jab",12],["Slip and counter",37],["",0,2],["",0,2]],
+  sum:[["Slip and counter","34 > 40"],["Body jab","12 > 15"],["!","2 hard days: Tue+Wed"]]},
+ {disc:"JIU-JITSU (NO-GI)"},
+ {n:"Ana Ribeiro",s:"Feather, adult, 2 stripes",f:"mh_boxer_13",belt:["#f4f4f4",2],t:["SKILL","ENGINE","HARD","SKILL","ENGINE","HARD","REST"],
+  am:[["MOB","Mobility"],["CON","Bike intervals"],["STR","Strength"],["MOB","Mobility"],["CON","Roadwork 5k"],["STR","Strength"],["RST","Rest"]],
+  pm:[["Scissor sweep",44,0,1],["Shrimp escapes",71,0,1],["Rolling 6x6 min",0,1],["Armbar (guard)",28,0,1],["Knee cut pass",15,0,1],["Open mat",0,1],["",0,2]],
+  sum:[["Armbar (guard)","28 > 34"],["Knee cut pass","15 > 19"],["Blue belt","9 of 14 moves"]]},
+ {n:"Maya Torres",s:"Light, adult, blue belt 1 stripe",f:"mh_boxer_14",belt:["#2f5fd0",1],t:["HARD","SKILL","ENGINE","HARD","SKILL","REST","REST"],
+  am:[["STR","Strength"],["MOB","Mobility"],["CON","Intervals"],["STR","Strength"],["FOOT","Takedown footwork"],["RST","Rest"],["RST","Rest"]],
+  pm:[["Rolling 6x6 min",0,1],["Single leg X",38,0,1],["Leg drag pass",22,0,1],["Rolling 6x6 min",0,1],["Triangle chain",17,0,1],["",0,2],["",0,2]],
+  sum:[["Single leg X","38 > 44"],["Triangle chain","17 > 22"],["Purple","1 y 4 m of 1 y 6 m"]]},
+];
+const g=document.getElementById("g");
+g.insertAdjacentHTML("beforeend",`<div class="hd" style="text-align:left">FIGHTER</div>`+D.map(d=>`<div class="hd">${d}</div>`).join("")+`<div class="hd">THIS WEEK</div>`);
+for(const r of rows){
+ if(r.disc){g.insertAdjacentHTML("beforeend",`<div class="disc">${r.disc}</div>`);continue}
+ const belt=r.belt?`<span class="belt" style="background:${r.belt[0]};border:1px solid #999"><i>${"<em></em>".repeat(r.belt[1])}</i></span>`:"";
+ let h=`<div class="who"><span class="mf" style="background-image:url(../../assets/ui/face/${r.f}.jpg)"></span><div><b>${r.n}</b><span>${r.s}</span><br>${belt}</div></div>`;
+ for(let i=0;i<7;i++){
+  const [k,txt]=r.am[i];const [mv,p,kind,bjj]=r.pm[i];
+  const cls=kind===1?"pm live":kind===2?"pm rest":"pm";
+  const bar=kind?"":`<div class="bar ${bjj?"bjj":""}"><b style="width:${p}%"></b><u></u></div>`;
+  h+=`<div class="day ${r.red&&(i===r.red)?"red":""}"><div class="type ${r.t[i]}"></div><div class="am ${k}">${txt}<small>AM</small></div>`+
+     `<div class="${cls}">${kind===2?"Rest":mv}${kind===1?" <small style='color:#b35a00'>vs a partner</small>":""}${bar}</div></div>`;
+ }
+ h+=`<div class="sum">`+r.sum.map(s=>s[0]==="!"?`<div style="color:var(--red);font-weight:700">${s[1]}</div>`:`<div class="mv"><span>${s[0]}</span><span class="g">${s[1]}</span></div>`).join("")+`</div>`;
+ g.insertAdjacentHTML("beforeend",h);
+}
+const mv=[["Uppercut","BOXING - PADS",[["mh_boxer_10",18,24]],"Tue, Fri"],["Slip and counter","BOXING - PADS",[["mh_boxer_11",34,40]],"Mon, Fri"],
+["1-2-hook","BOXING - COMBO",[["mh_boxer_10",9,12]],"Sat"],["Armbar from guard","BJJ - WHITE BELT",[["mh_boxer_13",28,34]],"Thu"],
+["Knee cut pass","BJJ - WHITE BELT",[["mh_boxer_13",15,19]],"Fri"],["Single leg X","BJJ - BLUE BELT",[["mh_boxer_14",38,44]],"Tue"]];
+const m=document.getElementById("mv");
+for(const [n,tag,who,nights] of mv){
+ m.insertAdjacentHTML("beforeend",`<div class="card"><div class="pic">her move, played on her body</div><div class="tag">${tag}</div><b>${n}</b>`+
+ who.map(([f,a,b])=>`<div class="row"><span class="mf" style="background-image:url(../../assets/ui/face/${f}.jpg)"></span><div class="bar"><b style="width:${a}%"></b><u></u></div><span class="n">${a}&gt;${b}</span></div>`).join("")+
+ `<div class="dots">nights: ${nights}</div></div>`);
+}
+</script></body></html>

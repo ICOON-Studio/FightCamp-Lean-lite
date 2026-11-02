@@ -106,7 +106,7 @@ static func rate(chain: Array) -> Dictionary:
 	var last_kind := str((MOVES.get(str(chain[chain.size() - 1]), {}) as Dictionary).get("kind", ""))
 	if punch_count > 0 and (last_kind == "defence" or last_kind == "step"):
 		score += float(BONUS_EXIT)
-		notes.append("Moves her head after punching - she is not there for the return.")
+		notes.append("Moves the head after punching - not there for the return.")
 	elif punch_count >= 2 and last_kind == "punch":
 		notes.append("Ends on a punch: add a slip, roll or step - move the head after punching.")
 	if punch_count >= 2 and punch_count <= 4:
@@ -157,7 +157,7 @@ static func _score_opener(m: Dictionary, id: String, notes: Array) -> float:
 	if str(m["hand"]) == "lead":
 		return 0.0
 	if id == "cross":
-		notes.append("Opens on the cross — usually a answer off his jab.")
+		notes.append("Opens on the cross — usually an answer off the jab.")
 		return -float(NOTE_CROSS_OPENER)
 	notes.append("Opens on the rear power hand — slow and telegraphed.")
 	return -float(PENALTY_REAR_POWER_OPENER)

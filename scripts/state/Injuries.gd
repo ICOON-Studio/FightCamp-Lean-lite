@@ -65,11 +65,11 @@ static func choice_modal(c: Career, f: Dictionary) -> Dictionary:
 	var b: Dictionary = f["bout"]
 	var sev := severity(int(inj["days_out"]))
 	var weeks := int(ceil((int(b["day"]) - c.day) / 7.0))
-	var body := "%s: %s.\n\nHer bout with %s is on %s, %s away - before she is fit.\n\nPull her out: the club pays $%d for the empty slot; she rests and heals.\nShe fights hurt: she starts the bout %d %% down on energy, and the %s comes out of the fight worse (%d %% longer to heal)." % [
+	var body := "%s: %s.\n\nThe bout with %s is on %s, %s away - before the injury heals.\n\nPull out: the club pays $%d for the empty slot; rest and heal.\nFight hurt: the bout starts %d %% down on energy, and the %s comes out of the fight worse (%d %% longer to heal)." % [
 		f["first"], line(c, f), b["opp"]["name"], Clock.fmt(int(b["day"])), "1 week" if weeks <= 1 else "%d weeks" % weeks,
 		BoutRules.MISSED_WEIGHT_COST, int(HURT_ENERGY[sev]), str(InjuryRoll.NAMES[str(inj["type"])]).to_lower(), int((WORSE_MULT - 1.0) * 100)]
-	return {"type": "info", "title": "%s is hurt before her bout" % f["first"], "body": body, "locked": true, "fid": f["id"],
-		"buttons": [["Pull her out ($%d)" % BoutRules.MISSED_WEIGHT_COST, "pullout", str(f["id"])], ["She fights hurt", "fighthurt", str(f["id"])]]}
+	return {"type": "info", "title": "%s is hurt before the bout" % f["first"], "body": body, "locked": true, "fid": f["id"],
+		"buttons": [["Pull out ($%d)" % BoutRules.MISSED_WEIGHT_COST, "pullout", str(f["id"])], ["Fight hurt", "fighthurt", str(f["id"])]]}
 
 
 ## The player's call: she fights hurt. The bout keeps; the first bell takes the energy off her tank.

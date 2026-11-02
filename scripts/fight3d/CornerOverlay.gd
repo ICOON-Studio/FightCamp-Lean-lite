@@ -7,6 +7,7 @@
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
+const CornerStats := preload("res://scripts/ui/CornerStats.gd")
 
 signal chose(call: String)
 signal fixed(habit: String)
@@ -81,10 +82,19 @@ func build(card: Dictionary, names: Array) -> void:
 	var v := UI.vbox(5)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hb.add_child(v)
+	# S354 C205 ("try to communicate the options better and clearer, player needs to see some stats to take decisions"):
+	# the round in numbers first (CornerStats: landed of thrown, energy, worst spot, both women), then the coach's read,
+	# then the three steps. The WORKED / HURT sentences only repeated the table, so they go when it is there.
+	var stats: Dictionary = card.get("stats", {})
+	if not stats.is_empty():
+		v.add_child(CornerStats.build(stats, names))
+		v.add_child(UI.sep())
 	var head := UI.label("IN THE CORNER: WHAT DO YOU TELL %s?" % str(names[0]).to_upper(), UI.BODY + 2, UI.GOLD, "bold")
 	v.add_child(head)
 	var evidence: Dictionary = card.get("evidence", {})
 	var rows := [["WORKED", card["worked"], UI.GREEN], ["HURT", card["hurt"], UI.RED], ["COACH", "%s" % card["why"], UI.AMBER]]
+	if not stats.is_empty():
+		rows = [["COACH", "%s" % card["why"], UI.AMBER]]
 	if str(card.get("fixed", "")) != "":
 		rows.insert(1, ["FIXED", card["fixed"], UI.GREEN])   # S320 what last round's habit fix did
 	for row in rows:

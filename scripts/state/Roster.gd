@@ -45,9 +45,9 @@ const PRO_OPP_NAMES := ["Kayleigh Doran", "Stacey Mills", "Jodie Kerr", "Paige W
 const TRIAL_FALLBACK := {
 	"trial_open": ["{name} is in for a trial at {gym}."],
 	"trial_good": ["Good trial. {name}'s {best} is the real thing."],
-	"trial_mixed": ["{name}'s {best} is good, but her {worst} needs work."],
-	"pro_offer": ["{promoter} wants {her} on their card: a pro contract, her debut paid from the tickets she sells."],
-	"pro_debut": ["{her} makes her pro debut against {opp} over four rounds."],
+	"trial_mixed": ["{name}'s {best} is good, but the {worst} needs work."],
+	"pro_offer": ["{promoter} wants {her} on their card: a pro contract, the debut paid from ticket sales."],
+	"pro_debut": ["{her} makes a pro debut against {opp} over four rounds."],
 }
 const WORDS_PATH := "res://assets/data/roster_words.json"
 static var _bank: Dictionary = {}
@@ -209,9 +209,9 @@ static func debut_night(c: Career, f: Dictionary) -> Dictionary:
 
 static func debut_words(f: Dictionary, t: Dictionary) -> String:
 	if int(t["above"]) == 0:
-		return "%s sold %d of her %d debut tickets - not past the promoter's %d, so she boxed for nothing. More members, more tickets." % [
+		return "%s sold %d of %d debut tickets - not past the promoter's %d, so the debut paid nothing. More members, more tickets." % [
 			f["first"], int(t["sold"]), ProDebut.TICKETS, ProDebut.BREAK_EVEN]
-	return "%s sold %d debut tickets, %d past the promoter's %d: her share %s, the gym's %s of it." % [f["first"], int(t["sold"]),
+	return "%s sold %d debut tickets, %d past the promoter's %d: the fighter's share %s, the gym's %s of it." % [f["first"], int(t["sold"]),
 		int(t["above"]), ProDebut.BREAK_EVEN, GameMoney.text(int(t["share"])), GameMoney.text(int(t["gym"]))]
 
 

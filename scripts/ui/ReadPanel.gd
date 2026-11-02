@@ -55,7 +55,7 @@ static func build(read: Dictionary, read_call: String, names: Array, pick: Calla
 		sub = "SHE HAS DROPPED IT"
 	mid.add_child(UI.label(sub, UI.TINY + 1, READY if ready else UI.MUTED, "caps"))
 	h.add_child(mid)
-	for k in [["wait", "WAIT FOR IT", "hold her trigger up"], ["take", "TAKE IT NOW", "throw it on %d%%" % roundi(float(read["read"]) * 100.0)]]:
+	for k in [["wait", "WAIT FOR IT", "hold the punch back"], ["take", "TAKE IT NOW", "throw it on %d%%" % roundi(float(read["read"]) * 100.0)]]:
 		var on: bool = read_call == str(k[0])
 		var b := UI.button2(k[1], k[2], "Choice", pick.bind(k[0]), Vector2(170, 58), Color.WHITE if not on else Color("#14110f"),
 			UI.MUTED if not on else Color("#3a2a10"), false, 20, UI.TINY)

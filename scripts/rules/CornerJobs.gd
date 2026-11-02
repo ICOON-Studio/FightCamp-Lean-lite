@@ -27,9 +27,9 @@ const GAP_WORDS := {"press": "when she presses", "range": "when she boxes at ran
 	"loadup": "when she loads up", "tiring": "when she tires"}
 
 const TALKS := {
-	"calm": {"label": "Calm her down", "line": "Breathe. Your fight, your pace."},
-	"fire": {"label": "Fire her up", "line": "You want this more than she does. Go take it!"},
-	"truth": {"label": "Tell her the truth", "line": "You're losing the exchanges. Do what I tell you or this is gone."},
+	"calm": {"label": "Calm down", "line": "Breathe. Your fight, your pace."},
+	"fire": {"label": "Fire up", "line": "You want this more. Go take it!"},
+	"truth": {"label": "Tell the truth", "line": "You're losing the exchanges. Do what I tell you or this is gone."},
 }
 
 
@@ -40,7 +40,7 @@ static func recover_options(energy: float, body_taken: int, hurt: bool) -> Array
 		{"id": "ice", "label": "Ice on the ribs", "line": "-%d body hits a point" % ICE_HITS, "max": mini(RECOVER_POINTS, int(ceil(body_taken / float(ICE_HITS))))},
 	]
 	if hurt:
-		out.append({"id": "head", "label": "Clear her head", "line": "She starts the round not hurt (1 point)", "max": 1})
+		out.append({"id": "head", "label": "Clear the head", "line": "Starts the round clear-headed (1 point)", "max": 1})
 	return out
 
 

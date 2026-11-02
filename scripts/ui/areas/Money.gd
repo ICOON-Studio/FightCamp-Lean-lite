@@ -129,7 +129,7 @@ func _deals(main: Node, c: Career) -> void:
 				b.name = "Deal_" + str(d["id"])
 				right.append(b)
 			"locked":
-				sub += ". Comes after her first win."
+				sub += ". Comes after the first win."
 				right.append(UI.chip("after a win", ""))
 		rows.append(UI.row(d["name"], sub, Color(0, 0, 0, 0), right))
 	UI.add_rows(card[1], rows)

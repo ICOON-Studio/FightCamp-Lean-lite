@@ -8,7 +8,8 @@ extends Control
 const BM := preload("res://scripts/rules/BodyMap.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
 const UI := preload("res://scripts/ui/TV.gd")
-const KIT_SHADER := preload("res://scripts/ui/callout_kit.gdshader")   # her kit neutral in the close-ups, as on the body view
+const KIT_SHADER := preload("res://scripts/ui/callout_kit.gdshader")
+const FaceMarks := preload("res://scripts/ui/FaceMarks.gd")   # her kit neutral in the close-ups, as on the body view
 
 ## Each close-up: its name, the places it shows (the worst of them is its number), where it cuts her picture.
 const SPOTS := [
@@ -26,6 +27,7 @@ var tex: Texture2D
 var face: Texture2D   # S353 her headshot (BodyHolo): the HEAD close-up shows HER over the holo's ecorche head
 const FACE_UV := Vector3(0.53, 0.37, 0.24)   # centre u, v and radius (of the width) of her face in the headshot
 var anchors := {}
+var marks := {}   # S354 C202 her side of the body map ({"cuts", "closed"}): cuts and swelling drawn on her face close-up
 var outer := -1.0
 var tip := Callable()
 var _bubbles: Array = []   # Control per spot (mouse + tooltip)
@@ -157,6 +159,8 @@ func _draw() -> void:
 		draw_circle(to, 3.0, col)
 		if band != "fine":
 			draw_circle(c, R, Color(col, 0.22))   # a hurt place's close-up takes its colour
+		if str(s["at"]) == "head" and face != null:
+			FaceMarks.paint(self, c, R, fig._values, marks)
 		draw_arc(c, R, 0.0, TAU, 40, Color(0, 0, 0, 0.55), RING_W + 2.0, true)
 		draw_arc(c, R, 0.0, TAU, 40, col, RING_W, true)
 		# Its name and number under it.

@@ -28,14 +28,14 @@
  "ranking_in": [
   "{her} of {gym} has entered the {city} women's lightweight rankings at number {rank}.",
   "New name in the {city} rankings: {her} of {gym} came in at number {rank}.",
-  "{her}'s recent win put her into the regional lightweight rankings at number {rank}.",
+  "A recent win put {her} into the regional lightweight rankings at number {rank}.",
   "{gym} has a ranked boxer: {her} is now number {rank} in the {city} women's lightweights."
  ],
  "ranking_up": [
   "{her} of {gym} moved up to number {rank} in the {city} women's lightweight rankings.",
-  "Another step for {her}: she climbed to number {rank} in the regional rankings.",
-  "{her}'s win lifted her to number {rank} among {city}'s women's lightweights.",
-  "{gym}'s {her} is now ranked number {rank}, her highest place so far."
+  "Another step for {her}: up to number {rank} in the regional rankings.",
+  "A win lifted {her} to number {rank} among {city}'s women's lightweights.",
+  "{gym}'s {her} is now ranked number {rank}, the highest place so far."
  ],
  "gym_life": [
   "{gym} now has {members} members after a busy month of new sign-ups.",

@@ -153,7 +153,7 @@ func _test_7_grey_reason() -> void:
 			if SM.grey_reason(m, full) != "":
 				ok_all = false
 	_check(ok_all, "grey_reason: full mastery -> '' for every combo row")
-	_check(SM.grey_reason(SM.move("break"), full) == "It happens to her", "grey_reason('break') = 'It happens to her'")
+	_check(SM.grey_reason(SM.move("break"), full) == "Done to your fighter", "grey_reason('break') = 'Done to your fighter'")
 	_check(SM.grey_reason(SM.move("step_in"), full) == "", "grey_reason('step_in') = ''")
 
 

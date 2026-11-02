@@ -53,7 +53,7 @@ func _rules() -> void:
 	_check(bool(brk["head"]) and float(brk["damage"]) > 0.0, "one on the break hurts")
 	var names := ["Lucy", "Maria"]
 	_check(ClinchRest.line({}, names) == "", "no tie: no words")
-	_check(ClinchRest.line(miss, names) == "Lucy ties her up and gets a breather.", "a clean tie-up's words")
+	_check(ClinchRest.line(miss, names) == "Lucy ties Maria up and gets a breather.", "a clean tie-up's words")
 	_check(ClinchRest.line(two, names).contains("Maria digs two short ones to the ribs"), "the digs in words")
 	_check(ClinchRest.line(brk, names).contains("lands one on the break"), "the break in words")
 	# The ring shows it: a tied exchange has her clinch, carrying the opponent's digs (Clinch.gd plays them).

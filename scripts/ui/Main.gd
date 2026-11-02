@@ -352,7 +352,7 @@ func act(name: String, arg: String = "") -> void:
 			Sim.sign(career, modal["picks"])
 			var f: Dictionary = career.fighters[career.fighters.size() - 1]
 			close_modal()
-			toast("%s signed. Her goal is on her card: %s." % [f["first"], str(f["goal"]["title"]).to_lower()])
+			toast("%s signed. Goal on the card: %s." % [f["first"], str(f["goal"]["title"]).to_lower()])
 		"decline":
 			close_modal()
 			toast("She will wait at reception while you think.")

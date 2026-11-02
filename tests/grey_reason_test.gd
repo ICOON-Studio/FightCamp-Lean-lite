@@ -86,7 +86,7 @@ func _initialize() -> void:
 	await _check_moment("22_goaltalk")
 	main.act("setgoal")
 	main.act("fighter", "lucy")
-	main.act("ftab", "3")
+	main.act("ftab", "4")
 	await _check_moment("23_record")
 	main.act("ftab", "0")
 	await _check_moment("23b_coach_notes")

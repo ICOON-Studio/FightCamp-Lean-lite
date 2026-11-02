@@ -32,9 +32,11 @@ func _initialize() -> void:
 		var still: Dictionary = BF.portrait_for(glb, corner)
 		if still.get("holo", false) or not BodyTurn.attach(fig, glb, corner):   # as BodyLive builds it (S353 the holo stands still)
 			fig.set_portrait(still)
-		fig.set_values({"nose": 50.0, "right_ribs": 40.0} if side == 1 else {"head": 80.0})
+		fig.set_values({"nose": 50.0, "right_ribs": 40.0, "left_eye": 20.0} if side == 1 else {"head": 80.0, "right_eye": 40.0})
 		fig.set_track({"core": 20.0, "left_shoulder": 72.0, "right_shoulder": 45.0, "left_arm": 60.0, "right_arm": 25.0, "legs": 35.0} if side == 1 else {})
-		BodyCallouts.attach(fig, still, -1.0 if side == 0 else 1.0, func(p: String) -> String: return BodyTip.text(p, 50.0, {}))
+		var co: Control = BodyCallouts.attach(fig, still, -1.0 if side == 0 else 1.0, func(p: String) -> String: return BodyTip.text(p, 50.0, {}))
+		# S354 C202: a cut over her left eye and a swollen right eye (red); a cut nose and a shut left eye (blue).
+		co.marks = {"cuts": {"nose": true}, "closed": {"left_eye": true}} if side == 1 else {"cuts": {"left_eye": true}, "closed": {}}
 		figs.append(fig)
 	for i in 20:
 		await process_frame

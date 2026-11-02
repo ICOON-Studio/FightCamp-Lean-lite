@@ -62,7 +62,7 @@ func _initialize() -> void:
 	var lit: Button = _find(room, room.counter_name(best))
 	_check(lit != null and lit.theme_type_variation == "ChoiceOn", "the pick is lit")
 
-	_check((_find(room, "Spot") as Button).tooltip_text == "Her file holds this already", "film 1 is her game (in her file at booking): no SPOT needed")
+	_check((_find(room, "Spot") as Button).tooltip_text == "The file holds this already", "film 1 is her game (in her file at booking): no SPOT needed")
 
 	# 3. Film 2 (a hidden tell): its node is a "?"; SPOT too early costs that viewing only; after Replay, SPOT in her
 	# moment and the right words open it in her file now and name the node; the tape suggests the answer.

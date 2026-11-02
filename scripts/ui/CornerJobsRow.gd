@@ -33,7 +33,10 @@ static func menu(f: Dictionary, r: Dictionary) -> Dictionary:
 	var opp: Dictionary = f.get("bout", {}).get("opp", {})
 	var arrows: Array = (f.get("bout", {}).get("arrows", []) as Array).duplicate(true)
 	var limit := int(f.get("bout", {}).get("arrow_limit", PlanBoard.NEW_COACH))
-	return {"recover": CornerJobs.recover_options(energy, body, hurt), "energy": energy, "body": body, "hurt": hurt,
+	var talks := {}
+	for k in CornerJobs.TALKS.keys():
+		talks[k] = CornerJobs.talk(str(k), f.get("personality", {}))   # S354 C205: what each talk does to HER, shown on its button
+	return {"talks": talks, "recover": CornerJobs.recover_options(energy, body, hurt), "energy": energy, "body": body, "hurt": hurt,
 		"arrows": arrows, "tally": r.get("arrows", {}), "limit": limit,
 		"changes": PlanFight.corner_options(arrows, f.get("moves", {}), limit, PlanFight.fought_cards(exs)),
 		"setups": CornerJobs.setups(f.get("combos", {}), Combos.LEARN_AT), "combos": f.get("combos", {}),
@@ -77,6 +80,8 @@ static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Call
 		chip.add_child(UI.label(" %s " % str(o["label"]), UI.SMALL + 1, _ink))
 		chip.add_child(UI.label("●".repeat(n) + "○".repeat(maxi(0, int(o["max"]) - n)) + " ", UI.SMALL + 1,
 			UI.GREEN if n > 0 else _mute))
+		# S354 C205 "player needs to see some stats": the job's worth in numbers on the card, not only on the hover.
+		chip.add_child(UI.label("(%s) " % str(o["line"]).replace(" a point", " each"), UI.TINY, _mute))
 		var plus := UI.button("+", "BtnQuiet", func():
 			rec[id] = int(rec.get(id, 0)) + 1
 			on_change.call(), used >= CornerJobs.RECOVER_POINTS or n >= int(o["max"]))
@@ -119,9 +124,11 @@ static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Call
 	t_row.add_child(_tag("TALK", UI.AMBER))
 	for k in CornerJobs.TALKS.keys():
 		var on := str(sel.get("talk", "")) == str(k)
-		var tb := UI.button(str(CornerJobs.TALKS[k]["label"]), "ChoiceOn" if on else "Choice", func():
+		var fx := talk_words((mn.get("talks", {}) as Dictionary).get(k, {}))
+		var tb := UI.button2(str(CornerJobs.TALKS[k]["label"]), fx, "ChoiceOn" if on else "Choice", func():
 			sel["talk"] = "" if on else str(k)
-			on_change.call())
+			on_change.call(), Vector2(236, 50), _ink, _mute, false, UI.SMALL + 1, UI.TINY)
+		tb.tooltip_text = "\"%s\"" % str(CornerJobs.TALKS[k]["line"])
 		tb.name = "Talk_" + str(k)
 		t_row.add_child(tb)
 	v.add_child(t_row)
@@ -139,7 +146,7 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 	if _tv:
 		pass   # S350 "too much text": on the 3D card the dropdown alone; the tally is its hover
 	elif arrows.is_empty():
-		p_row.add_child(_m("No plan: %s fights her own way. Add one arrow:" % names[0], UI.SMALL))
+		p_row.add_child(_m("No plan: %s improvises. Add one arrow:" % names[0], UI.SMALL))
 	else:
 		p_row.add_child(_m("%d of %d arrows worked. Change one:" % [int(t.get("worked", 0)), int(t.get("used", 0))], UI.SMALL))
 	var changes: Array = mn.get("changes", [])
@@ -170,6 +177,27 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 	elif not per.is_empty():
 		box.add_child(_m("    " + ",  ".join(per), UI.TINY))
 	return box
+
+
+## S354 C205: a talk's effect on her in plain numbers: "+1.5 power, tires her, riskier" (CornerJobs.talk; {} -> "").
+static func talk_words(t: Dictionary) -> String:
+	if t.is_empty():
+		return ""
+	var parts := PackedStringArray()
+	var e := float(t.get("edge", 0.0))
+	if absf(e) >= 0.05:
+		parts.append("%s%.1f power" % ["+" if e > 0.0 else "", e])
+	var c := float(t.get("cost", 0.0))
+	if c < 0.0:
+		parts.append("saves energy")
+	elif c > 0.0:
+		parts.append("tiring")
+	var h := float(t.get("hurt", 1.0))
+	if h < 0.95:
+		parts.append("safer")
+	elif h > 1.05:
+		parts.append("riskier")
+	return "no change" if parts.is_empty() else ", ".join(parts)
 
 
 ## "Mid range: Step back -> Slip, cross, check hook" / "Inside: + Tie up".

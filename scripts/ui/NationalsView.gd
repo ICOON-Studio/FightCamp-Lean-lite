@@ -85,7 +85,7 @@ static func stops(c: Career, f: Dictionary) -> Array:
 		{"label": "Ready to enter", "date": "yes" if ready else "not yet", "state": "done" if ready else "next",
 			"sub": "" if ready else "see below"},
 		{"label": "Entries open", "date": Clock.fmt(close - Champs.ENTRY_WINDOW), "sub": "close " + Clock.fmt(close),
-			"sub2": "enter her now" if ready and open else "", "state": "next" if ready else "ahead"},
+			"sub2": "enter now" if ready and open else "", "state": "next" if ready else "ahead"},
 		{"label": "Regional semi-final", "date": Clock.fmt(Champs.stage_day(close, 0)), "sub": "London, 4 boxers", "state": "ahead"},
 		{"label": "Regional final", "date": Clock.fmt(Champs.stage_day(close, 1)), "state": "ahead"},
 		{"label": "National championships", "date": Clock.fmt(Champs.stage_day(close, 2)), "sub": "up to 4 bouts in 9 days", "state": "ahead"},

@@ -252,7 +252,7 @@ static func coach_line(career: Career, f: Dictionary) -> String:
 		return "%s trained alone this week. A coach would make every session count." % f["first"]
 	return "%s: \"%s put the work in on %s. %s\"" % [career.coach["name"], f["first"],
 		str(Data.LABEL[focus_of(career, f)]).to_lower(),
-		"We know what Saturday needs." if not (f.get("bout", {}) as Dictionary).is_empty() else "Get her a fight and she will show you."]
+		"We know what Saturday needs." if not (f.get("bout", {}) as Dictionary).is_empty() else "Get a fight booked and watch."]
 
 
 ## Signs the walk-in at reception.

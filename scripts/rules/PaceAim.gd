@@ -87,9 +87,9 @@ static func aim_word(aim: String) -> String:
 	if aim == "body":
 		return "Go to the body"
 	if aim == "left_ribs":
-		return "Her left ribs!"
+		return "Left ribs!"
 	if aim == "right_ribs":
-		return "Her right ribs!"
+		return "Right ribs!"
 	if aim == "head_hurt":
 		return "Finish the head!"
 	return ""

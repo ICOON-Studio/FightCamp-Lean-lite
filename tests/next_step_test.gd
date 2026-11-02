@@ -35,7 +35,7 @@ func _test1() -> void:
 	var ok := true
 	if r["lit"] != 0:
 		ok = false
-	if r["need"] != "Book her first amateur bout":
+	if r["need"] != "Book the first amateur bout":
 		ok = false
 	if r["steps"].size() != 5:
 		ok = false
@@ -50,7 +50,7 @@ func _test1() -> void:
 			ok = false
 	if lit_count != 1:
 		ok = false
-	_check(ok, "test 1: new signing lit=0 need='Book her first amateur bout' (got lit=%d need='%s' steps=%d)" % [r["lit"], r["need"], r["steps"].size()])
+	_check(ok, "test 1: new signing lit=0 need='Book the first amateur bout' (got lit=%d need='%s' steps=%d)" % [r["lit"], r["need"], r["steps"].size()])
 
 
 ## 2. {bouts 3, reg_days 35, age 22} -> lit 1, need contains "Needs 5 bouts (has 3)" and "entries close in 50 days".
@@ -74,7 +74,7 @@ func _test3() -> void:
 	var ok := true
 	if r1["lit"] != 2:
 		ok = false
-	if not r1["need"].contains("Enter her"):
+	if not r1["need"].begins_with("Enter"):
 		ok = false
 	var f2 := {"bouts": 6, "reg_days": 100, "age": 22, "nationals": "entered"}
 	var r2: Dictionary = NS.road(f2, 20)

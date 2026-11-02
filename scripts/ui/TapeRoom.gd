@@ -26,7 +26,7 @@ const FLOW_W := 600
 const THUMB := Vector2(176, 99)
 const SLOW := 0.5
 ## What a node's title says the clip is about, for the tab.
-const TAB_WORDS := {"style": "Her game", "weapon": "Her weapon", "habit": "A habit", "weakness": "Her weakness"}
+const TAB_WORDS := {"style": "Game", "weapon": "Weapon", "habit": "A habit", "weakness": "Weakness"}
 
 var main: Node = null
 var f: Dictionary = {}
@@ -97,8 +97,8 @@ func _top_bar() -> Control:
 	var h := UI.hbox(8)
 	bar.add_child(h)
 	h.add_child(Icons.icon("tv", 24, UI.FG, "The tape room"))
-	h.add_child(UI.label("THE TAPE ROOM: %s" % str(opp.get("name", "her")).to_upper(), 22, UI.FG, "bold"))
-	h.add_child(UI.muted("  her past bouts on film - watch her, read her, answer her  "))
+	h.add_child(UI.label("THE TAPE ROOM: %s" % str(opp.get("name", "the opponent")).to_upper(), 22, UI.FG, "bold"))
+	h.add_child(UI.muted("  past bouts on film - watch, read, answer  "))
 	h.add_child(UI.spacer())
 	_tabs = UI.hbox(6)
 	h.add_child(_tabs)
@@ -192,7 +192,7 @@ func _vs_name() -> String:
 ## Starts film i from its first frame: her flow empty again, the answer waiting for the end.
 func play(i: int) -> void:
 	if clips.is_empty():
-		_title.text = "No film on her yet."
+		_title.text = "No film yet."
 		return
 	idx = clampi(i, 0, clips.size() - 1)
 	var c: Dictionary = clips[idx]
@@ -274,11 +274,11 @@ func spot_pick(words: String) -> void:
 			var fb: Dictionary = f.get("bout", {})
 			if not fb.is_empty():
 				fb["film"] = OppFile.film_depth(opp)
-			_toast("Spotted: %s. In her file now%s." % [words.to_lower(), "" if opened.size() < 2 else " (and %d more)" % (opened.size() - 1)])
+			_toast("Spotted: %s. In the file now%s." % [words.to_lower(), "" if opened.size() < 2 else " (and %d more)" % (opened.size() - 1)])
 			if _tell_card != null:
 				_fill_node(_tell_card, (c["nodes"] as Array)[int(c["tell_node"])])
 		else:
-			_toast("Not that - Replay to look again. Tape study in her camp still finds it.")
+			_toast("Not that - Replay to look again. Tape study in camp still finds it.")
 	if playing:
 		_draw_answer()
 	else:
@@ -291,7 +291,7 @@ func _spot_state() -> void:
 		return
 	var known := TapeClips.known(opp, clips[idx])
 	_spot_btn.disabled = known or spot_used or not playing
-	_spot_btn.tooltip_text = "Her file holds this already" if known else ("One call a viewing: Replay to look again" if spot_used
+	_spot_btn.tooltip_text = "The file holds this already" if known else ("One call a viewing: Replay to look again" if spot_used
 		else "Press when she shows it")
 
 
@@ -395,7 +395,7 @@ func _draw_tabs() -> void:
 		var b := UI.button("%d  %s" % [i + 1, TAB_WORDS.get(str(c["kind"]), "Film")], "ChoiceOn" if i == idx else "Choice", play.bind(i))
 		b.name = "Film%d" % (i + 1)
 		if done:
-			b.tooltip_text = "Answered in her plan"
+			b.tooltip_text = "Answered in the plan"
 			b.add_theme_color_override("font_color", UI.GREEN)
 		_tabs.add_child(b)
 
@@ -433,9 +433,9 @@ func _draw_answer() -> void:
 		row.add_child(b)
 	_answer.add_child(row)
 	var limit := PlanBoard.arrow_limit(_coach())
-	var line := "In %s's plan: if %s - %s.  " % [f.get("first", "her"), FightFlow.WHEN_WORDS.get(when, when), StrikeMap.move(now).get("name", now)] if now != "" \
-		else "Not in her plan yet: pick one.  "
-	_answer.add_child(UI.muted(line + "%d of %d arrows (her coach can hold %d)." % [_plan().size(), limit, limit], UI.SMALL))
+	var line := "In %s's plan: if %s - %s.  " % [f.get("first", "your fighter"), FightFlow.WHEN_WORDS.get(when, when), StrikeMap.move(now).get("name", now)] if now != "" \
+		else "Not in the plan yet: pick one.  "
+	_answer.add_child(UI.muted(line + "%d of %d arrows (the coach can hold %d)." % [_plan().size(), limit, limit], UI.SMALL))
 
 
 ## The pick: a WHEN arrow in her plan, replacing her arrow for that situation; refused (with why) past her coach's limit.
@@ -446,11 +446,11 @@ func _pick(move_id: String) -> void:
 	var v := PlanBoard.validate(plan, StrikeMap.MOVES, PlanBoard.arrow_limit(_coach()), FightFlow.WHEN_WORDS)
 	if not v["ok"]:
 		if main != null:
-			main.toast("%s - drop an arrow on her plan board first." % str(v["problems"][0]))
+			main.toast("%s - drop an arrow on the plan board first." % str(v["problems"][0]))
 		return
 	f["arrows"] = plan
 	if main != null:
-		main.toast("In %s's plan: if %s - %s." % [f.get("first", "her"), FightFlow.WHEN_WORDS.get(when, when), StrikeMap.move(move_id).get("name", move_id)])
+		main.toast("In %s's plan: if %s - %s." % [f.get("first", "your fighter"), FightFlow.WHEN_WORDS.get(when, when), StrikeMap.move(move_id).get("name", move_id)])
 	_draw_tabs()
 	_draw_answer()
 

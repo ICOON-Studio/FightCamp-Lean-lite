@@ -1,0 +1,146 @@
+<!doctype html>
+<!-- S354 mockup for the operator's OK (not game code): THE CORE LOOP on a fighter's Training tab (operator S354: "focus on
+     2-3 mechanics"): the camp goal with live projections, the week (mornings = body sessions with intensity, evenings = the
+     move or combo drilled), the combo lab with effectiveness, and the fight plan's test. No his/her in the text (S354). -->
+<html><head><meta charset="utf-8"><title>Core loop mockup</title>
+<style>
+@font-face{font-family:Marker;src:url(../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;src:url(../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Mono;src:url(../../assets/fonts/IBMPlexMono-Medium.ttf)}
+:root{--bg:#cfe0ea;--panel:#fdfefe;--panel2:#e9eef2;--line:#c9d1d8;--fg:#22262e;--muted:#5e6773;--blue:#2f6fdb;--red:#e2483d;
+--green:#23935d;--amber:#d97a00;--yellow:#ffd54a;--purple:#8a5cf0}
+*{box-sizing:border-box}body{margin:0;width:1920px;height:1080px;background:var(--bg);font-family:Barlow;color:var(--fg);overflow:hidden}
+.top{height:76px;background:#fff;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--line)}
+.btn{border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-weight:600;color:var(--muted);background:#fff}
+.gym{font-family:Marker;color:var(--blue);font-size:30px;margin-left:6px}
+.date{margin-left:auto;text-align:right;font-weight:700;font-size:19px;line-height:1}.date small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.cont{background:var(--blue);color:#fff;border-radius:22px;padding:8px 18px;width:270px;font-weight:700;font-size:17px;line-height:1.1}
+.cont small{display:block;font-weight:400;font-size:12px;opacity:.85}.cash{font-weight:700;color:var(--green);font-size:28px}
+.rail{position:absolute;left:10px;top:90px;width:180px}.rail div{background:#fff;border-radius:6px;margin-bottom:10px;padding:13px 14px;font-weight:700;font-size:17px;border-left:4px solid transparent}
+.rail .on{border-left-color:var(--red)}
+.main{position:absolute;left:226px;top:88px;right:30px}
+.crumb{font-size:13px;color:var(--muted)}
+.head{display:flex;align-items:baseline;gap:16px}.head h1{font-family:Marker;font-size:44px;margin:0;font-weight:400}.head span{color:var(--muted)}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin:4px 0 10px}.tabs div{padding:7px 15px;font-weight:600;color:var(--muted)}
+.tabs .on{background:#fff;color:var(--blue);border-radius:6px 6px 0 0}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.cap{font-size:12px;letter-spacing:2px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.row1{display:grid;grid-template-columns:720px 1fr;gap:12px}
+.goal{display:grid;grid-template-columns:130px 1fr 210px;gap:6px 12px;align-items:center;font-size:14px}
+.goal b{font-weight:700}.track{position:relative;height:14px;background:#dfe6eb;border-radius:7px}
+.track .now{position:absolute;top:0;bottom:0;left:0;background:#9db8e6;border-radius:7px}
+.track .wk{position:absolute;top:0;bottom:0;background:var(--blue);border-radius:7px}
+.track .tgt{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--fg)}
+.track .end{position:absolute;top:-6px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid var(--green)}
+.ok{color:var(--green);font-weight:700}.short{color:var(--amber);font-weight:700}.bad{color:var(--red);font-weight:700}
+.mono{font-family:Mono;font-size:13px}
+.pva{display:grid;grid-template-columns:150px 90px 90px 1fr;gap:4px 10px;font-size:14px;align-items:center}
+.pva .h{font-size:11px;letter-spacing:1.5px;font-weight:700;color:var(--muted)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:10px}
+.day .dn{font-size:12px;letter-spacing:2px;font-weight:700;color:var(--muted);text-align:center;margin-bottom:4px}
+.am{border-radius:6px;padding:6px 8px;color:#fff;font-size:13px}
+.am b{display:block;font-size:14px}.am .fx{font-family:Mono;font-size:11px;opacity:.95;margin-top:3px}
+.int{display:flex;gap:3px;margin:5px 0}.int i{flex:1;text-align:center;font-style:normal;font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:4px;padding:2px 0;color:var(--muted);background:#fff}
+.int i.on{background:var(--fg);color:#fff;border-color:var(--fg)}
+.pm{border:1px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--panel2);font-size:13px;font-weight:600}
+.pm .fx{font-family:Mono;font-size:11px;color:var(--green);font-weight:400}.pm.spar{background:#fff3e8;border-color:#f0c49a}
+.pm .bar{height:6px;background:#d3dce3;border-radius:3px;margin-top:4px;position:relative;overflow:hidden}.pm .bar b{display:block;height:100%;background:var(--blue)}
+.pm .bar u{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);left:30%}
+.POW{background:#d9692b}.CON{background:var(--green)}.FOOT{background:#3a86c8}.SPD{background:#c9a200}.STR{background:var(--purple)}.RST{background:#aab3bb}
+.fat{margin-top:6px;height:46px;position:relative}
+.row3{display:grid;grid-template-columns:1fr 600px;gap:12px;margin-top:10px}
+.combo{display:grid;grid-template-columns:200px 1fr 1fr 110px 120px;gap:6px 12px;font-size:14px;align-items:center}
+.combo .h{font-size:11px;letter-spacing:1.5px;font-weight:700;color:var(--muted)}
+.pct{display:flex;align-items:center;gap:6px}.pct .b{width:90px;height:8px;background:#dfe6eb;border-radius:4px;overflow:hidden}.pct .b i{display:block;height:100%;background:var(--blue)}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:12px;padding:2px 9px;font-size:12px;font-weight:600;background:#fff;margin:2px}
+.chip.w{border-color:var(--green);color:var(--green)}.chip.l{color:var(--muted);border-style:dashed}
+.sim{display:flex;gap:16px;align-items:center}.big{white-space:nowrap;font-size:40px;font-weight:700;color:var(--green);font-family:Barlow}
+.cta{background:var(--blue);color:#fff;border-radius:6px;padding:7px 14px;font-weight:700;display:inline-block}
+.note{position:absolute;left:236px;bottom:10px;width:1010px;background:var(--yellow);border:1px solid #d9b235;padding:8px 14px;font-size:14px;transform:rotate(-.4deg)}
+</style></head><body>
+<div class="top"><span class="btn">Back</span><span class="btn">Fwd</span><span class="gym">Anvil Street Gym</span>
+<div class="date">Mon 9 Feb 2026<small>Week 6 - camp week 1 of 4</small></div><span class="btn">II</span><span class="btn">&gt;</span><span class="btn">&gt;&gt;</span>
+<div class="cont">CONTINUE<small>to Tue 10 Feb</small></div><span class="cash">$11,882</span><span class="btn">Mail</span><span class="btn">Gear</span></div>
+<div class="rail"><div>Home</div><div class="on">Fighters</div><div>Playbook</div><div>Fights</div><div>Gym</div><div>Money</div><div>World</div></div>
+<div class="main">
+<div class="crumb">FIGHTERS / Roster / Lucy Jackson</div>
+<div class="head"><h1>LUCY JACKSON</h1><span>Lightweight, 21, amateur 4-1 - fight night Sat 7 Mar vs Maria Ortega (pressure fighter)</span></div>
+<div class="tabs"><div>Overview</div><div>Attributes and moves</div><div>Body</div><div class="on">Training</div><div>Record</div><div>Camp</div><div>Contract and goals</div></div>
+
+<div class="row1">
+<div class="box"><div class="cap">1  THE CAMP GOAL - WHERE THIS WEEK'S PLAN LANDS</div>
+<div class="goal">
+ <b>Weight</b>
+ <div class="track"><div class="now" style="width:20%"></div><div class="wk" style="left:20%;width:30%"></div><div class="tgt" style="left:86%"></div><div class="end" style="left:88%"></div></div>
+ <span class="mono">62.9 &gt; <b>62.1</b> kg this week<br><span class="ok">61.0 at the weigh-in (limit 61.2)</span></span>
+ <b>Conditioning</b>
+ <div class="track"><div class="now" style="width:58%"></div><div class="wk" style="left:58%;width:7%"></div><div class="tgt" style="left:80%"></div><div class="end" style="left:79%"></div></div>
+ <span class="mono">58 &gt; <b>59.3</b> this week<br><span class="short">61.6 at fight night (goal 62): 0.4 short</span></span>
+ <b>Uppercut</b>
+ <div class="track"><div class="now" style="width:36%"></div><div class="wk" style="left:36%;width:12%"></div><div class="tgt" style="left:60%"></div><div class="end" style="left:70%"></div></div>
+ <span class="mono">18 &gt; <b>22</b> this week<br><span class="ok">a weapon (30) in week 3</span></span>
+ <b>Fatigue peak</b>
+ <div class="track" style="background:linear-gradient(90deg,#cfe9d9 0 60%,#ffe6b8 60% 80%,#f7c9c4 80%)"><div class="tgt" style="left:74%;background:var(--amber)"></div></div>
+ <span class="mono">74 on Thursday<br><span class="short">80+ = injury risk 2x</span></span>
+</div></div>
+
+<div class="box"><div class="cap">LAST WEEK - PLANNED VS ACTUAL</div>
+<div class="pva">
+ <span class="h"></span><span class="h">PLANNED</span><span class="h">ACTUAL</span><span class="h">WHY</span>
+ <span>Weight</span><span class="mono">-0.8 kg</span><span class="mono short">-0.5 kg</span><span>Two rest days in a row; the diet held, the burn did not</span>
+ <span>Conditioning</span><span class="mono">+1.3</span><span class="mono ok">+1.4</span><span>Roadwork on Hard twice</span>
+ <span>Jab and move</span><span class="mono">+4</span><span class="mono ok">+6</span><span>Sparring on Friday: the drill worked under pressure</span>
+ <span>Fatigue</span><span class="mono">68</span><span class="mono bad">83</span><span>Hard Tuesday after Hard Monday - Wednesday was lost</span>
+</div>
+<div style="margin-top:10px;font-size:14px">Coach: <i>"Lucy is 0.4 short on the engine. One more Hard roadwork, or move Sunday's rest to Saturday."</i></div>
+</div>
+</div>
+
+<div class="box" style="margin-top:10px"><div class="cap">2  THE WEEK - MORNINGS BUILD THE BODY (PICK A SESSION AND HOW HARD), EVENINGS SHARPEN ONE MOVE OR COMBO</div>
+<div class="week">
+ <div class="day"><div class="dn">MON</div><div class="am CON"><b>Roadwork 8 km</b><div class="fx">cond +0.30  -0.18 kg  fat +14</div></div><div class="int"><i>Light</i><i class="on">Normal</i><i>Hard</i></div>
+  <div class="pm">Uppercut on the pads<div class="fx">+1.6  &gt; 19.6 / 30</div><div class="bar"><b style="width:20%"></b><u></u></div></div></div>
+ <div class="day"><div class="dn">TUE</div><div class="am POW"><b>Heavy bag 9 rounds</b><div class="fx">power +0.12  -0.10 kg  fat +16</div></div><div class="int"><i>Light</i><i class="on">Normal</i><i>Hard</i></div>
+  <div class="pm">Combo 1-2-6<div class="fx">+3  &gt; 15 / 30</div><div class="bar"><b style="width:15%"></b><u></u></div></div></div>
+ <div class="day"><div class="dn">WED</div><div class="am CON"><b>Intervals</b><div class="fx">cond +0.45  -0.22 kg  fat +22</div></div><div class="int"><i>Light</i><i>Normal</i><i class="on">Hard</i></div>
+  <div class="pm">Slip and counter<div class="fx">+1.8  &gt; 36 (weapon)</div><div class="bar"><b style="width:36%"></b><u></u></div></div></div>
+ <div class="day"><div class="dn">THU</div><div class="am FOOT"><b>Ladder + skipping</b><div class="fx">footwork +0.14  -0.12 kg  fat +8</div></div><div class="int"><i class="on">Light</i><i>Normal</i><i>Hard</i></div>
+  <div class="pm spar">Sparring vs a partner<div class="fx">tests the plan: 4 rounds</div></div></div>
+ <div class="day"><div class="dn">FRI</div><div class="am CON"><b>Roadwork 10 km</b><div class="fx">cond +0.40  -0.24 kg  fat +18</div></div><div class="int"><i>Light</i><i>Normal</i><i class="on">Hard</i></div>
+  <div class="pm">Uppercut on the pads<div class="fx">+1.6  &gt; 21.2 / 30</div><div class="bar"><b style="width:21%"></b><u></u></div></div></div>
+ <div class="day"><div class="dn">SAT</div><div class="am STR"><b>Strength circuit</b><div class="fx">power +0.10  -0.08 kg  fat +12</div></div><div class="int"><i>Light</i><i class="on">Normal</i><i>Hard</i></div>
+  <div class="pm">Combo 1-2-6<div class="fx">+3  &gt; 18 / 30</div><div class="bar"><b style="width:18%"></b><u></u></div></div></div>
+ <div class="day"><div class="dn">SUN</div><div class="am RST"><b>Rest</b><div class="fx">fat -30  recovery</div></div><div class="int"><i class="on">Rest</i></div>
+  <div class="pm" style="background:transparent;border-style:dashed;color:var(--muted)">Rest</div></div>
+</div>
+<svg class="fat" width="1630" height="46" viewBox="0 0 1630 46"><text x="0" y="12" font-size="11" fill="#5e6773" font-family="Barlow" letter-spacing="1.5">FATIGUE</text>
+<line x1="70" y1="10" x2="1630" y2="10" stroke="#e2483d" stroke-dasharray="4 4"/><text x="1600" y="8" font-size="10" fill="#e2483d">80</text>
+<polyline fill="none" stroke="#d97a00" stroke-width="3" points="116,34 349,27 582,16 815,13 1048,9 1281,14 1514,40"/></svg>
+</div>
+
+<div class="row3">
+<div class="box"><div class="cap">3  THE COMBO LAB - BUILT FROM LUCY'S WEAPONS, TESTED AGAINST THE NEXT OPPONENT</div>
+<div style="margin-bottom:6px"><span class="chip w">Jab 52</span><span class="chip w">Cross 44</span><span class="chip w">Lead hook 38</span><span class="chip w">Slip and counter 34</span><span class="chip">Body hook 26</span><span class="chip l">Uppercut 18 - not a weapon yet</span> <span class="cta" style="margin-left:8px">+ New combo</span></div>
+<div class="combo">
+ <span class="h">COMBO</span><span class="h">LANDS WHOLE VS MARIA (PRESSURE)</span><span class="h">VS A COUNTER-PUNCHER</span><span class="h">TANK</span><span class="h">MASTERY</span>
+ <b>1-2 (jab, cross)</b><span class="pct"><span class="b"><i style="width:42%"></i></span><span class="mono">42%</span></span><span class="pct"><span class="b"><i style="width:30%"></i></span><span class="mono">30%</span></span><span class="mono">0.6</span><span class="mono ok">48 weapon</span>
+ <b>1-2-3 (+ lead hook)</b><span class="pct"><span class="b"><i style="width:31%"></i></span><span class="mono">31%</span></span><span class="pct"><span class="b"><i style="width:18%"></i></span><span class="mono">18%</span></span><span class="mono">0.9</span><span class="mono ok">33 weapon</span>
+ <b>1-2-6 (+ uppercut)</b><span class="pct"><span class="b"><i style="width:38%"></i></span><span class="mono">38%</span></span><span class="pct"><span class="b"><i style="width:14%"></i></span><span class="mono">14%</span></span><span class="mono">0.9</span><span class="mono short">15 / 30</span>
+ <b>Slip, 2-3</b><span class="pct"><span class="b"><i style="width:47%"></i></span><span class="mono">47%</span></span><span class="pct"><span class="b"><i style="width:11%"></i></span><span class="mono">11%</span></span><span class="mono">0.7</span><span class="mono ok">34 weapon</span>
+</div>
+<div style="font-size:13px;color:var(--muted);margin-top:6px">The uppercut is the key against a presser walking in: 1-2-6 lands whole 38% once it is a weapon (week 3 on this plan).</div>
+</div>
+
+<div class="box"><div class="cap">4  THE FIGHT PLAN - DESIGN IT, THEN TEST IT</div>
+<div style="font-size:14px;line-height:1.5"><b>vs Maria Ortega</b> (walks you down, right hook to the body)<br>
+ Long range: <b>1-2</b> then pivot out &nbsp;-&nbsp; On the ropes: <b>Slip, 2-3</b><br>
+ When Maria tires: <b>1-2-6</b> &nbsp;-&nbsp; When Lucy is hurt: <b>Tie up</b></div>
+<div class="sim" style="margin-top:8px"><span class="big">13 of 20</span><span style="font-size:14px">test bouts won with this plan and fight-night form<br><span class="short">Breaks when Lucy is tired: walked down in round 3 (7 of the 7 losses)</span></span></div>
+<div style="margin-top:8px"><span class="cta">Design the plan</span> <span class="btn" style="margin-left:6px">Test again (20 bouts)</span></div>
+</div>
+</div>
+</div>
+<div class="note">The loop: the GOAL shows where this week's plan lands. Change a morning session or how hard it is, and the projections move at once. Evenings drill the moves and combos the plan needs. The plan is tested against the scouted opponent before fight night. After the week, PLANNED VS ACTUAL shows what really happened.</div>
+</body></html>

@@ -29,8 +29,8 @@ const OWN_FADE := 1.0
 const OPP_FADE := 1.5
 
 ## S308: the eight corner calls (Exchanges.CALLS has what each does); the labels the corner card and the result show.
-const CORNER := {"long": "Jab and move", "body": "Go to the body", "lead": "Make her lead", "hands": "Hands up, move your head",
-	"let_go": "Let your hands go", "calm": "Breathe, pick your shots", "tie": "Tie her up", "finish": "Go get her"}
+const CORNER := {"long": "Jab and move", "body": "Go to the body", "lead": "Draw the lead", "hands": "Hands up, move your head",
+	"let_go": "Let your hands go", "calm": "Breathe, pick your shots", "tie": "Tie up", "finish": "Go for the finish"}
 ## The corner edge: a strong call when she has the tool for it, a small one when she has not.
 const CORNER_STRONG := 1.0
 const CORNER_WEAK := 0.3

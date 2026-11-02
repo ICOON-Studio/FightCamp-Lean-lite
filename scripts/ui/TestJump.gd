@@ -104,7 +104,7 @@ static func run(main: Node, jump: String) -> bool:
 		main.act("fighter", str(f["id"]))
 		# S327 (Q-S294-46): the injury runs past her bout, so the player decides - the jump lands on that choice.
 		main.act("injurychoice", str(f["id"]))
-		return Injuries.pending(f) and str(main.modal.get("title", "")).contains("hurt before her bout")
+		return Injuries.pending(f) and str(main.modal.get("title", "")).contains("hurt before the bout")
 	if jump == "taperoom":
 		# S343: her camp with film study opens the tape room on her opponent (Q-S294-68).
 		main.act("fighter", str(f["id"]))

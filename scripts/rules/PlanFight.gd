@@ -239,6 +239,6 @@ static func arrow_line(x: Dictionary, names: Array) -> String:
 	if card == "":
 		return ""
 	if not bool(x.get("planned", false)):
-		return "No arrow on %s: %s does her own thing." % [card, names[0]]
+		return "No arrow on %s: %s improvises." % [card, names[0]]
 	return "Plan (%s): %s - %s." % [card, str(StrikeMap.move(id).get("name", id)),
 		"it worked" if bool(x.get("won", false)) else "it didn't come off"]

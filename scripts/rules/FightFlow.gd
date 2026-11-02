@@ -13,20 +13,20 @@ const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 
 ## What the coach writes on each place (real coaching cues; 1-2 lines a card).
 const IDEAS := {
-	"outside": ["Feint to find her timing", "Step in behind the jab"],
+	"outside": ["Feint to find the timing", "Step in behind the jab"],
 	"long": ["Jab to the chest and the head", "Throw, then step out at an angle"],
 	"mid": ["Chin down, elbows in", "Hook off the jab, never alone"],
-	"inside": ["Head on her shoulder, short shots", "Body first, the head follows"],
-	"clinch": ["Tie both arms, lean on her", "Breathe, wait for 'Break'"],
+	"inside": ["Head on the shoulder, short shots", "Body first, the head follows"],
+	"clinch": ["Tie both arms, lean in", "Breathe, wait for 'Break'"],
 	"own_ropes": ["Don't stay: pivot or tie up", "Gloves high, elbows on the ribs"],
-	"opp_ropes": ["Cut off her exits, feet square", "Body, head - keep her there"],
-	"corner": ["Short shots from the middle of her", "Watch for the spin out"],
-	"collar_tie": ["Elbow on her collarbone, own the head", "Snap her down when she leans"],
+	"opp_ropes": ["Cut off the exits, feet square", "Body, head - keep the pressure"],
+	"corner": ["Short shots up the middle", "Watch for the spin out"],
+	"collar_tie": ["Elbow on the collarbone, own the head", "Snap down on the lean"],
 	"underhook": ["Hips in, head tight to hers", "Lift the elbow, go behind"],
 	"wrist_control": ["Two hands on one wrist", "Pull it across, take the angle"],
-	"two_on_one": ["Both hands on her arm, hips close", "Drag her past you"],
-	"russian_tie": ["Her arm to your chest", "Feet outside hers"],
-	"front_headlock": ["Chest on her head, hips down", "Spin behind when she flattens"],
+	"two_on_one": ["Both hands on one arm, hips close", "Drag the arm past you"],
+	"russian_tie": ["The arm to your chest", "Feet outside"],
+	"front_headlock": ["Chest on the head, hips down", "Spin behind as the hips flatten"],
 	"finish": ["Hips and hands: get behind, score"],
 }
 ## Boxing's `when`: the opponent's game (Exchanges' situations) in the coach's words.

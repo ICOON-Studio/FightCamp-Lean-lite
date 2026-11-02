@@ -14,7 +14,7 @@ static func build(map: Array, plan: Array, limit: int, drilled: Array, place_nam
 	head.add_child(UI.caps("THE PLAN"))
 	var cov := PlanBoard.coverage(plan, map)
 	var used := UI.label("%d / %d arrows  ·  covers %d%%" % [plan.size(), limit, int(round(cov * 100.0))], UI.SMALL, UI.MUTED)
-	head.add_child(Icons.tip(used, "Her coach can teach %d arrows.\nCovers: the share of the map's positions that have an arrow - where she has no arrow she improvises." % limit))
+	head.add_child(Icons.tip(used, "The coach can teach %d arrows.\nCovers: the share of the map's positions that have an arrow - where there is no arrow, the fighter improvises." % limit))
 	box.add_child(head)
 	for i in plan.size():
 		box.add_child(_arrow_row(map, plan, i, drilled, place_name, on_remove, words))

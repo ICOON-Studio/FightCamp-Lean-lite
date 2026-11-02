@@ -75,7 +75,7 @@ static func card(summary: Dictionary, energy: float, names: Array) -> Dictionary
 		why = "You're tired. Breathe and pick your shots."
 	elif bad in SHORT and int(theirs[bad]) >= 2:
 		call = "long"
-		why = "%s's %s needs you close: keep her on the end of your jab." % [names[1], WORD[bad]]
+		why = "%s's %s needs you close: keep %s on the end of your jab." % [names[1], WORD[bad], names[1]]
 	elif bad in LONG and int(theirs[bad]) >= 2:
 		call = "body"
 		why = "%s is winning at range: get inside and go to the body." % names[1]

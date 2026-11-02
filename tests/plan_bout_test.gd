@@ -89,7 +89,7 @@ func _initialize() -> void:
 	ExchangeBeats._arrow(none, {"planned": false, "arrow": "1-2-3"})
 	_check(none.size() == 1 and str(none[0]["move"]) == "jab", "no arrow: the ring is as it was")
 	_check(PlanFight.arrow_line({"arrow": "step_back", "at": "mid", "planned": true, "won": true}, ["Lucy", "Maria"]) == "Plan (Mid range): Step back - it worked."
-		and PlanFight.arrow_line({"arrow": "1-1", "at": "long", "planned": false}, ["Lucy", "Maria"]) == "No arrow on Long range: Lucy does her own thing.",
+		and PlanFight.arrow_line({"arrow": "1-1", "at": "long", "planned": false}, ["Lucy", "Maria"]) == "No arrow on Long range: Lucy improvises.",
 		"the words: the arrow, its card, whether it worked")
 
 	# 3. Control arm: the same 80 bouts, a plan that answers a presser vs one that walks into her (and none).

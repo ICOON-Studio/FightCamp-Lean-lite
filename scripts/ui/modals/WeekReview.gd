@@ -56,7 +56,7 @@ func build(main: Node, m: Dictionary) -> void:
 		var ra := int(fr.get("rank_after", 0))
 		if ra != rb:
 			notes.append("Ranked %s in the %s rankings%s." % [str(ra) if ra > 0 else "out", fr.get("div", ""),
-				(" (was %d)" % rb) if rb > 0 else ", her first ranking"])
+				(" (was %d)" % rb) if rb > 0 else ", a first ranking"])
 		if not notes.is_empty():
 			var line := UI.label("   ".join(notes), UI.SMALL, UI.GOLD if str(fr.get("new_weapon", "")) != "" or ra != rb else UI.MUTED, "body", true)
 			line.name = "Notes_" + str(fr["id"])

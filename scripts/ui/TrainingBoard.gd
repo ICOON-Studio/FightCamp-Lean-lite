@@ -54,7 +54,7 @@ func build(main: Node, c: Career, f: Dictionary) -> void:
 	var in_camp := not (f["camp"] as Dictionary).is_empty()
 	v.add_child(_header(main, c, f, in_camp))
 	if in_camp:
-		v.add_child(UI.muted("In camp: the camp sets her main session (%s) and cuts her weight."
+		v.add_child(UI.muted("In camp: the camp sets the main session (%s) and cuts the weight."
 			% TW.session(TW.session_for(Sim.focus_of(c, f)))["name"], UI.BODY, true))
 	v.add_child(_board(main, c, f, in_camp))
 	v.add_child(_expected(c, f))
@@ -79,7 +79,7 @@ func _header(main: Node, c: Career, f: Dictionary, in_camp: bool) -> Control:
 		var w := InjuryRoll.weeks_out(int((f["injury"] as Dictionary)["until_day"]) - c.day)
 		load.tooltip_text = "Injured - back in %s" % ("1 week" if w == 1 else "%d weeks" % w)
 	else:
-		load.tooltip_text = "How hard she trains: harder = faster gains, more injury risk; a jump over her usual is what hurts"
+		load.tooltip_text = "How hard the week is: harder = faster gains, more injury risk; a jump over the usual load is what hurts"
 	var r := Injuries.ratio(f)
 	var gauge_col: Color = {"safe": UI.GREEN, "high": UI.AMBER, "spike": UI.RED}[TrainingLoad.band(r)]
 	var gauge := UI.label(Injuries.line(c, f) + ": resting" if injured else TrainingLoad.gauge_line(r), UI.SMALL, gauge_col, "bold")
@@ -89,7 +89,7 @@ func _header(main: Node, c: Career, f: Dictionary, in_camp: bool) -> Control:
 	if not in_camp and Sim.plan_of(c, f) != TrainingPlan.default_plan(focus, str(TrainingPreview.PARTNER.get(focus, ""))):
 		var reset := UI.button("Coach's week", "Btn", main.act.bind("focus", "%s|%s" % [fid, focus]))
 		reset.name = "CoachWeek_" + fid
-		reset.tooltip_text = "Back to the coach's week for her main session"
+		reset.tooltip_text = "Back to the coach's week for the main session"
 		h.add_child(_setting("PLAN", [reset]))
 	var diet := OptionButton.new()
 	diet.name = "Diet_" + fid
@@ -237,7 +237,7 @@ func _session_card(main: Node, c: Career, f: Dictionary, s: Dictionary, n: int, 
 	if not drills.is_empty():
 		var foot := UI.hbox(8)
 		for d in drills:
-			foot.add_child(Icons.tip(UI.chip("her drill: %s" % d, "green"), "One of her three week cards: this session drills it"))
+			foot.add_child(Icons.tip(UI.chip("drill: %s" % d, "green"), "One of the three week cards: this session drills it"))
 		v.add_child(foot)
 	return p
 

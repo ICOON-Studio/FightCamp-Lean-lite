@@ -49,7 +49,7 @@ func _initialize() -> void:
 	s.templates = true
 	s.go("long")
 	var loads: Array = s._side.find_children("*", "Button", true, false).filter(func(b): return str((b as Button).tooltip_text).begins_with("Load it: "))
-	var first_label: Array = s._side.find_children("*", "TextureRect", true, false).filter(func(l): return str((l as Control).tooltip_text) == "Made for her next opponent's game.")
+	var first_label: Array = s._side.find_children("*", "TextureRect", true, false).filter(func(l): return str((l as Control).tooltip_text) == "Made for the next opponent's game.")
 	_check(loads.size() == 8 and first_label.size() >= 1, "8 real fight plans listed; %d marked for Maria's game" % first_label.size())
 	(loads[0] as Button).pressed.emit()
 	_check(not s.templates and s.plan.size() == s._arrow_limit() and str(s.plan[0]["move"]) == "1-1", "Load: Leonard's plan first on her board (%s)" % str(s.plan))

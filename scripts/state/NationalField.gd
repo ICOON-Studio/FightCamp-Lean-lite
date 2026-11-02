@@ -29,7 +29,7 @@ const LAST: Array[String] = ["Booth", "Farrell", "Mensah", "Clarke", "Hargreaves
 const STYLES: Array[Array] = [
 	["Pressure fighter", "Body hooks in close", "Walks in straight"],
 	["Counter-puncher", "Right hand counter over the jab", "Slow to start"],
-	["Volume puncher", "Never stops throwing", "Leaves her chin open"],
+	["Volume puncher", "Never stops throwing", "Leaves the chin open"],
 	["Boxer-puncher", "Straight right", "Stands still after combinations"],
 	["Out-boxer", "A long jab she lives behind", "Struggles when she is backed up"],
 	["Pressure fighter", "Left hook to the body", "Fades after round 2"],

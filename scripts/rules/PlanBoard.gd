@@ -44,7 +44,7 @@ static func validate(plan: Array, map: Array, limit: int, words := {}) -> Dictio
 
 		# Forced move
 		if str(r.get("kind", "")) == "forced":
-			problems.append("'%s' happens to her - it cannot be planned" % str(r.get("name", move_id)))
+			problems.append("'%s' is done to your fighter - it cannot be planned" % str(r.get("name", move_id)))
 			continue
 
 		# Track by place (from + reaction, or from + the arrow's when)

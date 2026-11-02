@@ -19,10 +19,10 @@ static func build(plan_mode: bool) -> PanelContainer:
 	grid.add_theme_constant_override("h_separation", 28)
 	grid.add_theme_constant_override("v_separation", 4)
 	v.add_child(grid)
-	_key(grid, _line(UI.GREEN, 5.0), "Her plan: she does this from that card")
+	_key(grid, _line(UI.GREEN, 5.0), "The plan: this move from that card")
 	_key(grid, _line(UI.GOLD, 3.0), "Moves from the card you picked")
-	_key(grid, _line(Color(UI.GREEN, 0.55), 3.0), "Her plan, only in its WHEN (she tires...)")
-	_key(grid, _line(Color(UI.MUTED, 0.35), 1.5), "Every other move (grey: done TO her)")
+	_key(grid, _line(Color(UI.GREEN, 0.55), 3.0), "The plan, only in its WHEN (tired...)")
+	_key(grid, _line(Color(UI.MUTED, 0.35), 1.5), "Every other move (grey: done TO your fighter)")
 	_key(grid, _loop(), "She stays on the card (a feint, a combo)")
 	_key(grid, UI.label("3 out 2 in", UI.TINY, UI.MUTED), "Moves that leave / arrive at a card")
 	if plan_mode:

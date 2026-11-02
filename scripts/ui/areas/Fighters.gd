@@ -10,7 +10,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FighterTile := preload("res://scripts/ui/FighterTile.gd")
-const TrainingBoard := preload("res://scripts/ui/TrainingBoard.gd")
+const FIGHTER_PAGE_SCRIPT := preload("res://scripts/ui/areas/FighterPage.gd")
 const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
 
 
@@ -31,12 +31,33 @@ func build(main: Node) -> void:
 			if c.fighters.is_empty():
 				AreaHead.placeholder(self, "TRAINING", "Sign a fighter first.")
 			# S349 (Q-S294-72): her week as his home-training picture - eight sessions round her body (TrainingBoard).
-			for f in c.fighters:
-				add_child(TrainingBoard.make(main, c, f))
+			# S354 C204 ("this should be like a sub tab in the players profile"): the board lives on her page's Training
+			# tab; here each fighter's line opens it.
+			_training(main, c)
 		2:
 			_camps(main, c)
 		3:
 			_scouting(main, c)
+
+
+func _training(main: Node, c: Career) -> void:
+	var card := UI.card("TRAINING - EACH FIGHTER'S WEEK IS ON HER PAGE")
+	add_child(card[0])
+	for f in c.fighters:
+		var row := UI.hbox(14)
+		var who := UI.button(str(f["name"]), "BtnQuiet", main.act.bind("fighter", str(f["id"])))
+		row.add_child(who)
+		var main_s := str(Data.LABEL.get(str(f.get("focus", "")), f.get("focus", "")))
+		var learn := str(f.get("learning", ""))
+		var sub := UI.muted("Main session: %s%s" % [main_s, ("   Learning: %s" % learn) if learn != "" else ""], UI.BODY)
+		sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER   # S354 C206: the button sits by its line, not at the far edge
+		row.add_child(sub)
+		var open := UI.button("Open training", "Btn", func():
+			main.act("fighter", str(f["id"]))
+			main.act("ftab", str(FIGHTER_PAGE_SCRIPT.TRAINING_TAB)))
+		open.name = "OpenTraining_" + str(f["id"])
+		row.add_child(open)
+		card[1].add_child(row)
 
 
 func _roster(main: Node, c: Career) -> void:
@@ -110,4 +131,4 @@ func _scouting(main: Node, c: Career) -> void:
 				right.append(UI.chip("passed", ""))
 		rows.append(UI.row(p["name"], sub, Color(0, 0, 0, 0), right))
 	UI.add_rows(card[1], rows)
-	card[1].add_child(UI.muted("A trial is free: she comes in on the Monday. Sign her and she costs the %s club stipend a week." % UI.money(250), UI.SMALL, true))
+	card[1].add_child(UI.muted("A trial is free: the fighter comes in on the Monday. Signing costs the %s club stipend a week." % UI.money(250), UI.SMALL, true))

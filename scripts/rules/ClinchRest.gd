@@ -50,7 +50,7 @@ static func roll(p: float, r1: float, r2: float, r3: float) -> Dictionary:
 static func line(c: Dictionary, names: Array) -> String:
 	if c.is_empty():
 		return ""
-	var out := "%s ties her up and gets a breather" % names[0]
+	var out := "%s ties %s up and gets a breather" % [names[0], names[1]]
 	if not bool(c.get("hit", false)):
 		return out + "."
 	var ribs := "two short ones to the ribs" if int(c["shots"]) == 2 else "a short one to the ribs"

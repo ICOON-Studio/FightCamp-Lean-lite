@@ -24,11 +24,11 @@ const PALETTE: Array[Dictionary] = [
 	{"id": "lead_hook", "name": "Lead hook", "clip": "pro_left_hook", "needs": "Lead hook", "icon": "hand-fist",
 		"cue": "elbow level with the fist, turn on the lead foot"},
 	{"id": "body_hook", "name": "Body hook", "clip": "body_hook", "needs": "Body hook", "icon": "hand-fist",
-		"cue": "dip the knees, not the head; dig under her elbow"},
+		"cue": "dip the knees, not the head; dig under the elbow"},
 	{"id": "rear_uppercut", "name": "Uppercut", "clip": "pro_right_uppercut", "needs": "Uppercut", "icon": "hand-fist",
 		"cue": "drop the rear shoulder a touch, drive up from the legs"},
 	{"id": "slip", "name": "Slip", "clip": "slip", "needs": "", "icon": "shield",
-		"cue": "a small move off the centre line, eyes on her"},
+		"cue": "a small move off the centre line, eyes up"},
 	{"id": "roll", "name": "Roll", "clip": "pro_left_weave", "needs": "", "icon": "shield",
 		"cue": "bend the knees, roll under the hook, come up loaded"},
 	{"id": "pivot", "name": "Pivot", "clip": "strafe_right", "needs": "", "icon": "refresh-cw",
@@ -105,7 +105,7 @@ func build(m: Node, fighter: Dictionary) -> void:
 	player.custom_minimum_size = PLAYER_SIZE
 	card.add_child(player)
 	col.add_child(card)
-	col.add_child(UI.muted("Her body throws your chain on a loop; the partner is a ghost.", UI.SMALL, true))
+	col.add_child(UI.muted("Your fighter throws the chain on a loop; the partner is a ghost.", UI.SMALL, true))
 	add_child(col)
 	_refresh(false)
 
@@ -191,7 +191,7 @@ func _refresh(play: bool) -> void:
 	UI.clear(_rows)
 	_rows.add_child(UI.display("BUILD A COMBINATION", 34))
 	if chain.is_empty():
-		_rows.add_child(UI.muted("Pick moves on the left, or start from one of her book's combinations. Two to four punches, then move the head.", UI.BODY, true))
+		_rows.add_child(UI.muted("Pick moves on the left, or start from a combination in the book. Two to four punches, then move the head.", UI.BODY, true))
 		if player != null:
 			player.stop()
 		return
@@ -205,7 +205,7 @@ func _refresh(play: bool) -> void:
 	verdict.add_child(UI.label(word.to_upper(), UI.BODY + 8, col, "display"))
 	verdict.add_child(UI.mono("%d / 100" % int(r["score"]), UI.BODY, col))
 	verdict.add_child(UI.spacer())
-	verdict.add_child(Icons.tip(UI.muted("tank %.2f" % CF.energy(chain)), "What the chain costs her gas tank (Combos units; a round costs 18)"))
+	verdict.add_child(Icons.tip(UI.muted("tank %.2f" % CF.energy(chain)), "What the chain costs from the gas tank (Combos units; a round costs 18)"))
 	_rows.add_child(verdict)
 	var lessons := PanelContainer.new()
 	lessons.name = "Lessons"
@@ -226,7 +226,7 @@ func _refresh(play: bool) -> void:
 	for id in chain:
 		if locked == "":
 			locked = locked_why(f, str(id))
-	var save := UI.button("Save to her book", "Btn", _save, locked != "", locked)
+	var save := UI.button("Save to the book", "Btn", _save, locked != "", locked)
 	save.name = "SaveCombo"
 	btns.add_child(save)
 	var bid := book_id(chain)

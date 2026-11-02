@@ -40,7 +40,7 @@ func _members(c: Career) -> void:
 		UI.kv("Dues", "%s a month each" % UI.money(Membership.weekly_rate()), UI.FG, "mono"),
 		UI.kv("Evening classes", ("3 a week, +%s" % UI.money(GameMoney.CLASSES_WITH_COACH)) if not c.coach.is_empty() else "need a coach"),
 	])
-	card[1].add_child(UI.muted("Reputation grows with her wins (+%d each) and a well-kept gym; the count walks toward what the gym can carry, a few a week." % BoutRules.WIN_REPUTATION, UI.SMALL, true))
+	card[1].add_child(UI.muted("Reputation grows with your fighters' wins (+%d each) and a well-kept gym; the count walks toward what the gym can carry, a few a week." % BoutRules.WIN_REPUTATION, UI.SMALL, true))
 	add_child(card[0])
 	var why := UI.card("WHY THEY JOIN")
 	var rows: Array = []

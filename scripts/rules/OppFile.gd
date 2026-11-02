@@ -22,31 +22,31 @@ const TAPE_EVERY := 2
 const DEPTH_NONE := 1
 const DEPTH_ALL := 3
 ## Her style word's main game in the coach's words (Exchanges.STYLE_MODES, the game she plays most).
-const GAME_WORDS := {"press": "she walks you down", "range": "she boxes at range", "counter": "she waits to counter",
-	"loadup": "she loads up big shots"}
+const GAME_WORDS := {"press": "walks you down", "range": "boxes at range", "counter": "waits to counter",
+	"loadup": "loads up big shots"}
 
 ## [words in her threat, the answer, corner call, plan situation]: the first match is her counter (real coaching cues).
 const WEAPON_ANSWERS := [
-	["over the jab", "Never a lazy jab: feint first and make her lead", "lead", "counter"],
-	["counter", "Never a lazy jab: feint first and make her lead", "lead", "counter"],
+	["over the jab", "Never a lazy jab: feint first and draw the lead", "lead", "counter"],
+	["counter", "Never a lazy jab: feint first and draw the lead", "lead", "counter"],
 	["long jab", "Get under the jab: slip it and go to the body", "body", "range"],
-	["body", "Elbows tight on the ribs; step off at an angle, never square in front of her", "hands", "press"],
-	["hooks in close", "Keep her at the end of your jab; tie up when she gets inside", "long", "press"],
+	["body", "Elbows tight on the ribs; step off at an angle, never square in front", "hands", "press"],
+	["hooks in close", "Stay at the end of your jab; tie up on the way in", "long", "press"],
 	["overhand", "Hands up, chin down: roll under it and come back", "hands", "loadup"],
 	["heavy right", "Hands up, chin down: roll under it and come back", "hands", "loadup"],
 	["straight", "Move off the centre line: slip outside it and counter", "hands", "range"],
 	["down the middle", "Move off the centre line: slip outside it and counter", "hands", "range"],
-	["never stops", "Tie her up, make her reset, counter between her flurries", "tie", "press"],
-	["flurries", "Tie her up, make her reset, counter between her flurries", "tie", "press"],
+	["never stops", "Tie up, force a reset, counter between the flurries", "tie", "press"],
+	["flurries", "Tie up, force a reset, counter between the flurries", "tie", "press"],
 	["everything", "Nothing to single out: box your own fight", "", ""],
 ]
 const WEAKNESS_ANSWERS := [
-	["fades", "Make her work early; let your hands go when she tires", "let_go", "tiring"],
-	["legs late", "Make her work early; let your hands go when she tires", "let_go", "tiring"],
+	["fades", "Make it a busy start; let your hands go on the fade", "let_go", "tiring"],
+	["legs late", "Make it a busy start; let your hands go on the fade", "let_go", "tiring"],
 	["slow to start", "Start fast and bank round 1 before she warms up", "let_go", ""],
 	["gives away round 1", "Start fast and bank round 1 before she warms up", "let_go", ""],
-	["chin", "Her chin is there: the straight right over her jab", "", ""],
-	["drops her right", "Her chin is there after the hook: counter with the left", "", ""],
+	["chin", "The chin is there: the straight right over the jab", "", ""],
+	["drops the right", "The chin is there after the hook: counter with the left", "", ""],
 	["walks in straight", "Angles: pivot off as she comes, she cannot follow", "long", "press"],
 	["straight lines", "Angles: pivot off as she comes, she cannot follow", "long", "press"],
 	["backs straight", "Cut the ring off: she backs onto the ropes", "finish", "range"],
@@ -55,8 +55,8 @@ const WEAKNESS_ANSWERS := [
 	["none", "Nothing yet: the fight will show it", "", ""],
 ]
 ## What the coach writes for a habit (the ring plays it; THE READ finds it in the fight).
-const HABIT_WORDS := {"fades_late": "Her hands drop late in a round", "slow_starter": "Takes a round to get going",
-	"drops_right_after_jab": "Drops her right after the jab", "lunges_with_jab": "Lunges in behind her jab",
+const HABIT_WORDS := {"fades_late": "Hands drop late in a round", "slow_starter": "Takes a round to get going",
+	"drops_right_after_jab": "Drops the right after the jab", "lunges_with_jab": "Lunges in behind the jab",
 	"admires_her_work": "Stands and admires after a combination", "digs_body_when_hurt": "Goes to the body when she is hurt",
 	"loads_up_when_hurt": "Loads up wild when she is hurt"}
 
@@ -68,8 +68,8 @@ static func tells(opp: Dictionary) -> Array:
 		"value": "%d-%d, %s, %s cm, reach %s" % [int(opp.get("w", 0)), int(opp.get("l", 0)), str(opp.get("stance", "?")),
 			str(opp.get("height", "?")), str(opp.get("reach", "?"))]})
 	var game := main_game(opp)
-	out.append({"id": "style", "what": "Her game", "how": "booking", "call": "", "when": game,
-		"value": "%s: %s" % [str(opp.get("style", "?")), str(GAME_WORDS.get(game, "her own way"))],
+	out.append({"id": "style", "what": "Game", "how": "booking", "call": "", "when": game,
+		"value": "%s: %s" % [str(opp.get("style", "?")), str(GAME_WORDS.get(game, "own way"))],
 		"counter": "Plan an arrow for 'If %s'" % str(FightFlow.WHEN_WORDS.get(game, "she presses")) if game != "" else ""})
 	var w := _answer(str(opp.get("threat", "")), WEAPON_ANSWERS)
 	out.append({"id": "weapon", "what": "Best weapon", "how": "tape", "value": str(opp.get("threat", "?")),

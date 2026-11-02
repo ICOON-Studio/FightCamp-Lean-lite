@@ -66,7 +66,7 @@ const OPPONENTS: Array[Dictionary] = [
 		"threat": "Right hand counter over the jab", "weak": "Slow to start"},
 	{"name": "Erin Doyle", "first": "Erin", "club": "Belfast Golden Gloves", "age": 24, "stance": "orthodox",
 		"style": "Volume puncher", "w": 7, "l": 2, "height": 167, "reach": 168, "rating": 65.5,
-		"threat": "Never stops throwing", "weak": "Leaves her chin open"},
+		"threat": "Never stops throwing", "weak": "Leaves the chin open"},
 ]
 const MISMATCH := {"name": "Dana Whitfield", "first": "Dana", "club": "Repton Boxing Club", "age": 26, "stance": "orthodox",
 	"style": "Boxer-puncher", "w": 14, "l": 2, "height": 169, "reach": 171, "rating": 72.0, "threat": "Everything",
@@ -80,13 +80,13 @@ const RIVALS: Array[Dictionary] = [
 	{"name": "Aisha Rahman", "first": "Aisha", "club": "West Ham Boxing Club", "age": 20, "stance": "southpaw",
 		"style": "Counter-puncher", "w": 3, "l": 1, "rating": 60.5, "threat": "Left cross over the jab", "weak": "Gives away round 1"},
 	{"name": "Sophie Turner", "first": "Sophie", "club": "Fitzroy Lodge ABC", "age": 25, "stance": "orthodox",
-		"style": "Volume puncher", "w": 8, "l": 4, "rating": 64.0, "threat": "Three-punch flurries", "weak": "Loses her legs late"},
+		"style": "Volume puncher", "w": 8, "l": 4, "rating": 64.0, "threat": "Three-punch flurries", "weak": "Heavy legs late"},
 	{"name": "Megan Hughes", "first": "Megan", "club": "All Stars ABC", "age": 21, "stance": "orthodox",
 		"style": "Pressure fighter", "w": 2, "l": 2, "rating": 58.5, "threat": "Body hooks in close", "weak": "Walks in straight"},
 	{"name": "Holly Price", "first": "Holly", "club": "Lynn AC", "age": 19, "stance": "orthodox",
 		"style": "Out-boxer", "w": 2, "l": 1, "rating": 59.0, "threat": "Long jab, keeps you on the end of it", "weak": "Backs straight onto the ropes"},
 	{"name": "Ellie Ward", "first": "Ellie", "club": "Earlsfield ABC", "age": 20, "stance": "southpaw",
-		"style": "Pressure fighter", "w": 4, "l": 2, "rating": 61.0, "threat": "Right hook to the body off the jab", "weak": "Drops her right after the hook"},
+		"style": "Pressure fighter", "w": 4, "l": 2, "rating": 61.0, "threat": "Right hook to the body off the jab", "weak": "Drops the right after the hook"},
 	{"name": "Jade Cooper", "first": "Jade", "club": "Islington Boxing Club", "age": 19, "stance": "orthodox",
 		"style": "Slugger", "w": 1, "l": 1, "rating": 57.0, "threat": "One big overhand right", "weak": "Slow feet, moves in straight lines"},
 ]
@@ -99,7 +99,7 @@ const SHOW_EVERY_DAYS := 14
 ## Sponsors: the first is on the table from the start; the second comes after her first win.
 const DEALS: Array[Dictionary] = [
 	{"id": "ironclad", "name": "Ironclad Supplements", "per": 250, "what": "banner on the gym wall", "after_win": false},
-	{"id": "bowroad", "name": "Bow Road Physio", "per": 150, "what": "their logo on her shorts", "after_win": true},
+	{"id": "bowroad", "name": "Bow Road Physio", "per": 150, "what": "their logo on the shorts", "after_win": true},
 ]
 
 ## The gym's kit. A worn piece can be repaired once; members notice (+REPAIR_REPUTATION).
@@ -131,17 +131,17 @@ const DIVISIONS := {
 const DIVISION_RIVALS: Array[Dictionary] = [
 	{"div": "wfw", "name": "Holly Marsh", "first": "Holly", "club": "Fisher ABC", "age": 19, "stance": "orthodox", "style": "Pressure fighter", "w": 1, "l": 1, "rating": 58.0, "threat": "Wide hooks in close", "weak": "Fades after round 2"},
 	{"div": "wfw", "name": "Grace Adeyemi", "first": "Grace", "club": "Lynn AC", "age": 21, "stance": "southpaw", "style": "Counter-puncher", "w": 3, "l": 1, "rating": 61.0, "threat": "Straight left down the middle", "weak": "Slow to start"},
-	{"div": "wfw", "name": "Nina Kowalski", "first": "Nina", "club": "Double Jab ABC", "age": 22, "stance": "orthodox", "style": "Volume puncher", "w": 5, "l": 2, "rating": 63.0, "threat": "Never stops throwing", "weak": "Leaves her chin open"},
+	{"div": "wfw", "name": "Nina Kowalski", "first": "Nina", "club": "Double Jab ABC", "age": 22, "stance": "orthodox", "style": "Volume puncher", "w": 5, "l": 2, "rating": 63.0, "threat": "Never stops throwing", "weak": "Leaves the chin open"},
 	{"div": "wfw", "name": "Bethany Cole", "first": "Bethany", "club": "Repton Boxing Club", "age": 25, "stance": "orthodox", "style": "Boxer-puncher", "w": 15, "l": 3, "rating": 70.0, "threat": "Everything", "weak": "None you can use yet"},
 	{"div": "wfw", "name": "Megan Price", "first": "Megan", "club": "Stonebridge ABC", "age": 20, "stance": "orthodox", "style": "Pressure fighter", "w": 2, "l": 2, "rating": 58.5, "threat": "Body hooks", "weak": "Walks in straight"},
 	{"div": "www", "name": "Jade Okoro", "first": "Jade", "club": "Haringey Police CC", "age": 22, "stance": "orthodox", "style": "Boxer-puncher", "w": 2, "l": 1, "rating": 59.5, "threat": "Straight right", "weak": "Stands still after combinations"},
 	{"div": "www", "name": "Laura Finch", "first": "Laura", "club": "Islington BC", "age": 24, "stance": "orthodox", "style": "Pressure fighter", "w": 4, "l": 2, "rating": 62.0, "threat": "Left hook to the body", "weak": "Fades after round 2"},
 	{"div": "www", "name": "Rosa Delgado", "first": "Rosa", "club": "Earlsfield ABC", "age": 23, "stance": "southpaw", "style": "Counter-puncher", "w": 6, "l": 2, "rating": 64.5, "threat": "Left cross over the jab", "weak": "Gives away round 1"},
 	{"div": "www", "name": "Kerry Walsh", "first": "Kerry", "club": "St Pancras ABC", "age": 27, "stance": "orthodox", "style": "Boxer-puncher", "w": 14, "l": 4, "rating": 71.0, "threat": "Everything", "weak": "None you can use yet"},
-	{"div": "www", "name": "Tia Benson", "first": "Tia", "club": "Lion ABC", "age": 21, "stance": "orthodox", "style": "Volume puncher", "w": 3, "l": 3, "rating": 60.0, "threat": "Three-punch flurries", "weak": "Loses her legs late"},
+	{"div": "www", "name": "Tia Benson", "first": "Tia", "club": "Lion ABC", "age": 21, "stance": "orthodox", "style": "Volume puncher", "w": 3, "l": 3, "rating": 60.0, "threat": "Three-punch flurries", "weak": "Heavy legs late"},
 	{"div": "wmw", "name": "Amy Croft", "first": "Amy", "club": "Dale Youth ABC", "age": 23, "stance": "orthodox", "style": "Pressure fighter", "w": 4, "l": 3, "rating": 61.0, "threat": "Overhand right", "weak": "Fades after round 2"},
 	{"div": "wmw", "name": "Siobhan Byrne", "first": "Siobhan", "club": "West Ham Boxing Club", "age": 25, "stance": "orthodox", "style": "Boxer-puncher", "w": 5, "l": 2, "rating": 63.0, "threat": "Jab-cross down the middle", "weak": "Slow to start"},
-	{"div": "wmw", "name": "Leah Morgan", "first": "Leah", "club": "Fitzroy Lodge ABC", "age": 26, "stance": "southpaw", "style": "Counter-puncher", "w": 7, "l": 3, "rating": 65.0, "threat": "Counter left hook", "weak": "Leaves her chin open"},
+	{"div": "wmw", "name": "Leah Morgan", "first": "Leah", "club": "Fitzroy Lodge ABC", "age": 26, "stance": "southpaw", "style": "Counter-puncher", "w": 7, "l": 3, "rating": 65.0, "threat": "Counter left hook", "weak": "Leaves the chin open"},
 	{"div": "wmw", "name": "Victoria Hale", "first": "Victoria", "club": "Repton Boxing Club", "age": 28, "stance": "orthodox", "style": "Boxer-puncher", "w": 16, "l": 2, "rating": 72.5, "threat": "Everything", "weak": "None you can use yet"},
 	{"div": "wmw", "name": "Chantelle Reid", "first": "Chantelle", "club": "All Stars ABC", "age": 24, "stance": "orthodox", "style": "Volume puncher", "w": 3, "l": 4, "rating": 59.0, "threat": "Never stops throwing", "weak": "Walks in straight"},
 ]

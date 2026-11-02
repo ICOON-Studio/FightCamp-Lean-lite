@@ -110,7 +110,7 @@ func _top_bar() -> Control:
 	bar.add_child(h)
 	if fighter.is_empty():
 		h.add_child(UI.label("BOXING MOVE MAP", 22, UI.FG, "bold"))
-		h.add_child(UI.muted("  prototype - her punches: Jab 60, Cross 55, Lead hook 45, Body hook 25, Uppercut 10  "))
+		h.add_child(UI.muted("  prototype - punches: Jab 60, Cross 55, Lead hook 45, Body hook 25, Uppercut 10  "))
 		h.add_child(UI.spacer())
 		_plan_toggle = UI.button("Build plan", "Btn", func(): _set_plan_mode(not plan_mode))
 		h.add_child(_plan_toggle)
@@ -121,7 +121,7 @@ func _top_bar() -> Control:
 	var punches := PackedStringArray()
 	for mv in Data.MOVES:
 		punches.append("%s %d" % [mv, int(float(mastery.get(mv, 0.0)))])
-	h.add_child(UI.muted("  her punches: " + ", ".join(punches) + "  "))
+	h.add_child(UI.muted("  punches: " + ", ".join(punches) + "  "))
 	h.add_child(UI.spacer())
 	h.add_child(UI.button("Real fight plans", "Btn", func(): templates = not templates; go(current)))
 	h.add_child(UI.button("See the flow", "Btn", show_flow))
@@ -158,7 +158,7 @@ func _save() -> void:
 		return
 	fighter["arrows"] = plan.duplicate(true)
 	_close()
-	main.toast("%s's plan saved: %d arrows. She fights to it from her next bout; the corner can change one a round." % [
+	main.toast("%s's plan saved: %d arrows. It runs from the next bout; the corner can change one a round." % [
 		fighter["first"], plan.size()])
 
 
@@ -216,7 +216,7 @@ func _when_picker() -> Control:
 	var box := UI.vbox(6)
 	var head := UI.hbox(6)
 	head.add_child(UI.caps("WHEN"))
-	head.add_child(Icons.icon("info", 16, UI.MUTED, "The next move you pick is her answer to this.\nAny time: she throws it whatever the opponent does."))
+	head.add_child(Icons.icon("info", 16, UI.MUTED, "The next move you pick is the answer to this.\nAny time: thrown whatever the opponent does."))
 	box.add_child(head)
 	var flow := HFlowContainer.new()
 	flow.add_theme_constant_override("h_separation", 4)
@@ -229,7 +229,7 @@ func _when_picker() -> Control:
 		flow.add_child(UI.button(words, "PillOn" if key == when else "Pill", func(): when = key; go(current)))
 	# S344 (operator C174 on the WHEN pills: "make it clear to the player what it does"): what the pick does, said live.
 	var said := "Your next move: she throws it any time here." if when == "" else \
-		"Your next move: she throws it only when %s - her answer to that." % str(FightFlow.WHEN_WORDS.get(when, when))
+		"Your next move: thrown only when %s - the answer to that." % str(FightFlow.WHEN_WORDS.get(when, when))
 	var line := UI.label(said, UI.SMALL, UI.GOLD, "semi", true)
 	line.name = "WhenSays"
 	box.add_child(line)
@@ -330,7 +330,7 @@ func _template_list() -> Control:
 	var game := OppFile.main_game(opp) if not opp.is_empty() else ""
 	var mine: Array = PlanTemplates.for_game(game)
 	if game != "":
-		box.add_child(UI.muted("Her next opponent, %s: %s." % [opp.get("first", "?"), str(OppFile.GAME_WORDS.get(game, game))], UI.SMALL, true))
+		box.add_child(UI.muted("Next opponent, %s: %s." % [opp.get("first", "?"), str(OppFile.GAME_WORDS.get(game, game))], UI.SMALL, true))
 	var rows: Array = PlanTemplates.BOXING.duplicate()
 	rows.sort_custom(func(a, b): return mine.has(a["id"]) and not mine.has(b["id"]))
 	for t in rows:
@@ -338,11 +338,11 @@ func _template_list() -> Control:
 		var n := mini((t["arrows"] as Array).size(), _arrow_limit())
 		var row := UI.hbox(6)
 		var is_mine: bool = mine.has(t["id"])
-		row.add_child(Icons.icon("target" if is_mine else "play", 16, UI.GOLD if is_mine else UI.LINE, "Made for her next opponent's game." if is_mine else ""))
+		row.add_child(Icons.icon("target" if is_mine else "play", 16, UI.GOLD if is_mine else UI.LINE, "Made for the next opponent's game." if is_mine else ""))
 		var name := UI.label(str(t["name"]), UI.SMALL, UI.GOLD if is_mine else UI.FG, "semi", true)
 		name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(Icons.tip(name, "From %s\n%s" % [t["from"], t["idea"]]))
-		row.add_child(Icons.button("load", "Load it: %d arrows onto her board" % n, func():
+		row.add_child(Icons.button("load", "Load it: %d arrows onto the board" % n, func():
 			plan = PlanTemplates.load(tt, _arrow_limit(), plan, Map.MOVES)
 			templates = false
 			go(current)))

@@ -119,7 +119,7 @@ func _draw_everything() -> void:
 		for i in maxi(1, (a["tabs"] as Array).size()):
 			main.act("go", "%s:%d" % [a["id"], i])
 	main.act("fighter", "lucy")
-	for i in 6:
+	for i in 7:   # S354 + Training
 		main.act("ftab", str(i))
 	main.act("go", "home:0")
 

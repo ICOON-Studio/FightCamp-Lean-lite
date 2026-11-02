@@ -129,4 +129,4 @@ static func swap(st: Dictionary, mode: String, k: int) -> String:
 
 ## "Read 60% of her Pressing - she goes at 80%" for the corner card.
 static func line(now_read: float, trig: float, label: String) -> String:
-	return "Read %d%% of her %s - she goes at %d%%" % [roundi(now_read * 100.0), label, roundi(minf(trig, 1.0) * 100.0)]
+	return "Read %d%% of the %s - goes at %d%%" % [roundi(now_read * 100.0), label, roundi(minf(trig, 1.0) * 100.0)]

@@ -14,6 +14,18 @@ const PICK := "   - coach's pick"
 const PICK_FILM := "   - coach's pick (from film)"
 
 
+const GRADE_WORD := {"Good": "Good", "OK": "Fair", "Poor": "Poor"}
+
+
+## A call's energy price per exchange (Exchanges CALLS cost) in words: "saves energy" .. "costs a lot of energy".
+static func energy_words(cost: float) -> String:
+	if cost < 0.0:
+		return "saves energy"
+	if cost == 0.0:
+		return "energy even"
+	return "costs a lot of energy" if cost >= 3.0 else "costs energy"
+
+
 static func _small(call: String, grades: Dictionary, line: String, names: Array) -> String:
 	var g := str(grades.get(call, "OK"))
 	return "%s\n%s" % [Exchanges.named(line, names), Exchanges.named(str(Exchanges.GRADE_LINE.get(g, "")), names)]
@@ -93,12 +105,14 @@ static func corner_grid(grades: Dictionary, coach: String, names: Array, pick: C
 		if compact:
 			# S350 operator on the refined card: "corner card has too much text" - one line a call: its name, coloured by her
 			# grade, a star on the coach's pick; when to use it, the grade and the round's numbers are the hover.
+			# S354 C205 ("communicate the options better and clearer, player needs to see some stats"): the colour alone did
+			# not say what it meant - each tile now says when to use it and, in her grade's colour, how good she is at it and
+			# what it costs her (Exchanges CALLS cost). The round's numbers sit in the stats table above the steps.
 			var g := str(grades.get(k, "OK"))
-			var tile := UI.button(("★  " if str(k) == coach else "") + str(c["label"]), "Choice", pick.bind(str(k)))
-			tile.custom_minimum_size = Vector2(200, 46)
-			tile.add_theme_font_size_override("font_size", UI.SMALL + 3)
-			for s in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
-				tile.add_theme_color_override(s, GRADE_COLOR.get(g, UI.FG))
+			var tile := UI.button2(("★  " if str(k) == coach else "") + str(c["label"]),
+				"%s\n%s" % [Exchanges.named(str(c["when"]).replace("Use when", "When"), names), "%s at it, %s" % [GRADE_WORD.get(g, g),
+				energy_words(float(c["cost"]))]], "Choice", pick.bind(str(k)), Vector2(200, 72), GRADE_COLOR.get(g, UI.FG), UI.MUTED,
+				false, UI.SMALL + 2, UI.TINY)
 			tile.name = "Corner_" + str(k)
 			tile.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			var hover := [_small(str(k), grades, str(c["when"]), names)]

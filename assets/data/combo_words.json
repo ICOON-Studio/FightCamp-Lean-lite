@@ -7,14 +7,14 @@
    "coach_learning": [
     "Second jab's the one that lands. Make it count.",
     "Don't pull back between them. Snap, snap.",
-    "Step with the second jab. Walk her back."
+    "Step with the second jab. Walk them back."
    ],
    "coach_signature": [
-    "Her double jab runs the fight now.",
+    "That double jab runs the fight now.",
     "Nobody gets past that double jab easy."
    ],
    "ring_lands": [
-    "{name} doubles the jab and backs her up.",
+    "{name} doubles the jab and backs the partner up.",
     "Two jabs from {name}, both on the nose."
    ],
    "ring_tired": [
@@ -26,13 +26,13 @@
    "name": "One-two",
    "plain": "A jab with the lead hand, then a straight punch with the back hand.",
    "coach_learning": [
-    "Jab to find her, right hand to finish.",
+    "Jab to find the range, right hand to finish.",
     "Turn the hip on the two. All your weight.",
     "Right hand comes straight back to the chin."
    ],
    "coach_signature": [
-    "Her one-two is the cleanest in the gym.",
-    "That one-two wins her rounds on its own."
+    "{name}'s one-two is the cleanest in the gym.",
+    "That one-two wins rounds on its own."
    ],
    "ring_lands": [
     "{name} lands the one-two, clean down the middle.",
@@ -45,19 +45,19 @@
   {
    "id": "1-1-2",
    "name": "Double jab, right hand",
-   "plain": "Two jabs to blind her, then a straight back-hand punch.",
+   "plain": "Two jabs to blind, then a straight back-hand punch.",
    "coach_learning": [
-    "Two jabs to blind her, then the right.",
+    "Two jabs to blind, then the right.",
     "Don't telegraph the right. Same rhythm.",
     "Feet under you on the third shot."
    ],
    "coach_signature": [
-    "Double jab, right hand. She does it in her sleep.",
+    "Double jab, right hand. {name} could do it asleep.",
     "She owns that rhythm now. Jab, jab, bang."
    ],
    "ring_lands": [
     "Two jabs and the right hand from {name}. Lovely.",
-    "{name} blinds her with the jab and lands the right."
+    "{name} blinds the partner with the jab and lands the right."
    ],
    "ring_tired": [
     "{name} doubles the jab and has nothing behind it."
@@ -73,12 +73,12 @@
     "Pivot on the lead foot for the hook."
    ],
    "coach_signature": [
-    "Right hand, left hook. Her finisher now.",
+    "Right hand, left hook. {name}'s finisher now.",
     "That hook behind the right catches everyone."
    ],
    "ring_lands": [
     "{name} lands the right and the hook comes behind it.",
-    "Right hand, left hook. {name} turns her head."
+    "Right hand, left hook. {name} turns heads."
    ],
    "ring_tired": [
     "{name} throws the right and the hook drops short."
@@ -89,13 +89,13 @@
    "name": "One-two, hook",
    "plain": "Jab, straight back hand, then a hook with the lead hand.",
    "coach_learning": [
-    "One-two to open her up, hook to close it.",
+    "One-two to open up, hook to close it.",
     "Hook's short. Don't swing it wide.",
     "Breathe out on every punch. Three breaths."
    ],
    "coach_signature": [
     "One-two, hook. Textbook, every time.",
-    "Her three-punch combo is the real deal."
+    "{name}'s three-punch combo is the real deal."
    ],
    "ring_lands": [
     "{name} goes one-two, hook. All three land.",
@@ -131,12 +131,12 @@
    "name": "Hook body, hook head",
    "plain": "A hook to the ribs, then the same hand hooks to the head.",
    "coach_learning": [
-    "Body first. Her hands come down. Then upstairs.",
+    "Body first. The hands come down. Then upstairs.",
     "Bend the knees for the body hook.",
     "Same hand, twice. Don't reset between."
    ],
    "coach_signature": [
-    "Her body-head hook is nasty now.",
+    "{name}'s body-head hook is nasty now.",
     "Down then up. They never see the second one."
    ],
    "ring_lands": [
@@ -158,7 +158,7 @@
    ],
    "coach_signature": [
     "She goes up, up, down better than anyone here.",
-    "That body hook at the end is her trademark."
+    "That body hook at the end is {name}'s trademark."
    ],
    "ring_lands": [
     "{name} goes one-two, then rips the body.",
@@ -192,7 +192,7 @@
   {
    "id": "slip 2-3",
    "name": "Slip and counter",
-   "plain": "She moves her head off a punch, then fires back right hand and hook.",
+   "plain": "Head off the punch, then right hand and hook back.",
    "coach_learning": [
     "Slip outside the jab, right hand straight back.",
     "Slip small. Just enough to make it miss.",
@@ -200,11 +200,11 @@
    ],
    "coach_signature": [
     "She slips and counters like it's nothing.",
-    "Jab at her and you'll eat the counter."
+    "Jab at {name} and eat the counter."
    ],
    "ring_lands": [
     "{name} slips the jab and lands right hand, hook.",
-    "Slip, right, hook. {name} makes her pay."
+    "Slip, right, hook. {name} makes them pay."
    ],
    "ring_tired": [
     "{name} slips it but has nothing to send back."

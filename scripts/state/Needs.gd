@@ -40,18 +40,18 @@ static func needs(career: Career) -> Array:
 	if not a.is_empty():
 		n.append({"red": true, "t": "A fighter is waiting at reception",
 			"s": "%s, %s, amateur %d-%d" % [a["name"], str(a["wc"]).to_lower(), a["w"], a["l"]],
-			"act": "interview", "arg": "", "label": "Meet her"})
+			"act": "interview", "arg": "", "label": "Meet the walk-in"})
 	for p in career.prospects:
 		if str(p["state"]) == "invited" and int(p["trial_day"]) <= career.day:
 			n.append({"red": true, "t": "Trial today: %s" % p["name"], "s": "%s, %s; she is at the gym" % [str(p["wc"]).to_lower(), p["note"]],
-				"act": "trial", "arg": p["id"], "label": "Watch her"})
+				"act": "trial", "arg": p["id"], "label": "Watch the trial"})
 	if not career.pro_offer.is_empty():
 		var pf := career.fighter_by_id(str(career.pro_offer["fid"]))
 		n.append({"red": true, "t": "A promoter wants to sign %s" % pf["name"], "s": "%s: a pro contract" % career.pro_offer["promoter"],
 			"act": "prooffer", "arg": pf["id"], "label": "Hear it"})
 	for f in career.fighters:
 		if Injuries.pending(f):
-			n.append({"red": true, "t": "%s is hurt before her bout" % f["first"], "s": Injuries.line(career, f) + "; pull her out or let her fight hurt",
+			n.append({"red": true, "t": "%s is hurt before the bout" % f["first"], "s": Injuries.line(career, f) + "; pull out or fight hurt",
 				"act": "injurychoice", "arg": f["id"], "label": "Decide"})
 		for o in f["offers"]:
 			if not bool(o["answered"]) and not bool(o["mismatch"]):
@@ -86,7 +86,7 @@ static func needs(career: Career) -> Array:
 			"s": "gains, moves, rankings, money", "act": "review", "arg": "", "label": "Open"})
 	for f in career.fighters:
 		if bool(f["goal_talk"]):
-			n.append({"red": false, "t": "%s is waiting in your office" % f["first"], "s": "pick her next goal",
+			n.append({"red": false, "t": "%s is waiting in your office" % f["first"], "s": "pick the next goal",
 				"act": "goaltalk", "arg": f["id"], "label": "Talk"})
 	return n
 

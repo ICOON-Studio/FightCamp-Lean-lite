@@ -57,7 +57,7 @@ func _tape(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		camp = "%s, %s" % [Data.LABEL[fc["focus"]], str(BoutRules.PROTOCOLS[int(fc["protocol"])]["name"]).to_lower()]
 	v.add_child(Tape.make(f["name"], "red corner", [
 		["Record", "%d-%d" % [f["w"], f["l"]]], ["Weight", "%.1f kg" % f["weight"]], ["Camp", camp],
-		["Film on her", "depth %d of 3" % int(f["bout"]["film"])],
+		["Film on the opponent", "depth %d of 3" % int(f["bout"]["film"])],
 	], opp["name"], "blue corner, %s" % opp["club"], [
 		["Record", "%d-%d" % [opp["w"], opp["l"]]], ["Style", opp["style"]],
 		# S341 her file: what tape study found, else unknown until the fight shows it.
@@ -65,8 +65,8 @@ func _tape(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		["Weakness", opp["weak"] if OppFile.known(opp, "weakness") else "unknown: not on tape"],
 	]))
 	var total := int(m.get("total", BoutRules.ROUNDS))
-	v.add_child(UI.note("%s rounds of three minutes%s. Every 30 seconds you can shout a call; read the clue, pick what fits, watch it work. In the corner between rounds you set her plan." % [
-		"Three" if total == 3 else "Four", ", her pro debut" if total > BoutRules.ROUNDS else ""]))
+	v.add_child(UI.note("%s rounds of three minutes%s. Every 30 seconds you can shout a call; read the clue, pick what fits, watch it work. In the corner between rounds you set the plan." % [
+		"Three" if total == 3 else "Four", ", a pro debut" if total > BoutRules.ROUNDS else ""]))
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	foot.add_child(UI.button("Sim to result", "BtnQuiet", main.act.bind("fightstep", "sim")))
@@ -338,7 +338,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	foot.add_child(UI.spacer())
 	var lit := lit_flow(m)
 	if not lit.is_empty():   # S340 her plan as a flow, lit with what fired and what worked (Q-S294-64)
-		var see := UI.button("Her plan, lit up", "Btn", _open_lit.bind(main, lit, "THE FLOW: %s vs %s" % [str(f["first"]).to_upper(), str(opp["first"]).to_upper()]))
+		var see := UI.button("The plan, lit up", "Btn", _open_lit.bind(main, lit, "THE FLOW: %s vs %s" % [str(f["first"]).to_upper(), str(opp["first"]).to_upper()]))
 		see.name = "PlanLit"
 		see.size_flags_vertical = Control.SIZE_SHRINK_END
 		foot.add_child(see)

@@ -25,10 +25,10 @@ var aim := ""
 var _drive: HBoxContainer
 var _aims: Array = []
 var _her := ""
-const PACE_COST := {"push": "wins more exchanges, burns her faster", "steady": "her own rhythm",
-	"save": "gives exchanges away, she gets her breath back"}
+const PACE_COST := {"push": "wins more exchanges, burns the tank faster", "steady": "own rhythm",
+	"save": "gives exchanges away, gets the breath back"}
 const PACE_LABEL := {"push": "Push", "steady": "Steady", "save": "Save"}
-const AIM_LABEL := {"": "Her own game", "head": "Head", "body": "Body", "left_ribs": "Left ribs", "right_ribs": "Right ribs", "head_hurt": "The hurt head"}
+const AIM_LABEL := {"": "Own game", "head": "Head", "body": "Body", "left_ribs": "Left ribs", "right_ribs": "Right ribs", "head_hurt": "The hurt head"}
 
 
 func setup(pv: Dictionary, round_n: int) -> void:
@@ -46,7 +46,7 @@ func setup(pv: Dictionary, round_n: int) -> void:
 	add_child(v)
 	var head := UI.hbox(12)
 	var left := 180 - int(pv.get("at", 30))
-	var names: Array = pv.get("names", ["Your fighter", "Her opponent"])
+	var names: Array = pv.get("names", ["Your fighter", "The opponent"])
 	head.add_child(UI.caps("ROUND %d   %d:%02d LEFT   WHAT DO YOU SHOUT TO %s?" % [round_n, left / 60, left % 60, str(names[0]).to_upper()]))
 	head.add_child(UI.spacer())
 	# S309 wording: she takes in two shouts a round in full (Exchanges.FULL_SHOUTS), the rest at half.

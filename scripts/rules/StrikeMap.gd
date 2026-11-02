@@ -10,8 +10,8 @@ const CARDS: Array = [
 	{"id": "mid", "name": "Mid range", "what": "Hook and uppercut range", "range_m": [0.7, 1.05]},
 	{"id": "inside", "name": "Inside", "what": "Heads close, short punches", "range_m": [0.45, 0.7]},
 	{"id": "clinch", "name": "Clinch", "what": "Tied up until the referee breaks it", "range_m": [0.0, 0.45]},
-	{"id": "own_ropes", "name": "On the ropes", "what": "Her back on the ropes or in a corner: she is trapped", "range_m": []},
-	{"id": "opp_ropes", "name": "She has her on the ropes", "what": "The opponent's back is on the ropes", "range_m": []},
+	{"id": "own_ropes", "name": "On the ropes", "what": "Back on the ropes or in a corner: trapped", "range_m": []},
+	{"id": "opp_ropes", "name": "Opponent on the ropes", "what": "The opponent's back is on the ropes", "range_m": []},
 	{"id": "corner", "name": "Corner trap", "what": "She has the opponent trapped in a corner", "range_m": []},
 ]
 
@@ -42,7 +42,7 @@ const MOVES: Array = [
 	{"id": "slip 2-3@own_ropes", "name": "Slip, cross, check hook", "kind": "combo", "combo": "slip 2-3", "from": "own_ropes", "to": "mid"},
 	{"id": "1-2@opp_ropes", "name": "One-two", "kind": "combo", "combo": "1-2", "from": "opp_ropes", "to": "opp_ropes"},
 	{"id": "3b-3@opp_ropes", "name": "Body hook, head hook", "kind": "combo", "combo": "3b-3", "from": "opp_ropes", "to": "inside"},
-	{"id": "herd", "name": "Walk her into the corner", "kind": "step", "combo": "", "from": "opp_ropes", "to": "corner"},
+	{"id": "herd", "name": "Herd into the corner", "kind": "step", "combo": "", "from": "opp_ropes", "to": "corner"},
 	{"id": "3b-3@corner", "name": "Body hook, head hook", "kind": "combo", "combo": "3b-3", "from": "corner", "to": "corner"},
 	{"id": "1-6-3@corner", "name": "Jab, uppercut, hook", "kind": "combo", "combo": "1-6-3", "from": "corner", "to": "corner"},
 	{"id": "spins_out", "name": "She spins out", "kind": "forced", "combo": "", "from": "corner", "to": "mid"},
@@ -87,7 +87,7 @@ static func grey_reason(row: Dictionary, mastery: Dictionary) -> String:
 			return "Learn the " + " and ".join(missing) + " first"
 		return ""
 	if kind == "forced":
-		return "It happens to her"
+		return "Done to your fighter"
 	return ""
 
 

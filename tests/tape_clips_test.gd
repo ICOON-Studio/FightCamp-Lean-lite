@@ -24,7 +24,7 @@ func _initialize() -> void:
 	var mc := TapeClips.clips(maria)
 	var shapes: Array = mc.map(func(c): return str(c["shape"]))
 	_check(shapes == ["press", "press_body", "hurt_body", "tiring"], "Maria's films: %s" % str(shapes))
-	_check(str(mc[0]["title"]) == "Her game: she walks you down" and str(mc[0]["when"]) == "press", "film 1: her game, %s" % str(mc[0]["title"]))
+	_check(str(mc[0]["title"]) == "Game: walks you down" and str(mc[0]["when"]) == "press", "film 1: her game, %s" % str(mc[0]["title"]))
 	_check((mc[3]["opens"] as Array) == ["weakness", "habit:fades_late"], "her fading weakness film also opens the fades-late habit: %s" % str(mc[3]["opens"]))
 
 	# 2. Priya: a different film set (a counter-puncher), first film her counters.

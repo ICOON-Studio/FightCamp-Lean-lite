@@ -17,7 +17,7 @@ func build(main: Node, m: Dictionary) -> void:
 	add_child(v)
 	v.add_child(UI.caps("%s VS %s, %s" % [str(f["name"]).to_upper(), str(opp["name"]).to_upper(), Clock.fmt(int(f["bout"]["day"])).to_upper()]))
 	v.add_child(UI.display("FIGHT CAMP", 48))
-	v.add_child(UI.muted("Pick what the camp builds. It also cuts her to %.1f kg (she is %.1f kg now)." % [f["limit"], f["weight"]], UI.BODY, true))
+	v.add_child(UI.muted("Pick what the camp builds. It also cuts weight to %.1f kg (%.1f kg now)." % [f["limit"], f["weight"]], UI.BODY, true))
 	v.add_child(UI.caps("FOCUS"))
 	var focus_row := UI.hbox(8)
 	for key in BoutRules.CAMP_FOCUSES:
@@ -38,7 +38,7 @@ func build(main: Node, m: Dictionary) -> void:
 		proto_row.add_child(b)
 	v.add_child(proto_row)
 	var film := UI.button2("Film study on %s: %s" % [opp["name"], "yes, %s" % UI.money(BoutRules.FILM_COST) if bool(m["film"]) else "no"],
-		"her past bouts on film: watch them in the tape room, answer her in the plan (click to switch)",
+		"the opponent's past bouts on film: watch them in the tape room, answer them in the plan (click to switch)",
 		"ChoiceOn" if bool(m["film"]) else "Choice", main.act.bind("cfilm", ""), Vector2(0, 64), UI.FG, UI.MUTED)
 	film.name = "Film"
 	v.add_child(film)

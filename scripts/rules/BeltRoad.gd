@@ -35,11 +35,11 @@ const SYLLABUS := {
 		["Escapes and survival", ["shrimp_bridge", "frame_recover_guard", "seatbelt_escape", "posture_closed_guard"]],
 		["Passes and sweeps", ["bullfighter_pass", "knee_cut_pass", "scissor_sweep", "hip_bump_sweep"]],
 		["Takedowns and submissions", ["double_leg", "armbar_guard", "kimura", "americana", "rear_naked_choke", "guillotine"]]]},
-	"blue": {"title": "Her game", "groups": [
+	"blue": {"title": "Building a game", "groups": [
 		["Guards", ["de_la_riva", "single_leg_x", "deep_half", "butterfly_sweep"]],
 		["Passes and back takes", ["over_under_pass", "leg_drag", "arm_drag_back", "berimbolo"]],
 		["Submissions", ["triangle", "straight_ankle_lock", "darce"]]]},
-	"purple": {"title": "Her system", "groups": [
+	"purple": {"title": "A full system", "groups": [
 		["Open guard", ["k_guard", "waiter_sweep", "body_lock_pass"]],
 		["Leg locks", ["outside_heel_hook", "kneebar", "toe_hold"]],
 		["Chokes", ["anaconda", "north_south_choke", "back_triangle"]]]},

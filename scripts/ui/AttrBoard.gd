@@ -24,17 +24,17 @@ const NAME := {"footwork": "Footwork", "heart": "Heart", "discipline": "Discipli
 const PERSONALITY := ["heart", "discipline", "confidence", "coachability", "temper"]
 ## What each value does in a bout (read from the rule that uses it).
 const WHY := {
-	"power": "How hard she hits: hurting her, knockdowns, the corner's \"Go get her\".",
-	"speed": "Hand speed: who lands first and how long her combinations run.",
+	"power": "How hard the punches land: hurting the opponent, knockdowns, the corner's \"Go for the finish\".",
+	"speed": "Hand speed: who lands first and how long combinations run.",
 	"technique": "Clean punches, and how fast a move comes on the pads.",
 	"defense": "Slips and blocks: how much of the other woman's work gets through.",
-	"footwork": "Jab and move: turning her and keeping the range she wants. Grows with speed and defence.",
-	"conditioning": "When she tires: her energy over the rounds and between them.",
+	"footwork": "Jab and move: turning the opponent and keeping the range. Grows with speed and defence.",
+	"conditioning": "When the tank runs low: energy over the rounds and between them.",
 	"chin": "How much she takes before she is hurt or down.",
 	"fight_iq": "Ring IQ: reading the other woman's game and making the corner's calls work.",
 	"heart": "Getting up from a knockdown, holding on when hurt, going for the finish.",
 	"discipline": "Sticking to the plan and the corner's \"Breathe, pick your shots\".",
-	"confidence": "Lifts her after a good round, sinks her after a bad one.",
+	"confidence": "Lifts after a good round, sinks after a bad one.",
 	"coachability": "How quickly a fix from the corner takes hold.",
 	"temper": "High: she trades when she is hit (a gambler). Low: she stays patient.",
 }
@@ -94,14 +94,14 @@ static func build(f: Dictionary) -> PanelContainer:
 	var pot := float(f.get("pot", 0.0))
 	var key := UI.hbox(6)
 	key.add_child(_key_swatch())
-	key.add_child(UI.muted("her value", UI.TINY))
+	key.add_child(UI.muted("value", UI.TINY))
 	if pot > 0.0:
 		var tick := ColorRect.new()
 		tick.color = UI.FG
 		tick.custom_minimum_size = Vector2(3, 14)
 		tick.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		key.add_child(tick)
-		key.add_child(UI.muted("her potential, %d    hover a row for what it does" % int(pot), UI.TINY))
+		key.add_child(UI.muted("potential, %d    hover a row for what it does" % int(pot), UI.TINY))
 	head.add_child(key)
 	c[1].add_child(head)
 	var body := UI.hbox(32)

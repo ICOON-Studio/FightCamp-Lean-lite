@@ -21,6 +21,7 @@ const FIG_SIZE := Vector2(340, 420)   # S334 C153 "still needs to be bigger" (S3
 const TOP := 262.0   # S346 just under her two rings (HudBars), so the panel clears the shout bar
 const EDGE := 28.0
 const CORNER := ["red", "blue"]
+const CORNER_WHO := ["a", "b"]
 
 var view: Control
 var map: Dictionary = BodyMap.fresh()
@@ -70,7 +71,9 @@ func _build() -> void:
 		fig.tip_fn = _place_tip.bind(side)
 		BodyTip.attach(fig)
 		# S348 the operator's anatomy-chart pictures: close-ups of her head, liver and ribs in the strip at the screen edge.
-		BodyCallouts.attach(fig, still, -1.0 if side == 0 else 1.0, _place_tip.bind(side))
+		var co := BodyCallouts.attach(fig, still, -1.0 if side == 0 else 1.0, _place_tip.bind(side))
+		if co != null and map.has(CORNER_WHO[side]):
+			co.set("marks", map[CORNER_WHO[side]])   # S354 C202: her cuts and swelling on the face close-up
 		_stat_labels.append(fig)
 		view.add_child(panel)
 		if side == 0:
@@ -89,7 +92,7 @@ func _build() -> void:
 
 ## S323 playtest ("blue = fresh is not obvious") gave the figure a key; S347 moved it into her tooltip. S348 (C200 "the
 ## right holo has nothing to do with the actual fighter"): she is drawn in her own skin again, only her kit is neutral.
-const KEY_WORDS := "Her own colours = fresh. Green = warm, yellow = hot, red = burning: how hard that part has worked.\nRed skin on her face or ribs = hurt there. Point at her head, face or ribs for what landed."
+const KEY_WORDS := "Own colours = fresh. Green = warm, yellow = hot, red = burning: how hard that part has worked.\nRed skin on the face or ribs = hurt there. Point at the head, face or ribs for what landed."
 
 
 ## A beat FightView fires; a landed punch reaches the other boxer `at_s` from now (its contact).
@@ -129,6 +132,9 @@ func _apply(b: Dictionary) -> void:
 			fig.hit(p, str(b["move"]).replace("_", " "))
 			BodyTip.log_hit(taken[0 if def == "a" else 1], p, str(b["move"]), bool(b.get("big", false)), int(view.get("round_n")))
 	fig.set_values(vals)
+	var co: Node = fig.get_node_or_null("BodyCallouts")
+	if co != null:
+		co.set("marks", map[def])
 
 
 ## Her tooltip on `place`: what landed there this bout, how hurt it is, a cut (C199).

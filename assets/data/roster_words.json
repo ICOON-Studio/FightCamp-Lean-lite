@@ -1,38 +1,38 @@
 {
  "trial_open": [
-  "{name} turned up at {gym} at nine sharp with her own gloves and a nervous grin.",
+  "{name} turned up at {gym} at nine sharp with own gloves and a nervous grin.",
   "{name} has come in for a trial. The coach wants three rounds on the pads, then sparring.",
   "A trial at {gym} today: {name}, recommended by a coach from across the river.",
-  "{name} wrapped her own hands, which the coach noticed straight away.",
-  "{name} arrived early for her trial and was skipping before anyone else got in.",
+  "{name} wrapped both hands without help, which the coach noticed straight away.",
+  "{name} arrived early for the trial and was skipping before anyone else got in.",
   "{name} is in for a trial. She says she's had a few bouts and wants a proper gym."
  ],
  "trial_good": [
-  "Good trial. {name}'s {best} is the real thing. I'd sign her today.",
-  "{name} took everything we threw at her. Her {best} stands out. Worth a place.",
+  "Good trial. {name}'s {best} is the real thing. I'd sign {name} today.",
+  "{name} took everything we threw. The {best} stands out. Worth a place.",
   "She listens and she learns fast. {name}'s {best} is already better than most here.",
-  "Three hard rounds and {name} didn't fade. That {best} will win her fights.",
+  "Three hard rounds and {name} didn't fade. That {best} will win fights.",
   "I've seen a lot of trials. {name}'s {best} is the best I've seen this year.",
-  "{name} is ready to work. Her {best} gives us something to build on."
+  "{name} is ready to work. The {best} gives us something to build on."
  ],
  "trial_mixed": [
-  "{name}'s {best} is good, but her {worst} needs months of work.",
-  "Mixed day. Strong {best}, but {name}'s {worst} let her down in sparring.",
+  "{name}'s {best} is good, but the {worst} needs months of work.",
+  "Mixed day. Strong {best}, but {name}'s {worst} let the side down in sparring.",
   "There's something there with the {best}. The {worst} worries me.",
-  "{name} has a real {best}. Whether we can fix her {worst} is the question.",
+  "{name} has a real {best}. Whether we can fix the {worst} is the question.",
   "Half a fighter today: {best} was sharp, {worst} was poor.",
-  "{name} could be useful if we're patient with her {worst}. The {best} is real."
+  "{name} could be useful if we're patient with the {worst}. The {best} is real."
  ],
  "pro_offer": [
-  "{promoter} rang about {her}: a 4-round debut on their next show, 100 tickets for her to sell.",
-  "{promoter} wants {her} on their card. Pro contract: her debut pays from the tickets she sells.",
+  "{promoter} rang about {her}: a 4-round debut on their next show, 100 tickets to sell.",
+  "{promoter} wants {her} on their card. Pro contract: the debut pays from ticket sales.",
   "{promoter} has watched {her} box and is offering a pro deal: a debut on their small-hall show.",
-  "A call from {promoter}: they think {her} is ready to turn pro. {purse} a bout after her debut."
+  "A call from {promoter}: they think {her} is ready to turn pro. {purse} a bout after the debut."
  ],
  "pro_debut": [
-  "{her} makes her pro debut against {opp} over four rounds.",
-  "It's official: {her} turns pro and meets {opp} on her debut.",
+  "{her} makes a pro debut against {opp} over four rounds.",
+  "It's official: {her} turns pro and meets {opp} on debut.",
   "{her}'s first pro fight is booked. Opponent: {opp}, four rounds.",
-  "From the amateurs to the pros: {her} faces {opp} on her debut."
+  "From the amateurs to the pros: {her} faces {opp} on debut."
  ]
 }

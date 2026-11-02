@@ -78,7 +78,7 @@ static func cannot_enter(c: Career, f: Dictionary) -> String:
 		return "Entries open on %s" % Clock.fmt(opens_on(c))
 	var b: Dictionary = f["bout"]
 	if not b.is_empty() and int(b["day"]) >= stage_day(close, 0) - 2:
-		return "Her bout on %s clashes with the regional (%s)" % [Clock.fmt(int(b["day"])), Clock.fmt(stage_day(close, 0))]
+		return "The bout on %s clashes with the regional (%s)" % [Clock.fmt(int(b["day"])), Clock.fmt(stage_day(close, 0))]
 	return ""
 
 
@@ -109,7 +109,7 @@ static func enter(c: Career, f: Dictionary) -> bool:
 	f["elite"] = true
 	for o in f["offers"]:
 		o["answered"] = true
-	c.add_news("%s is entered for the National Amateur Championships: the London regional starts %s. Entering makes her an Elite boxer." % [
+	c.add_news("%s is entered for the National Amateur Championships: the London regional starts %s. Entry means Elite status." % [
 		f["name"], Clock.fmt(stage_day(close, int(ch["stage"])))])
 	if (f["bout"] as Dictionary).is_empty():
 		book_next(c, f)
@@ -143,7 +143,7 @@ static func book_next(c: Career, f: Dictionary) -> void:
 		var inj: Dictionary = f.get("injury", {})
 		var hurt_past := Injuries.out(c, f) and int(inj["until_day"]) > day
 		if hurt_past and Injuries.NO_CHOICE.has(str(inj["type"])):
-			withdraw(c, f, "no doctor will clear her")
+			withdraw(c, f, "no doctor will clear the fight")
 			return
 		f["bout"] = {"opp": (ch["field"][opp] as Dictionary).duplicate(true), "day": day, "weighed": day == c.day,
 			"made": day == c.day, "done": false, "film": BoutRules.FILM_DEPTH_DEFAULT, "champ": stage}

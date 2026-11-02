@@ -102,12 +102,14 @@ func _initialize() -> void:
 	await _shot("22_goaltalk")
 	main.act("setgoal")
 	main.act("fighter", "lucy")
-	main.act("ftab", "3")
+	main.act("ftab", "4")
 	await _shot("23_record")
 	main.act("ftab", "0")
 	await _shot("23b_coach_notes")
 	main.act("ftab", "1")
 	await _shot("23c_combos")
+	main.act("ftab", "3")
+	await _shot("23e_training_tab")   # S354 C204 her week's board on her page
 	main.act("go", "fighters:1")
 	await _shot("23d_training_combo")
 	# S351 the Miro loop board (operator: "menus/submenus/modals/tooltips"): two tooltips on the training board, the

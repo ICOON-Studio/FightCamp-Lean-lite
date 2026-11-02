@@ -25,7 +25,7 @@ const SHOTS := [[0.0, "part"], [2.2, "behind"], [4.4, "low_out"], [6.4, "water"]
 const CUES := [[0.3, "walk"], [2.2, "crew_in"], [6.4, "water"], [7.8, "ice"], [9.0, "face"], [30.0, "cutman"], [34.0, "cutman_off"],
 	[40.0, "blue_talk"], [50.0, "default_call"], [52.0, "seconds_out"], [52.4, "stand"], [54.6, "walk_out"]]
 ## The coach's line for each call (what a real corner says in that minute).
-const LINES := {"long": "Stay long. Jab and move, make her reach for you.", "body": "Go downstairs. Dig to the body, the head comes later.",
+const LINES := {"long": "Stay long. Jab and move, make every punch reach.", "body": "Go downstairs. Dig to the body, the head comes later.",
 	"calm": "Breathe. Slow it down and pick your shots."}
 ## After the pick the reverse holds on the coach this long, then back over his shoulder.
 const REVERSE_S := 3.5

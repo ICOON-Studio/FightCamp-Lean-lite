@@ -13,9 +13,13 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const NextStep := preload("res://scripts/rules/NextStep.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
+const TrainingBoard := preload("res://scripts/ui/TrainingBoard.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 
-const TABS := ["Overview", "Attributes and moves", "Body", "Record", "Camp", "Contract and goals"]
+## S354 C204 (operator on the training board: "this should be like a sub tab in the players profile , to see an an overview
+## of the training"): her week's board (TrainingBoard) is her page's Training tab.
+const TABS := ["Overview", "Attributes and moves", "Body", "Training", "Record", "Camp", "Contract and goals"]
+const TRAINING_TAB := 3
 
 
 func build(main: Node, f: Dictionary) -> void:
@@ -56,7 +60,7 @@ func build(main: Node, f: Dictionary) -> void:
 				bar.frac = mm / 100.0
 				mv_card.add_child(row)
 			_combos(f, moves)
-			mv_card.add_child(UI.muted("Gold bar = a weapon. Pad time goes to the move she is learning; her week cards keep theirs sharp (%s). Weapons on the night: %d (+%.1f)." % [
+			mv_card.add_child(UI.muted("Gold bar = a weapon. Pad time goes to the move being learned; the week cards keep theirs sharp (%s). Weapons on the night: %d (+%.1f)." % [
 				", ".join(f["cards"]),
 				BoutRules.weapons(moves).size(), BoutRules.weapons_edge(BoutRules.weapons(moves))], UI.SMALL, true))
 		2:
@@ -64,19 +68,21 @@ func build(main: Node, f: Dictionary) -> void:
 			UI.add_rows(card, [UI.kv("Weight", "%.1f kg" % f["weight"], UI.FG, "mono"), UI.kv("Class limit", "%.1f kg" % f["limit"], UI.FG, "mono"),
 				UI.kv("Plan", "cutting" if str(f["diet"]) == "cut" else "holding"), _injury_row(main.career, f)])
 		3:
+			add_child(TrainingBoard.make(main, c, f))
+		4:
 			var title := "RECORD: %d-%d AMATEUR" % [f["w"], f["l"]]
 			if bool(f.get("pro", false)):
 				title += ", %d-%d-%d PRO (%s)" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0)), int(f.get("pro_d", 0)), f.get("promoter", "")]
 			var card := _card(title)
 			var mine := c.results.filter(func(r): return str(r.get("fid", f["id"])) == str(f["id"]))
 			if mine.is_empty():
-				card.add_child(UI.muted("Her bouts for your gym show here.", UI.BODY))
+				card.add_child(UI.muted("Bouts for your gym show here.", UI.BODY))
 			var rows: Array = []
 			for r in mine:
 				rows.append(UI.row("%s vs %s, %s" % ["Won" if bool(r["win"]) else "Lost", r["opp"], r["cards"]],
 					"%s. %s" % [Clock.fmt(int(r["d"])), r["why"]], UI.GREEN if bool(r["win"]) else UI.RED))
 			UI.add_rows(card, rows)
-		4:
+		5:
 			var card := _card("CAMP")
 			var camp: Dictionary = f["camp"]
 			var fb: Dictionary = f["bout"]
@@ -85,10 +91,10 @@ func build(main: Node, f: Dictionary) -> void:
 					str(BoutRules.PROTOCOLS[int(camp["protocol"])]["name"]).to_lower(), int(fb["film"])], UI.BODY, UI.FG, "body", true))
 				# S341 her file (OppFile): what tape study has found so far, and its answers; the rest is hidden.
 				var opp: Dictionary = fb.get("opp", {})
-				card.add_child(UI.caps("SCOUTING %s" % str(opp.get("name", "her")).to_upper()))
+				card.add_child(UI.caps("SCOUTING %s" % str(opp.get("name", "the opponent")).to_upper()))
 				if bool(camp.get("film", false)):
 					# S343 the tape room (Q-S294-68): watch her films, read her flow, answer her in the plan.
-					var tape := UI.button("Watch her tape", "BtnSolid", main.act.bind("taperoom", f["id"]))
+					var tape := UI.button("Watch the tape", "BtnSolid", main.act.bind("taperoom", f["id"]))
 					tape.name = "TapeRoom"
 					tape.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 					card.add_child(tape)
@@ -99,13 +105,13 @@ func build(main: Node, f: Dictionary) -> void:
 				var days_to_bout := int(fb["day"]) - c.day
 				var camp_locked := days_to_bout < BoutRules.CAMP_MIN_DAYS
 				var camp_why := "Bout in %d days - a camp needs at least %d days before fight night" % [days_to_bout, BoutRules.CAMP_MIN_DAYS]
-				var b := UI.button("Set her camp", "BtnSolid", main.act.bind("camp", f["id"]), camp_locked, camp_why)
+				var b := UI.button("Set the camp", "BtnSolid", main.act.bind("camp", f["id"]), camp_locked, camp_why)
 				b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 				card.add_child(b)
 				card.add_child(OppFileCard.build(fb.get("opp", {}), false, OppFileCard.OppFile.history(c.results, str(fb.get("opp", {}).get("name", "")))))
 			else:
 				card.add_child(UI.muted("No bout booked.", UI.BODY))
-		5:
+		6:
 			var card := _card("CONTRACT")
 			UI.add_rows(card, [UI.kv("Terms", "Club stipend, $250 a week"), UI.kv("Until", "she turns pro")])
 			card.add_child(UI.caps("GOALS SO FAR"))
@@ -133,7 +139,7 @@ func _combos(f: Dictionary, moves: Dictionary) -> void:
 		var bar: Control = r.get_meta("bar")
 		bar.frac = mm / 100.0
 		card.add_child(r)
-	card.add_child(UI.muted("Each combination in a fight costs energy, longer ones more; her conditioning decides how fast she tires.", UI.SMALL, true))
+	card.add_child(UI.muted("Each combination in a fight costs energy, longer ones more; conditioning decides how fast the tank empties.", UI.SMALL, true))
 
 
 ## S325 update 28: her injury or suspension, red while she is out.
@@ -168,9 +174,9 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 		body.add_child(UI.label("\"%s\"" % row["line"], UI.SMALL, UI.FG, "italic", true))
 	var goal := _card("GOAL", grid)
 	if g.is_empty():
-		goal.add_child(UI.muted("Waiting in your office for her next goal." if bool(f["goal_talk"]) else "No goal set.", UI.BODY, true))
+		goal.add_child(UI.muted("Waiting in your office for the next goal." if bool(f["goal_talk"]) else "No goal set.", UI.BODY, true))
 		if bool(f["goal_talk"]):
-			var talk := UI.button("Talk to her", "Btn", main.act.bind("goaltalk", f["id"]))
+			var talk := UI.button("Talk to %s" % str(f["first"]), "Btn", main.act.bind("goaltalk", f["id"]))
 			talk.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			goal.add_child(talk)
 	else:
@@ -187,7 +193,7 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	var nb: Dictionary = f["bout"]
 	goal.add_child(UI.muted("vs %s, %s" % [nb["opp"]["name"], Clock.fmt(int(nb["day"]))] if not nb.is_empty() else "None booked.", UI.BODY))
 	var buttons := UI.hbox(8)
-	buttons.add_child(UI.button("Plan her week", "BtnSolid", main.act.bind("go", "fighters:1")))
+	buttons.add_child(UI.button("Plan the week", "BtnSolid", main.act.bind("go", "fighters:1")))
 	buttons.add_child(UI.button("Fight plan (%d arrows)" % (f.get("arrows", []) as Array).size() if not (f.get("arrows", []) as Array).is_empty()
 		else "Fight plan", "Btn", main.act.bind("plan", f["id"])))
 	buttons.add_child(UI.button("Find a bout", "Btn", main.act.bind("go", "fights:0")))

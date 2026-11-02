@@ -6,10 +6,10 @@ extends RefCounted
 const PATH := "res://assets/data/fight_words.json"
 
 const FALLBACK := {
-	"opener": {"*": {"her": ["{her}'s jab finds {opp} early."], "their": ["{opp} walks her down."]}},
+	"opener": {"*": {"her": ["{her}'s jab finds {opp} early."], "their": ["{opp} walks {her} down."]}},
 	"moment": {"*": {
-		"her": {"none": ["{her} slips the {threat} and answers."], "long": ["{her} stays long and the jab keeps {opp} off her."],
-			"body": ["{her} digs two hooks to the body. {opp} bends."], "calm": ["{her} breathes, sets her feet and picks her shots."]},
+		"her": {"none": ["{her} slips the {threat} and answers."], "long": ["{her} stays long and the jab keeps {opp} away."],
+			"body": ["{her} digs two hooks to the body. {opp} bends."], "calm": ["{her} breathes, sets the feet and picks the shots."]},
 		"their": {"none": ["The {threat} lands twice."], "long": ["{opp} cuts the ring off; the jab finds only gloves."],
 			"body": ["{her} goes to the body and walks onto the {threat}."], "calm": ["Calm is not enough: the {threat} lands twice."]},
 	}},
