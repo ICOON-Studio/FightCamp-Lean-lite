@@ -77,16 +77,24 @@ static func twist_monday(career: Career, f: Dictionary) -> void:
 		for k in ["lefty", "hot"]:
 			if bool(once.get(k, false)):
 				b[k] = true
+	# S357 the short-notice swap: take the tougher opponent, or withdraw and end the camp.
+	if bool(once.get("swap_opp", false)):
+		Bouts.short_notice(career, f)
+	elif bool(once.get("withdraw", false)):
+		Bouts.withdraw_bout(career, f)
 
 
-## What her coming week holds for the twist cards' needs: a booked bout, a cut, a combo on the pads, a southpaw opponent.
-static func twist_needs(f: Dictionary) -> Array:
+## What her coming week holds for the twist cards' needs: a booked bout, a cut, a combo on the pads, a southpaw opponent, a
+## short-notice swap (S357: an amateur bout 2+ weeks out with a tougher opponent to send - needs the career).
+static func twist_needs(f: Dictionary, career: Career = null) -> Array:
 	var out: Array = []
 	var b: Dictionary = f.get("bout", {})
 	if not b.is_empty() and not bool(b.get("done", false)):
 		out.append("bout")
 		if str((b.get("opp", {}) as Dictionary).get("stance", "")).to_lower() == "southpaw":
 			out.append("southpaw")
+		if career != null and Bouts.can_swap(career, f):
+			out.append("swap")
 	if float(f["weight"]) > float(f["limit"]) - 0.15 and (str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty()):
 		out.append("cut")
 	if str(f.get("combo_learning", "")) != "":
@@ -331,7 +339,7 @@ static func end_week(career: Career) -> void:
 		# The next week's twist card (never the same one twice running).
 		var bt: Dictionary = f.get("bout", {})
 		var fight_week := not bt.is_empty() and not bool(bt.get("done", false)) and int(bt.get("day", 0)) - career.day <= 7
-		var nt := WeekTwist.draw(week + 1 + career.fighters.find(f) * 31, str(f.get("twist", "")), fight_week, twist_needs(f))
+		var nt := WeekTwist.draw(week + 1 + career.fighters.find(f) * 31, str(f.get("twist", "")), fight_week, twist_needs(f, career))
 		WeekTwist.deal(f, nt)
 		# (No news line: the Training tab shows the card all week and the review names it - a weekly line flooded Mail.)
 		var rank_before := int(f.get("rank_at_review", f.get("rank", 0)))

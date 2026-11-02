@@ -138,12 +138,12 @@ func _week(main: Node, f: Dictionary, days: Array, base: Array, evs: Array, wk: 
 			rule.custom_minimum_size = Vector2(2, 0)
 			row.add_child(rule)
 		row.add_child(_day(main, str(f["id"]), i, days[i], base[i], evs[i], wk["days"][i], (wk["red"] as Array).has(i),
-			changed.has(str(i)), items))
+			changed.has(str(i)), items, str(WeekTwist.active(f).get("name", ""))))
 	return box
 
 
 func _day(main: Node, fid: String, i: int, m: Array, planned: Array, evening: String, r: Dictionary, red: bool, mine: bool,
-		items: Array) -> Control:
+		items: Array, twist := "") -> Control:
 	var pad := MarginContainer.new()
 	pad.name = "Day_%d" % i
 	for side in ["left", "right"]:
@@ -164,6 +164,9 @@ func _day(main: Node, fid: String, i: int, m: Array, planned: Array, evening: St
 	var name := "off" if rest else str(WeekPhase.NAMES.get(str(m[0]), str(m[0])))
 	var tip := "%s\n%s\nfatigue %d by the night%s" % [WeekPhase.card(m), _numbers(r), int(round(float(r["fatigue"]))),
 		"\nYour change - pick the coach's card again to undo it" if mine else ""]
+	# S357 (S356 stills): a day the twist changed names the card it replaced.
+	if m != planned:
+		tip += "\nTwist (%s): replaces %s" % [twist, WeekPhase.card(planned)]
 	var cur := items.map(func(it): return it[1]).find([str(m[0]), "normal" if rest else str(m[1])])
 	var mag := WB.pick_magnet(name, "" if rest else WB.roman(str(m[1])), str(m[1]) == "hard", tip, items, cur,
 		func(d): main.act("wday", "%s|%d|%s|%s" % [fid, i, d[0], d[1]]))

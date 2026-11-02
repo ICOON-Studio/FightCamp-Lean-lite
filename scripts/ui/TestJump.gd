@@ -12,6 +12,9 @@ extends RefCounted
 ##                                        out of the bout (the club pays the empty slot); opens on her fighter page
 ##   FightCamp.exe -- jump=nationals      S328 update 30: a known career played through its first bouts (offers accepted,
 ##                                        bouts boxed) until Lucy can enter the nationals; opens on WORLD > Nationals
+##   FightCamp.exe -- jump=camp           S357 update 59: quick start, Lucy booked and her camp started, a choice twist dealt
+##                                        (the short-notice swap when the bout is 2+ weeks out); opens on her Training tab -
+##                                        the coach's whiteboard
 ##   FightCamp.exe -- jump=pro            S329 update 31: quick start, Lucy put at the line (9-1 amateur) - the promoter's
 ##                                        offer opens: her debut tickets, what the gym pays now; sign and play to the debut
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
@@ -20,9 +23,10 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
+const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 
@@ -108,6 +112,18 @@ static func run(main: Node, jump: String) -> bool:
 		# S327 (Q-S294-46): the injury runs past her bout, so the player decides - the jump lands on that choice.
 		main.act("injurychoice", str(f["id"]))
 		return Injuries.pending(f) and str(main.modal.get("title", "")).contains("hurt before the bout")
+	if jump == "camp":
+		# The week review deals the next week's card and Monday locks it: a card dealt mid-week is replaced unseen at the
+		# review (S357 stills: the swap never ran). So run to the review, close it, then deal the week ahead's card.
+		for i in 14:
+			if c.review_pending:
+				break
+			main.run_to_stop()
+		_tidy(main, c)
+		WeekTwist.deal(f, WeekTwist.card("short_notice" if Bouts.can_swap(c, f) else "trash_talk"))
+		main.act("fighter", str(f["id"]))
+		main.act("ftab", "3")
+		return not (f["camp"] as Dictionary).is_empty() and WeekTwist.card(str(f["twist"])).has("a")
 	if jump == "taperoom":
 		# S343: her camp with film study opens the tape room on her opponent (Q-S294-68).
 		main.act("fighter", str(f["id"]))

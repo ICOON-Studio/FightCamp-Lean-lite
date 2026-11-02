@@ -48,6 +48,25 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump == "camp":
+			# S357 update 59: in her camp, a choice twist dealt, on her Training tab (the whiteboard, FighterPage tab 3).
+			_check(ok and str(main.route.get("fighter", "")) == str(f["id"]) and int(main.route.get("ftab", -1)) == 3
+				and not (f["camp"] as Dictionary).is_empty() and str(f.get("twist", "")) != "" and not bool(f.get("twist_locked", true)),
+				"camp: her camp, an unanswered twist card (%s), on her Training tab" % str(f.get("twist", "")))
+			# S357: the card is the week AHEAD's - Monday must run it (a card dealt mid-week was replaced unseen at the review).
+			var dealt := str(f.get("twist", ""))
+			var was := str(f["bout"]["opp"]["name"])
+			for i in 8:
+				if bool(f.get("twist_locked", false)):
+					break
+				main.run_to_stop(1)
+			var ran := str(f.get("twist", "")) == dealt and bool(f.get("twist_locked", false))
+			if dealt == "short_notice":
+				ran = ran and str(f["bout"]["opp"]["name"]) != was and bool(f["bout"].get("short_notice", false))
+			_check(ran, "camp: Monday runs the dealt card (%s; opponent %s -> %s)" % [dealt, was, str(f["bout"]["opp"]["name"])])
+			main.queue_free()
+			await process_frame
+			continue
 		if jump == "taperoom":
 			# S343 (Q-S294-68): in her camp with film study, the tape room opens on her opponent's films.
 			var room: Node = main.get_node_or_null("TapeRoom")

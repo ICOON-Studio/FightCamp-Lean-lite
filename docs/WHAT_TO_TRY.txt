@@ -1,3 +1,14 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 60 (2026-11-02): THE SHORT-NOTICE SWAP, A TEST BUTTON FOR THE CAMP
+===============================================================================================
+
+ 1. THE SHORT-NOTICE SWAP (the last card of your Miro twist draft). Rare, and only when her amateur bout is 2+ weeks out:
+    her opponent pulls out and the show offers a tougher one on the same night. TAKE THE FIGHT (the coach's call): the
+    next step up in her division, the tape study starts again from today, and a win is worth twice the reputation (+10).
+    WITHDRAW: the bout and the camp are over (the camp's cost is spent) and offers come again a few days later.
+ 2. THE WHITEBOARD: a day the twist changed now says on its hover which card it replaced.
+ 3. OPS BOARD: "Test: a camp on the whiteboard (update 59)" opens Lucy mid-camp on her Training tab with a twist card to
+    answer (the short-notice swap when her bout allows one): answer it, press Test it, CONTINUE through the camp.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 59 (2026-11-02): THE WHITEBOARD WEEK, TWIST CARDS YOU ANSWER, TEST YOUR PLAN, PEAK CAMP
 =========================================================================================================================
 

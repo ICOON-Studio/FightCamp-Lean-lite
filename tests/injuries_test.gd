@@ -23,6 +23,9 @@ func _check(ok: bool, what: String) -> void:
 
 func _career() -> Career:
 	var c := Career.quick_start()
+	# S357 one known career: quick_start's seed is randi(), so about 1 run in 8 a fresh training injury inside the 12 days
+	# after she is cleared failed "cleared when the days are up" (the S357 export).
+	c.seed = 325
 	Sim.sign(c, ["Jab and move", "Pad rounds", "Hill sprints"])
 	c.cash = 1000000
 	return c

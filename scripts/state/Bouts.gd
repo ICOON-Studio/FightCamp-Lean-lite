@@ -38,6 +38,8 @@ const AFTER_EXPIRY := 4
 const AFTER_DECLINE := 5
 const AFTER_MISSED_WEIGHT := 6
 const AFTER_FIGHT := 10
+## S357 the short-notice swap only 2+ weeks out (the Miro draft: a late swap inside fight week is a withdrawal, not a camp).
+const SWAP_MIN_DAYS := 14
 ## The goals she can pick in the office after a bout.
 const NEXT_GOALS: Array[String] = ["southpaw_answer", "five_round_engine"]
 
@@ -165,6 +167,60 @@ static func decline(c: Career, id: String) -> void:
 		fo[0]["next_offer_day"] = c.day + AFTER_DECLINE
 
 
+## S357 the short-notice swap card can come up: an amateur bout (not a championship, not pro) at least SWAP_MIN_DAYS out, with a
+## tougher opponent in her division to send.
+static func can_swap(c: Career, f: Dictionary) -> bool:
+	var b: Dictionary = f.get("bout", {})
+	if b.is_empty() or bool(b.get("done", false)) or b.has("champ") or bool(b.get("pro", false)) or bool(b.get("short_notice", false)):
+		return false
+	return int(b["day"]) - c.day >= SWAP_MIN_DAYS and not tougher_opp(c, f).is_empty()
+
+
+## The replacement: the division's next step up from her opponent (the lowest rating above theirs), or {} when none is.
+static func tougher_opp(c: Career, f: Dictionary) -> Dictionary:
+	var cur: Dictionary = (f.get("bout", {}) as Dictionary).get("opp", {})
+	var best := {}
+	for n in (Data.DIVISIONS[f["div"]]["opponents"] as Array):
+		var r := c.rival(str(n))
+		if r.is_empty() or str(n) == str(cur.get("name", "")) or float(r.get("rating", 0.0)) <= float(cur.get("rating", 0.0)):
+			continue
+		if best.is_empty() or float(r["rating"]) < float(best["rating"]):
+			best = r
+	return best
+
+
+## Take the fight: the tougher opponent on the same night, twice the reputation on a win (BoutNight), the tape study from today.
+static func short_notice(c: Career, f: Dictionary) -> bool:
+	var opp := tougher_opp(c, f)
+	if opp.is_empty():
+		return false
+	var b: Dictionary = f["bout"]
+	var was := str(b["opp"]["name"])
+	b["opp"] = opp.duplicate(true)
+	b["short_notice"] = true
+	b["film"] = BoutRules.FILM_DEPTH_DEFAULT
+	var camp: Dictionary = f["camp"]
+	if not camp.is_empty():
+		camp["tape_start"] = c.day   # the tape study restarts; the camp's own week count keeps its start
+		camp["tapes"] = 0
+	c.add_news("%s pulled out. %s takes %s on short notice, %s." % [was, f["name"], opp["name"], Clock.fmt(int(b["day"]))], true)
+	return true
+
+
+## Withdraw: the bout is off and the camp ends (its cost is spent); offers come again as after a declined one.
+static func withdraw_bout(c: Career, f: Dictionary) -> void:
+	var b: Dictionary = f.get("bout", {})
+	if b.is_empty():
+		return
+	c.add_news("%s's opponent pulled out and %s withdrew from the show. The camp is over." % [f["first"], f["first"]], true)
+	f["bout"] = {}
+	f["camp"] = {}
+	f["booked_fight"] = false
+	f["load_setting"] = TrainingLoad.DEFAULT
+	f["next_offer_day"] = c.day + AFTER_DECLINE
+	WeekPhase.sync(f, c.day)
+
+
 ## Pays and starts her camp. Returns the cost.
 static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, film: bool) -> int:
 	if (f["bout"] as Dictionary).is_empty() or not (f["camp"] as Dictionary).is_empty():
@@ -193,7 +249,7 @@ static func tape_days(c: Career, f: Dictionary) -> void:
 	var opp: Dictionary = b["opp"]
 	if not opp.has("habits"):
 		opp["habits"] = RoundStyle.opponent_habits(opp)
-	while int(camp.get("tapes", 0)) < OppFile.sessions_due(int(camp["start"]), c.day):
+	while int(camp.get("tapes", 0)) < OppFile.sessions_due(int(camp.get("tape_start", camp["start"])), c.day):
 		camp["tapes"] = int(camp.get("tapes", 0)) + 1
 		var id := OppFile.tape(opp)
 		if id == "":

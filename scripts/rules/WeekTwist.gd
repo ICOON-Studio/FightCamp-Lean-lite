@@ -14,7 +14,8 @@ extends RefCounted
 ## Effects: rest_hard (her first Hard morning -> rest), all_light, rest_day, morning_rest / evening_rest (day index),
 ## extra_spar, risk (injury rolls this week), kg_day / fat_day (WeekPlan.day), combo_mult / move_mult (the pads), and once on
 ## Monday: cash, morale (FighterProfile kind), rep, members, reveal (a coach's note; 1 in 3 an old habit costs technique),
-## lefty (an edge on the night vs a southpaw), hot (on the night she takes the corner's fix half as well).
+## lefty (an edge on the night vs a southpaw), hot (on the night she takes the corner's fix half as well), swap_opp (a tougher
+## opponent, twice the reputation on a win, the tape restarts - Bouts.short_notice), withdraw (the bout and camp end).
 
 ## swap: morning session -> the one it becomes; spar: sparring nights become this; rest_day: that day (0 = Monday) is a rest
 ## morning and evening; extra_spar: that evening becomes sparring.
@@ -61,9 +62,18 @@ const CHOICES := [
 		"a": {"label": "Fire back", "line": "The buzz brings 3 members now; on the night she takes the corner's fixes half as well.",
 			"members": 3, "hot": true},
 		"b": {"label": "Stay quiet", "line": "A calm camp."}},
+	# S357 the last card of the Miro draft. Rare (RARE_SHARE of the weeks it can come up) and only 2+ weeks out ("swap" =
+	# Sim.twist_needs: an amateur bout 14+ days away with a tougher opponent in her division to send).
+	{"id": "short_notice", "name": "Short-notice swap", "line": "Her opponent pulls out. The show offers a tougher one on the same night.",
+		"needs": "swap", "rare": true, "default": "a",
+		"a": {"label": "Take the fight", "line": "A tougher opponent and twice the reputation on a win; the tape study starts again.",
+			"swap_opp": true},
+		"b": {"label": "Withdraw", "line": "The bout is off and the camp ends here; the camp's cost is spent.", "withdraw": true}},
 ]
 ## A no-choice card (the TWISTS) about one week in four; the rest are CHOICES.
 const QUIET_SHARE := 0.25
+## A rare card (short_notice) comes up this share of the weeks it can (its own dice, so the other draws stay as they were).
+const RARE_SHARE := 0.12
 ## The southpaw partner's edge on the night against a southpaw (power points; PerkFight's Stiff jab is +3).
 const LEFTY_EDGE := 1.5
 
@@ -80,9 +90,15 @@ static func card(id: String) -> Dictionary:
 ## at the scale with no week left to answer it - luck at the weigh-in, not a choice).
 ## has = what her week holds for the CHOICES' needs ("bout", "cut", "combo", "southpaw").
 static func draw(week: int, prev_id: String = "", fight_week: bool = false, has: Array = []) -> Dictionary:
+	var rare_rng := RandomNumberGenerator.new()
+	rare_rng.seed = week * 104729 + 3
+	var rare_roll := rare_rng.randf()
+	for t in CHOICES:
+		if bool(t.get("rare", false)) and str(t["id"]) != prev_id and has.has(str(t["needs"])) and rare_roll < RARE_SHARE:
+			return t
 	var rng := RandomNumberGenerator.new()
 	rng.seed = week * 7919 + 17
-	var choices: Array = CHOICES.filter(func(t): return str(t["id"]) != prev_id and (not t.has("needs") or has.has(str(t["needs"]))))
+	var choices: Array = CHOICES.filter(func(t): return str(t["id"]) != prev_id and not bool(t.get("rare", false)) and (not t.has("needs") or has.has(str(t["needs"]))))
 	if rng.randf() >= QUIET_SHARE and not choices.is_empty():
 		return choices[rng.randi_range(0, choices.size() - 1)]
 	var pool: Array = TWISTS.filter(func(t): return str(t["id"]) != prev_id and not (fight_week and t.has("rest_day")))
@@ -124,7 +140,7 @@ static func lock(f: Dictionary) -> Dictionary:
 	f["twist_pick"] = a
 	var e: Dictionary = active(f)
 	var once := {}
-	for k in ["cash", "morale", "rep", "members", "reveal", "lefty", "hot"]:
+	for k in ["cash", "morale", "rep", "members", "reveal", "lefty", "hot", "swap_opp", "withdraw"]:
 		if e.has(k):
 			once[k] = e[k]
 	return once

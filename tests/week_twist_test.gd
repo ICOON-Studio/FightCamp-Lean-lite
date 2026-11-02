@@ -14,6 +14,7 @@ const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 
 var _fails := 0
 
@@ -37,8 +38,13 @@ func _draw() -> void:
 		var t := WT.draw(w)
 		quiet += int(not t.has("a"))
 		needy = needy or t.has("needs")
-		all[WT.draw(w, "", false, ["bout", "cut", "combo", "southpaw"])["id"]] = true
+		all[WT.draw(w, "", false, ["bout", "cut", "combo", "southpaw", "swap"])["id"]] = true
 	_check(quiet > 60 and quiet < 140, "a small no-choice card about 1 week in 4 (%d of 400)" % quiet)
+	# S357 the short-notice swap is rare: only when a swap can happen, about RARE_SHARE of those weeks.
+	var swaps := 0
+	for w in 400:
+		swaps += int(str(WT.draw(w, "", false, ["bout", "swap"])["id"]) == "short_notice")
+	_check(swaps > 25 and swaps < 75, "the short-notice swap is rare: %d of 400 weeks that allow one" % swaps)
 	_check(not needy, "nothing in her week: no card that needs a cut, a bout, a combo or a southpaw")
 	_check(WT.CHOICES.all(func(t): return all.has(t["id"])), "with all of them, every choice card comes up")
 
@@ -101,6 +107,55 @@ func _monday() -> void:
 	WT.pick(f3, "a")
 	Sim.twist_monday(c3, f3)
 	_check(c3.members == members + 3 and bool(f3["bout"].get("hot", false)), "fire back: +3 members, a hot head on the night")
+	_swap()
+
+
+## S357 the short-notice swap (the last card of the Miro draft): only 2+ weeks out; take it = a tougher opponent on the same
+## night, the tape study from today, twice the reputation on a win; withdraw = the bout and the camp end.
+func _swap() -> void:
+	var c := _career()
+	var f: Dictionary = c.fighter()
+	_book(c, f, 0)
+	f["bout"]["day"] = c.day + 21
+	f["camp"] = {"focus": "boxing", "protocol": 1, "film": true, "start": c.day - 7, "tapes": 2}
+	_check(Sim.twist_needs(f, c).has("swap"), "Maria 3 weeks out: a swap can come up")
+	var near := c.day + 10
+	var day0 := int(f["bout"]["day"])
+	f["bout"]["day"] = near
+	_check(not Sim.twist_needs(f, c).has("swap"), "10 days out: no swap card")
+	f["bout"]["day"] = day0
+	f["twist"] = "short_notice"
+	Sim.twist_monday(c, f)   # no answer: the coach takes the fight
+	var opp: Dictionary = f["bout"]["opp"]
+	_check(str(opp["name"]) == "Priya Nair" and float(opp["rating"]) > float(Data.OPPONENTS[0]["rating"]),
+		"take it: Maria (%.1f) out, Priya (%.1f) in - the next step up" % [float(Data.OPPONENTS[0]["rating"]), float(opp["rating"])])
+	_check(int(f["bout"]["day"]) == day0 and int(f["camp"]["tape_start"]) == c.day and int(f["camp"]["start"]) == c.day - 7 and int(f["camp"]["tapes"]) == 0,
+		"the same night; the tape study starts again today, the camp keeps its week count")
+	var won := false
+	for s in 40:
+		var cw := _career()
+		cw.seed = 9000 + s
+		var fw: Dictionary = cw.fighter()
+		_book(cw, fw, 1)
+		fw["bout"]["short_notice"] = true
+		var r0 := cw.reputation
+		var mw := BoutNight.fight_modal(fw)
+		BoutNight.fight_step(cw, fw, mw, "sim")
+		if str(mw.get("outcome", "")) == "win":
+			_check(cw.reputation - r0 == 2 * BoutRules.WIN_REPUTATION, "a short-notice win: +%d reputation (twice %d)" % [cw.reputation - r0, BoutRules.WIN_REPUTATION])
+			won = true
+			break
+	_check(won, "a short-notice win reached in 40 nights")
+	var c2 := _career()
+	var f2: Dictionary = c2.fighter()
+	_book(c2, f2, 0)
+	f2["bout"]["day"] = c2.day + 21
+	f2["camp"] = {"focus": "boxing", "protocol": 1, "film": false, "start": c2.day - 7}
+	f2["twist"] = "short_notice"
+	WT.pick(f2, "b")
+	Sim.twist_monday(c2, f2)
+	_check((f2["bout"] as Dictionary).is_empty() and (f2["camp"] as Dictionary).is_empty() and int(f2["next_offer_day"]) > c2.day,
+		"withdraw: the bout and the camp end, offers come again later")
 
 
 func _risk() -> void:

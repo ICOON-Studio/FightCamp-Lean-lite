@@ -319,7 +319,8 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	if outcome == "win":
 		f[rec + "w"] = int(f.get(rec + "w", 0)) + 1
 		c.members += BoutRules.WIN_MEMBERS
-		c.reputation += BoutRules.WIN_REPUTATION
+		# S357 a short-notice win against the tougher replacement counts twice (the twist card's price paid off).
+		c.reputation += BoutRules.WIN_REPUTATION * (2 if bool(f["bout"].get("short_notice", false)) else 1)
 	elif outcome == "loss":
 		f[rec + "l"] = int(f.get(rec + "l", 0)) + 1
 		var gone := mini(c.members, BoutRules.STOPPED_LOSS_MEMBERS if stop != "" else BoutRules.LOSS_MEMBERS)
