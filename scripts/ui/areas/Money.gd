@@ -11,6 +11,7 @@ const CashChart := preload("res://scripts/ui/CashChart.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
+const Bar := preload("res://scripts/ui/Bar.gd")
 
 ## One-offs shown on Income / Bills: the last this many days.
 const LEDGER_DAYS := 56
@@ -64,6 +65,50 @@ func _overview(c: Career) -> void:
 	grid.add_child(now[0])
 	for child in grid.get_children():
 		(child as Control).size_flags_vertical = Control.SIZE_FILL
+	# S369 (S367 critic: "a list in the top fifth of an empty page"): the week's money as a picture under it - each line
+	# a bar on one scale for both cards, so the biggest earner and the biggest bill read at a glance. The same lines as
+	# the Income and Bills tabs.
+	var split := UI.hbox(16)
+	split.name = "MoneySplit"
+	add_child(split)
+	var scale := float(maxi(1, maxi(int(inc["total"]), int(cost["total"]))))
+	split.add_child(_split_card("WHERE IT COMES FROM, A WEEK", [
+		["Members' dues", int(inc["dues"])], ["Evening classes", int(inc["classes"])],
+		["BJJ classes' dues", int(inc.get("bjj", 0))], ["Sponsors", int(inc["sponsors"])]], scale, UI.GREEN, "+"))
+	split.add_child(_split_card("WHERE IT GOES, A WEEK", [
+		["Rent", int(cost.get("rent", cost["upkeep"]))], ["England Boxing fees", int(cost.get("fees", 0))],
+		["Coach", int(cost["staff"])], ["Fighter stipends", int(cost["fighters"])], ["BJJ coach", int(cost.get("bjj", 0))]],
+		scale, UI.RED, "-"))
+
+
+## One side of the week: a row per line with money in it, biggest first - name, a bar to `scale`, the amount.
+func _split_card(title: String, lines: Array, scale: float, col: Color, sign: String) -> Control:
+	var card := UI.card(title)
+	card[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	card[0].size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	var rows := lines.filter(func(l): return int(l[1]) > 0)
+	rows.sort_custom(func(a, b): return int(a[1]) > int(b[1]))
+	if rows.is_empty():
+		card[1].add_child(UI.muted("Nothing this week.", UI.SMALL))
+	for l in rows:
+		var h := UI.hbox(12)
+		var name := UI.label(str(l[0]), UI.BODY)
+		name.custom_minimum_size = Vector2(210, 0)
+		h.add_child(name)
+		var bar := Bar.new()
+		bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		bar.custom_minimum_size = Vector2(80, 14)
+		bar.fill = col
+		var frac := float(l[1]) / scale
+		bar.ready.connect(func(): bar.create_tween().tween_property(bar, "frac", frac, 0.5).from(0.0))
+		h.add_child(bar)
+		var amt := UI.mono(sign + UI.money(int(l[1])).trim_prefix("+"), UI.BODY, col)
+		amt.custom_minimum_size = Vector2(90, 0)
+		amt.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		h.add_child(amt)
+		card[1].add_child(h)
+	return card[0]
 
 
 ## Members needed for dues alone to cover this week's costs less the other income.

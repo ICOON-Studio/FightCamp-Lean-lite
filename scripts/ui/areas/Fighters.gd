@@ -10,6 +10,8 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FighterTile := preload("res://scripts/ui/FighterTile.gd")
+const FighterCard := preload("res://scripts/ui/FighterCard.gd")
+const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const FIGHTER_PAGE_SCRIPT := preload("res://scripts/ui/areas/FighterPage.gd")
 const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
 const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
@@ -45,23 +47,54 @@ func build(main: Node) -> void:
 
 
 func _training(main: Node, c: Career) -> void:
+	# S369 (S367 critic: "a list in the top fifth of an empty page"): a face card per fighter, two to a row - her main
+	# session, the move she is learning in whole points to a weapon, her condition; the week itself is on her page.
 	var card := UI.card("TRAINING - EACH FIGHTER'S WEEK IS ON THE FIGHTER'S PAGE")
 	add_child(card[0])
+	var grid := FighterCard.grid("Training")
 	for f in c.fighters:
-		var row := UI.hbox(14)
-		var who := UI.button(str(f["name"]), "BtnQuiet", main.act.bind("fighter", str(f["id"])))
-		row.add_child(who)
+		var fc := FighterCard.build(main, f, "TrainCard")
+		var v: VBoxContainer = fc[1]
 		var main_s := str(Data.LABEL.get(str(f.get("focus", "")), f.get("focus", "")))
+		var line := UI.hbox(10)
+		line.add_child(UI.caps("MAIN SESSION"))
+		line.add_child(UI.label(main_s if main_s != "" else "not set", UI.BODY, UI.FG, "bold"))
+		v.add_child(line)
 		var learn := str(f.get("learning", ""))
-		var sub := UI.muted("Main session: %s%s" % [main_s, ("   Learning: %s" % learn) if learn != "" else ""], UI.BODY)
-		sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER   # S354 C206: the button sits by its line, not at the far edge
-		row.add_child(sub)
-		var open := UI.button("Open training", "Btn", func():
+		if learn == "":
+			v.add_child(UI.muted("Learning: the coach picks her next move this week.", UI.SMALL))
+		else:
+			# The bar runs to her next tier (MoveMastery: RAW < 30 = a weapon, USABLE < 60, SHARP < 85), whole points.
+			# Once every move is a weapon, pad time sharpens her weakest (Sim) - the head says so.
+			var moves: Dictionary = f["moves"]
+			var m := int(floor(float(moves.get(learn, 0.0))))
+			var sharpening := true
+			for k in moves:
+				if float(moves[k]) < BoutRules.WEAPON_MASTERY:
+					sharpening = false
+			var from := 0
+			var to := 30
+			for edge in [30, 60, 85, 100]:
+				if m < edge:
+					to = edge
+					break
+				from = edge
+			var tier := MoveMastery.tier(float(m))
+			var next_word: String = {30: "a weapon", 60: "SHARP", 85: "SIGNATURE"}.get(to, "")
+			var note := ("%s - %d to %s" % [tier, to - m, next_word]) if next_word != "" else tier
+			v.add_child(FighterCard.meter("SHARPENING" if sharpening else "LEARNING", learn,
+				float(m - from) / float(maxi(to - from, 1)), note, UI.GOLD))
+		var fat := int(f["fatigue"])
+		v.add_child(FighterCard.meter("CONDITION", "%d" % (100 - fat), (100.0 - fat) / 100.0,
+			"fresh" if fat < 30 else ("tired" if fat < 60 else "worn out"), UI.GREEN if fat < 30 else (UI.AMBER if fat < 60 else UI.RED)))
+		var open := UI.button("Open training", "BtnSolid", func():
 			main.act("fighter", str(f["id"]))
 			main.act("ftab", str(FIGHTER_PAGE_SCRIPT.TRAINING_TAB)))
 		open.name = "OpenTraining_" + str(f["id"])
-		row.add_child(open)
-		card[1].add_child(row)
+		open.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		v.add_child(open)
+		grid.add_child(fc[0])
+	card[1].add_child(grid)
 
 
 func _roster(main: Node, c: Career) -> void:
@@ -91,26 +124,43 @@ func _roster(main: Node, c: Career) -> void:
 
 
 func _camps(main: Node, c: Career) -> void:
+	# S369: a face card per fighter (two to a row): her camp, or what opens one, and the button that does it.
 	var card := UI.card("FIGHT CAMPS")
 	add_child(card[0])
-	var rows: Array = []
+	if c.fighters.is_empty():
+		card[1].add_child(UI.muted("Camps open once a bout is booked.", UI.BODY))
+		return
+	var grid := FighterCard.grid("Camps")
 	for f in c.fighters:
+		var fc := FighterCard.build(main, f, "CampCard")
+		var v: VBoxContainer = fc[1]
 		var camp: Dictionary = f["camp"]
 		var fb: Dictionary = f["bout"]
 		if not camp.is_empty():
-			rows.append(UI.row("%s: %s focus, %s protocol" % [f["name"], Data.LABEL[camp["focus"]], str(BoutRules.PROTOCOLS[int(camp["protocol"])]["name"]).to_lower()],
-				"vs %s, %s; film depth %d of 3; %.1f of %.1f kg" % [fb["opp"]["name"], Clock.fmt(int(fb["day"])), int(fb["film"]), f["weight"], f["limit"]], UI.GREEN))
+			v.add_child(UI.label("%s focus, %s protocol" % [Data.LABEL[camp["focus"]], str(BoutRules.PROTOCOLS[int(camp["protocol"])]["name"]).to_lower()],
+				UI.BODY, UI.GREEN, "bold"))
+			v.add_child(UI.label("vs %s, %s" % [fb["opp"]["name"], Clock.fmt(int(fb["day"]))], UI.BODY))
+			v.add_child(FighterCard.meter("FILM", "%d of 3" % int(fb["film"]), float(fb["film"]) / 3.0, "depth on her opponent", UI.GOLD))
+			var over := float(f["weight"]) - float(f["limit"])
+			v.add_child(UI.label("%.1f of %.1f kg" % [f["weight"], f["limit"]], UI.SMALL, UI.GREEN if over <= 0.0 else UI.AMBER, "bold"))
 		elif not fb.is_empty():
 			var days_to_bout := int(fb["day"]) - c.day
 			var camp_locked := days_to_bout < BoutRules.CAMP_MIN_DAYS
 			var camp_why := "Bout in %d days - a camp needs at least %d days before fight night" % [days_to_bout, BoutRules.CAMP_MIN_DAYS]
-			rows.append(UI.row("No camp yet for %s" % f["name"], "bout on %s" % Clock.fmt(int(fb["day"])), UI.AMBER,
-				[UI.button("Set camp", "BtnSolid", main.act.bind("camp", f["id"]), camp_locked, camp_why)]))
+			v.add_child(UI.label("No camp yet", UI.BODY, UI.AMBER, "bold"))
+			v.add_child(UI.label("vs %s, %s - %d days out" % [fb["opp"]["name"], Clock.fmt(int(fb["day"])), days_to_bout], UI.BODY))
+			var set_camp := UI.button("Set camp", "BtnSolid", main.act.bind("camp", f["id"]), camp_locked, camp_why)
+			set_camp.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			v.add_child(set_camp)
 		else:
-			rows.append(UI.row(f["name"], "no bout booked: camps open once one is"))
-	if rows.is_empty():
-		rows.append(UI.muted("Camps open once a bout is booked.", UI.BODY))
-	UI.add_rows(card[1], rows)
+			v.add_child(UI.label("No bout booked", UI.BODY, UI.FG, "bold"))
+			v.add_child(UI.muted("A camp opens once she has a fight on the calendar.", UI.SMALL, true))
+			var find := UI.button("See offers", "Btn", main.act.bind("go", "fights:0"))
+			find.name = "SeeOffers_" + str(f["id"])
+			find.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			v.add_child(find)
+		grid.add_child(fc[0])
+	card[1].add_child(grid)
 
 
 func _scouting(main: Node, c: Career) -> void:

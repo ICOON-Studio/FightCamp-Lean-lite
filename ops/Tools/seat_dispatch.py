@@ -234,7 +234,7 @@ def seat_busy(seat: str, procs: list) -> str:
 
 def pc_agents(procs: list) -> list[str]:
     """Agents on the PC now: running live_runs entries of PC seats, plus CLI agent processes no entry accounts for."""
-    seen, out = set(), []
+    seen, out, names = set(), [], set()
     for k, v in load(RUNS, {}).get("runs", {}).items():
         if isinstance(v, dict) and v.get("status") == "running" and str(v.get("agent", "")).lower() in PC_AGENTS:
             out.append(f"{v.get('agent')} {k}")
@@ -242,7 +242,10 @@ def pc_agents(procs: list) -> list[str]:
     for pid, cmd in procs:
         ## the CLI seats; Codex only as `codex exec` (the operator's Codex desktop app runs codex.exe app-server all day)
         name = next((n for n in ("agy.exe", "qwen-code", "cursor-agent", "codex exec", "codex.exe exec") if n in cmd), "")
-        if name and not any(w and w in cmd for w in seen) and "seat_dispatch.py" not in cmd:
+        # S369: one CLI run is a launcher plus its child node processes (qwen-code: 3 pids) - count a seat once, not per
+        # process (a seat runs one task at a time: seat_busy).
+        if name and name not in names and not any(w and w in cmd for w in seen) and "seat_dispatch.py" not in cmd:
+            names.add(name)
             out.append(f"{name} pid {pid}")
     return out
 
