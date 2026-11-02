@@ -40,6 +40,15 @@ func _initialize() -> void:
 	main.act("wday", "%s|6|intervals|hard" % fid)
 	await _settle(8)   # mid-pulse
 	await _shot("s359_day_changed")
+	# The hover on a morning magnet (operator: "unreadable" - the engine's see-through tooltip).
+	var mag := main.find_child("Session_1", true, false) as Control
+	if mag != null:
+		var ev := InputEventMouseMotion.new()
+		ev.position = mag.get_global_rect().get_center()
+		ev.global_position = ev.position
+		root.push_input(ev)
+		await _settle(60)
+		await _shot("s359_hover_tooltip")
 	quit(0)
 
 

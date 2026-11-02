@@ -1,4 +1,4 @@
-﻿extends SceneTree
+extends SceneTree
 ## S359 Kalli SQ25's whiteboard clarity fixes on the real board (jump=camp: Lucy in camp, a twist with two answers dealt):
 ## fatigue as words, LIGHT / NORMAL / HARD on the magnets, the camp's phase strip with 'you are here', COACH'S PICK and the
 ## Monday rule, the grid dimmed until the twist is answered once, 'undo' on a changed day, a moved goal line shows its delta,
@@ -9,7 +9,7 @@ const TestJump := preload("res://scripts/ui/TestJump.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
 
-const WORDS := ["FRESH", "WORKED", "RED DAY", "OVERCOOKED"]
+const WORDS := ["FRESH", "OK", "TIRED", "RED DAY", "OVERCOOKED"]
 
 var _fails := 0
 var main: Node
@@ -18,7 +18,7 @@ var main: Node
 func _initialize() -> void:
 	# The pure pieces first.
 	_check(WB.level("light") == "LIGHT" and WB.level("hard") == "HARD" and WB.level("normal") == "NORMAL", "intensity as words")
-	_check(str(WB.fatigue_word(30.0, false)[0]) == "FRESH" and str(WB.fatigue_word(65.0, false)[0]) == "WORKED"
+	_check(str(WB.fatigue_word(30.0, false)[0]) == "FRESH" and str(WB.fatigue_word(60.0, false)[0]) == "OK" and str(WB.fatigue_word(75.0, false)[0]) == "TIRED"
 		and str(WB.fatigue_word(65.0, true)[0]) == "RED DAY" and str(WB.fatigue_word(85.0, true)[0]) == "OVERCOOKED", "fatigue bands")
 	_check(str(WB.fatigue_word(85.0, false)[1]).contains("60%") and str(WB.fatigue_word(85.0, false)[1]).contains("85"),
 		"overcooked names its cost and the number on the hover")

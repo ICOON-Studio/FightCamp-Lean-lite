@@ -50,12 +50,15 @@ static func level(intensity: String) -> String:
 static func fatigue_word(v: float, red: bool) -> Array:
 	var n := int(round(v))
 	if v >= RED_AT:
-		return ["OVERCOOKED", "Overcooked (fatigue %d): the next morning trains at 60%% - gains cut by 40%% - and a camp that peaks over 80 fails its fatigue line." % n, RED]
+		return ["OVERCOOKED", "Overcooked (fatigue %d of 100): the next morning trains at 60%% - gains cut by 40%% - and a camp that peaks over 80 fails its fatigue line." % n, RED]
 	if red:
-		return ["RED DAY", "Red day (fatigue %d): the second Hard morning in a row - the coach wants it Light or off." % n, RED]
+		return ["RED DAY", "Red day (fatigue %d of 100): the second Hard morning in a row - the coach wants it Light or off." % n, RED]
+	# S359 (operator: "what is worked showing ??" - every day read WORKED): the word stands out only when it matters.
+	if v >= AMBER_AT:
+		return ["TIRED", "Tired (fatigue %d of 100): near the line. Over 80 the next morning's training counts only 60%%." % n, UI.AMBER]
 	if v >= 50.0:
-		return ["WORKED", "Worked (fatigue %d): normal camp tiredness. Over 80 the next morning trains at 60%%." % n, risk_colour(v)]
-	return ["FRESH", "Fresh (fatigue %d): room for a Hard morning." % n, UI.GREEN]
+		return ["OK", "OK (fatigue %d of 100): normal camp tiredness." % n, PENCIL]
+	return ["FRESH", "Fresh (fatigue %d of 100): room for a Hard morning." % n, UI.GREEN]
 
 
 ## S359 (Kalli SQ25: "show the phase as a strip of small cells ... 'you are here' ... the fight date circled at the end")

@@ -225,10 +225,14 @@ func _day(main: Node, fid: String, i: int, m: Array, planned: Array, evening: St
 	if m != planned:
 		head.add_child(WB.ink("twist", UI.SMALL, "handbold", UI.AMBER))
 	v.add_child(head)
-	v.add_child(WB.ink(_kind(m), UI.SMALL + 2, "hand", WB.PENCIL))
+	# S359 (operator: "whats the top row, what is the second row?"): each magnet row says what it is; the coach's
+	# shorthand for the day (engine / skill / hard) moved to the morning's hover.
+	var am := WB.ink("MORNING", UI.SMALL - 3, "caps", WB.PENCIL)
+	am.name = "Am_%d" % i
+	v.add_child(am)
 	var rest := str(m[0]) == "rest"
 	var name := "off" if rest else str(WeekPhase.NAMES.get(str(m[0]), str(m[0])))
-	var tip := "%s\n%s\nfatigue %d by the night%s" % [WeekPhase.card(m), _numbers(r), int(round(float(r["fatigue"]))),
+	var tip := "Morning: %s (a %s day)\n%s\nfatigue %d by the night%s" % [WeekPhase.card(m), _kind(m), _numbers(r), int(round(float(r["fatigue"]))),
 		"\nYour change - 'undo' above puts the coach's card back" if mine else ""]
 	# S357 (S356 stills): a day the twist changed names the card it replaced.
 	if m != planned:
@@ -238,6 +242,11 @@ func _day(main: Node, fid: String, i: int, m: Array, planned: Array, evening: St
 		func(d): main.act("wday", "%s|%d|%s|%s" % [fid, i, d[0], d[1]]))
 	mag.name = "Session_%d" % i
 	v.add_child(mag)
+	var pm := WB.ink("EVENING", UI.SMALL - 3, "caps", WB.PENCIL)
+	pm.name = "Pm_%d" % i
+	pm.tooltip_text = "Evenings are pads, or sparring on the nights set by \"Sparring nights\" below."
+	pm.mouse_filter = Control.MOUSE_FILTER_PASS
+	v.add_child(pm)
 	if evening == "rest":
 		v.add_child(WB.ink("~ off", UI.SMALL + 2, "hand", WB.PENCIL))
 	else:
@@ -245,6 +254,9 @@ func _day(main: Node, fid: String, i: int, m: Array, planned: Array, evening: St
 		v.add_child(WB.magnet("spar" if spar else "pads", "HARD" if spar else "NORMAL", spar,
 			str((WeekPlan.EVENINGS.get(evening, WeekPlan.EVENINGS["rest"]) as Dictionary)["name"])))
 	var fat := float(r["fatigue"])
+	var tl := WB.ink("TIRED BY NIGHT", UI.SMALL - 3, "caps", WB.PENCIL)
+	tl.name = "TiredLabel_%d" % i
+	v.add_child(tl)
 	var bar := WB.Fatigue.new()
 	bar.value = fat
 	v.add_child(bar)

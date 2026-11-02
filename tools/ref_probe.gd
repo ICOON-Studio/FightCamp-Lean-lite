@@ -20,6 +20,11 @@ func _initialize() -> void:
 	var secs := 150.0
 	if OS.get_cmdline_user_args().has("nolens"):
 		Referee.lens_keep = false
+	if OS.get_cmdline_user_args().has("oldref"):
+		Referee.sticky_side = false   # S359 control arm: his side re-picked from the camera every frame
+	if OS.get_cmdline_user_args().has("showref"):
+		Referee.hide_idle = false   # S359 control: always drawn
+	print("REF arm: %s, %s" % ["oldref" if not Referee.sticky_side else "sticky", "shown" if not Referee.hide_idle else "hidden idle"])
 	for a in OS.get_cmdline_user_args():
 		if str(a).begins_with("secs="):
 			secs = float(str(a).trim_prefix("secs="))
@@ -48,6 +53,9 @@ func _initialize() -> void:
 	var lens_min := INF
 	var cuts := 0         # S348: the director's shot changes (the referee/clinch cuts must not become a cut storm)
 	var last_shot := -2
+	var drawn := 0          # S359 frames he is drawn (he shows only to break a clinch)
+	var drawn_idle := 0     # of those: watching, past the linger (must be ~0: the fade-out only)
+	var drawn_between := 0  # drawn AND between the boxers (what the operator saw)
 	var t0 := float(view.t)
 	while bool(view.playing) and float(view.t) <= secs:
 		await process_frame
@@ -95,6 +103,13 @@ func _initialize() -> void:
 				if absf(h1 - h0) < 200.0:
 					os_narrow += 1
 		var is_between := u > 0.15 and u < 0.85 and absf(perp) < BETWEEN_M
+		# S359: is he drawn at all (he shows only to break a clinch), and drawn while he watches.
+		if bool(ref.call("shown")):
+			drawn += 1
+			if str(ref.get("_mode")) == "watch" and float(ref.get("_linger")) <= 0.0:
+				drawn_idle += 1
+			if is_between:
+				drawn_between += 1
 		if is_between:
 			between += 1
 			if not in_spell:
@@ -106,6 +121,8 @@ func _initialize() -> void:
 		frames, between, 100.0 * between / maxf(1.0, frames), spells.size(), flips, crossings])
 	print("REF on screen: his head between their heads %d of %d watch frames (%.1f %%) | of those walking %d, heads < 200 px apart %d" % [
 		on_screen, watch, 100.0 * on_screen / maxf(1.0, watch), os_walk, os_narrow])
+	print("REF drawn %d of %d frames (%.1f %%) | drawn while only watching %d | drawn AND between the boxers %d" % [
+		drawn, frames, 100.0 * drawn / maxf(1.0, frames), drawn_idle, drawn_between])
 	print("REF lens: within %.1f m of the camera %d of %d frames (%.1f %%), closest %.2f m (lens keep %s)" % [
 		Referee.LENS_KEEP_M, near_lens, frames, 100.0 * near_lens / maxf(1.0, frames), lens_min, Referee.lens_keep])
 	print("REF camera cuts: %d in %.0f s of round time (%.1f a minute; the director's own pace is one every 4-7.5 s)" % [

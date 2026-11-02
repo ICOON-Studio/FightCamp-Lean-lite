@@ -1,23 +1,21 @@
-# S358 - next session (written S357, 2026-11-02, after update 60)
+# S360 - next session (written S359, 2026-11-02, after update 61)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean (branch `main`).
-S357 shipped update 60 (Lean 58d270b..1151fa4): the short-notice swap twist card (rare; take a tougher opponent the same
-night - the tape restarts, a win counts twice - or withdraw and end the camp), the whiteboard hover names the card a twist
-replaced, and the ops board's "Test: a camp on the whiteboard" (jump=camp). Suite 102/102, build exported.
-Digest: Game/Godot/research/S357_DIGEST.md.
+S359 shipped update 61 (Lean 450482d): Kalli SQ25's whiteboard clarity fixes - fatigue as words with the cost on hover,
+LIGHT/NORMAL/HARD magnets, the camp phase strip ('you are here'), COACH'S PICK + the Monday rule, goal lines flash their
+delta when a day changes and preview on a twist-answer hover, first open dims the grid until a twist is answered once
+(f.board_taught), one undo route. Suite 103/103, build exported. Digest: Game/Godot/research/S359_DIGEST.md.
 OPERATOR RULES: no his/her in game text; agents do animations, Claude mechanics + UI; probes at `--fixed-fps 30`; tests may
 run beside ONE windowed render on GREEN; tool updates without asking. He designs through MIRO
-(https://miro.com/app/board/uXjVETf7la4=/, now a paid plan): check new frames/stickies at session start.
+(https://miro.com/app/board/uXjVETf7la4=/): check new frames/comments at session start.
 
-1. Collect Ziva's SMOOTH3 round 4 (wt/ZIVA_LEAN ziva/smooth3-r4 after 36f80cc; chat "Fixing PunchReach Continuity Issues"
-   at http://127.0.0.1:7012/). S357 sent it back: measure plain/noreachin/noreachout/nolean/nofade/noreach on ONE commit,
-   inside_guard on main too, a fresh hit_gap line. Read its numbers against the bounds yourself (it called 8 glove-in-head
-   frames a PASS; bound <= 4 or no worse than main). Bounds: OURS <= 250/min, <= 110 at a clip change, hit_gap > 0.15 m no
-   worse. Merge PunchReach.gd by diff only if met; never its project.godot.
-2. Q-S294-86 (Miro top 5): if yes, build the week-review reveal first (rows one at a time, the biggest surprise last), then
-   she pushes back (her morale is the trust score), then a fight poster per bout (art seat).
-3. Q-S294-78/80 (belt road): if answered, build v3 (Record tab, no holo) + the pull from the S356 prompt (a belt goal,
-   a BJJ evening class at brown/black, IBJJF belt divisions).
-4. Kalli's whiteboard review (SQ25 -> Game/Godot/research/KALLI_WHITEBOARD_S357.md): act on it.
-5. Q-S294-87 outside testers; Q-S294-84/85 if answered.
-Lesson: play a new mechanic through on the hidden desktop (tools/s357_stills.gd) - it caught two bugs the tests missed.
+Everything left waits on his board answers - act on each one the moment it lands:
+1. Q-S294-90 (Kalli's two changes): the amber opponent goal line ("the coach plans the camp, you plan the fight": one line
+   starts amber each week because the coach's week ignores the opponent; 1-2 edits turn it green) and/or the evening magnet
+   cut to text + the weekly "Sparring nights" toggle. With it: the diet/new move/combo dials in a collapsed "More" row
+   until camp week 2 (Kalli SQ25 point 1, not built yet).
+2. Q-S294-89 SMOOTH3 A/B film: Same closes SMOOTH3 (merge only the r4 fade + Basis fix 33de908 after a hit_gap check);
+   Left worse -> round 8 retimes the clip to contact; Right worse -> close, keep both layers.
+3. Q-S294-86 -> the week-review reveal; 4. Q-S294-78/80 -> belt road v3; 5. Q-S294-87 outside testers;
+6. Q-S294-88 yes -> push wt/ZIVA's 4 commits to backup/ziva-playtest-s358, delete the 4 folders in DISK_E_S358.md.
+Stills of a new board: tools/s359_stills.gd on the hidden desktop (it caught the sticky below the fold and the undo misalign).

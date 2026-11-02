@@ -286,15 +286,24 @@ func cue_lower_blue() -> void:
 	_raise(1, false)
 
 
-## Her rear glove up above her head to the crowd (her hand IK), then back to the guard.
+## Her rear glove up to the crowd (her hand IK), then back to the guard.
+## S359 (operator on the S358 film: "wtf is this ??"): the target was 0.32 m over the HEAD bone and 0.12 m to her RIGHT
+## whichever hand rose - the glove sat on her head over the guard glove, and a southpaw's left arm crossed over her head.
+## Now above the raising arm's own shoulder and out to that side, the elbow a little bent (RAISE: up, out, forward, m).
+const RAISE := Vector3(0.46, 0.2, 0.08)
+
+
 func _raise(i: int, up: bool) -> void:
 	var a: Dictionary = stage.boxers[i]
 	var hand: String = str(stage.hand_of(i, "RightHand")).trim_suffix("Hand")
 	if not up:
 		a["ik"].reach(hand, null)
 		return
+	var out := 1.0 if hand == "Left" else -1.0   # side() is her own left
 	a["ik"].reach(hand, func():
-		return CornerShots.bone(a, "Head") + Vector3.UP * 0.32 * (a["node"] as Node3D).scale.x + CornerShots.fwd(a) * 0.08 - CornerShots.side(a) * 0.12)
+		var s: float = (a["node"] as Node3D).scale.x
+		return CornerShots.bone(a, hand + "UpperArm") + (Vector3.UP * RAISE.x + CornerShots.side(a) * out * RAISE.y
+			+ CornerShots.fwd(a) * RAISE.z) * s)
 
 
 ## To the centre, a jab's length apart, facing.

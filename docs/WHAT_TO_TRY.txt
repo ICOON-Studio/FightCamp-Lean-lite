@@ -1,3 +1,18 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 61 (2026-11-02): THE WHITEBOARD READS AT A GLANCE (KALLI'S REVIEW)
+===================================================================================================
+
+ 1. FIRST OPEN: until you have answered a twist once, the week is dimmed and the twist sticky sits on top with START
+    HERE and the coach's line "This is my week. Change a day only if you disagree." Answer it and the board lights up.
+ 2. FATIGUE IN WORDS under each day: FRESH, WORKED, RED DAY (a second Hard morning in a row), OVERCOOKED (80+). Hover the
+    word for the number and what it costs.
+ 3. The magnets say LIGHT / NORMAL / HARD (no more I / II / III).
+ 4. The camp's weeks as a strip at the top (BUILD ... PEAK, TAPER, FIGHT) with "you are here".
+ 5. The twist: the default answer says COACH'S PICK, and "No answer by Monday = the coach's pick". Hover an answer to see
+    where each goal line would land.
+ 6. Change a morning: the goal lines that moved flash for 2 seconds with how much (+0.2, -0.1). A changed day has a small
+    'undo'; "Coach's week" undoes them all.
+ Try it: ops board "Test: a camp on the whiteboard".
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 60 (2026-11-02): THE SHORT-NOTICE SWAP, A TEST BUTTON FOR THE CAMP
 ===============================================================================================
 

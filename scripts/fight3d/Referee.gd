@@ -51,6 +51,29 @@ const HEAD_Y_M := 1.65
 ## and his spot is picked away from it.
 const LENS_KEEP_M := 2.2
 static var lens_keep := true   # tools/ref_probe.gd `-- nolens` = the control arm (S347 behaviour)
+## S359 (operator on the S358 film: "the referee walking between the fighters for no reason"): his side of their line was
+## re-picked from the camera EVERY frame, so each cut or half-turn of the boxers flipped it and he walked across through
+## them. He keeps the side he stands on; only when the camera has sat on his side FLIP_S does he change, and then round
+## the back of a boxer (BEHIND_M past her) - never through the gap. `-- oldref` in ref_probe = the control arm.
+const FLIP_S := 2.5
+const BEHIND_M := 1.0
+const ARRIVE_M := 0.35
+const LEG_S := 4.0
+static var sticky_side := true
+
+var _wrong_t := 0.0       # seconds the camera has sat on his side
+var _cross := 0           # 0 none | 1 out past a boxer's back on his old side | 2 round to the new side
+var _cross_end := 1.0     # which end of their line he goes round (+ = past boxer 1's back)
+var _cross_t := 0.0       # seconds into the current leg
+## S359 (operator: "make ref transparent and appear only to clear clinch"): he is unseen while he watches and fades in
+## when he steps in on a clinch, staying LINGER_S after the break before he fades out. He still moves with the boxers
+## unseen, so he appears where a referee would stand. `-- showref` in ref_probe = always seen (the S313-S358 behaviour).
+const FADE_S := 0.3
+const LINGER_S := 0.8
+static var hide_idle := true
+var _seen := 0.0          # 0 unseen .. 1 fully drawn
+var _linger := 0.0
+var _meshes: Array = []
 
 var stage: Node3D
 var body: Node3D
@@ -80,8 +103,36 @@ static func build(s: Node3D) -> Node3D:
 	CornerIK.attach(skel, r.body)
 	r.body.position = r._spot(WATCH_M)
 	r._play("af_idle")
+	r._meshes = r.body.find_children("*", "GeometryInstance3D", true, false)
+	r._seen = 0.0 if hide_idle else 1.0
+	r._draw_seen()
 	s.set("referee", r)
 	return r
+
+
+## True while he is drawn at all (the camera steers round him only then).
+func shown() -> bool:
+	return _seen > 0.0
+
+
+func _fade(delta: float) -> void:
+	var want := 1.0
+	if hide_idle:
+		if _mode != "watch":
+			_linger = LINGER_S
+		else:
+			_linger = maxf(0.0, _linger - delta)
+		want = 1.0 if _mode != "watch" or _linger > 0.0 else 0.0
+	if is_equal_approx(_seen, want):
+		return
+	_seen = move_toward(_seen, want, delta / FADE_S)
+	_draw_seen()
+
+
+func _draw_seen() -> void:
+	body.visible = _seen > 0.0
+	for m in _meshes:
+		(m as GeometryInstance3D).transparency = 1.0 - _seen
 
 
 ## A clinch: he steps in on them.
@@ -100,13 +151,14 @@ func part() -> void:
 func _process(delta: float) -> void:
 	if stage == null or stage.boxers.size() < 2:
 		return
+	_fade(delta)
 	if bool(stage.get("scene")):
 		_walk_to(_neutral(), WALK_MS, delta)
 		_keep_off_lens()
 		return
 	_move(delta)
 	_keep_clear(KEEP_PUSH_M if _mode == "part" else KEEP_M)
-	if _mode == "watch":
+	if _mode != "part":   # S359 stepping in too: holding his side he can stand on the camera's
 		_keep_off_lens()
 
 
@@ -147,9 +199,53 @@ func _spot(out: float, along_m: float = ALONG_M) -> Vector3:
 	var cam: Camera3D = stage.get("camera")
 	var dir := line.normalized() if line.length() > 0.01 else Vector3.ZERO
 	if cam != null and _mode == "watch":
-		_side = -1.0 if perp.dot(cam.global_position - _mid()) > 0.0 else 1.0
-		_along = _pick_along(cam, perp * out * _side, dir, line.length() * 0.5)
+		var want := -1.0 if perp.dot(cam.global_position - _mid()) > 0.0 else 1.0
+		if not sticky_side:
+			_side = want
+			_along = _pick_along(cam, perp * out * _side, dir, line.length() * 0.5)
+		elif not _sticky(want, perp, dir, out, line.length() * 0.5):
+			_along = _pick_along(cam, perp * out * _side, dir, line.length() * 0.5)
+	elif _mode != "watch":
+		_cross = 0
+		_wrong_t = 0.0
 	var p := _mid() + perp * out * _side + dir * (0.0 if along_m == 0.0 else _along)
+	var edge: float = float(stage.RING_M) * 0.5 - EDGE_IN_M
+	return Vector3(clampf(p.x, -edge, edge), 0.0, clampf(p.z, -edge, edge))
+
+
+## S359 his side, kept: the side of their line he stands on (world-stable however they turn). The camera on that side
+## for FLIP_S starts a change of side round a boxer's back; true while that walk owns _side / _along.
+func _sticky(want: float, perp: Vector3, dir: Vector3, out: float, half: float) -> bool:
+	var rel := body.position - _mid()
+	var cur := 1.0 if perp.dot(rel) >= 0.0 else -1.0
+	var dt := get_process_delta_time()
+	if _cross == 0:
+		_side = cur
+		_wrong_t = _wrong_t + dt if want != cur else 0.0
+		if _wrong_t < FLIP_S:
+			return false
+		# Round the end with more room inside the ropes.
+		var e := half + BEHIND_M
+		_cross_end = 1.0 if _pinned(perp * out * cur + dir * e) <= _pinned(perp * out * cur - dir * e) else -1.0
+		_cross = 1
+		_wrong_t = 0.0
+	_along = _cross_end * (half + BEHIND_M)
+	_cross_t += dt
+	# A leg ends on arrival, or after LEG_S when a boxer or the ropes keep him off the spot.
+	var there := body.position.distance_to(_clamped(_mid() + perp * out * _side + dir * _along)) < ARRIVE_M or _cross_t > LEG_S
+	if _cross == 1:
+		_side = cur
+		if there:
+			_cross = 2
+			_side = -cur
+			_cross_t = 0.0
+	elif there:
+		_cross = 0
+		_cross_t = 0.0
+	return true
+
+
+func _clamped(p: Vector3) -> Vector3:
 	var edge: float = float(stage.RING_M) * 0.5 - EDGE_IN_M
 	return Vector3(clampf(p.x, -edge, edge), 0.0, clampf(p.z, -edge, edge))
 

@@ -309,7 +309,9 @@ func _scale(i: int) -> float:
 ## The broadcast camera follows the pair (RingCamera); `snap` jumps straight there.
 func broadcast(snap: bool = false, delta: float = 0.0) -> void:
 	# S348: the lens keeps off the referee in every mode (stepping in to part a clinch he came within a metre of it).
-	camera.avoid = (referee.get("body") as Node3D).position if referee != null and referee.get("body") != null else Vector3.INF
+	# S359: an unseen referee (he shows only to break a clinch) is not steered round.
+	camera.avoid = (referee.get("body") as Node3D).position if referee != null and referee.get("body") != null \
+		and bool(referee.call("shown")) else Vector3.INF
 	camera.broadcast(boxers[0]["pos"], boxers[1]["pos"], snap, delta)
 
 

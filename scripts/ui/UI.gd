@@ -193,6 +193,15 @@ static func theme() -> Theme:
 	t.set_color("font_color", "LineEdit", FG)
 	t.set_color("font_placeholder_color", "LineEdit", Color(MUTED, 0.7))
 	t.set_stylebox("panel", "ScrollContainer", StyleBoxEmpty.new())
+	# S359 (operator on a whiteboard hover: "unreadable"): the engine's tooltip was see-through grey on grey. Solid ink,
+	# white words, body size.
+	var tip := box(FG, Color(0, 0, 0, 0), 8, 0, 14, 10)
+	tip.shadow_color = Color(0, 0, 0, 0.3)
+	tip.shadow_size = 6
+	t.set_stylebox("panel", "TooltipPanel", tip)
+	t.set_color("font_color", "TooltipLabel", Color.WHITE)
+	t.set_font("font", "TooltipLabel", font("body"))
+	t.set_font_size("font_size", "TooltipLabel", BODY)
 	_theme = t
 	return t
 
