@@ -1,4 +1,4 @@
-FIGHTCAMP - WEEK 6 BUILD, UPDATE 59 (2026-11-02): THE CAMP WRITES THE WEEK, TWIST CARDS YOU ANSWER, TEST YOUR PLAN, PEAK CAMP
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 59 (2026-11-02): THE WHITEBOARD WEEK, TWIST CARDS YOU ANSWER, TEST YOUR PLAN, PEAK CAMP
 =========================================================================================================================
 
  1. THE CAMP WRITES THE WEEK (your yes on Q-S294-82). FIGHTERS > a fighter > Training: the coach writes each week from the
@@ -23,7 +23,12 @@ FIGHTCAMP - WEEK 6 BUILD, UPDATE 59 (2026-11-02): THE CAMP WRITES THE WEEK, TWIS
     lefty: +1.5 on the night vs a southpaw), Her old coach visits (a new coach's note; 1 in 3 an old habit costs technique),
     Sponsor photoshoot (+$400, Thursday evening off / reputation -1), Rival talks trash (+3 members, she takes the corner's
     fixes half as well / a calm camp). About 1 week in 4 is still a small card with no choice (rain, weights room shut...).
- 5. Small: the wrestling tie-up answers read "drops the head", "squares the hips" (no his/her); the week review scrolls
+ 5. THE TRAINING TAB IS THE COACH'S WHITEBOARD (your yes on Q-S294-84, the Miro mockup). FIGHTERS > a fighter > Training:
+    the camp week and its phase, the fight date circled in red; each day a magnet for the morning (click it for every card)
+    and one for the evening, I / II / III for how hard, the fatigue bar coloured only near or over the line; THIS CAMP with
+    weight, the camp's stat, the fatigue peak and the injury load; the twist on a sticky note; the coach's one line ("Tuesday's
+    in the red. Take the heavy bag down to Light, or rest it."); CONTINUE on the board. The numbers sit on each magnet's hover.
+ 6. Small: the wrestling tie-up answers read "drops the head", "squares the hips" (no his/her); the week review scrolls
     with Next week always on screen.
 
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 58 (2026-11-02): THE PERKS FIGHT, PLANNED VS ACTUAL, A TWIST A WEEK, COMBO HIT RATES
