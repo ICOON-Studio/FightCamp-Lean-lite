@@ -26,7 +26,15 @@ const MORALE_EVENTS := {
 	"booked": 5,
 	"let_go": 4,     # S356 twist: she got her night off
 	"refused": -4,   # S356 twist: she did not
+	"heard": 5,        # S361 PushBack: her ask, done her way
+	"overruled": -5,   # S361 PushBack: her ask turned down (a low-coachability fighter takes it worse)
 }
+
+## S361 trust (Q-S294-86: "her morale is the trust score, no new meter"): how much of the corner's word she takes in, by
+## mood - Fired up 1.05, Steady 1.0, Flat 0.85, Low 0.7 (Exchanges.uptake x this). Real coaching: an athlete who trusts
+## the coach acts on the instruction (Jowett's coach-athlete relationship; autonomy-supportive coaching, Mageau & Vallerand
+## 2003). Design values - playtest them.
+const TRUST := {"Fired up": 1.05, "Steady": 1.0, "Flat": 0.85, "Low": 0.7}
 
 
 ## Mood word by morale 0..100.
@@ -38,6 +46,11 @@ static func mood(morale: float) -> String:
 	if morale >= 30.0:
 		return "Flat"
 	return "Low"
+
+
+## Her trust in the corner, from her morale (TRUST).
+static func trust(f: Dictionary) -> float:
+	return float(TRUST[mood(float(f.get("morale", MORALE_START)))])
 
 
 ## A new profile for fighter f, deterministic in seed_value.
@@ -139,6 +152,8 @@ static func apply_morale(f: Dictionary, kind: String, reason: String) -> Diction
 			scaled = scaled * lerpf(0.9, 1.25, confidence / 100.0)
 	elif scaled > 0.0:
 		scaled = scaled * lerpf(0.9, 1.1, confidence / 100.0)
+	if kind == "overruled":
+		scaled = scaled * lerpf(1.4, 0.7, clampf(float(personality.get("coachability", 50.0)), 0.0, 100.0) / 100.0)
 
 	var old_morale: float = float(f.get("morale", MORALE_START))
 	var new_morale: float = snappedf(clampf(old_morale + scaled, 0.0, 100.0), 0.1)

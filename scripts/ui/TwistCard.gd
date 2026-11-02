@@ -5,15 +5,17 @@ extends RefCounted
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
+const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const COL_W := 520
 
 
 static func build(main: Node, f: Dictionary, title: String) -> VBoxContainer:
 	var box := UI.vbox(6)
 	box.name = "Twist_" + str(f["id"])
-	var t := WeekTwist.card(str(f.get("twist", "")))
+	var t := WeekTwist.card_for(f)
 	if t.is_empty():
 		return box
+	var first := str(f.get("first", ""))
 	box.add_child(UI.label("%s - %s: %s" % [title, str(t["name"]).to_upper(), t["line"]], UI.BODY, UI.AMBER, "bold", true))
 	if not t.has("a"):
 		return box
@@ -35,6 +37,12 @@ static func build(main: Node, f: Dictionary, title: String) -> VBoxContainer:
 		col.add_child(said)
 		row.add_child(col)
 	box.add_child(row)
+	if bool(t.get("ask", false)):   # S361 her ask: what her trust stands at, and what it does
+		var mood := FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START)))
+		var tl := UI.label("%s's mood: %s (morale %d). Mood is trust: in a fight a Flat or Low fighter takes in less of the corner's calls." % [
+			first, mood, roundi(float(f.get("morale", FighterProfile.MORALE_START)))], UI.SMALL, UI.MUTED, "body", true)
+		tl.name = "AskTrust"
+		box.add_child(tl)
 	if locked:
 		box.add_child(UI.muted("Answered: the week is running.", UI.SMALL))
 	return box

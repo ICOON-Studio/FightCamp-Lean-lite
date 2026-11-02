@@ -17,6 +17,7 @@ const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
+const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -194,7 +195,9 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var shouted := shout != "" and Exchanges.CALLS.has(shout)
 	var call := shout if shouted else str(lv["plan"])
 	var coach := float((f.get("personality", {}) as Dictionary).get("coachability", 55.0))
-	var heard := Exchanges.uptake(coach, int(lv["shouts"]) if shouted else 0)
+	# S361 her trust (morale) scales what she takes in of every call and fix (FighterProfile.TRUST).
+	var trust := FighterProfile.trust(f)
+	var heard := Exchanges.uptake(coach, int(lv["shouts"]) if shouted else 0) * trust
 	if shouted:
 		lv["shouts"] = int(lv["shouts"]) + 1
 	var same_game := i > 0 and str((exs[i - 1] as Dictionary)["mode"]) == str(lv["mode"])
@@ -209,7 +212,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		perks.append("ring_general")
 	if PerkFight.jab_edge(f, sit) > 0.0:
 		perks.append("stiff_jab")
-	var d := float(lv["base"]) + PerkFight.call_edge(f, ce) + PerkFight.jab_edge(f, sit) + HabitFix.cost(habit, fix, Exchanges.uptake(coach, 0) * (0.5 if bool(f["bout"].get("hot", false)) else 1.0))
+	var d := float(lv["base"]) + PerkFight.call_edge(f, ce) + PerkFight.jab_edge(f, sit) + HabitFix.cost(habit, fix, Exchanges.uptake(coach, 0) * trust * (0.5 if bool(f["bout"].get("hot", false)) else 1.0))
 	# S310 the corner's talk works every exchange of the round; the set-up once, when it is fired.
 	d += float((lv.get("talk", {}) as Dictionary).get("edge", 0.0))
 	var su: Dictionary = lv.get("setup", {})
@@ -417,7 +420,7 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	return {"n": int(lv["n"]), "won": ro["won"], "won_n": ro["won_n"], "mine": ro["mine"], "theirs": ro["theirs"],
 		"corner": str(lv["plan"]), "energy": e, "exchanges": exs, "landed": ro["landed"], "calls": calls, "worked": worked,
 		"fix": str(lv.get("fix", "")), "habits_paid": paid, "fix_came": fix_came,
-		"fix_hold": Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0), "start": lv.get("start", {}),
+		"fix_hold": Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0) * FighterProfile.trust(f), "start": lv.get("start", {}),
 		"talk": str(lv.get("talk_kind", "")), "setup": (lv.get("setup", {}) as Dictionary).duplicate(),
 		"arrows": PlanFight.tally(exs), "plan": (fb.get("arrows", []) as Array).duplicate(true),
 		"hurt_at_bell": bool(exs[-1].get("after", {}).get("hurt", [false, false])[0]) if not exs.is_empty() else false}

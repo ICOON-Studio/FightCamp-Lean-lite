@@ -11,6 +11,7 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
 const FighterTile := preload("res://scripts/ui/FighterTile.gd")
+const FightPoster := preload("res://scripts/ui/FightPoster.gd")
 
 ## S334 (operator C152 on the A-pose bust: "looks kind silly"): the polaroid is her ring photo (tools/bake_headshots.gd,
 ## one glove raised after a win); the old crop of the baked body portrait is only the fallback for a face never shot.
@@ -49,6 +50,16 @@ static func board(main: Node, c: Career, events: Array) -> PanelContainer:
 		var h := UI.hbox(40)
 		h.add_child(polaroid(main, f))
 		h.add_child(notes(c, f))
+		# S361 her bout's poster pinned beside her (FightPoster), a little askew, from the day it is booked to fight night.
+		var poster := FightPoster.build(c, f, 250.0)
+		if poster != null:
+			var pin := Control.new()
+			pin.custom_minimum_size = poster.custom_minimum_size + Vector2(16, 16)
+			pin.add_child(poster)
+			poster.position = Vector2(8, 8)
+			poster.pivot_offset = poster.custom_minimum_size * 0.5
+			poster.rotation = deg_to_rad(1.8)
+			h.add_child(pin)
 		v.add_child(h)
 	var rule := ColorRect.new()
 	rule.color = UI.FG

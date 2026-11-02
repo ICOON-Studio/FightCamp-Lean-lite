@@ -349,7 +349,7 @@ func _line_under(main: Node, fid: String, f: Dictionary, id: String, ln: Diction
 
 ## The week's twist card on a sticky note; a choice shows its two answers (until Monday locks it).
 func _twist(main: Node, f: Dictionary) -> Control:
-	var t := WeekTwist.card(str(f.get("twist", "")))
+	var t := WeekTwist.card_for(f)
 	if t.is_empty():
 		return null
 	var note := WB.sticky()
@@ -361,7 +361,7 @@ func _twist(main: Node, f: Dictionary) -> Control:
 			"handbold", WB.RED, true)
 		first.name = "StartHere"
 		v.add_child(first)
-	v.add_child(WB.ink("TWIST: %s" % str(t["name"]).to_upper(), 24, "marker", WB.RED))
+	v.add_child(WB.ink(("%s" if bool(t.get("ask", false)) else "TWIST: %s") % str(t["name"]).to_upper(), 24, "marker", WB.RED))
 	v.add_child(WB.ink(str(t["line"]), UI.SMALL + 2, "hand", WB.INK, true))
 	if not t.has("a"):
 		return note
@@ -389,6 +389,9 @@ func _twist(main: Node, f: Dictionary) -> Control:
 		col.add_child(w)
 		row.add_child(col)
 	v.add_child(row)
+	if bool(t.get("ask", false)):   # S361 her ask (PushBack): her mood is her trust in the corner
+		v.add_child(WB.ink("Mood %s - trust: a Flat or Low fighter takes in less of the corner's calls." % Sim.FighterProfile.mood(
+			float(f.get("morale", 60.0))), UI.SMALL, "hand", WB.PENCIL, true))
 	if locked:
 		v.add_child(WB.ink("answered - the week is running", UI.SMALL, "hand", WB.PENCIL))
 	else:
@@ -426,8 +429,6 @@ func _foot(main: Node, c: Career, f: Dictionary, days: Array, wk: Dictionary, li
 			main.render())
 		more.name = "More"
 		row.add_child(more)
-	else:
-		_dials(main, f, fid, row)
 	var reset := UI.button("Coach's week", "BtnQuiet", main.act.bind("weekreset", fid))
 	reset.name = "WeekReset"
 	reset.tooltip_text = "Undo your changes: back to the coach's week for this phase"
@@ -435,6 +436,10 @@ func _foot(main: Node, c: Career, f: Dictionary, days: Array, wk: Dictionary, li
 	row.add_child(UI.spacer())
 	row.add_child(_continue(main))
 	v.add_child(row)
+	if camp_week(c, f) >= 2 or more_open:   # S361 the dials on a row of their own (in one row they ran the page off 1920)
+		var dials := UI.hbox(10)
+		_dials(main, f, fid, dials)
+		v.add_child(dials)
 	return v
 
 

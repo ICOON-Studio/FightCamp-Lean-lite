@@ -1,3 +1,22 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 63 (2026-11-02): THE WEEK REVIEW AS A REVEAL, SHE PUSHES BACK, A POSTER FOR EVERY BOUT
+=======================================================================================================================
+
+ 1. WEEK REVIEW: the rows land one at a time, each bar filling as it lands, and the week's biggest surprise lands last
+    on a yellow sticky note: an injury (red), a new weapon, a peak camp, a ranking won, or the stat that ticked a point.
+    A quiet week has no note. Click anywhere on the review to see it all at once.
+ 2. SHE PUSHES BACK (your Miro top 5, "Yes, build them"): some weeks the twist card is her own ask, in her words -
+    "Pads are boring. Let me spar Friday." / "Too many hard mornings. Can we ease off?" / "I keep fading late. More
+    running." / "I want to hit something. More bag." / "I'm cooked. Give me Saturday." Each comes from who she is
+    (discipline, confidence, temper, her habits, her style) or from an overreached week. Her way: morale up. The plan:
+    morale down (more for a fighter who does not take orders well). No answer by Monday = the coach keeps the plan.
+ 3. MORALE IS TRUST: in a fight a Flat or Low fighter takes in less of the corner's calls and fixes (Fired up a little
+    more). Measured: the same 120 bouts, Low trust won 151 rounds against Maria, Fired up 161.
+ 4. A FIGHT POSTER for every bout: an old bill poster (cream paper, halftone faces, VS in red, a ticket-stub date bar)
+    built from the bout, pinned on Home from the day she is booked to fight night.
+ 5. Fixes: the review's stat gains no longer hide under the scrollbar; the whiteboard's Pads/Combo pickers sit on their
+    own row (camp week 2+ ran the page off the right edge).
+ Try it: ops board "Test: a camp on the whiteboard" (the poster is on Home), then CONTINUE to the week review.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 62 (2026-11-02): THE PLAYBOOK AS A MOVE BOOK AND A GAME PLAN; THE OPPONENT ON THE WHITEBOARD
 ==============================================================================================================================
 

@@ -27,6 +27,7 @@ const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekActual := preload("res://scripts/rules/WeekActual.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
+const PushBack := preload("res://scripts/rules/PushBack.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -345,12 +346,17 @@ static func end_week(career: Career) -> void:
 		var bt: Dictionary = f.get("bout", {})
 		var fight_week := not bt.is_empty() and not bool(bt.get("done", false)) and int(bt.get("day", 0)) - career.day <= 7
 		var nt := WeekTwist.draw(week + 1 + career.fighters.find(f) * 31, str(f.get("twist", "")), fight_week, twist_needs(f, career))
+		# S361 some weeks her own ask takes the card's place (PushBack; never over the rare short-notice swap).
+		if not bool(nt.get("rare", false)):
+			var ask := PushBack.pick(f, week + 1, WeekPlan.days_of(f), WeekPlan.evenings_of(f), float(f.get("week_peak", 0.0)), str(f.get("twist", "")))
+			if ask != "":
+				nt = WeekTwist.card(ask)
 		WeekTwist.deal(f, nt)
 		# (No news line: the Training tab shows the card all week and the review names it - a weekly line flooded Mail.)
 		var rank_before := int(f.get("rank_at_review", f.get("rank", 0)))
 		reports.append({"id": f["id"], "name": f["name"], "rows": rows, "moves": drill["rows"], "new_weapon": drill["new_weapon"],
 			"rank_before": rank_before, "rank_after": int(f.get("rank", 0)), "div": Data.DIVISIONS[f["div"]]["short"],
-			"coach": coach_line(career, f), "plan": plan, "peak": str(f.get("peak_line", ""))})
+			"coach": coach_line(career, f), "plan": plan, "peak": str(f.get("peak_line", "")), "injury": Injuries.new_this_week(career, f)})
 		f.erase("peak_line")
 		f["rank_at_review"] = int(f.get("rank", 0))
 		if not career.coach.is_empty():

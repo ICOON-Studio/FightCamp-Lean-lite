@@ -47,6 +47,14 @@ static func line(c: Career, f: Dictionary) -> String:
 		"1 week" if w == 1 else "%d weeks" % w, Clock.fmt(int(inj["until_day"]))]
 
 
+## S361 the week review's headline: the injury's line when it began in the last 7 days (training or a bout), else "".
+static func new_this_week(c: Career, f: Dictionary) -> String:
+	if not out(c, f):
+		return ""
+	var inj: Dictionary = f["injury"]
+	return line(c, f) if int(inj["until_day"]) - int(inj["days_out"]) > c.day - 7 else ""
+
+
 ## How serious, from the days the injury costs in all: up to 2 weeks minor, up to 4 moderate, longer serious.
 static func severity(days: int) -> String:
 	if days <= 14:
