@@ -15,7 +15,7 @@ static func day(c: Career) -> bool:
 	for f in c.grapplers:
 		if posmod(c.day, 7) == 6:
 			var before: Dictionary = (f.get("bjj", {}) as Dictionary).duplicate()
-			var m := NoGi.week(f)
+			var m := NoGi.week(f, c.day)
 			f["mat_week"] = {"move": m, "before": float(before.get(m, 0.0)), "after": float((f["bjj"] as Dictionary).get(m, 0.0)) if m != "" else 0.0}
 		var entered: Array = f.get("entered", [])
 		if entered.has(c.day):

@@ -58,13 +58,15 @@ func _opens() -> void:
 	var fresh := f.duplicate(true)
 	fresh["mat_classes"] = 0
 	_check(NoGi.win_chance(fresh, 0) < p and NoGi.win_chance(fresh, 0) >= NoGi.WIN_RANGE.x, "a fresh white belt wins less (%.2f)" % NoGi.win_chance(fresh, 0))
+	var plain: Dictionary = o[0].duplicate()
+	plain.erase("lean")   # S364: the base odds here; the lean's edge is drill_pick_test's
 	var rng := RandomNumberGenerator.new()
 	var wins := 0
 	var golds := 0
 	var bad := 0
 	for i in 400:
 		rng.seed = i
-		var res := NoGi.run_open(f, o[0], 33, rng)
+		var res := NoGi.run_open(f, plain, 33, rng)
 		wins += int(res["wins"])
 		golds += 1 if str(res["medal"]) == "gold" else 0
 		for row in res["matches"]:

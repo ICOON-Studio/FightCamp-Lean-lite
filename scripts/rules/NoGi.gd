@@ -26,6 +26,21 @@ const WIN_RANGE := Vector2(0.2, 0.8)
 ## S363 (StripeCall): morale and loyalty start here; morale moves her match odds by (morale - start) / MORALE_SPAN (100 =
 ## +0.10, 20 = -0.10); a held stripe drills HUNGRY harder; a tough bracket (early stripes) costs TOUGH a match. Her results
 ## move morale: a win +WIN_MORALE, a loss on points -LOSS_MORALE, tapped -TAP_MORALE (Kalli K-BELTROAD1 part 3).
+## S364 (Kalli K-BELTROAD1 parts 2-3) WHAT THE CLASSES DRILL: f["drill"] = "coach" (default: the move closest to owned),
+## "open" (for the next open: the least-owned move of the group it leans on, finished before the next; all owned = the best
+## of them toward a signature) or "fav" (her best owned move, pushed to a SIGNATURE).
+## Each open LEANS on one syllabus group (which game its field brings): her own in that group moves her odds by
+## LEAN_W x (own - 0.5) (game value, +-0.25: a field of wrestlers against a guard player decides a lot), and a signature
+## move in it adds SIGNATURE_BONUS. Measured S364: at +-0.06, and at +-0.15 with Kalli's "weakest group" plan (it wandered
+## between groups and finished nothing), drilling for the open lost to the coach's pick IN that open - one more owned move
+## lifts the belt share 1/14 x 0.30 = 0.021. At +-0.25 five weeks for the next open beat the coach's pick there, and cost
+## time on the belt road. The favourite pays where its group decides. Chance in words: under LONG_SHOT / over FAVOURITE.
+const DRILLS := ["coach", "open", "fav"]
+const SIGNATURE := 50.0
+const SIGNATURE_BONUS := 0.05
+const LEAN_W := 0.50
+const LONG_SHOT := 0.40
+const FAVOURITE := 0.60
 const MORALE_START := 60
 const MORALE_SPAN := 400.0
 const HUNGRY := 1.15
@@ -72,21 +87,90 @@ static func move_name(id: String) -> String:
 
 ## The move the week's classes drill: the syllabus move she is closest to owning, until she owns it (a coach finishes a
 ## move before starting the next); "" when she owns them all.
-static func drilling(f: Dictionary) -> String:
+## S364 the player may pick another plan (f["drill"]); a plan with nothing left to drill falls back to the coach's pick.
+static func drilling(f: Dictionary, day: int = 0) -> String:
+	return drilling_for(f, str(f.get("drill", "coach")), day)
+
+
+static func drilling_for(f: Dictionary, plan: String, day: int = 0) -> String:
+	var bjj: Dictionary = f.get("bjj", {})
 	var best := ""
-	var top := -1.0
+	match plan:
+		"open":
+			var g: Array = lean_group(f, opens_after(day + 1, 1)[0])
+			var moves: Array = g[1] if not g.is_empty() else []
+			var on := str(f.get("drill_on", ""))
+			if moves.has(on) and float(bjj.get(on, 0.0)) < BeltRoad.OWNED_AT:
+				return on
+			var low := 1e9
+			for m in moves:
+				var v := float(bjj.get(m, 0.0))
+				if v < BeltRoad.OWNED_AT and v < low:
+					low = v
+					best = m
+			if best == "":
+				var top := -1.0
+				for m in moves:
+					var v := float(bjj.get(m, 0.0))
+					if v < SIGNATURE and v > top:
+						top = v
+						best = m
+		"fav":
+			var top := -1.0
+			for m in BeltRoad.moves_for(str(f.get("belt", "white"))):
+				var v := float(bjj.get(m, 0.0))
+				if v >= BeltRoad.OWNED_AT and v < SIGNATURE and v > top:
+					top = v
+					best = m
+	if best != "":
+		return best
+	var top2 := -1.0
 	for m in BeltRoad.moves_for(str(f.get("belt", "white"))):
-		var v := float((f.get("bjj", {}) as Dictionary).get(m, 0.0))
-		if v < BeltRoad.OWNED_AT and v > top:
-			top = v
+		var v := float(bjj.get(m, 0.0))
+		if v < BeltRoad.OWNED_AT and v > top2:
+			top2 = v
 			best = m
 	return best
 
 
+## How much of a syllabus group she owns, 0..1 (each move counts up to the weapon level).
+static func group_own(f: Dictionary, moves: Array) -> float:
+	var s := 0.0
+	for m in moves:
+		s += minf(float((f.get("bjj", {}) as Dictionary).get(m, 0.0)), BeltRoad.OWNED_AT) / BeltRoad.OWNED_AT
+	return s / maxf(1.0, moves.size())
+
+
+static func groups_of(f: Dictionary) -> Array:
+	return (BeltRoad.SYLLABUS.get(str(f.get("belt", "white")), {}) as Dictionary).get("groups", [])
+
+
+## The group an open leans on at her belt: [name, moves] or [] (an open without a lean, or black belt).
+static func lean_group(f: Dictionary, o: Dictionary) -> Array:
+	var gs := groups_of(f)
+	if gs.is_empty() or not o.has("lean"):
+		return []
+	return gs[int(o["lean"]) % gs.size()]
+
+
+## Her edge in an open's lean: LEAN_W x (own - 0.5), plus SIGNATURE_BONUS for a signature move in the group.
+static func lean_edge(f: Dictionary, o: Dictionary) -> float:
+	var g := lean_group(f, o)
+	if g.is_empty():
+		return 0.0
+	var sig := (g[1] as Array).any(func(m): return float((f.get("bjj", {}) as Dictionary).get(m, 0.0)) >= SIGNATURE)
+	return LEAN_W * (group_own(f, g[1]) - 0.5) + (SIGNATURE_BONUS if sig else 0.0)
+
+
+static func chance_word(p: float) -> String:
+	return "LONG SHOT" if p < LONG_SHOT else ("FAVOURITE" if p > FAVOURITE else "EVEN")
+
+
 ## A week on the mat: the classes count, the drilled move gains. Returns the move drilled.
-static func week(f: Dictionary) -> String:
+static func week(f: Dictionary, day: int = 0) -> String:
 	f["mat_classes"] = int(f.get("mat_classes", 0)) + CLASSES_PER_WEEK
-	var m := drilling(f)
+	var m := drilling(f, day)
+	f["drill_on"] = m
 	if m != "":
 		var bjj: Dictionary = f.get_or_add("bjj", {})
 		bjj[m] = minf(100.0, float(bjj.get(m, 0.0)) + DRILL_GAIN * (HUNGRY if int(f.get("held", 0)) > 0 else 1.0))
@@ -131,7 +215,7 @@ static func opens_after(day: int, n: int = 2) -> Array:
 	var out: Array = []
 	for i in n:
 		var o: Array = OPENS[(k + i) % OPENS.size()]
-		out.append({"d": OPEN_FIRST + (k + i) * OPEN_EVERY, "name": str(o[0]), "fee": int(o[1])})
+		out.append({"d": OPEN_FIRST + (k + i) * OPEN_EVERY, "name": str(o[0]), "fee": int(o[1]), "lean": (k + i) % 3})
 	return out
 
 
@@ -143,16 +227,16 @@ static func open_on(day: int) -> Dictionary:
 
 
 ## Her chance to win one match against her own belt's field.
-static func win_chance(f: Dictionary, today: int) -> float:
+static func win_chance(f: Dictionary, today: int, o: Dictionary = {}) -> float:
 	var share := float(BeltRoad.readiness(f, f.get("bjj", {}), today)["share"])
 	var mood := (float(f.get("morale", MORALE_START)) - MORALE_START) / MORALE_SPAN - (TOUGH if bool(f.get("tough_next", false)) else 0.0)
-	return clampf(WIN_BASE + WIN_SLOPE * share + mood, WIN_RANGE.x, WIN_RANGE.y)
+	return clampf(WIN_BASE + WIN_SLOPE * share + mood + lean_edge(f, o), WIN_RANGE.x, WIN_RANGE.y)
 
 
 ## One open, single elimination: she fights until she loses or wins the final. Returns {"matches": [record rows],
 ## "wins", "medal": "gold" | "silver" | "bronze" | ""}.
 static func run_open(f: Dictionary, o: Dictionary, today: int, rng: RandomNumberGenerator) -> Dictionary:
-	var p := win_chance(f, today)
+	var p := win_chance(f, today, o)
 	var rounds := int(round(log(float(BRACKET)) / log(2.0)))
 	var mins := BeltRoad.match_minutes(str(f.get("belt", "white")))
 	var owned_subs := SUBS.filter(func(s): return float((f.get("bjj", {}) as Dictionary).get(s, 0.0)) >= BeltRoad.OWNED_AT)

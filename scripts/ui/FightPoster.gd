@@ -24,6 +24,11 @@ static func build(c: Career, f: Dictionary, w: float = 380.0) -> Control:
 	var b: Dictionary = f.get("bout", {})
 	if b.is_empty() or bool(b.get("done", false)):
 		return null
+	if not b.has("opp"):
+		# S364 a bout with no opponent crashed grey_reason_test once in ~12 runs (writer not found yet): no poster, and the
+		# keys go to the log so the next sighting names the writer.
+		push_warning("FightPoster: %s's bout has no opponent: %s" % [f.get("first", "?"), b.keys()])
+		return null
 	var opp: Dictionary = b["opp"]
 	var k := w / 380.0   # every size below is for a 380 px poster
 	var p := PanelContainer.new()

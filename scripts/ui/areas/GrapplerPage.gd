@@ -39,6 +39,11 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			why = str(res["why"]) if not bool(res["ok"]) else ""
 			if bool(res["ok"]):
 				main.toast(str(res["line"]))
+		"gdrill":   # "id|coach" / "id|open" / "id|fav" (S364, what the classes drill)
+			var kv := arg.split("|")
+			var gf := c.grappler_by_id(kv[0])
+			if not gf.is_empty() and NoGi.DRILLS.has(kv[1]):
+				gf["drill"] = kv[1]
 		"gpromote":
 			why = Grapplers.promote(c, arg)
 		"genter":
@@ -76,7 +81,7 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	row.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	add_child(row)
 	if nxt != "":
-		row.add_child(_syllabus(f, nxt, r))
+		row.add_child(_syllabus(main, f, nxt, r))
 	row.add_child(_call(main, c, f, nxt, r))
 	row.add_child(_record(f))
 
@@ -133,7 +138,7 @@ func _belt_bar(belt: String, stripes: int, mine: bool) -> Control:
 
 
 ## TO <NEXT> BELT: mat time and moves owned, then every syllabus move with its tick at a weapon.
-func _syllabus(f: Dictionary, nxt: String, r: Dictionary) -> Control:
+func _syllabus(main: Node, f: Dictionary, nxt: String, r: Dictionary) -> Control:
 	var syl: Dictionary = BeltRoad.SYLLABUS[str(f["belt"])]
 	var card := UI.card("TO %s BELT - %s" % [nxt.to_upper(), str(syl["title"]).to_upper()])
 	card[0].name = "Syllabus"
@@ -142,7 +147,9 @@ func _syllabus(f: Dictionary, nxt: String, r: Dictionary) -> Control:
 	card[1].add_child(_progress("Mat time", "%d of %d classes" % [r["mat"][0], r["mat"][1]], float(r["mat"][0]) / maxf(1.0, r["mat"][1])))
 	card[1].add_child(_progress("Moves owned (a weapon at the tick)", "%d of %d" % [r["moves"][0], r["moves"][1]],
 		float(r["moves"][0]) / maxf(1.0, r["moves"][1])))
-	var drill := NoGi.drilling(f)
+	var day: int = main.career.day
+	card[1].add_child(_drill_pick(main, f, day))
+	var drill := NoGi.drilling(f, day)
 	for g in syl["groups"]:
 		card[1].add_child(UI.caps(str(g[0]).to_upper()))
 		for m in g[1]:
@@ -169,9 +176,45 @@ func _syllabus(f: Dictionary, nxt: String, r: Dictionary) -> Control:
 			bar.add_child(tick)
 			h.add_child(bar)
 			var own := v >= BeltRoad.OWNED_AT
-			h.add_child(UI.label("owned" if own else "%d/%d" % [int(v), int(BeltRoad.OWNED_AT)], UI.TINY, UI.GREEN if own else UI.MUTED, "bold" if own else "body"))
+			var sig := v >= NoGi.SIGNATURE
+			h.add_child(UI.label("signature" if sig else ("owned %d" % int(v) if own else "%d/%d" % [int(v), int(BeltRoad.OWNED_AT)]), UI.TINY,
+				UI.GOLD if sig else (UI.GREEN if own else UI.MUTED), "bold" if own else "body"))
 			card[1].add_child(h)
 	return card[0]
+
+
+## S364 WHAT THE CLASSES DRILL (Kalli K-BELTROAD1 part 2): the coach's pick stands until you change it; "the next open"
+## drills the group that open leans on; her favourite pushes an owned move to a signature.
+func _drill_pick(main: Node, f: Dictionary, day: int) -> Control:
+	var box := UI.vbox(4)
+	box.name = "DrillPick"
+	box.add_child(UI.caps("WHAT THE CLASSES DRILL"))
+	var plan := str(f.get("drill", "coach"))
+	var btns := UI.hbox(8)
+	var fid := str(f["id"])
+	for p in NoGi.DRILLS:
+		var m := NoGi.drilling_for(f, p, day)
+		var text: String = {"coach": "Coach's pick", "open": "For the next open", "fav": "Her favourite"}[p]
+		var b := UI.button(text, "BtnSolid" if p == plan else "Btn", main.act.bind("gdrill", "%s|%s" % [fid, p]), false,
+			NoGi.move_name(m) if m != "" else "Nothing left to drill")
+		b.name = "Drill_" + p
+		btns.add_child(b)
+	box.add_child(btns)
+	var m := NoGi.drilling(f, day)
+	var why := ""
+	match plan:
+		"open":
+			var o: Dictionary = NoGi.opens_after(day + 1, 1)[0]
+			var g := NoGi.lean_group(f, o)
+			if not g.is_empty():
+				why = "the %s (%s) is decided on %s" % [o["name"], Clock.fmt(int(o["d"])), str(g[0]).to_lower()]
+		"fav":
+			why = "an owned move pushed to a signature at %d (+%d%% a match where its group decides)" % [int(NoGi.SIGNATURE), int(NoGi.SIGNATURE_BONUS * 100)]
+	if why == "":
+		why = "the move closest to a weapon"
+	if m != "":
+		box.add_child(UI.label("%s, +%.1f a week: %s." % [NoGi.move_name(m), NoGi.DRILL_GAIN, why], UI.SMALL, UI.FG, "body", true))
+	return box
 
 
 func _progress(title: String, value: String, frac: float) -> Control:
@@ -231,7 +274,16 @@ func _call(main: Node, c: Career, f: Dictionary, nxt: String, r: Dictionary) -> 
 		else:
 			right = UI.button("Enter", "Link", main.act.bind("genter", "%s|%d" % [fid, d]), c.cash < int(o["fee"]), "Not enough cash for the entry")
 		right.name = "Enter_%d" % d
-		v.add_child(UI.row(str(o["name"]), "%s - %d in the bracket - entry $%d" % [Clock.fmt(d), NoGi.BRACKET, int(o["fee"])], Color(0, 0, 0, 0), [right]))
+		var lg := NoGi.lean_group(f, o)
+		var lean := (" - decided on %s" % str(lg[0]).to_lower()) if not lg.is_empty() else ""
+		var word := NoGi.chance_word(NoGi.win_chance(f, c.day, o))
+		var wl := UI.label(word, UI.SMALL, UI.GREEN if word == "FAVOURITE" else (UI.RED if word == "LONG SHOT" else UI.FG), "bold")
+		wl.tooltip_text = "%s's chance in her first match (the coach's read)" % f["first"]
+		wl.mouse_filter = Control.MOUSE_FILTER_STOP
+		var row := UI.row(str(o["name"]), "%s - %d entrants - $%d%s" % [Clock.fmt(d), NoGi.BRACKET, int(o["fee"]), lean],
+			Color(0, 0, 0, 0), [wl, right])
+		row.name = "Open_%d" % d
+		v.add_child(row)
 	v.add_child(UI.caps("THE RULES (ADULT NO-GI)"))
 	var mm := BeltRoad.MATCH_MIN
 	v.add_child(UI.label("%d min at white (%d blue, %d purple, %d brown, %d black). Mount or back %d, guard pass %d, takedown, sweep or knee on belly %d. A submission ends it. No-gi only." % [

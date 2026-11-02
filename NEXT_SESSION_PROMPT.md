@@ -1,21 +1,21 @@
-# S362 - next session (written S361, 2026-11-02, after update 63)
+# S365 - next session (written S364, 2026-11-02, after update 66)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean (branch `main`).
-S361 (Lean 5015885, e7f3440, 64ad09b): Q-S294-86 built whole - the week review lands its rows one by one and the week's
-surprise last (ReviewReveal); her own asks replace the twist card some weeks (PushBack, WeekTwist.ASKS, heard/overruled);
-morale is now trust in the fight (FighterProfile.trust x Exchanges.uptake in LiveRound - before S361 NOTHING read morale);
-a halftone fight poster per bout on Home (FightPoster). Digest: Game/Godot/research/S361_DIGEST.md. Stills on /review S361.
-OPERATOR RULES: no his/her in game text; agents do animations, Claude mechanics + UI; probes at `--fixed-fps 30`; tests may
-run beside ONE windowed render on GREEN; check Miro (https://miro.com/app/board/uXjVETf7la4=/) at start.
-NEVER rewrite a .gd through PowerShell Get-Content/WriteAllText: Edit tool or Python utf-8.
+S363 (Lean 6f1758c): Kalli's SQ26 belt-road review collected (Game/Godot/research/K_BELTROAD1_KALLI.md). Her first change is
+built: the stripe is a choice (scripts/rules/StripeCall.gd: give now / hold back / give early). Morale is read at the opens
+(NoGi.win_chance) and moved by her results. Ana's week is in the week review (WeekReview._grappler, Grapplers.week_report).
+Digest: Game/Godot/research/S363_DIGEST.md. Stills are on /review S363.
+OPERATOR RULES: no his/her in game text; agents do animations, Claude does mechanics + UI; probes at `--fixed-fps 30`; tests
+may run beside ONE windowed render on GREEN; check Miro (https://miro.com/app/board/uXjVETf7la4=/) at start.
+NEVER rewrite a .gd through PowerShell Get-Content/WriteAllText: use the Edit tool or Python utf-8. roadmap.json is indent 1.
+
+S364 (Lean 2767c1c..9fbc103, update 66): Kalli parts 2-3 - what the classes drill (NoGi.drilling_for: coach / open / fav)
+and each open decided on one syllabus group (NoGi.lean_edge +-0.25, signature +0.05, NoGi.chance_word). Kalli's "weakest
+group" plan was measured as a trap and replaced by "for the next open" (Game/Godot/research/S364_DIGEST.md).
 
 In order:
-1. Collect Ziva TASK_ZIVAFOOT1 (Game/Godot/research/TASK_ZIVAFOOT1.md; branch ziva/footwork1 in E:\FightCamp\wt\ZIVA_LEAN;
-   chat at 127.0.0.1:7012). S361: its scratch _join_dbg.gd hung (await p.ready after add_child) and was killed by PID;
-   if it is stuck again, tell it why. Re-run tools/join_probe.gd yourself on its commit and on main; merge only within
-   the brief's bounds; send him the film.
-2. Split WeekBoard.gd (490 lines, cap 500): THIS CAMP (_camp, _line_under, _pulse, _preview) into WeekCamp.gd.
-3. Belt road v3 in the Record tab (Q-S294-80 "Yes, build both"; evenings panel gone, no holo).
-4. Tips index cards on the top bar / gym and the T3 keyword sticky notes (J90 6c, 6g).
-5. Move the Miro production map cards (S361 skipped it at hand-over).
-Q-S294-89 (SMOOTH3 A/B) waits on his look at smooth3_ab.mp4.
+1. Kalli part 4: Ana's no-gi side as gym business - BJJ members on their own dues, a medal brings 1-2 members, a blue belt
+   teaches the beginners' class. Real UK BJJ club dues first (John via seat_queue) - no numbers from memory.
+2. If any test log shows "bout has no opponent" (Home.events / FightPoster warning), find the writer (S364 could not).
+3. His /review comments on updates 64-66; Q-S294-89 (SMOOTH3 film) when he answers.
+4. The Miro production map cards (S361-S364 skipped it).

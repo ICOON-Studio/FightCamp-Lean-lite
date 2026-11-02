@@ -1,3 +1,18 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 66 (2026-11-02): WHAT ANA DRILLS, WHAT EACH OPEN IS DECIDED ON
+=================================================================================================
+
+ 1. WHAT THE CLASSES DRILL (Ana's Record tab, TO BLUE BELT card; Kalli's part 2). Three plans, the chosen one solid:
+    - Coach's pick (default): the move closest to a weapon - the fastest road to the next stripe and belt.
+    - For the next open: the move she is weakest at in the group the next open is decided on, finished before the next.
+      It costs belt time (5 weeks: 64% of the way to blue against 72% on the coach's pick) and wins at that open.
+    - Her favourite: an owned move pushed to a SIGNATURE at 50 ("signature" in gold on the list): +5% a match at the
+      opens decided on its group.
+    The line under the buttons says which move this week and why. The list marks it "(drilling)".
+ 2. EACH OPEN IS DECIDED ON ONE GROUP (Kalli's part 3): "decided on escapes and survival", "...passes and sweeps",
+    "...takedowns and submissions", in turn. How much of that group Ana owns moves her odds up to 25% either way.
+    Her chance in her first match shows as a word beside Enter: LONG SHOT (under 40%), EVEN, FAVOURITE (over 60%).
+    (Her weigh-in is not in yet: the no-gi athletes have no weight model.)
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 65 (2026-11-02): THE STRIPE IS YOUR CALL, ANA'S WEEK IN THE WEEK REVIEW
 ===========================================================================================================
 

@@ -47,6 +47,9 @@ func _initialize() -> void:
 	main.act("close")
 	main.render()
 	await _shot("s363_page_held")
+	# S364 what the classes drill: for the next open (the Spring Open leans on passes and sweeps).
+	main.act("gdrill", "ana|open")
+	await _shot("s364_page_drill_open")
 	quit(0)
 
 

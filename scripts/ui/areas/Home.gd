@@ -60,6 +60,9 @@ static func events(c: Career) -> Array:
 		var fb: Dictionary = f["bout"]
 		if fb.is_empty():
 			continue
+		if not fb.has("opp") or not fb.has("day"):   # S364 see FightPoster: a bout with no opponent is no event
+			push_warning("Home.events: %s's bout has no opponent: %s" % [f.get("first", "?"), fb.keys()])
+			continue
 		ev.append({"d": int(fb["day"]), "t": "%s vs %s" % [f["first"], fb["opp"]["name"]], "kind": "bout"})
 		if not bool(fb["weighed"]):
 			ev.append({"d": int(fb["day"]) - 1, "t": "weigh-in", "kind": "weigh"})
