@@ -1,3 +1,28 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 62 (2026-11-02): THE PLAYBOOK AS A MOVE BOOK AND A GAME PLAN; THE OPPONENT ON THE WHITEBOARD
+==============================================================================================================================
+
+ 1. PLAYBOOK > MOVES is a move book: every move grouped by where in the ring it is thrown (From outside, At long range,
+    Mid range, Inside, Clinch, On the ropes, Opponent on the ropes, Opponent in the corner). Each card says what the move
+    does and how far she has come with it (READY, RAW, USABLE, SHARP, SIGNATURE, LOCKED) with a bar for pad time. The top
+    says "11 of 27 moves ready" and the next combination worth her pad time. Click a card: it plays on her body.
+ 2. PLAYBOOK > GAME PLAN (was Plans): the coach's plan written as lines - "At long range -> One-two". Press "Write a line"
+    or "Change" on a line: every answer she has there, each rated against the next opponent's game the way the bout
+    scores it: BEATS IT (green), WORKS, WALKS INTO IT (red), with its edge (+5). Hover an answer and it plays.
+    A pick saves at once (no Save button). "Rate against" tries the plan on another kind of opponent.
+ 3. The PLAN EDGE bar moves with every pick (Strong / Sound / Even / Walks into the opponent's game). LINES shows the
+    coach's lines; the ones past him wait behind locks ("A coach rated 60+ teaches line 7").
+ 4. "+ When she presses" (and the other situations) adds an answer for that moment only.
+ 5. Real fight plans fill the lines in one click; Test it (3 a camp) now says whether the wins went up or down on the
+    last test. The old map is behind "Open the map"; See the flow is still there.
+ 6. WHITEBOARD (your yes to both of Kalli's changes): a fourth goal line, VS <OPPONENT>. The coach writes the week from
+    the camp's phase only, so it opens amber most weeks ("Maria walks you down: 2 slip rope mornings a week").
+    Change one or two mornings and it turns green. The coach now says: "My lines all land. Maria is your call - you
+    watched the tape." Every camp week that starts with it green makes her readier in the fight's exchanges on that
+    opponent's game.
+ 7. Evenings are words on each day (pads / sparring / off); Sparring nights stays the one weekly switch. In camp week 1
+    the Pads and Combo pickers sit behind "More: pads, combo".
+ Try it: ops board "Test: a camp on the whiteboard", then PLAYBOOK > Game plan.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 61 (2026-11-02): THE WHITEBOARD READS AT A GLANCE (KALLI'S REVIEW)
 ===================================================================================================
 

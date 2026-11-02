@@ -26,6 +26,7 @@ const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekActual := preload("res://scripts/rules/WeekActual.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
+const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -149,6 +150,10 @@ static func step_day(career: Career) -> void:
 		var evs := WeekTwist.evenings(tw, WeekPlan.evenings_of(f))
 		if dow == 0:
 			f["week_planned"] = WeekActual.snapshot(WeekPlan.week(days, week_ctx(career, f), evs), WeekPlan.days_of(f), float(f["weight"]), career.day)
+			# S360 Q-S294-90: a camp week that starts with the opponent's line met is a week of preparation (WeekOpp).
+			var ob: Dictionary = f.get("bout", {})
+			if not (f.get("camp", {}) as Dictionary).is_empty() and not ob.is_empty() and not bool(ob.get("done", false)):
+				WeekOpp.record(ob, days, str(f.get("phase", "base")))
 			f["week_log"] = []
 			f["week_peak"] = float(f.get("week_fatigue", 20.0))
 		var planned_days: Array = (f.get("week_planned", {}) as Dictionary).get("days", [])

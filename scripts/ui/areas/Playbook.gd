@@ -3,17 +3,19 @@ extends VBoxContainer
 ## combos/transitions, escapes etc and see all the animations?"; Q-S294-71 "Yes, build it"; design Game
 ## Godot/research/PLAYBOOK_S347.md). The coach's whiteboard for one fighter at a time: her move map on the left (StrikeMap's
 ## cards, lit = she can use it, grey = pad time first), the move player on the right (her own body, the opponent a ghost):
-## click a move and it plays, Replay, Slow motion. Tabs: Moves (walk her map), Plans (her plan board, Save plan, See the
-## flow), Combos (S349 ComboBuilder: build a chain from her moves, ComboFlow rates it, her body throws it), Escapes next.
+## click a move and it plays, Replay, Slow motion. Tabs (S360, Q-S294-91): Moves (a move book by where in the ring each move
+## is thrown, MoveWords), Game plan (the plan as lines, GamePlan; the map behind Open the map), Combos (S349 ComboBuilder:
+## build a chain from her moves, ComboFlow rates it, her body throws it), Escapes (a move book, S359).
 
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
-const StrikeBrowser := preload("res://scripts/ui/StrikeBrowser.gd")
 const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
 const ComboBuilder := preload("res://scripts/ui/ComboBuilder.gd")
 const MoveBook := preload("res://scripts/ui/MoveBook.gd")
+const MoveWords := preload("res://scripts/rules/MoveWords.gd")
+const GamePlan := preload("res://scripts/ui/GamePlan.gd")
 
 ## S359 (operator still: the player covered the plan panel - "remove the player or make it smaller?"): 400 x 440 beside
 ## the map (was 560 x 600), so the map and its side panel get the width; the Combos tab keeps its own bigger player.
@@ -45,12 +47,14 @@ func build(main: Node) -> void:
 	pick = str(f["id"])
 	add_child(_picker(main, c, f))
 	match int(main.route["tab"]):
-		0, 1:
-			add_child(_board(main, f, int(main.route["tab"]) == 1))
+		0:
+			add_child(_book(f, MoveWords.groups(), MoveWords.WORDS, "Click a move and it plays here."))   # S360 Q-S294-91
+		1:
+			add_child(_plan(main, f))
 		2:
 			add_child(ComboBuilder.make(main, f))   # S349 build step 3: her moves to try, the chain, its verdict, her body plays it
 		3:
-			add_child(_escapes(f))
+			add_child(_book(f, ESCAPES, ESCAPE_WORDS, "Click an escape and it plays here."))
 
 
 ## Her name chips: the page is one fighter's whiteboard.
@@ -66,19 +70,17 @@ func _picker(main: Node, c: Career, f: Dictionary) -> Control:
 	return row
 
 
-## The map (left) and the player (right).
-func _board(main: Node, f: Dictionary, plans: bool) -> Control:
+## S360 (operator Q-S294-91: "build it make it interactive for player, with meaningful options and not chores and visually
+## and progressively rewarding"): the game plan written as lines (GamePlan) beside her body; hovering an answer plays it.
+func _plan(main: Node, f: Dictionary) -> Control:
 	var h := UI.hbox(16)
 	h.custom_minimum_size = Vector2(0, MAP_H)
-	var sb: Control = StrikeBrowser.new()
-	sb.embedded = true
-	sb.start_plan = plans
-	sb.for_fighter(main, f)
-	sb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	sb.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	sb.move_picked.connect(_play)
-	h.add_child(sb)
-	h.add_child(_player_col(f, "Click a move on the map and it plays here."))
+	var scroll := ScrollContainer.new()
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(GamePlan.make(main, f, _play))
+	h.add_child(scroll)
+	h.add_child(_player_col(f, "Hover an answer and it plays here."))
 	return h
 
 
@@ -101,15 +103,16 @@ const ESCAPE_WORDS := {
 }
 
 
-func _escapes(f: Dictionary) -> Control:
+## A move book (MoveBook) beside the player: Moves (every move by where it is thrown, S360) and Escapes (S359).
+func _book(f: Dictionary, groups: Array, words: Dictionary, prompt: String) -> Control:
 	var h := UI.hbox(16)
 	h.custom_minimum_size = Vector2(0, MAP_H)
 	var scroll := ScrollContainer.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.add_child(MoveBook.make(ESCAPES, ESCAPE_WORDS, f.get("moves", {}), _play))
+	scroll.add_child(MoveBook.make(groups, words, f.get("moves", {}), _play, f.get("combos", {}), true))
 	h.add_child(scroll)
-	h.add_child(_player_col(f, "Click an escape and it plays here."))
+	h.add_child(_player_col(f, prompt))
 	return h
 
 

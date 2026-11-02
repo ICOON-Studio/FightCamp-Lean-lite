@@ -72,12 +72,14 @@ static func make(main: Node, fid: String, i: int, m: Array, planned: Array, even
 	pm.tooltip_text = "Evenings are pads, or sparring on the nights set by \"Sparring nights\" below."
 	pm.mouse_filter = Control.MOUSE_FILTER_PASS
 	v.add_child(pm)
-	if evening == "rest":
-		v.add_child(WB.ink("~ off", UI.SMALL + 2, "hand", WB.PENCIL))
-	else:
-		var spar := evening == "sparring"
-		v.add_child(WB.magnet("spar" if spar else "pads", "HARD" if spar else "NORMAL", spar,
-			str((WeekPlan.EVENINGS.get(evening, WeekPlan.EVENINGS["rest"]) as Dictionary)["name"])))
+	# S360 (Q-S294-90 "Both", Kalli: "cut the evening magnet ... show the evening on the day as text only"): the camp's phase
+	# and the weekly Sparring nights set the evenings, so the day only says what it is.
+	var ev := WB.ink("~ off" if evening == "rest" else ("sparring" if evening == "sparring" else "pads"), UI.SMALL + 2,
+		"handbold" if evening == "sparring" else "hand", WB.INK if evening == "sparring" else WB.PENCIL)
+	ev.name = "Evening_%d" % i
+	ev.tooltip_text = str((WeekPlan.EVENINGS.get(evening, WeekPlan.EVENINGS["rest"]) as Dictionary)["name"])
+	ev.mouse_filter = Control.MOUSE_FILTER_PASS
+	v.add_child(ev)
 	var fat := float(r["fatigue"])
 	var tl := WB.ink("TIRED BY NIGHT", UI.SMALL - 3, "caps", WB.PENCIL)
 	tl.name = "TiredLabel_%d" % i

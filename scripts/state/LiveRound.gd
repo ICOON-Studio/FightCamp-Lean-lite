@@ -16,6 +16,7 @@ const ClinchRest := preload("res://scripts/rules/ClinchRest.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
+const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -244,6 +245,8 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	if plan_edge > PlanFight.edge(pick, psit, plan_rate, card_mean):
 		perks.append("hand_speed")
 	d += plan_edge
+	# S360 Q-S294-90: the camp weeks spent on the opponent's own game (WeekOpp) count when the fight is on it.
+	d += WeekOpp.edge(f["bout"], sit)
 	# S340 the clinch's price (operator "a small stamina refill but risk of getting hit"): its own dice, so an exchange
 	# without a tie-up plays exactly as before.
 	var cl := {}

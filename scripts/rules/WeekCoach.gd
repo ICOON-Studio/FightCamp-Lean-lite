@@ -30,6 +30,10 @@ static func line(days: Array, wk: Dictionary, lines: Array, diet: String) -> Str
 			return "Still %.1f kg over on a cut. Make one roadwork morning Hard." % float(ln["short"])
 	for ln in lines:
 		var id := str(ln["id"])
-		if id != "weight" and id != "fatigue" and not bool(ln["ok"]):
+		if id != "weight" and id != "fatigue" and id != "opp" and not bool(ln["ok"]):
 			return "%s lands %.1f short. Make one %s morning Hard." % [str(ln["label"]), float(ln["short"]), BUILDER.get(id, "training")]
+	# S360 (Q-S294-90, "the coach plans the camp, you plan the fight"): the opponent's line (WeekOpp) is the player's call.
+	for ln in lines:
+		if str(ln["id"]) == "opp" and not bool(ln["ok"]):
+			return "My lines all land. %s is your call - you watched the tape." % str(ln["label"]).trim_prefix("vs ")
 	return "The week lands on every line. Leave it."

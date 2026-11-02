@@ -21,6 +21,8 @@ const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekCoach := preload("res://scripts/rules/WeekCoach.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
+const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
+const OppFile := preload("res://scripts/rules/OppFile.gd")
 
 const CAMP_W := 470.0
 const WEEKS_NO_BOUT := 4
@@ -33,6 +35,7 @@ const PULSE_S := 2.0
 
 ## fid -> {line id: where it landed} at the last draw (the pulse compares against it).
 static var _seen := {}
+static var more_open := false   # S360 the More row opened by hand (camp week 1)
 
 var _c: Career
 var _f: Dictionary
@@ -78,6 +81,11 @@ static func plan_of(c: Career, f: Dictionary) -> Dictionary:
 	var ctx := Sim.week_ctx(c, f)
 	var wk := WeekPlan.week(days, ctx, evs)
 	var lines := WeekPlan.goal_lines(goal, days, ctx, int(goal["weeks"]), evs, WeekPlan.ahead(f, c.day, int(goal["weeks"])))
+	var bout: Dictionary = goal["bout"]
+	if not bout.is_empty() and not bool(bout.get("done", false)):
+		var opp := WeekOpp.line(bout["opp"], days, str(f.get("phase", "base")))   # S360 Q-S294-90: the line only the player can read
+		if not opp.is_empty():
+			lines.append(opp)
 	return {"goal": goal, "base": base, "days": days, "evs": evs, "ctx": ctx, "wk": wk, "lines": lines}
 
 
@@ -153,6 +161,17 @@ func _head(c: Career, f: Dictionary, goal: Dictionary) -> Control:
 	return h
 
 
+## The camp week the header shows ("camp week 2 of 4"); 0 with no camp under way.
+static func camp_week(c: Career, f: Dictionary) -> int:
+	var bout: Dictionary = f.get("bout", {})
+	var camp: Dictionary = f.get("camp", {})
+	if bout.is_empty() or bool(bout.get("done", false)) or camp.is_empty():
+		return 0
+	var weeks := maxi(1, int(ceil((int(bout["day"]) - c.day) / 7.0)))
+	var total := maxi(weeks, int(ceil((int(bout["day"]) - int(camp.get("start", c.day))) / 7.0)))
+	return clampi(total - weeks + 1, 1, total)
+
+
 ## The camp's weeks by phase, counted back from fight night as WeekPhase.phase does (BUILD ... PEAK, TAPER).
 static func phase_cells(total: int) -> Array:
 	var out: Array = []
@@ -209,7 +228,7 @@ func _camp(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> Control
 		hold.self_modulate = Color(1, 1, 1, 0)
 		var row := UI.hbox(10)
 		hold.add_child(row)
-		var title := "WEIGHT" if id == "weight" else ("FATIGUE PEAK" if id == "fatigue" else str(Data.LABEL.get(id, ln["label"])).to_upper())
+		var title := str(ln["label"]).to_upper() if id == "opp" else "WEIGHT" if id == "weight" else ("FATIGUE PEAK" if id == "fatigue" else str(Data.LABEL.get(id, ln["label"])).to_upper())
 		row.add_child(WB.ink(title, 22, "marker"))
 		var ok := bool(ln["ok"])
 		if id == "weight":
@@ -218,6 +237,9 @@ func _camp(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> Control
 		elif id == "fatigue":
 			row.add_child(WB.ink("%d" % int(round(float(ln["end"]))), 22, "handbold"))
 			row.add_child(WB.ink("UNDER 80" if ok else "OVER 80", 18, "marker", UI.GREEN if ok else WB.RED))
+		elif id == "opp":
+			row.add_child(WB.ink("%d of %d" % [int(ln["end"]), int(ln["target"])], 22, "handbold"))
+			row.add_child(WB.ink("READY" if ok else "%d SHORT" % int(ln["short"]), 18, "marker", UI.GREEN if ok else UI.AMBER))
 		else:
 			row.add_child(WB.ink("%.1f > %.1f" % [float(ln["now"]), float(ln["end"])], 22, "handbold"))
 			row.add_child(WB.ink("ON TARGET" if ok else "%.1f SHORT" % float(ln["short"]), 18, "marker", UI.GREEN if ok else UI.AMBER))
@@ -252,7 +274,7 @@ static func _better(id: String, was: float, to: float) -> bool:
 
 
 static func _fmt(id: String, v: float) -> String:
-	return "%d" % int(round(v)) if id == "fatigue" else "%.1f" % v
+	return "%d" % int(round(v)) if id == "fatigue" or id == "opp" else "%.1f" % v
 
 
 ## A goal line that moved: its band flashes twice and the delta shows by fight night, both gone after PULSE_S.
@@ -310,6 +332,11 @@ func _line_under(main: Node, fid: String, f: Dictionary, id: String, ln: Diction
 			h.add_child(b)
 	elif id == "fatigue":
 		h.add_child(WB.ink("this week %d; rest days and Light mornings bring it down" % int(round(float(ln["week"]))), UI.SMALL, "hand", WB.PENCIL, true))
+	elif id == "opp":
+		var who := str(ln["label"]).trim_prefix("vs ")
+		h.add_child(WB.ink("%s %s: %d %s morning%s a week. The coach's week ignores the opponent - you watched the tape." % [who,
+			str(OppFile.GAME_WORDS.get(str(ln["game"]), "")), int(ln["target"]), str(WeekOpp.WORDS.get(str(ln["session"]), "")),
+			"" if int(ln["target"]) == 1 else "s"], UI.SMALL, "hand", WB.PENCIL, true))
 	else:
 		var builders := PackedStringArray()
 		for s in WeekPlan.ORDER:
@@ -391,6 +418,28 @@ func _foot(main: Node, c: Career, f: Dictionary, days: Array, wk: Dictionary, li
 		b.custom_minimum_size = Vector2(40, 34)
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(b)
+	# S360 (Q-S294-90, Kalli: "the new move and combo dials go into a collapsed 'More' row until camp week 2"): week 1 of a
+	# camp shows the twist, the goal lines and the days; More opens the pad dials.
+	if camp_week(c, f) < 2 and not more_open:
+		var more := UI.button("More: pads, combo", "BtnQuiet", func():
+			more_open = true
+			main.render())
+		more.name = "More"
+		row.add_child(more)
+	else:
+		_dials(main, f, fid, row)
+	var reset := UI.button("Coach's week", "BtnQuiet", main.act.bind("weekreset", fid))
+	reset.name = "WeekReset"
+	reset.tooltip_text = "Undo your changes: back to the coach's week for this phase"
+	row.add_child(reset)
+	row.add_child(UI.spacer())
+	row.add_child(_continue(main))
+	v.add_child(row)
+	return v
+
+
+## The pad dials: the new move on the pads and the combo being drilled.
+func _dials(main: Node, f: Dictionary, fid: String, row: Control) -> void:
 	row.add_child(WB.ink("   Pads:", UI.SMALL + 2, "handbold"))
 	var moves: Dictionary = f["moves"]
 	var learn := OptionButton.new()
@@ -417,11 +466,9 @@ func _foot(main: Node, c: Career, f: Dictionary, days: Array, wk: Dictionary, li
 		combo.disabled = true
 		combo.tooltip_text = "A combo opens when each of its punches reaches 30 on the pads"
 	row.add_child(combo)
-	var reset := UI.button("Coach's week", "BtnQuiet", main.act.bind("weekreset", fid))
-	reset.name = "WeekReset"
-	reset.tooltip_text = "Undo your changes: back to the coach's week for this phase"
-	row.add_child(reset)
-	row.add_child(UI.spacer())
+
+
+func _continue(main: Node) -> Button:
 	var go := Button.new()
 	go.name = "BoardContinue"
 	go.text = "CONTINUE"
@@ -434,6 +481,4 @@ func _foot(main: Node, c: Career, f: Dictionary, days: Array, wk: Dictionary, li
 	go.add_theme_color_override("font_color", Color.WHITE)
 	go.add_theme_color_override("font_hover_color", Color.WHITE)
 	go.pressed.connect(func(): main.act("go_btn"))
-	row.add_child(go)
-	v.add_child(row)
-	return v
+	return go

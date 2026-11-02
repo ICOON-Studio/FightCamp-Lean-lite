@@ -13,7 +13,7 @@ const AREAS: Array[Dictionary] = [
 	{"id": "home", "name": "HOME", "job": "what needs me", "tabs": []},
 	{"id": "fighters", "name": "FIGHTERS", "job": "develop them", "tabs": ["Roster", "Training", "Fight camps", "Scouting"]},
 	# S348 the Playbook (Q-S294-71 "Yes, build it"): her moves, plans, combos and escapes on one whiteboard, each one plays.
-	{"id": "playbook", "name": "PLAYBOOK", "job": "moves and plans", "tabs": ["Moves", "Plans", "Combos", "Escapes"]},
+	{"id": "playbook", "name": "PLAYBOOK", "job": "moves and plans", "tabs": ["Moves", "Game plan", "Combos", "Escapes"]},
 	{"id": "fights", "name": "FIGHTS", "job": "get them fights", "tabs": ["Offers", "Calendar", "Results"]},
 	{"id": "gym", "name": "GYM", "job": "run the club", "tabs": ["Floor", "Staff", "Members", "Facilities"]},
 	{"id": "money", "name": "MONEY", "job": "keep it alive", "tabs": ["Overview", "Income", "Bills", "Deals"]},
