@@ -1,18 +1,30 @@
 # S371 - next session (written S370, 2026-11-03)
 
+FIRST: Q-S294-92 board comment (Claude overwrote it at 01:12, restored): "ask for other ideas use dola,ludo,ziva,gemini4,
+grok" -> ops/research/ASK_GOALIDEAS_S370.md sent to Grok (gbot Kalli thread), Dola (cici.py read --out), Gemini 4
+(answer in ops/research/GOALIDEAS_GEMINI4_S370.md). LUDO: the message went into the WRONG chat ("Multi-Hub Space
+Strategy", another project) - resend in a FightCamp chat (All Chats -> the FightCamp one, check the title first). ZIVA:
+send it after BODYREACT1. Collect all five, merge the ideas into GOALTESTS1 phase 2, show the operator a short summary.
+
 Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S370_DIGEST.md.
 Research: ops/research/S370_MENUS_RESEARCH.md (Miro menu rules, praised games per loop, our gaps). Operator focus S370:
 the player experience IN THE MENUS - training and planning first (memory feedback-menus-are-the-game-s370); animation
-work goes to seats. ORDER = roadmap `next_action`:
-(1) collect the seats: Arena FLOWBOUT1 PR (branch arena/ca105630-fightcamp-lean: plan_record_test into run_tests.sh,
+work goes to seats. NEW S370 RULE (memory feedback-playthrough-two-fighters-s370): every playthrough runs TWO fighters -
+a MALE boxer and the female BJJ athlete (Ana). The game is women-only today, so FIRST build men's boxing: TASK_MALE1
+(John J_MEN1 classes, Kalli K_MEN1 opponents - gbot threads; f["sex"], men's divisions, a pronoun helper and the
+she/her pass, male MetaHumans via ops/Tools/metahuman in Unreal on a GREEN PC; the male holo = the male half of the S353 ecorche pack, already owned). ORDER = roadmap
+`next_action`: (0) MALE1; (1) collect the seats: Arena FLOWBOUT1 PR (branch arena/ca105630-fightcamp-lean: plan_record_test into run_tests.sh,
 then wire the Record tab + Playbook plan-line win rates), agy KNEETRACK1 (tools/knee_probe.gd -- layer=1, windowed film),
 Qwen NOREF1 (tools/push_off_probe.gd + film), Ziva BODYREACT1 (her chat on 7012; then send TASK_WEIGHIN3D1);
-(2) Q-S294-92 training goals as tests (canvas https://claude.ai/artifact/HLaiSxhMXEPERsM3naACY7) + John's J_TESTS1
-numbers (gbot thread John) -> build GOALTESTS1; (3) the plan in the ring + the corner's plan so far + the plan board reads
+(2) GOALTESTS1 phase 2 (operator "Yes, build it"; phase 1 = the skills award road + bleep engine, 1e89b6a; canvas
+https://claude.ai/artifact/HLaiSxhMXEPERsM3naACY7): the test-day moment, the records wall, Power/Speed tests on John's
+J_TESTS2 women's values (gbot thread John), Kalli reviews the bleep calibration (SkillAwards.BLEEP_*_AT); (3) the plan in the ring + the corner's plan so far + the plan board reads
 the file with a ROUND row (S369 proposal 2-3); (4) re-render the guide (python tools/hidden_desktop.py run ... --script
 res://tools/guide_tour.gd -- <dir>; python tools/guide_gif.py <dir> <log> ops/previews/S370_guide) and resend;
 (5) one belt match before claude/bjjmatch1 merges (S369).
-TRAPS: a headless pose probe must `await process_frame` after loading clips or every seek reads the rest pose; the tape
+DISPATCHER: the scheduled agy launch died once with WinError 2 (S370 patch logs the agy path it uses - read
+seat_dispatch.log's "SEAT <id>: agy = ..." line); if a scheduled launch fails again, rerun with `seat_dispatch.py run <ID>`
+from the session shell. TRAPS: a headless pose probe must `await process_frame` after loading clips or every seek reads the rest pose; the tape
 room is a layer over the game (not a modal) - take it off by node; in 3D the fight's buttons live in the fight view's
 overlay (root.find_child), and the intro runs ~20 s before the first bell.
 

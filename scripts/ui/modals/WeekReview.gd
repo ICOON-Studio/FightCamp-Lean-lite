@@ -102,8 +102,21 @@ func build(main: Node, m: Dictionary) -> void:
 		if ra != rb and head["kind"] != "rank":
 			notes.append("Ranked %s in the %s rankings%s." % [str(ra) if ra > 0 else "out", fr.get("div", ""),
 				(" (was %d)" % rb) if rb > 0 else ", a first ranking"])
+		# S370 GOALTESTS1 the Sunday check-in: a grade passed, or how far the next one is; the bleep test before and after.
+		var ap: Dictionary = fr.get("award_p", {})
+		var passed_now := str(fr.get("award", "")) != ""
+		if passed_now:
+			notes.append("PASSED the %s award - a medal and a certificate." % str(fr["award"]))
+		elif not ap.is_empty() and not bool(ap.get("done", false)):
+			var short: Array = (ap.get("moves", []) as Array).filter(func(m): return not bool(m["ok"])).map(
+				func(m): return "%s %d/%d" % [m["name"], int(m["now"]), int(m["need"])])
+			notes.append("%s award: %d/%d sessions%s." % [ap["award"]["name"], int(ap["sessions"]), int(ap["need"]),
+				(", " + ", ".join(short)) if not short.is_empty() else ""])
+		var bl: Array = fr.get("bleep", [])
+		if bl.size() == 2:
+			notes.append("Bleep test %.1f -> %.1f." % [float(bl[0]), float(bl[1])])
 		if not notes.is_empty():
-			var line := UI.label("   ".join(notes), UI.SMALL, UI.GOLD if str(fr.get("new_weapon", "")) != "" or ra != rb else UI.MUTED, "body", true)
+			var line := UI.label("   ".join(notes), UI.SMALL, UI.GOLD if str(fr.get("new_weapon", "")) != "" or ra != rb or passed_now else UI.MUTED, "body", true)
 			line.name = "Notes_" + str(fr["id"])
 			t = _land(v, line, t, step)
 		if str(fr.get("peak", "")) != "" and head["kind"] != "peak":

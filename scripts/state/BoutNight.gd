@@ -29,6 +29,7 @@ const BodyReport := preload("res://scripts/rules/BodyReport.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
+const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
@@ -359,7 +360,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 				c.add_news("%s wants to sponsor %s: %s a week (MONEY > Deals)." % [d["name"], f["first"], GameMoney.text(int(d["per"]))])
 	var card_text := ", ".join(cards) if stop == "" else "%s round %d" % [stop, rounds.size()]
 	c.results.push_front({"d": c.day, "fid": f["id"], "who": f["first"], "opp": opp["name"], "win": win, "outcome": outcome, "pro": pro, "cards": card_text,
-		"why": why[0] if not why.is_empty() else ""})
+		"why": why[0] if not why.is_empty() else "", "plan_rec": PlanRecord.summary(rounds)})
 	# S341 three rounds show everything: her whole file opens, and the career's record of her keeps it.
 	OppFile.open_all(opp)
 	OppFile.remember(c.rival(str(opp["name"])), opp)

@@ -7,12 +7,12 @@
   "owner": "claude",
   "updated": "2026-11-03",
   "summary": "S370: the player experience in the menus (operator). Playthrough guide GIF (tools/guide_tour.gd + guide_gif.py), PLAYBOOK > Combos as a card strip with real numbers, week review names the sessions behind each gain, the tape answer always reaches the plan, tale-of-tape card solid; PR #20 clinch camera merged. Seats: agy KNEETRACK1, Qwen NOREF1, Ziva BODYREACT1, Arena FLOWBOUT1 (full repo), John J_TESTS1. Digest research/S370_DIGEST.md.",
-  "next_action": "S371, in order: (1) collect the seats - Arena FLOWBOUT1 PR (add plan_record_test to run_tests.sh, wire the Record tab + Playbook plan-line win rates), agy KNEETRACK1 (knee_probe -- layer=1 + film), Qwen NOREF1 (push_off_probe + film), Ziva BODYREACT1 (then send TASK_WEIGHIN3D1); (2) on Q-S294-92 yes + John J_TESTS1 numbers build GOALTESTS1 (a goal is a test on a date, the projection the week moves, Sunday check-in, test day, grade roads); (3) the plan in the ring + the corner plan so far + the plan board reads the file with a ROUND row; (4) re-render the guide and resend; (5) belt match before claude/bjjmatch1 merges.",
+  "next_action": "S371, in order: (1) MALE1 men's boxing (operator: every playthrough = a male boxer + Ana on the mat): collect John J_MEN1 + Kalli K_MEN1, f[\"sex\"] + men's divisions + pronoun helper + walk-in/scouting men, build 4-6 male MetaHumans in Unreal on a GREEN PC, guide_tour with both fighters; (2) collect the seats - Arena FLOWBOUT1 PR, agy KNEETRACK1 (rerun from the shell 01:19), Qwen NOREF1, Ziva BODYREACT1 (then WEIGHIN3D1); (3) GOALTESTS1 phase 2 (test day, records wall, Power/Speed on J_TESTS2); (4) the plan in the ring; (5) belt match before claude/bjjmatch1 merges.",
   "next_acceptance": "Each seat collected by its own probe line (PASS) and a film the operator can watch; GOALTESTS1 only after his yes.",
   "last_working_commit": "b980127",
   "verified_playable": "Main exe (114a309): a quick-start career played 10 weeks live in the exe - two boxers (walk-in + a scouting trial), camps, tape room, Playbook plans, two live fights won with calls and corners, Ana's open gold; the new face-card pages work live.",
   "incomplete_blocked": "claude/bjjmatch1 unmerged (waits for the operator's belt-match playtest); PR #20 CAMCLINCH1 uncollected (needs cam_view_probe run windowed); agy/refbreak1 superseded (remove the referee); the Miro production map was not moved in S369.",
-  "awaiting_operator": "Q-S294-92 training goals as tests (canvas https://claude.ai/artifact/HLaiSxhMXEPERsM3naACY7); one belt match (FightCamp.exe -- jump=grapple match=1) before claude/bjjmatch1 merges.",
+  "awaiting_operator": "One belt match (FightCamp.exe -- jump=grapple match=1) before claude/bjjmatch1 merges; play the skills award road (Training tab).",
   "branch_note": "claude/bjjmatch1 e115893 (belt match, Ana body, HUD numbers; 118/118) not merged"
  },
  "next": "Build the operator's fight changes (remove the referee: push-off; tired legs red + weaker shots; body-shot reactions; the flow per bout); then scouting -> plan (tape answer into the plan, the board reads the file + rounds, the plan visible in the ring).",
@@ -4588,10 +4588,16 @@
   ],
   "next": [
    {
+    "id": "MALE1",
+    "who": "claude+john+kalli",
+    "title": "Men's boxing: a male boxer signed, trained, booked and fought (operator S370: playthroughs = a male boxer + the female BJJ athlete) - TASK_MALE1; John J_MEN1 classes, Kalli K_MEN1 opponents, male MetaHumans in Unreal, male holo from the owned S353 pack",
+    "after": ""
+   },
+   {
     "id": "GOALTESTS1",
     "who": "claude+john",
-    "title": "Training goals you can feel: a goal is a test on a date, grades for non-competitors (Q-S294-92, John J_TESTS1 numbers first)",
-    "after": "Q-S294-92"
+    "title": "Training goals you can feel: phase 1 DONE (skills award road + bleep engine, 1e89b6a); next the test-day moment, records wall, Power/Speed tests (John J_TESTS2)",
+    "after": ""
    },
    {
     "id": "WEIGHIN3D1",

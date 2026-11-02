@@ -60,6 +60,13 @@ PREVIEWS = ROOT / "previews" / "dispatch"
 LOCAL = Path(os.environ.get("LOCALAPPDATA", r"C:\Users\user\AppData\Local"))
 GODOT = LOCAL / "Programs" / "Godot" / "Godot_v4.7.2-stable_win64.exe"
 AGY = LOCAL / "agy" / "bin" / "agy.exe"
+## S370: the first scheduled agy launch (KNEETRACK1, from the 30-min reconcile) died in CreateProcess with WinError 2 while
+## the same launch from a session shell worked - take the first agy.exe that exists, and the runner logs the one it used.
+for _c in (AGY, Path(os.environ.get("USERPROFILE", "C:/Users/user")) / "AppData" / "Local" / "agy" / "bin" / "agy.exe",
+           Path(shutil.which("agy") or "")):
+    if str(_c) not in ("", ".") and _c.is_file():
+        AGY = _c
+        break
 AGY_MODEL = "gemini-4-argon-high"   # S369 operator: "antigravity should have argon now" (agy models lists it; test call OK)
 ## seat -> live_runs agent name, the words a roadmap `who` uses, its model, its run cap (minutes)
 SEATS = {"qwen": {"agent": "qwen", "who": ("qwen",), "model": "qwen3-coder", "minutes": 90},
@@ -548,6 +555,7 @@ def run(task: str) -> int:
         env = dict(os.environ, GODOT_EXE=str(GODOT))
         env.pop("AGENT_WINDOW", None)
         if seat == "agy":
+            log(f"SEAT {task}: agy = {AGY} (exists {Path(AGY).is_file()}), cwd {wt} (exists {wt.is_dir()})")
             cmd = [AGY, "-p", prompt.read_text(encoding="utf-8").strip(), "--model", AGY_MODEL, "--mode", "accept-edits", "--sandbox",
                    "--print-timeout", "1800s"]
             fh = open(out, "a", encoding="utf-8")

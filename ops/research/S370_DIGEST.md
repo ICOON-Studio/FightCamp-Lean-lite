@@ -29,6 +29,23 @@ who only trains, "arena permissions fixed", a weigh-in cutscene, the tale of the
 - Tale of the tape card solid (0.88 -> 0.97): the ropes and the near corner post showed through ("clipped").
 - begin_probe.gd off the gone FightCast.BODIES (Ziva's editor parse error).
 
+## GOALTESTS1 phase 1 (operator Q-S294-92 "Yes, build it", 1e89b6a)
+- John's J_TESTS1 (research/J_TESTS1_JOHN.md): England Boxing runs real skills awards for boxers who train - six grades
+  (Preliminary, Standard, Bronze, Silver, Gold, Platinum), each 8 sessions + an assessment, a medal and a certificate;
+  women's bleep norms (average adult 6.6, national team ~9); elite women punches in 10 s 52-53 / 30 s 134-137; punch
+  force by level for MEN only. J_TESTS2 sent for the women's force and speed values by level.
+- SkillAwards.gd: her road = the six grades; coached evenings (pads, sparring) count the 8 sessions; the assessment asks
+  the grade's moves a weapon on the pads (30), Gold sharp (60), Platinum a bout; assessed on Sunday (news, not mail).
+  Engine = bleep test from conditioning (CALIBRATION 40 -> 6.6, 85 -> 9.0, for Kalli's review).
+- AwardCard on her Training tab (the ladder, the next grade's bars, the bleep level now and in 4 weeks on this plan);
+  the week review's Sunday check-in (grade passed in gold / sessions + moves short; bleep before -> after).
+- Not yet: the test-day moment (stamp, record, unlock), the Power and Speed tests (waiting on J_TESTS2), the records wall.
+
+## Dispatcher
+- The first agy launch from the scheduled reconcile (KNEETRACK1 01:11) filmed BEFORE (Argon 2/10: "clearly exposes the
+  broken knee-to-toe tracking") then died in CreateProcess (WinError 2); the same launch works from a session shell.
+  seat_dispatch now takes the first agy.exe that exists and logs it; the runner was rerun from the session shell.
+
 ## Seats (all running at the handover unless noted)
 - Antigravity / Gemini 4 Argon: KNEETRACK1 queued in seat_dispatch (knee layer KneeTrack.gd before FootPlant +
   clip_orbit previews; trap noted: Ziva S362 found the modifier stack may not reach the shown pose).
@@ -47,8 +64,8 @@ who only trains, "arena permissions fixed", a weigh-in cutscene, the tale of the
 
 ## Next (S371)
 1. Collect: Arena FLOWBOUT1 PR, agy KNEETRACK1, Qwen NOREF1, Ziva BODYREACT1 (each by its probe, windowed where visual).
-2. On "Yes" to Q-S294-92 + John's numbers: build GOALTESTS1 (a goal is a test on a date, the projection the week moves,
-   the Sunday check-in, test day, four grade roads).
+2. GOALTESTS1 phase 2: the test-day moment (PASSED stamp, round bars, record, unlock), the records wall, Power and Speed
+   tests on John's J_TESTS2 women's values; Kalli reviews the bleep calibration; a still of the Training tab.
 3. The plan in the ring ("PLAN: DOUBLE JAB landed 4/5" + the corner's plan so far) and the plan board reading the file
    with a ROUND row (S369 proposal items 2-3); wire FLOWBOUT1 into Record + Playbook.
 4. Re-render the guide (fight timing fixed in guide_tour.gd) and resend.

@@ -4909,10 +4909,29 @@
       ],
       "attach": [],
       "answer": "ask for other ideas use dola,ludo,ziva,gemini4,grok",
-      "note": null,
-      "answered_at": "2026-11-02T22:53:45Z",
-      "seen_by_claude": false,
+      "note": "S370: the chat button said \"Yes, build it\" (phase 1 built, 1e89b6a); this board comment was overwritten by Claude at 01:12 and restored - other seats asked for ideas (ASK_GOALIDEAS_S370.md)",
+      "answered_at": "2026-11-02T23:12:00Z",
+      "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-93",
+      "asked": "2026-11-02T23:22:33.893097+00:00",
+      "session": "S294",
+      "text": "Men's boxing (your 'male fighter' in every playthrough): the body holo is the bought FEMALE ecorche. A man needs a male one - a royalty-free male ecorche with each muscle a separate piece, about $35-90 on CGTrader (same licence as the female one; you buy, I fit it to the male boxers). Buy one?",
+      "options": [
+        "Yes, I buy one",
+        "Use the female holo for now",
+        "Not now"
+      ],
+      "attach": [
+        "research/ECORCHE_BUY_S321.md"
+      ],
+      "answer": "Already bought",
+      "note": "operator S370: \"we bought already\" - the S353 CGTrader pack #6489289 holds BOTH figures in one mesh; only the female half was baked. Question withdrawn.",
+      "answered_at": "2026-11-02T23:35:00Z",
+      "seen_by_claude": true,
+      "status": "answered"
     }
   ]
 }

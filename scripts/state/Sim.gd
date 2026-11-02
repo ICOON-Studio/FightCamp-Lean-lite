@@ -23,6 +23,7 @@ const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekCause := preload("res://scripts/rules/WeekCause.gd")
+const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekActual := preload("res://scripts/rules/WeekActual.gd")
@@ -169,6 +170,7 @@ static func step_day(career: Career) -> void:
 		var m: Array = ["rest", "normal"] if resting else (days[dow] as Array)
 		var r := WeekPlan.full_day(str(m[0]), str(m[1]), "rest" if resting else str(evs[dow]),
 			week_ctx(career, f), float(f.get("week_fatigue", 20.0)))
+		SkillAwards.count_session(f, str(r["evening"]))   # S370 GOALTESTS1: a coached evening toward her next award
 		var by: Array = [str(WeekPlan.session(str(m[0]))["name"]), str((WeekPlan.EVENINGS.get(str(r["evening"]), {}) as Dictionary).get("name", ""))]
 		for k in [["stat", "gain", 0], ["stat2", "gain2", 1]]:
 			var st := str(r.get(k[0], ""))
@@ -382,7 +384,14 @@ static func end_week(career: Career) -> void:
 		WeekTwist.deal(f, nt)
 		# (No news line: the Training tab shows the card all week and the review names it - a weekly line flooded Mail.)
 		var rank_before := int(f.get("rank_at_review", f.get("rank", 0)))
+		# S370 GOALTESTS1: Sunday is the coach's assessment for a ready grade, and her bleep level is read for the review.
+		var award := SkillAwards.assess(f, career.day)
+		if not award.is_empty():
+			# News, not mail: the week review shows it in gold (golden_path: mail counts mail, not every result).
+			career.add_news("%s passed the %s award: a medal and a certificate on the gym wall." % [f["first"], award["name"]], false)
 		reports.append({"id": f["id"], "name": f["name"], "rows": rows, "moves": drill["rows"], "new_weapon": drill["new_weapon"],
+			"award": str(award.get("name", "")), "award_p": SkillAwards.progress(f),
+			"bleep": [SkillAwards.bleep(float(start.get("conditioning", f["stats"]["conditioning"]))), SkillAwards.bleep(float(f["stats"]["conditioning"]))],
 			"rank_before": rank_before, "rank_after": int(f.get("rank", 0)), "div": Data.DIVISIONS[f["div"]]["short"],
 			"coach": coach_line(career, f), "plan": plan, "peak": str(f.get("peak_line", "")), "injury": Injuries.new_this_week(career, f)})
 		f.erase("peak_line")
