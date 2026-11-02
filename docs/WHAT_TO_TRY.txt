@@ -1,3 +1,23 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 55 (2026-11-02): THE CORNER CARD IN NUMBERS, CUTS ON THE FACE, TRAINING ON THE PAGE
+==========================================================================================================================
+
+ 1. THE CORNER CARD (your C205): play a fight to the first bell. The card opens on the round in numbers, like a TV
+    graphic - whose round it was (10-9 on your card) and the score so far; punches landed of thrown, jabs, power punches,
+    to the body, energy at the bell and each boxer's worst spot, Lucy in red on the left, the opponent in blue on the right.
+    Every option now says what it does: water "+3 energy each", each talk "+1.5 power, tiring, riskier" (read off the
+    fighter's personality), each plan tile when to use it, how good the fighter is at it and what it costs.
+ 2. CUTS ON THE FACE (C202): in a fight, the HEAD close-up shows the damage on the real face - a cut over an eye or on the
+    nose, a swollen eye that darkens as it gets worse, a shut eye.
+ 3. TRAINING ON THE FIGHTER'S PAGE (C204): FIGHTERS > a fighter > the new Training tab holds the week's board.
+    FIGHTERS > Training lists everyone with an "Open training" button.
+ 4. NO HIS/HER IN THE TEXT: names where they help, otherwise no pronoun - screens, fight lines, the tape room, news,
+    the corner. Some renamed calls: "Draw the lead", "Tie up", "Go for the finish"; talks "Calm down", "Fire up",
+    "Tell the truth".
+ 5. On the board for your OK: the core loop (mornings summed against the camp goal, the combo lab, the fight plan you
+    test in 20 bouts) and the Training week / belt road v2. The morning-sum maths is built and tested.
+ 6. Still with the animators: the clinch (Ziva, round 5).
+
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 54 (2026-11-02): THE MUSCLE HOLO, HER TRAINING PICTURES
 ==========================================================================================
 

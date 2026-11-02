@@ -9,12 +9,14 @@ extends RefCounted
 ##   goal_lines(goal, days, ctx, weeks) -> [{id, label, now, week, end, target, ok, short}]
 ## ctx = {stats, pot, coach (rating), weight, diet: hold|cut, fatigue (carried in)}; days = [[id, intensity] x 7].
 ## Real-world numbers:
-## - Energy: kcal = MET x kg x hours (Compendium of Physical Activities, Ainsworth et al. 2011): running ~10 km/h 9.8,
-##   high-intensity intervals ~11, vigorous weights 6.0, punching bag 5.5. Body fat ~7,700 kcal a kg.
+## - Energy: kcal = MET x kg x hours (Compendium of Physical Activities 2024, checked by John S354): running 10 km/h 9.3,
+##   high-intensity intervals 11.0, vigorous circuit weights 6.0, heavy bag 5.8. Body fat ~7,700 kcal a kg (it overstates
+##   the loss after a few weeks as the body adapts - Hall 2008 - fine for a 4-6 week camp).
 ## - The diet: HOLD eats for daily life + a 300 kcal training allowance; CUT eats 500 kcal less (a 500 kcal deficit is the
 ##   usual ~0.5 kg a week; a safe cut is 0.5-1 % of body weight a week - Reale et al. 2017, combat sports weight making).
-## - Load = session RPE x minutes (Foster 2001). Fatigue keeps 75 % a night (most of a day's tiredness is gone in three
-##   nights - a short fatigue time constant, inside the 2-15 days Banister-model fits report); 80+ = an overreached day.
+## - Load = session RPE x minutes (Foster 2001; valid in boxers, Uchida 2014). Fatigue keeps 87 % a night: the Banister
+##   model's ~7-day fatigue constant (John S354; the S354 first cut kept 75 %). 80+ = overreached (an ESTIMATE, playtest it):
+##   one greedy week climbs toward it, a second one gets there; the coach's week settles in the 50s.
 ## - Gain: a session is a fifth of a focused week (TrainingPreview's rule, so the planner and the sim read one number);
 ##   light / normal / hard x 0.6 / 1.0 / 1.3 (TrainingLoad's settings). A morning started at 80+ fatigue trains at 0.6.
 
@@ -22,9 +24,9 @@ const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 
 ## id -> {name, stat, met, min (minutes at normal), rpe}. Rest trains nothing and is where fatigue drains.
 const SESSIONS := {
-	"roadwork": {"name": "Roadwork", "stat": "conditioning", "met": 9.8, "min": 45.0, "rpe": 5.0},
+	"roadwork": {"name": "Roadwork", "stat": "conditioning", "met": 9.3, "min": 45.0, "rpe": 5.0},
 	"intervals": {"name": "Intervals", "stat": "conditioning", "met": 11.0, "min": 30.0, "rpe": 8.0},
-	"heavy_bag": {"name": "Heavy bag", "stat": "power", "met": 5.5, "min": 40.0, "rpe": 6.0},
+	"heavy_bag": {"name": "Heavy bag", "stat": "power", "met": 5.8, "min": 40.0, "rpe": 6.0},
 	"strength": {"name": "Strength circuit", "stat": "power", "met": 6.0, "min": 45.0, "rpe": 6.0},
 	"speed_bag": {"name": "Speed bag", "stat": "speed", "met": 5.5, "min": 30.0, "rpe": 4.0},
 	"slip_rope": {"name": "Slip rope", "stat": "defense", "met": 4.5, "min": 30.0, "rpe": 4.0},
@@ -43,8 +45,8 @@ const SESSION_SHARE := 0.2
 const KCAL_PER_KG := 7700.0
 const ALLOWANCE := 300.0
 const CUT_DEFICIT := 500.0
-const FATIGUE_KEEP := 0.75
-const LOAD_PER_FATIGUE := 14.0
+const FATIGUE_KEEP := 0.87
+const LOAD_PER_FATIGUE := 26.0
 const OVERREACHED := 80.0
 const TIRED_GAIN := 0.6
 ## The coach's week: a camp's opening week that lands NEAR the goal and leaves the player dials to turn.

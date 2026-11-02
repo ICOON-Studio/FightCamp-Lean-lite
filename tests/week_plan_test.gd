@@ -21,7 +21,7 @@ func _initialize() -> void:
 	_check(float(rest["gain"]) == 0.0 and float(rest["kcal"]) == 0.0 and float(rest["fatigue"]) < 20.0,
 		"rest: no gain, no burn, fatigue drains (%.1f)" % float(rest["fatigue"]))
 	var road := WP.day("roadwork", "normal", _ctx(), 20.0)
-	_check(absf(float(road["kcal"]) - 9.8 * 61.0 * 0.75) < 1.0, "roadwork at 61 kg burns MET x kg x h = %.0f kcal" % float(road["kcal"]))
+	_check(absf(float(road["kcal"]) - 9.3 * 61.0 * 0.75) < 1.0, "roadwork at 61 kg burns MET x kg x h = %.0f kcal" % float(road["kcal"]))
 	var light := WP.day("roadwork", "light", _ctx(), 20.0)
 	var hard := WP.day("roadwork", "hard", _ctx(), 20.0)
 	_check(float(hard["gain"]) > float(road["gain"]) and float(road["gain"]) > float(light["gain"]), "gain: hard > normal > light")
@@ -45,7 +45,11 @@ func _initialize() -> void:
 	var greedy := [["intervals", "hard"], ["roadwork", "hard"], ["heavy_bag", "hard"], ["intervals", "hard"],
 		["roadwork", "hard"], ["strength", "hard"], ["rest", "normal"]]
 	var g := WP.week(greedy, _ctx())
-	_check(float(g["peak"]) >= WP.OVERREACHED and (g["red"] as Array).size() == 5, "six hard mornings overreach (peak %.0f), five red days" % float(g["peak"]))
+	var g2 := WP.project(greedy, _ctx(), 2)
+	_check(float(g["peak"]) < WP.OVERREACHED and float(g2["peak"]) >= WP.OVERREACHED and (g["red"] as Array).size() == 5,
+		"six hard mornings: week 1 peaks %.0f, week 2 overreaches (%.0f); five red days" % [float(g["peak"]), float(g2["peak"])])
+	var c4 := WP.project(WP.COACH_WEEK, _ctx(), 4)
+	_check(float(c4["peak"]) < 70.0, "the coach's week over a 4-week camp settles under 70 (%.0f)" % float(c4["peak"]))
 	# The goal: the camp lands where the dials say, and turning two mornings to hard moves the lines.
 	var goal := {"limit": 59.4, "stat": "conditioning", "target": 61.0}
 	var lines := WP.goal_lines(goal, WP.COACH_WEEK, _ctx("cut"), 4)

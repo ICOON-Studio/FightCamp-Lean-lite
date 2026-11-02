@@ -1,22 +1,28 @@
-# S354 - next session (written S353, 2026-11-02)
+# S355 - next session (written S354, 2026-11-02)
 
 Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean.
-S353 shipped update 54: the MUSCLE HOLO on every body view (bought ecorche, operator "holo looks fine"), Ziva's 112 training
-cards on the training board, BeltRoad (the BJJ road to black belt, IBJJF floor). Digest: Game\Godot\research\S353_DIGEST.md.
-OPERATOR S353: no-gi BJJ ships beside boxing ("a simple road to black belt in bjj for start"); a GYM Training week with every
-fighter Mon-Sun (mornings body, evenings moves with progress bars). OPERATOR RULE S338: agents do animations, Claude
-mechanics + UI. EVERY PROBE AT `--fixed-fps 30`. New PNGs: `godot --headless --path . --import` before stills.
+S354 shipped update 55: the corner card in numbers (CornerStats + each option's effect), cuts and swelling on the face
+close-up (FaceMarks), the training board as the Training tab on the fighter's page, no his/her anywhere in the text.
+Digest: Game\Godot\research\S354_DIGEST.md. OPERATOR RULES: no his/her in game text (names, or no pronoun); agents do
+animations, Claude mechanics + UI (S338); every probe at `--fixed-fps 30`.
 
-1. Board Q-S294-77 (mockups docs/mockups/S353_week.png + S353_beltroad.png). On his yes:
-   a. WeekPlan.gd (TRAINPLAN2 step 1, pure + test): 7 days x {type HARD/SKILL/ENGINE/REST, am: body session, pm: move |
-      live | rest}; red on two hard days in a row; the days -> TrainingPlan blocks (keep its gain curve and TOTAL_CAP);
-      PM move nights -> MoveMastery drilling. Then Gym > Training week (Gym area tab) as the mockup.
-   b. BJJ fighters: belt, stripes, belt_day, mat_classes on the fighter; BJJ AM/PM sessions; the Belt road tab
-      (BeltRoad.readiness / promote); a no-gi BJJ fighter in the quick start's roster for the playtest.
-2. SMOOTH3: see the S353 digest's verdict (Goose r3, measured in E:\FightCamp\wt\SMOOTH3_LEAN - remove that worktree when
-   done: `git worktree remove`).
-3. CLINCH2 -> Ziva (one Ziva chat at a time; TRAINCLIPS1 landed). Brief from Game TASK_CLINCH2.md: the probe must FAIL with
-   0 holds and read main.
-4. The holo replays the move that tired a muscle (operator S353 asked; Claude: yes as step 2) - rig the female ecorche
-   (E:\FightCamp\licensed\ecorche_aaaxis, never in a repo) to the MetaHuman skeleton in Blender, decimate, bake per move.
-5. Not done S352/S353: the Miro production map card moves (P0) and the loop-board re-upload (S352 layout shots).
+THE DIRECTION (operator S354): Early Access = three fun mechanics beside the corner - (1) mornings summed against the camp
+goal, intensity as the dial (e.g. to burn weight); (2) the evening move/combo lab (move progress, combo effectiveness);
+(3) the fight plan you design and test. BJJ and boxing polish are background. Design: Game Godot/research/CORE3_DESIGN_S354.md,
+mockup docs/mockups/S354_core_loop.png, board Q-S294-79.
+
+1. Q-S294-79 answer. On his yes, CORE3 step 1:
+   a. Training tab (FighterPage TRAINING_TAB): the camp goal card (weight limit, one stat, one move) with live lines from
+      WeekPlan.goal_lines; the week row: 7 mornings, session picker + Light/Normal/Hard, each card's numbers; fatigue line.
+      Keep the TrainingBoard body picture below or fold it in - one screen, no his/her.
+   b. WeekPlan into Sim.step_day: the day's morning from the saved week (f["week_days"], default WeekPlan.COACH_WEEK) drives
+      the stat gain, the weight (replaces the flat -0.11 kg/day cut) and a fatigue value on the fighter. Run golden_path +
+      every weight/camp test: the weigh-in must still be makeable on the coach's week + cut.
+   c. Export + WHAT_TO_TRY, stills of the Training tab on the board.
+2. Planned vs actual at the week review; 3. evening drills + combo lab effectiveness; 4. fight plan "Test it" (20 sims).
+3. CLINCH2 (Ziva, wt/ZIVA_LEAN branch ziva/clinch2; chat "Implementing Clinch Hold Mechanics"; baseline on main measured
+   CLINCH holds 3, OK 0/6): collect when it lands - run tools/clinch_check.gd yourself on main and the branch, open the
+   stills. Then the Ziva Pro verdict to the operator (S354 digest "Decided").
+4. If update 55 was not exported (AMBER beside Ziva at S354's end): `sh tools/export.sh` on a GREEN PC first.
+5. Background: wrestling reaction ids still say "her" (saved plan ids - add a display map), SMOOTH audit, holo replays,
+   Miro map.
