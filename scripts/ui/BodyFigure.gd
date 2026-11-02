@@ -1,12 +1,12 @@
 extends Control
-## Front-view body figure that tints six places by BodyMap band and flashes on hit.
-## Pure _draw() Control; no preloads except BodyMap. Design space 90 x 150, scaled to fit size.
-## S320 (operator C146: "we have real andropoid,use it"): with a portrait (set_portrait / portrait_for) it draws the
-## boxer's own baked front picture (tools/bake_body_portraits.gd) and the places where they sit on her body.
+## Front-view body figure that tints six places by BodyMap band and flashes on hit (design space 90 x 150, scaled to fit).
+## With a portrait (set_portrait / portrait_for) it draws that picture and the places on it: S320 her own baked body
+## (C146 "we have real andropoid,use it"); S353 the muscle holo for every boxer (BodyHolo).
 
 const BM := preload("res://scripts/rules/BodyMap.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
+const BodyHolo := preload("res://scripts/ui/BodyHolo.gd")
 
 const DESIGN_W := 90.0
 const DESIGN_H := 150.0
@@ -39,9 +39,8 @@ var _anchors := {}   # place -> [x, y, rx, ry] as fractions of the portrait
 const PORTRAITS := "res://assets/ui/body"
 ## The body is dimmed a little so the places' colours read on top of it.
 const BODY_TINT := Color(0.7, 0.7, 0.74)
-## S323 "the body is the track" step 3 (Q-S294-38 "Build it"): BodyLoad's Burn per part painted on her own body like tyre
-## temperatures (BodyTrack colours), the baked strokes in the portrait's json "track". With a track the hurt places are
-## drawn as outlines only (a hurt place rings in its BodyMap colour, a fine one is not drawn) so the two never mix.
+## S323 "the body is the track" (Q-S294-38): BodyLoad's Burn per part painted on her body like tyre temperatures
+## (BodyTrack colours), the baked strokes in the portrait's json "track"; hurt places then never mix with it.
 var _track := {}     # body place (BodyTrack.body_place) -> Burn 0..100
 var _pulse := {}     # body place -> 0..1, a part that just went up a band
 const PULSE_S := 0.8
@@ -62,11 +61,15 @@ var _mask: Texture2D = null
 var _skin: TextureRect = null
 var layers_for_paint: Array = []   # S334 BodyTurn: [{skin, uv, anchors}] while she turns
 var clay := 1.0   # S351 1 = her kit clay (the fight's holo), 0 = her own kit colours (the training board)
+var holo := false   # S353 the muscle holo: no kit logic, part and hurt colours glow on the muscles, a dark scanner plate behind
+var _plate_node: Panel = null
 
 
-## {"tex", "anchors"} for a boxer's body (her glb path) in her corner's colours; {} when it was never baked.
+## {"tex", "anchors", "mask"[, "holo", "face"]} for a boxer's body (her glb path); {} when it was never baked.
 static func portrait_for(glb: String, corner: String) -> Dictionary:
 	var stem := glb.get_file().get_basename()
+	if stem != "" and BodyHolo.has():
+		return BodyHolo.portrait(stem)
 	var png := PORTRAITS.path_join("%s_%s.png" % [stem, corner])
 	var js := PORTRAITS.path_join(stem + ".json")
 	if stem == "" or not ResourceLoader.exists(png) or not FileAccess.file_exists(js):
@@ -83,6 +86,8 @@ func set_portrait(p: Dictionary) -> void:
 	_tex = p.get("tex") as Texture2D
 	_anchors = p.get("anchors", {})
 	_mask = p.get("mask") as Texture2D
+	holo = bool(p.get("holo", false))
+	_plate(holo and _tex != null)
 	if _tex != null and _mask != null:
 		_build_skin()
 	elif _skin != null:
@@ -107,8 +112,20 @@ func _build_skin() -> void:
 		add_child(_skin)
 	_skin.texture = _tex
 	(_skin.material as ShaderMaterial).set_shader_parameter("mask", _mask)
-	(_skin.material as ShaderMaterial).set_shader_parameter("clay", clay)
+	(_skin.material as ShaderMaterial).set_shader_parameter("clay", 0.0 if holo else clay)
+	(_skin.material as ShaderMaterial).set_shader_parameter("holo", 1.0 if holo else 0.0)
 	_paint_skin()
+
+
+## The holo's dark scanner plate (BodyHolo.plate), the first child so it draws behind her skin.
+func _plate(on: bool) -> void:
+	if not on and _plate_node != null:
+		_plate_node.queue_free()
+		_plate_node = null
+	if on and _plate_node == null:
+		_plate_node = BodyHolo.plate()
+		add_child(_plate_node)
+		move_child(_plate_node, 0)
 
 
 ## The shader's colour per mask part: its Burn colour (a fresh pulse whitens it), alpha 0 = her own colours.
@@ -249,6 +266,8 @@ func _draw_portrait() -> void:
 		draw_texture_rect(_tex, _portrait_rect(), false, BODY_TINT)
 		if tracked:
 			_draw_track(strokes)
+	if holo and _skin != null:
+		return   # S353 no circles over the holo: hurt places glow on her muscles in the shader (SPOTS)
 	for p in BM.PLACES:
 		var g := _geom_px(p)
 		var col := colour_of(p)
@@ -304,27 +323,6 @@ func set_track(burns: Dictionary) -> void:
 		_track[k] = float(burns[k])
 	_paint_skin()
 	queue_redraw()
-
-
-## e.g. "Jab shoulder: hot" for the part under the mouse ("" off the track).
-func track_tip(local_pos: Vector2, southpaw: bool) -> String:
-	var strokes: Dictionary = _anchors.get("track", {})
-	if _track.is_empty() or strokes.is_empty():
-		return ""
-	var r := _portrait_rect()
-	for place in strokes:
-		var key := "legs" if str(place).begins_with("legs") else str(place)
-		var st: Dictionary = strokes[place]
-		var w: float = maxf(6.0, float(st["w"]) * r.size.x)
-		var pts: Array = st["pts"]
-		for i in pts.size() - 1:
-			var a := r.position + Vector2(float(pts[i][0]) * r.size.x, float(pts[i][1]) * r.size.y)
-			var b := r.position + Vector2(float(pts[i + 1][0]) * r.size.x, float(pts[i + 1][1]) * r.size.y)
-			if Geometry2D.get_closest_point_to_segment(local_pos, a, b).distance_to(local_pos) <= w * 0.5:
-				for part in BodyTrack.PARTS:
-					if BodyTrack.body_place(part, southpaw) == key:
-						return BodyTrack.label(part, float(_track.get(key, 0.0)))
-	return ""
 
 
 func _ellipse_pts(c: Vector2, rx: float, ry: float) -> PackedVector2Array:

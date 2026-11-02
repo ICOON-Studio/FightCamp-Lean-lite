@@ -62,13 +62,15 @@ func _build() -> void:
 		fig.custom_minimum_size = FIG_SIZE
 		fig.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		var glb := str(view.get("bodies")[side]) if view.get("bodies") != null else ""
-		if not BodyTurn.attach(fig, glb, CORNER[side]):   # S334 C153: she turns slowly; the still portrait when never baked
-			fig.set_portrait(BodyFigure.portrait_for(glb, CORNER[side]))
+		var still: Dictionary = BodyFigure.portrait_for(glb, CORNER[side])
+		# S334 C153: she turns slowly; the still portrait when never baked. S353: the muscle holo stands still (no turn strip).
+		if still.get("holo", false) or not BodyTurn.attach(fig, glb, CORNER[side]):
+			fig.set_portrait(still)
 		col.add_child(fig)
 		fig.tip_fn = _place_tip.bind(side)
 		BodyTip.attach(fig)
 		# S348 the operator's anatomy-chart pictures: close-ups of her head, liver and ribs in the strip at the screen edge.
-		BodyCallouts.attach(fig, BodyFigure.portrait_for(glb, CORNER[side]), -1.0 if side == 0 else 1.0, _place_tip.bind(side))
+		BodyCallouts.attach(fig, still, -1.0 if side == 0 else 1.0, _place_tip.bind(side))
 		_stat_labels.append(fig)
 		view.add_child(panel)
 		if side == 0:

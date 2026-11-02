@@ -23,6 +23,8 @@ const RING_W := 3.0
 
 var fig: Control
 var tex: Texture2D
+var face: Texture2D   # S353 her headshot (BodyHolo): the HEAD close-up shows HER over the holo's ecorche head
+const FACE_UV := Vector3(0.53, 0.37, 0.24)   # centre u, v and radius (of the width) of her face in the headshot
 var anchors := {}
 var outer := -1.0
 var tip := Callable()
@@ -48,6 +50,7 @@ static func attach(f: Control, portrait: Dictionary, side_out: float, tip_fn: Ca
 	c.name = "BodyCallouts"
 	c.fig = f
 	c.tex = portrait["tex"]
+	c.face = portrait.get("face") as Texture2D
 	c.anchors = portrait.get("anchors", {})
 	c.outer = side_out
 	c.tip = tip_fn
@@ -61,6 +64,7 @@ static func attach(f: Control, portrait: Dictionary, side_out: float, tip_fn: Ca
 	c._pics.set_anchors_and_offsets_preset(PRESET_FULL_RECT)
 	var mat := ShaderMaterial.new()
 	mat.shader = KIT_SHADER
+	mat.set_shader_parameter("holo", 1.0 if portrait.get("holo", false) else 0.0)
 	c._pics.material = mat
 	c._pics.draw.connect(c._draw_pics)
 	c.add_child(c._pics)
@@ -116,14 +120,20 @@ func _draw_pics() -> void:
 		if a.size() < 4:
 			continue
 		var c := centre(k)
-		var ur := float(a[2]) * float(s["crop"])
+		var t := tex
+		var cuv := Vector3(float(a[0]), float(a[1]), float(a[2]) * float(s["crop"]))
+		var asp := ts.x / ts.y
+		if str(s["at"]) == "head" and face != null:
+			t = face
+			cuv = FACE_UV
+			asp = face.get_size().x / face.get_size().y
 		var pts := PackedVector2Array()
 		var uvs := PackedVector2Array()
 		for i in 32:
 			var ang := TAU * i / 32.0
 			pts.append(c + Vector2(cos(ang), sin(ang)) * R)
-			uvs.append(Vector2(float(a[0]) + cos(ang) * ur, float(a[1]) + sin(ang) * ur * ts.x / ts.y))
-		_pics.draw_polygon(pts, PackedColorArray([Color.WHITE]), uvs, tex)
+			uvs.append(Vector2(cuv.x + cos(ang) * cuv.z, cuv.y + sin(ang) * cuv.z * asp))
+		_pics.draw_polygon(pts, PackedColorArray([Color.WHITE]), uvs, t)
 
 
 func _draw() -> void:

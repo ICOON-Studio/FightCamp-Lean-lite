@@ -14,6 +14,9 @@ uniform float soft_px = 5.0;   // mask texels between the 5x5 taps (S347: 2.0 st
 // only a near-pure red, so her lips stay hers - or a blue one (skin is never bluer than red).
 // 1 = kit all clay, 0 = her photo colours everywhere.
 uniform float clay = 1.0;
+// S353 the muscle holo (BodyHolo): no kit logic, the picture keeps its own cyan; a part's Burn colour and a hurt spot GLOW
+// on the muscles (brighter where the holo is lit), and a hurt spot also fills the see-through inside a little.
+uniform float holo = 0.0;
 uniform vec4 clay_col : source_color = vec4(0.80, 0.78, 0.74, 1.0);
 void fragment() {
 	vec4 c = texture(TEXTURE, UV);
@@ -27,6 +30,9 @@ void fragment() {
 		* mix(smoothstep(0.70, 0.85, sat), smoothstep(0.25, 0.40, sat), in_part);
 	float blue_kit = smoothstep(0.06, 0.18, c.b - max(c.r, c.g));
 	vec3 rgb = mix(c.rgb * body_tint.rgb, clay_col.rgb * clamp(0.35 + 1.6 * lum, 0.3, 1.15), max(red_kit, blue_kit) * clay);
+	rgb = mix(rgb, c.rgb, holo);
+	float glow = mix(1.0, 1.35, holo);
+	float a = c.a;
 	vec3 acc = vec3(0.0);
 	float wa = 0.0;
 	for (int dx = -2; dx <= 2; dx++) {
@@ -39,14 +45,16 @@ void fragment() {
 		}
 	}
 	if (wa > 0.0) {
-		rgb = mix(rgb, (acc / wa) * clamp(0.62 + 0.85 * lum, 0.6, 1.25), wa / 25.0);
+		vec3 shade = mix(vec3(clamp(0.62 + 0.85 * lum, 0.6, 1.25)), vec3(clamp(0.30 + 1.9 * lum, 0.3, 1.6)), holo);
+		rgb = mix(rgb, (acc / wa) * shade, wa / 25.0 * mix(1.0, 0.9, holo));
 	}
 	for (int k = 0; k < 3; k++) {
 		vec4 b = spot_box[k];
 		if (spot_col[k].a > 0.0 && b.z > 0.0) {
 			float w = smoothstep(1.0, 0.35, length((UV - b.xy) / b.zw)) * spot_col[k].a;
-			rgb = mix(rgb, spot_col[k].rgb * clamp(0.62 + 0.85 * lum, 0.6, 1.25), w);
+			rgb = mix(rgb, spot_col[k].rgb * clamp(0.62 + 0.85 * lum, 0.6, 1.25) * glow, w);
+			a = mix(a, max(a, 0.9), w * holo * step(0.05, c.a));
 		}
 	}
-	COLOR = vec4(rgb, c.a);
+	COLOR = vec4(rgb, a);
 }

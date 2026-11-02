@@ -1,3 +1,19 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 54 (2026-11-02): THE MUSCLE HOLO, HER TRAINING PICTURES
+==========================================================================================
+
+ 1. THE BODY VIEW is a real muscle figure now (the model you bought), a see-through blue holo on a dark scanner panel -
+    no kit, no tubes, no circles. Play a fight: both corners' panels show it; a tired part glows warm on the muscles
+    (shoulders, arms, core, legs) and a hurt head or rib side glows red. Her own face sits in the HEAD close-up; hover
+    a close-up or a place for what landed there.
+ 2. Between rounds, the corner card shows the same holo. FIGHTERS > Training: the holo in the middle, and each session
+    card now has her picture doing it (Ziva's ink drawings: guard, chin tuck, jab, bag, speed bag, mitts, slip rope,
+    roadwork).
+ 3. Not playable yet (mockups on the board for your OK): Gym > Training week (every fighter Mon-Sun, mornings body work,
+    evenings the move with its progress bar) and a BJJ fighter's road to black belt (no-gi). The belt rules are built.
+ 4. Still with the animators: smoother punches (Goose's round 3 did not help - I audit the code next), the clinch (Ziva).
+
+
+EARLIER (update 53)
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 53 (2026-11-02): FIXES FROM THE BOARD REVIEW, HER CORNER FIGURE
 =================================================================================================
 

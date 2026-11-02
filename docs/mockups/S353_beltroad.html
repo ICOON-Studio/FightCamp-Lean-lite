@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- S353 mockup for the operator's OK (not game code): a BJJ athlete's BELT ROAD (operator: "a simple road to black belt in
+     bjj for start", no-gi only). Real IBJJF rules: graduation system June 2026, Rule Book v6.0. -->
+<html><head><meta charset="utf-8"><title>Belt road mockup</title><style>
+@font-face{font-family:Marker;src:url(../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;src:url(../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Mono;src:url(../../assets/fonts/IBMPlexMono-Medium.ttf)}
+:root{--bg:#cfe0ea;--panel:#fdfefe;--panel2:#e9eef2;--line:#c9d1d8;--fg:#22262e;--muted:#5e6773;--blue:#2f6fdb;--red:#e2483d;
+--green:#23935d;--amber:#d97a00;--yellow:#ffd54a;--purple:#8a5cf0;--mint:#9fe0c0}
+*{box-sizing:border-box}body{margin:0;width:1920px;height:1080px;background:var(--bg);font-family:Barlow;color:var(--fg);overflow:hidden}
+.top{height:76px;background:#fff;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--line)}
+.btn{border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-weight:600;color:var(--muted);background:#fff}
+.gym{font-family:Marker;color:var(--blue);font-size:30px;margin-left:6px}
+.date{margin-left:auto;text-align:right;font-weight:700;font-size:19px;line-height:1}.date small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.cont{background:var(--blue);color:#fff;border-radius:22px;padding:8px 18px;width:270px;font-weight:700;font-size:17px;line-height:1.1}
+.cont small{display:block;font-weight:400;font-size:12px;opacity:.85}.cash{font-family:Barlow;font-weight:700;color:var(--green);font-size:28px}
+.rail{position:absolute;left:10px;top:90px;width:180px}.rail div{background:#fff;border-radius:6px;margin-bottom:10px;padding:13px 14px;font-weight:700;font-size:17px;border-left:4px solid transparent}
+.rail .on{border-left-color:var(--red)}
+.main{position:absolute;left:226px;top:96px;right:34px}
+h1{font-family:Marker;font-size:46px;margin:0 0 6px;font-weight:400}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:12px}.tabs div{padding:8px 16px;font-weight:600;color:var(--muted)}
+.tabs .on{background:#fff;color:var(--blue);border-radius:6px 6px 0 0}
+.board{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.grid{display:grid;grid-template-columns:220px repeat(7,1fr) 210px;gap:6px}
+.hd{font-size:12px;letter-spacing:2px;font-weight:700;color:var(--muted);text-align:center;padding-bottom:2px}
+.type{height:6px;border-radius:3px;margin-bottom:3px}.HARD{background:var(--red)}.SKILL{background:var(--blue)}.ENGINE{background:var(--green)}.REST{background:#b9c2ca}
+.who{display:flex;gap:10px;align-items:center;padding:6px 4px;border-top:1px dotted var(--line)}
+.who img,.who .face,.mf{width:44px;height:44px;border-radius:50%;background:#333 no-repeat;background-size:230%;background-position:59% 33%;flex:none}
+.who b{display:block;font-size:16px}.who span{font-size:12px;color:var(--muted)}
+.belt{display:inline-flex;align-items:center;height:12px;width:58px;border-radius:2px;margin-top:3px;position:relative;vertical-align:middle}
+.belt i{position:absolute;right:4px;top:0;bottom:0;width:16px;background:#111;display:flex;gap:2px;padding:0 2px;align-items:center}
+.belt i em{width:2px;height:10px;background:#fff;display:block}
+.day{border-top:1px dotted var(--line);padding:5px 0 4px}
+.am{border-radius:5px;padding:4px 6px;font-size:12px;font-weight:700;color:#fff;margin-bottom:4px;display:flex;justify-content:space-between}
+.am small{font-weight:400;opacity:.9}
+.POW{background:#d9692b}.CON{background:var(--green)}.FOOT{background:#3a86c8}.SPD{background:#c9a200}.STR{background:var(--purple)}.MOB{background:#1fa39a}.RST{background:#aab3bb}
+.pm{border:1px solid var(--line);border-radius:5px;padding:4px 6px;font-size:12px;font-weight:600;background:var(--panel2)}
+.pm .bar{height:6px;background:#d3dce3;border-radius:3px;margin-top:3px;overflow:hidden;position:relative}
+.pm .bar b{display:block;height:100%;background:var(--blue)}.pm .bar.bjj b{background:#1fa39a}
+.pm .bar u{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);left:30%}
+.pm.live{background:#fff3e8;border-color:#f0c49a}.pm.rest{background:transparent;border-style:dashed;color:var(--muted)}
+.sum{border-top:1px dotted var(--line);padding:6px 4px;font-size:12px}
+.sum .mv{display:flex;justify-content:space-between;font-weight:600}.sum .g{color:var(--green);font-family:Mono}
+.red{outline:2px solid var(--red);outline-offset:-2px}
+.key{display:flex;gap:16px;align-items:center;font-size:12px;color:var(--muted);margin-top:10px;flex-wrap:wrap}
+.key span{display:inline-flex;gap:5px;align-items:center}.key i{width:14px;height:10px;border-radius:2px;display:inline-block}
+.note{position:absolute;left:236px;bottom:16px;width:760px;background:var(--yellow);border:1px solid #d9b235;padding:10px 14px;font-family:Kalam,Barlow;font-size:15px;transform:rotate(-.6deg)}
+.card{border:1px solid var(--line);border-radius:8px;background:var(--panel2);padding:8px 10px}
+.card .pic{height:74px;border-radius:6px;background:#1c222b;color:#9fb3c8;display:flex;align-items:center;justify-content:center;font-size:11px;margin-bottom:6px}
+.card b{font-size:15px}.card .tag{font-size:10px;letter-spacing:1.5px;font-weight:700;color:var(--muted)}
+.card .row{display:flex;gap:8px;align-items:center;margin-top:6px;font-size:12px}.card .row .mf{width:26px;height:26px}
+.card .bar{flex:1;height:8px;background:#d3dce3;border-radius:4px;overflow:hidden;position:relative}.card .bar b{display:block;height:100%;background:var(--blue)}
+.card .bar u{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);left:30%}.card .n{font-family:Mono;font-size:11px;color:var(--green)}
+.dots{font-size:11px;color:var(--muted);margin-top:4px}
+.disc{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);padding:8px 4px 2px;grid-column:1/-1}
+</style>
+<style>
+.belts{display:flex;gap:18px;align-items:flex-end;margin:6px 0 4px}
+.bt{flex:1;text-align:center;font-size:12px;color:var(--muted)}
+.bt .b{height:34px;border-radius:5px;position:relative;border:1px solid #9aa4ad;margin-bottom:6px;box-shadow:inset 0 -6px 0 rgba(0,0,0,.12)}
+.bt .b i{position:absolute;right:14px;top:0;bottom:0;width:58px;background:#111;display:flex;gap:6px;align-items:center;justify-content:center}
+.bt .b i em{width:6px;height:26px;background:#3a3f46;display:block}.bt .b i em.on{background:#fff}
+.bt b{display:block;color:var(--fg);font-size:15px}.bt.now .b{outline:3px solid var(--blue);outline-offset:3px}
+.cols{display:grid;grid-template-columns:1.25fr 1fr 340px;gap:14px;margin-top:14px}
+.req{display:flex;justify-content:space-between;font-size:14px;margin:8px 0 2px}.big{height:10px;background:#d3dce3;border-radius:5px;overflow:hidden}.big b{display:block;height:100%;background:var(--blue)}
+.mvl{font-size:13px;display:grid;grid-template-columns:1fr 90px 46px;gap:4px 8px;align-items:center}
+.mvl .h{grid-column:1/-1;font-size:11px;letter-spacing:1.5px;font-weight:700;color:var(--muted);margin-top:8px}
+.mvl .bar{height:7px;background:#d3dce3;border-radius:4px;overflow:hidden;position:relative}.mvl .bar b{display:block;height:100%;background:#1fa39a}
+.mvl .bar u{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);left:30%}.ok{color:var(--green);font-weight:700;font-size:12px}.todo{color:var(--muted);font-size:12px}
+.pbtn{display:inline-block;border-radius:8px;padding:10px 18px;font-weight:700;margin-right:8px}
+.ev{display:flex;justify-content:space-between;border-top:1px dotted var(--line);padding:7px 0;font-size:14px}.ev span{color:var(--muted);font-size:12px}
+.holo{height:430px;border-radius:10px;background:#09101a url(../../assets/ui/body/holo_f.png) center/contain no-repeat;border:1px solid #2b5f80}
+</style></head><body><div class="top"><span class="btn">Back</span><span class="btn">Fwd</span><span class="gym">Anvil Street Gym</span>
+<div class="date">Mon 12 Jan 2026<small>Week 2</small></div><span class="btn">II</span><span class="btn">&gt;</span><span class="btn">&gt;&gt;</span>
+<div class="cont">CONTINUE<small>to Tue 13 Jan</small></div><span class="cash">$14,241</span><span class="btn">Mail</span><span class="btn">Gear</span></div>
+<div class="rail"><div>Home</div><div class="on">Fighters</div><div>Playbook</div><div>Fights</div><div>Gym</div><div>Money</div><div>World</div></div>
+<div class="main">
+<div style="font-size:14px;color:var(--muted)">FIGHTERS / Roster / Ana Ribeiro</div>
+<div style="display:flex;align-items:baseline;gap:16px"><h1>ANA RIBEIRO</h1><span style="color:var(--muted);font-size:17px">Featherweight (no-gi), 22, white belt 2 stripes, 4-2 in opens</span>
+<span style="border:2px solid var(--amber);color:var(--amber);border-radius:12px;padding:1px 10px;font-weight:700;font-size:13px">Goal: blue belt by the summer</span></div>
+<div class="tabs"><div>Overview</div><div>Attributes and moves</div><div>Body</div><div class="on">Belt road</div><div>Record</div><div>Contract and goals</div></div>
+<div class="board">
+<div class="hd" style="text-align:left">THE ROAD TO BLACK BELT - you promote her; the IBJJF sets the minimums</div>
+<div class="belts">
+<div class="bt now"><div class="b" style="background:#f6f6f4"><i><em class="on"></em><em class="on"></em><em></em><em></em></i></div><b>WHITE</b>now, 2 of 4 stripes</div>
+<div class="bt"><div class="b" style="background:#2f5fd0"><i><em></em><em></em><em></em><em></em></i></div><b>BLUE</b>no minimum at white, age 16+</div>
+<div class="bt"><div class="b" style="background:#7a3fc4"><i><em></em><em></em><em></em><em></em></i></div><b>PURPLE</b>2 years at blue</div>
+<div class="bt"><div class="b" style="background:#7a4a24"><i><em></em><em></em><em></em><em></em></i></div><b>BROWN</b>1.5 years at purple, 18+</div>
+<div class="bt"><div class="b" style="background:#151515"><i style="background:#c8202a"></i></div><b>BLACK</b>1 year at brown, 19+</div>
+</div>
+<div style="font-size:12px;color:var(--muted)">An adult world champion at her belt skips the minimum time. A typical road takes 8 to 12 years; a prodigy about 5.</div>
+</div>
+<div class="cols">
+<div class="board"><div class="hd" style="text-align:left">TO BLUE BELT - THE FOUNDATIONS</div>
+<div class="req"><span>Mat time</span><b>96 of 150 classes</b></div><div class="big"><b style="width:64%"></b></div>
+<div class="req"><span>Moves she owns (a weapon at the tick)</span><b>9 of 14</b></div><div class="big"><b style="width:64%"></b></div>
+<div class="mvl" id="mvl"></div></div>
+<div class="board"><div class="hd" style="text-align:left">COACH'S CALL</div>
+<div style="font-size:15px;margin:8px 0 12px">Ready for a <b>3rd stripe</b>: her escapes are solid.<br>Blue belt in about <b>4 months</b> at this week's plan.</div>
+<span class="pbtn" style="background:var(--blue);color:#fff">Give stripe 3</span><span class="pbtn" style="background:var(--panel2);color:#9aa4ad;border:1px solid var(--line)">Promote to blue (not ready)</span>
+<div style="font-size:12px;color:var(--muted);margin-top:10px">Promote early and she fights blue belts before she is ready: confidence drops after each loss.</div>
+<div class="hd" style="text-align:left;margin-top:18px">NEXT OPENS (NO-GI, WHITE BELT ADULT FEATHER)</div>
+<div class="ev"><div>Regional No-Gi Open<br><span>Sat 7 Feb - 8 in her bracket - entry $95</span></div><b style="color:var(--blue)">Enter</b></div>
+<div class="ev"><div>Spring Open (IBJJF rules)<br><span>Sat 14 Mar - entry $110</span></div><b style="color:var(--blue)">Enter</b></div>
+<div class="hd" style="text-align:left;margin-top:14px">THE RULES SHE FIGHTS UNDER</div>
+<div style="font-size:12.5px;line-height:1.45">5 min at white (6 blue, 7 purple, 8 brown, 10 black). Mount or back 4, guard pass 3, takedown, sweep or knee on belly 2. A submission ends it. No-gi only.</div></div>
+<div><div class="holo"></div><div style="font-size:12px;color:var(--muted);margin-top:6px;text-align:center">Her body view: grips, hips and neck light up as she rolls</div></div>
+</div></div>
+<script>
+const L=[["ESCAPES AND SURVIVAL"],["Shrimp and bridge",71,1],["Frame and recover guard",52,1],["Seatbelt escape",22],["Posture in closed guard",48,1],
+["PASSES AND SWEEPS"],["Bullfighter pass",33,1],["Knee cut pass",15],["Scissor sweep",44,1],["Hip bump sweep",36,1],
+["TAKEDOWNS AND SUBMISSIONS"],["Double leg",31,1],["Armbar from guard",28],["Kimura",40,1],["Rear naked choke",12],["Guillotine",9]];
+const m=document.getElementById("mvl");
+for(const r of L){ if(r.length===1){m.insertAdjacentHTML("beforeend",`<div class="h">${r[0]}</div>`);continue}
+ m.insertAdjacentHTML("beforeend",`<span>${r[0]}</span><div class="bar"><b style="width:${r[1]}%"></b><u></u></div>`+(r[2]?`<span class="ok">owned</span>`:`<span class="todo">${r[1]}/30</span>`));}
+</script></body></html>

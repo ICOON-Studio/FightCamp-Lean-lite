@@ -29,9 +29,12 @@ func _initialize() -> void:
 		fig.size = Vector2(340, 420)
 		fig.position = Vector2(30 + side * 500, 40)
 		root.add_child(fig)
-		BodyTurn.attach(fig, glb, corner)
+		var still: Dictionary = BF.portrait_for(glb, corner)
+		if still.get("holo", false) or not BodyTurn.attach(fig, glb, corner):   # as BodyLive builds it (S353 the holo stands still)
+			fig.set_portrait(still)
 		fig.set_values({"nose": 50.0, "right_ribs": 40.0} if side == 1 else {"head": 80.0})
-		BodyCallouts.attach(fig, BF.portrait_for(glb, corner), -1.0 if side == 0 else 1.0, func(p: String) -> String: return BodyTip.text(p, 50.0, {}))
+		fig.set_track({"core": 20.0, "left_shoulder": 72.0, "right_shoulder": 45.0, "left_arm": 60.0, "right_arm": 25.0, "legs": 35.0} if side == 1 else {})
+		BodyCallouts.attach(fig, still, -1.0 if side == 0 else 1.0, func(p: String) -> String: return BodyTip.text(p, 50.0, {}))
 		figs.append(fig)
 	for i in 20:
 		await process_frame
