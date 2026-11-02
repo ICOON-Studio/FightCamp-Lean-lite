@@ -203,6 +203,7 @@ func _week_two(c: Career) -> void:
 	_check(Needs.go_state(c, false)["t"] == "GO TO FIGHT NIGHT", "the button reads GO TO FIGHT NIGHT")
 	var cash_fight := c.cash
 	var members_fight := c.members
+	var morale_fight := float(c.fighter()["morale"])
 	main.act("go_btn")
 	_check(main.modal.get("type", "") == "fight" and main.modal["step"] == "tape", "fight night opens on the tale of the tape")
 	_press(_modal_button("Begin"), "Begin fight")
@@ -236,8 +237,9 @@ func _week_two(c: Career) -> void:
 	_check(c.members == members_fight + (8 if win else 0), "members after the news: %d" % c.members)
 	_check(c.results.size() == 1 and (f["history"] as Array).size() == 1, "the result and her finished goal are on the books: %s" % str(f["history"]))
 	# Fight model step 1: the booking, the result and the goal moved her stored morale; the reason names the last one.
-	_check(float(f["morale"]) != 60.0 and (str(f["mood_reason"]).ends_with("met") or str(f["mood_reason"]).ends_with("missed")),
-		"her morale moved: %.1f (%s)" % [float(f["morale"]), f["mood_reason"]])
+	# S356: measured across the result (a twist card's morale before the bout can bring the sum back to the 60 it started at).
+	_check(float(f["morale"]) != morale_fight and (str(f["mood_reason"]).ends_with("met") or str(f["mood_reason"]).ends_with("missed")),
+		"her morale moved: %.1f -> %.1f (%s)" % [morale_fight, float(f["morale"]), f["mood_reason"]])
 	_press(_modal_button("BackHome"), "Back home")
 	_check(c.fighter()["bout"].is_empty() and Needs.flags(c).any(func(x): return x["t"] == "NEW GOAL"), "NEW GOAL waits on the top bar")
 

@@ -1,5 +1,5 @@
 extends VBoxContainer
-## FIGHTERS: Roster, Training (her week on TrainingBoard: eight sessions round her body), Fight camps, Scouting
+## FIGHTERS: Roster, Training (each week on the fighter page: WeekBoard), Fight camps, Scouting
 ## (prospects: a scouted range, invite to a trial). A fighter's name opens her page.
 
 const UI := preload("res://scripts/ui/UI.gd")
@@ -30,7 +30,6 @@ func build(main: Node) -> void:
 		1:
 			if c.fighters.is_empty():
 				AreaHead.placeholder(self, "TRAINING", "Sign a fighter first.")
-			# S349 (Q-S294-72): her week as his home-training picture - eight sessions round her body (TrainingBoard).
 			# S354 C204 ("this should be like a sub tab in the players profile"): the board lives on her page's Training
 			# tab; here each fighter's line opens it.
 			_training(main, c)

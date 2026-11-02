@@ -11,7 +11,9 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
+const TwistCard := preload("res://scripts/ui/TwistCard.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 
@@ -42,6 +44,10 @@ static func goal_of(c: Career, f: Dictionary) -> Dictionary:
 	var target := floorf(now) + 2.0
 	if key == stat and g.has("target"):
 		target = float(g["target"])
+	# S356 in camp the goal was fixed the day it started (PeakCamp).
+	var cg: Dictionary = (f.get("camp", {}) as Dictionary).get("goal", {})
+	if str(cg.get("stat", "")) == stat:
+		target = float(cg["target"])
 	var bout: Dictionary = f.get("bout", {})
 	var weeks := WEEKS_NO_BOUT
 	if not bout.is_empty() and not bool(bout.get("done", false)):
@@ -55,7 +61,7 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	add_child(v)
 	var goal := goal_of(c, f)
 	# S355 the week's twist card (WeekTwist): the week shown and projected is the one the card leaves.
-	var tw := WeekTwist.card(str(f.get("twist", "")))
+	var tw := WeekTwist.active(f)
 	var days := WeekTwist.days(tw, WeekPlan.days_of(f))
 	var evs := WeekTwist.evenings(tw, WeekPlan.evenings_of(f))
 	var ctx := Sim.week_ctx(c, f)
@@ -69,20 +75,28 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	head.add_child(sub)
 	v.add_child(head)
-	if not tw.is_empty():
+	if tw.has("a"):
+		v.add_child(TwistCard.build(main, f, "THIS WEEK'S TWIST"))   # S356 a choice: two answers, their price
+	elif not tw.is_empty():
 		var hits := WeekTwist.touches(tw, WeekPlan.days_of(f), WeekPlan.evenings_of(f))
 		var card := UI.label("THIS WEEK'S TWIST - %s: %s%s" % [str(tw["name"]).to_upper(), tw["line"], "" if hits or str(tw["id"]) == "quiet" else " (not in this week's plan)"],
 			UI.BODY, UI.AMBER if hits else UI.MUTED, "bold", true)
 		card.name = "Twist"
 		v.add_child(card)
 	v.add_child(_goal_card(main, f, goal, days, ctx, evs))
-	v.add_child(UI.caps("2   THE WEEK - MORNINGS BUILD THE BODY (PICK A SESSION AND HOW HARD), EVENINGS SHARPEN THE MOVES"))
+	# S356 (Q-S294-82) the camp's phase writes the week; the player changes only the days he wants.
+	var ph: Dictionary = WeekPhase.PHASES.get(str(f.get("phase", "base")), WeekPhase.PHASES["base"])
+	var changed: Dictionary = WeekPhase.edits(f).get("days", {})
+	var phase_line := UI.label("2   %s - %s  The coach writes the week; change only the days you want%s." % [str(ph["name"]).to_upper(),
+		ph["line"], "" if changed.is_empty() else " (%d changed)" % changed.size()], UI.SMALL, UI.MUTED, "bold", true)
+	phase_line.name = "Phase"
+	v.add_child(phase_line)
 	var grid := GridContainer.new()
 	grid.name = "Week"
 	grid.columns = 7
 	grid.add_theme_constant_override("h_separation", 8)
 	for i in 7:
-		grid.add_child(_day(main, fid, i, days[i], evs[i], wk["days"][i], (wk["red"] as Array).has(i)))
+		grid.add_child(_day(main, fid, i, days[i], evs[i], wk["days"][i], (wk["red"] as Array).has(i), changed.has(str(i))))
 	v.add_child(grid)
 	v.add_child(_evenings(main, c, f))
 
@@ -92,7 +106,7 @@ func _goal_card(main: Node, f: Dictionary, goal: Dictionary, days: Array, ctx: D
 	var box := UI.vbox(8)
 	box.name = "Goal"
 	box.add_child(UI.caps("1   THE GOAL - WHERE THIS WEEK'S PLAN LANDS, AND WHAT MOVES EACH LINE"))
-	var lines := WeekPlan.goal_lines(goal, days, ctx, int(goal["weeks"]), evs)
+	var lines := WeekPlan.goal_lines(goal, days, ctx, int(goal["weeks"]), evs, WeekPlan.ahead(f, (main.career as Career).day, int(goal["weeks"])))
 	var fid := str(f["id"])
 	for ln in lines:
 		var row := UI.hbox(14)
@@ -146,7 +160,7 @@ func _dial(main: Node, fid: String, f: Dictionary, id: String, stat: String) -> 
 
 
 ## One day: the morning (session picker, Light/Normal/Hard, its numbers), the evening, the fatigue bar (C211).
-func _day(main: Node, fid: String, i: int, m: Array, evening: String, r: Dictionary, red: bool) -> PanelContainer:
+func _day(main: Node, fid: String, i: int, m: Array, evening: String, r: Dictionary, red: bool, mine := false) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.name = "Day_%d" % i
 	var sb := StyleBoxFlat.new()
@@ -160,24 +174,20 @@ func _day(main: Node, fid: String, i: int, m: Array, evening: String, r: Diction
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var v := UI.vbox(4)
 	p.add_child(v)
-	v.add_child(UI.caps(DAYS[i] + ("   RED DAY" if red else "")))
+	v.add_child(UI.caps(DAYS[i] + ("   RED DAY" if red else "") + ("   YOURS" if mine else "")))
+	# S356 one card a day: the session and how hard in one pick ("Hard intervals").
+	var cards := WeekPhase.cards()
 	var pick := OptionButton.new()
 	pick.name = "Session_%d" % i
-	for s in WeekPlan.ORDER:
-		pick.add_item(str(WeekPlan.session(str(s))["name"]))
-	pick.select(maxi(0, WeekPlan.ORDER.find(str(m[0]))))
-	pick.item_selected.connect(func(k): main.act("wday", "%s|%d|%s|%s" % [fid, i, WeekPlan.ORDER[k], str(m[1])]))
+	for d in cards:
+		pick.add_item(WeekPhase.card(d))
+	pick.select(maxi(0, cards.find([str(m[0]), "normal" if str(m[0]) == "rest" else str(m[1])])))
+	pick.item_selected.connect(func(k): main.act("wday", "%s|%d|%s|%s" % [fid, i, cards[k][0], cards[k][1]]))
+	pick.tooltip_text = "Your change - pick the coach's card again to undo it" if mine else "The coach's card for this phase"
+	pick.fit_to_longest_item = false   # 25 cards: the longest name widened every day past the page
+	pick.clip_text = true
+	pick.custom_minimum_size = Vector2(DAY_W - 20, 0)
 	v.add_child(pick)
-	var it := UI.hbox(3)
-	if str(m[0]) != "rest":
-		for k in ["light", "normal", "hard"]:
-			var b := UI.button(str(WeekPlan.INTENSITY[k]["label"]), "ChoiceOn" if str(m[1]) == k else "Choice",
-				main.act.bind("wday", "%s|%d|%s|%s" % [fid, i, str(m[0]), k]))
-			b.name = "Int_%d_%s" % [i, k]
-			b.add_theme_font_size_override("font_size", UI.TINY)
-			b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			it.add_child(b)
-	v.add_child(it)
 	var nums := PackedStringArray()
 	if str(r["stat"]) != "":
 		nums.append("%s %+.2f" % [SHORT.get(str(r["stat"]), str(r["stat"])), float(r["gain"])])
@@ -207,7 +217,7 @@ func _evenings(main: Node, c: Career, f: Dictionary) -> VBoxContainer:
 	var row := UI.hbox(10)
 	row.add_child(UI.label("Sparring nights", UI.SMALL, UI.FG, "bold"))
 	for n in 3:
-		var b := UI.button("%d a week" % n, "ChoiceOn" if int(f.get("spar_nights", 1)) == n else "Choice", main.act.bind("spar", "%s|%d" % [fid, n]))
+		var b := UI.button("%d a week" % n, "ChoiceOn" if WeekPlan.evenings_of(f).count("sparring") == n else "Choice", main.act.bind("spar", "%s|%d" % [fid, n]))
 		b.name = "Spar_%d" % n
 		row.add_child(b)
 	row.add_child(UI.spacer())
@@ -239,7 +249,7 @@ func _evenings(main: Node, c: Career, f: Dictionary) -> VBoxContainer:
 	row.add_child(combo)
 	var reset := UI.button("Coach's week", "BtnQuiet", main.act.bind("weekreset", fid))
 	reset.name = "WeekReset"
-	reset.tooltip_text = "Back to the coach's week: a camp's opening week that lands near the goal"
+	reset.tooltip_text = "Undo your changes: back to the coach's week for this phase"
 	row.add_child(reset)
 	box.add_child(row)
 	return box

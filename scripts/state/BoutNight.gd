@@ -30,6 +30,7 @@ const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
+const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -55,6 +56,7 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		m["step"] = "round"
 		m["round"] = 0
 		m["rounds"] = []
+		_peak(f)
 		_open(c, f, m, "")
 	elif a.begins_with("corner:") and not stopped(m) and LiveRound.live(m).is_empty():
 		# S309: "corner:<call>|<habit>" also fixes one habit for the round. S310 the other corner jobs ride as labelled
@@ -72,12 +74,48 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 	if a == "end" and not stopped(m) and (int(m.get("round", 0)) < rounds_of(f) or not LiveRound.live(m).is_empty()):
 		a = "rest"
 	if a == "sim" or a == "rest":
-		_shout_out(c, f, m)
-		while int(m["round"]) < rounds_of(f) and not stopped(m):
-			_open(c, f, m, BoutRules.auto_corner(f["stats"]))
-			_shout_out(c, f, m)
+		_box_out(c, f, m)
 	if a == "sim" or a == "rest" or a == "end":
 		_finish(c, f, m)
+
+
+## S356 the whole bout on the corner's own calls with nothing booked (no record, money or news): the plan's Test it
+## (PlanTest) plays its 20 bouts through the same rounds fight night does.
+static func play_out(c: Career, f: Dictionary, m: Dictionary) -> void:
+	fight_step(c, f, m, "start")
+	_box_out(c, f, m)
+
+
+## S356 the peak-camp bonus at the first bell: a camp with all three goal lines met sends her out +1 every stat, taken
+## back at the result (_finish). Checked once a bout.
+static func _peak(f: Dictionary) -> void:
+	var b: Dictionary = f["bout"]
+	if b.has("peak_rows"):
+		return
+	var rows := PeakCamp.lines(f.get("camp", {}), f)
+	b["peak_rows"] = rows
+	if PeakCamp.met(rows):
+		b["peak_add"] = PeakCamp.boost(f["stats"], PeakCamp.CAP)
+
+
+static func _box_out(c: Career, f: Dictionary, m: Dictionary) -> void:
+	_shout_out(c, f, m)
+	while int(m["round"]) < rounds_of(f) and not stopped(m):
+		_open(c, f, m, BoutRules.auto_corner(f["stats"]))
+		_shout_out(c, f, m)
+
+
+## win | loss | draw from the bout's rounds: the cards, a stoppage settles it whatever they say (the boxer still standing
+## wins), and a championship bout must have a winner (S328: level cards go to the boxer who took the last round).
+static func outcome_of(f: Dictionary, m: Dictionary) -> String:
+	var rounds: Array = m["rounds"]
+	var won := rounds.filter(func(r): return bool(r["won"])).size()
+	var outcome := BoutRules.verdict(BoutRules.scorecards(won, rounds.size()))
+	if stopped(m) != "":
+		outcome = "loss" if str((rounds[-1] as Dictionary)["down"]) == "a" else "win"
+	if outcome == "draw" and f["bout"].has("champ"):
+		outcome = "win" if bool((rounds[-1] as Dictionary)["won"]) else "loss"
+	return outcome
 
 
 ## The corner action's parts after the call: a bare second part is the S309 habit; "key=value" parts are S310 jobs.
@@ -255,20 +293,20 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var won := rounds.filter(func(r): return bool(r["won"])).size()
 	var pro := bool(f["bout"].get("pro", false))
 	var cards := BoutRules.scorecards(won, rounds.size())
-	var outcome := BoutRules.verdict(cards)
-	# A stoppage settles it whatever the cards say: the boxer still standing wins.
 	var stop := stopped(m)
 	m["stopped"] = stop
-	if stop != "":
-		outcome = "loss" if str((rounds[-1] as Dictionary)["down"]) == "a" else "win"
-	# S328 a championship bout must have a winner (amateur judges pick one on every card): level cards go to the boxer who
-	# took the last round.
-	if outcome == "draw" and f["bout"].has("champ"):
-		outcome = "win" if bool((rounds[-1] as Dictionary)["won"]) else "loss"
+	var outcome := outcome_of(f, m)
 	var win := outcome == "win"
 	var focus_label := str(Data.LABEL.get(camp.get("focus", ""), ""))
 	var why := BoutRules.why(rounds, not camp.is_empty(), int(camp.get("protocol", 0)), focus_label, int(f["bout"]["film"]),
 		str(opp["threat"]).to_lower(), str(f["first"]))
+	# S356 the peak bonus was for this fight only; its line leads the reasons and goes in the week review.
+	PeakCamp.unboost(f["stats"], f["bout"].get("peak_add", {}))
+	var peak := PeakCamp.line(str(f["first"]), f["bout"].get("peak_rows", []))
+	if peak != "":
+		why.push_front(peak)
+		f["peak_line"] = peak
+	m["peak"] = not (f["bout"].get("peak_add", {}) as Dictionary).is_empty()
 	m["step"] = "result"
 	m["win"] = win
 	m["outcome"] = outcome

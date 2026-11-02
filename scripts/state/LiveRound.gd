@@ -15,6 +15,7 @@ const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const ClinchRest := preload("res://scripts/rules/ClinchRest.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
+const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -44,6 +45,9 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 		base -= BoutRules.OWN_FADE
 	if n >= BoutRules.ROUNDS and str(opp.get("weak", "")).begins_with("Fades"):
 		base += BoutRules.OPP_FADE
+	# S356 a week with the southpaw partner (WeekTwist "Take him"): an edge on a southpaw.
+	if bool(f["bout"].get("lefty", false)) and str(opp.get("stance", "")).to_lower() == "southpaw":
+		base += WeekTwist.LEFTY_EDGE
 	var rng := _rng(c, f, n, 0)
 	var mode := Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, 0, "", float(e.get("b", 100.0)), false, rng)
 	# S310: body shots taken all fight ({a: by her, b: by the opponent}), kept on the bout so they carry round to round.
@@ -204,7 +208,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		perks.append("ring_general")
 	if PerkFight.jab_edge(f, sit) > 0.0:
 		perks.append("stiff_jab")
-	var d := float(lv["base"]) + PerkFight.call_edge(f, ce) + PerkFight.jab_edge(f, sit) + HabitFix.cost(habit, fix, Exchanges.uptake(coach, 0))
+	var d := float(lv["base"]) + PerkFight.call_edge(f, ce) + PerkFight.jab_edge(f, sit) + HabitFix.cost(habit, fix, Exchanges.uptake(coach, 0) * (0.5 if bool(f["bout"].get("hot", false)) else 1.0))
 	# S310 the corner's talk works every exchange of the round; the set-up once, when it is fired.
 	d += float((lv.get("talk", {}) as Dictionary).get("edge", 0.0))
 	var su: Dictionary = lv.get("setup", {})

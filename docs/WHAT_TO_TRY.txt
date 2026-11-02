@@ -1,3 +1,31 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 59 (2026-11-02): THE CAMP WRITES THE WEEK, TWIST CARDS YOU ANSWER, TEST YOUR PLAN, PEAK CAMP
+=========================================================================================================================
+
+ 1. THE CAMP WRITES THE WEEK (your yes on Q-S294-82). FIGHTERS > a fighter > Training: the coach writes each week from the
+    camp's phase - Build (3+ weeks out: the camp's stat gets a Hard morning), Peak (two weeks out: the hardest week,
+    sparring twice), Fight week taper (volume down by half, three rest days, no sparring, pads three nights). Each day is
+    ONE card ("Hard intervals", "Light roadwork", "Rest"); change only the days you want - the day says YOURS, and picking
+    the coach's card again undoes it. A new phase on Monday writes a new week. Fight week on a cut drops the last few
+    hundred grams through the diet (0.05 kg a day), so a camp run on the coach's weeks makes weight.
+ 2. TEST YOUR FIGHT PLAN. A fighter with a booked bout > Fight plan > TEST IT: the plan fights 20 quick bouts against her
+    opponent in today's form. You see the wins as a range ("Wins 6-14 of 20"), the rounds won, and where the plan breaks
+    (the round it loses most and how tired she is by then, stoppages, the arrow that works least). Tape study narrows the
+    range: wide on a stranger, 2 wide once her whole file is open. Three tests a camp; each test rolls the same dice, so a
+    change in the range is your plan's doing.
+ 3. THE PEAK-CAMP BONUS. A camp whose three goal lines are all met on fight night - made weight, the camp's stat on its
+    target, fatigue never over 80 - sends her out at her peak: +1 to every stat for that fight. A gold line leads the
+    result and the week review; a miss says which line fell short. The camp's goal is now fixed the day the camp starts.
+ 4. TWIST CARDS YOU ANSWER (your yes on Q-S294-83, the Miro draft). Most weeks the card is a choice with its price on it,
+    drawn at the week review (answer it there or on the Training tab before Monday; no answer = the coach's call): Tight
+    knee (rest it / push through at twice the injury risk), The scale will not move (cut harder, more tired / trust it, 0.2 kg
+    stalls), A night off (Saturday off, morale up / say no, morale down), Gym heating breaks ($600 / every morning Light),
+    Combo clicking (double the combo's pad time, none on the new move / balanced), Southpaw in town (a sparring night with a
+    lefty: +1.5 on the night vs a southpaw), Her old coach visits (a new coach's note; 1 in 3 an old habit costs technique),
+    Sponsor photoshoot (+$400, Thursday evening off / reputation -1), Rival talks trash (+3 members, she takes the corner's
+    fixes half as well / a calm camp). About 1 week in 4 is still a small card with no choice (rain, weights room shut...).
+ 5. Small: the wrestling tie-up answers read "drops the head", "squares the hips" (no his/her); the week review scrolls
+    with Next week always on screen.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 58 (2026-11-02): THE PERKS FIGHT, PLANNED VS ACTUAL, A TWIST A WEEK, COMBO HIT RATES
 =====================================================================================================================
 

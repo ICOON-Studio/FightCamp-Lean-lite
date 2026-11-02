@@ -16,6 +16,7 @@ const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 
 ## The fight model's head damage is one number for the whole bout; InjuryRoll reads the WORST of the body's places. A bout
 ## between equals carries ~22 damage (each loses ~1.5 rounds: 8-18 a lost round, 2 a won one); x2.2 puts its worst place
@@ -171,6 +172,10 @@ static func end_week(c: Career) -> void:
 			continue
 		var h := week_hours(f)
 		var roll := InjuryRoll.training_roll(_seed(c, f, 3), h, h / usual if usual > 0.0 else 1.0)
+		# S356 a twist answered "push through" (WeekTwist risk 2): a second roll, twice the risk.
+		for k in range(1, int(WeekTwist.active(f).get("risk", 1))):
+			if not bool(roll["injured"]):
+				roll = InjuryRoll.training_roll(_seed(c, f, 3 + k * 101), h, h / usual if usual > 0.0 else 1.0)
 		f["chronic"] = TrainingLoad.next_chronic(usual, h)
 		if bool(roll["injured"]):
 			_hurt(c, f, roll, "in training")

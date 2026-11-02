@@ -18,7 +18,7 @@ const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 
 ## S354 C204 (operator on the training board: "this should be like a sub tab in the players profile , to see an an overview
-## of the training"): her week's board (TrainingBoard) is her page's Training tab.
+## of the training"): the week board (WeekBoard; S356 TrainingBoard deleted) is the page's Training tab.
 const TABS := ["Overview", "Attributes and moves", "Body", "Training", "Record", "Camp", "Contract and goals"]
 const TRAINING_TAB := 3
 

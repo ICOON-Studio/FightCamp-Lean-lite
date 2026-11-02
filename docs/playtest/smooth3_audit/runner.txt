@@ -1,0 +1,20 @@
+START plain 04:57:37
+END plain rc=0 05:04:00
+START noguard 05:04:05
+END noguard rc=0 05:11:09
+START noreach 05:11:14
+END noreach rc=0 05:17:28
+START nosnap 05:17:33
+END nosnap rc=0 05:23:52
+START noglove 05:23:57
+END noglove rc=0 05:30:20
+START nojoin 05:30:25
+END nojoin rc=0 05:37:12
+START nofeet 05:37:17
+timeout after 700 s: stopped PID 41768
+END nofeet rc=124 05:48:58
+START nosettle 05:49:03
+END nosettle rc=0 05:55:27
+START noheads 05:55:32
+END noheads rc=0 06:01:50
+ALLDONE

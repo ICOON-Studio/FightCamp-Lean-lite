@@ -45,6 +45,12 @@ const ANSWERS: Array = [
 ]
 
 
+## S356 (operator: no his/her in game text) a reaction as the screen says it: the ids keep their words (saved plans hold
+## them), the player reads "drops the head".
+static func say(reaction: String) -> String:
+	return reaction.replace(" her ", " the ")
+
+
 static func tie(id: String) -> Dictionary:
 	for t in TIES:
 		if t["id"] == id:

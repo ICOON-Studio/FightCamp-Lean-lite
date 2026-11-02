@@ -23,6 +23,7 @@ const PlanTemplates := preload("res://scripts/rules/PlanTemplates.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const MapLegend := preload("res://scripts/ui/MapLegend.gd")
+const PlanTest := preload("res://scripts/state/PlanTest.gd")
 const PANEL_W := 470
 ## Her punches for the prototype (mastery 0-100; a combo opens when each of its punches reaches Combos.LEARN_AT, 30).
 const DEMO_MASTERY := {"Jab": 60.0, "Cross": 55.0, "Lead hook": 45.0, "Body hook": 25.0, "Uppercut": 10.0, "Check hook": 0.0}
@@ -54,6 +55,7 @@ var _map: Control
 var _side: VBoxContainer
 var _route_label: Label
 var _plan_toggle: Button
+var _test_btn: Button
 
 
 func _ready() -> void:
@@ -129,8 +131,32 @@ func _top_bar() -> Control:
 	if not embedded:
 		h.add_child(UI.button("Back", "Btn", _close))
 	if start_plan or not embedded:
+		# S356 CORE3 step 4: the plan on the board fights 20 quick bouts against her booked opponent (PlanTest).
+		var bout: Dictionary = fighter.get("bout", {})
+		if not bout.is_empty() and not bool(bout.get("done", false)):
+			_test_btn = UI.button(_test_words(), "Btn", _test_it)
+			h.add_child(Icons.tip(_test_btn, "20 quick bouts against %s with this plan, in today's form.
+The wins show as a range; tape study on her narrows it. %d tests a camp." % [
+				str(bout["opp"].get("first", "her")), PlanTest.TESTS_A_CAMP]))
 		h.add_child(UI.button("Save plan", "BtnSolid", _save))
 	return bar
+
+
+func _test_words() -> String:
+	return "Test it (%d left)" % PlanTest.left(fighter)
+
+
+func _test_it() -> void:
+	var v := PlanBoard.validate(plan, Map.MOVES, _arrow_limit(), FightFlow.WHEN_WORDS)
+	if not v["ok"]:
+		main.toast(str(v["problems"][0]))
+		return
+	var r := PlanTest.run(main.career, fighter, plan)
+	if not bool(r["ok"]):
+		main.toast(str(r["why"]))
+		return
+	_test_btn.text = _test_words()
+	_set_plan_mode(true)
 
 
 ## S340 the plan as a flow on the whiteboard (FightFlow): from long range, where a bout opens, in the order she gets there.
@@ -269,6 +295,9 @@ func go(card_id: String) -> void:
 		_side.add_child(_when_picker())
 		_side.add_child(UI.sep())
 		_side.add_child(PlanPanel.build(Map.MOVES, plan, _arrow_limit(), _drilled(), _place_name, _remove_arrow, FightFlow.WHEN_WORDS))
+		var tested: Dictionary = (fighter.get("bout", {}) as Dictionary).get("plan_test", {})
+		if not tested.is_empty():
+			_side.add_child(PlanPanel.test_block(tested, str(fighter["bout"]["opp"].get("first", "her"))))
 		_side.add_child(UI.sep())
 	_moves("MOVES OUT", Map.outs(card_id), true)
 	_moves("MOVES IN", Map.ins(card_id), false)

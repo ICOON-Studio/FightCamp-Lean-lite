@@ -24,6 +24,8 @@ const MORALE_EVENTS := {
 	"rest_week": 4,
 	"month_no_fight": -6,
 	"booked": 5,
+	"let_go": 4,     # S356 twist: she got her night off
+	"refused": -4,   # S356 twist: she did not
 }
 
 

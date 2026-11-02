@@ -9,7 +9,6 @@ const SPS := preload("res://tools/session_pic_style.gd")
 const DIR := "res://assets/ui/training"
 const JSON_PATH := "res://assets/ui/training/session_pics.json"
 const MH_DIR := "res://assets/models/metahuman"
-const BOARD := "res://scripts/ui/TrainingBoard.gd"
 const SIZE := 256
 const EDGE_PAD := 6                 # everything is drawn inside this margin
 const MIN_BODY_FRAC := 0.75         # head to feet fills the card
@@ -33,7 +32,6 @@ var _images_by_stem: Dictionary = {}
 
 
 func _initialize() -> void:
-	_check_training_board()
 	var stems := _boxer_stems()
 	for stem in stems:
 		_images_by_stem[stem] = []
@@ -54,20 +52,6 @@ func _boxer_stems() -> Array:
 			out.append(file.get_basename())
 	out.sort()
 	return out
-
-
-## The board must ask the resource loader (an exported build has no loose files to stat) and fall back to the icon.
-func _check_training_board() -> void:
-	var src := FileAccess.get_file_as_string(BOARD)
-	if not "ResourceLoader.exists(" in src:
-		failures += 1
-		print("FAIL TrainingBoard does not use ResourceLoader.exists for the session picture")
-	if not "assets/ui/training" in src:
-		failures += 1
-		print("FAIL TrainingBoard does not look in assets/ui/training")
-	if not "Icons.icon" in src:
-		failures += 1
-		print("FAIL TrainingBoard has no icon for a session without a picture")
 
 
 func _check_one(stem: String, id: String) -> void:

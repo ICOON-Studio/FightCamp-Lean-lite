@@ -27,6 +27,8 @@ const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
+const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
+const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 
 
 const OFFER_ANSWER_DAYS := 3
@@ -147,6 +149,7 @@ static func accept(c: Career, id: String) -> bool:
 	f["bout"] = {"opp": (o["opp"] as Dictionary).duplicate(true), "day": int(o["day"]), "weighed": false, "made": false, "done": false,
 		"film": BoutRules.FILM_DEPTH_DEFAULT}
 	f["booked_fight"] = true
+	WeekPhase.sync(f, c.day)   # S356 a bout booked: the coach writes the camp's phase from today, not next Monday
 	FighterProfile.apply_morale(f, "booked", "A fight booked: %s" % o["opp"]["name"])
 	c.add_news("Booked: %s vs %s, %s." % [f["name"], o["opp"]["name"], Clock.fmt(int(o["day"]))])
 	return true
@@ -169,7 +172,9 @@ static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, f
 	var cost := BoutRules.camp_cost(protocol, film)
 	if cost > 0:
 		c.pay(-cost, "Fight camp for %s: %s%s" % [f["first"], str(BoutRules.PROTOCOLS[protocol]["name"]).to_lower(), " + film study" if film else ""])
-	f["camp"] = {"focus": focus, "protocol": protocol, "film": film, "start": c.day}
+	# S356 the camp's goal is fixed today (PeakCamp: all three lines met on the night = her peak, +1 every stat).
+	f["camp"] = {"focus": focus, "protocol": protocol, "film": film, "start": c.day,
+		"goal": PeakCamp.goal(f["stats"], focus, f.get("goal", {})), "peak": float(f.get("week_fatigue", 20.0))}
 	# S327: the camp steps her load up only as far as stays safe against her usual (was straight to Hard - a 1.5x spike);
 	# the Hard camp is the player's "more risk" pick and trains Hard.
 	f["load_setting"] = "hard" if protocol == 3 else TrainingLoad.camp_default(Injuries.chronic(f))

@@ -5,6 +5,11 @@ extends PanelContainer
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
+const TwistCard := preload("res://scripts/ui/TwistCard.gd")
+
+const BODY_W := 940.0
+## The review's body at most this tall (1080 less the modal's margins and the Next week row); past it, it scrolls.
+const MAX_BODY_H := 880.0
 
 ## How many stats crossed a whole point this week (the golden-path test reads it).
 var crossed := 0
@@ -15,8 +20,16 @@ func build(main: Node, m: Dictionary) -> void:
 	custom_minimum_size = Vector2(980, 0)
 	var r: Dictionary = m["r"]
 	var c: Career = main.career
+	# S356 the body scrolls and Next week stays pinned (a twist card a fighter made the review taller than the screen).
+	var outer := UI.vbox(8)
+	add_child(outer)
+	var sc := ScrollContainer.new()
+	sc.name = "ReviewScroll"
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	outer.add_child(sc)
 	var v := UI.vbox(8)
-	add_child(v)
+	v.custom_minimum_size = Vector2(BODY_W, 0)   # fixed width: the scrollbar keeps its own 28 px beside it
+	sc.add_child(v)
 	v.add_child(UI.caps("END OF WEEK %d" % int(r["week"])))
 	v.add_child(UI.display("WEEK REVIEW", 48))
 	var reports: Array = r.get("fighters", [])
@@ -61,8 +74,16 @@ func build(main: Node, m: Dictionary) -> void:
 			var line := UI.label("   ".join(notes), UI.SMALL, UI.GOLD if str(fr.get("new_weapon", "")) != "" or ra != rb else UI.MUTED, "body", true)
 			line.name = "Notes_" + str(fr["id"])
 			v.add_child(line)
+		if str(fr.get("peak", "")) != "":
+			var pk := UI.label(str(fr["peak"]), UI.BODY, UI.GOLD if str(fr["peak"]).begins_with("Peak") else UI.MUTED, "bold", true)
+			pk.name = "Peak_" + str(fr["id"])
+			v.add_child(pk)
 		if not (fr.get("plan", {}) as Dictionary).is_empty():
 			v.add_child(_plan_block(fr, fr["plan"]))
+		# S356 next week's twist card is drawn here: answer it now (or on the Training tab before Monday).
+		var nf := c.fighter_by_id(str(fr["id"]))
+		if not nf.is_empty():
+			v.add_child(TwistCard.build(main, nf, "NEXT WEEK'S TWIST"))
 	var grid := UI.hbox(16)
 	var money := UI.card("MONEY")
 	UI.add_rows(money[1], [
@@ -85,7 +106,8 @@ func build(main: Node, m: Dictionary) -> void:
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	foot.add_child(UI.button("Next week", "BtnSolid", main.act.bind("close", "")))
-	v.add_child(foot)
+	outer.add_child(foot)
+	sc.custom_minimum_size = Vector2(BODY_W + 28, minf(v.get_combined_minimum_size().y, MAX_BODY_H))   # + the scrollbar
 	if not grow.is_empty():
 		var t := create_tween().set_parallel(true)
 		for g in grow:

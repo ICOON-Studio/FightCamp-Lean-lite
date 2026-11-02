@@ -23,6 +23,7 @@ extends RefCounted
 ##   light / normal / hard x 0.6 / 1.0 / 1.3 (TrainingLoad's settings). A morning started at 80+ fatigue trains at 0.6.
 
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
+const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 
 ## id -> {name, stat, met, min (minutes at normal), rpe}. Rest trains nothing and is where fatigue drains.
 const SESSIONS := {
@@ -54,6 +55,9 @@ const EVENINGS := {
 const SPAR_DAYS := [[], [3], [1, 3]]
 const SESSION_SHARE := 0.2
 const KCAL_PER_KG := 7700.0
+## S356 fight week on a cut: the low-residue, low-glycogen diet of the last days drops the gut and glycogen water - ~0.5-1 %
+## of body weight with no dehydration (Reale et al. 2017, combat sports weight making) - 0.05 kg a day, 0.35 kg a week.
+const TAPER_KG := 0.05
 const ALLOWANCE := 300.0
 const CUT_DEFICIT := 500.0
 const FATIGUE_KEEP := 0.87
@@ -65,19 +69,44 @@ const COACH_WEEK := [["roadwork", "normal"], ["heavy_bag", "normal"], ["interval
 	["roadwork", "normal"], ["strength", "normal"], ["rest", "normal"]]
 
 
-## A fighter's saved week (f["week_days"], 7 x [session, intensity]), else the coach's week; her evenings from her
-## sparring nights (f["spar_nights"], default 1).
+## S356 the week she runs: the coach's week for the camp's phase (WeekPhase, f["phase"] - Sim keeps it current) with the
+## player's exceptions on top; her evenings from the phase's sparring nights unless he changed them.
 static func days_of(f: Dictionary) -> Array:
-	var d: Variant = f.get("week_days")
-	return (d as Array) if d is Array and (d as Array).size() == 7 else COACH_WEEK.duplicate(true)
+	var days := coach_of(f)
+	var e: Dictionary = WeekPhase.edits(f).get("days", {})
+	for k in e:
+		days[clampi(int(k), 0, 6)] = (e[k] as Array).duplicate()
+	return days
+
+
+## The coach's week for her phase and the camp's stat (no exceptions).
+static func coach_of(f: Dictionary) -> Array:
+	var camp: Dictionary = f.get("camp", {})
+	return WeekPhase.week(str(f.get("phase", "base")), str(camp.get("focus", f.get("focus", ""))))
+
+
+## S356 the weeks after this one as the coach will write them ([days, evenings] each, no exceptions): each Monday's phase
+## counted back from her bout. day = today; weeks = weeks to fight night, this one included.
+static func ahead(f: Dictionary, day: int, weeks: int) -> Array:
+	var out: Array = []
+	var monday := day - posmod(day, 7)
+	var camp: Dictionary = f.get("camp", {})
+	for k in range(1, maxi(1, weeks)):
+		var p := WeekPhase.phase(f.get("bout", {}), monday + 7 * k)
+		out.append([WeekPhase.week(p, str(camp.get("focus", f.get("focus", "")))), evenings_for(WeekPhase.spar(p), WeekPhase.pads(p)), p])
+	return out
 
 
 static func evenings_of(f: Dictionary) -> Array:
-	return evenings_for(int(f.get("spar_nights", 1)))
+	var p := str(f.get("phase", "base"))
+	return evenings_for(int(WeekPhase.edits(f).get("spar", WeekPhase.spar(p))), WeekPhase.pads(p))
 
 
-static func evenings_for(spar_nights: int) -> Array:
+## pad_nights below 6 rests Tuesday, Thursday, Saturday first (S356 the taper: Monday, Wednesday, Friday on the pads).
+static func evenings_for(spar_nights: int, pad_nights := 6) -> Array:
 	var out: Array = ["pads", "pads", "pads", "pads", "pads", "pads", "rest"]
+	for d in [1, 3, 5].slice(0, clampi(6 - pad_nights, 0, 3)):
+		out[d] = "rest"
 	for d in SPAR_DAYS[clampi(spar_nights, 0, SPAR_DAYS.size() - 1)]:
 		out[d] = "sparring"
 	return out
@@ -129,7 +158,10 @@ static func day(id: String, intensity: String, ctx: Dictionary, fatigue: float) 
 			float(ctx.get("coach", 50.0)), 1.0, share).get(stat, 0.0))
 	var deficit := CUT_DEFICIT if str(ctx.get("diet", "hold")) == "cut" else 0.0
 	var kg := -(kcal - ALLOWANCE + deficit) / KCAL_PER_KG
-	var after := clampf(fatigue * FATIGUE_KEEP + load / LOAD_PER_FATIGUE, 0.0, 100.0)
+	if deficit > 0.0 and str(ctx.get("phase", "")) == "taper":
+		kg -= TAPER_KG
+	kg += float(ctx.get("twist_kg", 0.0))   # S356 the week's twist card (WeekTwist kg_day / fat_day)
+	var after := clampf(fatigue * FATIGUE_KEEP + load / LOAD_PER_FATIGUE + float(ctx.get("twist_fat", 0.0)), 0.0, 100.0)
 	return {"id": id, "intensity": intensity, "stat": stat, "gain": gain, "kcal": kcal, "kg": kg, "load": load, "fatigue": after}
 
 
@@ -166,12 +198,15 @@ static func week(days: Array, ctx: Dictionary, evenings: Array = []) -> Dictiona
 		"fatigue_end": fat, "peak": peak, "peak_day": peak_day, "red": red, "stats_end": stats}
 
 
-## The same week repeated `weeks` times (the camp to fight night): stats, weight and fatigue carried week to week.
-static func project(days: Array, ctx: Dictionary, weeks: int, evenings: Array = []) -> Dictionary:
+## The camp to fight night: this week, then `later` ([days, evenings] a week - S356 the coming phases' coach weeks; none =
+## this week repeated), `weeks` in all; stats, weight and fatigue carried week to week.
+static func project(days: Array, ctx: Dictionary, weeks: int, evenings: Array = [], later: Array = []) -> Dictionary:
 	var c := ctx.duplicate()
 	var peak := 0.0
-	for _w in maxi(0, weeks):
-		var w := week(days, c, evenings)
+	for k in maxi(0, weeks):
+		var wk: Array = later[k - 1] if k > 0 and k - 1 < later.size() else [days, evenings, str(ctx.get("phase", ""))]
+		c["phase"] = str(wk[2]) if wk.size() > 2 else str(ctx.get("phase", ""))
+		var w := week(wk[0], c, wk[1])
 		c["stats"] = w["stats_end"]
 		c["weight"] = w["weight_end"]
 		c["fatigue"] = w["fatigue_end"]
@@ -180,9 +215,9 @@ static func project(days: Array, ctx: Dictionary, weeks: int, evenings: Array = 
 
 
 ## goal = {limit (kg at the weigh-in), stat, target}; weeks = weeks to fight night (this week included).
-static func goal_lines(goal: Dictionary, days: Array, ctx: Dictionary, weeks: int, evenings: Array = []) -> Array:
+static func goal_lines(goal: Dictionary, days: Array, ctx: Dictionary, weeks: int, evenings: Array = [], later: Array = []) -> Array:
 	var w := week(days, ctx, evenings)
-	var p := project(days, ctx, weeks, evenings)
+	var p := project(days, ctx, weeks, evenings, later)
 	var out: Array = []
 	if goal.has("limit"):
 		var lim := float(goal["limit"])

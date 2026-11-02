@@ -150,7 +150,7 @@ func _test_4_wrestling() -> void:
 	_check(not v2["ok"], "same reaction twice is invalid")
 	var found_reaction := false
 	for p in v2["problems"]:
-		if str(p).contains("Two answers") and str(p).contains("pulls her arm away"):
+		if str(p).contains("Two answers") and str(p).contains("pulls the arm away"):
 			found_reaction = true
 			print("  problem: ", p)
 	_check(found_reaction, "problem mentions 'Two answers' with reaction")

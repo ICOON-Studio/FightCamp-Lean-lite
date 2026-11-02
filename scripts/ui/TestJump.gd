@@ -68,6 +68,9 @@ static func wanted(args: PackedStringArray) -> String:
 static func run(main: Node, jump: String) -> bool:
 	main.save_path = SAVE_PATH
 	main.act("quick")
+	# S356 one known career, like the golden path (S327): Career.seed is randi() per new career, so on about 1 run in 8 a
+	# training injury pulled her out before fight night and the jump opened an empty bout.
+	(main.career as Career).seed = 1
 	main.act("interview")
 	for card in ["Jab and move", "Pad rounds", "Hill sprints"]:
 		main.act("pickcard", card)

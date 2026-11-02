@@ -1,0 +1,96 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.315 - Forward+ - Using Device #0: AMD - AMD Radeon RX 6800 XT
+
+SMOOTH reached fight night: true arms ["nojoin"]
+SMOOTH frames 3327 (1.8 min) | clip changes 95/min | kinks > 0.02 m: 1236/min (head 457, left 920, right 908), at a clip change 312 of 2285
+SMOOTH second difference m: p50 0.0014 p90 0.0235 p99 0.1515 max 0.5296
+SMOOTH kinks by clip: pro_body_shot 248, pro_left_hook 224, pro_left_hook_v2 196, pro_idle 154, pro_left_jab_b 139, pro_hit_by_jab_v1_short 104, pro_hit_by_hook_v3_short 86, pro_right_cross_miss 82, pro_right_dodge 76, pro_left_hook_miss 75
+SMOOTH clips started (median time before the next change): pro_idle 52 (plays 1.93 s), pro_body_shot 11 (plays 0.37 s), pro_left_hook 8 (plays 0.33 s), pro_left_jab_b 7 (plays 0.80 s), mc_to_block 7 (plays 0.33 s), pro_left_hook_v2 6 (plays 0.77 s), pro_right_dodge 6 (plays 0.37 s), pro_hit_by_jab_v1_short 5 (plays 0.60 s), pro_back_dodge 5 (plays 0.87 s), pro_idle_fidget_v8 5 (plays 0.33 s), pro_left_jab 4 (plays 0.67 s), pro_right_weave 3 (plays 0.37 s), clinch_vic 3 (plays 2.83 s), clinch_att 3 (plays 2.83 s)
+SMOOTH kinks with no clip playing: 0
+SMOOTH KINK pro_left_hook_v2 boxer 0 Head at 0.420 s x1.00 d 0.072 raw 0.012 (clip change)
+     f-3 pro_left_jab_b 0.457 x1.39 step 0.010 | GuardTuck._t=49.2 PunchReach.last_weight=0.553 PunchReach._w_now=0.553 GloveClear.pushes=24.0
+     f-2 pro_left_jab_b 0.513 x1.67 step 0.010 | GuardTuck._t=49.233 PunchReach.last_weight=0.092 PunchReach._w_now=0.092 GloveClear.pushes=24.0
+     f-1 pro_left_jab_b 0.569 x1.67 step 0.006 | GuardTuck._t=49.267 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+   > f+0 pro_left_hook_v2 0.420 x1.00 step 0.006 | GuardTuck._t=49.3 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+     f+1 pro_left_hook_v2 0.454 x1.00 step 0.069 | GuardTuck._t=49.333 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+     f+2 pro_left_hook_v2 0.487 x1.00 step 0.071 | GuardTuck._t=49.367 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+SMOOTH KINK pro_left_hook_v2 boxer 0 RightHand at 0.420 s x1.00 d 0.098 raw 0.007 (clip change)
+     f-3 pro_left_jab_b 0.457 x1.39 step 0.017 | GuardTuck._t=49.2 PunchReach.last_weight=0.553 PunchReach._w_now=0.553 GloveClear.pushes=24.0
+     f-2 pro_left_jab_b 0.513 x1.67 step 0.026 | GuardTuck._t=49.233 PunchReach.last_weight=0.092 PunchReach._w_now=0.092 GloveClear.pushes=24.0
+     f-1 pro_left_jab_b 0.569 x1.67 step 0.025 | GuardTuck._t=49.267 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+   > f+0 pro_left_hook_v2 0.420 x1.00 step 0.018 | GuardTuck._t=49.3 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+     f+1 pro_left_hook_v2 0.454 x1.00 step 0.093 | GuardTuck._t=49.333 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+     f+2 pro_left_hook_v2 0.487 x1.00 step 0.083 | GuardTuck._t=49.367 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+SMOOTH KINK pro_left_hook_v2 boxer 0 LeftHand at 0.454 s x1.00 d 0.145 raw 0.108
+     f-3 pro_left_jab_b 0.513 x1.67 step 0.109 | GuardTuck._t=49.233 PunchReach.last_weight=0.092 PunchReach._w_now=0.092 GloveClear.pushes=24.0
+     f-2 pro_left_jab_b 0.569 x1.67 step 0.027 | GuardTuck._t=49.267 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+     f-1 pro_left_hook_v2 0.420 x1.00 step 0.024 | GuardTuck._t=49.3 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+   > f+0 pro_left_hook_v2 0.454 x1.00 step 0.083 | GuardTuck._t=49.333 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+     f+1 pro_left_hook_v2 0.487 x1.00 step 0.096 | GuardTuck._t=49.367 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+     f+2 pro_left_hook_v2 0.543 x1.69 step 0.370 | GuardTuck._t=49.4 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+SMOOTH KINK pro_left_hook_v2 boxer 0 RightHand at 0.454 s x1.00 d 0.048 raw 0.013
+     f-3 pro_left_jab_b 0.513 x1.67 step 0.026 | GuardTuck._t=49.233 PunchReach.last_weight=0.092 PunchReach._w_now=0.092 GloveClear.pushes=24.0
+     f-2 pro_left_jab_b 0.569 x1.67 step 0.025 | GuardTuck._t=49.267 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+     f-1 pro_left_hook_v2 0.420 x1.00 step 0.018 | GuardTuck._t=49.3 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+   > f+0 pro_left_hook_v2 0.454 x1.00 step 0.093 | GuardTuck._t=49.333 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+     f+1 pro_left_hook_v2 0.487 x1.00 step 0.083 | GuardTuck._t=49.367 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+     f+2 pro_left_hook_v2 0.543 x1.69 step 0.153 | GuardTuck._t=49.4 PunchReach.last_weight=0.0 PunchReach._w_now=0.0 GloveClear.pushes=25.0
+SMOOTH KINK pro_left_hook_v2 boxer 0 Head at 0.487 s x1.00 d 0.063 raw 0.005
+     f-3 pro_left_jab_b 0.569 x1.67 step 0.006 | GuardTuck._t=49.267
+     f-2 pro_left_hook_v2 0.420 x1.00 step 0.006 | GuardTuck._t=49.3
+     f-1 pro_left_hook_v2 0.454 x1.00 step 0.069 | GuardTuck._t=49.333
+   > f+0 pro_left_hook_v2 0.487 x1.00 step 0.071 | GuardTuck._t=49.367
+     f+1 pro_left_hook_v2 0.543 x1.69 step 0.114 | GuardTuck._t=49.4
+     f+2 pro_left_hook_v2 0.623 x2.39 step 0.029 | GuardTuck._t=49.433
+SMOOTH KINK pro_left_hook_v2 boxer 0 LeftHand at 0.487 s x1.00 d 0.293 raw 0.107
+     f-3 pro_left_jab_b 0.569 x1.67 step 0.027 | GuardTuck._t=49.267
+     f-2 pro_left_hook_v2 0.420 x1.00 step 0.024 | GuardTuck._t=49.3
+     f-1 pro_left_hook_v2 0.454 x1.00 step 0.083 | GuardTuck._t=49.333
+   > f+0 pro_left_hook_v2 0.487 x1.00 step 0.096 | GuardTuck._t=49.367
+     f+1 pro_left_hook_v2 0.543 x1.69 step 0.370 | GuardTuck._t=49.4
+     f+2 pro_left_hook_v2 0.623 x2.39 step 0.092 | GuardTuck._t=49.433
+SMOOTH KINK pro_left_hook_v2 boxer 0 RightHand at 0.487 s x1.00 d 0.094 raw 0.015
+     f-3 pro_left_jab_b 0.569 x1.67 step 0.025 | GuardTuck._t=49.267
+     f-2 pro_left_hook_v2 0.420 x1.00 step 0.018 | GuardTuck._t=49.3
+     f-1 pro_left_hook_v2 0.454 x1.00 step 0.093 | GuardTuck._t=49.333
+   > f+0 pro_left_hook_v2 0.487 x1.00 step 0.083 | GuardTuck._t=49.367
+     f+1 pro_left_hook_v2 0.543 x1.69 step 0.153 | GuardTuck._t=49.4
+     f+2 pro_left_hook_v2 0.623 x2.39 step 0.049 | GuardTuck._t=49.433
+SMOOTH KINK pro_left_hook_v2 boxer 0 Head at 0.543 s x1.69 d 0.125 raw 0.014
+     f-3 pro_left_hook_v2 0.420 x1.00 step 0.006 | GuardTuck._t=49.3
+     f-2 pro_left_hook_v2 0.454 x1.00 step 0.069 | GuardTuck._t=49.333
+     f-1 pro_left_hook_v2 0.487 x1.00 step 0.071 | GuardTuck._t=49.367
+   > f+0 pro_left_hook_v2 0.543 x1.69 step 0.114 | GuardTuck._t=49.4
+     f+1 pro_left_hook_v2 0.623 x2.39 step 0.029 | GuardTuck._t=49.433
+     f+2 pro_left_hook_v2 0.706 x2.50 step 0.047 | GuardTuck._t=49.467
+SMOOTH KINK pro_left_hook_v2 boxer 0 LeftHand at 0.543 s x1.69 d 0.327 raw 0.206
+     f-3 pro_left_hook_v2 0.420 x1.00 step 0.024 | GuardTuck._t=49.3
+     f-2 pro_left_hook_v2 0.454 x1.00 step 0.083 | GuardTuck._t=49.333
+     f-1 pro_left_hook_v2 0.487 x1.00 step 0.096 | GuardTuck._t=49.367
+   > f+0 pro_left_hook_v2 0.543 x1.69 step 0.370 | GuardTuck._t=49.4
+     f+1 pro_left_hook_v2 0.623 x2.39 step 0.092 | GuardTuck._t=49.433
+     f+2 pro_left_hook_v2 0.706 x2.50 step 0.116 | GuardTuck._t=49.467
+SMOOTH KINK pro_left_hook_v2 boxer 0 RightHand at 0.543 s x1.69 d 0.136 raw 0.021
+     f-3 pro_left_hook_v2 0.420 x1.00 step 0.018 | GuardTuck._t=49.3
+     f-2 pro_left_hook_v2 0.454 x1.00 step 0.093 | GuardTuck._t=49.333
+     f-1 pro_left_hook_v2 0.487 x1.00 step 0.083 | GuardTuck._t=49.367
+   > f+0 pro_left_hook_v2 0.543 x1.69 step 0.153 | GuardTuck._t=49.4
+     f+1 pro_left_hook_v2 0.623 x2.39 step 0.049 | GuardTuck._t=49.433
+     f+2 pro_left_hook_v2 0.706 x2.50 step 0.037 | GuardTuck._t=49.467
+SMOOTH KINK pro_left_hook_v2 boxer 0 RightHand at 1.040 s x2.50 d 0.070 raw 0.036
+     f-3 pro_left_hook_v2 0.790 x2.50 step 0.106 | GuardTuck._t=49.5 GloveClear.pushes=25.0
+     f-2 pro_left_hook_v2 0.873 x2.50 step 0.120 | GuardTuck._t=49.533 GloveClear.pushes=25.0
+     f-1 pro_left_hook_v2 0.956 x2.50 step 0.089 | GuardTuck._t=49.567 GloveClear.pushes=25.0
+   > f+0 pro_left_hook_v2 1.040 x2.50 step 0.062 | GuardTuck._t=49.6 GloveClear.pushes=27.0
+     f+1 pro_left_hook_v2 1.123 x2.50 step 0.058 | GuardTuck._t=49.633 GloveClear.pushes=29.0
+     f+2 pro_left_hook_v2 1.183 x1.81 step 0.037 | GuardTuck._t=49.667 GloveClear.pushes=31.0
+SMOOTH KINK pro_left_hook_v2 boxer 0 LeftHand at 1.454 s x1.00 d 0.030 raw 0.000 (clip change)
+     f-3 pro_left_hook_v2 1.354 x1.00 step 0.008 | GuardTuck._t=49.833 GloveClear.pushes=41.0
+     f-2 pro_left_hook_v2 1.387 x1.00 step 0.009 | GuardTuck._t=49.867 GloveClear.pushes=43.0
+     f-1 pro_left_hook_v2 1.420 x1.00 step 0.010 | GuardTuck._t=49.9 GloveClear.pushes=45.0
+   > f+0 pro_left_hook_v2 1.454 x1.00 step 0.005 | GuardTuck._t=49.933 GloveClear.pushes=47.0
+     f+1 pro_idle 1.629 x0.94 step 0.033 | GuardTuck._t=49.967 GloveClear.pushes=49.0
+     f+2 pro_idle 1.661 x0.94 step 0.049 | GuardTuck._t=50.0 GloveClear.pushes=51.0
+SMOOTH RAW baseline: 58 clips sampled | kinks OURS (fight tops the raw clip by > 0.02 m): 608/min (1123, 221 at a clip change) | the clip's own: 629/min (1162)
+SMOOTH RAW OURS by clip: pro_idle 147, pro_left_hook 117, pro_body_shot 97, pro_left_jab_b 91, pro_left_hook_v2 68, clinch_att 62, clinch_vic 57, mc_to_block 41, pro_right_cross_miss 34, pro_left_jab_ft 33
+SMOOTH RAW clip's own by clip: pro_body_shot 151, pro_left_hook_v2 128, pro_left_hook 107, pro_hit_by_jab_v1_short 86, pro_hit_by_hook_v3_short 65, pro_left_hook_miss 61, pro_right_dodge 58, pro_left_jab_b 48, pro_right_cross_miss 48, pro_left_jab_a 34

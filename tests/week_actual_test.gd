@@ -32,9 +32,11 @@ func _twist() -> void:
 		ok = ok and str(WT.draw(w, str(WT.draw(w)["id"]))["id"]) != str(WT.draw(w)["id"])
 	_check(ok, "never the same card twice running")
 	var seen := {}
-	for w in 200:
+	for w in 400:
 		seen[WT.draw(w)["id"]] = true
-	_check(seen.size() == WT.TWISTS.size(), "every card comes up (%d of %d)" % [seen.size(), WT.TWISTS.size()])
+	# S356 the choice cards joined: every small card and every choice card that needs nothing of her week comes up.
+	var free: int = WT.TWISTS.size() + WT.CHOICES.filter(func(t): return not t.has("needs")).size()
+	_check(seen.size() == free, "every card comes up (%d of %d)" % [seen.size(), free])
 	var fight_ok := true
 	for w in 200:
 		fight_ok = fight_ok and not WT.draw(w, "", true).has("rest_day")
@@ -103,14 +105,18 @@ func _weeks() -> void:
 		_check(close and str(plan["reason"]) == "Every session went as planned.", "week 1 run as planned: the stats land on the plan, the reason says so")
 	_check(str(f.get("twist", "")) != "" and not WT.card(str(f["twist"])).is_empty(), "the next week's twist card is drawn (%s)" % str(f.get("twist", "")))
 	# Week 2: a bag-heavy week of her own under a sore wrist, and Wednesday changed after Monday.
-	f["week_days"] = [["heavy_bag", "normal"], ["roadwork", "normal"], ["heavy_bag", "hard"], ["speed_bag", "normal"], ["roadwork", "normal"],
+	# S356 her own days ride as exceptions on the phase's week (WeekPhase).
+	var own := [["heavy_bag", "normal"], ["roadwork", "normal"], ["heavy_bag", "hard"], ["speed_bag", "normal"], ["roadwork", "normal"],
 		["shadow", "light"], ["rest", "normal"]]
+	f["week_edits"] = {"phase": str(f.get("phase", "base")), "days": {}}
+	for i in 7:
+		f["week_edits"]["days"][str(i)] = own[i]
 	f["twist"] = "sore_wrist"
 	Sim.step_day(c)   # Monday: the plan is kept with the card applied
 	var kept: Dictionary = f["week_planned"]
 	_check(float((kept["gains"] as Dictionary).get("power", 0.0)) < 0.05 and float((kept["gains"] as Dictionary).get("technique", 0.0)) > 0.0,
 		"a sore wrist: the plan projects shadow boxing, not bag work (%s)" % str(kept["gains"]))
-	f["week_days"][2] = ["roadwork", "hard"]
+	f["week_edits"]["days"]["2"] = ["roadwork", "hard"]
 	for i in 6:
 		Sim.step_day(c)
 	var p2: Dictionary = _report(c, f).get("plan", {})

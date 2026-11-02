@@ -12,6 +12,7 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
@@ -21,6 +22,7 @@ const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekActual := preload("res://scripts/rules/WeekActual.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
@@ -49,6 +51,49 @@ static func focus_of(_career: Career, f: Dictionary) -> String:
 	return str(camp["focus"]) if not camp.is_empty() else str(f["focus"])
 
 
+## S356 Monday: the twist card's answer is locked (the coach's call when none) and its once-effects land: cash, morale,
+## reputation, members, the old coach's note (1 in 3 an old habit costs technique), the lefty edge and the hot head for her bout.
+static func twist_monday(career: Career, f: Dictionary) -> void:
+	var once := WeekTwist.lock(f)
+	var t := WeekTwist.active(f)
+	# (No news line for the answer: the Training tab and the review show it - S355 a weekly line flooded Mail.)
+	if once.has("cash"):
+		career.pay(int(once["cash"]), "%s: %s" % [str(t["name"]), str(t["label"])])
+	if once.has("morale"):
+		FighterProfile.apply_morale(f, str(once["morale"]), str(t["name"]))
+	if once.has("rep"):
+		career.reputation = maxi(0, career.reputation + int(once["rep"]))
+	if once.has("members"):
+		career.members += int(once["members"])
+	if bool(once.get("reveal", false)):
+		Bouts.coach_note(career, f, "sparring")
+		var rng := RandomNumberGenerator.new()
+		rng.seed = career.seed + career.day * 13 + 7
+		if rng.randf() < 1.0 / 3.0:
+			f["stats"]["technique"] = maxf(0.0, float(f["stats"]["technique"]) - 0.5)
+			career.add_news("%s slips back into an old habit: technique -0.5." % f["first"])
+	var b: Dictionary = f.get("bout", {})
+	if not b.is_empty() and not bool(b.get("done", false)):
+		for k in ["lefty", "hot"]:
+			if bool(once.get(k, false)):
+				b[k] = true
+
+
+## What her coming week holds for the twist cards' needs: a booked bout, a cut, a combo on the pads, a southpaw opponent.
+static func twist_needs(f: Dictionary) -> Array:
+	var out: Array = []
+	var b: Dictionary = f.get("bout", {})
+	if not b.is_empty() and not bool(b.get("done", false)):
+		out.append("bout")
+		if str((b.get("opp", {}) as Dictionary).get("stance", "")).to_lower() == "southpaw":
+			out.append("southpaw")
+	if float(f["weight"]) > float(f["limit"]) - 0.15 and (str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty()):
+		out.append("cut")
+	if str(f.get("combo_learning", "")) != "":
+		out.append("combo")
+	return out
+
+
 ## S351 her week's plan (TrainingPlan: blocks per session): the one she has set, else the coach's week for her focus. In
 ## camp the camp writes the week (its focus as the main session).
 static func plan_of(career: Career, f: Dictionary) -> Dictionary:
@@ -65,12 +110,13 @@ static func plan_of(career: Career, f: Dictionary) -> Dictionary:
 static func week_ctx(career: Career, f: Dictionary) -> Dictionary:
 	var cutting := (str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty()) and float(f["weight"]) > float(f["limit"]) - 0.15
 	return {"stats": f["stats"], "pot": int(f["pot"]), "coach": coach_rating(career), "weight": float(f["weight"]),
-		"diet": "cut" if cutting else "hold", "fatigue": float(f.get("week_fatigue", 20.0))}
+		"diet": "cut" if cutting else "hold", "fatigue": float(f.get("week_fatigue", 20.0)), "phase": str(f.get("phase", "base")),
+		"twist_kg": float(WeekTwist.active(f).get("kg_day", 0.0)), "twist_fat": float(WeekTwist.active(f).get("fat_day", 0.0))}
 
 
 ## {stat: points a day} averaged over her week; a camp multiplies its focus by the protocol.
 static func daily_gain(career: Career, f: Dictionary) -> Dictionary:
-	var tw := WeekTwist.card(str(f.get("twist", "")))
+	var tw := WeekTwist.active(f)
 	var w := WeekPlan.week(WeekTwist.days(tw, WeekPlan.days_of(f)), week_ctx(career, f), WeekTwist.evenings(tw, WeekPlan.evenings_of(f)))
 	var out: Dictionary = {}
 	for key in f["stats"].keys():
@@ -85,7 +131,12 @@ static func step_day(career: Career) -> void:
 		var resting := Injuries.out(career, f)
 		# S355 CORE3 step 2: the week's twist card changes the week she runs; Monday keeps what the plan says it will do
 		# (WeekActual), and a day that runs other than planned goes on the log the week review reads.
-		var tw := WeekTwist.card(str(f.get("twist", "")))
+		# S356 the camp's phase writes the week on Monday (WeekPhase; a new phase drops last week's exceptions).
+		if dow == 0 or not f.has("phase"):
+			WeekPhase.sync(f, career.day)
+		if dow == 0:
+			twist_monday(career, f)
+		var tw := WeekTwist.active(f)
 		var days := WeekTwist.days(tw, WeekPlan.days_of(f))
 		var evs := WeekTwist.evenings(tw, WeekPlan.evenings_of(f))
 		if dow == 0:
@@ -109,6 +160,8 @@ static func step_day(career: Career) -> void:
 		f["weight"] = clampf(float(f["weight"]) + float(r["kg"]), lo, hi)
 		f["week_fatigue"] = float(r["fatigue"])
 		f["week_peak"] = maxf(float(f.get("week_peak", 0.0)), float(r["fatigue"]))
+		if not (f["camp"] as Dictionary).is_empty():
+			f["camp"]["peak"] = maxf(float(f["camp"].get("peak", 0.0)), float(r["fatigue"]))
 	career.day += 1
 	Injuries.day_tick(career)
 	Bouts.day_events(career)
@@ -157,7 +210,7 @@ static func drill_week(career: Career, f: Dictionary) -> Dictionary:
 		if Data.CARD_MOVES.has(card):
 			carded.append(Data.CARD_MOVES[card])
 	var learning := str(f.get("learning", ""))
-	var pads := TrainingPlan.pads_factor(plan_of(career, f))   # S351 her pad rounds set the new move's pace
+	var pads := TrainingPlan.pads_factor(plan_of(career, f)) * float(WeekTwist.active(f).get("move_mult", 1.0))   # S351 pad rounds set the pace; S356 the twist
 	var rows: Array = []
 	var new_weapon := ""
 	for m in Data.MOVES:
@@ -205,7 +258,7 @@ static func drill_combos(career: Career, f: Dictionary, skill: float) -> String:
 	if drilling != "" and not ids.has(drilling):
 		ids.append(drilling)
 	var new_combo := ""
-	var pads := TrainingPlan.pads_factor(plan_of(career, f))
+	var pads := TrainingPlan.pads_factor(plan_of(career, f)) * float(WeekTwist.active(f).get("combo_mult", 1.0))
 	for id in ids:
 		var before := float(combos.get(id, 0.0))
 		var after := Combos.fade(before, false)
@@ -268,7 +321,7 @@ static func end_week(career: Career) -> void:
 		var drill := drill_week(career, f)
 		var plan := {}
 		var planned: Dictionary = f.get("week_planned", {})
-		var tw := WeekTwist.card(str(f.get("twist", "")))
+		var tw := WeekTwist.active(f)
 		if not planned.is_empty():
 			var rws := WeekActual.rows(planned, start, f["stats"], float(f["weight"]), float(f.get("week_peak", 0.0)))
 			plan = {"rows": rws, "twist": str(tw.get("name", "")),
@@ -278,13 +331,14 @@ static func end_week(career: Career) -> void:
 		# The next week's twist card (never the same one twice running).
 		var bt: Dictionary = f.get("bout", {})
 		var fight_week := not bt.is_empty() and not bool(bt.get("done", false)) and int(bt.get("day", 0)) - career.day <= 7
-		var nt := WeekTwist.draw(week + 1 + career.fighters.find(f) * 31, str(f.get("twist", "")), fight_week)
-		f["twist"] = str(nt["id"])
+		var nt := WeekTwist.draw(week + 1 + career.fighters.find(f) * 31, str(f.get("twist", "")), fight_week, twist_needs(f))
+		WeekTwist.deal(f, nt)
 		# (No news line: the Training tab shows the card all week and the review names it - a weekly line flooded Mail.)
 		var rank_before := int(f.get("rank_at_review", f.get("rank", 0)))
 		reports.append({"id": f["id"], "name": f["name"], "rows": rows, "moves": drill["rows"], "new_weapon": drill["new_weapon"],
 			"rank_before": rank_before, "rank_after": int(f.get("rank", 0)), "div": Data.DIVISIONS[f["div"]]["short"],
-			"coach": coach_line(career, f), "plan": plan})
+			"coach": coach_line(career, f), "plan": plan, "peak": str(f.get("peak_line", ""))})
+		f.erase("peak_line")
 		f["rank_at_review"] = int(f.get("rank", 0))
 		if not career.coach.is_empty():
 			Bouts.coach_note(career, f, "sparring")

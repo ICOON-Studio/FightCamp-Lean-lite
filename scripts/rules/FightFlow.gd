@@ -116,7 +116,8 @@ static func label(edge: Dictionary, move_name: String) -> String:
 	var w := str(edge.get("when", ""))
 	if w == "":
 		return move_name
-	return "if %s: %s" % [str(WHEN_WORDS.get(w, "she " + w)), move_name]
+	# S356 a tie-up reaction id reads neutral on screen (WrestleChains.say: "drops her head" -> "drops the head").
+	return "if %s: %s" % [str(WHEN_WORDS.get(w, "she " + w.replace(" her ", " the "))), move_name]
 
 
 ## The bout's arrows summed over its rounds (each round's PlanFight.tally "moves").

@@ -11,6 +11,8 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
+const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 
 
 ## The fighter an action means: by id, else the open moment's, else the first.
@@ -54,18 +56,24 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			# S354 CORE3: one morning of the week - "fid|dow|session|intensity" (the Training tab's week row).
 			var parts := arg.split("|")
 			var f := who(main, parts[0])
-			var days: Array = WeekPlan.days_of(f).duplicate(true)
-			days[clampi(int(parts[1]), 0, 6)] = [parts[2], parts[3] if parts.size() > 3 else "normal"]
-			f["week_days"] = days
+			# S356 one card a day; the coach's own card for that day removes the exception (WeekPhase).
+			WeekPhase.edit(f, clampi(int(parts[1]), 0, 6), [parts[2], parts[3] if parts.size() > 3 else "normal"], WeekPlan.coach_of(f))
 			main.render()
+		"twistpick":
+			# S356 the week's twist card answered: "fid|a" (until Monday runs; WeekTwist.pick).
+			var parts := arg.split("|")
+			WeekTwist.pick(who(main, parts[0]), parts[1])
+			if not (main.modal as Dictionary).is_empty():
+				main.open_modal(main.modal)
+			else:
+				main.render()
 		"spar":
 			var parts := arg.split("|")
-			who(main, parts[0])["spar_nights"] = clampi(int(parts[1]), 0, 2)
+			var f := who(main, parts[0])
+			WeekPhase.edit_spar(f, clampi(int(parts[1]), 0, 2))
 			main.render()
 		"weekreset":
-			var f := who(main, arg)
-			f.erase("week_days")
-			f["spar_nights"] = 1
+			WeekPhase.clear(who(main, arg))
 			main.render()
 		"bodyfocus":
 			var parts := arg.split("|")

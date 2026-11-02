@@ -17,6 +17,7 @@ extends Control
 ## white cards, marker-blue titles), not the fight broadcast's dark TV.gd.
 const UI := preload("res://scripts/ui/UI.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
+const WrestleChains := preload("res://scripts/rules/WrestleChains.gd")
 const CARD := Vector2(480, 126)
 const PIC := Vector2(150, 100)
 const GAP := Vector2(80, 130)
@@ -432,7 +433,7 @@ func _card(id: String, r: Rect2, start: bool) -> PanelContainer:
 	for e in _loops(flow, id):
 		var w := str(e.get("when", ""))
 		var lines := ["stays here: " + _text(e)] if w == "" else [
-			"stays here, if %s:" % str(FightFlow.WHEN_WORDS.get(w, w)),
+			"stays here, if %s:" % str(FightFlow.WHEN_WORDS.get(w, WrestleChains.say(w))),
 			"   " + _text(e).get_slice(": ", 1)]
 		for line in lines:
 			words.add_child(_fit(UI.label(str(line), UI.SMALL, _colour(e), "bold")))
