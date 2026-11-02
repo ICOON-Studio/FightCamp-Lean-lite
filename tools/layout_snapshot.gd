@@ -37,8 +37,7 @@ func _initialize() -> void:
 	main.act("quick")
 	await _shot("03_home_start")
 	main.act("interview")
-	for card in ["Jab and move", "Pad rounds", "Hill sprints"]:
-		main.act("pickcard", card)
+	main.act("pickcard", "signature")   # S354 the RPG reception: one starting focus
 	await _shot("04_interview")
 	main.act("sign")
 	main.act("go", "gym:1")

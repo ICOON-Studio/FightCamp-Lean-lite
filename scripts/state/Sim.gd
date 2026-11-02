@@ -21,6 +21,7 @@ const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -207,6 +208,15 @@ static func drill_combos(career: Career, f: Dictionary, skill: float) -> String:
 
 static func end_week(career: Career) -> void:
 	var week := int(floor((career.day - 1) / 7.0)) + 1
+	for f in career.fighters:
+		# S354 the RPG layer: the starting focus's habit fix comes due; the perk road opens perks as training lands.
+		var hf: Dictionary = f.get("habit_fix", {})
+		if not hf.is_empty() and career.day >= int(hf["until"]):
+			(f.get("habits", []) as Array).erase(str(hf["id"]))
+			f.erase("habit_fix")
+			career.add_news("%s has trained out a habit (%s)." % [f["first"], str(hf["id"]).replace("_", " ")])
+		for perk in PerkRoad.newly_open(f, career.day):
+			career.add_news("%s opens a perk on the road: %s." % [f["first"], perk])
 	var roll: Dictionary = Membership.settle_week(career.members, career.reputation)
 	career.members = int(roll["members"])
 	var income: Dictionary = GameMoney.weekly_income(int(roll["dues"]), not career.coach.is_empty(), sponsors(career))

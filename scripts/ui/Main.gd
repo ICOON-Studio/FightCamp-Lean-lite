@@ -2,6 +2,7 @@ extends Control
 ## The root: owns the career, the route and the running clock, and turns every button press (act) into a change
 ## plus a redraw - the prototype's render loop. Screens and moments are one scene each.
 
+const Recruit := preload("res://scripts/rules/Recruit.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
@@ -343,7 +344,10 @@ func act(name: String, arg: String = "") -> void:
 			open_modal({"type": "interview", "picks": []})
 		"pickcard":
 			var picks: Array = modal["picks"]
-			if picks.has(arg):
+			if Recruit.FOCUS.has(arg):   # S354 one starting focus replaces the cards
+				picks.clear()
+				picks.append(arg)
+			elif picks.has(arg):
 				picks.erase(arg)
 			elif picks.size() < 3:
 				picks.append(arg)

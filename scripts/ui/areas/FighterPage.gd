@@ -14,6 +14,7 @@ const Champs := preload("res://scripts/state/Champs.gd")
 const NextStep := preload("res://scripts/rules/NextStep.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
+const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 
 ## S354 C204 (operator on the training board: "this should be like a sub tab in the players profile , to see an an overview
@@ -49,6 +50,11 @@ func build(main: Node, f: Dictionary) -> void:
 			_overview(main, c, f, g)
 		1:
 			add_child(AttrBoard.build(f))
+			# S354 the perk road (RPG layer): what training is opening.
+			var perk_card := _card("THE PERK ROAD - PERKS OPEN AS TRAINING BUILDS THE ATTRIBUTES")
+			for ps in PerkRoad.status(f):
+				perk_card.add_child(UI.row(str(ps["name"]) + ("  (open)" if bool(ps["open"]) else ""), "%s - needs %s" % [ps["effect"], ps["need"]],
+					UI.GREEN if bool(ps["open"]) else (UI.AMBER if bool(ps["near"]) else UI.LINE)))
 			var mv_card := _card("MOVES: BAR = MASTERY, A WEAPON FROM USABLE (30)")
 			var moves: Dictionary = f["moves"]
 			for mv in Data.MOVES:

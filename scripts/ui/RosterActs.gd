@@ -2,6 +2,7 @@ extends RefCounted
 ## The player's moves on the roster: scouting (invite a prospect, watch her trial, sign her or pass) and turning a
 ## fighter pro (hear the promoter's offer, sign or stay amateur). Main.act hands names it does not know here.
 
+const Recruit := preload("res://scripts/rules/Recruit.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const STRIKE := preload("res://scenes/dev/StrikeBrowser.tscn")
@@ -34,7 +35,10 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			main.open_modal({"type": "trial", "pid": arg, "picks": []})
 		"trialcard":
 			var picks: Array = main.modal["picks"]
-			if picks.has(arg):
+			if Recruit.FOCUS.has(arg):   # S354 one starting focus replaces the cards
+				picks.clear()
+				picks.append(arg)
+			elif picks.has(arg):
 				picks.erase(arg)
 			elif picks.size() < 3:
 				picks.append(arg)

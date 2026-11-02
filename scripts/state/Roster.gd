@@ -6,6 +6,8 @@ extends RefCounted
 ## pays her BBBofC licence and brain scans when she signs, she sells tickets, and the debut pays her half of what she sells
 ## above the promoter's break-even (ProDebut); the flat purse starts from her second pro bout.
 
+const Recruit := preload("res://scripts/rules/Recruit.gd")
+const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const ProDebut := preload("res://scripts/rules/ProDebut.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -125,7 +127,15 @@ static func sign_prospect(c: Career, id: String, picks: Array) -> Dictionary:
 ## Signs a fighter (the walk-in, or a prospect after her trial) on the club stipend with her signing goal.
 static func sign_fighter(c: Career, raw: Dictionary, picks: Array) -> Dictionary:
 	var f := Data.fighter_state(raw.duplicate(true), c.day)
-	f["cards"] = picks.duplicate()
+	var focus := ""
+	for p in picks:
+		if Recruit.FOCUS.has(str(p)):
+			focus = str(p)
+	f["cards"] = Recruit.default_cards(str(f.get("style", ""))) if focus != "" else picks.duplicate()
+	if focus != "":
+		f["start_focus"] = focus
+		c.add_news(Recruit.apply_focus(f, focus, c.day))
+	PerkRoad.newly_open(f, c.day)
 	f["joined"] = c.day
 	f["registered"] = registered_day(f, c.day)   # S331 the nationals need 3 months REGISTERED (England Boxing), not with us
 	var bouts: int = int(f.get("w", 0)) + int(f.get("l", 0)) + int(f.get("d", 0))

@@ -1,3 +1,16 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 57 (2026-11-02): SIGNING AS AN RPG RECRUIT, THE PERK ROAD
+==========================================================================================
+
+ 1. NEW CAREER > Meet the walk-in (and every trial from Scouting): the fighter reads like an RPG recruit - a class badge
+    (style: one strength, one weakness), potential in stars (a range: the coach's guess), each attribute against how high it
+    can go, two traits with what they do in the corner and the ring, one habit, the signature move, an ambition.
+ 2. ONE STARTING FOCUS replaces the three week cards: sharpen the signature (+10 mastery now), fix the habit (gone in 4
+    weeks - watch the news), or raise the ceiling (+5 potential). The Sign button names your choice.
+ 3. THE PERK ROAD: 8 perks open as training builds the attributes (Iron chin at chin 70, Stiff jab at technique 65, Second
+    wind at conditioning 70...). Green = open or close. The news says when one opens; FIGHTERS > a fighter > Attributes and
+    moves shows the road. (What each perk does in a fight comes next.)
+
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 56 (2026-11-02): THE WEEK RUNS THE GAME (CORE LOOP STEP 1)
 =============================================================================================
 

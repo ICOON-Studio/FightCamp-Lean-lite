@@ -1,8 +1,10 @@
 extends PanelContainer
-## The walk-in at reception: her stats, pick three week cards, sign her on the club stipend.
+## The walk-in at reception: the fighter as an RPG recruit (RecruitPanel), one starting focus, sign on the club stipend.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
+const RecruitPanel := preload("res://scripts/ui/RecruitPanel.gd")
+const Recruit := preload("res://scripts/rules/Recruit.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -17,36 +19,17 @@ func build(main: Node, m: Dictionary) -> void:
 	v.add_child(UI.muted("%d, %s, %s, amateur %d-%d, %s" % [a["age"], str(a["wc"]).to_lower(), a["stance"], a["w"], a["l"],
 		str(a["style"]).to_lower()], UI.BODY))
 	v.add_child(UI.label("\"I've had four fights at a church hall. I want a proper gym and a proper coach.\"", UI.BODY, UI.FG, "italic", true))
-	var grid := UI.hbox(24)
-	v.add_child(grid)
-	var stats := UI.vbox(6)
-	stats.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	stats.size_flags_stretch_ratio = 1.4
-	for key in Data.STATS:
-		stats.add_child(UI.stat_row(Data.LABEL[key], float(a["stats"][key])))
-	grid.add_child(stats)
-	var right := UI.vbox(10)
-	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	right.add_child(UI.caps("PICK THREE WEEK CARDS"))
-	var cards := GridContainer.new()
-	cards.columns = 2
-	cards.add_theme_constant_override("h_separation", 8)
-	cards.add_theme_constant_override("v_separation", 8)
-	for card in Data.CARDS:
-		var b := UI.button(card, "ChoiceOn" if picks.has(card) else "Choice", main.act.bind("pickcard", card))
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		cards.add_child(b)
-	right.add_child(cards)
-	right.add_child(UI.muted("Terms: club stipend, $250 a week.", UI.SMALL))
-	grid.add_child(right)
+	# S354 the reception as an RPG recruit (operator: "get it more rpg elements to this"): RecruitPanel.
+	v.add_child(RecruitPanel.build(main, main.career, a, picks, "pickcard"))
+	v.add_child(UI.muted("Terms: club stipend, $250 a week.", UI.SMALL))
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	foot.add_child(UI.button("Not now", "BtnQuiet", main.act.bind("decline", "")))
-	var ready := picks.size() == 3
-	var sign_why := "Pick %d more week cards before signing" % (3 - picks.size())
-	var sign := UI.button("Sign " + str(a["first"]) if ready else "Sign: pick %d more" % (3 - picks.size()), "BtnSolid",
-		main.act.bind("sign", ""), not ready, sign_why if not ready else "")
+	var focus := RecruitPanel.focus_of(picks)
+	var ready := focus != "" or picks.size() == 3
+	var sign := UI.button("Sign %s - %s" % [a["first"], str(Recruit.FOCUS[focus]["name"]).to_lower()] if focus != "" else
+		("Sign " + str(a["first"]) if ready else "Sign: choose a starting focus"), "BtnSolid",
+		main.act.bind("sign", ""), not ready, "Choose one starting focus first" if not ready else "")
 	sign.name = "Sign"
 	foot.add_child(sign)
 	v.add_child(foot)
