@@ -122,6 +122,10 @@ def judge(path: Path, model: str, fps: int, prompt: str, key: str) -> tuple[str,
 
 
 def main(argv: list[str]) -> int:
+    # S368: Argon's verdict can carry non-Latin text (a Chinese word in the camera verdict); a cp1252 console then
+    # raised after the verdict was saved.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     ap = argparse.ArgumentParser()
     ap.add_argument("clip")
     ap.add_argument("--model", choices=sorted(MODELS), default="argon")

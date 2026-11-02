@@ -64,6 +64,8 @@ static func _sequence(desc: PackedStringArray, line_nr: int) -> Dictionary:
 			props.append_array(d.substr(11).split(" ", false))
 		elif d.begins_with("ref:"):
 			ref = d.substr(4).strip_edges()
+		elif d.contains("://"):   # S368 (Argon on the grapple walk): one entry gives its video link without "ref:"
+			ref = d.strip_edges()
 		else:
 			title.append(d.replace("\\n", " "))
 	return {"title": " ".join(title).strip_edges(), "tags": tags, "props": props, "ref": ref, "line": line_nr, "frames": []}

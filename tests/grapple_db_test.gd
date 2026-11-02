@@ -48,6 +48,9 @@ func _initialize() -> void:
 	var kimura: Dictionary = DB.find(db, "full guard kimura")
 	_check(not kimura.is_empty() and (kimura["tags"] as PackedStringArray).has("kimura"), "'full guard kimura' found with its tags")
 	_check(DB.tagged(db, ["mount"]).size() >= 10, "%d sequences tagged mount" % DB.tagged(db, ["mount"]).size())
+	# S368 (Argon on the operator's grapple walk: a move named "Escape https://www.youtube.com/..."): links are refs.
+	var linked := db.filter(func(s): return str(s["title"]).contains("://"))
+	_check(linked.is_empty(), "no title carries a link (%d do)" % linked.size())
 	print("FAIL %d" % failures if failures else "PASS grapple_db_test")
 	quit(1 if failures else 0)
 

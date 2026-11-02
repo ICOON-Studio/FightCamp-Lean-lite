@@ -7,15 +7,16 @@ files onto master, commit, close the PR - is this script.
     python Tools/auto_collect.py <pr>            # dry run: says ELIGIBLE or why not, prints the PR body for the intent read
     python Tools/auto_collect.py <pr> --merge    # eligible -> new files onto master (by content, never a branch merge), commit, push, close
     python Tools/auto_collect.py <pr> --any-state  # proof dry run on a CLOSED PR (the state check is skipped; never merges)
+    python Tools/auto_collect.py selftest        # the Lean path rules, no network
 
 S249 BRIEF SCOPE: the PR's task id (TASK_<id>.md named in the body, else an id in the title) finds its brief, and the brief's
 '## Files you create / Owned files' list must EQUAL the PR's added files. The 30-min reconcile (Tools/collect_ready.py) merges a
 PR unattended only when it is ELIGIBLE *and* its brief scope matches - that match replaces Claude's intent read for that PR.
 
 ELIGIBLE only when ALL hold (anything else goes the normal way: check_workflow / diff + parse + test by hand):
-  1. every changed file is ADDED (no modified, renamed or deleted file) and lies under Godot/scripts/rules/, Godot/tests/ or
-     research/ - a new pure module, its test, its notes;
-  2. at least one new Godot/tests/*_test.gd (a module without its test is not collectable here);
+  1. every changed file is ADDED (no modified, renamed or deleted file) and lies under scripts/rules/, tests/ or ops/research/
+     (S368 Lean: the game is the repo root) - a new pure module, its test, its notes;
+  2. at least one new tests/*_test.gd (a module without its test is not collectable here);
   3. every CI check on the PR finished SUCCESS (ci.yml "Parse gate + changed tests" parses each changed .gd and runs each changed test
      headless, LFS off) and at least one check ran;
   4. Tools/ci_arena.py guard_for(master, PR head) passes (no deleted or gutted tests);
@@ -31,17 +32,20 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent  # ops/
+GAME = ROOT.parent  # S366 one repo: the game (and git's paths) start at the repo root
 sys.path.insert(0, str(ROOT / "Tools"))
+import brief_contract  # noqa: E402
 import ci_arena  # noqa: E402
 
 REPO = "ICOON-Studio/FightCamp-Lean"
-ALLOWED = ("Godot/scripts/rules/", "Godot/tests/", "research/")
+ALLOWED = ("scripts/rules/", "tests/", "ops/research/")
 TRAILER = "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 
 def _run(*args: str, check: bool = True) -> str:
-    return subprocess.run(args, cwd=ROOT, check=check, capture_output=True, text=True, encoding="utf-8").stdout
+    ## S368: from the repo root - `git add -- scripts/x.gd` from ops/ would name ops/scripts/x.gd
+    return subprocess.run(args, cwd=GAME, check=check, capture_output=True, text=True, encoding="utf-8").stdout
 
 
 def pr_info(pr: int) -> dict:
@@ -63,13 +67,7 @@ def eligibility(info: dict, any_state: bool = False) -> list[str]:
     for line in _run("git", "diff", "--name-status", f"origin/main...{head}").splitlines():
         parts = line.split("\t")
         statuses[parts[-1]] = parts[0]
-    for path, status in statuses.items():
-        if status != "A":
-            why.append(f"{path}: {status} (only ADDED files are collectable here)")
-        elif not path.startswith(ALLOWED):
-            why.append(f"{path}: outside {', '.join(ALLOWED)}")
-    if not any(p.startswith("Godot/tests/") and p.endswith("_test.gd") for p, s in statuses.items() if s == "A"):
-        why.append("no new Godot/tests/*_test.gd")
+    why.extend(files_why(statuses))
     checks = info.get("statusCheckRollup") or []
     if not checks:
         why.append("no CI check ran on the PR")
@@ -83,6 +81,45 @@ def eligibility(info: dict, any_state: bool = False) -> list[str]:
     why.extend(result_lines_proven(info))
     info["_added"] = sorted(p for p, s in statuses.items() if s == "A")
     return why
+
+
+def files_why(statuses: dict[str, str]) -> list[str]:
+    """Rules 1-2 on {path: git status letter}: only ADDED files, all under ALLOWED, and a new test among them."""
+    why = []
+    for path, status in statuses.items():
+        if status != "A":
+            why.append(f"{path}: {status} (only ADDED files are collectable here)")
+        elif not path.startswith(ALLOWED):
+            why.append(f"{path}: outside {', '.join(ALLOWED)}")
+    if not any(p.startswith("tests/") and p.endswith("_test.gd") for p, s in statuses.items() if s == "A"):
+        why.append("no new tests/*_test.gd")
+    return why
+
+
+def selftest() -> int:
+    """S368: the Lean path rules (no network): the fast lane's file rules and the brief-scope match."""
+    brief = "\n".join(["# TASK_X", "", "## Contract",
+                       "OWNS: Lean/scripts/rules/GymBills.gd, tests/gym_bills_test.gd   (Lean repo)",
+                       "RED_TEST: tests/gym_bills_test.gd -> GYM_BILLS failures=0", "REGRESSION: game_money_test", "VISUAL: no", ""])
+    visual = brief.replace("VISUAL: no", "VISUAL: docs/x/film.mp4")
+    pure = {"scripts/rules/GymBills.gd": "A", "tests/gym_bills_test.gd": "A"}
+    cases = [
+        ("files: Lean module + test", files_why(pure) == []),
+        ("files: Lean module + test + ops/research note", files_why({**pure, "ops/research/X_NOTES.md": "A"}) == []),
+        ("files: modified file refused", bool(files_why({**pure, "scripts/rules/Combos.gd": "M"}))),
+        ("files: fight3d file refused", bool(files_why({**pure, "scripts/fight3d/Referee.gd": "A"}))),
+        ("files: old Godot/ path refused", bool(files_why({"Godot/scripts/rules/X.gd": "A", "Godot/tests/x_test.gd": "A"}))),
+        ("files: no test refused", bool(files_why({"scripts/rules/GymBills.gd": "A"}))),
+        ("scope: Lean/ prefix in the brief matches", scope_from_text(brief, {"added": sorted(pure), "brief": "b"})["match"]),
+        ("scope: extra file refused", not scope_from_text(brief, {"added": sorted(pure) + ["tests/x_test.gd"], "brief": "b"})["match"]),
+        ("scope: VISUAL film refused", not scope_from_text(visual, {"added": sorted(pure), "brief": "b"})["match"]),
+        ("norm: old research/ note is ops/research/", _norm("research/X.md") == "ops/research/X.md"),
+    ]
+    fails = sum(1 for _, ok in cases if not ok)
+    for name, ok in cases:
+        print(f"{'OK  ' if ok else 'FAIL'} {name}")
+    print(f"AUTO_COLLECT_SELFTEST cases={len(cases)} failures={fails}")
+    return 1 if fails else 0
 
 
 RESULT_RE = re.compile(r"^RESULT:\s*(\S+?\.gd)\s*->\s*(.+?)\s*$", re.M)
@@ -118,30 +155,33 @@ TITLE_ID_RE = re.compile(r"\b([A-Z][A-Z0-9]{2,}\d[A-Z0-9]*)\b")
 
 
 def _norm(path: str) -> str:
-    path = path.strip().strip("`").replace("\\", "/")
-    if not path.startswith("Godot/") and path.split("/", 1)[0] in ("scripts", "tests", "research", "tools", "assets", "scenes"):
-        path = "Godot/" + path
-    return path
+    """S368: brief_contract's spelling (repo-root relative; Lean/x and res://x are x); an old-style research/ note is ops/research/."""
+    path = brief_contract._norm(path)
+    return "ops/" + path if path.startswith("research/") else path
 
 
 def brief_scope(info: dict) -> dict:
     """S249: the PR's brief and whether its added files are EXACTLY the brief's owned files. {task, brief, owned, added, match, why}."""
-    import agent_comms  # owned_files(): the same '## Owned files / Files you create' reader the `done` gate uses
     research = ROOT / "research"
     ids = TASK_ID_RE.findall(info.get("body") or "") + TASK_ID_RE.findall(info.get("title") or "")
     ids += [t for t in TITLE_ID_RE.findall(info.get("title") or "") if t not in ids]
     task = next((t for t in ids if (research / f"TASK_{t}.md").is_file()), "")
     added = sorted(info.get("_added") or [])
-    out = {"task": task, "brief": f"research/TASK_{task}.md" if task else "", "owned": [], "added": added, "match": False}
+    out = {"task": task, "brief": f"ops/research/TASK_{task}.md" if task else "", "owned": [], "added": added, "match": False}
     if not task:
         out["why"] = "no brief: no TASK_<id>.md named in the PR body/title exists (ids seen: %s)" % (", ".join(ids[:6]) or "none")
         return out
-    text = (research / f"TASK_{task}.md").read_text(encoding="utf-8", errors="replace")
+    return scope_from_text((research / f"TASK_{task}.md").read_text(encoding="utf-8", errors="replace"), out)
+
+
+def scope_from_text(text: str, out: dict) -> dict:
+    """brief_scope's decision on one brief's text: out["added"] must EQUAL the owned files (a folder owns what is under it)."""
+    import agent_comms  # owned_files(): the same '## Owned files / Files you create' reader the `done` gate uses
+    added = out["added"]
+    out.setdefault("match", False)
     ## S249 code-PR lane: a brief's `## Contract` block (Tools/brief_contract.py) is the machine-readable scope - its OWNS wins
     ## over the prose '## Files' section, and VISUAL: yes is never merged by a machine (visual-gate).
-    contract = None
     try:
-        import brief_contract
         contract = brief_contract.parse(text)
     except Exception:
         contract = None
@@ -150,7 +190,9 @@ def brief_scope(info: dict) -> dict:
     else:
         owned, out["source"] = sorted({_norm(p) for p in agent_comms.owned_files(text)}), "## Owned files"
     out["owned"] = owned
-    extra, missing = sorted(set(added) - set(owned)), sorted(set(owned) - set(added))
+    folders = [o for o in owned if o.endswith("/")]
+    extra = sorted(a for a in set(added) - set(owned) if not any(a.startswith(d) for d in folders))
+    missing = sorted(o for o in set(owned) - set(added) if not o.endswith("/"))
     if contract and contract.get("visual"):
         out["why"] = f"brief {out['brief']} contract says VISUAL: yes - the operator closes it (visual-gate), never a machine"
     elif not owned:
@@ -165,25 +207,27 @@ def brief_scope(info: dict) -> dict:
 def collect(info: dict) -> None:
     head = info["headRefOid"]
     for path in info["_added"]:
-        target = ROOT / path
+        target = GAME / path
         if target.exists():
             raise SystemExit(f"REFUSED: {path} already exists on this checkout")
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(subprocess.run(["git", "show", f"{head}:{path}"], cwd=ROOT, check=True, capture_output=True).stdout)
+        target.write_bytes(subprocess.run(["git", "show", f"{head}:{path}"], cwd=GAME, check=True, capture_output=True).stdout)
     _run("git", "add", "--", *info["_added"])
     msg = (f"S240 auto-collect PR #{info['number']} ({info['title']}): new files only, CI green, guard green - "
            f"{', '.join(info['_added'])}\n\n{TRAILER}\n")
     ## S249: commit ONLY these paths - the checkout is shared and another session may have its own work staged
-    subprocess.run(["git", "commit", "-q", "-F", "-", "--", *info["_added"]], cwd=ROOT, check=True, input=msg, text=True, encoding="utf-8")
+    subprocess.run(["git", "commit", "-q", "-F", "-", "--", *info["_added"]], cwd=GAME, check=True, input=msg, text=True, encoding="utf-8")
     _run("git", "push", "-q", "origin", "main")
     _run("gh", "pr", "close", str(info["number"]), "--repo", REPO, "--comment",
-         f"Collected onto master by Tools/auto_collect.py ({_run('git', 'rev-parse', '--short', 'HEAD').strip()}): new files only, CI + guard green.")
+         f"Collected onto main by ops/Tools/auto_collect.py ({_run('git', 'rev-parse', '--short', 'HEAD').strip()}): new files only, CI + guard green.")
 
 
 def main(argv: list[str]) -> int:
     # S263: PR bodies carry non-cp1252 characters (a check mark crashed the dry run on the Windows console).
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if argv[1:2] == ["selftest"]:
+        return selftest()
     if len(argv) < 2 or not argv[1].isdigit():
         print(__doc__)
         return 2

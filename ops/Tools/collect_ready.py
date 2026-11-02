@@ -2,7 +2,7 @@
 
 Run by the 30-min "FightCamp Board Reconcile" task (Tools/board_reconcile.py --apply). For every OPEN PR on the repo:
 
-  1. Tools/auto_collect.py eligibility (fast lane: only ADDED files under scripts/rules, tests, research + a new test, every CI
+  1. Tools/auto_collect.py eligibility (fast lane: only ADDED files under scripts/rules, tests, ops/research + a new test, every CI
      check SUCCESS, RESULT lines proven by the CI log, ci_arena guard) AND brief_scope (its TASK_<id>.md owned files == the
      added files). Both green -> merged UNATTENDED through the same collect() path `auto_collect.py <pr> --merge` runs
      (new files by content, commit of those paths only, push, PR closed). The brief match replaces Claude's intent read.
@@ -11,7 +11,7 @@ Run by the 30-min "FightCamp Board Reconcile" task (Tools/board_reconcile.py --a
   2. Anything else -> a review packet in AgentComms/collect_ready.json (PR, task, diff stat, CI pass lines, brief-scope match,
      why not eligible). `python Tools/agent_comms.py start` prints it as READY TO COLLECT with one command per PR.
 
-Unattended merges only run on a checkout that is on master, not behind origin/main, with no merge/rebase in progress and none
+Unattended merges only run on a checkout that is on main, not behind origin/main, with no merge/rebase in progress and none
 of the PR's paths present or dirty - otherwise the PR waits in the packet ("checkout not safe: ...") for the next cycle.
 Every merge and refusal-to-merge is logged in AgentComms/auto_collect.log.
 
@@ -39,7 +39,7 @@ PASS_RE = re.compile(r"(\]\s+PASS\s+\S+\.gd|SUITE total=\d+ fails=\d+|\S+ failur
 
 
 def _git(*args: str) -> str:
-    r = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace",
+    r = subprocess.run(["git", *args], cwd=auto_collect.GAME, capture_output=True, text=True, encoding="utf-8", errors="replace",
                        creationflags=_NO_WINDOW)
     return r.stdout
 
@@ -53,18 +53,18 @@ def log(line: str) -> None:
 def checkout_unsafe(paths: list[str]) -> str:
     """Why an unattended merge must not touch this shared checkout now ("" = safe)."""
     if _git("rev-parse", "--abbrev-ref", "HEAD").strip() != "main":
-        return "checkout is not on master"
-    gitdir = ROOT / ".git"
+        return "checkout is not on main"
+    gitdir = auto_collect.GAME / ".git"  # S368: the repo root's .git (ops/ has none)
     for marker in ("MERGE_HEAD", "REBASE_HEAD", "CHERRY_PICK_HEAD", "rebase-merge", "rebase-apply", "index.lock"):
         if (gitdir / marker).exists():
             return f"git {marker} present"
     behind = _git("rev-list", "--count", "HEAD..origin/main").strip()
     if behind not in ("", "0"):
-        return f"local master is {behind} commit(s) behind origin/main (a session pulls first)"
+        return f"local main is {behind} commit(s) behind origin/main (a session pulls first)"
     dirty = _git("status", "--porcelain", "--", *paths).strip()
     if dirty:
         return "PR paths dirty in the checkout: " + dirty.replace("\n", "; ")[:200]
-    present = [p for p in paths if (ROOT / p).exists()]
+    present = [p for p in paths if (auto_collect.GAME / p).exists()]
     if present:
         return "already on this checkout: " + ", ".join(present)
     return ""

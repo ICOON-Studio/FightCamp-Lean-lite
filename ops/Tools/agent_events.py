@@ -30,7 +30,8 @@ import time
 
 REPO = "ICOON-Studio/FightCamp-Lean"
 LITE = "ICOON-Studio/FightCamp-lite"
-AGENT_PREFIXES = ("cursor/", "qwen/", "goose/", "grok/", "arena/", "ziva/", "cline/", "opencode/", "openhands/", "codex/")
+AGENT_PREFIXES = ("cursor/", "qwen/", "goose/", "grok/", "arena/", "ziva/", "cline/", "opencode/", "openhands/", "codex/",
+                  "agy/")  # S368: Antigravity branches pushed by Tools/seat_dispatch.py
 AGENT_WORKFLOWS = ("cloud-agent", "goose", "opencode", "xai-research")
 
 

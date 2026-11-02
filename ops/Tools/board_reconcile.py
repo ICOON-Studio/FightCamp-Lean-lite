@@ -20,7 +20,8 @@ pass - landed/stale entries are re-checked every cycle until that happens. A bra
 are the ones whose title/branch name the run id. The verdicts also go to AgentComms/board_reconcile.json for the board.
 --apply also (S249): runs Tools/collect_ready.py (unattended fast-lane merges + the READY TO COLLECT packet), marks review
 comments addressed when a master commit cites their id (media_comments.json "addressed"), and drains AgentComms/seat_queue.json
-(Tools/seat_queue.py) - none of the three when `agent_comms.py start` calls it (FIGHTCAMP_FROM_START).
+(Tools/seat_queue.py) - none of the three when `agent_comms.py start` calls it (FIGHTCAMP_FROM_START). S368: it also runs
+Tools/seat_dispatch.py --act (idle Qwen/Cursor/Antigravity seats launch their queued tasks; pause = AgentComms/seat_dispatch_off.flag).
 Scheduled every 30 min by the "FightCamp Board Reconcile" task (hidden PowerShell parent; git/gh with no console window).
 """
 from __future__ import annotations
@@ -282,7 +283,8 @@ def reconcile() -> dict:
     master_log = _run(["git", "log", "origin/main", "-n", "800", "--format=%s %b"])
     heads = {}
     for line in _run(["git", "ls-remote", "origin", "refs/heads/arena/*", "refs/heads/goose/*", "refs/heads/qwen/*",
-                      "refs/heads/grok/*", "refs/heads/opencode/*", "refs/heads/openhands/*", "refs/heads/cursor/*"]).splitlines():
+                      "refs/heads/grok/*", "refs/heads/opencode/*", "refs/heads/openhands/*", "refs/heads/cursor/*",
+                      "refs/heads/agy/*"]).splitlines():
         sha, _, ref = line.partition("\t")
         heads[ref.replace("refs/heads/", "")] = sha
     rows = []
@@ -490,6 +492,19 @@ def main() -> int:
                     sum(1 for g in st["gate_clones"] if g.get("done")), st["e_free_gb"]))
             except Exception as exc:  # never breaks the reconcile
                 print("WORKTREE_RETIRE failed: %s" % exc)
+            ## S368 (operator: "can you program other agents like cursor,qwen,arena to pick up tasks and deliver automatically"):
+            ## an idle CLI seat (Qwen, Cursor, Antigravity) launches its queued task - valid contract, watchdog not RED, at most
+            ## 2 PC agents, one launch a cycle; its hidden runner commits, tests, pushes, opens the PR, films + Argon for a visual
+            ## brief. Merging stays off. Pause: create AgentComms/seat_dispatch_off.flag.
+            try:
+                if (ROOT / "AgentComms" / "seat_dispatch_off.flag").exists():
+                    print("SEAT_DISPATCH paused (AgentComms/seat_dispatch_off.flag)")
+                else:
+                    import seat_dispatch
+                    for line in seat_dispatch.dispatch(act=True):
+                        print("SEAT_DISPATCH " + line)
+            except Exception as exc:  # never breaks the reconcile
+                print("SEAT_DISPATCH failed: %s" % exc)
         ## S232 (operator: "can you automate this board update process"): the same 30-min task keeps the board's
         ## working_now / done_recently / archive current (Tools/board_sync.py).
         import board_sync

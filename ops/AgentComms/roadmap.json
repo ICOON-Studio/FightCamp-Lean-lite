@@ -4409,7 +4409,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-02",
+  "updated": "2026-11-02 21:25 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4548,13 +4548,15 @@
    "PLAYBOOK2": "Playbook move book + game plan (done)",
    "WBOPP": "Whiteboard opponent line (done)"
   },
-  "working_now": [],
-  "next": [
+  "working_now": [
    {
-    "id": "BJJBIZ",
-    "who": "claude",
-    "title": "Ana's no-gi side as gym business: BJJ members, medals bring members (Kalli part 4)"
-   },
+    "title": "TASK RIVALPAST1 - QWEN - a unit test for RivalPast, the rivals' bout-by-bout records (Lean)",
+    "who": "qwen",
+    "started": "2026-11-02T21:24",
+    "run": "RIVALPAST1"
+   }
+  ],
+  "next": [
    {
     "id": "FIGHTSPEED",
     "who": "claude",
@@ -4562,8 +4564,18 @@
    },
    {
     "id": "REFBREAK",
+    "who": "antigravity+claude",
+    "title": "The referee's clinch break passes through a boxer - S368: probe RED (forearm 0.168 m in, 10 frames), Argon before 2/10; agy/refbreak1 running (TASK_REFBREAK1)"
+   },
+   {
+    "id": "CAMVIEW",
     "who": "claude",
-    "title": "The referee's clinch break passes through a boxer (Gemini 0:21) - fix, Gemini judges before/after"
+    "title": "Fight camera: never behind a boxer, no 180-degree orbit (operator S368: 'many times it is behind the fighter and cant see'); tools/cam_view_probe.gd"
+   },
+   {
+    "id": "BJJMATCH1",
+    "who": "claude",
+    "title": "BJJ belt match: the move graph plays, you call the next move at settled positions (operator go-ahead S368; Miro frame + Argon 6/10)"
    },
    {
     "id": "CLINCHMERGE",
@@ -4574,11 +4586,6 @@
     "id": "PHANTOMHIT",
     "who": "claude",
     "title": "Hits react without contact / contact without reaction (Gemini 0:08, 0:24)"
-   },
-   {
-    "id": "CAMORBIT",
-    "who": "claude",
-    "title": "The broadcast camera orbits 180 degrees mid-exchange (Gemini 0:05, 0:10)"
    }
   ],
   "waiting_seat": [
@@ -4989,5 +4996,7 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "Lean 64ad09b"
+ "last_working_commit": "Lean 64ad09b",
+ "next_action": "S369, in order: (1) the operator's call on CAMVIEW1 (claude/camview1: behind a boxer 36.9 % -> 2.8 %, Argon camera 3 -> 7.5/10; head-hidden 5.1 % and a 2.6 s clinch stretch still fail) - merge on his OK; (2) REFBREAK round 4 on agy/refbreak1 (probe PASS, Argon 2/10: boxers step out the instant he pushes - delay step_out ~0.3 s after part() in Clinch.gd, bent-arm push, his walk's foot slide); (3) footing: board previews' feet from a FIXED side camera + orbit_feet_probe per clip (the jab's feet never move in the preview; the hard right hook's do, 0.27 m) - Argon+Blender (gemini_blender.py) only where they really move; (4) BJJMATCH1 build (Miro frame, operator go-ahead); (5) collect the auto-dispatch session's work (seat_dispatch.py, Lean-layout gate). Digest research/S368_DIGEST.md.",
+ "next_acceptance": "CAMVIEW1 merged on the operator's OK with cam_view_probe behind <= 5 %; REFBREAK: Argon names no clipping and scores the break above 2/10 with the probe still PASS."
 }

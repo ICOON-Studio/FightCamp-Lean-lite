@@ -50,17 +50,20 @@ import code_review  # noqa: E402
 
 REPO = "ICOON-Studio/FightCamp-Lean"
 STATE = ROOT / "AgentComms" / "code_gate.json"
-AGENT_PREFIXES = ("arena/", "grok/", "cursor/", "qwen/", "goose/", "opencode/", "cline/", "openhands/", "codex/", "ludo/", "cloud/")
+AGENT_PREFIXES = ("arena/", "grok/", "cursor/", "qwen/", "goose/", "opencode/", "cline/", "openhands/", "codex/", "ludo/", "cloud/",
+                  "agy/", "ziva/")  # S368: Antigravity (seat_dispatch.py pushes agy/<id>) and Ziva land here too
 TRAILER = "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 MERGED_TRAILER = "Auto-merged-by: code_gate"
 BUDGET_RESERVE_USD = 3.0   # leave this much of the monthly Actions budget for ordinary CI + cloud agents
 REDISPATCH_MIN = 60        # never dispatch the same (head, master) twice inside this many minutes
 CI_MARK_RE = re.compile(r"CODE_GATE_CI pr=(\d+) head=(\S+) base=(\S+) task=(\S+) (.*?)(?:\n|$)")
+## S368 Lean: the game is the repo root (scripts/, assets/); the archived old repo's Godot/ prefix is still read. Lean's 3D fight
+## (scripts/fight3d/) and its screens (scripts/ui/) are pictures: every file there is visual.
 VISUAL_FILE_RE = re.compile(
-    r"(\.(tscn|tres|gdshader|glb|gltf|fbx|png|jpg|jpeg|webp|exr|hdr|obj|blend|res|anim)$)|"
-    r"(^Godot/(assets|scenes|shaders)/(?!data/))|"
-    r"(^Godot/scripts/(?!rules/)[^/]*(Rig|Pose|Anim|Glove|Body|Camera|Cam|Stage|3D|Shader|Material|Light|Look|Skin|Mesh|Still|"
-    r"Render|Visual|Hud|HUD|Screen|Theme|Ui|UI)[^/]*\.gd$)")
+    r"(\.(tscn|tres|gdshader|glb|gltf|fbx|png|jpg|jpeg|webp|exr|hdr|obj|blend|res|anim|mp4)$)|"
+    r"(^(Godot/)?(assets|scenes|shaders)/(?!data/))|(^(Godot/)?scripts/(fight3d|ui)/)|"
+    r"(^(Godot/)?scripts/(?!rules/)(?:[^/]+/)*[^/]*(Rig|Pose|Anim|Glove|Body|Camera|Cam|Stage|3D|Shader|Material|Light|Look|Skin|"
+    r"Mesh|Still|Render|Visual|Hud|HUD|Screen|Theme|Ui|UI|Panel|Browser|Page|Player|Film)[^/]*\.gd$)")
 
 
 def _run(*args: str, check: bool = True) -> str:
@@ -92,6 +95,8 @@ def decide(f: dict) -> list[str]:
                    " - never auto-merged; visual-gate stills + the operator's OK (label needs-operator-eye)")
     owns = {o["path"]: o["windows"] for o in c["owns"]}
     for p in f["files"]:
+        if p not in owns and any(o.endswith("/") and p.startswith(o) for o in owns):
+            continue  # S368: a Lean contract may own a folder (docs/playtest/tells/)
         if p not in owns:
             why.append(f"owns: {p} is not in the brief's OWNS")
         elif owns[p]:
@@ -167,9 +172,9 @@ def open_agent_prs() -> list[dict]:
 def facts(pr: int, master: str | None = None, others: list[dict] | None = None) -> dict:
     info = json.loads(_run("gh", "pr", "view", str(pr), "--repo", REPO, "--json",
                            "number,title,body,headRefName,headRefOid,state,files,statusCheckRollup,comments,mergeable"))
-    _run("git", "fetch", "-q", "origin", "master", f"refs/pull/{pr}/head")
+    _run("git", "fetch", "-q", "origin", "main", f"refs/pull/{pr}/head")  # S368: Lean's default branch is main
     head = info["headRefOid"]
-    master = master or _run("git", "rev-parse", "origin/master").strip()
+    master = master or _run("git", "rev-parse", "origin/main").strip()
     base = _run("git", "merge-base", master, head).strip()
     files = [ln.split("\t")[-1] for ln in _run("git", "diff", "--name-status", base, head).splitlines() if ln.strip()]
     task = brief_contract.task_for_pr(info["title"], info["body"], info["headRefName"])
@@ -299,7 +304,7 @@ def act(f: dict, why: list[str]) -> str:
         left = budget_left()
         if left < BUDGET_RESERVE_USD:
             return f"HELD - Actions budget left ${left:.2f} < reserve ${BUDGET_RESERVE_USD:.2f}"
-        _run("gh", "workflow", "run", "code-gate.yml", "--repo", REPO, "--ref", "master", "-f", f"pr={f['pr']}")
+        _run("gh", "workflow", "run", "code-gate.yml", "--repo", REPO, "--ref", "main", "-f", f"pr={f['pr']}")
         st["dispatched"][key] = time.time()
         st["log"].append(f"{stamp} DISPATCHED code-gate #{f['pr']} head {f['head'][:10]} (budget left ${left:.2f})")
         _save(st)
@@ -369,7 +374,7 @@ def selftest() -> int:
     @case("contract: invalid block")
     def _(f): f["contract_problems"] = ["missing REGRESSION:"]
     @case("protected: touches a gate")
-    def _(f): f["files"].append("Tools/rule_guard.py"); f["contract"]["owns"].append({"path": "Tools/rule_guard.py", "windows": []})
+    def _(f): f["files"].append("ops/Tools/rule_guard.py"); f["contract"]["owns"].append({"path": "ops/Tools/rule_guard.py", "windows": []})
     @case("visual: brief VISUAL yes")
     def _(f): f["contract"]["visual"] = True
     @case("visual: rig script")
@@ -403,12 +408,38 @@ def selftest() -> int:
     @case("mergeable: conflict")
     def _(f): f["mergeable"] = "CONFLICTING"
 
+    ## S368 Lean layout: the game at the repo root, agy/ branches from Tools/seat_dispatch.py
+    def lean(f):
+        f["branch"] = "agy/fightlink1"
+        f["files"] = ["scripts/rules/RoundScript.gd", "tests/round_script_test.gd"]
+        f["contract"]["owns"] = [{"path": "scripts/rules/RoundScript.gd", "windows": [[100, 200]]},
+                                 {"path": "tests/round_script_test.gd", "windows": []}]
+        f["hunks"] = {"scripts/rules/RoundScript.gd": [[120, 130]]}
+
+    def lean_with(path):
+        def mutate(f):
+            lean(f)
+            f["files"].append(path)
+            f["contract"]["owns"].append({"path": path, "windows": []})
+        return mutate
+
+    cases["MERGE (Lean paths, agy branch)"] = lean
+    cases["visual: Lean fight3d script"] = lean_with("scripts/fight3d/Referee.gd")
+    cases["visual: Lean screen"] = lean_with("scripts/ui/areas/FighterPage.gd")
+    cases["visual: Lean asset"] = lean_with("assets/ui/training/pads.png")
+    cases["protected: Lean test runner"] = lean_with("tools/run_tests.sh")
+    cases["protected: Lean project file"] = lean_with("project.godot")
+    cases["MERGE (Lean owned folder)"] = lambda f: (lean(f), f["contract"]["owns"].append({"path": "docs/agy/", "windows": []}),
+                                                    f["files"].append("docs/agy/FIGHTLINK1_result.md"))
+    cases["owns: Lean file outside OWNS"] = lambda f: (lean(f), f["files"].append("scripts/rules/Combos.gd"))
+    cases["owns: Lean lines outside the window"] = lambda f: (lean(f), f["hunks"].update({"scripts/rules/RoundScript.gd": [[300, 310]]}))
+
     fails = 0
     for name, mutate in cases.items():
         f = copy.deepcopy(_fixture())
         mutate(f)
         why = decide(f)
-        want_kind = None if name == "MERGE" else name.split(":", 1)[0]
+        want_kind = None if name.startswith("MERGE") else name.split(":", 1)[0]
         ok = (not why) if want_kind is None else bool(why) and why[0].startswith(want_kind)
         fails += not ok
         print(f"{'OK  ' if ok else 'FAIL'} {name:45s} -> {'MERGE' if not why else why[0]}")
