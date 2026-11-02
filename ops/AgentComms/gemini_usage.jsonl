@@ -1,2 +1,14 @@
 {"at": "2026-11-02T20:00:04", "model": "flash", "in": 20696, "out": 2000, "usd": 0.0, "free": true, "what": "pilot: 3 in-game clips at 24 fps"}
 {"at": "2026-11-02T20:25:22", "model": "argon", "in": 55830, "out": 2156, "usd": 0.1332, "free": false, "what": "fight film: 30 s of a live round (Lucy vs Maria)"}
+{"at": "2026-11-02T20:42:22", "model": "argon", "in": 66273, "out": 2187, "usd": 0.1544, "free": false, "what": "S368 BJJ grapple walk (operator clip)"}
+{"at": "2026-11-02T20:45:49", "model": "argon", "in": 30662, "out": 1524, "usd": 0.0766, "free": false, "what": "S368 REFBREAK before (main 553b541)"}
+{"at": "2026-11-02T20:48:40", "model": "argon", "in": 3126, "out": 789, "usd": 0.0141, "free": false, "what": "miro: BJJMATCH"}
+{"at": "2026-11-02T21:24:30", "model": "argon", "in": 156073, "out": 1901, "usd": 0.3312, "free": false, "what": "S368 CAMVIEW before (45 s fight night)"}
+{"at": "2026-11-02T21:24:48", "model": "argon", "in": 8440, "out": 4470, "usd": 0.0616, "free": false, "what": "blender fix: mc_Box1_M3_Left_Jab_C"}
+{"at": "2026-11-02T21:25:41", "model": "argon", "in": 156073, "out": 2145, "usd": 0.3336, "free": false, "what": "S368 CAMVIEW after (45 s fight night)"}
+{"at": "2026-11-02T21:26:44", "model": "argon", "in": 13170, "out": 4772, "usd": 0.0741, "free": false, "what": "blender fix: mc_Box1_M3_Left_Jab_C"}
+{"at": "2026-11-02T21:29:56", "model": "argon", "in": 7707, "out": 853, "usd": 0.0239, "free": false, "what": "S368 jab pilot before (Argon+Blender r2)"}
+{"at": "2026-11-02T21:30:14", "model": "argon", "in": 7707, "out": 592, "usd": 0.0213, "free": false, "what": "S368 jab pilot after (Argon+Blender r2)"}
+{"at": "2026-11-02T21:30:53", "model": "argon", "in": 30662, "out": 1268, "usd": 0.074, "free": false, "what": "S368 REFBREAK after r3 (agy/refbreak1 9c05850)"}
+{"at": "2026-11-02T22:30:16", "model": "argon", "in": 12156, "out": 1128, "usd": 0.0356, "free": false, "what": "CAMCLINCH1 before"}
+{"at": "2026-11-02T23:10:55", "model": "argon", "in": 256250, "out": 2197, "usd": 0.5345, "free": false, "what": "CAMCLINCH1 after"}

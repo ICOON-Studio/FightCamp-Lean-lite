@@ -68,7 +68,13 @@ const TOO_CLOSE_M := 1.3
 ## S348 (round-2 still: the referee stepping in to part a clinch filled a quarter of the frame): the referee closer than
 ## this cuts the shot.
 const REF_CLOSE_M := 2.0
+## S369 (CAMCLINCH1): in a tie-up the heads sit side by side along the side-on line, so a side-on lens lets the near head
+## hide the far one. While `clinch_heads` holds both heads, the lens turns CLINCH_YAW_DEG off side-on toward the side where
+## lens -> far head clears the near head, rises CLINCH_UP_M above the shot's height, and looks at the midpoint of the heads.
+const CLINCH_YAW_DEG := 40.0
+const CLINCH_UP_M := 0.35
 var avoid := Vector3.INF      # the referee (FightStage sets it every frame); INF = nobody to keep off
+var clinch_heads: Array = []  # [head_a, head_b] in world space while a clinch is held, else []
 
 var close := false            # the big-shot close-up holds until broadcast() runs again
 var _shot := -1
@@ -81,6 +87,8 @@ var _clock := 0.0
 var _shake := 0.0             # metres, decaying
 var _shake_t := 0.0
 var _turn := 0.0              # S347: the turn (deg) the inside-the-ropes lens holds
+var _clinch_s := 1.0          # S369: which sign (+1 / -1) of CLINCH_YAW_DEG the clinch lens holds
+var _look := Vector3.INF
 
 
 func _init() -> void:
@@ -132,15 +140,20 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 		side = -side   # S348: a new shot opens on the side away from the referee (never a cut straight back into him)
 	_lens(false)
 	# S368: the orbit stops at the arc's edge (5 deg in, so the ropes' turn still has room) instead of carrying the lens
-	# round behind a boxer.
+	# round behind a boxer. S369: while a clinch holds, turn CLINCH_YAW_DEG off side-on toward the clear side and lift.
+	var clinching := clinch_heads.size() == 2
+	var lens_h := float(sh["h"]) + (CLINCH_UP_M if clinching else 0.0)
 	var arc := SIDE_ARC_DEG - 5.0
-	var yaw_deg := clampf(float(sh["yaw"]) + float(sh["orbit"]) * _shot_t, -arc, arc)
+	var yaw_deg := _clinch_yaw(mid, side, float(sh["dist"]), lens_h) if clinching \
+		else clampf(float(sh["yaw"]) + float(sh["orbit"]) * _shot_t, -arc, arc)
 	var limit := Vector2(-SIDE_ARC_DEG - yaw_deg, SIDE_ARC_DEG - yaw_deg)
-	var sp := spot_inside(mid, Basis(Vector3.UP, deg_to_rad(yaw_deg)) * side, float(sh["dist"]), 0.0 if cut else _turn, limit)
-	var lens_h := float(sh["h"])
+	var sp := spot_inside(mid, Basis(Vector3.UP, deg_to_rad(yaw_deg)) * side, float(sh["dist"]),
+		0.0 if cut or clinching else _turn, Vector2.ZERO if clinching else limit)
 	if not bool(sp[3]):
 		# No room on this side even at MIN_DIST_M: a cut to the other side of the pair, never a swing round behind her.
-		var other := spot_inside(mid, Basis(Vector3.UP, deg_to_rad(yaw_deg)) * -side, float(sh["dist"]), 0.0, limit)
+		var other_yaw := _clinch_yaw(mid, -side, float(sh["dist"]), lens_h) if clinching else yaw_deg
+		var other_lim := Vector2.ZERO if clinching else Vector2(-SIDE_ARC_DEG - other_yaw, SIDE_ARC_DEG - other_yaw)
+		var other := spot_inside(mid, Basis(Vector3.UP, deg_to_rad(other_yaw)) * -side, float(sh["dist"]), 0.0, other_lim)
 		if bool(other[3]):
 			side = -side
 			sp = other
@@ -151,19 +164,46 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 	_side = side
 	_turn = float(sp[2])
 	var want_pos := (sp[0] as Vector3) + Vector3(0, lens_h, 0)
-	var want_look := mid + Vector3(0, float(sh["look_h"]), 0)
+	var want_look := ((clinch_heads[0] as Vector3) + (clinch_heads[1] as Vector3)) * 0.5 if clinching \
+		else mid + Vector3(0, float(sh["look_h"]), 0)
 	fov = maxf(float(sh["fov"]), rad_to_deg(2.0 * atan(HALF_H_M / maxf(float(sp[1]), 0.5))))
 	(attributes as CameraAttributesPractical).dof_blur_far_distance = want_pos.distance_to(want_look) + 1.6
 	if cut:
-		_place_lens(want_pos, want_look)
+		_look = want_look
+		_place_lens(want_pos, _look)
 		return
 	var k := clampf(delta * 3.0, 0.0, 1.0)
-	_place_lens(position.lerp(want_pos, k), want_look)
+	_look = want_look if not _look.is_finite() else _look.lerp(want_look, k)
+	_place_lens(position.lerp(want_pos, k), _look)
+
+
+## S369: tries +CLINCH_YAW_DEG and -CLINCH_YAW_DEG off `side` (clamped to SIDE_ARC_DEG) and keeps the one whose
+## lens -> far-head line passes furthest from the near head.
+func _clinch_yaw(mid: Vector3, side: Vector3, dist: float, h: float) -> float:
+	var h0: Vector3 = clinch_heads[0]
+	var h1: Vector3 = clinch_heads[1]
+	var best_yaw := clampf(_clinch_s * CLINCH_YAW_DEG, -SIDE_ARC_DEG, SIDE_ARC_DEG)
+	var best_clear := -1.0
+	for s in [_clinch_s, -_clinch_s]:
+		var y := clampf(float(s) * CLINCH_YAW_DEG, -SIDE_ARC_DEG, SIDE_ARC_DEG)
+		var d := Basis(Vector3.UP, deg_to_rad(y)) * side
+		var sp := spot_inside(mid, d, dist, 0.0, Vector2.ZERO)
+		var flat: Vector3 = sp[0] if bool(sp[3]) else Vector3(mid.x, 0.0, mid.z) + d * dist
+		var lens := flat + Vector3(0, h, 0)
+		var near_h := h0 if lens.distance_to(h0) < lens.distance_to(h1) else h1
+		var far_h := h1 if near_h == h0 else h0
+		var clear := Geometry3D.get_closest_point_to_segment(near_h, lens, far_h).distance_to(near_h)
+		if best_clear < 0.0 or clear > best_clear + 0.02:
+			best_clear = clear
+			best_yaw = y
+			_clinch_s = float(s)
+	return best_yaw
 
 
 ## Low at the side, both heads in frame (`head_y` = the hit boxer's head height), held until broadcast() is called again.
 func close_up(a: Vector3, b: Vector3, head_y: float, hit: int) -> void:
 	close = true
+	_look = Vector3.INF
 	_lens(false)
 	var mid := (a + b) * 0.5 + Vector3(0, head_y - 0.12, 0)
 	var axis := (b - a).normalized()
@@ -299,6 +339,7 @@ static func _fade(m: MeshInstance3D, want: float, delta: float) -> void:
 ## field: the near shoulder and the hall behind go soft). `focus` <= 0 = the broadcast lens.
 func film(pos: Vector3, look: Vector3, lens_fov: float, focus: float) -> void:
 	close = true
+	_look = Vector3.INF
 	fov = lens_fov
 	_lens(focus > 0.0, focus)
 	_place_lens(pos, look)

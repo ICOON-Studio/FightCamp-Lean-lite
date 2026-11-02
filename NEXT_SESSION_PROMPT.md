@@ -1,3 +1,20 @@
+# S370 - next session (written S369, 2026-11-03)
+
+Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S369_DIGEST.md.
+Playtest + proposal: ops/research/S369_PLAYTEST_TWO_FIGHTERS.md. ORDER = roadmap `next_action`:
+(1) the operator picks the first fight change (the S369 box asked: remove the referee - both boxers push each other off
+slowly / tired legs red on the holo + weaker tired shots); build it, then the other, body-shot hit reactions, and the
+flow (THE PLAN, LIT UP) saved per bout on the fighter page; (2) scouting -> plan (tape answer replaces its plan line, the
+plan board reads the file + a ROUND row, the plan visible in the ring and the corner); (3) readable corner summary, rename
+"exchanges won"; (4) collect PR #20 CAMCLINCH1 windowed (cam_view_probe needs a window; the dispatcher's BEFORE film was
+6 s of walk-in), retire agy/refbreak1 (superseded by "remove ref"), merge claude/bjjmatch1 (belt match, Ana's strength/
+cardio, HUD numbers; 118/118) after the operator plays `FightCamp.exe -- jump=grapple match=1`.
+LESSONS: a career playtest plays the planning game (memory feedback-career-playtest-uses-every-feature-s369); the exe's
+window loses focus whenever a chat message arrives - re-focus (Alt keypress + SetForegroundWindow, handle in a variable)
+before each computer-use batch; open_application starts a SECOND exe. Antigravity = Gemini 4 Argon High (seat_dispatch).
+Miro production map (wrap-up 3b) was NOT moved in S369.
+
+--- S369 notes (written S367) ---
 # S368 - next session (written S367, 2026-11-02)
 
 S367 (ops/research/S367_DIGEST.md): playtest + critic review 6.5/10 (ops/research/S367_CRITIC_REVIEW.md); Gemini judges

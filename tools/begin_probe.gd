@@ -22,15 +22,20 @@ func _initialize() -> void:
 	await _wait(4)
 	print("BEGIN_PROBE reached the tape: ", TestJump.run(main, "fight"))
 	await _wait(4)
+	var c: Career = main.career
+	var f: Dictionary = c.fighter_by_id(str(main.modal["fid"]))
+	var opp: Dictionary = f["bout"]["opp"]
+	# S370: FightCast.BODIES is gone (S332 every boxer her own face) - the probe times her own body.
+	var glb := str(FightCast.bodies_for(f, opp)[0])
 	var t := Time.get_ticks_usec()
-	var body := MH.load_fighter(str(FightCast.BODIES[0]))
+	var body := MH.load_fighter(glb)
 	print("BEGIN_PROBE one boxer body parsed from its glb: %.0f ms" % ((Time.get_ticks_usec() - t) / 1000.0))
 	var skel := body.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
 	var ap := body.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 	t = Time.get_ticks_usec()
 	var n := FightClips.load_into(ap, skel).size()
 	print("BEGIN_PROBE one boxer's clips (%d) cold: %.0f ms" % [n, (Time.get_ticks_usec() - t) / 1000.0])
-	var body2 := MH.load_fighter(str(FightCast.BODIES[0]))
+	var body2 := MH.load_fighter(glb)
 	var ap2 := body2.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 	t = Time.get_ticks_usec()
 	FightClips.load_into(ap2, body2.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D)
@@ -39,9 +44,6 @@ func _initialize() -> void:
 	body2.free()
 	await _wait(2)
 	# The 3D view's own build, part by part (FightView.setup's calls), on a scratch viewport - then thrown away.
-	var c: Career = main.career
-	var f: Dictionary = c.fighter_by_id(str(main.modal["fid"]))
-	var opp: Dictionary = f["bout"]["opp"]
 	var vp := SubViewport.new()
 	vp.own_world_3d = true
 	root.add_child(vp)

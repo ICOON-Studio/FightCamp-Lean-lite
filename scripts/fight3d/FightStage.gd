@@ -312,6 +312,13 @@ func broadcast(snap: bool = false, delta: float = 0.0) -> void:
 	# S359: an unseen referee (he shows only to break a clinch) is not steered round.
 	camera.avoid = (referee.get("body") as Node3D).position if referee != null and referee.get("body") != null \
 		and bool(referee.call("shown")) else Vector3.INF
+	camera.clinch_heads = [] if clinch == null or clinch.holder < 0 else boxers.map(func(bx: Dictionary) -> Vector3:
+		var gc: Node = bx.get("gclear")
+		if gc != null and (gc.get("shown_head") as Vector3).is_finite():
+			return (gc.get("shown_head") as Vector3) - Vector3.UP * GloveClearScript.HEAD_UP_M
+		var skel: Skeleton3D = bx.get("skel")
+		var id := skel.find_bone("Head") if skel != null else -1
+		return skel.global_transform * skel.get_bone_global_pose(id).origin if id >= 0 else (bx["pos"] as Vector3) + Vector3(0, 1.6, 0))
 	camera.broadcast(boxers[0]["pos"], boxers[1]["pos"], snap, delta)
 
 

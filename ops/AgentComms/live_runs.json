@@ -49,6 +49,86 @@
     "after": {},
     "board": ""
    }
+  },
+  "CAMCLINCH1": {
+   "agent": "antigravity",
+   "id": "CAMCLINCH1",
+   "title": "TASK CAMCLINCH1 - ANTIGRAVITY - the fight camera's clinch angle (both heads seen while they hold)",
+   "status": "landed",
+   "started": "2026-11-02T22:28",
+   "eta": "2026-11-02T23:23",
+   "branch": "agy/camclinch1",
+   "worktree": "E:/FightCamp/wt/LEAN_CAMCLINCH1",
+   "wt": "E:/FightCamp/wt/LEAN_CAMCLINCH1",
+   "brief": "ops/research/TASK_CAMCLINCH1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CAMCLINCH1_dispatch_out.txt",
+   "match": "seat_dispatch.py run camclinch1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CAMCLINCH1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CAMCLINCH1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CAMCLINCH1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 41136,
+    "seat_pid": 47868
+   },
+   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 4/5 PASS; PR #20; films Argon 2 -> 4/10",
+   "finished": "2026-11-02T23:10",
+   "pr": 20,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/cam_view_probe.gd",
+     "ok": false,
+     "last": "timeout"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_lens_test.gd",
+     "ok": true,
+     "last": "ring_lens_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_rest_test.gd",
+     "ok": true,
+     "last": "PASS clinch_rest_test"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/CAMCLINCH1/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/CAMCLINCH1/before.gemini_argon.md",
+     "score": "2",
+     "line": "Verdict:** This 6-second clip only shows slow, clipping ring-entrance animations and cuts off before the fight starts, so the clinch camera (`CAMCLINCH1`) and boxing gameplay cannot be judged—**2/10**. (Please provide footage of the actual ",
+     "rc": 0,
+     "err": ""
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/CAMCLINCH1/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/CAMCLINCH1/after.gemini_argon.md",
+     "score": "4",
+     "line": "Watchable as a sports broadcast:** **4 / 10",
+     "rc": 0,
+     "err": ""
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-02_2310_camclinch1_before_after_argon_2_10_4_10_)"
+   }
   }
  },
  "codex_budget": {
