@@ -28,6 +28,7 @@ const WeekActual := preload("res://scripts/rules/WeekActual.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const PushBack := preload("res://scripts/rules/PushBack.gd")
+const Grapplers := preload("res://scripts/state/Grapplers.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -363,7 +364,7 @@ static func end_week(career: Career) -> void:
 			Bouts.coach_note(career, f, "sparring")
 		f["week_start"] = (f["stats"] as Dictionary).duplicate()
 	career.last_report = {
-		"week": week, "fighters": reports, "members": career.members, "members_delta": int(roll["delta"]),
+		"week": week, "fighters": reports, "grapplers": Grapplers.week_report(career), "members": career.members, "members_delta": int(roll["delta"]),
 		# S352 (board review: "Paid this week -$1,000" vs Home's "Costs this week -$1,123"): the week's running costs go on the
 		# month-end bill; "out" is the cash that left - the review shows both, and names what was paid.
 		"money": {"in": int(career.week_money["in"]), "out": int(career.week_money["out"]), "costs": int(costs["total"]),

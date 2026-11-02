@@ -41,3 +41,16 @@ static func headline(fr: Dictionary, labels: Dictionary) -> Dictionary:
 		var row: Dictionary = (fr["rows"] as Array).filter(func(x): return str(x["st"]) == best)[0]
 		return {"kind": "stat", "text": "%s up to %d." % [str(labels.get(best, best)), int(floorf(float(row["after"])))]}
 	return {"kind": "", "text": ""}
+
+
+## S363 the no-gi athlete's surprise (Grapplers.week_report row): a medal > a move that became a weapon > a stripe due.
+static func grappler_headline(gr: Dictionary, move_name: String) -> Dictionary:
+	var first := str(gr.get("first", ""))
+	var o: Dictionary = gr.get("open", {})
+	if str(o.get("medal", "")) != "":
+		return {"kind": "medal", "text": "%s takes %s at the %s." % [first, str(o["medal"]).to_upper(), str(o["name"])]}
+	if bool(gr.get("owned", false)):
+		return {"kind": "weapon", "text": "NEW WEAPON: %s's %s." % [first, move_name.to_lower()]}
+	if int(gr.get("due", 0)) > 0 and int(gr.get("held", 0)) != int(gr.get("stripes", 0)) + 1:
+		return {"kind": "stripe", "text": "Stripe %d is due: your call." % (int(gr.get("stripes", 0)) + 1)}
+	return {"kind": "", "text": ""}

@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.315 - Forward+ - Using Device #0: AMD - AMD Radeon RX 6800 XT
+
+Movie Maker mode enabled, recording movie in 1920×1080 @ 30 FPS...
+OK  PLAYBOOK opens from the menu
+OK  the move player sits on the page
+ERROR: Can't take value from empty array.
+   at: front (core/variant/array.cpp:355)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/playbook_film.gd:47)
+       [1] _wait (res://tools/playbook_film.gd:87)
+OK  her move list sits on the page
+wrote 01_playbook_open
+OK  a click on step_in plays it
+wrote 02_step_in
+OK  a click on step_out plays it
+wrote 02_step_out
+OK  a click on step_back plays it
+wrote 02_step_back
+OK  a click on pivot_out plays it
+wrote 02_pivot_out
+OK  a click on roll_out plays it
+wrote 02_roll_out
+OK  a click on slip 2-3 plays it
+wrote 02_slip_2-3
+OK  a click on slip 2-3@own_ropes plays it
+wrote 02_slip_2-3@own_ropes
+OK  a click on feint plays it
+wrote 02_feint
+OK  a click on push_off plays it
+wrote 02_push_off
+OK  a click on cut_off plays it
+wrote 02_cut_off
+PLAYBOOK_FILM failures=0
+--------------------------------------------------------------------------------
+Done recording movie at path: E:/FightCamp/wt/ZIVA_LEAN/docs/playtest/ZIVAFOOT1/footwork_before.avi
+1104 frames at 30 FPS (movie length: 00:00:36:24), recorded in 00:01:18 (46% of real-time speed).
+CPU render time: 0.95 seconds (average: 0.86 ms/frame)
+GPU render time: 0.50 seconds (average: 0.45 ms/frame)
+Encoding time: 12.72 seconds (average: 11.52 ms/frame)
+--------------------------------------------------------------------------------

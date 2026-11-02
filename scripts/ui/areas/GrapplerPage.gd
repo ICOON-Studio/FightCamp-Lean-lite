@@ -11,6 +11,7 @@ const Clock := preload("res://scripts/state/Clock.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
+const StripeCall := preload("res://scripts/rules/StripeCall.gd")
 
 const BELT_COLOR := {"white": Color("#f4f5f6"), "blue": Color("#2f5fd0"), "purple": Color("#7b3fc4"),
 	"brown": Color("#7a4a25"), "black": Color("#151515")}
@@ -32,8 +33,12 @@ static func act(main: Node, name: String, arg: String) -> bool:
 	var c: Career = main.career
 	var why := ""
 	match name:
-		"gstripe":
-			why = Grapplers.stripe(c, arg)
+		"gstripe":   # "id|now" / "id|hold" / "id|early" (S363 StripeCall)
+			var kv := arg.split("|")
+			var res := Grapplers.stripe(c, kv[0], kv[1] if kv.size() > 1 else "now")
+			why = str(res["why"]) if not bool(res["ok"]) else ""
+			if bool(res["ok"]):
+				main.toast(str(res["line"]))
 		"gpromote":
 			why = Grapplers.promote(c, arg)
 		"genter":
@@ -203,11 +208,10 @@ func _call(main: Node, c: Career, f: Dictionary, nxt: String, r: Dictionary) -> 
 		var wk := NoGi.weeks_to_ready(f, c.day)
 		v.add_child(UI.label("%s belt in about %s at this week's plan (%d classes a week)." % [nxt.capitalize(),
 			("%d weeks" % wk) if wk < 9 else ("%d months" % int(round(wk / 4.35))), NoGi.CLASSES_PER_WEEK], UI.BODY, UI.FG, "body", true))
+		v.add_child(UI.label("Morale %d   Loyalty %d%s" % [int(f.get("morale", NoGi.MORALE_START)), int(f.get("loyalty", NoGi.MORALE_START)),
+			("   (stripe %d held back: drilling hungry)" % int(f["held"])) if int(f.get("held", 0)) > 0 else ""], UI.SMALL, UI.MUTED, "mono"))
+		v.add_child(stripe_buttons(main, f, c.day, func(call): main.act("gstripe", "%s|%s" % [fid, call])))
 		var btns := UI.hbox(10)
-		var give := UI.button("Give stripe %d" % mini(given + 1, 4), "BtnSolid", main.act.bind("gstripe", fid), due <= 0,
-			"No stripe due yet: one comes each quarter of the way to %s" % nxt)
-		give.name = "GiveStripe"
-		btns.add_child(give)
 		var floor_why := "" if bool(r["floor_ok"]) else (("%d more days at %s (the IBJJF minimum)" % [r["days_left"], f["belt"]]) if int(r["days_left"]) > 0 \
 			else "Too young for %s: the IBJJF minimum is %d" % [nxt, BeltRoad.MIN_AGE[nxt]])
 		var pro := UI.button("Promote to %s%s" % [nxt, "" if bool(r["ready"]) else " (not ready)"], "Btn", main.act.bind("gpromote", fid),
@@ -234,6 +238,27 @@ func _call(main: Node, c: Career, f: Dictionary, nxt: String, r: Dictionary) -> 
 		mm["white"], mm["blue"], mm["purple"], mm["brown"], mm["black"], BeltRoad.POINTS["mount"], BeltRoad.POINTS["pass"],
 		BeltRoad.POINTS["takedown"]], UI.SMALL, UI.FG, "body", true))
 	return card[0]
+
+
+## S363 the stripe as a choice (StripeCall): the coach's advice, then GIVE IT NOW / HOLD IT BACK / GIVE IT EARLY, each with its
+## cost on hover; the coach's pick is the solid button. `on_call(call)` runs the call. Shared by the page and the week review.
+static func stripe_buttons(main: Node, f: Dictionary, today: int, on_call: Callable) -> VBoxContainer:
+	var box := UI.vbox(6)
+	box.name = "StripeCall"
+	var opt := StripeCall.options(f, today)
+	if str(opt["why"]) != "":
+		box.add_child(UI.label("Coach: \"%s\"" % opt["why"], UI.SMALL, UI.GOLD, "italic", true))
+	var btns := UI.hbox(10)
+	var n := int(f.get("stripes", 0)) + 1
+	for call in ["now", "hold", "early"]:
+		var text: String = {"now": "Give stripe %d now" % n, "hold": "Hold it back", "early": "Give stripe %d early" % n}[call]
+		var why := str(opt[call])
+		var b := UI.button(text, "BtnSolid" if call == str(opt["pick"]) else "Btn", on_call.bind(call), why != "",
+			why if why != "" else str(StripeCall.TIPS[call]))
+		b.name = {"now": "GiveStripe", "hold": "HoldStripe", "early": "EarlyStripe"}[call]
+		btns.add_child(b)
+	box.add_child(btns)
+	return box
 
 
 ## The coach's words for her best syllabus group ("escapes", "passes and sweeps").

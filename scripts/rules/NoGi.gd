@@ -23,6 +23,16 @@ const OPENS := [["Regional No-Gi Open", 95], ["Spring Open (IBJJF rules)", 110],
 const WIN_BASE := 0.35
 const WIN_SLOPE := 0.30
 const WIN_RANGE := Vector2(0.2, 0.8)
+## S363 (StripeCall): morale and loyalty start here; morale moves her match odds by (morale - start) / MORALE_SPAN (100 =
+## +0.10, 20 = -0.10); a held stripe drills HUNGRY harder; a tough bracket (early stripes) costs TOUGH a match. Her results
+## move morale: a win +WIN_MORALE, a loss on points -LOSS_MORALE, tapped -TAP_MORALE (Kalli K-BELTROAD1 part 3).
+const MORALE_START := 60
+const MORALE_SPAN := 400.0
+const HUNGRY := 1.15
+const TOUGH := 0.05
+const WIN_MORALE := 4
+const LOSS_MORALE := 3
+const TAP_MORALE := 6
 const SUB_SHARE := 0.35
 const SUBS := ["armbar_guard", "kimura", "americana", "rear_naked_choke", "guillotine", "triangle", "straight_ankle_lock",
 	"darce", "outside_heel_hook", "kneebar", "toe_hold", "anaconda", "north_south_choke", "back_triangle", "inside_heel_hook",
@@ -41,7 +51,7 @@ static func athlete() -> Dictionary:
 		"bjj": {"shrimp_bridge": 44.0, "frame_recover_guard": 36.0, "seatbelt_escape": 22.0, "posture_closed_guard": 33.0,
 			"bullfighter_pass": 31.0, "knee_cut_pass": 15.0, "scissor_sweep": 34.0, "hip_bump_sweep": 32.0, "double_leg": 31.0,
 			"armbar_guard": 28.0, "kimura": 35.0, "americana": 30.0, "rear_naked_choke": 12.0, "guillotine": 9.0},
-		"w": 4, "l": 2, "entered": [],
+		"w": 4, "l": 2, "entered": [], "morale": MORALE_START, "loyalty": MORALE_START,
 		"opens": [
 			{"d": -16, "open": "London No-Gi Open", "win": true, "opp": "Kim Patel", "how": "submission (armbar from guard) 3:12"},
 			{"d": -16, "open": "London No-Gi Open", "win": true, "opp": "Jo Reyes", "how": "points 6-2"},
@@ -79,7 +89,7 @@ static func week(f: Dictionary) -> String:
 	var m := drilling(f)
 	if m != "":
 		var bjj: Dictionary = f.get_or_add("bjj", {})
-		bjj[m] = minf(100.0, float(bjj.get(m, 0.0)) + DRILL_GAIN)
+		bjj[m] = minf(100.0, float(bjj.get(m, 0.0)) + DRILL_GAIN * (HUNGRY if int(f.get("held", 0)) > 0 else 1.0))
 	return m
 
 
@@ -135,7 +145,8 @@ static func open_on(day: int) -> Dictionary:
 ## Her chance to win one match against her own belt's field.
 static func win_chance(f: Dictionary, today: int) -> float:
 	var share := float(BeltRoad.readiness(f, f.get("bjj", {}), today)["share"])
-	return clampf(WIN_BASE + WIN_SLOPE * share, WIN_RANGE.x, WIN_RANGE.y)
+	var mood := (float(f.get("morale", MORALE_START)) - MORALE_START) / MORALE_SPAN - (TOUGH if bool(f.get("tough_next", false)) else 0.0)
+	return clampf(WIN_BASE + WIN_SLOPE * share + mood, WIN_RANGE.x, WIN_RANGE.y)
 
 
 ## One open, single elimination: she fights until she loses or wins the final. Returns {"matches": [record rows],

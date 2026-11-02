@@ -86,6 +86,9 @@ func _actual() -> void:
 
 func _weeks() -> void:
 	var c := Career.quick_start()
+	# S362 one known career (as the golden path S327 and TestJump S356): quick_start's seed is randi(), and on some runs the
+	# injury roll took 6 days of week 2, so its reason named the injury before the mid-week change (export.sh went red).
+	c.seed = 1
 	var f: Dictionary = Data.fighter_state(Data.lucy(), c.day)
 	c.fighters.append(f)
 	c.day = 14   # a Monday (Clock: day 0 is a Monday)

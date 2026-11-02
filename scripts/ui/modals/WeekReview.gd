@@ -9,6 +9,11 @@ const Data := preload("res://scripts/state/Data.gd")
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const TwistCard := preload("res://scripts/ui/TwistCard.gd")
 const ReviewReveal := preload("res://scripts/rules/ReviewReveal.gd")
+const NoGi := preload("res://scripts/rules/NoGi.gd")
+const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
+const Grapplers := preload("res://scripts/state/Grapplers.gd")
+const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
+const Bar := preload("res://scripts/ui/Bar.gd")
 
 const BODY_W := 940.0
 ## The review's body at most this tall (1080 less the modal's margins and the Next week row); past it, it scrolls.
@@ -30,6 +35,7 @@ func build(main: Node, m: Dictionary) -> void:
 	custom_minimum_size = Vector2(980, 0)
 	var r: Dictionary = m["r"]
 	var c: Career = main.career
+	set_meta("career", c)
 	# S356 the body scrolls and Next week stays pinned (a twist card a fighter made the review taller than the screen).
 	var outer := UI.vbox(8)
 	add_child(outer)
@@ -101,6 +107,8 @@ func build(main: Node, m: Dictionary) -> void:
 		var nf := c.fighter_by_id(str(fr["id"]))
 		if not nf.is_empty():
 			t = _land(v, TwistCard.build(main, nf, "NEXT WEEK'S TWIST"), t, step)
+	for gr in r.get("grapplers", []):
+		t = _grappler(main, c, v, gr, t, step)
 	var grid := UI.hbox(16)
 	var money := UI.card("MONEY")
 	UI.add_rows(money[1], [
@@ -192,6 +200,104 @@ func finish() -> void:
 	for g in _grow:
 		g[0].frac = g[1]
 	revealed = true
+
+
+## S363 the no-gi athlete's week (Grapplers.week_report): the classes and the move drilled (its bar fills toward a
+## weapon), her open, morale; a stripe due brings the professor's three calls (StripeCall); the surprise lands last.
+func _grappler(main: Node, c: Career, v: VBoxContainer, gr: Dictionary, t: float, step: float) -> float:
+	var id := str(gr["id"])
+	var st := int(gr["stripes"])
+	var head := ReviewReveal.grappler_headline(gr, NoGi.move_name(str(gr["move"])))
+	headlines.append(head)
+	t = _land(v, UI.caps("%s: ON THE MAT - %s BELT, %d STRIPE%s" % [str(gr["name"]).to_upper(), str(gr["belt"]).to_upper(), st,
+		"" if st == 1 else "S"]), t, step)
+	if int(gr["classes"]) > 0:
+		var mat: Array = gr["mat"]
+		var txt := "%d classes this week (%d of %d to %s belt)." % [int(gr["classes"]), int(mat[0]), int(mat[1]), gr["next"]] 			if str(gr["next"]) != "" else "%d classes this week." % int(gr["classes"])
+		t = _land(v, UI.label(txt, UI.BODY, UI.FG, "body", true), t, step)
+	if str(gr["move"]) != "":
+		t = _land(v, _drill_row(gr, t), t, step)
+	var o: Dictionary = gr.get("open", {})
+	if not o.is_empty():
+		var bits: Array = []
+		for m in o["matches"]:
+			bits.append("%s %s, %s" % ["beat" if bool(m["win"]) else "lost to", m["opp"], m["how"]])
+		var w := (o["matches"] as Array).filter(func(m): return bool(m["win"])).size()
+		var medal := str(o["medal"])
+		var said := "; ".join(bits)
+		var ol := UI.label("%s: %s (%d-%d). %s." % [o["name"], medal.to_upper() if medal != "" else "out in round %d" % (w + 1),
+			w, (o["matches"] as Array).size() - w, said.left(1).to_upper() + said.substr(1)],
+			UI.SMALL, UI.GOLD if medal != "" else UI.MUTED, "body", true)
+		ol.name = "Open_" + id
+		t = _land(v, ol, t, step)
+	var mood := int((o as Dictionary).get("morale", 0))
+	var ml := UI.label("Morale %d%s   Loyalty %d%s" % [int(gr["morale"]), (" (%+d at the open)" % mood) if mood != 0 else "",
+		int(gr["loyalty"]), ("   Stripe %d held back: drilling hungry" % int(gr["held"])) if int(gr["held"]) > 0 else ""],
+		UI.SMALL, UI.MUTED, "mono")
+	ml.name = "Mood_" + id
+	t = _land(v, ml, t, step)
+	var f := c.grappler_by_id(id)
+	if int(gr["due"]) > 0 and not f.is_empty():
+		var hold := UI.vbox(4)
+		hold.name = "Stripe_" + id
+		hold.add_child(GrapplerPage.stripe_buttons(main, f, c.day, _on_stripe.bind(main, c, id, hold)))
+		t = _land(v, hold, t, step)
+	if head["kind"] != "":
+		var hl := _headline(head)
+		hl.name = "Headline_" + id
+		hl.set_meta("kind", head["kind"])
+		t = _land(v, hl, t + ReviewReveal.HOLD, ReviewReveal.HOLD)
+	return t
+
+
+## The drilled move's bar fills from last week toward a weapon (BeltRoad.OWNED_AT); gold when it got there.
+func _drill_row(gr: Dictionary, at: float) -> HBoxContainer:
+	var h := UI.hbox(12)
+	var owned := bool(gr["owned"])
+	var l := UI.label("Drilled: " + NoGi.move_name(str(gr["move"])), UI.BODY)
+	l.custom_minimum_size = Vector2(300, 0)
+	h.add_child(l)
+	var bar: Control = Bar.new()
+	bar.fill = UI.GOLD if owned else UI.GREEN
+	bar.frac = clampf(float(gr["before"]) / BeltRoad.OWNED_AT, 0.0, 1.0)
+	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	h.add_child(bar)
+	_grow.append([bar, clampf(float(gr["after"]) / BeltRoad.OWNED_AT, 0.0, 1.0), at])
+	var n := UI.label("%d / %d  %s" % [int(floorf(float(gr["after"]))), int(BeltRoad.OWNED_AT), UI.gain_text(float(gr["after"]) - float(gr["before"]))],
+		UI.BODY, UI.GOLD if owned else UI.FG, "mono")
+	n.custom_minimum_size = Vector2(150, 0)
+	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	h.add_child(n)
+	h.name = "Drill_" + str(gr["id"])
+	return h
+
+
+## A stripe call from the review: the buttons give way to what happened (a refusal toasts and leaves them).
+func _on_stripe(call: String, main: Node, c: Career, id: String, hold: VBoxContainer) -> void:
+	var res := Grapplers.stripe(c, id, call)
+	if not bool(res["ok"]):
+		main.toast(str(res["why"]))
+		return
+	_stripe_done.call_deferred(res, call, hold)   # deferred: the pressed button is still inside its own signal
+
+
+func _stripe_done(res: Dictionary, call: String, hold: VBoxContainer) -> void:
+	# The call is answered: the "your call" note goes and the mood line reads the new numbers.
+	var id := str(hold.name).trim_prefix("Stripe_")
+	var hl := find_child("Headline_" + id, true, false)
+	if hl != null and str(hl.get_meta("kind", "")) == "stripe":
+		hl.queue_free()
+	var f: Dictionary = (get_meta("career") as Career).grappler_by_id(id)
+	var ml := find_child("Mood_" + id, true, false) as Label
+	if ml != null and not f.is_empty():
+		ml.text = "Morale %d   Loyalty %d" % [int(f["morale"]), int(f["loyalty"])]
+	UI.clear(hold)
+	var l := UI.label(str(res["line"]), UI.BODY, UI.GOLD if call != "hold" else UI.AMBER, "bold", true)
+	l.name = "StripeDone"
+	hold.add_child(l)
+	if str(res["news"]) != "":
+		hold.add_child(UI.label(str(res["news"]), UI.SMALL, UI.RED, "body", true))
 
 
 ## S355 CORE3 step 2 (WeekActual): Monday's plan against the week she ran, the reason, and the coach's one change.

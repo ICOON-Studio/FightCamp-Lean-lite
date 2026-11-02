@@ -1,3 +1,21 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 65 (2026-11-02): THE STRIPE IS YOUR CALL, ANA'S WEEK IN THE WEEK REVIEW
+===========================================================================================================
+
+ 1. THE STRIPE IS A CHOICE (Kalli's review of the belt road: "a notification with a button"). When a stripe is due,
+    COACH'S CALL on Ana's Record tab (and the week review) offers three calls, the coach's pick in solid blue:
+    - Give stripe 3 now: morale +6, loyalty +3.
+    - Hold it back: no stripe yet; she drills 15% harder until it comes; morale -8, loyalty -5. Under 50 loyalty she asks
+      about another club (Mail). One hold per stripe.
+    - Give stripe 3 early (before it is due, once she is half way to it): morale +10. From the 2nd early stripe the
+      members see it (2 leave) and her next open is a tougher bracket.
+    Hover a button for its cost. Morale now counts at the opens (100 morale = +10% a match, 20 = -10%); her wins lift it,
+    a loss on points costs 3, a tap 6.
+ 2. ANA'S WEEK IN THE WEEK REVIEW: under the boxers, ON THE MAT - her 3 classes (and how many of 200 to blue), the move
+    she drilled with its bar filling toward a weapon at 30, her open's result match by match, morale and loyalty. The
+    week's surprise lands last on a sticky note: a medal, a new weapon ("NEW WEAPON: Ana's armbar from guard." in week 1)
+    or "Stripe 3 is due: your call." - make the call right there in the review.
+    Quick check: TEST it - the BJJ belt road (board button), then play a week with >>.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 64 (2026-11-02): THE BJJ BELT ROAD, INDEX CARDS ON THE MONEY AND THE GYM
 =============================================================================================================
 
@@ -16,7 +34,11 @@ FIGHTCAMP - WEEK 6 BUILD, UPDATE 64 (2026-11-02): THE BJJ BELT ROAD, INDEX CARDS
     how long the cash lasts. Hover the date - the next stop and the month-end bill. GYM > Members and GYM > Facilities
     have cards too. Words underlined in dashed red (Runway, Dues, Reputation, Fatigue, Camp phase, Twist card) open a
     yellow sticky note when you rest on them: what the word means and why it matters.
- 6. Fixes: every index card was measured before it was on screen (0 wide), so near the right edge it ran off the screen
+ 6. PLAYBOOK FOOTWORK (Ziva): the moves' clips now blend into each other instead of snapping - a slip holds at its
+    deepest point before the counter, a pivot turns over half a second, the return to guard eases in. Measured: the
+    worst one-frame jerk fell from 95 to 45 degrees, the average from 30 to 14. PLAYBOOK > Moves, click a move.
+ 7. An open Ana is entered in stops the clock on its Saturday, like a fight night; the news has her result.
+ 8. Fixes: every index card was measured before it was on screen (0 wide), so near the right edge it ran off the screen
     and a note beside it landed on top of it; cards now measure themselves on screen.
  Try it: ops board "Test: the BJJ belt road (update 64)"; for the cards, "Play FightCamp" and hover the cash.
 

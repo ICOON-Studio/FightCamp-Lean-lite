@@ -98,10 +98,10 @@ func _career() -> void:
 	_check((f["opens"] as Array).size() > before and int(f["w"]) + int(f["l"]) > w0, "the open ran on its Saturday (%d matches)" % ((f["opens"] as Array).size() - before))
 	_check(int(f["mat_classes"]) == 130 + 3 * 4, "four Sundays, 12 classes (%d)" % int(f["mat_classes"]))
 	_check(str(c.news[0]["t"]).contains("Regional No-Gi Open") or str(c.news[1]["t"]).contains("Regional No-Gi Open"), "the news says how she did")
-	_check(Grapplers.stripe(c, "ana") != "" or NoGi.stripes_due(f, c.day) > 0, "no stripe given while none is due")
+	_check(not bool(Grapplers.stripe(c, "ana")["ok"]) or NoGi.stripes_due(f, c.day) > 0, "no stripe given while none is due")
 	for k in 12:
 		NoGi.week(f)
-	_check(NoGi.stripes_due(f, c.day) >= 1 and Grapplers.stripe(c, "ana") == "" and int(f["stripes"]) == 3, "the due stripe is given: 3 stripes")
+	_check(NoGi.stripes_due(f, c.day) >= 1 and bool(Grapplers.stripe(c, "ana")["ok"]) and int(f["stripes"]) == 3, "the due stripe is given: 3 stripes")
 	_check(str((f["belt_log"] as Array).back()["t"]) == "Stripe 3", "the belt log has stripe 3")
 	_check(Grapplers.promote(c, "ana") == "" and str(f["belt"]) == "blue" and int(f["stripes"]) == 0 and int(f["mat_classes"]) == 0, "promoted to blue, stripes reset")
 	_check(int(f["mat_debt"]) == int(round(0.25 * 450)), "promoted before ready: she owes a quarter of blue's mat time (%d)" % int(f["mat_debt"]))

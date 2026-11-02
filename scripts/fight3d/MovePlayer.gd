@@ -11,6 +11,7 @@ const FightStage := preload("res://scripts/fight3d/FightStage.gd")
 const MoveClips := preload("res://scripts/fight3d/MoveClips.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const Footwork := preload("res://scripts/fight3d/Footwork.gd")
+const IdleMatch := preload("res://scripts/fight3d/IdleMatch.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 
@@ -26,6 +27,29 @@ const PUNCH_TO_DEF_S := 0.15
 const DEF_PEAK_S := {"slip": 0.27, "pull": 0.13, "pro_left_weave": 0.40, "pro_right_weave": 0.53, "pro_back_weave": 0.40,
 	"pro_quick_weave": 0.50, "pro_left_dodge": 0.93, "pro_right_dodge": 0.70, "mc_dodge_left": 0.93, "mc_dodge_right": 0.70}
 const DEF_SHARE := 0.37
+## S361 TASK_ZIVAFOOT1 how long each hand-over blends, seconds - a blend per pair, not one constant.
+## The operator ("slip and roll are good, still need a lot of smoothing and better timing blending"): a clip change used to
+## land inside one frame. FightStage.play() starts every clip with play(name, 0.0) because its join smoother is meant to
+## carry the join; on the Playbook's body the smoother cannot (two reader modifiers at either end of the modifier stack read
+## the SAME pose every frame, and it is the clip's raw pose: the switch is what the viewer sees). So the player starts its
+## own clips with Godot's cross-fade, play(name, custom_blend), which blends the pose she is showing into the new clip over
+## the pair's blend time. tools/join_probe.gd BEFORE: worst one-frame turn 95 deg (head, the slip's counter), 59.6 (shin,
+## the return to guard), mean 31 over the ten moves.
+const JOIN_PUNCH_S := 0.16     # punch -> punch: the chain keeps its snap (a follow-up hands over just after contact)
+const JOIN_STRIKE_S := 0.13    # punch -> defence or defence-clip free joins that are not the counter
+const JOIN_DEF_S := 0.16       # into or out of a slip / weave / dodge: the head comes off the line without a step
+const JOIN_GUARD_S := 0.24     # the return to the guard, eased (FightStage.GUARD_JOIN_S's own join is slower still)
+const JOIN_STEP_S := 0.14      # a step's glide, a feint, and everything else
+## The clip she leaves must still be playing when the next one starts: a finished clip leaves current_animation empty and
+## takes the folder's _on_finished hand-over (FightStage.guard, play(name, 0.0)) with it, so no cross-fade is possible.
+const JOIN_EPS_S := 0.05
+## S361 the pivot's turn, spread over its frames instead of landing in one: the fight's circle step plays at
+## Footwork.PIVOT_SCALE (1.3, the line turns 70 deg in ~0.32 s = ~7 deg on the pelvis a frame); the Playbook plays the same
+## arc slower, so the turn is spread over ~0.49 s. The arc travelled is the same, so the step still arrives where it did.
+const PIVOT_JOIN_SCALE := 0.85
+## S361 a slip / weave is HELD at its deepest frame (DEF_PEAK_S) this long before the counter starts: the head stays off
+## the line while the counter is thrown from there (the operator's "better timing blending").
+const DEF_HOLD_S := 0.10
 ## S359 the steps as the fight takes them (Footwork): clip -> [seconds at 1x, play scale]; a strafe is the fight's pivot
 ## (its seconds come from the gap). Step in = the entry lunge, step back = the exit step.
 const TRAVEL := {"advance": [0.32, Footwork.LUNGE_SCALE], "retreat": [0.38, Footwork.EXIT_SCALE],
@@ -302,14 +326,31 @@ func _process(delta: float) -> void:
 		# BeatClips.combo_skip), instead of waiting out its whole recovery in guard.
 		var chain := _clip_idx + 1 < _clips.size() and _clip_len < 0.0 and _clip_start_t >= _handover(clip, str(_clips[_clip_idx + 1]), ap)
 		var length := _clip_len if _clip_len >= 0.0 else (ap.get_animation(clip).length if ap.has_animation(clip) else 0.0)
-		if chain or _clip_start_t >= length:
+		# S361 a clip that runs to its end hands over JOIN_EPS_S before it: a finished clip leaves current_animation empty
+		# and the player no longer has the pose to cross-fade from (it would cut, the pop this task is about).
+		var ends := length if _clip_len >= 0.0 else maxf(0.0, length - JOIN_EPS_S)
+		if chain or _clip_start_t >= ends:
 			_clip_idx += 1
 			if _clip_idx < _clips.size():
 				_play_next_clip()
 			else:
 				_hold_t = 0.0
 				_looping = true
-				_stage.guard(who)
+				_start_guard(who, JOIN_GUARD_S)   # S361 eased, not play(idle, 0.0)
+	# S361 the slip / the weave is HELD at its deepest frame before the counter starts: the clip pauses at DEF_PEAK_S (the
+	# head furthest off the line, tools/defence_peak_probe.gd), the head stays there, and the counter is thrown from it.
+	if _clip_idx < _clips.size() and not _looping:
+		var here := str(_clips[_clip_idx])
+		var who_now := 1 if _is_forced else 0
+		var ap_now: AnimationPlayer = _stage.boxers[who_now]["ap"]
+		var peak := _peak_s(here, ap_now) if _is_defence_clip(here) else -1.0
+		var next := str(_clips[_clip_idx + 1]) if _clip_idx + 1 < _clips.size() else ""
+		var counted := _is_punch_clip(next) or _is_defence_clip(next)
+		ap_now.speed_scale = 0.0 if peak >= 0.0 and counted and _clip_start_t >= peak and _clip_start_t < peak + DEF_HOLD_S else 1.0
+		# S361 while a move plays, the player's own timeline owns her animation: the fight's fast-recovery cut (HitImpact)
+		# would otherwise hand her to the guard with play(idle, 0.0) at a clip's back_s - a cut inside the move (BEFORE:
+		# the weave's follow-on dodge was cut off this way, 32.9 deg on a thigh).
+		_stage._cut[who_now] = {}
 	# Check reach at contact for punch clips
 	if _clip_idx < _clips.size():
 		var clip := str(_clips[_clip_idx])
@@ -348,15 +389,22 @@ func _play_next_clip() -> void:
 		_play_next_clip()
 		return
 	_clip_len = -1.0
+	var blend := _join_s(str(_clips[_clip_idx - 1]) if _clip_idx > 0 else "", clip)
 	# S359 (operator: "the pivot animation completely breaks ... something like a backkick", "step in animation also look so
 	# weird"): advance / retreat / strafe are the old game's WALKING strides, which the fight stopped playing in S320 (glide
 	# steps: her guard plays on, the body moves, FootPlant takes the steps). The player now steps as the fight does.
 	if TRAVEL.has(clip):
 		var secs := float(TRAVEL[clip][0])
 		var sc := float(TRAVEL[clip][1])
-		if clip.begins_with("strafe_"):   # the fight's pivot: a fast circle step at the held gap, the line turns PIVOT_DEG
+		if clip.begins_with("strafe_"):
+			# S361 the fight's pivot: a circle step at the held gap, the line turns PIVOT_DEG - over PIVOT_JOIN_SCALE, spread.
+			sc = PIVOT_JOIN_SCALE
 			secs = deg_to_rad(Footwork.PIVOT_DEG) * _gap_m / (float(Footwork.STRIDE[clip][0]) * sc)
 		_stage._walk(who, clip, secs / speed, sc * speed)
+		# S361 her guard plays on under the step, as the fight's glide steps do (Footwork: "her guard plays on, her body
+		# moves"): the body glides while the guard is already up, so the end of the step does not hand over from a clip
+		# that has finished (nothing to cross-fade from) - a move that steps out of a punch lands in her guard, eased.
+		_start_guard(who, JOIN_GUARD_S)
 		_clip_len = secs
 		_started_idx = maxi(_started_idx, _clip_idx + 1)
 		_clip_start_t = 0.0
@@ -369,7 +417,7 @@ func _play_next_clip() -> void:
 	var skip := 0.0
 	if _is_punch_clip(clip) and _clip_idx > 0 and _is_punch_clip(str(_clips[_clip_idx - 1])):
 		skip = BeatClips.combo_skip(contact_s, 1.0, -CHAIN_AFTER_S, 0.0, _same_hand(str(_clips[_clip_idx - 1]), clip))
-	_stage.play(who, clip, speed, skip)
+	_start_clip(who, clip, speed, skip, blend)
 	_started_idx = maxi(_started_idx, _clip_idx + 1)   # the clips started at least once (a loop does not reset it)
 	_clip_start_t = skip
 	# For punches, land them using stage.land() like BeatFire._punch
@@ -383,21 +431,88 @@ func _play_next_clip() -> void:
 		# spins_out) - guarding her here cancelled it, so those moves played nothing.
 		_stage.guard(1)
 
+
+## S361 TASK_ZIVAFOOT1 the blend a pair of clips gets: how long the pose she is showing takes to become the next clip.
+func _join_s(prev: String, next: String) -> float:
+	if _is_defence_clip(prev) or _is_defence_clip(next):
+		return JOIN_DEF_S
+	if _is_punch_clip(prev) and _is_punch_clip(next):
+		return JOIN_PUNCH_S
+	if _is_punch_clip(prev) or _is_punch_clip(next):
+		return JOIN_STRIKE_S
+	return JOIN_STEP_S
+
+
+## S361 start `clip` on `who` through Godot's own cross-fade (the same bookkeeping FightStage.play does: the reach lowered,
+## the recovery cut armed, the guard's own life cancelled), with the pair's blend time instead of play(name, 0.0).
+func _start_clip(who: int, clip: String, speed: float, skip: float, blend: float) -> void:
+	var bx: Dictionary = _stage.boxers[who]
+	var ap: AnimationPlayer = bx["ap"]
+	ap.speed_scale = 1.0
+	bx["step_grace"] = 0.0
+	_stage.life.cancel(who)
+	if bx.get("reach") != null:
+		(bx["reach"] as Node).disarm()
+	# S322 (hit_gap_probe timing): play() on the clip already playing carries on from where it is, so a double jab's
+	# second jab started 0.30 s in and passed its contact before the hit. A new move always starts its clip over.
+	if str(ap.current_animation) == clip:
+		ap.stop()
+	ap.play(clip, blend, speed)
+	if skip > 0.0:
+		ap.seek(skip, true)
+	var r := BeatClips.recovery(clip)
+	_stage._cut[who] = {} if r.y <= 0.0 else {"clip": clip, "contact": r.x if r.x >= 0.15 else -1.0, "back": r.y,
+		"fast": false, "scale": BeatClips.recover_scale(clip, speed)}
+	# S361 the Playbook plays the move the map names, and nothing else: SideStep would follow a weave with its own dodge
+	# clip (the fight's step off the line), a clip outside this move that then ends and hands her to the guard with
+	# FightStage._on_finished's play(idle, 0.0) - BEFORE a 32.9 deg cut on a thigh, mid-move.
+	_stage.side.arm(who, "")
+
+
+## S361 the return to the guard, eased: the clip she leaves is still playing (JOIN_EPS_S), so the idle crosses in over
+## `blend` seconds from the pose she is showing instead of cutting to a random point of the loop (FightStage.guard plays it
+## at 0.0: BEFORE the probe read 59.6 deg on a shin at the feint's return).
+func _start_guard(who: int, blend: float) -> void:
+	var bx: Dictionary = _stage.boxers[who]
+	var ap: AnimationPlayer = bx["ap"]
+	var idle := BeatClips.first(BeatClips.GUARD, ap.has_animation)
+	bx["step_grace"] = 0.0
+	if idle == "" or str(ap.current_animation) == idle:
+		return   # nothing to hand over from, or she is standing in it already
+	var g: Array = _stage.life.settle(who, idle, ap.get_animation(idle).length)
+	var at := IdleMatch.pick(bx, idle, float(g[2]), _stage.life.rng)
+	ap.speed_scale = 1.0
+	ap.play(idle, blend, float(g[1]))
+	ap.seek(at, true)
+
 ## S359 (operator: "slip and roll are good, still need a lot of smoothing and better timing blending ... it's fun to do a
 ## roll+slip+uppercut"): where in `clip` (1x seconds) the next move of a chain takes over. Punch -> punch: just after
 ## contact (the fight's combo rhythm). Punch -> defence: as the glove comes back. Defence -> anything: at the slip's or
 ## roll's deepest point, where a counter is thrown from (the head is off the line, the legs loaded). Else the clip's end.
 func _handover(clip: String, next: String, ap: AnimationPlayer) -> float:
 	var length := ap.get_animation(clip).length if ap.has_animation(clip) else 0.0
+	var last := maxf(0.0, length - JOIN_EPS_S)   # S361 hand over while the clip still plays: the cross-fade needs it
 	if _is_punch_clip(clip):
 		var contact := BeatClips.contact(clip, 8.0 / 30.0)
 		if _is_punch_clip(next):
 			return contact + CHAIN_AFTER_S
 		if _is_defence_clip(next):
-			return minf(length, contact + PUNCH_TO_DEF_S)
+			return minf(last, contact + PUNCH_TO_DEF_S)
+		# S361 she is back in her guard at back_s (clip_recovery.json): that is where the idle takes over. The player hands
+		# over there instead of playing out the clip's tail, because the fight's fast-recovery cut is off (see _process).
+		var back := BeatClips.recovery(clip).y
+		return minf(last, back) if back > contact else last
 	elif _is_defence_clip(clip) and (_is_punch_clip(next) or _is_defence_clip(next)):
-		return minf(length, float(DEF_PEAK_S.get(clip, length * DEF_SHARE)) + CHAIN_AFTER_S)
-	return length
+		# S361 held at its deepest frame (DEF_HOLD_S) before the counter starts
+		return minf(last, _peak_s(clip, ap) + DEF_HOLD_S + CHAIN_AFTER_S)
+	return last
+
+
+## S361 where the clip is deepest (the head furthest off the line, 1x seconds): the frame a counter is thrown from. The
+## shares are tools/defence_peak_probe.gd's, measured on this body; an unmeasured clip uses DEF_SHARE of its length.
+static func _peak_s(clip: String, ap: AnimationPlayer) -> float:
+	var length := ap.get_animation(clip).length if ap.has_animation(clip) else 0.0
+	return minf(length, float(DEF_PEAK_S.get(clip, length * DEF_SHARE)))
 
 
 static func _is_defence_clip(clip: String) -> bool:
