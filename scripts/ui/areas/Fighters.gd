@@ -12,6 +12,7 @@ const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FighterTile := preload("res://scripts/ui/FighterTile.gd")
 const FIGHTER_PAGE_SCRIPT := preload("res://scripts/ui/areas/FighterPage.gd")
 const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
+const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
 
 
 func build(main: Node) -> void:
@@ -22,6 +23,10 @@ func build(main: Node) -> void:
 		var page := FIGHTER_PAGE.instantiate()
 		add_child(page)
 		page.build(main, page_f)
+		return
+	var page_g := c.grappler_by_id(str(main.route.get("fighter", "")))
+	if not page_g.is_empty():
+		add_child(GrapplerPage.make(main, page_g))
 		return
 	AreaHead.add(self, main, "fighters")
 	match int(main.route["tab"]):
@@ -68,6 +73,7 @@ func _roster(main: Node, c: Career) -> void:
 		h.add_child(UI.button("Meet the walk-in", "Btn", main.act.bind("interview", ""), c.applicant.is_empty(),
 			"No walk-in at reception - press CONTINUE and someone may show up"))
 		card[1].add_child(h)
+		_mat(main, c, card[1])
 		return
 	# S330 (MENULOOK1): a tile per fighter - rings for weight, condition, goal and her next bout - two to a row.
 	var grid := GridContainer.new()
@@ -78,6 +84,7 @@ func _roster(main: Node, c: Career) -> void:
 	for f in c.fighters:
 		grid.add_child(FighterTile.build(main, c, f))
 	card[1].add_child(grid)
+	_mat(main, c, card[1])
 	var scouting := UI.button("Find another fighter: Scouting", "Btn", main.act.bind("tab", "3"))
 	scouting.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	card[1].add_child(scouting)
@@ -131,3 +138,19 @@ func _scouting(main: Node, c: Career) -> void:
 		rows.append(UI.row(p["name"], sub, Color(0, 0, 0, 0), right))
 	UI.add_rows(card[1], rows)
 	card[1].add_child(UI.muted("A trial is free: the fighter comes in on the Monday. Signing costs the %s club stipend a week." % UI.money(250), UI.SMALL, true))
+
+
+## S362 the no-gi athletes on the mat: belt, stripes, opens record; the name opens her belt road.
+func _mat(main: Node, c: Career, parent: Container) -> void:
+	if c.grapplers.is_empty():
+		return
+	parent.add_child(UI.caps("ON THE MAT - NO-GI"))
+	for g in c.grapplers:
+		var row := UI.hbox(14)
+		row.name = "Grappler_" + str(g["id"])
+		row.add_child(UI.button(str(g["name"]), "BtnQuiet", main.act.bind("fighter", str(g["id"]))))
+		var sub := UI.muted("%s belt, %d stripe%s - %d-%d in opens - %d classes this belt" % [str(g["belt"]).capitalize(), int(g["stripes"]),
+			"" if int(g["stripes"]) == 1 else "s", int(g["w"]), int(g["l"]), int(g.get("mat_classes", 0))], UI.BODY)
+		sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(sub)
+		parent.add_child(row)

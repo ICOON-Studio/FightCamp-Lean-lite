@@ -12,6 +12,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const GymActs := preload("res://scripts/ui/GymActs.gd")
 const BoutActs := preload("res://scripts/ui/BoutActs.gd")
 const RosterActs := preload("res://scripts/ui/RosterActs.gd")
+const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
@@ -376,7 +377,7 @@ func act(name: String, arg: String = "") -> void:
 		"quit":
 			get_tree().quit()
 		_:
-			if not (GymActs.act(self, name, arg) or BoutActs.act(self, name, arg) or RosterActs.act(self, name, arg)):
+			if not (GymActs.act(self, name, arg) or BoutActs.act(self, name, arg) or RosterActs.act(self, name, arg) or GrapplerPage.act(self, name, arg)):
 				push_warning("unknown action " + name)
 
 

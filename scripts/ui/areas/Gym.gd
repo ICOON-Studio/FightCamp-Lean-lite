@@ -8,6 +8,8 @@ const Membership := preload("res://scripts/rules/Membership.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Region := preload("res://scripts/state/Region.gd")
+const Tips := preload("res://scripts/ui/Tips.gd")
+const TopCards := preload("res://scripts/ui/TopCards.gd")
 
 
 func build(main: Node) -> void:
@@ -33,8 +35,11 @@ func _members(c: Career) -> void:
 	var card := UI.card("MEMBERS")
 	var target := Membership.natural_members(c.reputation)
 	var drift := "steady" if target == c.members else ("growing toward %d" % target if target > c.members else "falling toward %d" % target)
+	var books := UI.kv("On the books", str(c.members), UI.FG, "mono")
+	books.name = "Members"
+	Tips.card(books, func(): return TopCards.members(c))   # S362 J90 6g
 	UI.add_rows(card[1], [
-		UI.kv("On the books", str(c.members), UI.FG, "mono"),
+		books,
 		UI.kv("What the gym can carry now", "%d (%s)" % [target, drift], UI.FG, "mono"),
 		UI.kv("Reputation", str(c.reputation), UI.FG, "mono"),
 		UI.kv("Dues", "%s a month each" % UI.money(Membership.weekly_rate()), UI.FG, "mono"),
@@ -62,7 +67,10 @@ func _facilities(main: Node, c: Career) -> void:
 			right.append(b)
 		else:
 			right.append(UI.chip("good", "green"))
-		rows.append(UI.row(f["name"], "", Color(0, 0, 0, 0), right))
+		var kit_row := UI.row(f["name"], "", Color(0, 0, 0, 0), right)
+		kit_row.name = "Kit_" + str(f["id"])
+		Tips.card(kit_row, func(): return TopCards.kit(c, f))   # S362 J90 6g
+		rows.append(kit_row)
 	UI.add_rows(card[1], rows)
 	card[1].add_child(UI.muted("Building and placing equipment comes with the 3D gym.", UI.SMALL, true))
 	add_child(card[0])

@@ -5,6 +5,8 @@ extends VBoxContainer
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
+const Tips := preload("res://scripts/ui/Tips.gd")
+const TopCards := preload("res://scripts/ui/TopCards.gd")
 
 const AREA_SCENES := {
 	"home": preload("res://scenes/areas/Home.tscn"),
@@ -100,6 +102,8 @@ func _build_top(main: Node) -> void:
 	var d2 := UI.label("Week %d" % Clock.week_of(c.day), UI.TINY, UI.MUTED)
 	d2.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	date.add_child(d2)
+	date.name = "Date"
+	Tips.card(date, func(): return TopCards.date(main.career))   # S362 J90 6g
 	h.add_child(date)
 	var speed := UI.hbox(4)
 	speed.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -124,6 +128,8 @@ func _build_top(main: Node) -> void:
 	var ms := Needs.money_status(c)   # S324: coloured by GymBills (runway under 8 weeks amber, below $0 red)
 	var cash := UI.label(UI.money(c.cash), 28, UI.RED if ms == "red" or ms == "closed" else (UI.AMBER if ms == "warn" else UI.GREEN), "bold")
 	cash.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	cash.name = "Cash"
+	Tips.card(cash, func(): return TopCards.money(main.career))   # S362 J90 6g: the week's money, Two Point's praised hover
 	h.add_child(cash)
 	var mail := UI.button("Mail", "Ghost", main.act.bind("mail", ""))
 	if c.unread > 0:

@@ -28,6 +28,12 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump == "belt":
+			# S362 update 64: Ana's belt road (the no-gi Record tab).
+			_check(ok and str(main.route.get("fighter", "")) == "ana" and main.find_child("BeltRoad", true, false) != null, "belt: Ana's belt road is open")
+			main.queue_free()
+			await process_frame
+			continue
 		if jump == "nationals":
 			# S328 update 30: the career plays on until she can enter; WORLD > Nationals, then Enter books her regional.
 			_check(ok and str(main.route.get("area", "")) == "world" and int(main.route.get("tab", -1)) == 4, "nationals: eligible, on WORLD > Nationals (day %d, %d-%d)" % [main.career.day, f["w"], f["l"]])

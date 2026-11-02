@@ -7,6 +7,7 @@ const Membership := preload("res://scripts/rules/Membership.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
+const NoGi := preload("res://scripts/rules/NoGi.gd")
 
 @export var gym_name: String = "Anvil Street Gym"
 @export var city: String = "London"
@@ -16,6 +17,7 @@ const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 @export var reputation: int = 10
 @export var coach: Dictionary = {}
 @export var fighters: Array = []
+@export var grapplers: Array = []   # S362 the no-gi athletes (NoGi, the belt road)
 @export var applicant: Dictionary = {}
 @export var news: Array = []
 @export var unread: int = 0
@@ -50,6 +52,7 @@ static func quick_start(name: String = "Anvil Street Gym", town: String = "Londo
 	c.seed = randi()
 	c.cash = start_cash()
 	c.applicant = Data.lucy()
+	c.grapplers = [NoGi.athlete()]
 	c.cash_history = [{"w": 1, "c": c.cash}]
 	for r in Data.OPPONENTS + [Data.MISMATCH] + Data.RIVALS:
 		c.rivals.append((r as Dictionary).merged({"div": "wlw"}))
@@ -80,6 +83,13 @@ static func start_cash() -> int:
 ## The first fighter signed (Lucy in a quick start), {} before anyone signs.
 func fighter() -> Dictionary:
 	return fighters[0] if not fighters.is_empty() else {}
+
+
+func grappler_by_id(id: String) -> Dictionary:
+	for f in grapplers:
+		if str(f["id"]) == id:
+			return f
+	return {}
 
 
 func fighter_by_id(id: String) -> Dictionary:

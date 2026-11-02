@@ -7,10 +7,15 @@ extends Node
 ##   made visible); Shift or a middle click pins it, Esc or a click elsewhere closes it;
 ## - every number with its change in colour and a "Means:" line - what the number does to her (Into the Breach / Civ VII);
 ## - sweeping across controls swaps cards at once, no fade (J90 6c).
-##   Tips.card(control, spec: Callable)   spec.call() -> {title, rows: [[label, value, delta, tone]], means, hint: [[key, words]]}
+## - S362 (J90 6c T3): a card's "keys" are game terms underlined in dashed red; resting on one for NOTE_DELAY opens its
+##   yellow sticky note (Glossary: the term, a short definition, Why:) beside the card on the side away from the control.
+##   Two levels only: a note has no keywords of its own.
+##   Tips.card(control, spec: Callable)   spec.call() -> {title, rows: [[label, value, delta, tone]], means, keys: [term id],
+##   hint: [[key, words]]}
 ##   tone: "good" | "bad" | "watch" | "".   Tips.close_all()
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Glossary := preload("res://scripts/rules/Glossary.gd")
 
 const LOCK_S := 0.7
 const FADE_IN_S := 0.12
@@ -32,6 +37,11 @@ const BAD := Color("#a8261f")
 const WATCH := Color("#8f5100")
 const MUTED := Color("#5e6773")
 const RULE := Color("#e2ded4")
+## J90 6c T3 sticky note.
+const NOTE_BG := Color("#fbe7a1")
+const NOTE_EDGE := Color("#e2c770")
+const NOTE_DELAY := 0.25
+const NOTE_W := 290.0
 
 static var _inst = null   # the one Tips node (untyped: its members are this script's)
 
@@ -45,6 +55,11 @@ var _t := 0.0
 var _away := 0.0
 var _clock := 0.0
 var _last_close := -9.0
+var _keys: Array = []   # [[Label, term id]] on the open card
+var _note: Control
+var _note_key := ""
+var _hover_key := ""
+var _note_t := 0.0
 
 
 ## Gives `c` an index card instead of the engine's tooltip.
@@ -70,6 +85,23 @@ static func state() -> String:
 
 static func open_card() -> Control:
 	return _inst._card if _inst != null and is_instance_valid(_inst) else null
+
+
+## Opens `c`'s card at once, pinned (stills; the same state Shift gives). pin_note(id) opens a term's note on it.
+static func pin(c: Control, spec: Callable) -> void:
+	var t: Variant = _one(c)
+	t.hover(c, spec)
+	t._show(true)
+	t._set_state("pinned")
+
+
+static func pin_note(id: String) -> void:
+	if _inst != null and is_instance_valid(_inst) and _inst._card != null:
+		_inst._open_note(id, _inst._card.find_child("Key_" + id, true, false))
+
+
+static func open_note() -> Control:
+	return _inst._note if _inst != null and is_instance_valid(_inst) and is_instance_valid(_inst._note) else null
 
 
 static func _one(c: Control) -> Variant:
@@ -111,6 +143,9 @@ func _process(delta: float) -> void:
 		return
 	var on_trigger := _trigger.get_global_rect().grow(2.0).has_point(_trigger.get_global_mouse_position())
 	var on_card := _card != null and _card.get_global_rect().grow(GAP).has_point(_card.get_global_mouse_position())
+	if _card != null and _state != "pending":
+		_tick_keys(delta)
+		on_card = on_card or (_note != null and _note.get_global_rect().grow(GAP).has_point(_note.get_global_mouse_position()))
 	match _state:
 		"pending":
 			if not on_trigger:
@@ -162,6 +197,8 @@ func close(instant: bool) -> void:
 			tw.tween_callback(old.queue_free)
 	if _state in ["shown", "locked", "pinned"]:
 		_last_close = _clock
+	_close_note()
+	_keys = []
 	_card = null
 	_ring = null
 	_trigger = null
@@ -184,8 +221,12 @@ func _show(instant: bool) -> void:
 		return
 	_card = _build(s)
 	_layer.add_child(_card)
-	var size := _card.get_combined_minimum_size()
+	# S362: measured once on screen - off the tree its labels measure 0, so the card was placed as a 0-wide box (it ran
+	# off the right edge; a note beside it landed on it).
+	var size := (_card.get_child(0) as Control).get_combined_minimum_size() + Vector2(0, 8)
+	_card.custom_minimum_size = size
 	_card.size = size
+	_ring.position = Vector2(size.x * 0.5 - 8.0, 0.0)
 	var r := place(size, _trigger.get_global_rect(), Rect2(Vector2.ZERO, get_viewport().get_visible_rect().size))
 	_card.position = r.position
 	_state = "shown"
@@ -270,6 +311,20 @@ func _build(s: Dictionary) -> Control:
 		v.add_child(g)
 	if str(s.get("means", "")) != "":
 		v.add_child(_text("Means: " + str(s["means"]), "hand", 19, INK, true))
+	var keys: Array = (s.get("keys", []) as Array).filter(func(k): return not Glossary.term(str(k)).is_empty())
+	if not keys.is_empty():
+		var kh := HBoxContainer.new()
+		kh.add_theme_constant_override("separation", 12)
+		kh.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		kh.add_child(_text("Terms:", "hand", 19, MUTED))
+		for k in keys:
+			var kl := _text(str(Glossary.term(str(k))["name"]), "handbold", 19, INK)
+			kl.name = "Key_" + str(k)
+			var dash := _Dash.new()
+			kl.add_child(dash)
+			kh.add_child(kl)
+			_keys.append([kl, str(k)])
+		v.add_child(kh)
 	var hint: Array = s.get("hint", [])
 	if not hint.is_empty():
 		var sep := ColorRect.new()
@@ -332,3 +387,104 @@ class _Magnet extends Control:
 		draw_arc(c, 7.0, 0.0, TAU, 32, INK, 2.0, true)
 		if fill > 0.0:
 			draw_arc(c, 4.0, -PI * 0.5, -PI * 0.5 + TAU * fill, 32, RED, 4.0, true)
+
+
+## The keyword under the pointer opens its note after NOTE_DELAY (at once when a note is already open: a sweep); off the
+## keywords and off the note, the note closes.
+func _tick_keys(delta: float) -> void:
+	var over := ""
+	var at: Control = null
+	for k in _keys:
+		var l: Control = k[0]
+		if is_instance_valid(l) and l.get_global_rect().grow(4.0).has_point(l.get_global_mouse_position()):
+			over = str(k[1])
+			at = l
+	if over == "":
+		_hover_key = ""
+		if _note != null and _state != "pinned" and not _note.get_global_rect().grow(GAP).has_point(_note.get_global_mouse_position()):
+			_close_note()
+		return
+	if over == _note_key:
+		return
+	if over != _hover_key:
+		_hover_key = over
+		_note_t = 0.0
+	_note_t += delta
+	if _note_t >= NOTE_DELAY or _note != null:
+		_open_note(over, at)
+
+
+func _open_note(id: String, _at: Control) -> void:
+	_close_note()
+	var t := Glossary.term(id)
+	var panel := PanelContainer.new()
+	panel.name = "TipNote"
+	var st := UI.box(NOTE_BG, NOTE_EDGE, 2, 1, 16, 12)
+	st.shadow_color = Color(0, 0, 0, 0.22)
+	st.shadow_size = 5
+	st.shadow_offset = Vector2(2, 4)
+	panel.add_theme_stylebox_override("panel", st)
+	panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 4)
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_child(v)
+	v.add_child(_text(str(t["name"]), "marker", 20, INK))
+	var d := _text(str(t["def"]), "hand", 19, INK, true)
+	d.custom_minimum_size.x = NOTE_W
+	v.add_child(d)
+	var w := _text("Why: " + str(t["why"]), "hand", 19, INK, true)
+	w.custom_minimum_size.x = NOTE_W
+	v.add_child(w)
+	_layer.add_child(panel)
+	var size := panel.get_combined_minimum_size()
+	panel.size = size
+	var card := _card.get_global_rect()
+	var away_right := card.get_center().x >= _trigger.get_global_rect().get_center().x
+	panel.position = place_note(size, card, Rect2(Vector2.ZERO, get_viewport().get_visible_rect().size), away_right).position
+	panel.modulate.a = 0.0
+	panel.create_tween().tween_property(panel, "modulate:a", 1.0, 0.1)
+	_note = panel
+	_note_key = id
+
+
+func _close_note() -> void:
+	if _note != null and is_instance_valid(_note):
+		_note.queue_free()
+	_note = null
+	_note_key = ""
+	_note_t = 0.0
+
+
+## Beside the card (J90 6d T3): the side away from the control first, then the other side, below, above; never over it.
+static func place_note(size: Vector2, card: Rect2, screen: Rect2, away_right: bool) -> Rect2:
+	var room := screen.grow(-MARGIN)
+	var r := Rect2()
+	for side in (["right", "left"] if away_right else ["left", "right"]) + ["below", "above"]:
+		match side:
+			"right": r = Rect2(Vector2(card.end.x + GAP, card.position.y), size)
+			"left": r = Rect2(Vector2(card.position.x - GAP - size.x, card.position.y), size)
+			"below": r = Rect2(Vector2(card.position.x, card.end.y + GAP), size)
+			"above": r = Rect2(Vector2(card.position.x, card.position.y - GAP - size.y), size)
+		if side in ["right", "left"]:
+			r.position.y = clampf(r.position.y, room.position.y, room.end.y - size.y)
+		else:
+			r.position.x = clampf(r.position.x, room.position.x, room.end.x - size.x)
+		if room.encloses(r) and not r.intersects(card):
+			return r
+	r.position = r.position.clamp(room.position, room.end - size)
+	return r
+
+
+## A keyword's dashed red underline, 3 px under the text (J90 6c).
+class _Dash extends Control:
+	func _init() -> void:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		anchor_top = 1.0
+		anchor_bottom = 1.0
+		anchor_right = 1.0
+		offset_top = -1.0
+		offset_bottom = 2.0
+
+	func _draw() -> void:
+		draw_dashed_line(Vector2(0, 1), Vector2(size.x, 1), RED, 2.0, 5.0)

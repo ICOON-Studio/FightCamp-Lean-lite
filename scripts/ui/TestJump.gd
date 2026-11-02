@@ -15,6 +15,7 @@ extends RefCounted
 ##   FightCamp.exe -- jump=camp           S357 update 59: quick start, Lucy booked and her camp started, a choice twist dealt
 ##                                        (the short-notice swap when the bout is 2+ weeks out); opens on her Training tab -
 ##                                        the coach's whiteboard
+##   FightCamp.exe -- jump=belt           S362 update 64: quick start, Ana Ribeiro's belt road (the no-gi Record tab)
 ##   FightCamp.exe -- jump=pro            S329 update 31: quick start, Lucy put at the line (9-1 amateur) - the promoter's
 ##                                        offer opens: her debut tickets, what the gym pays now; sign and play to the debut
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
@@ -26,7 +27,7 @@ const Roster := preload("res://scripts/state/Roster.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 
@@ -82,6 +83,9 @@ static func run(main: Node, jump: String) -> bool:
 	main.act("hire", "reid")
 	var c: Career = main.career
 	var f: Dictionary = c.fighter()
+	if jump == "belt":
+		main.act("fighter", "ana")
+		return main.find_child("GrapplerPage", true, false) != null
 	if jump == "nationals":
 		return _to_nationals(main, c, f)
 	if jump == "pro":

@@ -6,6 +6,7 @@ extends RefCounted
 
 const Data := preload("res://scripts/state/Data.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
+const NoGi := preload("res://scripts/rules/NoGi.gd")
 
 const PATH := "user://career.save"
 const VERSION := 2
@@ -34,6 +35,9 @@ static func from_dict(d: Dictionary) -> Career:
 	# A save from before the fight model (S300): every fighter gets her profile and morale; existing ones stay as saved.
 	for f in c.fighters:
 		FighterProfile.ensure(f)
+	# A save from before the belt road (S362): Ana joins the mat.
+	if not props.has("grapplers"):
+		c.grapplers = [NoGi.athlete()]
 	# A save from before a rival joined the region (S339 Holly, Ellie, Jade): she arrives with her starting record.
 	var names := {}
 	for r in c.rivals:

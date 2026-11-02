@@ -1,3 +1,25 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 64 (2026-11-02): THE BJJ BELT ROAD, INDEX CARDS ON THE MONEY AND THE GYM
+=============================================================================================================
+
+ 1. THE BELT ROAD (your "Yes, build both" on the week + belt road mockups): Ana Ribeiro, a no-gi featherweight (white
+    belt, 2 stripes, 4-2 in opens), trains on the gym's mat. FIGHTERS > Roster > ON THE MAT - click her name. Her Record
+    tab is the mockup: the road to black belt (her stripes on the white belt's tip), TO BLUE BELT (classes 130 of 200,
+    moves owned 9 of 14, every syllabus move with its bar and the weapon tick at 30), COACH'S CALL and her opens record.
+ 2. THE WEEK ON THE MAT: 3 classes a week; the class drills the move she is closest to owning until she owns it (blue
+    "drilling" on the list). About 7 weeks in: "Ready for a 3rd stripe: Ana's escapes are solid." - press Give stripe 3.
+ 3. PROMOTE: the IBJJF minimums decide when you may (age, time at a belt); above them it is your call. Before she is
+    ready she starts the next belt owing a quarter of its mat time. Blue belt in about 6 months at 3 classes a week.
+ 4. THE OPENS: one every 5 weeks on a Saturday (Regional No-Gi Open Sat 7 Feb, $95; Spring Open, $110...). Enter pays the
+    fee; on the day she fights an 8-woman bracket until she loses: the news and her record say how far she got. The
+    further along her belt she is, the more matches she wins (about 1 win an open now).
+ 5. INDEX CARDS: hover the cash in the top bar - the week's money in rows (dues, classes, rent, coach, stipends, net) and
+    how long the cash lasts. Hover the date - the next stop and the month-end bill. GYM > Members and GYM > Facilities
+    have cards too. Words underlined in dashed red (Runway, Dues, Reputation, Fatigue, Camp phase, Twist card) open a
+    yellow sticky note when you rest on them: what the word means and why it matters.
+ 6. Fixes: every index card was measured before it was on screen (0 wide), so near the right edge it ran off the screen
+    and a note beside it landed on top of it; cards now measure themselves on screen.
+ Try it: ops board "Test: the BJJ belt road (update 64)"; for the cards, "Play FightCamp" and hover the cash.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 63 (2026-11-02): THE WEEK REVIEW AS A REVEAL, SHE PUSHES BACK, A POSTER FOR EVERY BOUT
 =======================================================================================================================
 

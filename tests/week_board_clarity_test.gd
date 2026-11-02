@@ -69,13 +69,14 @@ func _initialize() -> void:
 	_check(grid != null and grid.get_parent().modulate.a < 0.5, "first open: the grid is dimmed")
 
 	# Hovering an answer previews where the lines land.
-	b._preview("b")
+	var camp := b.find_child("Goal", true, false)   # S362 THIS CAMP is WeekCamp.gd
+	camp._preview("b")
 	var shown := 0
-	for id in b._delta:
-		if str((b._delta[id] as Label).text) != "":
+	for id in camp._delta:
+		if str((camp._delta[id] as Label).text) != "":
 			shown += 1
 	_check(shown >= 2, "hovering an answer previews the goal lines (%d)" % shown)
-	b._preview_off()
+	camp._preview_off()
 
 	main.act("twistpick", "%s|%s" % [fid, "a"])
 	await _settle(2)
@@ -90,8 +91,9 @@ func _initialize() -> void:
 	b = _board()
 	_check(b.find_child("Undo_6", true, false) != null, "a changed day carries 'undo'")
 	var moved := 0
-	for id in b._delta:
-		if str((b._delta[id] as Label).text) != "":
+	camp = b.find_child("Goal", true, false)
+	for id in camp._delta:
+		if str((camp._delta[id] as Label).text) != "":
 			moved += 1
 	_check(moved >= 1, "a moved goal line shows its delta (%d)" % moved)
 	(b.find_child("Undo_6", true, false) as Button).pressed.emit()

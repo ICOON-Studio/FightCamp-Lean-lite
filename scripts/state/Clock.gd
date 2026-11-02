@@ -8,6 +8,7 @@ const Needs := preload("res://scripts/state/Needs.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
+const Grapplers := preload("res://scripts/state/Grapplers.gd")
 
 const DAYS := ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 const MONTHS := ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -50,6 +51,9 @@ static func next_stop(career: Career) -> Dictionary:
 		if not (f["bout"] as Dictionary).is_empty():
 			cands.append({"d": int(f["bout"]["day"]) - 1, "r": "weigh-in" + who})
 			cands.append({"d": int(f["bout"]["day"]), "r": "fight night" + who})
+	for g in career.grapplers:
+		for d in g.get("entered", []):
+			cands.append({"d": int(d), "r": "%s's open" % g["first"]})
 	for p in career.prospects:
 		if str(p["state"]) == "invited":
 			cands.append({"d": int(p["trial_day"]), "r": "%s's trial" % p["first"]})
@@ -63,7 +67,8 @@ static func next_stop(career: Career) -> Dictionary:
 ## Steps one day. Returns true when time must stop here.
 static func step(career: Career) -> bool:
 	Sim.step_day(career)
-	return stop_now(career)
+	var opens := Grapplers.day(career)   # S362 an open she was entered in stops the clock (its result is in the news)
+	return stop_now(career) or opens
 
 
 static func stop_now(career: Career) -> bool:

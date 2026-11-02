@@ -31,7 +31,7 @@ func _initialize() -> void:
 	main.act("fighter", fid)
 	main.act("ftab", "3")
 	await _shot("s359_first_open")
-	var b := main.find_child("WeekBoard", true, false)
+	var b := main.find_child("Goal", true, false)   # S362 THIS CAMP is WeekCamp.gd
 	b._preview("b")
 	await _shot("s359_hover_answer")
 	b._preview_off()

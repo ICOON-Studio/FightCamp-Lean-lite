@@ -96,7 +96,7 @@ static func make(main: Node, fid: String, i: int, m: Array, planned: Array, even
 	var tone := "bad" if fat >= WB.RED_AT or red else ("watch" if fat >= WB.AMBER_AT else "")
 	Tips.card(word, func(): return {"title": "Tired by night: %s" % str(fw[0]),
 		"rows": [["Fatigue", "%d / 100" % int(round(fat)), str(fw[0]), tone], ["The line", "80", "", ""]],
-		"means": str(fw[1]).get_slice(": ", 1) if str(fw[1]).contains(": ") else str(fw[1])})
+		"means": str(fw[1]).get_slice(": ", 1) if str(fw[1]).contains(": ") else str(fw[1]), "keys": ["fatigue"]})
 	v.add_child(word)
 	return pad
 
@@ -120,7 +120,7 @@ static func _magnet_card(m: Array, planned: Array, r: Dictionary, red: bool, min
 	elif mine:
 		means = "your change - 'undo' on the day puts the coach's card back. " + _cap(means)
 	return {"title": "%s - morning" % WeekPhase.card(m), "rows": rows, "means": _cap(means.strip_edges()),
-		"hint": [["click", "change the day"], ["shift", "pin"]]}
+		"keys": ["fatigue", "phase"] + (["twist"] if m != planned else []), "hint": [["click", "change the day"], ["shift", "pin"]]}
 
 
 ## The day's kind in the coach's shorthand: rest, hard, engine (conditioning), skill.
